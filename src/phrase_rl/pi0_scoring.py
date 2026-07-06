@@ -22,6 +22,15 @@ import numpy as np
 import torch
 
 
+def import_pi0_policy():
+    """INTACT-era lerobot (IrvingF7 fork @35f6e02) uses the old package layout."""
+    try:
+        from lerobot.common.policies.pi0.modeling_pi0 import PI0Policy  # old layout
+    except ModuleNotFoundError:
+        from lerobot.policies.pi0.modeling_pi0 import PI0Policy  # >= 0.4 layout
+    return PI0Policy
+
+
 def make_draws(k: int, horizon: int, action_dim: int, seed: int):
     """K fixed (eps, tau) draws, deterministic in seed. tau stratified over (0,1)."""
     g = torch.Generator().manual_seed(seed)

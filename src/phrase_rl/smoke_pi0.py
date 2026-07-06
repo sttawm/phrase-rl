@@ -33,8 +33,10 @@ def main():
     args = ap.parse_args()
 
     import lerobot
-    from lerobot.common.policies.pi0.modeling_pi0 import PI0Policy
 
+    from phrase_rl.pi0_scoring import import_pi0_policy
+
+    PI0Policy = import_pi0_policy()
     print(f"lerobot {getattr(lerobot, '__version__', '?')}, torch {torch.__version__}")
 
     sig = inspect.signature(PI0Policy.forward)
