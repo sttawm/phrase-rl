@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+uv.lock
+
+# Data / models — checkpoints are synced explicitly, never committed wholesale
+results/checkpoints/*
+!results/checkpoints/.gitkeep
+!results/checkpoints/metrics.json
+data/
+*.safetensors
+*.pt
+*.ckpt
+
+# Secrets
+.env
+*.key
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
