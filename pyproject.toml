@@ -11,6 +11,8 @@ dependencies = [
     "scipy",
     "tqdm",
     "huggingface-hub",
+    "pyarrow",
+    "av",
     "google-genai",
 ]
 
