@@ -52,7 +52,8 @@ class Pi0PhraseScorer:
         cfg = policy.config
         self.image_keys = list(cfg.image_features)
         self.horizon = cfg.chunk_size
-        self.action_dim = cfg.action_feature.shape[0]
+        # pi0 pads actions to max_action_dim internally; noise must match the padded shape
+        self.action_dim = getattr(cfg, "max_action_dim", cfg.action_feature.shape[0])
         self.k = k
         self.micro_batch = micro_batch
         self.noise, self.tau = make_draws(k, self.horizon, self.action_dim, seed)
