@@ -44,7 +44,7 @@ Return JSON: {{"trace": "...", "rephrases": ["...", ...]}} with exactly {n} reph
 """
 
 
-async def one_call(client, sem, model, row, n, retries=4):
+async def one_call(client, sem, model, row, n, retries=6):
     async with sem:
         for attempt in range(retries):
             try:
@@ -71,12 +71,21 @@ async def one_call(client, sem, model, row, n, retries=4):
                 if attempt == retries - 1:
                     print(f"FAILED ep={row.episode_index}: {e}")
                     return None
-                await asyncio.sleep(2**attempt)
+                # free-tier 429s ask for ~25s waits; back off generously
+                await asyncio.sleep(min(15 * 2**attempt, 90))
 
 
 async def run(args):
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     df = pd.read_parquet(args.contexts)
+
+    done = pd.DataFrame()
+    if os.path.exists(args.out):  # resume: skip contexts already rephrased
+        done = pd.read_parquet(args.out)
+        done_keys = set(zip(done["episode_index"], done["t"]))
+        df = df[~df.apply(lambda r: (r["episode_index"], r["t"]) in done_keys, axis=1)]
+        print(f"resume: {len(done)} done, {len(df)} remaining")
+
     sem = asyncio.Semaphore(args.concurrency)
     tasks = [
         one_call(client, sem, args.model, row, args.n_rephrases)
@@ -86,9 +95,10 @@ async def run(args):
     for coro in tqdm(asyncio.as_completed(tasks), total=len(tasks), desc="gemini"):
         results.append(await coro)
     ok = [r for r in results if r is not None]
-    out = pd.DataFrame(ok)
-    out.to_parquet(args.out, index=False)
-    print(f"wrote {len(ok)}/{len(df)} contexts to {args.out}")
+    out = pd.concat([done, pd.DataFrame(ok)], ignore_index=True) if len(done) else pd.DataFrame(ok)
+    if len(out):
+        out.to_parquet(args.out, index=False)
+    print(f"wrote {len(ok)} new ({len(out)} total) contexts to {args.out}")
 
 
 def main():
