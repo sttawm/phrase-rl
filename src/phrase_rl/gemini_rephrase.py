@@ -96,7 +96,7 @@ def main():
     ap.add_argument("--contexts", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--n-rephrases", type=int, default=32)
-    ap.add_argument("--model", default="gemini-3.1-pro")
+    ap.add_argument("--model", default="gemini-3.1-pro-preview")
     ap.add_argument("--concurrency", type=int, default=8)
     args = ap.parse_args()
     asyncio.run(run(args))
