@@ -27,6 +27,9 @@ Output a numbered list, one rephrase per line, nothing else."""
 
 
 def parse_list(text: str) -> list[str]:
+    # defensive: never parse items out of a thinking block
+    if "</think>" in text:
+        text = text.split("</think>")[-1]
     items = re.findall(r"^\s*\d+[.)]\s*(.+)$", text, flags=re.M)
     return [s.strip() for s in items]
 
@@ -60,7 +63,8 @@ def main():
         }
     ]
     inputs = processor.apply_chat_template(
-        messages, add_generation_prompt=True, tokenize=True, return_dict=True, return_tensors="pt"
+        messages, add_generation_prompt=True, tokenize=True, return_dict=True,
+        return_tensors="pt", enable_thinking=False,
     ).to(model.device)
     with torch.no_grad():
         out = model.generate(**inputs, max_new_tokens=512, do_sample=True, temperature=0.9)

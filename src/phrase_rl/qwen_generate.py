@@ -33,7 +33,8 @@ def generate_for_row(model, processor, row, n, max_attempts=3):
         }
     ]
     inputs = processor.apply_chat_template(
-        messages, add_generation_prompt=True, tokenize=True, return_dict=True, return_tensors="pt"
+        messages, add_generation_prompt=True, tokenize=True, return_dict=True,
+        return_tensors="pt", enable_thinking=False,
     ).to(model.device)
     for attempt in range(max_attempts):
         with torch.no_grad():
