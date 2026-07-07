@@ -57,6 +57,7 @@ def main():
         args=["--eval_cfg.pretrained_model_path", args.ckpt, "--seed", str(args.seed)],
     )
     policy = LeRobotPolicyWrapper(pipeline_cfg=pipeline_cfg, model_class=PI0Policy)
+    policy._initialze_model_server(model_path=args.ckpt)  # sic — INT-ACT's method name
     action_step = policy.action_step
 
     phrases = pd.read_parquet(args.phrases)
