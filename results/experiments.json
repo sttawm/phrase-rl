@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "id": "phase0b-sensitivity-gate",
+    "date": "2026-07-07",
+    "commit": "e4c9ee16e602a3a4e8764d33f59a33da35587672",
+    "overview": "Phase 0b sensitivity gate (GO/NO-GO for using frozen pi0 flow-matching loss as a phrase-level reward). 250 BridgeV2 val contexts x ~92 phrases each (original + 3 arms: gemini_pro=gemini-3.1-pro-preview, gemini_flash=gemini-3.5-flash, qwen=Qwen3.5-9B base with thinking disabled; 32 rephrases/arm, deduped) x K=16 shared (eps, tau) draws (CRN), scored on both INTACT pi0 checkpoints on 1x RTX A6000. RESULT: GO. Median z-scored split-half Spearman ~0.95 across all arms and both checkpoints (signal share ~0.98); phrase-length/loss correlation ~0 (no length hack axis); discriminability flat-high for tau>=0.3 and collapses near tau=0 (clean-action end, lerobot convention: tau=1 is noise). Rephrase-FT checkpoint shows ~25% SMALLER phrase spread than plain checkpoint (paraphrase training increased invariance, as hypothesized). Oracle: best rephrase beats original instruction in 96-98% of contexts, median 31-33% relative loss reduction \u2014 large candidate-set headroom. Qwen arm spread within ~75-100% of Gemini arms -> no larger generator model needed for now.",
+    "commands": [
+      "python -m phrase_rl.extract_contexts --split val --n 250 --out data/contexts_val_0b.parquet",
+      "python -m phrase_rl.gemini_rephrase --contexts data/contexts_val_0b.parquet --out data/rephrases_val_0b.parquet --n-rephrases 32 --model gemini-3.1-pro-preview --concurrency 8",
+      "python -m phrase_rl.gemini_rephrase --contexts data/contexts_val_0b.parquet --out data/rephrases35flash_val_0b.parquet --n-rephrases 32 --model gemini-3.5-flash --concurrency 8",
+      ".venv-gen/bin/python -m phrase_rl.qwen_generate --contexts data/contexts_val_0b.parquet --out data/qwen_rephrases_val_0b.parquet --n 32",
+      "bash scripts/run_phase0b_scoring.sh",
+      "python -m phrase_rl.phase0b_analyze --scores rephrase=data/scores_0b_rephrase.parquet plain=data/scores_0b_plain.parquet --outdir results/phase0b"
+    ],
+    "metrics_file": "results/phase0b/metrics.json",
+    "charts": [
+      "results/charts/phase0b_rephrase.png",
+      "results/charts/phase0b_plain.png"
+    ]
+  }
+]

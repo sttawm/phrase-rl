@@ -1,0 +1,124 @@
+{
+  "rephrase": {
+    "gemini_flash": {
+      "n_contexts": 250,
+      "split_half_spearman_raw": {
+        "median": 0.9270527859237536,
+        "q25": 0.8519978005865103,
+        "q75": 0.9588526392961876
+      },
+      "split_half_spearman_z": {
+        "median": 0.9582508709928064,
+        "q25": 0.9187500000000002,
+        "q75": 0.9737132167054302
+      },
+      "spearman_brown_fullK_median": 0.978680397670824,
+      "signal_share_z_median": 0.9823936820030212,
+      "length_loss_corr_median": 0.018127334992571957,
+      "phrase_spread_median": 0.008918302599340677,
+      "mean_loss_median": 0.08318106457591057
+    },
+    "gemini_pro": {
+      "n_contexts": 250,
+      "split_half_spearman_raw": {
+        "median": 0.9296187683284457,
+        "q25": 0.8629948680351907,
+        "q75": 0.9655425219941348
+      },
+      "split_half_spearman_z": {
+        "median": 0.9563782991202344,
+        "q25": 0.9236620234604105,
+        "q75": 0.9769061583577712
+      },
+      "spearman_brown_fullK_median": 0.9777028293048529,
+      "signal_share_z_median": 0.9816149473190308,
+      "length_loss_corr_median": 0.01047435140579115,
+      "phrase_spread_median": 0.00874680420383811,
+      "mean_loss_median": 0.08121492713689804
+    },
+    "qwen": {
+      "n_contexts": 250,
+      "split_half_spearman_raw": {
+        "median": 0.9242607392607394,
+        "q25": 0.8332569648093842,
+        "q75": 0.9572948116955347
+      },
+      "split_half_spearman_z": {
+        "median": 0.9536618067694262,
+        "q25": 0.9179435483870968,
+        "q75": 0.9737903225806454
+      },
+      "spearman_brown_fullK_median": 0.97628136372791,
+      "signal_share_z_median": 0.9834755659103394,
+      "length_loss_corr_median": 0.0,
+      "phrase_spread_median": 0.006517610279843211,
+      "mean_loss_median": 0.07945768162608147
+    },
+    "oracle": {
+      "frac_contexts_best_rephrase_beats_original": 0.98,
+      "median_relative_gain": 0.3064241111278534
+    },
+    "chart": "results/charts/phase0b_rephrase.png"
+  },
+  "plain": {
+    "gemini_flash": {
+      "n_contexts": 250,
+      "split_half_spearman_raw": {
+        "median": 0.9212698412698412,
+        "q25": 0.8634530791788857,
+        "q75": 0.9561033724340174
+      },
+      "split_half_spearman_z": {
+        "median": 0.955056865177833,
+        "q25": 0.9184384164222872,
+        "q75": 0.972782258064516
+      },
+      "spearman_brown_fullK_median": 0.9770118437245527,
+      "signal_share_z_median": 0.9806176424026489,
+      "length_loss_corr_median": 0.008543284424627503,
+      "phrase_spread_median": 0.010670260060578585,
+      "mean_loss_median": 0.08623243868350983
+    },
+    "gemini_pro": {
+      "n_contexts": 250,
+      "split_half_spearman_raw": {
+        "median": 0.9226173020527859,
+        "q25": 0.8674853372434016,
+        "q75": 0.9576154692082112
+      },
+      "split_half_spearman_z": {
+        "median": 0.9556451612903224,
+        "q25": 0.9178885630498532,
+        "q75": 0.972782258064516
+      },
+      "spearman_brown_fullK_median": 0.9773195876288658,
+      "signal_share_z_median": 0.9808211326599121,
+      "length_loss_corr_median": 0.000542277115186485,
+      "phrase_spread_median": 0.011410681530833244,
+      "mean_loss_median": 0.08593980222940445
+    },
+    "qwen": {
+      "n_contexts": 250,
+      "split_half_spearman_raw": {
+        "median": 0.9223659405111018,
+        "q25": 0.8551897942157953,
+        "q75": 0.9570197947214074
+      },
+      "split_half_spearman_z": {
+        "median": 0.9510617636466532,
+        "q25": 0.9190799120234603,
+        "q75": 0.9719201890989989
+      },
+      "spearman_brown_fullK_median": 0.9749171168419388,
+      "signal_share_z_median": 0.9794541597366333,
+      "length_loss_corr_median": -0.04050702233638995,
+      "phrase_spread_median": 0.010240852367132902,
+      "mean_loss_median": 0.0860566683113575
+    },
+    "oracle": {
+      "frac_contexts_best_rephrase_beats_original": 0.956,
+      "median_relative_gain": 0.33028388023376465
+    },
+    "chart": "results/charts/phase0b_plain.png"
+  }
+}

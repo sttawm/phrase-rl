@@ -1,6 +1,6 @@
 # phrase-rl: Advantage-Weighted Rephrase Tuning Against a Frozen VLA
 
-**Status:** planning complete, Phase 0a next. **Last updated:** 2026-07-03.
+**Status:** Phase 0a done; **Phase 0b PASSED (GO)** 2026-07-07 — median split-half ρ≈0.95 at K=16, signal share ≈0.98, no length-hack axis, oracle gain 31–33%; rephrase-FT checkpoint ~25% less phrase-sensitive than plain (see results/phase0b/metrics.json). τ finding: discriminability collapses for τ<0.25 (clean-action end) — concentrate scoring draws at τ≥0.25 in training. Next: Phase 1 (teacher data + SFT) and/or 0c rollout sensitivity. **Last updated:** 2026-07-07.
 
 ## Hypothesis
 
