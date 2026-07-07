@@ -1,6 +1,6 @@
 # phrase-rl: Advantage-Weighted Rephrase Tuning Against a Frozen VLA
 
-**Status:** Phase 0a done; **Phase 0b PASSED (GO)** 2026-07-07 — median split-half ρ≈0.95 at K=16, signal share ≈0.98, no length-hack axis, oracle gain 31–33%; rephrase-FT checkpoint ~25% less phrase-sensitive than plain (see results/phase0b/metrics.json). τ finding: discriminability collapses for τ<0.25 (clean-action end) — concentrate scoring draws at τ≥0.25 in training. Next: Phase 1 (teacher data + SFT) and/or 0c rollout sensitivity. **Last updated:** 2026-07-07.
+**Status:** Phase 0 complete (0b GO: reward reliable ρ≈0.95; 0c: phrasing moves sim success 0.1–0.7, goal-drift is a confirmed reward-hack axis → faithfulness gate mandatory, gate-pass reward↔success ρ=+0.28). Phase 1 teacher data complete (2000×16+traces). **Phase 2 stack built + adversarially reviewed** (commit e6be370): CoVer-verbatim generation → drift-only gate (majority-of-3, fail-closed) → CRN scoring (τ≥0.25) via cross-venv file IPC → phrase-token-only advantage-weighted LoRA update w/ KL anchor; resumable. NEXT: pod smoke test → step-0 baseline → primary RL run. **Last updated:** 2026-07-07.
 
 ## Hypothesis
 
