@@ -98,9 +98,11 @@ One pod, **2× ~40–48GB GPUs** (e.g., 2×A40 — cheaper than 1×A100 80GB):
 
 ## Results so far
 
+Narrative + figures: **[WRITEUP.md](WRITEUP.md)**. Canonical numbers: `results/**/metrics.json`. This section keeps only the lab-notebook facts.
+
 ### Phase 0b — sensitivity gate: **GO** (2026-07-07, commit e4c9ee1)
 
-250 val contexts × ~92 phrases (original + 3 arms × 32, deduped) × K=16 shared draws, both INTACT checkpoints, 1× RTX A6000. Full metrics: `results/phase0b/metrics.json`; charts: `results/charts/phase0b_{rephrase,plain}.png`; per-context stats: `results/phase0b/per_context_*.parquet`.
+250 val contexts × ~92 phrases (original + 3 arms × 32, deduped) × K=16 shared draws, both INTACT checkpoints, 1× RTX A6000. Metrics: `results/phase0b/metrics.json`; charts: `results/charts/phase0b_{rephrase,plain,ranked_phrases}.png`; per-context: `results/phase0b/per_context_*.parquet`.
 
 | Arm | ρ split-half (z), rephrase ckpt | ρ, plain ckpt | spread rephrase / plain | length-loss corr |
 |---|---|---|---|---|
@@ -108,11 +110,12 @@ One pod, **2× ~40–48GB GPUs** (e.g., 2×A40 — cheaper than 1×A100 80GB):
 | gemini_flash (3.5-flash) | 0.958 | 0.955 | 0.0089 / 0.0107 | ~0 |
 | qwen (Qwen3.5-9B base, no-think) | 0.954 | 0.951 | 0.0065 / 0.0102 | ~0 |
 
-- **Reward is reliable at training-budget K:** signal share ≈0.98 — the OpenVLA non-discriminative-reward failure mode is absent.
-- **τ-band:** discriminability collapses for τ<0.25 (clean-action end; lerobot convention τ=1=noise), plateaus ≈0.8 for τ≥0.3 → concentrate training draws at τ≥0.25.
-- **Differential checkpoint finding:** rephrase-FT π0 has ~25% *smaller* phrase spread than plain (paraphrase training ⇒ more phrasing-invariant). Both reliable; plain offers larger raw training signal.
-- **Oracle headroom:** best-of-32 rephrase beats original in 96–98% of contexts, median 31–33% relative loss reduction.
-- **Qwen diversity sufficient:** spread 75–100% of Gemini arms → no larger generator needed (27B stays a deferred ablation).
+Lab-notebook facts (rationale/narrative in WRITEUP):
+- Signal share ≈0.98 at training-budget K → reward reliable; OpenVLA failure mode absent.
+- τ-band: discriminability collapses for τ<0.25 (clean-action end; lerobot τ=1=noise), plateaus ≈0.8 for τ≥0.3 → concentrate training draws at τ≥0.25.
+- Rephrase-FT π0 has ~25% *smaller* phrase spread than plain → plain offers larger training signal (flips ablation priority).
+- Original Bridge instruction worse than median rephrase in 70.8% of contexts, single-best in 5.2%; best-of-32 beats original in 96–98%, median 31–33% loss reduction.
+- Qwen spread 75–100% of Gemini arms → no larger generator needed (27B deferred).
 
 ## Data artifacts
 
