@@ -95,9 +95,14 @@ loss a median 31–33%** — that's the headroom the project targets.
 
 ## Next
 
-- **Phase 0c (running):** does lower flow loss mean higher *task success*? Roll out
-  π0 in SIMPLER under each rephrasing, correlate success rank vs loss rank — the one
-  link offline loss can't establish alone.
+- **Phase 0c (running):** our training reward is real-frame flow loss but rollouts
+  are sim, so "reward predicts success" must cross a real→sim gap intrinsic to this
+  setup. We split accordingly: **(A, clean)** all-in-sim — do rephrasings beat the
+  original instruction in sim success? (no domain confound; directly tests the
+  thesis); **(B, caveated)** does the real-frame reward rank phrases the way sim
+  success does? (a positive corroborates, a null is uninterpretable). 0c is a
+  de-risking sanity check; the real behavioral proof is Phase 4 (trained model, also
+  all-in-sim).
 - **Phase 1–2:** SFT + advantage-weighted tuning of Qwen3.5. Leaning toward
   RL-from-base-Qwen as the primary (cleaner claim: no frontier teacher), with
   teacher-distillation as an ablation.
