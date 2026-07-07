@@ -106,14 +106,16 @@ drifted ("put the carrot **by** the plate", "maneuver the spoon **past** the
 towel") fail in exactly the way their words say.
 
 **And that exposed a real blind spot in the reward.** The offline flow loss
-*prefers* those goal-drifted phrases: drifted phrases score **better** (mean loss
-0.0794) than faithful ones (0.0948) while succeeding **less** (0.40 vs 0.56). The
+*prefers* goal-drifted phrases: they score **better** (mean loss 0.081) than
+clean rephrasings (0.095) while succeeding **less** (0.32 vs 0.58). Notably the
+blind spot is specific to *goal* drift: object *renames* ("the orange vegetable")
+succeed at the highest rate of any class (0.65) and get no reward discount. The
 mechanism: teacher-forced loss measures how well the policy predicts the
 demonstrated trajectory, which mid-episode is dominated by reach-and-transport
 motion — "toward the plate" and "by the plate" demand nearly identical actions
 until the final centimeters. Style fits; goals barely register. This drove the raw
-reward↔success correlation negative (pooled ρ=−0.10); restricting to
-LLM-judged-faithful phrases removes the effect (pooled ρ=+0.20, weakly positive at
+reward↔success correlation negative (pooled ρ=−0.10); excluding judged goal-drift
+(the exact Phase 2 gate) removes the effect (pooled ρ=+0.28, weakly positive at
 our n=10-seed measurement precision).
 
 **Design consequence.** This is a *confirmed reward-hacking axis*: naive RL on flow
