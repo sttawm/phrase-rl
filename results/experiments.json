@@ -17,5 +17,23 @@
       "results/charts/phase0b_rephrase.png",
       "results/charts/phase0b_plain.png"
     ]
+  },
+  {
+    "id": "phase0c-rollout-sensitivity",
+    "date": "2026-07-07",
+    "commit": "f3c2127a664b01a6940abd76c4a63ab9b4810194",
+    "overview": "Phase 0c: 1,290 SIMPLER episodes (4 Bridge tasks x ~33 phrases x 10 shared episode_ids, INTACT rephrase-FT pi0, in-process INT-ACT harness) + CRN flow-loss scoring of the same phrases on 50 matched real Bridge contexts (3 tasks; eggplant has no Bridge counterpart) + LLM-judge faithfulness pass. (A) IN-SIM [clean]: phrasing moves success strongly \u2014 carrot range 0.1-0.7 across 33 phrasings on identical initial states; success std 0.17-0.18 vs binomial floor ~0.15; failures interpretable (goal drift). Sim-canonical originals are strong (unlike offline 0b). (B) REWARD vs SUCCESS [caveated]: pooled rho=-0.10 (carrot -0.25, spoon -0.29, stack +0.21). Faithfulness pass explains it: 40% of Qwen-generated 0c phrases are goal-drifted; drifted phrases have LOWER mean flow loss (0.0794) than faithful (0.0948) yet lower sim success (0.40 vs 0.56) \u2014 the reward systematically PREFERS goal-drifted phrases (teacher-forced loss rewards trajectory-style fit; goal words barely change mid-episode action targets). Faithful-only subset: negatives vanish (carrot/spoon -0.09), pooled +0.20. CONSEQUENCE: confirmed reward-hacking axis -> Phase 2 must gate the reward on semantic faithfulness (advantage computed among faithful candidates only / drift penalized). Within-faithful, reward is weakly-positive-to-uninformative about sim success at n=10 precision; Phase 4 remains the behavioral test.",
+    "commands": [
+      "bash scripts/run_phase0c_rollouts.sh",
+      "python -m phrase_rl.phase0c_match_contexts --per-task 20 --out data/contexts_0c_match.parquet",
+      "bash scripts/run_phase0c_scoring.sh",
+      "python -m phrase_rl.phase0c_analyze --rollouts results/phase0c/raw/rollouts_0c.parquet --scores results/phase0c/raw/scores_0c.parquet --outdir results/phase0c",
+      "python -m phrase_rl.phase0c_faithfulness --phrases data/phrases_0c.parquet --out results/phase0c/faithfulness.parquet"
+    ],
+    "metrics_file": "results/phase0c/metrics.json",
+    "charts": [
+      "results/charts/phase0c_insim_phrasing.png",
+      "results/charts/phase0c_reward_vs_success.png"
+    ]
   }
 ]
