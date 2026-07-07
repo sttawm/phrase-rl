@@ -17,7 +17,7 @@ Note CoVer never compares against ranking by the policy's own loss; it goes stra
 |---|---|---|
 | Frozen VLA reward | `juexzz/INTACT-pi0-finetune-rephrase-bridge` | π0 on BridgeV2 + paraphrase augmentation; LeRobot PyTorch; ~3.3B; chunk size 4, delta EE actions |
 | Frozen VLA (ablation) | `juexzz/INTACT-pi0-finetune-bridge` | Non-rephrase checkpoint — tests dependence on paraphrase-augmented reward model |
-| Frozen trace/teacher VLM | Gemini 3.1 Pro (batch API) | Replaces CoVer's GPT-4o (discontinued). Generates cached reasoning traces + 16-rephrase teacher lists |
+| Frozen trace/teacher VLM | Gemini 3.1 Pro (batch API) | Replaces CoVer's GPT-4o (discontinued). Generates cached reasoning traces + 16-rephrase teacher lists. **Trace is fixed CoVer-parity machinery, not an ablation axis** (decided 2026-07-07): CoVer's VLM does structured scene reasoning + rephrases at boot time and reports no trace ablation; we mirror that — traces cached for training, fresh frontier call at boot for deployment/Phase 4. The tested contrast is *RL over trace-conditioned generation* (eval matrix: base/SFT vs advantage-tuned, all trace-conditioned) |
 | Trainable phrase model | `Qwen/Qwen3.5-9B` (natively multimodal, Feb 2026) | LoRA. **Thinking mode DISABLED everywhere** (`enable_thinking=False` in generation and, later, training): Qwen3.5 thinks by default, which is ~4× slower, leaks numbered lines from the reasoning block into parsed candidates, and would contaminate the advantage-weighted log-prob objective with reasoning tokens. All 0b/0c/eval numbers are no-think numbers. Revisit later: a *minimal/budgeted* thinking variant as an ablation (see Ablations). Fallback model `Qwen/Qwen3-VL-8B-Instruct`; 27B/32B only as post-signal scale-up (32B ≈ 73GB FP16, ~4× slower generation) |
 | Optional baseline | CoVer verifier (`cover_verifier_bridge.pt`, ~312MB) | Test-time selection over our candidates; separates "better candidates" from "better selection" |
 
@@ -89,7 +89,6 @@ Oracle = argmin ground-truth action loss over the 16 (not deployable; measures c
 | Ablation | Question |
 |---|---|
 | **Teacher-SFT warm-start then tune** (vs primary RL-from-base) | Does distilling Gemini's higher-ceiling distribution first beat pure RL-from-base? 0b says teacher has ~6 pts more oracle headroom — worth testing, not assuming. |
-| No trace in context | Does frozen frontier reasoning help? |
 | Signed vs positive-only advantage | Does downweighting bad phrases help? |
 | List-prompt vs 16× single-prompt sampling + dedupe | Cleaner diversity source? |
 | Non-rephrase π0 as reward | Dependence on paraphrase-augmented reward model |
