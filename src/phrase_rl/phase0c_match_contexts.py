@@ -26,8 +26,11 @@ from phrase_rl.extract_contexts import (
 # what the task's phrases describe (same object AND same target).
 MATCHERS = {
     "widowx_carrot_on_plate": lambda s: s == "put carrot on plate",
-    "widowx_stack_cube": lambda s: ("block" in s or "cube" in s) and "on top of" in s
-        and ("yellow" in s or "green" in s),
+    # SIMPLER stacks GREEN onto YELLOW: green must be the source (before "on top of"),
+    # yellow the base (after) — excludes the reversed "yellow on top of green".
+    "widowx_stack_cube": lambda s: "on top of" in s
+        and "green" in s.split("on top of")[0] and "yellow" in s.split("on top of")[1]
+        and "green" not in s.split("on top of")[1],
     "widowx_spoon_on_towel": lambda s: "spoon" in s and "towel" in s
         and ("onto towel" in s or "on the towel" in s or "on towel" in s),
     # widowx_put_eggplant_in_basket: intentionally absent — no eggplant+basket in Bridge.
