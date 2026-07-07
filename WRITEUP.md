@@ -40,18 +40,24 @@ over the phrase). Empirically, phrase-length/loss correlation is ~0.
 
 ## Does the reward actually discriminate? (the OpenVLA worry)
 
-We tried this instinct once before, on OpenVLA, and **suspect** it failed for a
-reason that wouldn't apply here: OpenVLA emits *discretized* actions via a binned
-head, and a loss on binned tokens may be too coarse to move with instruction
-phrasing — the reward looked non-discriminative (an RL run collapsed to a generic
-sub-goal; the val action metric barely moved). π0's loss is a *continuous* velocity
-regression, which we suspect is far more sensitive to conditioning. But that's a
-hypothesis, so we gate on it (Phase 0b) rather than assume it.
+We tried this instinct once before, on OpenVLA, and it collapsed — a run drifted to a
+single generic sub-goal ("grab X") and the val action metric barely moved. Our
+**leading hypothesis**: OpenVLA's language grounding is weak enough that its action
+loss carries almost no signal about *phrasing* — so the only gradient the optimizer
+could find pointed back toward OpenVLA's own training-distribution templates (hence
+the collapse to "grab X" specifically, not random degeneration). If phrasing barely
+moves the reward except by resembling training data, RL can only rediscover that
+data. (A related contributor: OpenVLA's *discretized* action head may be too coarse
+to respond to wording at all.) π0's continuous velocity loss and stronger VLM
+backbone should carry real phrasing signal — but that's a hypothesis, so we gate on
+it (Phase 0b) rather than assume it.
 
-*Terse test if we want to confirm the OpenVLA diagnosis:* run Phase 0b unchanged on
-OpenVLA — take the same contexts, score N rephrasings each by OpenVLA's action loss,
-measure split-half rank reliability. Flat/unreliable ranking on OpenVLA + reliable on
-π0 (below) would pin the failure on the discretized head, not the general idea.
+*Terse test to confirm the diagnosis:* run Phase 0b unchanged on OpenVLA — same
+contexts, score N rephrasings by OpenVLA's action loss, measure split-half rank
+reliability. If it's flat on OpenVLA but reliable on π0 (below), the failure was the
+reward carrying no phrasing signal, not the general idea. A sharper variant: check
+whether OpenVLA's reward correlates with *resemblance to its training templates*
+rather than with semantic fit — if so, that's the collapse attractor made explicit.
 
 ## Phase 0b — is the reward reliable?
 
