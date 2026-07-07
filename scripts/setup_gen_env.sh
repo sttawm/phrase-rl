@@ -3,6 +3,7 @@
 # phrase VLM. Separate from .venv, which is pinned to INTACT-era lerobot for
 # reward scoring (transformers 4.48 vs >=5 conflict).
 set -euxo pipefail
+export UV_CACHE_DIR=/workspace/uv_cache UV_LINK_MODE=copy  # container root disk is tiny
 cd "$(dirname "$0")/.."
 
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY)' ~/.bashrc || true)"

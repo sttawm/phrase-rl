@@ -3,6 +3,7 @@
 # ManiSkill2_real2sim + eval harness for exactly these pi0 checkpoints.
 # Headless rendering needs Vulkan + the NVIDIA ICD, which containers often lack.
 set -euxo pipefail
+export UV_CACHE_DIR=/workspace/uv_cache UV_LINK_MODE=copy  # container root disk is tiny
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 UV="$HOME/.local/bin/uv"
