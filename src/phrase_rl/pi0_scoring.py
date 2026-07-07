@@ -7,9 +7,10 @@ so loss differences reflect conditioning only. LeRobot's PI0Policy.forward
 accepts optional `noise` and `time` tensors (verified at runtime), so no
 monkey-patching is required — we pass fixed draws explicitly.
 
-tau is stratified over (0, 1): K bins, one uniform sample per bin (LeRobot's
-internal Beta sampling is a training choice, not required for scoring; see
-EXPERIMENT.md "Reward").
+tau is stratified over (tau_min, 1): K bins, one uniform sample per bin
+(LeRobot's internal Beta sampling is a training choice, not required for
+scoring; see EXPERIMENT.md "Reward"). Default tau_min=0.0 keeps all pre-Phase-2
+results bit-identical; training passes tau_min=0.25 (0b finding).
 
 Score of phrase y_i for context (o, state, a*):
     L_i = (1/K) sum_k mean over (horizon, action_dim) of
@@ -31,11 +32,13 @@ def import_pi0_policy():
     return PI0Policy
 
 
-def make_draws(k: int, horizon: int, action_dim: int, seed: int):
-    """K fixed (eps, tau) draws, deterministic in seed. tau stratified over (0,1)."""
+def make_draws(k: int, horizon: int, action_dim: int, seed: int, tau_min: float = 0.0):
+    """K fixed (eps, tau) draws, deterministic in seed. tau stratified over (tau_min, 1)."""
     g = torch.Generator().manual_seed(seed)
     noise = torch.randn(k, horizon, action_dim, generator=g)
     tau = (torch.arange(k, dtype=torch.float32) + torch.rand(k, generator=g)) / k
+    # 0b finding: discriminability collapses for tau<0.25 (clean-action end) — Phase 2 passes tau_min=0.25
+    tau = tau_min + (1.0 - tau_min) * tau  # identity when tau_min=0.0 (exact in fp32)
     # keep away from exact 0/1 endpoints (pi0 internals assume open interval)
     tau = tau.clamp(1e-3, 1 - 1e-3)
     return noise, tau
@@ -44,7 +47,8 @@ def make_draws(k: int, horizon: int, action_dim: int, seed: int):
 class Pi0PhraseScorer:
     """Scores phrase lists against one context with common random numbers."""
 
-    def __init__(self, policy, k: int = 16, seed: int = 0, micro_batch: int = 64):
+    def __init__(self, policy, k: int = 16, seed: int = 0, micro_batch: int = 64,
+                 tau_min: float = 0.0):
         self.policy = policy.eval()
         for p in self.policy.parameters():
             p.requires_grad_(False)
@@ -57,7 +61,7 @@ class Pi0PhraseScorer:
         padded_dim = getattr(cfg, "max_action_dim", self.action_dim)
         self.k = k
         self.micro_batch = micro_batch
-        self.noise, self.tau = make_draws(k, self.horizon, padded_dim, seed)
+        self.noise, self.tau = make_draws(k, self.horizon, padded_dim, seed, tau_min)
 
     def _per_sample_loss(self, batch, noise, time):
         """Forward with fixed draws; return per-sample loss (B,)."""
