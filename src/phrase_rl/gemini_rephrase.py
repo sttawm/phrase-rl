@@ -18,11 +18,22 @@ import argparse
 import asyncio
 import json
 import os
+import re
 
 import pandas as pd
 from google import genai
 from google.genai import types
 from tqdm import tqdm
+
+# Set when a 429 indicates depleted credits/quota-0 — a state retries can never
+# fix. All pending calls abort immediately instead of retry-storming.
+HARD_STOP = asyncio.Event()
+HARD_STOP_MARKERS = ("depleted", "prepay", "check your plan", "limit: 0")
+
+
+def server_retry_delay(err_text: str) -> float | None:
+    m = re.search(r"retry.{0,20}?(\d+(?:\.\d+)?)\s*s", err_text, re.I)
+    return float(m.group(1)) if m else None
 
 PROMPT = """\
 You are helping a robot manipulation policy. The robot was given this instruction:
@@ -47,6 +58,8 @@ Return JSON: {{"trace": "...", "rephrases": ["...", ...]}} with exactly {n} reph
 async def one_call(client, sem, model, row, n, retries=6):
     async with sem:
         for attempt in range(retries):
+            if HARD_STOP.is_set():
+                return None
             try:
                 resp = await client.aio.models.generate_content(
                     model=model,
@@ -68,15 +81,31 @@ async def one_call(client, sem, model, row, n, retries=6):
                     "rephrases": out["rephrases"],
                 }
             except Exception as e:
-                if attempt == retries - 1:
-                    print(f"FAILED ep={row.episode_index}: {e}")
+                msg = str(e)
+                if "429" in msg and any(m in msg.lower() for m in HARD_STOP_MARKERS):
+                    if not HARD_STOP.is_set():
+                        print(f"\nHARD STOP — unretryable quota state: {msg[:180]}\n"
+                              "Aborting all pending calls (results so far are saved).")
+                        HARD_STOP.set()
                     return None
-                # free-tier 429s ask for ~25s waits; back off generously
-                await asyncio.sleep(min(15 * 2**attempt, 90))
+                if attempt == retries - 1:
+                    print(f"FAILED ep={row.episode_index}: {msg[:200]}")
+                    return None
+                # honor the server's suggested delay when present; else backoff
+                delay = server_retry_delay(msg) or min(15 * 2**attempt, 90)
+                await asyncio.sleep(delay + 1)
 
 
 async def run(args):
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+
+    # preflight: one tiny call so a dead quota/billing state fails in seconds,
+    # not after launching thousands of doomed, retry-storming tasks
+    try:
+        await client.aio.models.generate_content(model=args.model, contents="ok")
+    except Exception as e:
+        raise SystemExit(f"PREFLIGHT FAILED for {args.model} — not launching batch:\n{str(e)[:300]}")
+
     df = pd.read_parquet(args.contexts)
 
     done = pd.DataFrame()
@@ -111,7 +140,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--n-rephrases", type=int, default=32)
     ap.add_argument("--model", default="gemini-3.1-pro-preview")
-    ap.add_argument("--concurrency", type=int, default=8)
+    ap.add_argument("--concurrency", type=int, default=6)
     args = ap.parse_args()
     asyncio.run(run(args))
 

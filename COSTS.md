@@ -51,3 +51,12 @@ the only always-on cost — delete it when the project pauses.
 Append a row when a run finishes. For Gemini, measure output tokens from the
 output parquet (`len(trace)+len(json(rephrases))` ÷ 4) × list price; input ≈ 458
 tok/call. For RunPod, read the dashboard.
+
+## Rate-limit / 429 hygiene (added 2026-07-07)
+429-rejected requests do not bill — the money lost earlier was successful calls
+held in memory when a run died (fixed: incremental saves). Guards now in
+`gemini_rephrase.py`: (1) preflight single call before any batch — dead
+billing/quota fails in seconds, not after thousands of doomed tasks; (2) hard
+abort of all pending calls on unretryable 429s (depleted credits / quota 0) —
+no retry storms; (3) retries honor the server's suggested retryDelay; (4)
+default concurrency lowered to 6.
