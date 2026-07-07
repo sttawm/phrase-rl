@@ -191,7 +191,7 @@ def parse_reworded(text: str) -> list[str]:
     return items
 
 
-def build_qwen_messages(image_pil, instruction: str, batch_number: int) -> list:
+def build_qwen_messages(image, instruction: str, batch_number: int) -> list:
     """Chat messages for Qwen3.5 under the CoVer scaffold.
 
     Feed to processor.apply_chat_template(..., add_generation_prompt=True,
@@ -205,37 +205,55 @@ def build_qwen_messages(image_pil, instruction: str, batch_number: int) -> list:
         {
             "role": "user",
             "content": [
-                {"type": "image", "image": image_pil},
+                {"type": "image", "image": image},
                 {"type": "text", "text": build_user_prompt(instruction, batch_number)},
             ],
         },
     ]
 
 
-def build_single_phrase_prefix(instruction: str) -> tuple:
+def build_single_phrase_prefix(instruction: str, image) -> list:
     """The p_single conditioning for the training objective.
 
-    Returns (user_prompt, assistant_prefix) where user_prompt is the verbatim CoVer
-    user turn with batch_number=1 and assistant_prefix is "1. ".
+    Returns the FULL chat messages list, ending in an already-begun assistant turn:
+        [system(load_system_prompt()),
+         user([image, build_user_prompt(instruction, 1)]),
+         assistant "1. "]
+    Feed to processor.apply_chat_template(..., continue_final_message=True,
+    enable_thinking=False) so the "1. " assistant prefix is kept open for the
+    candidate phrase to continue it.
 
     Definition of log pi_theta(y | c, p_single) used by the advantage-weighted loss
-    (EXPERIMENT.md "Training" step 1): build the chat as
-        system  = load_system_prompt()
-        user    = [image, user_prompt]                       (this function, [0])
-        assistant, already begun = "1. "                     (this function, [1])
-    i.e. tokenize with the chat template up to and including the assistant prefix
-    "1. " (enable_thinking=False, no reasoning tokens), then score the candidate
-    phrase y as the continuation, terminated by "\\n" (or EOS). Loss/credit applies
-    to the tokens of y (+ terminator) ONLY — never to the prompt, the "1. " prefix,
-    or any inline reasoning, which is deliberately absent from this conditioning:
-    p_single treats y as the first list item emitted with no preceding CoT, so every
-    candidate is scored under the identical, reasoning-free prefix regardless of what
-    reasoning happened to precede it at sampling time.
+    (EXPERIMENT.md "Training" step 1): tokenize the chat template up to and
+    including the assistant prefix "1. " (enable_thinking=False, no reasoning
+    tokens), then score the candidate phrase y as the continuation, terminated by
+    "\\n" (or EOS). Loss/credit applies to the tokens of y (+ terminator) ONLY —
+    never to the prompt, the "1. " prefix, or any inline reasoning, which is
+    deliberately absent from this conditioning: p_single treats y as the first
+    list item emitted with no preceding CoT, so every candidate is scored under
+    the identical, reasoning-free prefix regardless of what reasoning happened to
+    precede it at sampling time.
 
     Note the batch_number=1 template still shows the "1. / 2. / ... / 1." format
     slots — that is CoVer's own N=1 rendering, kept verbatim.
     """
-    return build_user_prompt(instruction, 1), "1. "
+    return [
+        {
+            "role": "system",
+            "content": [{"type": "text", "text": load_system_prompt()}],
+        },
+        {
+            "role": "user",
+            "content": [
+                {"type": "image", "image": image},
+                {"type": "text", "text": build_user_prompt(instruction, 1)},
+            ],
+        },
+        {
+            "role": "assistant",
+            "content": [{"type": "text", "text": "1. "}],
+        },
+    ]
 
 
 def gemini_contents(image_png_bytes: bytes, instruction: str, batch_number: int) -> list:
@@ -262,8 +280,8 @@ def main():
     print(load_system_prompt())
     print("=== user ===")
     print(build_user_prompt(args.instruction, args.batch_number))
-    user1, prefix = build_single_phrase_prefix(args.instruction)
-    print(f"=== p_single assistant prefix === {prefix!r} (user turn = batch_number=1)")
+    print("=== p_single === system + user(image, batch_number=1 turn) + assistant '1. ' "
+          "(see build_single_phrase_prefix)")
 
 
 if __name__ == "__main__":

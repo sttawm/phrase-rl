@@ -13,7 +13,7 @@ UV="$HOME/.local/bin/uv"
 [ -d .venv-gen ] || "$UV" venv .venv-gen --python 3.11
 source .venv-gen/bin/activate
 "$UV" pip install "torch==2.8.0" "torchvision==0.23.0" --index-url https://download.pytorch.org/whl/cu128
-"$UV" pip install transformers accelerate pillow pandas pyarrow peft
+"$UV" pip install transformers accelerate pillow pandas pyarrow peft google-genai tqdm
 "$UV" pip install -e . --no-deps
 
 python - <<'PY'
