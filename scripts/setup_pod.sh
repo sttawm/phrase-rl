@@ -22,7 +22,7 @@ uv pip install -e ".[gpu]"
 # vendored by https://github.com/ai4ce/INT-ACT (old lerobot.common.* layout,
 # policy-internal normalization/tokenization, forward(batch, noise, time)).
 # transformers is pinned to match; the Qwen phrase model gets its own venv.
-uv pip install "lerobot @ git+https://github.com/IrvingF7/lerobot.git@35f6e02315dcb3fa25f3a740478265c6c793a95e" "transformers==4.48.3"
+uv pip install "lerobot @ git+https://github.com/IrvingF7/lerobot.git@35f6e02315dcb3fa25f3a740478265c6c793a95e" "transformers==4.48.3" pytest
 
 # --- frozen model downloads (HF cache on the network volume) ---
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
