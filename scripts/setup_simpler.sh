@@ -9,7 +9,8 @@ UV="$HOME/.local/bin/uv"
 
 # --- vulkan headless prerequisites ---
 apt-get update -qq
-apt-get install -y -qq libvulkan1 vulkan-tools libegl1 libglvnd0 libgl1 libglx0 libxrandr2
+apt-get install -y -qq libvulkan1 vulkan-tools libegl1 libglvnd0 libgl1 libglx0 libxrandr2 \
+  python3-dev build-essential  # evdev (via lerobot->pynput) compiles against Python.h
 mkdir -p /usr/share/vulkan/icd.d
 cat > /usr/share/vulkan/icd.d/nvidia_icd.json <<'EOF'
 {"file_format_version":"1.0.0","ICD":{"library_path":"libGLX_nvidia.so.0","api_version":"1.3.194"}}
