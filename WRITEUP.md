@@ -1,150 +1,97 @@
 # Teaching a small model to rephrase for a frozen robot policy
 
-*Working paper draft. Companion to [EXPERIMENT.md](EXPERIMENT.md), which holds the
-full protocol, every parameter, and the lab-notebook record. Canonical numbers
-live in `results/**/metrics.json`; this document is the narrative.*
+*Working paper draft. [EXPERIMENT.md](EXPERIMENT.md) holds the full protocol and
+lab notebook; numbers are canonical in `results/**/metrics.json`. This is the
+narrative.*
 
-## The idea in one paragraph
+## The idea
 
-A vision-language-action (VLA) policy takes a camera image and a natural-language
-instruction and outputs robot actions. The *phrasing* of that instruction turns
-out to matter: "put carrot on plate" and "place the carrot onto the plate" are
-the same request, but the frozen policy does not respond to them identically.
-Recent work (CoVer) exploits this by generating many rephrasings at test time and
-selecting good ones with a separately trained verifier. We ask a sharper question:
-**can we train a small model to *produce* the rephrasings that help a specific
-frozen policy — using nothing but that policy's own action loss as the reward?**
-If yes, a 9B model tuned this way should beat a frontier model at phrasing-for-this-policy,
-because "what phrasing helps this policy" is not knowledge a frontier model has a
-priori — it has to come from the reward.
+A vision-language-action (VLA) policy maps a camera image + instruction to robot
+actions, and the *phrasing* matters: "put carrot on plate" and "place the carrot
+onto the plate" are the same request but the frozen policy responds differently.
+CoVer exploits this at test time by generating rephrasings and picking good ones
+with a trained verifier. We ask a sharper question: **can we train a small model to
+*produce* the rephrasings a specific frozen policy prefers, using only that policy's
+own action loss as reward?** If so, a tuned 9B model should out-phrase a frontier
+model for this policy — because "what phrasing helps this policy" isn't in the
+frontier prior; it has to come from the reward.
 
-## The reward, explicitly
+## The reward
 
-The frozen policy here is π0, a flow-matching VLA fine-tuned on the BridgeV2 robot
-dataset. Flow-matching policies do not output a probability we could read off as
-"how much the policy likes this instruction." What they *do* have is a training
-loss. Given a ground-truth action chunk `a*` (28 numbers: 4 timesteps × 7 DoF), the
-policy is trained to denoise it: sample noise `ε ~ N(0, I)` and a flow time
-`τ ∈ (0, 1)`, form the noised action `xτ = τ·ε + (1 − τ)·a*`, and predict the
-velocity `u = ε − a*` that points back to the clean action. The instruction `ℓ`
-enters only as conditioning. So for one context `(o, a*)` and phrasing `ℓ`:
+The frozen policy is π0, a flow-matching VLA fine-tuned on BridgeV2. Flow-matching
+policies give no likelihood, but they have a denoising loss. For ground-truth action
+`a*` (28-dim: 4 steps × 7 DoF), sample noise `ε ~ N(0,I)` and flow time `τ ∈ (0,1)`,
+form `xτ = τ·ε + (1−τ)·a*`, and the policy predicts velocity `u = ε − a*`. The
+instruction `ℓ` enters only as conditioning:
 
 ```
-L(ℓ) = E_{ε,τ} ‖ v_θ(xτ, o, ℓ, τ) − u ‖²        (frozen π0's own flow loss)
-reward  R(ℓ) = − L(ℓ)
+L(ℓ) = E_{ε,τ} ‖ v_θ(xτ, o, ℓ, τ) − u ‖²          reward R(ℓ) = −L(ℓ)
 ```
 
-A phrasing is **good** if, conditioned on it, the policy predicts the denoising
-direction more accurately — lower loss, higher reward. We estimate `L(ℓ)` with `K`
-noise draws and, crucially, score **every rephrasing of a context against the same
-K draws** (common random numbers), so loss differences reflect wording, not
-sampling luck:
+Lower loss = the policy denoises `a*` better under that phrasing = better reward. We
+estimate `L` with `K` noise draws and score **every rephrasing of a context against
+the same K draws** (common random numbers), so differences reflect wording, not
+sampling luck — the variance-reduction trick behind "Diffusion Classifier." Within a
+group we use group-normalized advantages `A_i = (R_i − mean)/(std + ε)`.
 
-```
-L̂(ℓ) = (1/K) Σ_k ‖ v_θ(x_{τ_k}, o, ℓ, τ_k) − u_k ‖²      (shared {(ε_k, τ_k)})
-```
+**Length can't game it.** `ℓ` affects `L` only through attention; there's no term
+that scales with token count (`L` is an MSE over the fixed 28-dim action, not a sum
+over the phrase). Empirically, phrase-length/loss correlation is ~0.
 
-Within a group of rephrasings of one instruction, we convert rewards to
-group-normalized advantages `A_i = (R_i − mean_j R_j) / (std_j R_j + ε)` for training.
+## Does the reward actually discriminate? (the OpenVLA worry)
 
-**Why this reward can't be gamed by length.** The phrasing `ℓ` affects `L` *only*
-through what the policy attends to — there is no term in the loss that scales with
-token count. `L` is a mean-squared error over the fixed 28-dim action, not a sum
-over the phrase. So a longer or shorter sentence carries no built-in advantage, and
-we confirm it empirically below: the correlation between phrase length and loss is
-~0. (This matters because reward hacking usually finds the cheapest degenerate axis;
-length is the obvious one, and it's closed off.)
+We tried this instinct once before, on OpenVLA, and **suspect** it failed for a
+reason that wouldn't apply here: OpenVLA emits *discretized* actions via a binned
+head, and a loss on binned tokens may be too coarse to move with instruction
+phrasing — the reward looked non-discriminative (an RL run collapsed to a generic
+sub-goal; the val action metric barely moved). π0's loss is a *continuous* velocity
+regression, which we suspect is far more sensitive to conditioning. But that's a
+hypothesis, so we gate on it (Phase 0b) rather than assume it.
 
-Two safeguards frame the whole approach. The common-random-numbers estimator is the
-variance-reduction trick that makes "Diffusion Classifier" work in the image domain.
-And we **measure the reward's reliability before trusting it** (Phase 0b), because
-an earlier attempt of ours on a different policy failed precisely here — see next.
+*Terse test if we want to confirm the OpenVLA diagnosis:* run Phase 0b unchanged on
+OpenVLA — take the same contexts, score N rephrasings each by OpenVLA's action loss,
+measure split-half rank reliability. Flat/unreliable ranking on OpenVLA + reliable on
+π0 (below) would pin the failure on the discretized head, not the general idea.
 
-## Why we don't trust this reward for free — the OpenVLA cautionary tale
+## Phase 0b — is the reward reliable?
 
-Before π0, we tried the same instinct on OpenVLA: let a planner propose sub-goal
-phrasings and reward them by OpenVLA's action loss (cross-entropy / L2 on its
-discretized actions). It failed in an instructive way. The action metric was
-**flat** — the validation L2 sat at the same value at *every* RL step, regardless of
-what the planner emitted. The reward simply could not tell good phrasings from bad,
-so the policy gradient was chasing noise: one run collapsed to a single generic
-sub-goal ("grab X") within ~50 steps; a higher-entropy run degenerated into
-code-like garbage. The lesson was not "this idea is wrong" but "an action-loss
-reward is worthless unless it actually *moves* with the wording — verify that first."
-OpenVLA's binned action head was too insensitive to instruction phrasing to provide
-signal. Phase 0b is the check we should have run then, now run first.
+**Setup.** 250 held-out BridgeV2 contexts (context = camera frame + instruction +
+executed action). 32 rephrasings each from Gemini 3.1 Pro, Gemini 3.5 Flash, and
+base Qwen3.5-9B; scored by frozen π0 under 16 shared draws, on two π0 checkpoints.
 
-*(We don't have OpenVLA's raw logs in this repo for a side-by-side figure; the
-contrast here is qualitative, from those earlier runs.)*
-
-## Phase 0b — is the reward real?
-
-**Setup.** 250 held-out BridgeV2 contexts (a context = one real camera frame + its
-instruction + the action the robot actually took). For each, we generated 32
-rephrasings from three sources — Gemini 3.1 Pro, Gemini 3.5 Flash, and the 9B model
-we plan to train (Qwen3.5) — and scored every rephrasing with frozen π0 under 16
-shared noise draws, on two π0 checkpoints.
-
-**The reward is reliable — decisively.** Splitting the 16 draws into two halves and
-re-ranking the phrases independently, the two rankings agree with median Spearman
-**ρ ≈ 0.95** (signal share ≈ 0.98). At the modest number of draws we can afford per
-training step, ~98% of the phrase-to-phrase variation is reproducible signal, not
-noise. The OpenVLA failure mode is absent. The reward also has **no correlation
-with phrase length** (~0.00), so the optimizer cannot cheat by just making phrases
-longer or shorter.
+**Result: reliable, decisively.** Split the 16 draws in half, re-rank independently:
+the two rankings agree at median Spearman **ρ ≈ 0.95** (signal share ≈ 0.98). At the
+draw budget we can afford per training step, ~98% of phrase-to-phrase variation is
+reproducible signal. Length/loss correlation ~0.
 
 ![Ranked rephrasings for three example contexts](results/charts/phase0b_ranked_phrases.png)
 
-**What the policy actually prefers.** The figure shows three contexts. Each row is
-one camera frame and the 32 rephrasings ranked by how well π0 predicts the true
-action under them (shorter bar = policy prefers). The **orange** bar is the
-*original* Bridge instruction.
+**What the policy prefers.** Each row: one frame, its 32 rephrasings ranked by π0
+flow loss (shorter bar = preferred), **original Bridge instruction in orange.** The
+headline result: **the original instruction is worse than the median rephrasing in
+71% of contexts, and the single best in only 5%.** Top row is typical — "opened the
+drawer" (terse Bridge label) ranks 32/33. Bottom row is one of the ~5% where the
+original wins. π0, trained on paraphrase-augmented data, systematically prefers
+cleaner phrasings. **Best-of-32 beats the original in 96–98% of contexts, cutting
+loss a median 31–33%** — that's the headroom the project targets.
 
-The striking, honest result: **the original human instruction is worse than the
-median rephrasing in 71% of contexts, and is the single best phrasing in only 5%.**
-Top row is the common case — "opened the drawer" (a terse, past-tense Bridge label)
-ranks 32nd of 33, while "Extend the drawer" / "Slide out the drawer" score far
-better. Middle row shows a mid-pack original. Bottom row is one of the ~5% where the
-original ("flip pot upright in sink") is already best. Bridge's instructions are
-often terse or ungrammatical, and π0 — trained on paraphrase-augmented data —
-systematically prefers cleaner, more explicit phrasings.
+**Findings that shape next steps.**
+- *Which checkpoint:* the paraphrase-trained π0 has ~25% smaller phrase spread than
+  the plain one, but group-normalized advantages cancel absolute spread — only
+  ranking reliability reaches the gradient, and it's equal (ρ≈0.95). So we **use the
+  paraphrase (rephrase-FT) checkpoint**: it's the policy we roll out, avoiding a
+  train/eval mismatch.
+- *Noise band:* discriminability collapses near the clean-action end; we concentrate
+  training draws where the signal lives (~25% fewer forwards, same fidelity).
+- *Generator size:* base Qwen's reward spread is 75–100% of Gemini's — diverse
+  enough, no larger generator needed. What it lacks is *direction*, which is the
+  reward's job.
 
-This is the headroom the whole project targets: **the best-of-32 rephrasing beats
-the original instruction in 96–98% of contexts, cutting the action loss by a median
-of 31–33%.** Something worth learning to generate clearly exists.
+## Next
 
-**Two findings that shape the next phase.**
-
-- *The paraphrase-trained π0 is more phrasing-invariant, but that does not change
-  which checkpoint to use.* We scored two π0 checkpoints: one fine-tuned with
-  paraphrase augmentation ("rephrase-FT"), one without ("plain"). The paraphrase one
-  shows ~25% *smaller* phrase-to-phrase spread — its training partly washed out the
-  sensitivity we exploit. We initially read this as "train against the plain
-  checkpoint for a bigger signal," but that reasoning is wrong: because advantages
-  are **group-normalized** (`A_i = (R_i − mean)/std`), the absolute spread cancels —
-  only the *ranking reliability* survives into the gradient, and that is equally high
-  (ρ ≈ 0.95) for both checkpoints. So the choice is made on a different ground:
-  **use the rephrase-FT checkpoint**, because it is the policy we actually roll out
-  in SIMPLER (Phase 0c/4). Optimizing phrasings for the same policy we evaluate
-  avoids a train/eval mismatch.
-- *Noise level matters.* The reward discriminates phrasings well at moderate noise
-  but collapses near the clean-action end. In training we concentrate scoring draws
-  where the signal lives, getting the same fidelity for ~25% fewer forward passes.
-
-**Where the 9B model stands today.** Before any training, Qwen3.5-9B's rephrasings
-are already about as diverse as the Gemini models' (its reward spread is 75–100% of
-theirs) — so we do not need a larger generator. What it lacks is not diversity but
-*direction*: it does not yet know which of its phrasings this policy prefers. That
-is what the reward is for.
-
-## Status and what's next
-
-Phase 0b passed its go/no-go gate, so the reward is trustworthy. Two threads follow:
-
-- **Phase 0c (running):** does a lower flow loss actually translate to higher
-  *task success*? We roll out π0 in the SIMPLER simulator under each rephrasing and
-  correlate success rank against flow-loss rank. This is the one link the offline
-  loss cannot establish on its own.
-- **Phase 1 (next):** distill a frontier teacher's rephrasings into Qwen3.5 (SFT),
-  then tune it with the flow-loss reward so it learns to produce policy-preferred
-  phrasings — the headline experiment.
+- **Phase 0c (running):** does lower flow loss mean higher *task success*? Roll out
+  π0 in SIMPLER under each rephrasing, correlate success rank vs loss rank — the one
+  link offline loss can't establish alone.
+- **Phase 1–2:** SFT + advantage-weighted tuning of Qwen3.5. Leaning toward
+  RL-from-base-Qwen as the primary (cleaner claim: no frontier teacher), with
+  teacher-distillation as an ablation.
