@@ -227,7 +227,7 @@ def build_single_phrase_prefix(instruction: str, image) -> list:
     (EXPERIMENT.md "Training" step 1): tokenize the chat template up to and
     including the assistant prefix "1. " (enable_thinking=False, no reasoning
     tokens), then score the candidate phrase y as the continuation, terminated by
-    "\\n" (or EOS). Loss/credit applies to the tokens of y (+ terminator) ONLY —
+    "\\n" (or EOS). Loss/credit applies to the tokens of y ONLY (no terminator token) —
     never to the prompt, the "1. " prefix, or any inline reasoning, which is
     deliberately absent from this conditioning: p_single treats y as the first
     list item emitted with no preceding CoT, so every candidate is scored under

@@ -751,7 +751,7 @@ def main():
     ap.add_argument("--clip", type=float, default=1.0)
     ap.add_argument("--lora-r", type=int, default=16)
     ap.add_argument("--lora-alpha", type=int, default=32)
-    ap.add_argument("--lora-dropout", type=float, default=0.05)
+    ap.add_argument("--lora-dropout", type=float, default=0.0)  # 0: the update-forward must score the SAME policy that sampled (dropout would perturb it and add KL noise)
     ap.add_argument("--lora-targets",
                     default="q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj")
     # schedule

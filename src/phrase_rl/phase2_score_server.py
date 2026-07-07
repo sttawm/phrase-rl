@@ -30,7 +30,7 @@ filename order — the trainer should zero-pad job ids (e.g. step000042).
 
 Usage (on pod, .venv, inside tmux):
   .venv/bin/python -m phrase_rl.phase2_score_server \
-      --ipc-dir /workspace/phrase-rl/data/phase2_ipc
+      --ipc-dir /workspace/ipc
   # testing: --once processes whatever is pending, then exits
 """
 
