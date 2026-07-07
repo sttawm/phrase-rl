@@ -113,7 +113,7 @@ Narrative + figures: **[WRITEUP.md](WRITEUP.md)**. Canonical numbers: `results/*
 Lab-notebook facts (rationale/narrative in WRITEUP):
 - Signal share ≈0.98 at training-budget K → reward reliable; OpenVLA failure mode absent.
 - τ-band: discriminability collapses for τ<0.25 (clean-action end; lerobot τ=1=noise), plateaus ≈0.8 for τ≥0.3 → concentrate training draws at τ≥0.25.
-- Rephrase-FT π0 has ~25% *smaller* phrase spread than plain → plain offers larger training signal (flips ablation priority).
+- Rephrase-FT π0 has ~25% *smaller* phrase spread than plain, but advantages are group-normalized so absolute spread cancels — ranking reliability (ρ≈0.95) is equal for both. **Use rephrase-FT as reward** (it's the rollout policy; avoids train/eval mismatch). Corrects an earlier "prefer plain for bigger signal" note.
 - Original Bridge instruction worse than median rephrase in 70.8% of contexts, single-best in 5.2%; best-of-32 beats original in 96–98%, median 31–33% loss reduction.
 - Qwen spread 75–100% of Gemini arms → no larger generator needed (27B deferred).
 

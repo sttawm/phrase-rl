@@ -18,25 +18,64 @@ If yes, a 9B model tuned this way should beat a frontier model at phrasing-for-t
 because "what phrasing helps this policy" is not knowledge a frontier model has a
 priori — it has to come from the reward.
 
-## The reward, plainly
+## The reward, explicitly
 
-The frozen policy here is π0 (a flow-matching VLA fine-tuned on the BridgeV2 robot
-dataset). Flow-matching policies do not output a probability we could read off as
+The frozen policy here is π0, a flow-matching VLA fine-tuned on the BridgeV2 robot
+dataset. Flow-matching policies do not output a probability we could read off as
 "how much the policy likes this instruction." What they *do* have is a training
-loss: given the ground-truth action, add noise to it, and ask the policy to predict
-the direction back to the clean action. A phrasing is **good** if, conditioned on
-it, the policy predicts that direction more accurately.
+loss. Given a ground-truth action chunk `a*` (28 numbers: 4 timesteps × 7 DoF), the
+policy is trained to denoise it: sample noise `ε ~ N(0, I)` and a flow time
+`τ ∈ (0, 1)`, form the noised action `xτ = τ·ε + (1 − τ)·a*`, and predict the
+velocity `u = ε − a*` that points back to the clean action. The instruction `ℓ`
+enters only as conditioning. So for one context `(o, a*)` and phrasing `ℓ`:
 
-We turn this into a phrase score by holding the action and the noise fixed and
-varying only the instruction. Two design choices make the signal usable:
+```
+L(ℓ) = E_{ε,τ} ‖ v_θ(xτ, o, ℓ, τ) − u ‖²        (frozen π0's own flow loss)
+reward  R(ℓ) = − L(ℓ)
+```
 
-- **Common random numbers.** All rephrasings of one instruction are scored against
-  the *same* set of noise draws, so differences in loss reflect the wording, not
-  sampling luck. This is the same variance-reduction trick that makes "Diffusion
-  Classifier" work in the image domain.
-- **We measure the reward's reliability before trusting it** (Phase 0b, below),
-  because an earlier attempt on a different policy (OpenVLA) failed precisely here:
-  its action loss barely moved with instruction wording, so the reward was noise.
+A phrasing is **good** if, conditioned on it, the policy predicts the denoising
+direction more accurately — lower loss, higher reward. We estimate `L(ℓ)` with `K`
+noise draws and, crucially, score **every rephrasing of a context against the same
+K draws** (common random numbers), so loss differences reflect wording, not
+sampling luck:
+
+```
+L̂(ℓ) = (1/K) Σ_k ‖ v_θ(x_{τ_k}, o, ℓ, τ_k) − u_k ‖²      (shared {(ε_k, τ_k)})
+```
+
+Within a group of rephrasings of one instruction, we convert rewards to
+group-normalized advantages `A_i = (R_i − mean_j R_j) / (std_j R_j + ε)` for training.
+
+**Why this reward can't be gamed by length.** The phrasing `ℓ` affects `L` *only*
+through what the policy attends to — there is no term in the loss that scales with
+token count. `L` is a mean-squared error over the fixed 28-dim action, not a sum
+over the phrase. So a longer or shorter sentence carries no built-in advantage, and
+we confirm it empirically below: the correlation between phrase length and loss is
+~0. (This matters because reward hacking usually finds the cheapest degenerate axis;
+length is the obvious one, and it's closed off.)
+
+Two safeguards frame the whole approach. The common-random-numbers estimator is the
+variance-reduction trick that makes "Diffusion Classifier" work in the image domain.
+And we **measure the reward's reliability before trusting it** (Phase 0b), because
+an earlier attempt of ours on a different policy failed precisely here — see next.
+
+## Why we don't trust this reward for free — the OpenVLA cautionary tale
+
+Before π0, we tried the same instinct on OpenVLA: let a planner propose sub-goal
+phrasings and reward them by OpenVLA's action loss (cross-entropy / L2 on its
+discretized actions). It failed in an instructive way. The action metric was
+**flat** — the validation L2 sat at the same value at *every* RL step, regardless of
+what the planner emitted. The reward simply could not tell good phrasings from bad,
+so the policy gradient was chasing noise: one run collapsed to a single generic
+sub-goal ("grab X") within ~50 steps; a higher-entropy run degenerated into
+code-like garbage. The lesson was not "this idea is wrong" but "an action-loss
+reward is worthless unless it actually *moves* with the wording — verify that first."
+OpenVLA's binned action head was too insensitive to instruction phrasing to provide
+signal. Phase 0b is the check we should have run then, now run first.
+
+*(We don't have OpenVLA's raw logs in this repo for a side-by-side figure; the
+contrast here is qualitative, from those earlier runs.)*
 
 ## Phase 0b — is the reward real?
 
@@ -76,12 +115,18 @@ of 31–33%.** Something worth learning to generate clearly exists.
 
 **Two findings that shape the next phase.**
 
-- *The paraphrase-trained π0 is more phrasing-invariant, not less.* We scored two
-  π0 checkpoints: one fine-tuned with paraphrase augmentation, one without. The
-  paraphrase-trained one shows ~25% *smaller* phrase-to-phrase spread — its extra
-  training partly washed out the sensitivity we exploit. Both remain reliable
-  rewards, but the plain checkpoint offers a larger training signal, which flips
-  our earlier assumption about which to train against.
+- *The paraphrase-trained π0 is more phrasing-invariant, but that does not change
+  which checkpoint to use.* We scored two π0 checkpoints: one fine-tuned with
+  paraphrase augmentation ("rephrase-FT"), one without ("plain"). The paraphrase one
+  shows ~25% *smaller* phrase-to-phrase spread — its training partly washed out the
+  sensitivity we exploit. We initially read this as "train against the plain
+  checkpoint for a bigger signal," but that reasoning is wrong: because advantages
+  are **group-normalized** (`A_i = (R_i − mean)/std`), the absolute spread cancels —
+  only the *ranking reliability* survives into the gradient, and that is equally high
+  (ρ ≈ 0.95) for both checkpoints. So the choice is made on a different ground:
+  **use the rephrase-FT checkpoint**, because it is the policy we actually roll out
+  in SIMPLER (Phase 0c/4). Optimizing phrasings for the same policy we evaluate
+  avoids a train/eval mismatch.
 - *Noise level matters.* The reward discriminates phrasings well at moderate noise
   but collapses near the clean-action end. In training we concentrate scoring draws
   where the signal lives, getting the same fidelity for ~25% fewer forward passes.
