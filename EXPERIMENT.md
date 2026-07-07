@@ -18,7 +18,7 @@ Note CoVer never compares against ranking by the policy's own loss; it goes stra
 | Frozen VLA reward | `juexzz/INTACT-pi0-finetune-rephrase-bridge` | π0 on BridgeV2 + paraphrase augmentation; LeRobot PyTorch; ~3.3B; chunk size 4, delta EE actions |
 | Frozen VLA (ablation) | `juexzz/INTACT-pi0-finetune-bridge` | Non-rephrase checkpoint — tests dependence on paraphrase-augmented reward model |
 | Frozen trace/teacher VLM | Gemini 3.1 Pro (batch API) | Replaces CoVer's GPT-4o (discontinued). Generates cached reasoning traces + 16-rephrase teacher lists |
-| Trainable phrase model | `Qwen/Qwen3.5-9B` (natively multimodal, Feb 2026) | LoRA. **Phase 0a smoke test:** image input + LoRA via transformers/PEFT; fallback `Qwen/Qwen3-VL-8B-Instruct` (mature FT ecosystem, ~24GB LoRA). Shared weights, two prompt modes (single-phrase, 16-list). 27B/32B only as scale-up ablation after a positive result (32B ≈ 73GB FP16 — needs 80GB pod, ~4× slower candidate generation) |
+| Trainable phrase model | `Qwen/Qwen3.5-9B` (natively multimodal, Feb 2026) | LoRA. **Thinking mode DISABLED everywhere** (`enable_thinking=False` in generation and, later, training): Qwen3.5 thinks by default, which is ~4× slower, leaks numbered lines from the reasoning block into parsed candidates, and would contaminate the advantage-weighted log-prob objective with reasoning tokens. All 0b/0c/eval numbers are no-think numbers. Revisit later: a *minimal/budgeted* thinking variant as an ablation (see Ablations). Fallback model `Qwen/Qwen3-VL-8B-Instruct`; 27B/32B only as post-signal scale-up (32B ≈ 73GB FP16, ~4× slower generation) |
 | Optional baseline | CoVer verifier (`cover_verifier_bridge.pt`, ~312MB) | Test-time selection over our candidates; separates "better candidates" from "better selection" |
 
 π0.5 note: our reward/eval model is π0 (Bridge/SIMPLER). π0.5 only appears in CoVer's PolaRiS extension; all machinery here (flow-matching scoring, CRN) transfers unchanged if we later swap it in.
@@ -87,6 +87,7 @@ Oracle = argmin ground-truth action loss over the 16 (not deployable; measures c
 | Signed vs positive-only advantage | Does downweighting bad phrases help? |
 | List-prompt vs 16× single-prompt sampling + dedupe | Cleaner diversity source? |
 | Non-rephrase π0 as reward | Dependence on paraphrase-augmented reward model |
+| Minimal thinking budget | Does a short, capped `<think>` budget improve candidate quality enough to justify the generation cost and the training-objective complications? (Baseline everywhere: thinking off) |
 | CoVer verifier selecting among our 16 | Better candidates vs better selection |
 
 ## Compute
