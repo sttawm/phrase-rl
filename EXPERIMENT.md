@@ -70,6 +70,7 @@ BridgeV2 tuples `x = (o_t, l, a*_t)` (image, original instruction, ground-truth 
 |---|---|---|
 | 1 | Original instruction | — |
 | 2 | Gemini single rephrase (same prompt + trace as Qwen) | — |
+| 2b | Gemini with **CoVer's verbatim prompt** (`reference/cover_rephrase_prompt.txt`) | random / mean / oracle — the frontier baseline a skeptic can't dispute; our prompt differs from CoVer's (we add a trace + strict same-object/target rules; theirs asks for "easy and diverse") |
 | 3 | Gemini 16-list | random / mean / oracle |
 | 4 | Qwen SFT single | — |
 | 5 | Qwen SFT 16-list | random / mean / oracle |
