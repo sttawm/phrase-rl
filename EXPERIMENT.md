@@ -96,6 +96,37 @@ One pod, **2× ~40–48GB GPUs** (e.g., 2×A40 — cheaper than 1×A100 80GB):
 - **GPU A — reward server:** frozen π0 (~7GB bf16); 16 phrases × 16 draws = 256 forwards per context, batched. Second process, no networking.
 - **GPU B — phrase model:** Qwen-7B LoRA + gradient checkpointing; HF `generate` for sampling (vLLM later if throughput bites).
 
+## Results so far
+
+### Phase 0b — sensitivity gate: **GO** (2026-07-07, commit e4c9ee1)
+
+250 val contexts × ~92 phrases (original + 3 arms × 32, deduped) × K=16 shared draws, both INTACT checkpoints, 1× RTX A6000. Full metrics: `results/phase0b/metrics.json`; charts: `results/charts/phase0b_{rephrase,plain}.png`; per-context stats: `results/phase0b/per_context_*.parquet`.
+
+| Arm | ρ split-half (z), rephrase ckpt | ρ, plain ckpt | spread rephrase / plain | length-loss corr |
+|---|---|---|---|---|
+| gemini_pro (3.1-pro-preview) | 0.956 | 0.956 | 0.0087 / 0.0114 | ~0 |
+| gemini_flash (3.5-flash) | 0.958 | 0.955 | 0.0089 / 0.0107 | ~0 |
+| qwen (Qwen3.5-9B base, no-think) | 0.954 | 0.951 | 0.0065 / 0.0102 | ~0 |
+
+- **Reward is reliable at training-budget K:** signal share ≈0.98 — the OpenVLA non-discriminative-reward failure mode is absent.
+- **τ-band:** discriminability collapses for τ<0.25 (clean-action end; lerobot convention τ=1=noise), plateaus ≈0.8 for τ≥0.3 → concentrate training draws at τ≥0.25.
+- **Differential checkpoint finding:** rephrase-FT π0 has ~25% *smaller* phrase spread than plain (paraphrase training ⇒ more phrasing-invariant). Both reliable; plain offers larger raw training signal.
+- **Oracle headroom:** best-of-32 rephrase beats original in 96–98% of contexts, median 31–33% relative loss reduction.
+- **Qwen diversity sufficient:** spread 75–100% of Gemini arms → no larger generator needed (27B stays a deferred ablation).
+
+## Data artifacts
+
+| Artifact | Where |
+|---|---|
+| Code, results, metrics, charts, experiment log | GitHub `sttawm/phrase-rl` (results/ committed; data/ gitignored) |
+| 250 val contexts (`data/contexts_val_0b.parquet`, images+actions) | local Mac `data/` + pod volume; regenerable deterministically via `extract_contexts.py` |
+| Rephrase arms: `rephrases_val_0b` (Gemini pro + traces), `rephrases35flash_val_0b` (flash + traces), `qwen_rephrases_val_0b` (Qwen, full) | pod volume `/workspace/phrase-rl/data/`; pro+flash also local; qwen only partial (25 ctx) local |
+| CRN scores: `scores_0b_{rephrase,plain}.parquet` (370k rows each) | local `data/` + pod volume |
+| Frozen models (INTACT ×2 ~13GB, Qwen3.5-9B ~18GB, PaliGemma tokenizer) | pod volume `/workspace/hf_cache` (re-downloadable) |
+| Pod envs: `.venv` (INTACT-era lerobot fork, reward), `.venv-gen` (transformers 5, generation) | pod volume `/workspace/phrase-rl/` |
+
+Network volume: RunPod US-KS-2, 200GB — everything on it is reproducible from git + HF + the local copies.
+
 ## Risks
 
 1. **Reward non-discriminative** (Phase 0b gates this). Prior evidence: CE/L2 reward on OpenVLA was flat across text variation → mode collapse.
