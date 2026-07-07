@@ -93,16 +93,44 @@ loss a median 31–33%** — that's the headroom the project targets.
   enough, no larger generator needed. What it lacks is *direction*, which is the
   reward's job.
 
+## Phase 0c — phrasing moves behavior, and the reward has a blind spot
+
+We rolled out the frozen policy in the SIMPLER simulator under every rephrasing
+(1,290 episodes: 4 tasks × ~33 phrasings × 10 shared initial states), and scored
+the same phrasings offline on matched real Bridge contexts.
+
+**Phrasing strongly moves task success** — the clean, all-in-sim result. On the
+carrot task, success ranges **0.1 to 0.7** across phrasings of the same request on
+identical initial states. The failures are interpretable: phrases whose *goal*
+drifted ("put the carrot **by** the plate", "maneuver the spoon **past** the
+towel") fail in exactly the way their words say.
+
+**And that exposed a real blind spot in the reward.** The offline flow loss
+*prefers* those goal-drifted phrases: drifted phrases score **better** (mean loss
+0.0794) than faithful ones (0.0948) while succeeding **less** (0.40 vs 0.56). The
+mechanism: teacher-forced loss measures how well the policy predicts the
+demonstrated trajectory, which mid-episode is dominated by reach-and-transport
+motion — "toward the plate" and "by the plate" demand nearly identical actions
+until the final centimeters. Style fits; goals barely register. This drove the raw
+reward↔success correlation negative (pooled ρ=−0.10); restricting to
+LLM-judged-faithful phrases removes the effect (pooled ρ=+0.20, weakly positive at
+our n=10-seed measurement precision).
+
+**Design consequence.** This is a *confirmed reward-hacking axis*: naive RL on flow
+loss would learn to emit trajectory-plausible, wrong-goal phrases. Phase 2 therefore
+uses a **faithfulness-gated reward** — candidates judged unfaithful to the original
+instruction are excluded/penalized before advantages are computed; flow loss ranks
+only within the faithful set. (One more honest note: in sim, the *canonical*
+original instructions are strong — the policy saw them verbatim in training — so
+the offline finding that "originals rank poorly" reflects Bridge's messy labels,
+not a universal advantage of rephrasing.)
+
 ## Next
 
-- **Phase 0c (running):** our training reward is real-frame flow loss but rollouts
-  are sim, so "reward predicts success" must cross a real→sim gap intrinsic to this
-  setup. We split accordingly: **(A, clean)** all-in-sim — do rephrasings beat the
-  original instruction in sim success? (no domain confound; directly tests the
-  thesis); **(B, caveated)** does the real-frame reward rank phrases the way sim
-  success does? (a positive corroborates, a null is uninterpretable). 0c is a
-  de-risking sanity check; the real behavioral proof is Phase 4 (trained model, also
-  all-in-sim).
+- **Phase 2 (primary):** advantage-weighted tuning of Qwen3.5-9B from base, with
+  the faithfulness-gated flow-loss reward. Teacher-SFT warm-start as ablation.
+- **Phase 4** remains the behavioral proof: roll out the *trained* generator in sim
+  — all-in-sim, no domain confound.
 - **Phase 1–2:** SFT + advantage-weighted tuning of Qwen3.5. Leaning toward
   RL-from-base-Qwen as the primary (cleaner claim: no frontier teacher), with
   teacher-distillation as an ablation.

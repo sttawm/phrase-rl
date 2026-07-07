@@ -122,6 +122,16 @@ Lab-notebook facts (rationale/narrative in WRITEUP):
 - Original Bridge instruction worse than median rephrase in 70.8% of contexts, single-best in 5.2%; best-of-32 beats original in 96–98%, median 31–33% loss reduction.
 - Qwen spread 75–100% of Gemini arms → no larger generator needed (27B deferred).
 
+### Phase 0c — rollout sensitivity: phrasing moves success; reward has a confirmed drift-hacking axis (2026-07-07)
+
+1,290 SIMPLER episodes (4 tasks × ~33 phrases × 10 shared episode_ids, rephrase-FT π0) + CRN scores on 50 matched real Bridge contexts (3 tasks) + LLM faithfulness judge. Metrics: `results/phase0c/metrics.json`; raw: `results/phase0c/raw/`.
+
+- **(A) in-sim [clean]: CONFIRMED.** Success spans 0.1–0.7 across phrasings of one task on identical initial states (std 0.17–0.18 vs binomial floor ~0.15). Sim-canonical originals are strong (carrot orig 0.5, only 12% of rephrases beat it) — unlike offline 0b where originals rank poorly.
+- **(B) reward↔success [caveated]: negative until drift is removed.** Pooled ρ=−0.10 (carrot −0.25, spoon −0.29, stack +0.21). Cause: ~40% of Qwen 0c phrases are goal-drifted ("by the plate", "past the towel"); **drifted phrases get LOWER flow loss (0.0794) than faithful (0.0948) while succeeding less (0.40 vs 0.56)** — teacher-forced loss rewards trajectory-style fit, and goal words barely change mid-episode action targets. Faithful-only: carrot/spoon −0.09, stack +0.27, pooled +0.20.
+- **Consequence for Phase 2: faithfulness-gated reward is mandatory** — compute advantages among faithful candidates only (LLM judge or equivalent), penalize drift; otherwise RL will exploit the confirmed axis and generate plausible-trajectory wrong-goal phrases. (Generalizes the "log object/target preservation" plan item from monitoring to reward.)
+- Judge noise note: flash-judge verdicts vary slightly across runs (spoon 14 vs 15/32); training-time gate should use majority-of-3 or a stricter deterministic check.
+- Late-τ/late-episode reward variant: mixed evidence (stack ρ→+0.40 late, carrot unchanged; n_ctx 5–9/band) — parked.
+
 ## Data artifacts
 
 | Artifact | Where |
