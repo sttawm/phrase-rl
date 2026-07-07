@@ -16,8 +16,8 @@ Pricing (2026, interactive/non-batch): 3.1 Pro $2.00/$12.00 per M in/out;
 |---|---|---|---|---|
 | 0b sensitivity, 32-list | 3.1 Pro | 250 | 466 | $1.63 |
 | 0b sensitivity arm, 32-list | 3.5 Flash | 250 | 486 | $1.26 |
-| Phase 1 teacher, 16-list + trace | 3.1 Pro | 1873 | 274 | $7.88 |
-| **Gemini subtotal** | | | | **≈ $10.8** |
+| Phase 1 teacher, 16-list + trace | 3.1 Pro | 2000 | 274 | $8.41 |
+| **Gemini subtotal** | | | | **≈ $11.3** |
 
 Free / $0 (didn't bill): the `gemini-3.1-pro` 404 and free-tier 429 attempts; the
 free-tier 3.5-flash slow crawl (~35 calls before switching); the 0c rephrase
@@ -45,7 +45,7 @@ the teacher resume for the last 127 (depleted, 0 succeeded).
 Self-stop on job completion keeps idle time near zero; the volume (~$0.47/day) is
 the only always-on cost — delete it when the project pauses.
 
-## Grand total so far  ≈ $21
+## Grand total so far  ≈ $22
 
 ## How to update
 Append a row when a run finishes. For Gemini, measure output tokens from the
