@@ -17,7 +17,7 @@ Note CoVer never compares against ranking by the policy's own loss; it goes stra
 |---|---|---|
 | Frozen VLA reward | `juexzz/INTACT-pi0-finetune-rephrase-bridge` | π0 on BridgeV2 + paraphrase augmentation; LeRobot PyTorch; ~3.3B; chunk size 4, delta EE actions |
 | Frozen VLA (ablation) | `juexzz/INTACT-pi0-finetune-bridge` | Non-rephrase checkpoint — tests dependence on paraphrase-augmented reward model |
-| Frozen trace/teacher VLM | Gemini 3.1 Pro (batch API) | Replaces CoVer's GPT-4o (discontinued). Generates cached reasoning traces + 16-rephrase teacher lists. **Trace is fixed CoVer-parity machinery, not an ablation axis** (decided 2026-07-07): CoVer's VLM does structured scene reasoning + rephrases at boot time and reports no trace ablation; we mirror that — traces cached for training, fresh frontier call at boot for deployment/Phase 4. The tested contrast is *RL over trace-conditioned generation* (eval matrix: base/SFT vs advantage-tuned, all trace-conditioned) |
+| Frozen trace/teacher VLM | Gemini 3.1 Pro (batch API) | Replaces CoVer's GPT-4o (discontinued). Generates cached reasoning traces + 16-rephrase teacher lists. **Prompt-parity decision (2026-07-07, supersedes the earlier "trace = CoVer-parity" note):** CoVer's actual public rephrase prompt (`reference/cover_rephrase_prompt.txt`) contains **no reasoning/trace step** — the earlier parity justification was wrong. **Primary path now uses CoVer's verbatim prompt scaffold (+ initial-frame image, as they do) for BOTH the frontier baseline and the trainable Qwen** — the headline comparison then isolates weights (frozen frontier vs reward-tuned 9B) with zero prompt confound. Traces drop out of the primary conditioning `c = (o_t, ℓ)`; **trace-conditioned generation becomes an ablation** (2,000 traces already cached, nothing wasted). Deployment stays a boot-time frontier-free call: the tuned model needs only image + instruction |
 | Trainable phrase model | `Qwen/Qwen3.5-9B` (natively multimodal, Feb 2026) | LoRA. **Thinking mode DISABLED everywhere** (`enable_thinking=False` in generation and, later, training): Qwen3.5 thinks by default, which is ~4× slower, leaks numbered lines from the reasoning block into parsed candidates, and would contaminate the advantage-weighted log-prob objective with reasoning tokens. All 0b/0c/eval numbers are no-think numbers. Revisit later: a *minimal/budgeted* thinking variant as an ablation (see Ablations). Fallback model `Qwen/Qwen3-VL-8B-Instruct`; 27B/32B only as post-signal scale-up (32B ≈ 73GB FP16, ~4× slower generation) |
 | Optional baseline | CoVer verifier (`cover_verifier_bridge.pt`, ~312MB) | Test-time selection over our candidates; separates "better candidates" from "better selection" |
 
@@ -25,7 +25,7 @@ Note CoVer never compares against ranking by the policy's own loss; it goes stra
 
 ## Data
 
-BridgeV2 tuples `x = (o_t, l, a*_t)` (image, original instruction, ground-truth action chunk). For each, cache one Gemini call: reasoning trace `r` + 16 teacher rephrases. Training context for the phrase model: `c = (o_t, l, r)`.
+BridgeV2 tuples `x = (o_t, l, a*_t)` (image, original instruction, ground-truth action chunk). For each, cache one Gemini call: reasoning trace `r` + 16 teacher rephrases. Training context for the phrase model: **`c = (o_t, l)`** (prompt-parity decision — CoVer's verbatim scaffold, no trace in the primary path; `c = (o_t, l, r)` is the trace ablation; the SFT ablation uses the cached 16-lists).
 
 - **Scale:** 2,000 train + 500 val contexts (pilot). Test contexts held out untouched.
 - **Cost:** ~1k input + ~600 output tokens per context → **~$13 total** with Gemini 3.1 Pro batch mode. Scaling to 10k later is <$50.
@@ -44,7 +44,7 @@ BridgeV2 tuples `x = (o_t, l, a*_t)` (image, original instruction, ground-truth 
 
 **Primary path is advantage-weighted tuning directly from base Qwen3.5 — no teacher distillation.** Rationale (2026-07-07): base Qwen already captures most of the reward headroom (0b: Qwen best-of-32 oracle gain 20.5% vs Gemini 26.7% — the teacher adds only ~6 pts of ceiling), and skipping the teacher makes the headline claim cleaner ("a 9B model with *no* frontier supervision, only the policy's reward, out-phrases the frontier model"). Teacher-SFT warm-start becomes an ablation (does a higher-ceiling start beat RL-from-base?).
 
-1. **Advantage-weighted tuning (primary):** generate 16 candidates per context from the *current* model (list prompt for diversity), score with frozen π0 (rephrase-FT ckpt) + CRN, update under the single-phrase prompt:
+1. **Advantage-weighted tuning (primary):** generate 16 candidates per context from the *current* model using **CoVer's verbatim prompt scaffold** (image + instruction, no trace — identical to the frontier baseline so the eval isolates weights), pass a **faithfulness gate** (majority-of-3 LLM judge; unfaithful candidates excluded from the advantage group — mandatory per 0c, drift is a confirmed hacking axis), score survivors with frozen π0 (rephrase-FT ckpt) + CRN, update under the single-phrase prompt:
    `L = -Σ_i max(A_i, 0) · (1/|y_i|) · log π_θ(y_i | c, p_single) + β·KL-to-base anchor + λ·list-format aux`
    **Token-mean normalization** (the `1/|y_i|`): raw summed log-prob scales gradient contribution with phrase length, so long positive-advantage phrases would dominate updates. Positive-only advantages first; signed advantages as ablation. KL anchor to base Qwen (or to the SFT model when warm-started). This is advantage-weighted rephrase tuning, not exact GRPO.
 2. **Log during training, not just eval:** duplicate rate, mean pairwise embedding similarity, object/target preservation, generic-phrase rate, format-failure rate. Known failure mode: collapse onto Bridge template phrasing ("put X in Y") — the rephrase-FT reward checkpoint was trained on a fixed paraphrase dictionary the optimizer may simply rediscover.
@@ -69,8 +69,8 @@ BridgeV2 tuples `x = (o_t, l, a*_t)` (image, original instruction, ground-truth 
 | # | Condition | List metrics where applicable |
 |---|---|---|
 | 1 | Original instruction | — |
-| 2 | Gemini single rephrase (same prompt + trace as Qwen) | — |
-| 2b | Gemini with **CoVer's verbatim prompt** (`reference/cover_rephrase_prompt.txt`) | random / mean / oracle — the frontier baseline a skeptic can't dispute; our prompt differs from CoVer's (we add a trace + strict same-object/target rules; theirs asks for "easy and diverse") |
+| 2 | Gemini with **CoVer's verbatim prompt** (`reference/cover_rephrase_prompt.txt`) — same scaffold as the tuned model | — (PRIMARY frontier baseline: identical prompt to ours ⇒ 2 vs 6 isolates weights/reward) |
+| 2b | Gemini with our strict-preservation prompt + trace | secondary — measures how much prompt design alone moves the frontier baseline |
 | 3 | Gemini 16-list | random / mean / oracle |
 | 4 | Qwen SFT single | — |
 | 5 | Qwen SFT 16-list | random / mean / oracle |
@@ -90,6 +90,7 @@ Oracle = argmin ground-truth action loss over the 16 (not deployable; measures c
 | Ablation | Question |
 |---|---|
 | **Teacher-SFT warm-start then tune** (vs primary RL-from-base) | Does distilling Gemini's higher-ceiling distribution first beat pure RL-from-base? 0b says teacher has ~6 pts more oracle headroom — worth testing, not assuming. |
+| **Trace-conditioned generation** (c = o, ℓ, r vs primary c = o, ℓ) | Does frozen frontier scene reasoning in context help the tuned generator? Was briefly "primary" under a mistaken CoVer-parity belief; CoVer's real prompt has no trace. 2,000 traces cached. |
 | Signed vs positive-only advantage | Does downweighting bad phrases help? |
 | List-prompt vs 16× single-prompt sampling + dedupe | Cleaner diversity source? |
 | Non-rephrase π0 as reward | Dependence on paraphrase-augmented reward model |

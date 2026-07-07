@@ -128,7 +128,10 @@ not a universal advantage of rephrasing.)
 ## Next
 
 - **Phase 2 (primary):** advantage-weighted tuning of Qwen3.5-9B from base, with
-  the faithfulness-gated flow-loss reward. Teacher-SFT warm-start as ablation.
+  the faithfulness-gated flow-loss reward. For a clean control, the tuned model and
+  the frontier baseline share **CoVer's verbatim rephrase prompt** — the comparison
+  isolates weights, not prompt design. Teacher-SFT warm-start and trace-conditioning
+  as ablations.
 - **Phase 4** remains the behavioral proof: roll out the *trained* generator in sim
   — all-in-sim, no domain confound.
 - **Phase 1–2:** SFT + advantage-weighted tuning of Qwen3.5. Leaning toward
