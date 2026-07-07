@@ -58,6 +58,7 @@ def main():
     )
     policy = LeRobotPolicyWrapper(pipeline_cfg=pipeline_cfg, model_class=PI0Policy)
     policy._initialze_model_server(model_path=args.ckpt)  # sic — INT-ACT's method name
+    policy.env_adapter = policy._initialize_env_adapter()  # only switch_model does this normally
     action_step = policy.action_step
 
     phrases = pd.read_parquet(args.phrases)
@@ -79,7 +80,7 @@ def main():
                 obs, reset_info = env.reset(
                     seed=args.seed, options={"obj_init_options": {"episode_id": ep_id}}
                 )
-                policy.model.reset()
+                policy.reset()  # resets model action queue + adapter
                 action_plan = collections.deque()
                 success, steps = False, 0
                 while True:
