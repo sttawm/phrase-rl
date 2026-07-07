@@ -91,14 +91,18 @@ async def run(args):
         one_call(client, sem, args.model, row, args.n_rephrases)
         for row in df.itertuples()
     ]
-    results = []
-    for coro in tqdm(asyncio.as_completed(tasks), total=len(tasks), desc="gemini"):
-        results.append(await coro)
-    ok = [r for r in results if r is not None]
-    out = pd.concat([done, pd.DataFrame(ok)], ignore_index=True) if len(done) else pd.DataFrame(ok)
-    if len(out):
-        out.to_parquet(args.out, index=False)
-    print(f"wrote {len(ok)} new ({len(out)} total) contexts to {args.out}")
+    results, n_ok = [], 0
+    for i, coro in enumerate(tqdm(asyncio.as_completed(tasks), total=len(tasks), desc="gemini")):
+        r = await coro
+        if r is not None:
+            results.append(r)
+            n_ok += 1
+        # write incrementally — a killed/crashed run must never lose paid API results
+        if n_ok and (n_ok % 25 == 0 or i == len(tasks) - 1):
+            out = pd.concat([done, pd.DataFrame(results)], ignore_index=True) if len(done) else pd.DataFrame(results)
+            out.to_parquet(args.out, index=False)
+    total = len(done) + n_ok
+    print(f"wrote {n_ok} new ({total} total) contexts to {args.out}")
 
 
 def main():
