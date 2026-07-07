@@ -10,7 +10,11 @@ while tmux has-session -t qwengen 2>/dev/null; do sleep 60; done
 echo "qwengen finished; starting scoring"
 
 source .venv/bin/activate
-ARMS=(--arm gemini=data/rephrases_val_0b.parquet --arm qwen=data/qwen_rephrases_val_0b.parquet)
+ARMS=(
+  --arm gemini_pro=data/rephrases_val_0b.parquet
+  --arm gemini_flash=data/rephrases35flash_val_0b.parquet
+  --arm qwen=data/qwen_rephrases_val_0b.parquet
+)
 
 python -m phrase_rl.phase0b_score --contexts data/contexts_val_0b.parquet "${ARMS[@]}" \
   --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge --out data/scores_0b_rephrase.parquet
