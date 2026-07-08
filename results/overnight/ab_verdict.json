@@ -1,0 +1,37 @@
+{
+  "cover_gemini": {
+    "rho": 0.9538,
+    "spread": 0.0108,
+    "spread_pass": NaN,
+    "drift": NaN,
+    "rename": NaN,
+    "oracle_gain": 0.3178,
+    "oracle_gain_pass": NaN,
+    "n_contexts": 250,
+    "n_judged": 0
+  },
+  "cover_qwen_inline": {
+    "rho": 0.9553,
+    "spread": 0.0106,
+    "spread_pass": NaN,
+    "drift": NaN,
+    "rename": NaN,
+    "oracle_gain": 0.3223,
+    "oracle_gain_pass": NaN,
+    "n_contexts": 117,
+    "n_judged": 0
+  },
+  "cover_qwen_trace": {
+    "rho": 0.9619,
+    "spread": 0.0102,
+    "spread_pass": NaN,
+    "drift": NaN,
+    "rename": NaN,
+    "oracle_gain": 0.3215,
+    "oracle_gain_pass": NaN,
+    "n_contexts": 118,
+    "n_judged": 0
+  },
+  "recommendation": "inline",
+  "recommendation_note": "inline holds: trace does not reduce drift materially and/or costs headroom; inline keeps prompt parity + no frontier call"
+}

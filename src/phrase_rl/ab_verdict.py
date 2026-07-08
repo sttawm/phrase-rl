@@ -25,6 +25,7 @@ from phrase_rl.phase0b_analyze import split_half_stats
 ARM_LABELS = {"cover_qwen_inline": "Qwen inline\n(own reasoning)",
               "cover_qwen_trace": "Qwen + Gemini\ntrace",
               "cover_gemini": "Gemini\n(frontier baseline)"}
+GATE_DEAD = False
 COLORS = {"cover_qwen_inline": "#85B7EB", "cover_qwen_trace": "#7F77DD", "cover_gemini": "#F0997B"}
 
 
@@ -33,8 +34,12 @@ def main():
     ap.add_argument("--scores", default="data/scores_0b_redo.parquet")
     ap.add_argument("--out-json", default="results/overnight/ab_verdict.json")
     ap.add_argument("--out-chart", default="results/charts/step0_ab_verdict.png")
+    ap.add_argument("--no-judge", action="store_true", help="skip gate entirely (credits out)")
     args = ap.parse_args()
 
+    global GATE_DEAD
+    if args.no_judge:
+        GATE_DEAD = True
     sc = pd.read_parquet(args.scores)
     gate = FaithfulnessGate(votes=3, cache_path="data/gate_cache.json")
     arms = [a for a in sc["arm"].unique() if a != "original"]
@@ -53,11 +58,13 @@ def main():
             phrases = list(mat.index)
             instruction_rows = sc[(sc.episode_index == ep) & (sc.t == t) & (sc.arm == "original")]
             original = instruction_rows["phrase"].iloc[0] if len(instruction_rows) else None
-            try:
-                (verdicts,) = gate.judge_many_sync([(original or "", phrases)], progress=False) if original else ([[]],)
-                cls = {p: v["cls"] for p, v in zip(phrases, verdicts)} if verdicts else {}
-            except GateUnavailable:
-                cls = {}  # credits out: judge-free metrics only for this context
+            cls = {}
+            if original and not GATE_DEAD:
+                try:
+                    (verdicts,) = gate.judge_many_sync([(original, phrases)], progress=False)
+                    cls = {p: v["cls"] for p, v in zip(phrases, verdicts)}
+                except GateUnavailable:
+                    GATE_DEAD = True  # circuit-break: stop attempting; judge-free metrics only
             means = mat.mean(axis=1)
             pass_means = means[[p for p in phrases if cls.get(p) not in ("goal_drift", "judge_fail")]]
             o = orig_loss.get((ep, t), np.nan)
@@ -89,9 +96,12 @@ def main():
     os.makedirs(os.path.dirname(args.out_json), exist_ok=True)
     json.dump(res, open(args.out_json, "w"), indent=2)
 
-    fig, axes = plt.subplots(1, 4, figsize=(15, 3.6))
-    metrics = [("drift", "goal-drift rate\n(lower better)"), ("rho", "reliability ρ at K=16"),
-               ("oracle_gain_pass", "gate-pass oracle gain\nvs original"), ("spread_pass", "gate-pass reward spread")]
+    all_metrics = [("drift", "goal-drift rate\n(lower better)"), ("rho", "reliability ρ at K=16"),
+                   ("oracle_gain_pass", "gate-pass oracle gain\nvs original"), ("spread_pass", "gate-pass reward spread"),
+                   ("oracle_gain", "oracle gain vs original\n(all candidates)"), ("spread", "reward spread\n(all candidates)")]
+    metrics = [(m, t) for m, t in all_metrics
+               if any(res[a].get(m) == res[a].get(m) for a in arms)][:4]  # drop all-NaN panels
+    fig, axes = plt.subplots(1, len(metrics), figsize=(3.8 * len(metrics), 3.6))
     for ax, (m, title) in zip(axes, metrics):
         vals = [res[a].get(m, np.nan) for a in arms]
         ax.bar(range(len(arms)), vals, color=[COLORS.get(a, "#888") for a in arms])
