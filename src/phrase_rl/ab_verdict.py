@@ -41,7 +41,7 @@ def main():
     if args.no_judge:
         GATE_DEAD = True
     sc = pd.read_parquet(args.scores)
-    gate = FaithfulnessGate(votes=3, cache_path="data/gate_cache.json")
+    gate = None if args.no_judge else FaithfulnessGate(votes=3, cache_path="data/gate_cache.json")
     arms = [a for a in sc["arm"].unique() if a != "original"]
     orig_loss = sc[sc.arm == "original"].groupby(["episode_index", "t"])["loss"].mean()
 
