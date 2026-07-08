@@ -524,7 +524,9 @@ def _save_dir_atomic(path: Path, writer):
 
 
 def save_latest(model, optimizer, state, args, ckpt_dir: Path):
-    state["args"] = vars(args).copy()
+    # private runtime attrs (args._traces etc.) are tuple-keyed dicts — not JSON-safe
+    state["args"] = {k: v for k, v in vars(args).items()
+                     if not k.startswith("_") and isinstance(v, (str, int, float, bool, list, type(None)))}
 
     def write(d: Path):
         model.save_pretrained(str(d))
