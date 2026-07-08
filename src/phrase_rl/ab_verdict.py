@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from phrase_rl.faithfulness_gate import FaithfulnessGate
+from phrase_rl.faithfulness_gate import FaithfulnessGate, GateUnavailable
 from phrase_rl.phase0b_analyze import split_half_stats
 
 ARM_LABELS = {"cover_qwen_inline": "Qwen inline\n(own reasoning)",
@@ -53,8 +53,11 @@ def main():
             phrases = list(mat.index)
             instruction_rows = sc[(sc.episode_index == ep) & (sc.t == t) & (sc.arm == "original")]
             original = instruction_rows["phrase"].iloc[0] if len(instruction_rows) else None
-            (verdicts,) = gate.judge_many_sync([(original or "", phrases)], progress=False) if original else ([[]],)
-            cls = {p: v["cls"] for p, v in zip(phrases, verdicts)} if verdicts else {}
+            try:
+                (verdicts,) = gate.judge_many_sync([(original or "", phrases)], progress=False) if original else ([[]],)
+                cls = {p: v["cls"] for p, v in zip(phrases, verdicts)} if verdicts else {}
+            except GateUnavailable:
+                cls = {}  # credits out: judge-free metrics only for this context
             means = mat.mean(axis=1)
             pass_means = means[[p for p in phrases if cls.get(p) not in ("goal_drift", "judge_fail")]]
             o = orig_loss.get((ep, t), np.nan)
