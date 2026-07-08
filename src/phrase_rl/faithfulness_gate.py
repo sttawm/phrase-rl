@@ -34,6 +34,7 @@ import argparse
 import asyncio
 import hashlib
 import json
+import re
 import os
 from collections import Counter
 
@@ -77,12 +78,19 @@ class FaithfulnessGate:
 
     def __init__(self, model: str = "gemini-3.1-flash-lite", votes: int = 1,
                  api_key: str | None = None, cache_path: str = "data/gate_cache.json",
-                 retries: int = 6):
-        self.model = model
+                 retries: int = 6, generate_fn=None):
+        """generate_fn: optional local backend — a sync callable (prompt_text) -> raw
+        response text (e.g. the frozen base Qwen via adapter-disabled generate).
+        When set, no Gemini client/key is needed and GateUnavailable cannot occur
+        from quota. JSON-mode formatting is requested in-prompt instead."""
+        self.model = model if generate_fn is None else "local"
         self.votes = votes
-        self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
-        if not self.api_key:
-            raise RuntimeError("no api_key given and GEMINI_API_KEY not set")
+        self.generate_fn = generate_fn
+        self.api_key = None
+        if generate_fn is None:
+            self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
+            if not self.api_key:
+                raise RuntimeError("no api_key given and GEMINI_API_KEY not set")
         self.retries = retries
         self.cache_path = cache_path
         self.cache: dict[str, dict] = {}
@@ -129,6 +137,21 @@ class FaithfulnessGate:
 
     async def _vote_once(self, original: str, cands: list[str], temp: float) -> list[str]:
         numbered = "\n".join(f"{i+1}. {p}" for i, p in enumerate(cands))
+        if self.generate_fn is not None:
+            prompt = PROMPT.format(original=original, numbered=numbered, n=len(cands)) + \
+                "\nRespond with ONLY the JSON object, no code fences, no commentary."
+            text = await asyncio.to_thread(self.generate_fn, prompt)
+            m = re.search(r"\{.*\}", text, flags=re.S)  # tolerate pre/post chatter
+            if not m:
+                raise ValueError(f"no JSON object in local judge output: {text[:120]!r}")
+            verdicts = json.loads(m.group(0))["verdicts"]
+            if len(verdicts) != len(cands):
+                raise ValueError(f"{len(verdicts)} verdicts for {len(cands)} candidates")
+            classes = [v["class"] for v in verdicts]
+            bad = [c for c in classes if c not in SEVERITY]
+            if bad:
+                raise ValueError(f"unknown class(es): {bad}")
+            return classes
         resp = await self._get_client().aio.models.generate_content(
             model=self.model,
             contents=PROMPT.format(original=original, numbered=numbered, n=len(cands)),

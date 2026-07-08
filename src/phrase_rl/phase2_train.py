@@ -751,6 +751,8 @@ def main():
     ap.add_argument("--min-survivors", type=int, default=4, help="min gate survivors else skip")
     ap.add_argument("--gate-votes", type=int, default=1)  # flash-lite single vote; majority-of-3 only for offline precision
     ap.add_argument("--judge-model", default="gemini-3.1-flash-lite")
+    ap.add_argument("--judge-backend", choices=["qwen", "gemini"], default="qwen",
+                    help="qwen = frozen base of the loaded model, local+free (user 2026-07-08); gemini = API")
     # generation
     ap.add_argument("--gen-temp", type=float, default=0.8)
     ap.add_argument("--max-new-tokens", type=int, default=1200,
@@ -828,7 +830,26 @@ def main():
     else:
         torch.manual_seed(args.seed)
 
-    gate = FaithfulnessGate(model=args.judge_model, votes=args.gate_votes)
+    if args.judge_backend == "qwen":
+        def _local_judge(prompt_text: str) -> str:
+            # frozen BASE model as judge: adapter disabled so the judge cannot
+            # co-adapt with the policy being trained; text-only, no-think
+            msgs = [{"role": "user", "content": [{"type": "text", "text": prompt_text}]}]
+            inputs = apply_template(processor, msgs, add_generation_prompt=True).to(model.device)
+            was_training = model.training
+            model.eval()
+            try:
+                with torch.no_grad(), model.disable_adapter():
+                    out = model.generate(**inputs, do_sample=True, temperature=0.3,
+                                         max_new_tokens=1000)
+            finally:
+                if was_training:
+                    model.train()
+            return processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+        gate = FaithfulnessGate(votes=args.gate_votes, generate_fn=_local_judge,
+                                cache_path="data/gate_cache_qwen.json")
+    else:
+        gate = FaithfulnessGate(model=args.judge_model, votes=args.gate_votes)
 
     completed, exit_code = False, 0
     try:
