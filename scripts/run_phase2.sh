@@ -43,6 +43,8 @@ tmux new-session -d -s train \
   "bash -lc 'set -o pipefail; eval \"\$(grep -E \"^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY|UV_CACHE_DIR|UV_LINK_MODE)\" ~/.bashrc || true)\"; cd /workspace/phrase-rl && \
    CUDA_VISIBLE_DEVICES=$TRAIN_GPU .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --resume \
+     --traces results/phrase_artifacts/teacher_train.parquet \
+     --val-traces results/phrase_artifacts/rephrases_val_0b.parquet \
    2>&1 | tee -a results/checkpoints/phase2/train.log; \
    echo \"trainer exited rc=\$? (0=clean/interrupted 3=gate unavailable 4=score timeout 5=score server error)\"; \
    sleep infinity'"

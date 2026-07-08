@@ -143,9 +143,7 @@ arms); and **reward spread is healthy and nearly identical** across arms. On eve
 measurable-without-a-judge axis, giving the 9B model a frontier reasoning trace
 changes nothing — its own inline reasoning produces candidates the reward finds
 equally rich. The remaining discriminator (goal-drift rate per arm) awaits API
-credits; unless it shows a large gap, **inline conditioning stands as primary**: it
-keeps exact prompt parity with the baseline and requires no frontier call at
-deployment — strictly cheaper to deploy than CoVer.
+credits; unless it shows a large gap, **we selected **trace conditioning as primary** (matching CoVer's deployment shape: one frontier reasoning call at boot, then phrase generation — here by the tuned 9B instead of the frontier model). Inline self-reasoning continues as an ablation; on judge-free axes the two are equivalent.**
 
 **Training-loop status.** The full RL stack (generate → faithfulness gate → CRN
 score → advantage-weighted update) has been validated end to end: the trainer loads

@@ -191,7 +191,7 @@ def parse_reworded(text: str) -> list[str]:
     return items
 
 
-def build_qwen_messages(image, instruction: str, batch_number: int) -> list:
+def build_qwen_messages(image, instruction: str, batch_number: int, trace: str | None = None) -> list:
     """Chat messages for Qwen3.5 under the CoVer scaffold.
 
     Feed to processor.apply_chat_template(..., add_generation_prompt=True,
@@ -206,18 +206,19 @@ def build_qwen_messages(image, instruction: str, batch_number: int) -> list:
             "role": "user",
             "content": [
                 {"type": "image", "image": image},
-                {"type": "text", "text": build_user_prompt(instruction, batch_number)},
+                {"type": "text", "text": (build_user_prompt_with_trace(instruction, trace, batch_number)
+                                           if trace else build_user_prompt(instruction, batch_number))},
             ],
         },
     ]
 
 
-def build_single_phrase_prefix(instruction: str, image) -> list:
+def build_single_phrase_prefix(instruction: str, image, trace: str | None = None) -> list:
     """The p_single conditioning for the training objective.
 
     Returns the FULL chat messages list, ending in an already-begun assistant turn:
         [system(load_system_prompt()),
-         user([image, build_user_prompt(instruction, 1)]),
+         user([image, build_user_prompt(instruction, 1)  (or the trace variant)]),
          assistant "1. "]
     Feed to processor.apply_chat_template(..., continue_final_message=True,
     enable_thinking=False) so the "1. " assistant prefix is kept open for the
@@ -246,7 +247,8 @@ def build_single_phrase_prefix(instruction: str, image) -> list:
             "role": "user",
             "content": [
                 {"type": "image", "image": image},
-                {"type": "text", "text": build_user_prompt(instruction, 1)},
+                {"type": "text", "text": (build_user_prompt_with_trace(instruction, trace, 1)
+                                           if trace else build_user_prompt(instruction, 1))},
             ],
         },
         {
