@@ -40,9 +40,10 @@ cd INT-ACT
 import simpler_env
 import numpy as np
 from PIL import Image
+from simpler_env.utils.env.observation_utils import get_image_from_maniskill2_obs_dict
 env = simpler_env.make("widowx_spoon_on_towel")
 obs, info = env.reset(seed=0)
-img = simpler_env.utils.env.observation_utils.get_image_from_maniskill2_obs_dict(env, obs)
+img = get_image_from_maniskill2_obs_dict(env, obs)
 Image.fromarray(np.asarray(img)).save("/workspace/simpler_test_frame.png")
 print("instruction:", env.get_language_instruction())
 print("frame:", np.asarray(img).shape)
