@@ -61,24 +61,10 @@ print(df.groupby(["task"]).size().to_string())
 PY
 publish "0c-redo phrases built" data/phrases_0c_redo.parquet data/cover_qwen_tasks.parquet
 
-# ---- Stage 4: 0c-redo rollouts (long; resumable) ----
-cd /workspace/INT-ACT
-.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
-  --int-act-root /workspace/INT-ACT \
-  --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
-  --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
-  --phrases /workspace/phrase-rl/data/phrases_0c_redo.parquet \
-  --episode-ids 0 1 2 3 4 5 6 7 8 9 \
-  --out /workspace/phrase-rl/data/rollouts_0c_redo.parquet
-cd /workspace/phrase-rl
-publish "0c-redo rollouts done" data/rollouts_0c_redo.parquet
-
-# ---- Stage 5: 0c-redo flow-loss scoring on matched real contexts ----
-source .venv/bin/activate
-python -m phrase_rl.phase0c_score --contexts data/contexts_0c_match.parquet \
-  --phrases data/phrases_0c_redo.parquet \
-  --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge --out data/scores_0c_redo.parquet
-deactivate
-publish "0c-redo scoring done — OVERNIGHT COMPLETE" data/scores_0c_redo.parquet
-
-echo "OVERNIGHT ALL DONE"
+# ---- Stage 4: START FLOW-LOSS RL (user 2026-07-07: 'if you have time, actually
+# start the RL... flow loss = quicker signal'). Conditioning: inline (prompt-parity
+# primary); revisit vs trace arm after the morning A/B verdict. 0c-redo rollouts
+# are DEFERRED (single GPU; RL takes priority overnight). Rollout-reward RL is a
+# separate build, not attempted tonight.
+bash scripts/run_phase2.sh
+echo "OVERNIGHT: stages 1-3 done, RL launched (tmux sessions: score, train)"

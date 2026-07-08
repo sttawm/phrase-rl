@@ -23,13 +23,16 @@ import torch
 from PIL import Image
 from tqdm import tqdm
 
-from phrase_rl.cover_prompt import build_user_prompt, load_system_prompt, parse_reworded
+from phrase_rl.cover_prompt import (build_user_prompt, build_user_prompt_with_trace,
+                                    load_system_prompt, parse_reworded)
 
 
 def build_messages(img, instruction, n, trace=None):
-    user_text = build_user_prompt(instruction, n)
+    # two-prompt flow: trace (prompt 1, cached frontier call) -> phrases (prompt 2)
     if trace:
-        user_text = f"Scene analysis (from a vision-language model):\n{trace}\n\n{user_text}"
+        user_text = build_user_prompt_with_trace(instruction, trace, n)
+    else:
+        user_text = build_user_prompt(instruction, n)
     return [
         {"role": "system", "content": [{"type": "text", "text": load_system_prompt()}]},
         {"role": "user", "content": [{"type": "image", "image": img},

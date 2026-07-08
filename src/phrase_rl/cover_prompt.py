@@ -286,3 +286,22 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def build_user_prompt_with_trace(instruction: str, trace: str, batch_number: int) -> str:
+    """Two-prompt flow: PROMPT 1 (elsewhere, e.g. cached Gemini call) produced the
+    scene reasoning `trace`; this is PROMPT 2 — CoVer's template with the
+    self-reasoning instruction swapped for "use the provided analysis", so the
+    model goes straight to substitutions + rephrases instead of re-reasoning.
+    Used by the trace-conditioned arm (step-0 A/B and the trace ablation)."""
+    base = build_user_prompt(instruction, batch_number)
+    swapped = base.replace(
+        "2. You need to first generate a description of the image in your own words, "
+        "and then think about what does the language instruction mean in the context of the image.",
+        "2. A scene analysis is already provided below — use it as your description and "
+        "understanding of the image; do not write your own.",
+    )
+    swapped = swapped.replace("<Description of the image>\n", "")
+    if swapped == base:  # template text drifted — fail loudly rather than silently re-reason
+        raise RuntimeError("build_user_prompt_with_trace: template swap failed; check template text")
+    return f"Scene analysis (provided):\n{trace}\n\n{swapped}"
