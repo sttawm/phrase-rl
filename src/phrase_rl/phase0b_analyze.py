@@ -27,13 +27,14 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-ARMS_ANALYZED = ["gemini_pro", "gemini_flash", "qwen"]
+ARMS_ANALYZED = None  # None = every arm in the data except "original"
 
 
 def context_matrices(df):
     """Yield (episode_index, t, arm, loss_matrix P x K, phrases) per context+arm."""
+    arms = ARMS_ANALYZED or [a for a in df["arm"].unique() if a != "original"]
     for (ep, t), g in df.groupby(["episode_index", "t"]):
-        for arm in ARMS_ANALYZED:
+        for arm in arms:
             ga = g[g["arm"] == arm]
             if ga["phrase"].nunique() < 8:
                 continue
