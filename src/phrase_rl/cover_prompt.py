@@ -307,3 +307,24 @@ def build_user_prompt_with_trace(instruction: str, trace: str, batch_number: int
     if swapped == base:  # template text drifted — fail loudly rather than silently re-reason
         raise RuntimeError("build_user_prompt_with_trace: template swap failed; check template text")
     return f"Scene analysis (provided):\n{trace}\n\n{swapped}"
+
+
+def extract_trace(text: str) -> str | None:
+    """Split a CoVer-template response into its reasoning part (the 'trace').
+
+    The template's output is: <image description> <instruction meaning>
+    <noun/verb/adj substitution analysis> ... 'Reworded Instructions:' <list>.
+    The trace = everything before the reworded-list marker. Returns None when the
+    marker is missing AND no numbered list is found (unusable response).
+    """
+    import re
+    m = re.search(r"^\s*(?:\*+\s*)?Reworded Instructions:?(?:\s*\*+)?\s*$", text, flags=re.M | re.I)
+    if m:
+        trace = text[: m.start()].strip()
+        return trace or None
+    # fallback: cut at the first numbered-list line that parse_reworded would accept
+    m = re.search(r"^\s*1[.)]\s+\S", text, flags=re.M)
+    if m:
+        trace = text[: m.start()].strip()
+        return trace or None
+    return None
