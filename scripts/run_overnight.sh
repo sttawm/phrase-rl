@@ -16,7 +16,8 @@ publish () {  # publish <milestone> <files...>
   mkdir -p results/overnight/raw
   cp -f "$@" results/overnight/raw/ 2>/dev/null || true
   git add results/overnight && git -c user.name=pod -c user.email=pod@runpod commit -m "overnight: $msg [pod]" || true
-  git push || true
+  git -c user.name=pod -c user.email=pod@runpod pull --rebase --no-edit || true  # non-fast-forward guard (bit us 2026-07-08)
+  git push || echo "PUBLISH PUSH FAILED: $msg"
 }
 
 # ---- Stage 1: step-0 A/B generation (RL-blocking) ----
