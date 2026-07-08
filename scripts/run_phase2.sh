@@ -44,7 +44,7 @@ tmux new-session -d -s train \
    CUDA_VISIBLE_DEVICES=$TRAIN_GPU .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --resume \
      --traces results/phrase_artifacts/cover35_teacher_train.parquet \
-     --val-traces results/phrase_artifacts/cover35_teacher_val.parquet \
+     --val-traces results/phrase_artifacts/rephrases_val_0b.parquet  # INTERIM: old-format val traces (cover35 val blocked on credits, ~\$3); keep constant for the whole run — do NOT swap mid-run \
    2>&1 | tee -a results/checkpoints/phase2/train.log; \
    echo \"trainer exited rc=\$? (0=clean/interrupted 3=gate unavailable 4=score timeout 5=score server error)\"; \
    sleep infinity'"
