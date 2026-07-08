@@ -242,7 +242,11 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
     which then attaches r_orig/rewards to each ok result.
     """
     img = Image.open(io.BytesIO(row["image_png"])).convert("RGB")
-    instruction = str(row["instruction"])
+    instruction = str(row["instruction"])  # the ORIGINAL: gate anchor + reward context
+    source = instruction
+    srcs = getattr(args, "_sources", {}).get((row["episode_index"], row["t"]))
+    if srcs and args.source_aug > 0 and np.random.random() < args.source_aug:
+        source = str(np.random.choice(srcs))  # robustness: condition on a synthetic phrasing
     res = {
         "instruction": instruction, "ok": False, "reason": None,
         "n_parsed": 0, "n_unique": 0, "n_judged": 0,
@@ -252,8 +256,10 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
     trace = getattr(args, "_traces", {}).get((row["episode_index"], row["t"])) or \
             getattr(args, "_val_traces", {}).get((row["episode_index"], row["t"]))
     res["trace"] = trace
+    res["source"] = source
+    res["source_augmented"] = source != instruction
     msgs = cover_prompt.build_qwen_messages(
-        image=img, instruction=instruction, batch_number=args.n_candidates, trace=trace)
+        image=img, instruction=source, batch_number=args.n_candidates, trace=trace)
     inputs = apply_template(processor, msgs, add_generation_prompt=True).to(model.device)
     model.eval()
     with torch.no_grad():
@@ -414,7 +420,7 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args) -> d
                 continue
             if prefix_msgs is None:  # build (and tokenize) the prefix once per context
                 prefix_msgs = cover_prompt.build_single_phrase_prefix(
-                    instruction=res["instruction"], image=res["img"], trace=res.get("trace"))
+                    instruction=res.get("source", res["instruction"]), image=res["img"], trace=res.get("trace"))
                 prefix_ids = apply_template(
                     processor, prefix_msgs, continue_final_message=True)["input_ids"][0]
             tok = tokenize_phrase(processor, prefix_msgs, prefix_ids, cand)
@@ -730,6 +736,8 @@ def main():
     ap.add_argument("--train-contexts", default="data/contexts_train.parquet")
     ap.add_argument("--traces", default=None, help="parquet(episode_index,t,trace): trace-conditioned primary (user 2026-07-08)")
     ap.add_argument("--val-traces", default=None)
+    ap.add_argument("--source-aug", type=float, default=0.5,
+                    help="prob of conditioning on a random teacher rephrase instead of the original (robustness; gate stays anchored to the original)")
     ap.add_argument("--val-contexts", default="data/contexts_val_0b.parquet")
     ap.add_argument("--ipc-dir", default="/workspace/ipc")
     ap.add_argument("--ckpt-dir", default="results/checkpoints/phase2")
@@ -786,12 +794,15 @@ def main():
     if args.traces:
         _t = pd.read_parquet(args.traces)
         TRACES = {(r.episode_index, r.t): str(r.trace) for r in _t.itertuples()}
+        SOURCES = {(r.episode_index, r.t): [str(p) for p in r.rephrases]
+                   for r in _t.itertuples() if hasattr(r, "rephrases")}
         train_df = train_df[train_df.apply(lambda r: (r["episode_index"], r["t"]) in TRACES, axis=1)]
         print(f"trace-conditioned: {len(TRACES)} traces, {len(train_df)} train contexts retained")
     if args.val_traces:
         _t = pd.read_parquet(args.val_traces)
         VAL_TRACES = {(r.episode_index, r.t): str(r.trace) for r in _t.itertuples()}
     args._traces, args._val_traces = TRACES, VAL_TRACES
+    args._sources = SOURCES if args.traces else {}
 
     processor, model, resumed = build_model(args, ckpt_dir)
     trainable = [p for p in model.parameters() if p.requires_grad]

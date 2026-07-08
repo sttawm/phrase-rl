@@ -50,6 +50,11 @@ BridgeV2 tuples `x = (o_t, l, a*_t)` (image, original instruction, ground-truth 
 2. **Log during training, not just eval:** duplicate rate, mean pairwise embedding similarity, object/target preservation, generic-phrase rate, format-failure rate. Known failure mode: collapse onto Bridge template phrasing ("put X in Y") — the rephrase-FT reward checkpoint was trained on a fixed paraphrase dictionary the optimizer may simply rediscover.
 3. **Teacher-SFT warm-start (ablation, not primary):** split each Gemini 16-list into 16 single-phrase examples `(c → y_i)`, SFT Qwen, *then* advantage-tune. Tests whether a higher-ceiling starting distribution beats RL-from-base. Teacher data already collected (Phase 1).
 
+### Source augmentation + splits (2026-07-08)
+
+- **Source augmentation (primary, p=0.5):** during RL, the conditioning instruction is the *original* with prob 0.5, else a random teacher rephrase of the same context — the tuned model learns to rephrase from arbitrary phrasings, not only Bridge's canonical labels (deployment inputs won't match Bridge style). The **gate stays anchored to the original** (task fidelity is defined by ground truth, not the sampled source); the reward is unchanged (flow loss vs a*, source-independent). Caveat logged: cached traces were written for the original instruction and occasionally quote it — a mild leak of the original phrasing into augmented contexts; acceptable, revisit if it shows in metrics.
+- **CoVer splits: nothing to adopt.** Their eval is SIMPLER rollouts (no Bridge test split); their verifier trains on a private preprocessed sample dump with a plain random 10% sample-level validation split. Our episode-level hash split is stricter (prevents same-episode frame leakage). One documented caveat: the released `cover_verifier_bridge.pt` was presumably trained on most of Bridge train, so for the "CoVer verifier selects among our candidates" ablation, overlap with our val/test contexts is possible and unfixable on our side.
+
 ## Phases
 
 - **0a — Infra + plumbing:** CoVer repo env; load both INTACT checkpoints via LeRobot; extract 2k+500 BridgeV2 contexts; fixed-noise scoring patch.
