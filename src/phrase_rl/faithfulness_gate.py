@@ -125,6 +125,8 @@ class FaithfulnessGate:
         return self._client
 
     async def preflight(self):
+        if self.generate_fn is not None:
+            return  # local backend: nothing to preflight
         """One tiny call so a dead quota/billing state fails in seconds, not
         mid-training after launching a batch of doomed, retry-storming calls."""
         try:
