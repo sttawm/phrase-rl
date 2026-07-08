@@ -63,15 +63,16 @@ def main():
             o = orig_loss.get((ep, t), np.nan)
             per_ctx.append(dict(
                 rho=rho, spread=float(means.std()),
-                spread_pass=float(pass_means.std()) if len(pass_means) > 3 else np.nan,
-                drift=np.mean([cls.get(p) == "goal_drift" for p in phrases]),
-                rename=np.mean([cls.get(p) == "rename" for p in phrases]),
+                spread_pass=float(pass_means.std()) if (cls and len(pass_means) > 3) else np.nan,
+                drift=np.mean([cls.get(p) == "goal_drift" for p in phrases]) if cls else np.nan,
+                rename=np.mean([cls.get(p) == "rename" for p in phrases]) if cls else np.nan,
                 oracle_gain=float((o - means.min()) / o) if o == o else np.nan,
-                oracle_gain_pass=float((o - pass_means.min()) / o) if (o == o and len(pass_means) > 3) else np.nan,
+                oracle_gain_pass=float((o - pass_means.min()) / o) if (cls and o == o and len(pass_means) > 3) else np.nan,
             ))
         d = pd.DataFrame(per_ctx)
         res[arm] = {k: round(float(np.nanmedian(d[k])), 4) for k in d.columns}
         res[arm]["n_contexts"] = len(d)
+        res[arm]["n_judged"] = int(d["drift"].notna().sum())
 
     # decision heuristic: prefer the arm with lower drift and >= gate-pass oracle gain
     qi, qt = res.get("cover_qwen_inline", {}), res.get("cover_qwen_trace", {})

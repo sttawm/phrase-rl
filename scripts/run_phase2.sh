@@ -33,14 +33,14 @@ tmux kill-session -t train 2>/dev/null || true
 
 # NEVER `uv run` here — it re-syncs and uninstalls packages. Direct venv pythons.
 tmux new-session -d -s score \
-  "bash -lc 'set -o pipefail; cd /workspace/phrase-rl && \
+  "bash -lc 'set -o pipefail; eval \"\$(grep -E \"^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY|UV_CACHE_DIR|UV_LINK_MODE)\" ~/.bashrc || true)\"; cd /workspace/phrase-rl && \
    CUDA_VISIBLE_DEVICES=$SCORE_GPU .venv/bin/python -m phrase_rl.phase2_score_server \
      --ipc-dir $IPC_DIR \
    2>&1 | tee -a results/checkpoints/phase2/score_server.log; \
    echo \"score server exited rc=\$?\"; sleep infinity'"
 
 tmux new-session -d -s train \
-  "bash -lc 'set -o pipefail; cd /workspace/phrase-rl && \
+  "bash -lc 'set -o pipefail; eval \"\$(grep -E \"^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY|UV_CACHE_DIR|UV_LINK_MODE)\" ~/.bashrc || true)\"; cd /workspace/phrase-rl && \
    CUDA_VISIBLE_DEVICES=$TRAIN_GPU .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --resume \
    2>&1 | tee -a results/checkpoints/phase2/train.log; \
