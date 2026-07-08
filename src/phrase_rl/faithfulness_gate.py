@@ -75,7 +75,7 @@ class FaithfulnessGate:
       class_counts  — histogram over every verdict returned by judge()
     """
 
-    def __init__(self, model: str = "gemini-3.5-flash", votes: int = 3,
+    def __init__(self, model: str = "gemini-3.1-flash-lite", votes: int = 1,
                  api_key: str | None = None, cache_path: str = "data/gate_cache.json",
                  retries: int = 6):
         self.model = model

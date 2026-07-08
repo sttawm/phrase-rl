@@ -734,7 +734,8 @@ def main():
     ap.add_argument("--n-candidates", type=int, default=16)
     ap.add_argument("--min-parsed", type=int, default=6, help="min unique candidates else parse-fail")
     ap.add_argument("--min-survivors", type=int, default=4, help="min gate survivors else skip")
-    ap.add_argument("--gate-votes", type=int, default=3)
+    ap.add_argument("--gate-votes", type=int, default=1)  # flash-lite single vote; majority-of-3 only for offline precision
+    ap.add_argument("--judge-model", default="gemini-3.1-flash-lite")
     # generation
     ap.add_argument("--gen-temp", type=float, default=0.8)
     ap.add_argument("--max-new-tokens", type=int, default=1200,
@@ -799,7 +800,7 @@ def main():
     else:
         torch.manual_seed(args.seed)
 
-    gate = FaithfulnessGate(votes=args.gate_votes)
+    gate = FaithfulnessGate(model=args.judge_model, votes=args.gate_votes)
 
     completed, exit_code = False, 0
     try:
