@@ -256,10 +256,10 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
     trace = getattr(args, "_traces", {}).get((row["episode_index"], row["t"])) or \
             getattr(args, "_val_traces", {}).get((row["episode_index"], row["t"]))
     res["trace"] = trace
-    res["source"] = source
-    res["source_augmented"] = source != instruction
-    msgs = cover_prompt.build_qwen_messages(
-        image=img, instruction=source, batch_number=args.n_candidates, trace=trace)
+    res["source"] = source  # used ONLY in the update (p_single) prompt — the inference-time
+    res["source_augmented"] = source != instruction  # prompt; generation always farms candidates
+    msgs = cover_prompt.build_qwen_messages(  # from the ORIGINAL for max pool quality
+        image=img, instruction=instruction, batch_number=args.n_candidates, trace=trace)
     inputs = apply_template(processor, msgs, add_generation_prompt=True).to(model.device)
     model.eval()
     with torch.no_grad():
