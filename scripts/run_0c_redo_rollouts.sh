@@ -4,6 +4,8 @@ set -euxo pipefail
 export UV_CACHE_DIR=/workspace/uv_cache UV_LINK_MODE=copy
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
+export VLA_DATA_DIR="${VLA_DATA_DIR:-/workspace/vla_data}" VLA_LOG_DIR="${VLA_LOG_DIR:-/workspace/vla_log}" WANDB_MODE=offline
+mkdir -p "$VLA_DATA_DIR" "$VLA_LOG_DIR"
 cd /workspace/phrase-rl
 [ -d /workspace/INT-ACT ] || bash scripts/setup_simpler.sh
 cd /workspace/INT-ACT
