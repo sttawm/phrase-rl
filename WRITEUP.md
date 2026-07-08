@@ -127,6 +127,33 @@ original instructions are strong — the policy saw them verbatim in training �
 the offline finding that "originals rank poorly" reflects Bridge's messy labels,
 not a universal advantage of rephrasing.)
 
+## Step-0 — the reward survives the real training distribution, and reasoning source doesn't matter much
+
+Before training we re-validated everything on the *actual* generation setup (CoVer's
+verbatim template) with three arms: Gemini (the frontier baseline), base Qwen writing
+its own inline reasoning, and base Qwen given a cached Gemini reasoning trace
+(two-prompt flow).
+
+![Step-0 A/B](results/charts/step0_ab_verdict.png)
+
+Three results, one per panel: **reliability holds** on the true training distribution
+(split-half ρ = 0.95–0.96 for all three arms — the 0b gate re-passes); **oracle
+headroom is unchanged** (best-of-32 beats the original instruction by ~32% in all
+arms); and **reward spread is healthy and nearly identical** across arms. On every
+measurable-without-a-judge axis, giving the 9B model a frontier reasoning trace
+changes nothing — its own inline reasoning produces candidates the reward finds
+equally rich. The remaining discriminator (goal-drift rate per arm) awaits API
+credits; unless it shows a large gap, **inline conditioning stands as primary**: it
+keeps exact prompt parity with the baseline and requires no frontier call at
+deployment — strictly cheaper to deploy than CoVer.
+
+**Training-loop status.** The full RL stack (generate → faithfulness gate → CRN
+score → advantage-weighted update) has been validated end to end: the trainer loads
+2,000 contexts, attaches a 29M-parameter LoRA, generates and parses candidates, and
+— by design — refuses to train ungated: when the judge API became unavailable it
+checkpointed at step 0 and paused rather than optimize an unprotected reward. First
+training curves follow once the gate is back.
+
 ## Next
 
 - **Phase 2 (primary):** advantage-weighted tuning of Qwen3.5-9B from base, with

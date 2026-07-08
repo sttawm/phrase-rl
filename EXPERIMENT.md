@@ -134,6 +134,10 @@ Lab-notebook facts (rationale/narrative in WRITEUP):
 - Judge noise note: flash-judge verdicts vary slightly across runs (spoon 14 vs 15/32); training-time gate should use majority-of-3 or a stricter deterministic check.
 - Late-τ/late-episode reward variant: mixed evidence (stack ρ→+0.40 late, carrot unchanged; n_ctx 5–9/band) — parked.
 
+### Step-0 / 0b-redo (2026-07-08): CoVer-template distributions re-pass the gate
+
+120 val ctx (250 for gemini arm) × 32, K=16, rephrase-FT ckpt. cover_gemini ρ=0.954/oracle 31.8%; cover_qwen_inline ρ=0.955/32.2%; cover_qwen_trace ρ=0.962/32.2%; spreads 0.0102–0.0108. Judge-free axes: trace ≈ inline → interim primary = inline (prompt parity, no frontier call at deploy). Drift-rate comparison pending Gemini credits (3rd depletion; judging burned prepay). RL stack validated to the gate: trainer checkpointed step 0 and exited 3 on GateUnavailable (fail-closed works). Infra fixes: publish() rebase-before-push (race killed overnight chain); env injection into tmux sessions (RunPod bashrc early-return ate GEMINI_API_KEY).
+
 ## Data artifacts
 
 | Artifact | Where |

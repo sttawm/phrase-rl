@@ -35,5 +35,19 @@
       "results/charts/phase0c_insim_phrasing.png",
       "results/charts/phase0c_reward_vs_success.png"
     ]
+  },
+  {
+    "id": "step0-ab-and-0b-redo",
+    "date": "2026-07-08",
+    "commit": "1ea1f73ded2f261681f7db08b2fe80e24cd0ef4c",
+    "overview": "Step-0 A/B (inline vs Gemini-trace conditioning under CoVer verbatim template) + 0b-redo on the true training distributions. All three CoVer-template arms re-pass the reliability gate (rho 0.954-0.962 at K=16); oracle gain ~32% everywhere; trace==inline on judge-free axes -> interim primary conditioning = inline. Drift comparison pending credits. RL stack validated end-to-end to the gate (fail-closed checkpoint at step 0).",
+    "commands": [
+      "bash scripts/run_overnight.sh (pod)",
+      "python -m phrase_rl.ab_verdict --scores data/scores_0b_redo.parquet"
+    ],
+    "metrics_file": "results/overnight/ab_verdict.json",
+    "charts": [
+      "results/charts/step0_ab_verdict.png"
+    ]
   }
 ]
