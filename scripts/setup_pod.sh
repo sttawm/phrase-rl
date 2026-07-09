@@ -3,7 +3,7 @@
 #   git clone https://github.com/sttawm/phrase-rl.git && cd phrase-rl && bash scripts/setup_pod.sh
 # Expects env vars: HF_TOKEN (and later GEMINI_API_KEY for phases 0b+/1).
 set -euxo pipefail
-export UV_CACHE_DIR=/workspace/uv_cache UV_LINK_MODE=copy  # container root disk is tiny
+export UV_CACHE_DIR="${UV_CACHE_DIR:-/workspace/uv_cache}" UV_LINK_MODE=copy  # default: big /workspace; override for tight quotas
 
 # --- system deps ---
 apt-get update -qq && apt-get install -y -qq git-lfs ffmpeg libgl1 tmux

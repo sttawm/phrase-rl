@@ -37,7 +37,7 @@ if [ -d results/checkpoints/eval_adapters/l2 ]; then
 fi
 
 # 3) merge arms: original + base from the flow file; tuned arms renamed per reward
-.venv/bin/python - <<'PY'
+.venv-gen/bin/python - <<'PY'
 import os
 import pandas as pd
 fl = pd.read_parquet("data/phrases_val_eval_flow.parquet")
@@ -70,7 +70,7 @@ git add results/overnight/raw/
 git -c user.name=pod3 -c user.email=pod@runpod commit -m "val rollout eval: original/base/tuned arms, ep 0-9 [pod]" || true
 git -c user.name=pod3 -c user.email=pod@runpod pull --rebase --no-edit || true
 git push || true
-.venv/bin/python - <<'PY'
+.venv-gen/bin/python - <<'PY'
 import pandas as pd
 d = pd.read_parquet("data/rollouts_val_eval.parquet")
 print(d.groupby(["task", "arm"])["success"].agg(["mean", "size"]).to_string())
