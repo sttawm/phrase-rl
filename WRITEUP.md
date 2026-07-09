@@ -152,6 +152,36 @@ score → advantage-weighted update) has been validated end to end: the trainer 
 checkpointed at step 0 and paused rather than optimize an unprotected reward. First
 training curves follow once the gate is back.
 
+## Reward bake-off — which offline signal actually predicts task success?
+
+Before betting more training compute on any single reward, we compared candidate
+offline rewards against ground-truth rollout success: 94 drift-gated phrases across
+three tasks, each labeled by 10–25 SIMPLER rollouts on shared initial states,
+evaluated leave-one-task-out.
+
+![Reward bake-off](results/charts/bakeoff.png)
+
+Three results. **First, no offline proxy is strongly predictive** at this
+granularity — a sobering, useful calibration. **Second, flow-loss variants are
+wildly task-inconsistent** (+0.5 on one task, −0.65 on another), and the
+anti-correlated case has a clean mechanism: that task's phrase set is rename-heavy
+("dish", "orange veggie"), and the paraphrase-trained policy predicts demonstrated
+actions just fine under renames — but renamed referents ground *worse in the
+simulator*, so flow reward and sim success actively disagree about them. **Third,
+decoded-action L2** (integrate the policy's flow to an actual action, compare to
+ground truth) **is the only arm consistent across every held-out task** — weakly
+positive everywhere, never misleading. Measuring what the policy would *do* seems
+to travel across domains better than measuring how well it denoises.
+
+Two caveats keep these numbers honest: labels are noisy (10–25 seeds per phrase
+caps the observable correlation well below 1), and richer learned combinations
+(ridge over τ-bands + features) overfit at n≈94 — with this label count, only
+heavily-constrained models are trustworthy. Two follow-ups are in flight: a
+**sim-grounded flow reward** (score phrases against *successful rollout* actions
+rather than real-robot demonstrations, removing the domain gap entirely) and an
+early **deployment eval** — the tuned model's single phrase per task, head-to-head
+against the original instruction in the simulator.
+
 ## Next
 
 - **Phase 2 (primary):** advantage-weighted tuning of Qwen3.5-9B from base, with
