@@ -73,8 +73,15 @@ class Heartbeat:
             self.last = now
 
 
-def process_job(policy, spec, micro_batch, hb, job_id):
-    """Score one job's parquet; returns (n_contexts, n_rows). Raises on any problem."""
+def process_job(policy, spec, micro_batch, hb, job_id, dim_std=None):
+    """Score one job's parquet; returns (n_contexts, n_rows). Raises on any problem.
+
+    reward_mode="flow" (default): CRN flow-matching residual (Pi0PhraseScorer.score).
+    reward_mode="l2": CRN decoded-action per-DoF-normalized L2 (score_l2); needs dim_std.
+    Both return the same schema (loss, loss_per_draw), lower=better, so the trainer's
+    advantage/KL/val code is reward-mode-agnostic.
+    """
+    mode = str(spec.get("reward_mode", "flow"))
     # per-job (k, seed, tau_min) only re-derives the fixed draws — the policy is shared
     scorer = Pi0PhraseScorer(
         policy,
@@ -83,17 +90,26 @@ def process_job(policy, spec, micro_batch, hb, job_id):
         micro_batch=micro_batch,
         tau_min=float(spec.get("tau_min", 0.0)),
     )
+    if mode == "l2" and dim_std is None:
+        raise RuntimeError("reward_mode='l2' requires the server to be started with --stats-contexts")
+    k_l2 = int(spec.get("k_l2", 4))
     df = pd.read_parquet(spec["in_parquet"])
     ids, phrases_out, means, per_draw = [], [], [], []
     groups = list(df.groupby("context_id", sort=False))
-    for cid, g in tqdm(groups, desc=f"job {job_id}", leave=False):
+    for cid, g in tqdm(groups, desc=f"job {job_id} [{mode}]", leave=False):
         row = g.iloc[0]  # context fields identical within a group by construction
         img = np.asarray(Image.open(io.BytesIO(row["image_png"]))).astype(np.float32) / 255.0
         phrases = [str(p) for p in g["phrase"]]
-        losses = scorer.score(
-            img.transpose(2, 0, 1), np.asarray(row["state"]),
-            np.asarray(row["action_chunk"]), phrases,
-        )  # (P, K), CRN across the whole group
+        if mode == "l2":
+            losses = scorer.score_l2(
+                img.transpose(2, 0, 1), np.asarray(row["state"]),
+                np.asarray(row["action_chunk"]), phrases, dim_std, k_l2=k_l2,
+            )  # (P, k_l2), CRN across the whole group
+        else:
+            losses = scorer.score(
+                img.transpose(2, 0, 1), np.asarray(row["state"]),
+                np.asarray(row["action_chunk"]), phrases,
+            )  # (P, K), CRN across the whole group
         ids.extend([cid] * len(phrases))
         phrases_out.extend(phrases)
         means.extend(losses.mean(axis=1).tolist())
@@ -126,7 +142,7 @@ def read_spec(req_path):
         raise  # stale and still unparseable -> fail the job through the normal path
 
 
-def handle_req(policy, req_path, micro_batch, hb):
+def handle_req(policy, req_path, micro_batch, hb, dim_std=None):
     """Process one req file end to end. Never raises (except KeyboardInterrupt)."""
     base = req_path[: -len(".req.json")]
     job_id = os.path.basename(base)
@@ -135,7 +151,7 @@ def handle_req(policy, req_path, micro_batch, hb):
         if spec is None:
             return  # probably still being written; next poll retries
         t0 = time.time()
-        n_ctx, n_rows = process_job(policy, spec, micro_batch, hb, job_id)
+        n_ctx, n_rows = process_job(policy, spec, micro_batch, hb, job_id, dim_std=dim_std)
         os.replace(req_path, base + ".done.json")  # atomic completion signal
         hb.n_done += 1
         log(f"job {job_id}: {n_ctx} contexts / {n_rows} rows in {time.time() - t0:.1f}s")
@@ -160,10 +176,19 @@ def main():
     ap.add_argument("--micro-batch", type=int, default=64)
     ap.add_argument("--poll", type=float, default=0.5, help="seconds between queue scans")
     ap.add_argument("--heartbeat", type=float, default=60.0)
+    ap.add_argument("--stats-contexts", default=None,
+                    help="parquet whose action_chunk column defines per-DoF L2 normalization (needed for reward_mode=l2)")
     ap.add_argument("--once", action="store_true", help="process pending jobs, then exit (testing)")
     args = ap.parse_args()
 
     os.makedirs(args.ipc_dir, exist_ok=True)
+    dim_std = None
+    if args.stats_contexts:
+        chunks = np.stack(pd.read_parquet(args.stats_contexts, columns=["action_chunk"])
+                          ["action_chunk"].map(np.asarray))  # (N, H*7)
+        dim_std = chunks.reshape(chunks.shape[0], -1, 7).std(axis=(0, 1)) + 1e-8  # (7,) per-DoF std
+        log(f"L2 normalization per-DoF std: {np.round(dim_std, 4)}")
+
     PI0Policy = import_pi0_policy()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     log(f"loading {args.ckpt} on {device} ...")
@@ -174,7 +199,7 @@ def main():
     while True:
         reqs = sorted(glob.glob(os.path.join(args.ipc_dir, "*.req.json")))
         for req_path in reqs:
-            handle_req(policy, req_path, args.micro_batch, hb)
+            handle_req(policy, req_path, args.micro_batch, hb, dim_std=dim_std)
         hb.beat()
         if args.once and not reqs:
             log(f"--once: queue drained ({hb.n_done} done, {hb.n_failed} failed); exiting")

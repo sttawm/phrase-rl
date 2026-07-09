@@ -60,6 +60,8 @@ class Pi0PhraseScorer:
         # pi0 pads actions to max_action_dim internally; noise must match the padded shape
         padded_dim = getattr(cfg, "max_action_dim", self.action_dim)
         self.k = k
+        self.seed = seed
+        self.padded_dim = padded_dim
         self.micro_batch = micro_batch
         self.noise, self.tau = make_draws(k, self.horizon, padded_dim, seed, tau_min)
 
@@ -104,3 +106,43 @@ class Pi0PhraseScorer:
             for (p, k), l in zip(chunk, losses.cpu()):
                 out[p, k] = l
         return out.numpy()
+
+    @torch.no_grad()
+    def score_l2(self, image_chw: np.ndarray, state: np.ndarray, action_chunk: np.ndarray,
+                 phrases: list[str], dim_std: np.ndarray, k_l2: int = 4) -> np.ndarray:
+        """CRN decoded-action reward: returns per-dim-normalized L2 of shape (n_phrases, k_l2).
+
+        For each of k_l2 FIXED noise draws (shared across all phrases -> common random
+        numbers), run pi0's full denoising (model.sample_actions) for every phrase and
+        take the per-DoF-normalized L2 to the ground-truth chunk over the 6 continuous
+        DoF (gripper excluded, matching pi0_decode.norm_l2). Lower is better, so the
+        trainer's R = -mean_k loss and z-advantages work identically to the flow arm.
+        """
+        policy, model, cfg = self.policy, self.policy.model, self.policy.config
+        P = len(phrases)
+        a_star = torch.from_numpy(
+            action_chunk.astype(np.float32).reshape(self.horizon, self.action_dim)
+        ).to(self.device)  # (H, 7)
+        std = torch.from_numpy(np.asarray(dim_std, dtype=np.float32)).to(self.device)  # (7,)
+
+        img = torch.from_numpy(image_chw).to(self.device)
+        st = torch.from_numpy(state.astype(np.float32)).to(self.device)
+        batch = {"observation.state": st.expand(P, -1), "task": list(phrases)}
+        for key in self.image_keys:
+            batch[key] = img.expand(P, -1, -1, -1)
+        norm = policy.normalize_inputs(batch)
+        images, img_masks = policy.prepare_images(norm)
+        state_p = policy.prepare_state(norm)
+        lang_tokens, lang_masks = policy.prepare_language(norm)
+
+        # decode noise: k_l2 draws of the padded shape, deterministic in seed, shared across phrases
+        g = torch.Generator().manual_seed(self.seed)
+        dnoise = torch.randn(k_l2, self.horizon, self.padded_dim, generator=g)
+        out = torch.empty(P, k_l2, device=self.device)
+        for k in range(k_l2):
+            noise_k = dnoise[k][None].expand(P, -1, -1).to(self.device)  # (P, H, padded)
+            acts = model.sample_actions(images, img_masks, lang_tokens, lang_masks, state_p, noise=noise_k)
+            acts = policy.unnormalize_outputs({"action": acts[:, :, : self.action_dim]})["action"]  # (P, H, 7)
+            nrm = ((acts - a_star) / std)[:, :, :6]  # continuous DoF only
+            out[:, k] = torch.sqrt((nrm ** 2).mean(dim=(1, 2)))
+        return out.cpu().numpy()

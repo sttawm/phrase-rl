@@ -196,6 +196,7 @@ def score_phrases(ipc_dir: Path, job_id: str, contexts: list, args) -> list[np.n
     tmp.write_text(json.dumps({
         "in_parquet": str(in_parquet), "out_parquet": str(out_parquet),
         "k": args.k, "seed": args.score_seed, "tau_min": args.tau_min,
+        "reward_mode": args.reward_mode, "k_l2": args.k_l2,
     }))
     os.replace(tmp, req)
 
@@ -773,6 +774,9 @@ def main():
     ap.add_argument("--score-seed", type=int, default=0)
     ap.add_argument("--tau-min", type=float, default=0.25, help="0b: tau<0.25 is non-discriminative")
     ap.add_argument("--score-timeout", type=float, default=600.0)
+    ap.add_argument("--reward-mode", choices=["flow", "l2"], default="flow",
+                    help="flow: CRN flow-matching residual (multimodal-aware). l2: CRN decoded-action per-DoF-normalized L2 vs a* (clearer, unimodal). Both lower=better.")
+    ap.add_argument("--k-l2", type=int, default=4, help="decode noise draws per phrase for reward_mode=l2 (each is a full denoise; keep small)")
     # optimization
     ap.add_argument("--lr", type=float, default=1e-5)
     ap.add_argument("--beta", type=float, default=0.04, help="KL-to-base anchor weight")
