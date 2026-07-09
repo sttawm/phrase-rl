@@ -67,6 +67,17 @@ Score ALL candidate rewards offline against the same 0c rollout-success labels (
 
 Val note: in-training val = offline flow-loss on 40 val contexts every 100 steps (mean + best-of-16 vs original). Rollout eval = Phase 4 only (cost: one rollout-val ≈ hours). Optional: small rollout probe (1 task × 8 phrases × 10 seeds ≈ 25 min) at each best-val checkpoint.
 
+### Reward bake-off rounds 1–2 (2026-07-09, results/bakeoff/*.json)
+
+Labels: 129 CoVer-template phrases × 4 tasks (10 seeds; 40 at 25 seeds), gated (3.5-flash judge; flash-lite judge REJECTED — misclassified target renames as drift). Key numbers (LOTO mean, gated): raw flow −0.06; flow-z +0.01; τ-band +0.01; **decoded-L2 +0.08 (only cross-task-consistent arm)**; rank-avg combo +0.03; ridge −0.19 (overfits).
+
+**Findings:**
+1. The CoVer-template generator is nearly drift-free (0–3%/task vs 35–65% for the old list-prompt) — the gate barely binds for this generator; drift-poisoning does NOT explain the weak correlations.
+2. **Carrot anti-correlation (ρ=−0.65) mechanism:** the set is 24/32 renames; flow slightly prefers renames (π0 is paraphrase-trained; renames predict demonstrated actions fine) while sim success punishes them (0.29 vs 0.45 clean — renamed referents ground worse in sim). Opposite direction from the original-set rename finding (renames 0.65 success there) → class-level effects are task/set-dependent; the offline reward does not track fine-grained within-task sim success and can anti-correlate on rename-heavy sets.
+3. Consequence: temper Phase-4 expectations for flow-RL; elevates the CoVer-verifier arm and a possible rollout-in-loop fine-tune; Phase 3 offline eval remains internally consistent (same-domain reward).
+
+RL v1 post-mortem (same date): KL leash β=0.04 too weak — monotonic drift KL 0.3→2.0, parse-fail 1%→58% by step 465; best ckpt step 200. v2 = restart from best ckpt, β=0.15, lr 5e-6, rolling-KL circuit breaker (exit 6). v1 artifacts: results/charts/phase2_v1_training.png + raw log.
+
 ## Phases
 
 - **0a — Infra + plumbing:** CoVer repo env; load both INTACT checkpoints via LeRobot; extract 2k+500 BridgeV2 contexts; fixed-noise scoring patch.
