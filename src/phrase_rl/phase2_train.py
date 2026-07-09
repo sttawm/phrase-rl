@@ -847,7 +847,7 @@ def main():
                     model.train()
             return processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
         gate = FaithfulnessGate(votes=args.gate_votes, generate_fn=_local_judge,
-                                cache_path="data/gate_cache_qwen.json")
+                                cache_path="data/gate_cache_qwen.json", include_reasons=False)
     else:
         gate = FaithfulnessGate(model=args.judge_model, votes=args.gate_votes)
 

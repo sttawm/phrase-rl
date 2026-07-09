@@ -78,7 +78,7 @@ class FaithfulnessGate:
 
     def __init__(self, model: str = "gemini-3.1-flash-lite", votes: int = 1,
                  api_key: str | None = None, cache_path: str = "data/gate_cache.json",
-                 retries: int = 6, generate_fn=None):
+                 retries: int = 6, generate_fn=None, include_reasons: bool = True):
         """generate_fn: optional local backend — a sync callable (prompt_text) -> raw
         response text (e.g. the frozen base Qwen via adapter-disabled generate).
         When set, no Gemini client/key is needed and GateUnavailable cannot occur
@@ -86,6 +86,7 @@ class FaithfulnessGate:
         self.model = model if generate_fn is None else "local"
         self.votes = votes
         self.generate_fn = generate_fn
+        self.include_reasons = include_reasons
         self.api_key = None
         if generate_fn is None:
             self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
@@ -139,8 +140,14 @@ class FaithfulnessGate:
 
     async def _vote_once(self, original: str, cands: list[str], temp: float) -> list[str]:
         numbered = "\n".join(f"{i+1}. {p}" for i, p in enumerate(cands))
+        base_prompt = PROMPT.format(original=original, numbered=numbered, n=len(cands))
+        if not self.include_reasons:  # in-loop: classes only, ~3x fewer output tokens
+            base_prompt = base_prompt.replace(
+                '{"verdicts": [{"i": 1, "class": "clean", "reason": "..."}, ...]}',
+                '{"verdicts": [{"i": 1, "class": "clean"}, ...]}').replace(
+                ", reasons under 8 words", "")
         if self.generate_fn is not None:
-            prompt = PROMPT.format(original=original, numbered=numbered, n=len(cands)) + \
+            prompt = base_prompt + \
                 "\nRespond with ONLY the JSON object, no code fences, no commentary."
             text = await asyncio.to_thread(self.generate_fn, prompt)
             m = re.search(r"\{.*\}", text, flags=re.S)  # tolerate pre/post chatter
@@ -156,7 +163,7 @@ class FaithfulnessGate:
             return classes
         resp = await self._get_client().aio.models.generate_content(
             model=self.model,
-            contents=PROMPT.format(original=original, numbered=numbered, n=len(cands)),
+            contents=base_prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json", temperature=temp
             ),

@@ -306,6 +306,18 @@ def build_user_prompt_with_trace(instruction: str, trace: str, batch_number: int
     swapped = swapped.replace("<Description of the image>\n", "")
     if swapped == base:  # template text drifted — fail loudly rather than silently re-reason
         raise RuntimeError("build_user_prompt_with_trace: template swap failed; check template text")
+    # 2026-07-08: the provided trace already contains the meaning + substitution
+    # analysis — do NOT ask the model to re-emit them (was ~40% of generation
+    # tokens, pure duplication). Output only the numbered list.
+    fmt = re.search(r"Format your response as:.*?Original Instruction:", swapped, flags=re.S)
+    if not fmt:
+        raise RuntimeError("build_user_prompt_with_trace: format section not found")
+    swapped = swapped.replace(
+        fmt.group(0),
+        "Format your response as (no analysis, no commentary — the scene analysis "
+        "is already provided above):\n            Reworded Instructions:\n"
+        "            1. <Alternative phrasing 1>\n            ...\n\n            Original Instruction:",
+    )
     return f"Scene analysis (provided):\n{trace}\n\n{swapped}"
 
 
