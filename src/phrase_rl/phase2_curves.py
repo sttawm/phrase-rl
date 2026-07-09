@@ -21,7 +21,7 @@ def main():
 
     rows = [json.loads(l) for l in open(args.log) if l.strip()]
     steps = pd.DataFrame([r for r in rows if "sec" in r and r.get("n_ok")])
-    vals = pd.DataFrame([r for r in rows if r.get("val")]) if any(r.get("val") for r in rows) else pd.DataFrame()
+    vals = pd.DataFrame([r for r in rows if r.get("type") == "val"])
 
     def smooth(x, w=15):
         return pd.Series(x).rolling(w, min_periods=1).mean()
@@ -33,9 +33,9 @@ def main():
     ax[0].set(title="reward (−flow loss), train contexts", xlabel="step"); ax[0].legend(fontsize=8)
 
     if len(vals):
-        ax[1].plot(vals["step"], vals["val_mean_reward"], marker="o", color="#378ADD", label="val mean")
-        if "val_best_reward" in vals: ax[1].plot(vals["step"], vals["val_best_reward"], marker="s", color="#1D9E75", label="val best-of-16")
-        if "val_orig_reward" in vals: ax[1].axhline(vals["val_orig_reward"].iloc[-1], color="#5F5E5A", ls="--", label="val original")
+        ax[1].plot(vals["step"], vals["mean_reward"], marker="o", color="#378ADD", label="val mean")
+        ax[1].plot(vals["step"], vals["mean_best_reward"], marker="s", color="#1D9E75", label="val best-of-16")
+        ax[1].axhline(vals["mean_orig_reward"].iloc[-1], color="#5F5E5A", ls="--", label="val original")
         ax[1].legend(fontsize=8)
     else:
         ax[1].text(0.5, 0.5, "val: first eval at step 100", ha="center", va="center", transform=ax[1].transAxes)
