@@ -62,9 +62,11 @@ def main():
                     help="json {task: instruction} overriding the nominal instructions (e.g. cover_ert_instructions.json)")
     ap.add_argument("--self-trace", action="store_true",
                     help="generate the trace with the model itself (full CoVer prompt -> extract_trace) instead of the cached Gemini trace; required when --instructions changes the instruction")
+    ap.add_argument("--assets", default=None,
+                    help="parquet(task, ert_instruction, trace) from gemini_redteam_assets: overrides BOTH instruction and trace per task (ALGORITHM.md: Gemini trace at test time)")
     args = ap.parse_args()
-    if args.instructions and not args.self_trace:
-        raise SystemExit("--instructions changes the instruction; cached Gemini traces would mismatch — pass --self-trace")
+    if args.instructions and not (args.self_trace or args.assets):
+        raise SystemExit("--instructions changes the instruction; cached Gemini traces would mismatch — pass --self-trace or --assets")
 
     from transformers import AutoModelForImageTextToText, AutoProcessor
     processor = AutoProcessor.from_pretrained(args.model)
@@ -73,6 +75,11 @@ def main():
     tasks = pd.read_parquet(args.tasks)
     ctx = pd.read_parquet("data/contexts_0c_tasks.parquet")  # for the frames
     overrides = json.load(open(args.instructions)) if args.instructions else {}
+    asset_traces = {}
+    if args.assets:
+        adf = pd.read_parquet(args.assets)
+        overrides = {r.task: str(r.ert_instruction) for r in adf.itertuples()}
+        asset_traces = {r.task: str(r.trace) for r in adf.itertuples()}
     rows = []
 
     def run_arm(model, arm):
@@ -80,10 +87,12 @@ def main():
             frame = ctx[ctx.episode_index == r.episode_index].iloc[0]
             task = frame["task"]
             instruction = overrides.get(task, r.instruction)
-            if args.instructions and task not in overrides:
-                continue  # override mode: only eval the tasks named in the json
+            if (args.instructions or args.assets) and task not in overrides:
+                continue  # override mode: only eval the tasks named in the override set
             img = Image.open(io.BytesIO(frame["image_png"]))
-            if args.self_trace:
+            if task in asset_traces:
+                trace = asset_traces[task]
+            elif args.self_trace:
                 # model writes its own analysis: full CoVer prompt, split off the trace
                 raw = gen_one(model, processor,
                               build_qwen_messages(img, instruction, 1),
@@ -105,7 +114,7 @@ def main():
         frame = ctx[ctx.episode_index == r.episode_index].iloc[0]
         task = frame["task"]
         instruction = overrides.get(task, frame["instruction"])
-        if args.instructions and task not in overrides:
+        if (args.instructions or args.assets) and task not in overrides:
             continue
         # "original" arm = the user instruction executed directly (red-team direct in override mode)
         rows.append({"task": task, "arm": "original", "phrase": instruction, "instruction": instruction})
