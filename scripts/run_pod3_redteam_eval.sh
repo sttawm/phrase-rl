@@ -2,7 +2,7 @@
 # Pod-3 RED-TEAM validation eval (user 2026-07-10: next eval matches CoVer's setup).
 # Inputs = CoVer's 4 ERT instructions. Arms:
 #   redteam_direct : ERT phrase straight to pi0 (their pi0-baseline replication)
-#   gemini_zeroshot: Gemini's single simple phrase (the ablation CoVer never ran)
+#   (gemini_zeroshot deferred — phrases cached in assets, add as an arm later)
 #   base           : Gemini trace -> base Qwen single greedy phrase
 #   tuned_flow/l2  : same with the freshest best_val adapters
 # Protocol: OUR val states (ep 0-24, stock horizon) — CoVer's exact reset-seed/150-step
@@ -55,10 +55,9 @@ fl = pd.read_parquet("data/phrases_rt_flow.parquet")
 fl["arm"] = fl["arm"].map({"base": "base", "original": "redteam_direct", "tuned": "tuned_flow"})
 l2 = pd.read_parquet("data/phrases_rt_l2.parquet")
 l2 = l2[l2.arm == "tuned"].assign(arm="tuned_l2")
-a = pd.read_parquet("results/phrase_artifacts/redteam_eval_assets.parquet")
-zs = pd.DataFrame({"task": a.task, "arm": "gemini_zeroshot",
-                   "phrase": a.gemini_zeroshot, "instruction": a.ert_instruction})
-out = pd.concat([fl, l2, zs], ignore_index=True).drop_duplicates(["task", "arm"])
+# gemini_zeroshot arm deferred (user 2026-07-10: rollout cost) — the phrases are
+# already in the assets parquet; add the arm later by re-running with it merged in.
+out = pd.concat([fl, l2], ignore_index=True).drop_duplicates(["task", "arm"])
 out.to_parquet("data/phrases_redteam_eval.parquet", index=False)
 print(out[["task", "arm", "phrase"]].to_string())
 PY
