@@ -37,6 +37,8 @@ def main():
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--out", required=True)
     ap.add_argument("--save-every", type=int, default=20)
+    ap.add_argument("--record-dir", default=None, help="save per-episode trajectories (frames/states/executed actions) as npz — sim-grounded a* source")
+    ap.add_argument("--record-success-only", action="store_true")
     args = ap.parse_args()
 
     root = os.path.abspath(args.int_act_root)
@@ -83,8 +85,18 @@ def main():
                 policy.reset()  # resets model action queue + adapter
                 action_plan = collections.deque()
                 success, steps = False, 0
+                rec = {"imgs": [], "states": [], "actions": []} if args.record_dir else None
                 while True:
                     img = np.ascontiguousarray(get_image_from_maniskill2_obs_dict(env, obs))
+                    if rec is not None:
+                        import io as _io
+                        from PIL import Image as _Image
+                        from transforms3d.euler import quat2euler as _q2e
+                        _b = _io.BytesIO(); _Image.fromarray(img).save(_b, format="PNG")
+                        rec["imgs"].append(_b.getvalue())
+                        _e = np.asarray(obs["agent"]["eef_pos"], dtype=np.float32)  # xyz, quat(wxyz), gripper
+                        _rpy = _q2e(_e[3:7], axes="sxyz")
+                        rec["states"].append(np.array([*_e[:3], *_rpy, 0.0, _e[7]], dtype=np.float32))  # Bridge convention
                     if not action_plan:
                         element = {
                             "observation.images.top": img,
@@ -94,10 +106,21 @@ def main():
                         action_chunk = policy.select_action(element)
                         action_plan.extend(action_chunk[:action_step])
                     action = action_plan.popleft()
+                    if rec is not None:
+                        rec["actions"].append(np.asarray(action, dtype=np.float32))
                     obs, reward, success, truncated, info = env.step(action.copy())
                     steps += 1
                     if truncated:
                         break
+                if rec is not None and (success or not args.record_success_only):
+                    import os as _os
+                    _os.makedirs(args.record_dir, exist_ok=True)
+                    _safe = "".join(c if c.isalnum() else "_" for c in str(row.phrase))[:40]
+                    np.savez_compressed(
+                        f"{args.record_dir}/{task}__ep{ep_id}__{_safe}.npz",
+                        imgs=np.array(rec["imgs"], dtype=object), states=np.stack(rec["states"]),
+                        actions=np.stack(rec["actions"]), success=success,
+                        task=task, phrase=str(row.phrase), episode_id=ep_id)
                 stats = info.get("episode_stats", {})
                 done_rows.append(
                     {
