@@ -141,6 +141,13 @@ Oracle = argmin ground-truth action loss over the 16 (not deployable; measures c
 - **2 vs 6:** tuned 7B vs frontier zero-shot — the headline claim if 6 wins.
 - **3-oracle vs 7-oracle:** whose candidate set has more headroom.
 
+## Sequencing decision (user, 2026-07-09)
+
+Finish the flow-vs-L2 A/B as-is (Gemini cached traces). Pick the winner by val
+rollouts. Then rerun the winning recipe with QWEN'S OWN reasoning as update
+context (self-traces, frozen base, cached offline; loss stays phrase-only) —
+kills the Gemini-trace train/deploy mismatch. ERT inputs slot into that run.
+
 ## v3 (planned): red-team-input RL via adapted ERT (audited 2026-07-09)
 
 ERT = arXiv:2411.18676 (Karnik et al.), code at Improbable-AI/embodied-red-teaming. Loop:
