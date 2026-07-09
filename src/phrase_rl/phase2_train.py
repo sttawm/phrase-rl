@@ -585,6 +585,9 @@ def build_model(args, ckpt_dir: Path):
     if resumed:
         model = PeftModel.from_pretrained(base, str(latest), is_trainable=True)
         print(f"resumed adapter from {latest}")
+    elif getattr(args, "init_adapter", None):
+        model = PeftModel.from_pretrained(base, args.init_adapter, is_trainable=True)
+        print(f"initialized adapter from {args.init_adapter} (fresh optimizer/step)")
     else:
         model = get_peft_model(base, LoraConfig(
             task_type=TaskType.CAUSAL_LM,
@@ -706,7 +709,15 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
         upd = apply_update(model, processor, optimizer, trainable, ctx_results, args)
         if upd["n_pos"]:
             state["counters"]["updates"] += 1
-        log_jsonl(log_path, step_record(step, t0, ctx_results, upd, args))
+        _rec = step_record(step, t0, ctx_results, upd, args)
+        log_jsonl(log_path, _rec)
+        if args.kl_abort and _rec.get("kl"):
+            _klh = getattr(args, "_kl_hist", [])
+            _klh.append(_rec["kl"]); args._kl_hist = _klh[-20:]
+            if len(args._kl_hist) >= 10 and sum(args._kl_hist) / len(args._kl_hist) > args.kl_abort:
+                print(f"KL circuit breaker: rolling mean {sum(args._kl_hist)/len(args._kl_hist):.2f} > {args.kl_abort}; checkpoint + exit 6", flush=True)
+                save_latest(model, optimizer, state, args, ckpt_dir)
+                raise SystemExit(6)
         state["step"] = step + 1
         pbar.update(1)
 
@@ -765,6 +776,8 @@ def main():
     # optimization
     ap.add_argument("--lr", type=float, default=1e-5)
     ap.add_argument("--beta", type=float, default=0.04, help="KL-to-base anchor weight")
+    ap.add_argument("--kl-abort", type=float, default=0.0, help="if >0: checkpoint and exit 6 when rolling-20 KL exceeds this (degeneration circuit breaker, 2026-07-09)")
+    ap.add_argument("--init-adapter", default=None, help="LoRA adapter dir to initialize from (fresh optimizer/step; e.g. a previous run's best_val)")
     ap.add_argument("--accum", type=int, default=4, help="candidates per backward micro-batch")
     ap.add_argument("--clip", type=float, default=1.0)
     ap.add_argument("--lora-r", type=int, default=16)
