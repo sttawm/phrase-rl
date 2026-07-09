@@ -141,6 +141,33 @@ Oracle = argmin ground-truth action loss over the 16 (not deployable; measures c
 - **2 vs 6:** tuned 7B vs frontier zero-shot — the headline claim if 6 wins.
 - **3-oracle vs 7-oracle:** whose candidate set has more headroom.
 
+## v3 (planned): red-team-input RL via adapted ERT (audited 2026-07-09)
+
+ERT = arXiv:2411.18676 (Karnik et al.), code at Improbable-AI/embodied-red-teaming. Loop:
+GPT-4o generates N "correct-but-challenging" instructions (image-conditioned; system prompt
+enforces task-faithfulness softly), best-of-5 CLIP-diversity selection, policy rollouts score
+difficulty, top-k hardest fed back as examples for round k+1. Key facts for us:
+
+- **CoVer only used ERT(k=0)** — single-pass GPT-4o, no refinement loop, no rollout feedback
+  (Bridge tasks were never in ERT's release; they generated their own). Their 33/task
+  "ert_rephrases" are DEFENSIVE test-time rephrases of the red-team instruction, not ERT output.
+- **R(π,c) is a black-box scalar** in Algorithm 1 — the rollout-success sort key swaps for our
+  offline CRN flow loss with no structural change. Agent-recommended form: per-episode DELTA
+  (loss under candidate − loss under nominal instruction), isolating the instruction effect
+  from state/multimodality — exactly our CRN advantage structure, reversed (keep HIGH delta).
+- **ERT has no faithfulness check** (prompt-only); an adversarial loss-proxy drifts to
+  semantically-wrong instructions faster than rollout feedback would → our 3-class gate
+  (exclude goal_drift) is the missing component, run on selected candidates.
+- Refinement rounds that ERT could only afford in fast sims (~26k rollouts/round on CALVIN)
+  become a few GPU-hours of batched π0 forwards offline.
+
+Recipe: 2000 train contexts × N=10 candidates (generator: local Qwen $0 first; selection does
+the work), CLIP-diversity via the PAPER's pairwise-cosine (repo's `.mean()` is buggy), keep
+high-delta gate-clean candidates, K=1–2 rounds. Train: red-team instruction as INPUT →
+rephrase → flow/L2-to-a* reward. Eval on CoVer's 4 ERT instructions, strictly held out.
+Optional proxy calibration: vanilla rollout-scored ERT on the 4 SIMPLER tasks vs offline
+delta-loss rank correlation (~50 rollouts/instruction).
+
 ## Ablations
 
 | Ablation | Question |
