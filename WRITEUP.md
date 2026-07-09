@@ -115,8 +115,12 @@ demonstrated trajectory, which mid-episode is dominated by reach-and-transport
 motion — "toward the plate" and "by the plate" demand nearly identical actions
 until the final centimeters. Style fits; goals barely register. This drove the raw
 reward↔success correlation negative (pooled ρ=−0.10); excluding judged goal-drift
-(the exact Phase 2 gate) removes the effect (pooled ρ=+0.28, weakly positive at
-our n=10-seed measurement precision).
+(the exact Phase 2 gate) removes the anti-correlation. CORRECTION (2026-07-09): an
+earlier draft reported the gated correlation as ρ≈+0.28; that number came from
+pooling unnormalized within-task ranks across different-size tasks — a rank-scale
+artifact. Properly computed, gated flow-loss validity is ρ ≈ 0.0–0.06: the gate
+removes the poison, and what remains carries essentially no fine-grained signal
+about rollout success (see the reward bake-off below).
 
 **Design consequence.** This is a *confirmed reward-hacking axis*: naive RL on flow
 loss would learn to emit trajectory-plausible, wrong-goal phrases. Phase 2 therefore
