@@ -8,6 +8,9 @@
 set -euxo pipefail
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
+# INT-ACT's config module hard-requires these at import time
+export VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline
+mkdir -p "$VLA_DATA_DIR" "$VLA_LOG_DIR"
 POD1="ssh -o StrictHostKeyChecking=no -p 39484 root@38.147.83.25"
 POD2="ssh -i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p 22159 root@69.30.85.249"
 cd /workspace/phrase-rl
