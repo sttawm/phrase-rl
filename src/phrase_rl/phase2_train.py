@@ -464,6 +464,24 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args) -> d
 # ------------------------------------------------------------------- val
 
 
+def run_probes(model, processor, args) -> list[dict]:
+    """Deployment-mode greedy phrase for the fixed probe contexts (longitudinal record).
+
+    ~2-3s per probe; logged as {"type": "probe"} rows so phrase evolution over
+    training is chartable from the train log alone, no extra passes needed.
+    """
+    out = []
+    model.eval()
+    for pr in getattr(args, "_probes", []):
+        msgs = cover_prompt.build_single_phrase_prefix(pr["instruction"], pr["image"], trace=pr["trace"])
+        inputs = apply_template(processor, msgs, continue_final_message=True).to(model.device)
+        with torch.no_grad():
+            gen = model.generate(**inputs, do_sample=False, max_new_tokens=48)
+        text = processor.decode(gen[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+        out.append({"task": pr["task"], "phrase": text.strip().split("\n")[0].strip()})
+    return out
+
+
 def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> dict:
     """Generate + gate + score on the val slice under a fixed sampling seed
     (training RNG state is snapshotted and restored, so val never perturbs
@@ -722,6 +740,10 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
         state["step"] = step + 1
         pbar.update(1)
 
+        if args.probe_every and getattr(args, "_probes", None) and (step + 1) % args.probe_every == 0:
+            log_jsonl(log_path, {"type": "probe", "step": step + 1,
+                                 "probes": run_probes(model, processor, args)})
+
         if (step + 1) % args.val_every == 0:
             val = run_val(model, processor, gate, val_df, args, ipc_dir, step + 1)
             log_jsonl(log_path, {"type": "val", **val})
@@ -750,6 +772,10 @@ def main():
     ap.add_argument("--train-contexts", default="data/contexts_train.parquet")
     ap.add_argument("--traces", default=None, help="parquet(episode_index,t,trace): trace-conditioned primary (user 2026-07-08)")
     ap.add_argument("--val-traces", default=None)
+    ap.add_argument("--probe-contexts", default=None,
+                    help="parquet(task,episode_index,t,instruction,image_png): fixed contexts probed with a greedy deployment phrase every --probe-every steps (logged as type=probe)")
+    ap.add_argument("--probe-traces", default=None, help="parquet(episode_index,t,trace) for the probe contexts")
+    ap.add_argument("--probe-every", type=int, default=25)
     ap.add_argument("--source-aug", type=float, default=0.5,
                     help="prob of conditioning on a random teacher rephrase instead of the original (robustness; gate stays anchored to the original)")
     ap.add_argument("--val-contexts", default="data/contexts_val_0b.parquet")
@@ -824,6 +850,21 @@ def main():
         VAL_TRACES = {(r.episode_index, r.t): str(r.trace) for r in _t.itertuples()}
     args._traces, args._val_traces = TRACES, VAL_TRACES
     args._sources = SOURCES if args.traces else {}
+
+    args._probes = []
+    if args.probe_contexts:
+        _pt = {}
+        if args.probe_traces:
+            _pdf = pd.read_parquet(args.probe_traces)
+            _pt = {(r.episode_index, r.t): str(r.trace) for r in _pdf.itertuples()}
+        for r in pd.read_parquet(args.probe_contexts).itertuples():
+            args._probes.append({
+                "task": str(getattr(r, "task", f"ep{r.episode_index}")),
+                "instruction": str(r.instruction),
+                "image": Image.open(io.BytesIO(r.image_png)).convert("RGB"),
+                "trace": _pt.get((r.episode_index, r.t)),
+            })
+        print(f"probes: {len(args._probes)} contexts every {args.probe_every} steps")
 
     processor, model, resumed = build_model(args, ckpt_dir)
     trainable = [p for p in model.parameters() if p.requires_grad]

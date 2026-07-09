@@ -46,6 +46,8 @@ tmux new-session -d -s train \
      --beta 0.15 --lr 5e-6 --kl-abort 1.2 \
      ${INIT_ADAPTER:+--init-adapter $INIT_ADAPTER} \
      --traces results/phrase_artifacts/cover35_teacher_train.parquet \
+     --probe-contexts results/phrase_artifacts/contexts_0c_tasks.parquet \
+     --probe-traces results/phrase_artifacts/traces_0c_tasks.parquet --probe-every 25 \
      --val-traces results/phrase_artifacts/rephrases_val_0b.parquet  # INTERIM: old-format val traces (cover35 val blocked on credits, ~\$3); keep constant for the whole run — do NOT swap mid-run \
    2>&1 | tee -a results/checkpoints/phase2/train.log; \
    echo \"trainer exited rc=\$? (0=clean/interrupted 3=gate unavailable 4=score timeout 5=score server error)\"; \
