@@ -10,7 +10,8 @@ export VLA_DATA_DIR="${VLA_DATA_DIR:-/workspace/vla_data}" VLA_LOG_DIR="${VLA_LO
 mkdir -p "$VLA_DATA_DIR" "$VLA_LOG_DIR"
 cd /workspace/phrase-rl
 git pull --no-edit || true
-cp -n results/overnight/raw/phrases_0c_redo.parquet data/ 2>/dev/null || true
+mkdir -p data
+cp -f results/overnight/raw/phrases_0c_redo.parquet data/
 
 # originals-only phrase list for trajectory recording
 .venv/bin/python - <<'PY'
