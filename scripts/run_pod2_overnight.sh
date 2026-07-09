@@ -21,7 +21,7 @@ tmux kill-session -t grid 2>/dev/null || true
 tmux new-session -d -s grid "bash -c '
   export HF_HOME=/workspace/hf_cache VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline
   eval \"\$(grep -E \"^export HF_TOKEN\" ~/.bashrc)\"
-  cd /workspace/INT-ACT && /workspace/phrase-rl/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
+  cd /workspace/INT-ACT && /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
     --int-act-root /workspace/INT-ACT \
     --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
     --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
@@ -69,7 +69,7 @@ print(df.groupby("task").size().to_string())
 PY
 
 cd /workspace/INT-ACT
-/workspace/phrase-rl/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
+/workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
   --int-act-root /workspace/INT-ACT \
   --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
   --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
