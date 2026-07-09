@@ -92,6 +92,34 @@ RL v1 post-mortem (same date): KL leash β=0.04 too weak — monotonic drift KL 
 - **3 — Offline eval matrix** (below).
 - **4 — SIMPLER rollouts** via CoVer repo, only on a clear Phase 3 win.
 
+## Phase 4 eval protocol — CoVer comparability (audited 2026-07-09)
+
+Read their code (github.com/cover-vla/cover-vla) + paper v2. Their Table 3 protocol is NOT a
+nominal-instruction eval; matching it exactly requires four deliberate choices:
+
+1. **Instructions are ERT red-team, not nominal.** Every number in Table 3 uses adversarial
+   phrasings as the user instruction (carrot: "Balance the carrot on the ceramic platter.";
+   eggplant: "Arrange the eggplant neatly in the yellow bin."; spoon: "Set the spoon exactly
+   in the middle of the towel."; stack: "Arrange the lush green element atop the yellowish-
+   orange element."). Their π₀ baseline = π₀ *fed these directly* (ID avg 41.5). This is
+   exactly our deployment problem: the comparable run feeds the red-team instruction to OUR
+   tuned rephraser and executes its single greedy output.
+2. **Initial states: reset seeds 1000–1049 cycled** (50 unique states; 100 trials/task = 2
+   passes), NOT INT-ACT's `episode_id` enumeration. Reported ±std is over 3 repeat runs.
+3. **Horizon 150 steps, TimeLimit ignored** (stock envs truncate at 60/120 — successes after
+   that still count for them). Break on success (`terminated`).
+4. **Same checkpoints we already use**: π₀+CoVer rows = `INTACT-pi0-finetune-bridge`;
+   rephrase rows = `INTACT-pi0-finetune-rephrase-bridge` (ours). Chunk-4 replan + INT-ACT
+   BridgeSimplerAdapter post-processing match our runner already.
+
+Their test-time cost per chunk boundary: 8 instructions × 5 action samples = 40 candidates,
+verifier-scored (two-stage; winner's instruction persists). Our tuned arm = ONE phrase, zero
+test-time overhead. Comparison rows: their π₀ 41.5 / π₀+CoVer 57.0 / π₀(rephrase)+CoVer 65.5
+(ID avg) vs our `redteam-direct` (baseline replication) and `redteam→tuned-rephrase`.
+
+Consequence: our nominal-instruction rollouts (0c, 4-arm eval) stand on their own but are NOT
+comparable to any CoVer table row. `phase0c_rollout.py --cover-protocol` implements (2)+(3).
+
 ## Offline eval matrix (held-out contexts, frozen-VLA action loss)
 
 | # | Condition | List metrics where applicable |

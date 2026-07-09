@@ -33,8 +33,14 @@ def main():
     ap.add_argument("--config", required=True, help="relative to int-act-root")
     ap.add_argument("--ckpt", required=True)
     ap.add_argument("--phrases", required=True, help="parquet: task, arm, phrase")
-    ap.add_argument("--episode-ids", type=int, nargs="+", required=True)
+    ap.add_argument("--episode-ids", type=int, nargs="+", required=True,
+                    help="INT-ACT mode: obj_init episode ids. CoVer mode: trial indices (initial state = reset seed 1000 + i%%50)")
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--cover-protocol", action="store_true",
+                    help="mirror CoVer's Table-3 eval (audited from their code 2026-07-09): "
+                    "initial states via env.reset(seed=1000+trial%%50) with NO obj_init_options, "
+                    "run to --max-steps ignoring TimeLimit truncation, break on success")
+    ap.add_argument("--max-steps", type=int, default=150, help="cover-protocol horizon (their loop: 150)")
     ap.add_argument("--out", required=True)
     ap.add_argument("--save-every", type=int, default=20)
     ap.add_argument("--record-dir", default=None, help="save per-episode trajectories (frames/states/executed actions) as npz — sim-grounded a* source")
@@ -79,9 +85,14 @@ def main():
             for ep_id in args.episode_ids:
                 if (task, row.phrase, ep_id) in done_keys:
                     continue
-                obs, reset_info = env.reset(
-                    seed=args.seed, options={"obj_init_options": {"episode_id": ep_id}}
-                )
+                if args.cover_protocol:
+                    # CoVer: itertools.count(1000) reset every 50 trials -> seeds 1000..1049 cycled,
+                    # placement from the env's episode RNG (no obj_init_options)
+                    obs, reset_info = env.reset(seed=1000 + ep_id % 50)
+                else:
+                    obs, reset_info = env.reset(
+                        seed=args.seed, options={"obj_init_options": {"episode_id": ep_id}}
+                    )
                 policy.reset()  # resets model action queue + adapter
                 action_plan = collections.deque()
                 success, steps = False, 0
@@ -110,7 +121,11 @@ def main():
                         rec["actions"].append(np.asarray(action, dtype=np.float32))
                     obs, reward, success, truncated, info = env.step(action.copy())
                     steps += 1
-                    if truncated:
+                    if args.cover_protocol:
+                        # their loop: break on success, ignore TimeLimit, hard cap at max_steps
+                        if success or steps >= args.max_steps:
+                            break
+                    elif truncated:
                         break
                 if rec is not None and (success or not args.record_success_only):
                     import os as _os

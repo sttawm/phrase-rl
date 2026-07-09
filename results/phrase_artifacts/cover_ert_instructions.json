@@ -1,0 +1,7 @@
+{
+  "_source": "CoVer repo simpler_rephrased_final_eval_vlm.json 'original' fields (ERT red-team instructions used as the user instruction in their Table 3; audited 2026-07-09)",
+  "widowx_carrot_on_plate": "Balance the carrot on the ceramic platter.",
+  "widowx_put_eggplant_in_basket": "Arrange the eggplant neatly in the yellow bin.",
+  "widowx_spoon_on_towel": "Set the spoon exactly in the middle of the towel.",
+  "widowx_stack_cube": "Arrange the lush green element atop the yellowish-orange element."
+}
