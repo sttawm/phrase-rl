@@ -50,6 +50,8 @@ def main():
     ap.add_argument("--n", type=int, default=32)
     ap.add_argument("--limit", type=int, default=0, help="use only first N contexts (0=all)")
     ap.add_argument("--save-every", type=int, default=10)
+    ap.add_argument("--adapter", default=None, help="LoRA adapter dir — sample from a TUNED checkpoint instead of base (base-vs-tuned comparisons)")
+    ap.add_argument("--gen-seed", type=int, default=None, help="torch manual seed before each context's sampling (paired base/tuned comparisons)")
     args = ap.parse_args()
 
     traces = {}
@@ -60,6 +62,10 @@ def main():
     from transformers import AutoModelForImageTextToText, AutoProcessor
     processor = AutoProcessor.from_pretrained(args.model)
     model = AutoModelForImageTextToText.from_pretrained(args.model, dtype=torch.bfloat16, device_map="cuda")
+    if args.adapter:
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(model, args.adapter, is_trainable=False)
+        print(f"sampling from tuned adapter: {args.adapter}")
 
     df = pd.read_parquet(args.contexts)
     if args.limit:
@@ -83,6 +89,8 @@ def main():
             return_tensors="pt", enable_thinking=False,
         ).to(model.device)
         phrases = []
+        if args.gen_seed is not None:
+            torch.manual_seed(args.gen_seed + int(row["episode_index"]) * 1000 + int(row["t"]))
         for attempt in range(3):
             with torch.no_grad():
                 out = model.generate(**inputs, max_new_tokens=1400, do_sample=True,
