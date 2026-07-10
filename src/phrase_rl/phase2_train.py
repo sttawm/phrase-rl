@@ -907,7 +907,9 @@ def main():
         gate = FaithfulnessGate(votes=args.gate_votes, generate_fn=_local_judge,
                                 cache_path="data/gate_cache_qwen.json", include_reasons=False)
     else:
-        gate = FaithfulnessGate(model=args.judge_model, votes=args.gate_votes)
+        # include_reasons=False in-loop: classes only (~3x fewer output tokens)
+        gate = FaithfulnessGate(model=args.judge_model, votes=args.gate_votes,
+                                include_reasons=False)
 
     completed, exit_code = False, 0
     try:

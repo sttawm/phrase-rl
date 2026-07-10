@@ -165,7 +165,10 @@ class FaithfulnessGate:
             model=self.model,
             contents=base_prompt,
             config=types.GenerateContentConfig(
-                response_mime_type="application/json", temperature=temp
+                response_mime_type="application/json", temperature=temp,
+                # thinking OFF: verdicts are ~30 tokens; default thinking billed 1-2k
+                # output tokens per call (2026-07-10: drained the Gemini credits)
+                thinking_config=types.ThinkingConfig(thinking_budget=0),
             ),
         )
         verdicts = json.loads(resp.text)["verdicts"]

@@ -44,7 +44,7 @@ tmux new-session -d -s train \
    CUDA_VISIBLE_DEVICES=$TRAIN_GPU .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --resume \
      --beta 0.15 --lr 5e-6 --kl-abort 1.2 \
-     --judge-backend gemini --judge-model gemini-3.5-flash \
+     ${JUDGE_BACKEND:+--judge-backend $JUDGE_BACKEND --judge-model gemini-3.5-flash} \
      ${INIT_ADAPTER:+--init-adapter $INIT_ADAPTER} \
      --traces results/phrase_artifacts/cover35_teacher_train.parquet \
      --probe-contexts results/phrase_artifacts/contexts_0c_tasks.parquet \
