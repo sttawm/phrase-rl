@@ -49,5 +49,75 @@
     "charts": [
       "results/charts/step0_ab_verdict.png"
     ]
+  },
+  {
+    "id": "phase2-v1-flow-degenerated",
+    "date": "2026-07-09",
+    "commit": "7496aad",
+    "overview": "First RL run (flow reward, from base Qwen, beta=0.04 lr=1e-5 cps=2). Healthy to ~step 300 then KL runaway (0.31->2.0), parse-fail collapse by 465. Post-mortem: KL leash too weak. best_val@200 banked; used as INIT for both v2 arms.",
+    "commands": [
+      "bash scripts/run_phase2.sh  # pre-7496aad config"
+    ],
+    "checkpoints": "results/checkpoints/phase2_v1_degenerated/best_val (local + pod1)",
+    "charts": [
+      "results/charts/phase2_v1_degeneration.png"
+    ]
+  },
+  {
+    "id": "phase2-v2-flow-arm",
+    "date": "2026-07-09..",
+    "commit": "44de48e..HEAD (regime changes in EXPERIMENT.md)",
+    "overview": "Flow-reward arm of the flow-vs-L2 A/B. Init v1@200, beta=0.15, kl-abort 1.2, source-aug 0.5, cover35 traces, local-Qwen judge (Gemini interlude 07-10 reverted: thinking-token drain). lr 5e-6->1e-5->7e-6, cps 2->6. Probes every 10-25 steps. Best val margin +8.0% @300. RUNNING.",
+    "commands": [
+      "bash scripts/run_phase2.sh"
+    ],
+    "checkpoints": "pod1 phase2/{latest,best_val}; local: results/checkpoints/phase2_flow/best_val",
+    "charts": [
+      "results/charts/phase2_flow_curves.png",
+      "results/charts/reward_margin.png",
+      "results/charts/probe_evolution.png"
+    ]
+  },
+  {
+    "id": "phase2-v2-l2-arm",
+    "date": "2026-07-09..",
+    "commit": "44de48e..HEAD",
+    "overview": "L2-reward arm: CRN decoded-action per-DoF-normalized L2 vs a*. Identical config to flow arm except --reward-mode l2 --k-l2 4. Best margin +3.1% @320 (best_val dir holds @100, raw-metric era). RUNNING.",
+    "commands": [
+      "bash scripts/run_pod_l2.sh"
+    ],
+    "checkpoints": "pod2 phase2_l2/{latest,best_val}; local: results/checkpoints/phase2_l2/best_val",
+    "charts": [
+      "results/charts/phase2_l2_curves.png"
+    ]
+  },
+  {
+    "id": "val-eval-nominal-r1",
+    "date": "2026-07-10",
+    "commit": "d894602",
+    "overview": "First deployment eval, nominal instructions, ep 0-9: original 50 / base 60 / tuned_flow@300 55 / tuned_l2@100 57.5 (%). Rephrasing helps; RL not yet past base; flow's carrot rename costs success (30 vs 40).",
+    "commands": [
+      "bash scripts/run_pod3_val_eval.sh"
+    ],
+    "data": "results/overnight/raw/rollouts_val_eval.parquet"
+  },
+  {
+    "id": "redteam-eval-r1",
+    "date": "2026-07-10",
+    "commit": "3a47d65",
+    "overview": "Red-team eval (CoVer ERT phrases verbatim, Gemini traces, ep 0-24 x1): direct 29 / base 51 / flow 47 / l2 43 (%). Stack: 0 -> 32 (tuned). Identical-phrase cells expose 8-16pp pi0 decoding noise -> x3 repeats mandatory.",
+    "commands": [
+      "bash scripts/run_pod3_redteam_eval.sh"
+    ],
+    "data": "results/overnight/raw/rollouts_redteam_eval.parquet"
+  },
+  {
+    "id": "redteam-eval-loop",
+    "date": "2026-07-10..",
+    "commit": "HEAD",
+    "overview": "Continuous red-team leaderboard on pod3: freshest best_val pair, tuned arms x3 x 25 states (600 eps/round); baselines topped to x3 once. One parquet per pair: rollouts_rt_f<step>_l<step>.parquet. RUNNING.",
+    "commands": [
+      "bash scripts/run_pod3_eval_loop.sh"
+    ]
   }
 ]
