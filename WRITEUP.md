@@ -239,6 +239,44 @@ evidence of the rename hack; (4) n=10/cell — only original-vs-base approaches
 significance. Next eval: CoVer's red-team instructions (their ERT phrases,
 verbatim), 25 val states, both arms' fresher checkpoints.
 
+## Red-team eval — the deployment story under CoVer's adversarial instructions
+
+Inputs: CoVer's 4 ERT red-team phrases, verbatim (e.g. stack = "Arrange the lush
+green element atop the yellowish-orange element."). Test-time path per
+ALGORITHM.md: Gemini trace on the red-team phrase -> Qwen single greedy phrase ->
+execute. 25 val states/cell, 400 episodes. (Our val protocol, not CoVer's exact
+reset-seed/150-step one — that stays sealed for the final run.)
+
+| task | redteam_direct | base | tuned_flow@300 | tuned_l2@100 |
+|---|---|---|---|---|
+| carrot | 40 | 48 | 36 | **44** |
+| eggplant | 48 | 84 | 72 | 56 |
+| spoon | 28 | 60 | 48 | 40 |
+| stack | **0** | 12 | **32** | **32** |
+| **overall** | **29.0** | **51.0** | **47.0** | **43.0** |
+
+Findings:
+
+1. **Red-teaming craters the policy** — 29% overall vs ~50% nominal, and stack
+   goes to literally **0/25**. CoVer's premise replicates cleanly.
+2. **Rephrasing rescues it**: +14 to +22 points. On the hardest input (stack),
+   both tuned arms hit 32% where base manages 12% and direct gets 0% — the tuned
+   canonicalization ("place/stack the green block on the yellow block") beats
+   base's verbose paraphrase precisely where decoding matters most.
+3. **A free noise calibration, and it matters**: the two tuned arms emitted
+   IDENTICAL phrases for eggplant and spoon, yet scored 72 vs 56 and 48 vs 40 on
+   the same 25 initial states — pi0's stochastic decoding alone produces
+   8-16pp cell-level swings. So: cell differences under ~16pp are unreadable,
+   and the apparent overall base > tuned gap (51 vs 47/43) is mostly carried by
+   identical-phrase cells, i.e. noise. Repeats (CoVer runs 3) are mandatory for
+   the final table.
+4. **On the cells where the arms actually differ** (carrot + stack), L2 leads
+   flow 76 vs 68 aggregate — and carrot repeats the rename story: L2 recovered
+   "carrot" (44%) while flow said "orange vegetable" (36%).
+5. Checkpoint mapping for any CoVer comparison: our policy is their
+   "Inst. Aug." checkpoint, so their 44.0 row is the relevant baseline analog,
+   not their 41.5 pi0 row (and our protocol differs — see EXPERIMENT.md).
+
 ## Next
 
 - **Phase 2 (primary):** advantage-weighted tuning of Qwen3.5-9B from base, with
