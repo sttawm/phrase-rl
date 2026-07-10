@@ -53,7 +53,7 @@ tmux new-session -d -s train \
    CUDA_VISIBLE_DEVICES=$TRAIN_GPU .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --ckpt-dir $CKPT_DIR --resume \
      --reward-mode l2 --k-l2 4 \
-     --beta 0.15 --lr 1e-5 --kl-abort 1.2 --contexts-per-step 6 \
+     --beta 0.15 --lr 7e-6 --kl-abort 1.2 --contexts-per-step 6 \
      --val-every 40 --save-every 10 --probe-every 10 \
      ${JUDGE_BACKEND:+--judge-backend $JUDGE_BACKEND --judge-model gemini-3.5-flash} \
      ${INIT_ADAPTER:+--init-adapter $INIT_ADAPTER} \

@@ -750,8 +750,18 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
             print(f"\n[val@{step + 1}] mean_reward={val['mean_reward']} "
                   f"best_of_16={val['mean_best_reward']} orig={val['mean_orig_reward']}", flush=True)
             state["val_history"].append(val)
-            if val["mean_reward"] is not None and (
-                    state["best_val_mean"] is None or val["mean_reward"] > state["best_val_mean"]):
+            # best_val by MARGIN over the original (2026-07-10): raw mean_reward is
+            # composition-sensitive (which val context drops varies per val)
+            margin = None
+            if val["mean_reward"] is not None and val.get("mean_orig_reward") is not None:
+                margin = val["mean_reward"] - val["mean_orig_reward"]
+            if "best_val_margin" not in state:  # migrate old checkpoints: seed from history
+                hist = [v["mean_reward"] - v["mean_orig_reward"] for v in state.get("val_history", [])
+                        if v.get("mean_reward") is not None and v.get("mean_orig_reward") is not None]
+                state["best_val_margin"] = max(hist) if hist else None
+            if margin is not None and (
+                    state["best_val_margin"] is None or margin > state["best_val_margin"]):
+                state["best_val_margin"] = margin
                 state["best_val_mean"] = val["mean_reward"]
                 state["best_val_step"] = step + 1
                 save_adapter(model, ckpt_dir / "best_val", {"val": val})
