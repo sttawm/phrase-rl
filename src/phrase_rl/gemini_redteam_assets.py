@@ -27,12 +27,14 @@ ZEROSHOT_PROMPT = (
 def call_with_retry(client, types, model, contents, system=None, temperature=0.8,
                     max_tokens=5000, retries=5):
     from phrase_rl.gemini_rephrase import HARD_STOP_MARKERS, server_retry_delay
+    no_think = types.ThinkingConfig(thinking_budget=0)  # analysis goes in the BODY; thinking only adds billed tokens
     for attempt in range(retries):
         try:
-            cfg = types.GenerateContentConfig(temperature=temperature, max_output_tokens=max_tokens)
+            cfg = types.GenerateContentConfig(temperature=temperature, max_output_tokens=max_tokens,
+                                              thinking_config=no_think)
             if system:
                 cfg = types.GenerateContentConfig(system_instruction=system, temperature=temperature,
-                                                  max_output_tokens=max_tokens)
+                                                  max_output_tokens=max_tokens, thinking_config=no_think)
             return client.models.generate_content(model=model, contents=contents, config=cfg).text or ""
         except Exception as e:
             msg = str(e)

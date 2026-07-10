@@ -49,3 +49,11 @@ always-on cost.
   is warm (cache path `data/gate_cache.json`).
 - Enable auto-recharge to avoid depletion stalls (3 so far), OR keep a buffer;
   forward burn is now small enough that a modest buffer lasts.
+
+## 2026-07-10 incident: judge thinking-tokens drain
+- Switched gate to gemini-3.5-flash without disabling THINKING -> ~1-2k billed output
+  tokens per ~30-token verdict (~500k out / 15 min, ~$5/hr). Est. damage: $20-30 over ~5h.
+- Fixed: thinking_budget=0 + include_reasons=False in-loop (verdict-only ~30 tokens);
+  judge now env-selectable, DEFAULT = local frozen-base Qwen ($0). Both trainers reverted.
+- Rule: any new Gemini call site MUST set thinking_config(thinking_budget=0) unless
+  reasoning text is the deliverable — and even then it goes in the body, not thinking.
