@@ -43,7 +43,7 @@ tmux new-session -d -s train \
   "bash -lc 'set -o pipefail; eval \"\$(grep -E \"^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY|UV_CACHE_DIR|UV_LINK_MODE)\" ~/.bashrc || true)\"; cd /workspace/phrase-rl && \
    CUDA_VISIBLE_DEVICES=$TRAIN_GPU .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --resume \
-     --beta 0.15 --lr 5e-6 --kl-abort 1.2 \
+     --beta 0.15 --lr 1e-5 --kl-abort 1.2 --contexts-per-step 6 \
      ${JUDGE_BACKEND:+--judge-backend $JUDGE_BACKEND --judge-model gemini-3.5-flash} \
      ${INIT_ADAPTER:+--init-adapter $INIT_ADAPTER} \
      --traces results/phrase_artifacts/cover35_teacher_train.parquet \

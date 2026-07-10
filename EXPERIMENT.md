@@ -247,3 +247,12 @@ Network volume: RunPod US-KS-2, 200GB — everything on it is reproducible from 
 2. **Reward hacking → template collapse** (diversity metrics during training; KL anchor).
 3. **Offline loss ↔ rollout success link unproven** — Phase 0c tests a small slice early; Phase 4 is the real test; CoVer's verifier-based selection is the fallback comparison. Related: reward/offline eval use real Bridge frames, rollout eval is sim (SIMPLER) — if they disagree, keep "loss doesn't predict success" and "real↔sim gap" distinguishable.
 4. ~~Repo housekeeping~~ resolved 2026-07-03: fresh repo initialized here; stray parent repo removed (backup at `~/.dev-stray-git-backup`).
+
+## Regime change @ flow~500 / l2~300 (2026-07-10, user)
+
+Margin creep diagnosed as under-training: batch = 2 contexts/update (noisy
+advantages) + double-braking after v1 (lr halved AND beta quadrupled), while val
+best-of-16 margin (+33%) vs mean (+8%) shows large un-captured headroom. Change,
+both arms simultaneously (A/B fairness): contexts-per-step 2->6, lr 5e-6->1e-5.
+beta=0.15 + KL breaker 1.2 unchanged as guardrails. Charts: step axis is now
+~3x more data per step after this point.
