@@ -41,6 +41,9 @@ def main():
                     "initial states via env.reset(seed=1000+trial%%50) with NO obj_init_options, "
                     "run to --max-steps ignoring TimeLimit truncation, break on success")
     ap.add_argument("--max-steps", type=int, default=150, help="cover-protocol horizon (their loop: 150)")
+    ap.add_argument("--repeats", type=int, default=1,
+                    help="rollouts per (task, phrase, episode_id) — pi0 decoding is stochastic, "
+                    "so repeats measure policy noise (identical-phrase cells differed 8-16pp at n=25)")
     ap.add_argument("--out", required=True)
     ap.add_argument("--save-every", type=int, default=20)
     ap.add_argument("--record-dir", default=None, help="save per-episode trajectories (frames/states/executed actions) as npz — sim-grounded a* source")
@@ -75,7 +78,8 @@ def main():
     if os.path.exists(args.out):
         prev = pd.read_parquet(args.out)
         done_rows = prev.to_dict("records")
-        done_keys = {(r["task"], r["phrase"], r["episode_id"]) for r in done_rows}
+        # older files have no rep column: treat their episodes as rep 0
+        done_keys = {(r["task"], r["phrase"], r["episode_id"], r.get("rep", 0)) for r in done_rows}
         print(f"resume: {len(done_rows)} episodes already recorded")
 
     n_new = 0
@@ -83,7 +87,8 @@ def main():
         env = simpler_env.make(task)
         for row in task_phrases.itertuples():
             for ep_id in args.episode_ids:
-                if (task, row.phrase, ep_id) in done_keys:
+              for rep in range(args.repeats):
+                if (task, row.phrase, ep_id, rep) in done_keys:
                     continue
                 if args.cover_protocol:
                     # CoVer: itertools.count(1000) reset every 50 trials -> seeds 1000..1049 cycled,
@@ -140,7 +145,7 @@ def main():
                 done_rows.append(
                     {
                         "task": task, "arm": row.arm, "phrase": row.phrase,
-                        "episode_id": ep_id, "success": bool(success), "steps": steps,
+                        "episode_id": ep_id, "rep": rep, "success": bool(success), "steps": steps,
                         "grasped": int(stats.get("is_src_obj_grasped", 0)),
                         "moved_correct": int(stats.get("moved_correct_obj", 0)),
                         "moved_wrong": int(stats.get("moved_wrong_obj", 0)),
