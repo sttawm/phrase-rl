@@ -186,6 +186,59 @@ rather than real-robot demonstrations, removing the domain gap entirely) and an
 early **deployment eval** — the tuned model's single phrase per task, head-to-head
 against the original instruction in the simulator.
 
+## Phase 2 — the flow-vs-L2 A/B (running, 2026-07-10)
+
+Two RL runs in parallel, identical in every knob (β=0.15, lr 5e-6, source-aug 0.5,
+same v1@200 init, same trainer) except the reward the frozen π0 provides:
+**flow** = CRN flow-matching residual on the ground-truth chunk (multimodal-aware);
+**L2** = per-DoF-normalized distance between π0's *decoded* action and the same
+chunk (clearer, unimodal). Loop per ALGORITHM.md: 16 sampled rephrases from the
+model → faithfulness gate (drift excluded) → π0 reward → z-advantages →
+positive-only weighted SFT of the single-phrase deployment prompt, KL-leashed.
+
+**Reward over time.** Both arms hold their rephrases above the original
+instruction on paired contexts; margins are small (flow ≈ +8% of the original's
+loss at val, L2 ≈ +2%) and creep rather than jump — the KL leash trades speed
+for not collapsing (v1, with β=0.04, collapsed by step 465).
+
+![reward margin](results/charts/reward_margin.png)
+
+Per-arm details: [flow curves](results/charts/phase2_flow_curves.png) ·
+[L2 curves](results/charts/phase2_l2_curves.png). Gate pass ~80%, parse
+failures ~0, KL 0.5–0.75 throughout — the v1 failure signature is absent.
+
+**What the model actually says — probes.** Every 25 steps each trainer greedily
+answers the deployment prompt for 4 fixed task contexts. This is the clearest
+window into what the reward is teaching:
+
+![probe evolution](results/charts/probe_evolution.png)
+
+Two early signals, both on the rename axis (the reward-hacking direction 0c
+identified): the **L2 arm un-learned an inherited rename** (eggplant:
+"vegetable" → "eggplant", step 125) while the **flow arm keeps carrot renamed**
+("orange vegetable", stable through 500). Consistent with the mechanism: a wrong
+object changes the decoded *actions* (L2 punishes it) more reliably than it
+changes the flow residual.
+
+**First deployment eval (val states 0–9, 10 episodes/cell, ±16pp/cell).**
+Greedy single phrase per task from each arm's best_val vs baselines:
+
+| task | original | base Qwen | tuned_flow@300 | tuned_l2@100 |
+|---|---|---|---|---|
+| carrot | 40 | 50 | **30** | 40 |
+| eggplant | 80 | 100 | 100 | 90 |
+| spoon | 50 | 60 | 50 | 60 |
+| stack | 30 | 30 | 40 | 40 |
+| **overall** | **50.0** | **60.0** | 55.0 | 57.5 |
+
+Honest reading: (1) *rephrasing helps* — every rephrase arm beats the original
+instructions; (2) *the RL hasn't beaten its own base model yet* at these early
+checkpoints — base's verbose, specific phrases win overall; (3) the flow arm's
+carrot rename **costs real success** (30 vs 40), the first deployment-level
+evidence of the rename hack; (4) n=10/cell — only original-vs-base approaches
+significance. Next eval: CoVer's red-team instructions (their ERT phrases,
+verbatim), 25 val states, both arms' fresher checkpoints.
+
 ## Next
 
 - **Phase 2 (primary):** advantage-weighted tuning of Qwen3.5-9B from base, with
