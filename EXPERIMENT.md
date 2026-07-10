@@ -256,3 +256,14 @@ best-of-16 margin (+33%) vs mean (+8%) shows large un-captured headroom. Change,
 both arms simultaneously (A/B fairness): contexts-per-step 2->6, lr 5e-6->1e-5.
 beta=0.15 + KL breaker 1.2 unchanged as guardrails. Charts: step axis is now
 ~3x more data per step after this point.
+
+## Contingency (user, 2026-07-10, standing order): rollout-reward arm
+
+If the proxy-reward RL hits a wall (margins plateau after the cps=6/lr fixes, or
+deployment evals stop improving vs base): switch to a ROLLOUT-REWARD run.
+Design: contexts = sim initial states of the VAL split (4 tasks x ep 0-24, incl.
+eggplant); reward = success rate over ~2 reps x ~12 candidates (~15 min/step);
+NO separate val during training — report training success directly; final
+evaluation ONCE on the sealed test tier (ep 25+, CoVer protocol). Rollout server
+mirrors the score-server file-IPC protocol, INT-ACT venv. Caveat for writeup:
+trains on eval-adjacent tasks (ERT instructions still held out).
