@@ -756,8 +756,12 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
             if val["mean_reward"] is not None and val.get("mean_orig_reward") is not None:
                 margin = val["mean_reward"] - val["mean_orig_reward"]
             if "best_val_margin" not in state:  # migrate old checkpoints: seed from history
+                # EXCLUDE the val being processed (it was appended to history above) —
+                # otherwise it seeds a bar equal to itself and fails the strictly-greater
+                # test, silently dropping the checkpoint (bug: flow@600, 2026-07-10)
                 hist = [v["mean_reward"] - v["mean_orig_reward"] for v in state.get("val_history", [])
-                        if v.get("mean_reward") is not None and v.get("mean_orig_reward") is not None]
+                        if v.get("mean_reward") is not None and v.get("mean_orig_reward") is not None
+                        and v.get("step") != step + 1]
                 state["best_val_margin"] = max(hist) if hist else None
             if margin is not None and (
                     state["best_val_margin"] is None or margin > state["best_val_margin"]):
