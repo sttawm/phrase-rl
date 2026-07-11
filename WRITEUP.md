@@ -277,6 +277,54 @@ Findings:
    "Inst. Aug." checkpoint, so their 44.0 row is the relevant baseline analog,
    not their 41.5 pi0 row (and our protocol differs — see EXPERIMENT.md).
 
+## Phase 2 v3 — from scratch, standard-order batches (running)
+
+v2 taught us three lessons: the v1-init biased the A/B toward flow (both arms
+inherited flow-trained habits), 2-context updates were ~1/100th of standard RLHF
+batch sizes, and the judge cost a full generation per context. v3 restarts BOTH
+arms from base Qwen with the fixed recipe:
+
+**The batch, precisely.** One training step = 6 contexts; each generates 32
+candidates in one call (~28 survive dedupe); rewards are z-normalized within
+each context's group (GRPO-style, group size ~28); the top-8 positive-advantage
+candidates per context enter the loss. Gradients accumulate over 4 steps before
+one optimizer step. So each weight update aggregates **24 contexts and up to 192
+phrase-sequences** (~1,500-token multimodal prefix each, loss on phrase tokens
+only) — in GRPO terms: 24 prompts x G=32 per update. v2 updated on ~15 sequences
+from 2 contexts. No judge (drift watch moved to probes + rollout evals); flow
+scoring at k=8 CRN draws (0b: reliability 0.93); lr 7e-6, beta_KL 0.15,
+breaker at rolling KL 1.2. Step ~330s on the flow pod, ~250s on L2.
+
+**Reward margins from scratch** ([chart](results/charts/reward_margin_v3.png)):
+flow's vals run +13.7 -> +10.0 -> +6.6 -> +7.7% (an early spike while the
+from-scratch candidate pool is wild, then settling near v2's PEAK — which v2
+needed 3x the data to reach). L2 holds +2-3.5%, also at its v2 peak pace.
+
+**Deployment (red-team) — the headline so far.** With the noise-calibrated
+protocol (25 val states, x3-x6 repeats):
+
+| arm | n | success % |
+|---|---|---|
+| redteam_direct (their pi0-baseline analog) | 300 | 30.7 |
+| base_random (their "pi0 w/ random" analog) | 300 | 45.7 |
+| base Qwen, greedy | 700 | 49.0 |
+| tuned_flow v2 @300 / @680 | 300 ea | 43.0 / 45.3 |
+| **tuned_flow v3 @40** | 300 | **50.0** |
+| tuned_l2 (v2 and v3 checkpoints) | 300 ea | 39-42 |
+
+The v3 flow arm **tied greedy-base after 40 from-scratch steps** — v2 never got
+within 5 points. Greedy-base beats random-from-pool by ~3pp (selection matters
+even untrained). The eval loop (pod 3) re-runs this table at x6 repeats for
+every new best_val pair.
+
+**Phrase evolution** ([chart](results/charts/probe_evolution_v3.png)): from
+scratch, both arms start rename-heavy ("orange vegetable", "purple vegetable",
+"yellow container"). The v2 divergence pattern is re-emerging on carrot: L2
+recovers "carrot" by step 175 while flow keeps the rename — decoded-action
+distance punishes wrong-object phrases that flow loss tolerates. Watch item:
+flow's spoon phrase is inflating ("...on the table surface") — the no-judge
+drift axis under surveillance.
+
 ## Next
 
 - **Phase 2 (primary):** advantage-weighted tuning of Qwen3.5-9B from base, with
