@@ -86,7 +86,12 @@ def main():
     for task, task_phrases in phrases.groupby("task"):
         env = simpler_env.make(task)
         for row in task_phrases.itertuples():
-            for ep_id in args.episode_ids:
+            # optional per-row episode pinning (e.g. random-rephrase arm: one sampled
+            # phrase per episode, CoVer's "pi0 w/ random" analog)
+            row_eps = args.episode_ids
+            if hasattr(row, "episode_id") and row.episode_id is not None and not pd.isna(row.episode_id):
+                row_eps = [int(row.episode_id)]
+            for ep_id in row_eps:
               for rep in range(args.repeats):
                 if (task, row.phrase, ep_id, rep) in done_keys:
                     continue
