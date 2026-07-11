@@ -428,7 +428,10 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
         adv = (r - r.mean()) / (r.std() + 1e-6)
         res["adv"] = adv
         prefix_msgs = None
-        for cand, a in zip(res["survivors"], adv):
+        ranked = sorted(zip(res["survivors"], adv), key=lambda t: -t[1])
+        if getattr(args, "max_pos_per_ctx", 0):
+            ranked = ranked[: args.max_pos_per_ctx]  # top-K by advantage: sharper signal, ~half the update cost
+        for cand, a in ranked:
             if a <= 0:
                 continue
             if prefix_msgs is None:  # build (and tokenize) the prefix once per context
@@ -826,6 +829,8 @@ def main():
     # step composition
     ap.add_argument("--contexts-per-step", type=int, default=2)
     ap.add_argument("--n-candidates", type=int, default=16)
+    ap.add_argument("--max-pos-per-ctx", type=int, default=0,
+                    help="cap update to top-K positives per context by advantage (0 = all)")
     ap.add_argument("--grad-accum-groups", type=int, default=1,
                     help="accumulate gradients over N context-groups before optimizer.step() — standard-order effective batches at zero extra compute")
     ap.add_argument("--min-parsed", type=int, default=6, help="min unique candidates else parse-fail")
