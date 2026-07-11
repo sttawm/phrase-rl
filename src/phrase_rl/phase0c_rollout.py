@@ -104,6 +104,16 @@ def main():
                         seed=args.seed, options={"obj_init_options": {"episode_id": ep_id}}
                     )
                 policy.reset()  # resets model action queue + adapter
+                # CRN for evals (2026-07-11): pin pi0's decode noise per (task, state, rep)
+                # — phrase deliberately EXCLUDED, so all arms face identical noise and
+                # arm contrasts reflect phrasing only (identical-phrase cells differed
+                # 8-16pp without this)
+                import zlib
+                import torch as _torch
+                _seed = zlib.crc32(f"{task}|{ep_id}|{rep}".encode()) % (2**31)
+                _torch.manual_seed(_seed)
+                if _torch.cuda.is_available():
+                    _torch.cuda.manual_seed_all(_seed)
                 action_plan = collections.deque()
                 success, steps = False, 0
                 rec = {"imgs": [], "states": [], "actions": []} if args.record_dir else None
