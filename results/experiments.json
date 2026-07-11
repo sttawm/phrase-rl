@@ -67,7 +67,7 @@
     "id": "phase2-v2-flow-arm",
     "date": "2026-07-09..",
     "commit": "44de48e..HEAD (regime changes in EXPERIMENT.md)",
-    "overview": "Flow-reward arm of the flow-vs-L2 A/B. Init v1@200, beta=0.15, kl-abort 1.2, source-aug 0.5, cover35 traces, local-Qwen judge (Gemini interlude 07-10 reverted: thinking-token drain). lr 5e-6->1e-5->7e-6, cps 2->6. Probes every 10-25 steps. Best val margin +8.0% @300. RUNNING.",
+    "overview": "Flow-reward arm of the flow-vs-L2 A/B. Init v1@200, beta=0.15, kl-abort 1.2, source-aug 0.5, cover35 traces, local-Qwen judge (Gemini interlude 07-10 reverted: thinking-token drain). lr 5e-6->1e-5->7e-6, cps 2->6. Probes every 10-25 steps. Best val margin +8.0% @300. RUNNING. ARCHIVED @ step ~690 (best_val@680, margin +7.9%); superseded by v3 from-scratch.",
     "commands": [
       "bash scripts/run_phase2.sh"
     ],
@@ -82,7 +82,7 @@
     "id": "phase2-v2-l2-arm",
     "date": "2026-07-09..",
     "commit": "44de48e..HEAD",
-    "overview": "L2-reward arm: CRN decoded-action per-DoF-normalized L2 vs a*. Identical config to flow arm except --reward-mode l2 --k-l2 4. Best margin +3.1% @320 (best_val dir holds @100, raw-metric era). RUNNING.",
+    "overview": "L2-reward arm: CRN decoded-action per-DoF-normalized L2 vs a*. Identical config to flow arm except --reward-mode l2 --k-l2 4. Best margin +3.1% @320 (best_val dir holds @100, raw-metric era). RUNNING. ARCHIVED @ step ~490 (best margin +3.1% @320); superseded by v3 from-scratch.",
     "commands": [
       "bash scripts/run_pod_l2.sh"
     ],
@@ -118,6 +118,16 @@
     "overview": "Continuous red-team leaderboard on pod3: freshest best_val pair, tuned arms x3 x 25 states (600 eps/round); baselines topped to x3 once. One parquet per pair: rollouts_rt_f<step>_l<step>.parquet. RUNNING.",
     "commands": [
       "bash scripts/run_pod3_eval_loop.sh"
+    ]
+  },
+  {
+    "id": "phase2-v3-from-scratch-ab",
+    "date": "2026-07-10..",
+    "commit": "05f3294+ (see git log)",
+    "overview": "A/B RESTARTED FROM SCRATCH (base Qwen, NO v1 init \u2014 kills the flow-shaped-init confound) with the standard-order batch config: cps=6, G=32 candidates/context, grad accumulation over 4 groups (~670 sequences/optimizer update), GATELESS both arms (judge removed; drift watch via probes+evals), lr 7e-6, beta 0.15, kl-abort 1.2, source-aug 0.5, cover35 traces, per-stage timers. Flow arm pod1 (run_phase2.sh), L2 arm pod2 (run_pod_l2.sh). v2 checkpoints archived on-pod (*_v2_archive) and locally (results/checkpoints/phase2_v2_*_final).",
+    "commands": [
+      "bash scripts/run_phase2.sh",
+      "bash scripts/run_pod_l2.sh"
     ]
   }
 ]
