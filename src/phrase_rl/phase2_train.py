@@ -404,7 +404,7 @@ def phrase_logprob_and_kl(model, inputs, start, n_new, beta):
     return mean_logp, kl
 
 
-def apply_update(model, processor, optimizer, trainable, ctx_results, args) -> dict:
+def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_step=True) -> dict:
     """Advantages -> positive-only candidate losses -> one AdamW step.
 
     Mutates each ok context's res with res["adv"]. Candidate loss:
@@ -462,14 +462,20 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args) -> d
             logp_sum += float(mean_logp.detach())
             n_done += 1
         if gloss is not None:
-            (gloss / n_tot).backward()
+            # extra /grad_accum_groups: gradients ACCUMULATE across steps until do_step,
+            # so the aggregate update matches one step's scale (2026-07-10: standard-order
+            # effective batches — e.g. accum 4 x cps 6 x ~28 phrases ~= 670 sequences/update)
+            (gloss / n_tot / max(1, args.grad_accum_groups)).backward()
 
     if n_done:
-        gn = torch.nn.utils.clip_grad_norm_(trainable, args.clip)
-        optimizer.step()
         stats.update(update_loss=loss_sum / n_done, kl=kl_sum / n_done,
-                     logprob=logp_sum / n_done, grad_norm=float(gn))
-    optimizer.zero_grad(set_to_none=True)
+                     logprob=logp_sum / n_done)
+    if do_step:
+        if any(p.grad is not None for p in trainable):
+            gn = torch.nn.utils.clip_grad_norm_(trainable, args.clip)
+            optimizer.step()
+            stats["grad_norm"] = float(gn)
+        optimizer.zero_grad(set_to_none=True)
     return stats
 
 
@@ -740,7 +746,8 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
         _score_sec = time.time() - _score_t0
 
         _upd_t0 = time.time()
-        upd = apply_update(model, processor, optimizer, trainable, ctx_results, args)
+        upd = apply_update(model, processor, optimizer, trainable, ctx_results, args,
+                           do_step=((step + 1) % max(1, args.grad_accum_groups) == 0))
         _upd_sec = time.time() - _upd_t0
         if upd["n_pos"]:
             state["counters"]["updates"] += 1
@@ -819,6 +826,8 @@ def main():
     # step composition
     ap.add_argument("--contexts-per-step", type=int, default=2)
     ap.add_argument("--n-candidates", type=int, default=16)
+    ap.add_argument("--grad-accum-groups", type=int, default=1,
+                    help="accumulate gradients over N context-groups before optimizer.step() — standard-order effective batches at zero extra compute")
     ap.add_argument("--min-parsed", type=int, default=6, help="min unique candidates else parse-fail")
     ap.add_argument("--min-survivors", type=int, default=4, help="min gate survivors else skip")
     ap.add_argument("--gate-votes", type=int, default=1)  # flash-lite single vote; majority-of-3 only for offline precision
