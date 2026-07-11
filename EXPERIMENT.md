@@ -267,3 +267,15 @@ NO separate val during training — report training success directly; final
 evaluation ONCE on the sealed test tier (ep 25+, CoVer protocol). Rollout server
 mirrors the score-server file-IPC protocol, INT-ACT venv. Caveat for writeup:
 trains on eval-adjacent tasks (ERT instructions still held out).
+
+## Speed package @ flow~690 / l2~490 (2026-07-10, user: batches tiny, profile, cut judge)
+
+Profile at cps=6: step 283s; scoring only 20-30s (8%) — the rest is generation +
+judge + update (now instrumented: gen_sec/judge_sec/score_sec/update_sec per step).
+Changes: (1) per-stage timers; (2) L2 ARM DROPS THE GATE (--no-gate) — hypothesis:
+decoded-action L2 punishes goal drift natively (wrong goal -> different trajectory
+-> large L2), making the judge redundant there; flow KEEPS the gate (0c: flow
+reward actively prefers drift). NOTE: the A/B now differs in reward AND gating —
+documented deliberately. (3) flow judge trimmed (verdict max tokens 1000->400).
+Batch-size context: typical GRPO updates are 256-1024 prompts x 8-16 samples;
+ours is 6x~14 — next lever after timers is batched multi-context generation.

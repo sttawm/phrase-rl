@@ -263,12 +263,14 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
         image=img, instruction=instruction, batch_number=args.n_candidates, trace=trace)
     inputs = apply_template(processor, msgs, add_generation_prompt=True).to(model.device)
     model.eval()
+    _gen_t0 = time.time()
     with torch.no_grad():
         out = model.generate(
             **inputs, do_sample=True, temperature=args.gen_temp,
             max_new_tokens=args.max_new_tokens,
         )
     text = processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+    res["gen_sec"] = round(time.time() - _gen_t0, 1)
     parsed = cover_prompt.parse_reworded(text)
     unique = dedupe(parsed)
     cands = unique[: args.n_candidates]
@@ -277,17 +279,27 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
         res["reason"] = "parse_fail"
         return res
 
-    (verdicts,) = gate.judge_many_sync([(instruction, cands)], progress=False)
-    classes = [v["cls"] for v in verdicts]
-    # v["faithful"] folds in judge_fail fail-closed semantics (faithful=False)
-    survivors = [c for c, v in zip(cands, verdicts) if v["faithful"]]
-    res.update(
-        n_judged=len(cands),
-        n_drift=sum(cl == "goal_drift" for cl in classes),
-        n_rename=sum(cl == "rename" for cl in classes),
-        n_judge_fail=sum(cl == "judge_fail" for cl in classes),
-        n_survivors=len(survivors),
-    )
+    if getattr(args, "no_gate", False):
+        # L2-arm hypothesis (2026-07-10): decoded-action distance punishes goal drift
+        # natively (wrong goal -> different trajectory -> large L2), so the judge is
+        # redundant — and it's a full in-process generation per context.
+        survivors = cands
+        res.update(n_judged=len(cands), n_drift=0, n_rename=0, n_judge_fail=0,
+                   n_survivors=len(cands), judge_sec=0.0)
+    else:
+        _judge_t0 = time.time()
+        (verdicts,) = gate.judge_many_sync([(instruction, cands)], progress=False)
+        res["judge_sec"] = round(time.time() - _judge_t0, 1)
+        classes = [v["cls"] for v in verdicts]
+        # v["faithful"] folds in judge_fail fail-closed semantics (faithful=False)
+        survivors = [c for c, v in zip(cands, verdicts) if v["faithful"]]
+        res.update(
+            n_judged=len(cands),
+            n_drift=sum(cl == "goal_drift" for cl in classes),
+            n_rename=sum(cl == "rename" for cl in classes),
+            n_judge_fail=sum(cl == "judge_fail" for cl in classes),
+            n_survivors=len(survivors),
+        )
     if len(survivors) < min_survivors:
         res["reason"] = "gate_fail"
         return res
@@ -723,12 +735,20 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
                       f"(<{args.min_survivors}) for {res['instruction']!r}", flush=True)
 
         # ONE score job per step: the whole context group shares a CRN batch
+        _score_t0 = time.time()
         score_group(ipc_dir, f"s{step:06d}_{uuid.uuid4().hex[:8]}", ok_pairs, args)
+        _score_sec = time.time() - _score_t0
 
+        _upd_t0 = time.time()
         upd = apply_update(model, processor, optimizer, trainable, ctx_results, args)
+        _upd_sec = time.time() - _upd_t0
         if upd["n_pos"]:
             state["counters"]["updates"] += 1
         _rec = step_record(step, t0, ctx_results, upd, args)
+        _rec["gen_sec"] = round(sum(r.get("gen_sec", 0) for r in ctx_results), 1)
+        _rec["judge_sec"] = round(sum(r.get("judge_sec", 0) for r in ctx_results), 1)
+        _rec["score_sec"] = round(_score_sec, 1)
+        _rec["update_sec"] = round(_upd_sec, 1)
         log_jsonl(log_path, _rec)
         if args.kl_abort and _rec.get("kl"):
             _klh = getattr(args, "_kl_hist", [])
@@ -803,6 +823,8 @@ def main():
     ap.add_argument("--min-survivors", type=int, default=4, help="min gate survivors else skip")
     ap.add_argument("--gate-votes", type=int, default=1)  # flash-lite single vote; majority-of-3 only for offline precision
     ap.add_argument("--judge-model", default="gemini-3.1-flash-lite")
+    ap.add_argument("--no-gate", action="store_true",
+                    help="skip the faithfulness judge entirely (L2 arm: decoded-action reward punishes drift natively)")
     ap.add_argument("--judge-backend", choices=["qwen", "gemini"], default="qwen",
                     help="qwen = frozen base of the loaded model, local+free (user 2026-07-08); gemini = API")
     # generation
@@ -913,7 +935,7 @@ def main():
             try:
                 with torch.no_grad(), model.disable_adapter():
                     out = model.generate(**inputs, do_sample=True, temperature=0.3,
-                                         max_new_tokens=1000)
+                                         max_new_tokens=400)  # verdict JSON is short; was 1000
             finally:
                 if was_training:
                     model.train()

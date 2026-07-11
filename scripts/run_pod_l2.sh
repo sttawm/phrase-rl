@@ -52,7 +52,7 @@ tmux new-session -d -s train \
   "bash -lc 'set -o pipefail; eval \"\$(grep -E \"^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY|UV_CACHE_DIR|UV_LINK_MODE)\" ~/.bashrc || true)\"; cd /workspace/phrase-rl && \
    CUDA_VISIBLE_DEVICES=$TRAIN_GPU .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --ckpt-dir $CKPT_DIR --resume \
-     --reward-mode l2 --k-l2 4 \
+     --reward-mode l2 --k-l2 4 --no-gate \
      --beta 0.15 --lr 7e-6 --kl-abort 1.2 --contexts-per-step 6 \
      --val-every 40 --save-every 10 --probe-every 10 \
      ${JUDGE_BACKEND:+--judge-backend $JUDGE_BACKEND --judge-model gemini-3.5-flash} \
