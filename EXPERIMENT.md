@@ -280,11 +280,19 @@ documented deliberately. (3) flow judge trimmed (verdict max tokens 1000->400).
 Batch-size context: typical GRPO updates are 256-1024 prompts x 8-16 samples;
 ours is 6x~14 — next lever after timers is batched multi-context generation.
 
-## Eval state-split registry (updated 2026-07-11)
+## Eval state-split registry (CORRECTED 2026-07-11)
 
-- VAL (checkpoint selection, leaderboards, spend freely): episode_ids 0-24 and 150-199 (75 states/task).
-- TEST (sealed, touch ONCE with final checkpoints): episode_ids 25-49, 50-99, 100-149 (125 states/task).
-  User 2026-07-11: 50-99 stays sealed (never observed). Nothing — no debugging run, no spot
-  check — touches test ids before the final eval. ZERO episodes have ever run on any test id.
-- Episode ids seed procedural placement, so the supply is unlimited; any future val growth
-  allocates 200+, never dips into the sealed ranges.
+FINDING (source audit of put_on_in_scene.py): episode_ids index a FINITE per-task grid
+(~12-24 layouts; spoon = 12 xy pairs x 2 quats = 24) and WRAP BY MODULO — ids 25+ alias
+ids 0-23. There is no unseen-state tier: val (ids 0-24) already covered every layout.
+All earlier "sealed state range" designations are void.
+
+- VAL: episode_ids 0-23 (the full grid), x6 repeats, CRN-pinned decode noise.
+- TEST = HELD-OUT TASKS, never states. The INT-ACT install registers task variants no
+  training or eval has ever touched: PutEggplantOnPlate-v1, PutCokeCanOnPlate-v1,
+  PutCarrotOnCokeCan-v1, PutCarrotOnGreenCube-v1, PutPlateOnGreenCube-v1,
+  PutCokeCanOnPepsiCan-v1. Final eval: chosen checkpoints on held-out tasks + CoVer's
+  ERT instructions (also unseen by training).
+- Contrast-variance floor: ~96 (task,state) cells on the 4 ID tasks. Going below ~±4pp
+  on paired contrasts requires ADDING TASKS, not states or reps.
+- Note: CoVer's "50 reset seeds" also sample (with replacement) from these same grids.
