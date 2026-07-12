@@ -282,8 +282,9 @@ ours is 6x~14 — next lever after timers is batched multi-context generation.
 
 ## Eval state-split registry (updated 2026-07-11)
 
-- VAL (checkpoint selection, leaderboards, spend freely): episode_ids 0-24 and 50-99 (75 states/task).
-- TEST (sealed, touch ONCE with final checkpoints): episode_ids 25-49 AND 100-149 (75 states/task).
-  Nothing — no debugging run, no spot check — touches test ids before the final eval.
-- Episode ids seed procedural placement, so the supply is unlimited; if val ever needs to grow
-  again, allocate 150+ and extend TEST first to keep the sets width-matched.
+- VAL (checkpoint selection, leaderboards, spend freely): episode_ids 0-24 and 150-199 (75 states/task).
+- TEST (sealed, touch ONCE with final checkpoints): episode_ids 25-49, 50-99, 100-149 (125 states/task).
+  User 2026-07-11: 50-99 stays sealed (never observed). Nothing — no debugging run, no spot
+  check — touches test ids before the final eval. ZERO episodes have ever run on any test id.
+- Episode ids seed procedural placement, so the supply is unlimited; any future val growth
+  allocates 200+, never dips into the sealed ranges.
