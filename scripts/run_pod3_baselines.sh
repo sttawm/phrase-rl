@@ -62,7 +62,7 @@ PY
 
 # 3a) base greedy: fresh CRN-era rolls, all reps
 OUT=/workspace/phrase-rl/data/rollouts_rt_baselines_crn.parquet
-[ -f "$OUT" ] || cp /workspace/phrase-rl/data/rollouts_rt_f300_l100.parquet "$OUT"
+# no pre-CRN seeding: this file is the clean CRN-era baseline set
 cd /workspace/INT-ACT
 RUN() { /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
   --int-act-root /workspace/INT-ACT \
