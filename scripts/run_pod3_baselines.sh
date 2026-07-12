@@ -60,30 +60,30 @@ base[base.arm == "base"].to_parquet("data/phrases_rt_basegreedy.parquet", index=
 print("base greedy rows:", (base.arm == "base").sum())
 PY
 
-# 3a) base greedy: seed with existing x3 data, --repeats 6 rolls only reps 3-5
-OUT=/workspace/phrase-rl/data/rollouts_rt_baselines.parquet
+# 3a) base greedy: fresh CRN-era rolls, all reps
+OUT=/workspace/phrase-rl/data/rollouts_rt_baselines_crn.parquet
 [ -f "$OUT" ] || cp /workspace/phrase-rl/data/rollouts_rt_f300_l100.parquet "$OUT"
 cd /workspace/INT-ACT
 RUN() { /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
   --int-act-root /workspace/INT-ACT \
   --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
   --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
-  --episode-ids 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 \
+  --episode-ids 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 \
   --out "$OUT" "$@"; }
-RUN --phrases /workspace/phrase-rl/data/phrases_rt_basegreedy.parquet --repeats 6
+RUN --phrases /workspace/phrase-rl/data/phrases_rt_basegreedy.parquet --repeats 4
 # 3b) base_random: episode-pinned rows, x3 reps
-RUN --phrases /workspace/phrase-rl/data/phrases_rt_random.parquet --repeats 3
+RUN --phrases /workspace/phrase-rl/data/phrases_rt_random.parquet --repeats 4
 
 # 4) publish + summary (base_random x6 not needed: cap at what completed)
 cd /workspace/phrase-rl
 cp -f "$OUT" results/overnight/raw/
-git add results/overnight/raw/rollouts_rt_baselines.parquet
+git add results/overnight/raw/rollouts_rt_baselines_crn.parquet
 git -c user.name=pod3 -c user.email=pod@runpod commit -m "red-team baselines: base x6 reps + base_random arm (CoVer random analog) [pod]" || true
 git -c user.name=pod3 -c user.email=pod@runpod pull --rebase --no-edit || true
 git push || true
 .venv-gen/bin/python - <<'PY'
 import pandas as pd
-d = pd.read_parquet("data/rollouts_rt_baselines.parquet")
+d = pd.read_parquet("data/rollouts_rt_baselines_crn.parquet")
 print((d.groupby("arm").success.agg(["mean","count"])).to_string())
 PY
 echo BASELINES-DONE
