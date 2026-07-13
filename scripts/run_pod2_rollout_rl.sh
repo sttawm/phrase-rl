@@ -67,7 +67,7 @@ tmux new-session -d -s train \
      --probe-contexts results/phrase_artifacts/contexts_0c_tasks.parquet \
      --probe-traces results/phrase_artifacts/traces_0c_tasks.parquet --probe-every 10 \
      --beta 0.15 --lr 7e-6 --kl-abort 1.2 \
-     --contexts-per-step 2 --n-candidates 32 --grad-accum-groups 4 --max-pos-per-ctx 8 \
+     --contexts-per-step 2 --n-candidates 16 --grad-accum-groups 4 --max-pos-per-ctx 8 \
      --no-gate --val-every 0 --save-every 10 \
      --score-timeout 1800 \
    2>&1 | tee -a $CKPT_DIR/train.log; \
