@@ -308,3 +308,12 @@ directly off the training log; final eval ONCE on held-out task variants).
 Config otherwise unchanged (32 cands, top-8, accum 4, beta .15, lr 7e-6).
 ~40 episodes/step ≈ 5-6 min/step, 48 steps/epoch. Flow arm continues on pod 1
 as the proxy-reward representative.
+
+## Hot-optimizer probe on flow arm @ ~step 490 (2026-07-12)
+
+Plateau shape = fast-then-flat (not slow-climb) + KL drifting at 0.55 → hypothesis:
+reward-information ceiling, not lr. Cheap falsification since flow is the spare arm:
+clip 1.0->2.0 (grad norms ran ~2x clip — lr alone would be absorbed) + lr 7e-6->1e-5.
+If margins break out of the 6-9 band: optimizer was binding (revisit rollout arm's lr
+too). If KL runs hot with flat margins: information ceiling confirmed; the rollout
+arm (reward = the target metric itself) is the real escape route.
