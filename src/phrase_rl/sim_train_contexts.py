@@ -51,9 +51,12 @@ def main():
             img = np.ascontiguousarray(get_image_from_maniskill2_obs_dict(env, obs))
             buf = io.BytesIO()
             Image.fromarray(img).save(buf, format="PNG")
+            # per-task offset: (episode_index, t) must be unique ACROSS tasks or the
+            # trainer's trace dict collapses (all tasks share ep numbers 0-23)
+            off = 1000 * (1 + TASKS.index(task))
             rows.append({
                 "context_id": f"{task}|{ep}",
-                "task": task, "episode_index": ep, "t": 0,
+                "task": task, "episode_index": off + ep, "t": 0,
                 "episode_id": ep, "instruction": str(instruction),
                 "image_png": buf.getvalue(),
             })
