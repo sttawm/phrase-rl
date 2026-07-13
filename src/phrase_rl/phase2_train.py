@@ -215,8 +215,9 @@ def score_phrases(ipc_dir: Path, job_id: str, contexts: list, args) -> list[np.n
         if done.exists():
             out = pd.read_parquet(out_parquet)
             losses = []
-            for ci, (_, phrases) in enumerate(contexts):
-                g = out[out["context_id"] == ci]
+            for ci, (row, phrases) in enumerate(contexts):
+                key = str(row["context_id"]) if rollout else ci  # rollout ids are "task|ep" strings
+                g = out[out["context_id"] == key]
                 if len(g) != len(phrases):
                     raise ScoreServerError(
                         f"{job_id}: context {ci} returned {len(g)} rows "
