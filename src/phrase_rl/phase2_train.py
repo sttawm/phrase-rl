@@ -177,19 +177,18 @@ def score_phrases(ipc_dir: Path, job_id: str, contexts: list, args) -> list[np.n
     """
     in_parquet = (ipc_dir / f"{job_id}.in.parquet").resolve()
     out_parquet = (ipc_dir / f"{job_id}.out.parquet").resolve()
+    rollout = getattr(args, "reward_mode", "flow") == "rollout"
     recs = []
     for ci, (row, phrases) in enumerate(contexts):
+        cid = str(row["context_id"]) if rollout else ci  # rollout server keys on "task|episode_id"
         for p in phrases:
-            recs.append({
-                "context_id": ci,
-                "image_png": row["image_png"],
-                "state": np.asarray(row["state"], dtype=np.float32),
-                "action_chunk": np.asarray(row["action_chunk"], dtype=np.float32),
-                "phrase": str(p),
-            })
-    pd.DataFrame(
-        recs, columns=["context_id", "image_png", "state", "action_chunk", "phrase"]
-    ).to_parquet(in_parquet, index=False)
+            rec = {"context_id": cid, "image_png": row["image_png"], "phrase": str(p)}
+            if not rollout:  # pi0 scoring needs proprioception + ground truth
+                rec["state"] = np.asarray(row["state"], dtype=np.float32)
+                rec["action_chunk"] = np.asarray(row["action_chunk"], dtype=np.float32)
+            recs.append(rec)
+    cols = ["context_id", "image_png", "phrase"] if rollout else         ["context_id", "image_png", "state", "action_chunk", "phrase"]
+    pd.DataFrame(recs, columns=cols).to_parquet(in_parquet, index=False)
 
     req = ipc_dir / f"{job_id}.req.json"
     tmp = ipc_dir / f"{job_id}.req.json.tmp"  # .tmp never matches the server's *.req.json glob
@@ -197,6 +196,7 @@ def score_phrases(ipc_dir: Path, job_id: str, contexts: list, args) -> list[np.n
         "in_parquet": str(in_parquet), "out_parquet": str(out_parquet),
         "k": args.k, "seed": args.score_seed, "tau_min": args.tau_min,
         "reward_mode": args.reward_mode, "k_l2": args.k_l2,
+        "reps": getattr(args, "rollout_reps", 2),
     }))
     os.replace(tmp, req)
 
@@ -774,7 +774,7 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
             log_jsonl(log_path, {"type": "probe", "step": step + 1,
                                  "probes": run_probes(model, processor, args)})
 
-        if (step + 1) % args.val_every == 0:
+        if args.val_every and (step + 1) % args.val_every == 0:
             val = run_val(model, processor, gate, val_df, args, ipc_dir, step + 1)
             log_jsonl(log_path, {"type": "val", **val})
             print(f"\n[val@{step + 1}] mean_reward={val['mean_reward']} "
@@ -829,6 +829,8 @@ def main():
     # step composition
     ap.add_argument("--contexts-per-step", type=int, default=2)
     ap.add_argument("--n-candidates", type=int, default=16)
+    ap.add_argument("--rollout-reps", type=int, default=2,
+                    help="rollout reward: episodes per candidate (reward = success rate)")
     ap.add_argument("--max-pos-per-ctx", type=int, default=0,
                     help="cap update to top-K positives per context by advantage (0 = all)")
     ap.add_argument("--grad-accum-groups", type=int, default=1,
@@ -850,7 +852,7 @@ def main():
     ap.add_argument("--score-seed", type=int, default=0)
     ap.add_argument("--tau-min", type=float, default=0.25, help="0b: tau<0.25 is non-discriminative")
     ap.add_argument("--score-timeout", type=float, default=600.0)
-    ap.add_argument("--reward-mode", choices=["flow", "l2"], default="flow",
+    ap.add_argument("--reward-mode", choices=["flow", "l2", "rollout"], default="flow",
                     help="flow: CRN flow-matching residual (multimodal-aware). l2: CRN decoded-action per-DoF-normalized L2 vs a* (clearer, unimodal). Both lower=better.")
     ap.add_argument("--k-l2", type=int, default=4, help="decode noise draws per phrase for reward_mode=l2 (each is a full denoise; keep small)")
     # optimization

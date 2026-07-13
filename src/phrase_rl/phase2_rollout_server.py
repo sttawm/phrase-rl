@@ -107,7 +107,8 @@ def process_job(worker: RolloutWorker, spec: dict, job_id: str):
         succ = [worker.episode(task, int(ep), str(r.phrase), k) for k in range(reps)]
         rate = float(np.mean(succ))
         out_rows.append({"context_id": r.context_id, "phrase": str(r.phrase),
-                         "loss": -rate, "success_rate": rate, "n_eps": reps})
+                         "loss": -rate, "success_rate": rate, "n_eps": reps,
+                         "loss_per_draw": [-float(s) for s in succ]})  # per-rep, trainer-reader compatible
     out = pd.DataFrame(out_rows)
     tmp = spec["out_parquet"] + ".tmp"
     out.to_parquet(tmp, index=False)

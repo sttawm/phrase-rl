@@ -296,3 +296,15 @@ All earlier "sealed state range" designations are void.
 - Contrast-variance floor: ~96 (task,state) cells on the 4 ID tasks. Going below ~±4pp
   on paired contrasts requires ADDING TASKS, not states or reps.
 - Note: CoVer's "50 reset seeds" also sample (with replacement) from these same grids.
+
+## Rollout-reward arm LIVE (2026-07-12) — the wall fired
+
+Both v3 arms plateaued per the tripwire (flow: 8 vals flat at 6-9%; L2: 5+ vals
+under its +5.0% best). Standing order executed: pod 2 handed over from L2
+training (archived @280 best, +5.0% margin, 49.0% deployed) to ROLLOUT-REWARD RL.
+Reward = SIMPLER success rate (2 CRN-pinned reps/candidate), contexts = the 96
+(task, layout) val cells, NO val pass (train-on-val per user; success is read
+directly off the training log; final eval ONCE on held-out task variants).
+Config otherwise unchanged (32 cands, top-8, accum 4, beta .15, lr 7e-6).
+~40 episodes/step ≈ 5-6 min/step, 48 steps/epoch. Flow arm continues on pod 1
+as the proxy-reward representative.
