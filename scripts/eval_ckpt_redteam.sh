@@ -11,6 +11,8 @@ export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 export VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline
 cd /workspace/phrase-rl
 
+mkdir -p data
+cp -f results/phrase_artifacts/contexts_0c_tasks.parquet data/contexts_0c_tasks.parquet
 PHRASES="data/phrases_${ARM}.parquet"
 .venv-gen/bin/python -m phrase_rl.phase4_generate_eval \
   --tasks results/phrase_artifacts/cover_gemini_tasks.parquet \
