@@ -23,7 +23,7 @@ rm -f "$IPC_DIR"/*.req.json "$IPC_DIR"/*.done.json "$IPC_DIR"/*.failed.json "$IP
 
 # 1) sim training contexts + per-task traces (one-time)
 if [ ! -f data/contexts_sim_rollout.parquet ]; then
-  /workspace/INT-ACT/.venv/bin/python -m phrase_rl.sim_train_contexts \
+  /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/sim_train_contexts.py \
     --int-act-root /workspace/INT-ACT --out /workspace/phrase-rl/data/contexts_sim_rollout.parquet
 fi
 if [ ! -f data/traces_sim_rollout.parquet ]; then
@@ -53,7 +53,7 @@ tmux kill-session -t train 2>/dev/null || true
 
 tmux new-session -d -s rollout_server \
   "bash -lc 'export VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline HF_HOME=/workspace/hf_cache; \
-   /workspace/INT-ACT/.venv/bin/python -m phrase_rl.phase2_rollout_server \
+   /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase2_rollout_server.py \
      --int-act-root /workspace/INT-ACT --ipc-dir $IPC_DIR \
    2>&1 | tee -a $PWD/$CKPT_DIR/rollout_server.log; echo \"server exited rc=\$?\"; sleep infinity'"
 
