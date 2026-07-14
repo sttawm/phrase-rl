@@ -62,8 +62,8 @@ tmux new-session -d -s train \
   "bash -lc 'set -o pipefail; eval \"\$(grep -E \"^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY|UV_CACHE_DIR|UV_LINK_MODE)\" ~/.bashrc || true)\"; cd /workspace/phrase-rl && \
    CUDA_VISIBLE_DEVICES=0 .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --ckpt-dir $CKPT_DIR --resume \
-     --reward-mode rollout --rollout-reps 2 --update-rule grpo \
-     --train-contexts data/contexts_sim_rollout_train.parquet \
+     --reward-mode rollout --rollout-reps 2 --update-rule ${UPDATE_RULE:-grpo} \
+     --train-contexts ${TRAIN_CONTEXTS:-data/contexts_sim_rollout_train.parquet} \
      --traces data/traces_sim_rollout.parquet \
      --probe-contexts results/phrase_artifacts/contexts_0c_tasks.parquet \
      --probe-traces results/phrase_artifacts/traces_0c_tasks.parquet --probe-every 10 \
