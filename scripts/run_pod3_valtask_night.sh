@@ -19,7 +19,7 @@ if [ ! -f data/top_phrases.parquet ]; then
     --adapters base=NONE rollout_s80=results/checkpoints/eval_adapters/rollout_s80 \
                l2_280=results/checkpoints/eval_adapters/l2_280 flow_40=results/checkpoints/eval_adapters/flow_40 \
     --assets results/phrase_artifacts/redteam_eval_assets.parquet \
-    --ctx data/contexts_0c_tasks.parquet --n 12 --out data/top_phrases.parquet
+    --ctx data/contexts_0c_tasks.parquet --n 5 --out data/top_phrases.parquet
   cp -f data/top_phrases.parquet results/overnight/raw/
 fi
 

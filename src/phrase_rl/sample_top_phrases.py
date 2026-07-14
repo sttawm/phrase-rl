@@ -1,6 +1,6 @@
-"""Sample each adapter's deployment distribution: N draws of the single-phrase
-prompt per task (ERT input + Gemini trace, temp 0.8), tallied by frequency.
-"Top phrases" = the modes of what the model would actually say.
+"""Beam-search each adapter's deployment prompt: top-K sequences by probability
+per task (ERT input + Gemini trace). "Top phrases" = the model's highest-ranked
+completions, with per-beam log-prob scores.
 
   .venv-gen/bin/python -m phrase_rl.sample_top_phrases \
     --adapters rollout_s80=... l2_280=... flow_40=... base=NONE \
@@ -24,7 +24,7 @@ def main():
     ap.add_argument("--adapters", nargs="+", required=True, help="name=path pairs; path NONE = base model")
     ap.add_argument("--assets", required=True)
     ap.add_argument("--ctx", required=True)
-    ap.add_argument("--n", type=int, default=12)
+    ap.add_argument("--n", type=int, default=5, help="beam width = returned sequences")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -56,14 +56,18 @@ def main():
             img = Image.open(io.BytesIO(frames[a.task]))
             msgs = build_single_phrase_prefix(str(a.ert_instruction), img, trace=str(a.trace))
             inputs = apply_template(processor, msgs, continue_final_message=True).to(model.device)
-            torch.manual_seed(7)  # same draw sequence per arm — paired sampling
-            for k in range(args.n):
-                with torch.no_grad():
-                    out = model.generate(**inputs, do_sample=True, temperature=0.8, max_new_tokens=48)
-                ph = processor.decode(out[0][inputs["input_ids"].shape[1]:],
+            with torch.no_grad():
+                out = model.generate(**inputs, do_sample=False, num_beams=args.n,
+                                     num_return_sequences=args.n, max_new_tokens=48,
+                                     early_stopping=True, return_dict_in_generate=True,
+                                     output_scores=True)
+            plen = inputs["input_ids"].shape[1]
+            for k in range(len(out.sequences)):
+                ph = processor.decode(out.sequences[k][plen:],
                                       skip_special_tokens=True).strip().split("\n")[0].strip()
-                rows.append({"arm": name, "task": a.task, "sample": k, "phrase": ph})
-            print(f"[{name}] {a.task}: {args.n} samples")
+                score = float(out.sequences_scores[k]) if out.sequences_scores is not None else None
+                rows.append({"arm": name, "task": a.task, "beam": k, "phrase": ph, "logprob": score})
+            print(f"[{name}] {a.task}: {args.n} beams")
         if path != "NONE":
             model = model.unload() if hasattr(model, "unload") else base  # drop adapter for next
     pd.DataFrame(rows).to_parquet(args.out, index=False)
