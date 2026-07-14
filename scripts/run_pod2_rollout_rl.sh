@@ -22,14 +22,15 @@ mkdir -p "$IPC_DIR" "$CKPT_DIR" data
 rm -f "$IPC_DIR"/*.req.json "$IPC_DIR"/*.done.json "$IPC_DIR"/*.failed.json "$IPC_DIR"/*.parquet "$IPC_DIR"/*.err.txt 2>/dev/null || true
 
 # 1) sim training contexts + per-task traces (one-time)
-if [ ! -f data/contexts_sim_rollout.parquet ]; then
+if [ ! -f data/contexts_sim_rollout_train.parquet ]; then
   /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/sim_train_contexts.py \
-    --int-act-root /workspace/INT-ACT --out /workspace/phrase-rl/data/contexts_sim_rollout.parquet
+    --int-act-root /workspace/INT-ACT --episode-ids 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 \
+    --out /workspace/phrase-rl/data/contexts_sim_rollout_train.parquet
 fi
 if [ ! -f data/traces_sim_rollout.parquet ]; then
   .venv-gen/bin/python - <<'PY'
 import pandas as pd
-ctx = pd.read_parquet("data/contexts_sim_rollout.parquet")
+ctx = pd.read_parquet("data/contexts_sim_rollout_train.parquet")
 tr = pd.read_parquet("results/phrase_artifacts/traces_0c_tasks.parquet")
 g = pd.read_parquet("results/phrase_artifacts/cover_gemini_tasks.parquet")
 ep2task = {}
@@ -61,8 +62,8 @@ tmux new-session -d -s train \
   "bash -lc 'set -o pipefail; eval \"\$(grep -E \"^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY|UV_CACHE_DIR|UV_LINK_MODE)\" ~/.bashrc || true)\"; cd /workspace/phrase-rl && \
    CUDA_VISIBLE_DEVICES=0 .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --ckpt-dir $CKPT_DIR --resume \
-     --reward-mode rollout --rollout-reps 2 \
-     --train-contexts data/contexts_sim_rollout.parquet \
+     --reward-mode rollout --rollout-reps 2 --update-rule grpo \
+     --train-contexts data/contexts_sim_rollout_train.parquet \
      --traces data/traces_sim_rollout.parquet \
      --probe-contexts results/phrase_artifacts/contexts_0c_tasks.parquet \
      --probe-traces results/phrase_artifacts/traces_0c_tasks.parquet --probe-every 10 \

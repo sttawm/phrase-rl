@@ -329,3 +329,20 @@ FROM SCRATCH. If GRPO breaks the base-parity band: the ceiling was the update
 rule, not the reward. Flow v3 archived (best_val@40, deployed 48.9 = parity).
 NOTE: pod-3 eval loop keeps watching results/checkpoints/phase2 — its
 "tuned_flow" arm label means THE GRPO ARM for pairs f<step> from here on.
+
+## v5: GRPO x ROLLOUT reward (user redirect, 2026-07-13) + fair-eval protocol
+
+User: GRPO should test the rollout reward (not flow — v4 killed at launch), and
+positive-only updating was a mistake in general. v5 = pod 2 from scratch:
+GRPO (full group, signed advantages) x SIMPLER-success reward.
+
+FAIR-EVAL PROTOCOL (rollout RL trains in the same sim it is evaluated in):
+- TRAIN: layouts 0-17 per task (72 cells), nominal instructions, reps 0-1,
+  noise seeds offset +1000 (disjoint from all eval seeds).
+- VAL (continuous): ERT instructions x ALL 24 layouts x fresh-seed reps —
+  reported SPLIT: seen layouts (0-17) vs HELD-OUT layouts (18-23). The 18-23
+  column is the honest generalization number; a seen/held-out gap = layout
+  overfitting, quantified.
+- TEST (once, end): the 6 untouched task variants, nominal + ERT instructions.
+- Contamination audit trail: training never sees ERT phrasings, layouts 18-23,
+  eval noise seeds, or the held-out tasks.

@@ -81,7 +81,9 @@ class RolloutWorker:
         obs, _ = env.reset(seed=self.seed, options={"obj_init_options": {"episode_id": episode_id}})
         self.policy.reset()
         # CRN: pin decode noise per (task, state, rep) — phrase excluded
-        s = zlib.crc32(f"{task}|{episode_id}|{rep}".encode()) % (2**31)
+        # rep+1000: TRAINING noise seeds are disjoint from eval seeds (eval uses rep 0-23;
+        # sharing realizations would let the policy overfit the exact noise the eval reuses)
+        s = zlib.crc32(f"{task}|{episode_id}|{rep + 1000}".encode()) % (2**31)
         torch.manual_seed(s)
         if torch.cuda.is_available():
             torch.cuda.manual_seed_all(s)
