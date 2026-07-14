@@ -28,6 +28,7 @@ TASKS = [
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--int-act-root", required=True)
+    ap.add_argument("--tasks", nargs="+", default=None, help="env names (default: the 4 ID tasks)")
     ap.add_argument("--episode-ids", type=int, nargs="+", default=list(range(24)))
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--out", required=True)
@@ -41,7 +42,8 @@ def main():
     from simpler_env.utils.env.observation_utils import get_image_from_maniskill2_obs_dict
 
     rows = []
-    for task in TASKS:
+    tasks = args.tasks or TASKS
+    for task in tasks:
         env = simpler_env.make(task)
         instruction = None
         for ep in args.episode_ids:
@@ -53,7 +55,7 @@ def main():
             Image.fromarray(img).save(buf, format="PNG")
             # per-task offset: (episode_index, t) must be unique ACROSS tasks or the
             # trainer's trace dict collapses (all tasks share ep numbers 0-23)
-            off = 1000 * (1 + TASKS.index(task))
+            off = 1000 * (1 + tasks.index(task))
             rows.append({
                 "context_id": f"{task}|{ep}",
                 "task": task, "episode_index": off + ep, "t": 0,

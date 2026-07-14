@@ -62,6 +62,8 @@ def main():
                     help="json {task: instruction} overriding the nominal instructions (e.g. cover_ert_instructions.json)")
     ap.add_argument("--self-trace", action="store_true",
                     help="generate the trace with the model itself (full CoVer prompt -> extract_trace) instead of the cached Gemini trace; required when --instructions changes the instruction")
+    ap.add_argument("--ctx", default="data/contexts_0c_tasks.parquet",
+                    help="frames parquet (episode_index, task, image_png)")
     ap.add_argument("--assets", default=None,
                     help="parquet(task, ert_instruction, trace) from gemini_redteam_assets: overrides BOTH instruction and trace per task (ALGORITHM.md: Gemini trace at test time)")
     args = ap.parse_args()
@@ -73,7 +75,7 @@ def main():
     base = AutoModelForImageTextToText.from_pretrained(args.model, dtype=torch.bfloat16, device_map="cuda")
 
     tasks = pd.read_parquet(args.tasks)
-    ctx = pd.read_parquet("data/contexts_0c_tasks.parquet")  # for the frames
+    ctx = pd.read_parquet(args.ctx)  # for the frames
     overrides = json.load(open(args.instructions)) if args.instructions else {}
     asset_traces = {}
     if args.assets:
