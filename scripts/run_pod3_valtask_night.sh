@@ -12,6 +12,17 @@ cd /workspace/phrase-rl
 git pull --no-edit
 mkdir -p data
 
+# 0) top-phrase sampling on the ID tasks (12 draws/arm/task -> distribution modes)
+if [ ! -f data/top_phrases.parquet ]; then
+  cp -f results/phrase_artifacts/contexts_0c_tasks.parquet data/contexts_0c_tasks.parquet
+  .venv-gen/bin/python -m phrase_rl.sample_top_phrases \
+    --adapters base=NONE rollout_s80=results/checkpoints/eval_adapters/rollout_s80 \
+               l2_280=results/checkpoints/eval_adapters/l2_280 flow_40=results/checkpoints/eval_adapters/flow_40 \
+    --assets results/phrase_artifacts/redteam_eval_assets.parquet \
+    --ctx data/contexts_0c_tasks.parquet --n 12 --out data/top_phrases.parquet
+  cp -f data/top_phrases.parquet results/overnight/raw/
+fi
+
 VALTASKS="widowx_coke_can_on_plate_clean widowx_carrot_on_keyboard_clean widowx_coke_can_on_ramekin_clean widowx_carrot_on_wheel_clean"
 
 # 1) frames + nominal instructions for the val tasks
