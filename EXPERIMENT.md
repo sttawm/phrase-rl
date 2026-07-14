@@ -317,3 +317,15 @@ clip 1.0->2.0 (grad norms ran ~2x clip — lr alone would be absorbed) + lr 7e-6
 If margins break out of the 6-9 band: optimizer was binding (revisit rollout arm's lr
 too). If KL runs hot with flat margins: information ceiling confirmed; the rollout
 arm (reward = the target metric itself) is the real escape route.
+
+## v4 on pod 1: GRPO update rule x flow reward (user, 2026-07-13)
+
+Confounder check: the proxy "info ceiling" verdict assumed the update rule was
+adequate — but positive-only weighted SFT (RAFT-style) can imitate good phrases,
+never repel bad ones. v4 = standard GRPO (full group, SIGNED z-advantages,
+negatives pushed down; single on-policy update per batch so no importance clip
+needed), same flow reward, same recipe otherwise, G=16 for full-group cost,
+FROM SCRATCH. If GRPO breaks the base-parity band: the ceiling was the update
+rule, not the reward. Flow v3 archived (best_val@40, deployed 48.9 = parity).
+NOTE: pod-3 eval loop keeps watching results/checkpoints/phase2 — its
+"tuned_flow" arm label means THE GRPO ARM for pairs f<step> from here on.

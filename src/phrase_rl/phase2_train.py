@@ -429,12 +429,13 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
         adv = (r - r.mean()) / (r.std() + 1e-6)
         res["adv"] = adv
         prefix_msgs = None
+        grpo = getattr(args, "update_rule", "raft") == "grpo"
         ranked = sorted(zip(res["survivors"], adv), key=lambda t: -t[1])
-        if getattr(args, "max_pos_per_ctx", 0):
+        if not grpo and getattr(args, "max_pos_per_ctx", 0):
             ranked = ranked[: args.max_pos_per_ctx]  # top-K by advantage: sharper signal, ~half the update cost
         for cand, a in ranked:
-            if a <= 0:
-                continue
+            if not grpo and a <= 0:
+                continue  # RAFT-style: imitate positives only. GRPO: signed advantages, full group.
             if prefix_msgs is None:  # build (and tokenize) the prefix once per context
                 prefix_msgs = cover_prompt.build_single_phrase_prefix(
                     instruction=res.get("source", res["instruction"]), image=res["img"], trace=res.get("trace"))
@@ -832,6 +833,8 @@ def main():
     ap.add_argument("--n-candidates", type=int, default=16)
     ap.add_argument("--rollout-reps", type=int, default=2,
                     help="rollout reward: episodes per candidate (reward = success rate)")
+    ap.add_argument("--update-rule", choices=["raft", "grpo"], default="raft",
+                    help="raft: positive-only advantage-weighted SFT (v1-v3). grpo: full group, signed advantages — negatives get pushed down")
     ap.add_argument("--max-pos-per-ctx", type=int, default=0,
                     help="cap update to top-K positives per context by advantage (0 = all)")
     ap.add_argument("--grad-accum-groups", type=int, default=1,
