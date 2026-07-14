@@ -1,0 +1,20 @@
+{
+  "phase2": {
+    "step": 600,
+    "best_val": {
+      "mean_reward": -0.05095868667121976,
+      "step": 40
+    },
+    "latest_val": {
+      "step": 600,
+      "n_scored": 40,
+      "n_failed": 0,
+      "mean_reward": -0.053768160031177105,
+      "mean_best_reward": -0.03742985650897026,
+      "mean_orig_reward": -0.05899492361349985,
+      "gate_pass_rate": 1.0
+    },
+    "objective": "mean_over_positive_advantages",
+    "updated": "2026-07-13T14:59:46"
+  }
+}
