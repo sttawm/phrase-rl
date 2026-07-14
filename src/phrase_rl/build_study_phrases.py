@@ -47,8 +47,12 @@ def main():
                 contents=[types.Part.from_bytes(data=r.image_png, mime_type="image/png"), usr],
                 config=types.GenerateContentConfig(temperature=0.9, max_output_tokens=400,
                                                    thinking_config=no_think))
-            lines = [l.strip("-•0123456789. ").strip() for l in (resp.text or "").split("\n") if l.strip()]
+            import re
+            # numbered items ONLY (the response starts with a preamble line — 2026-07-14 bug)
+            lines = [re.sub(r"^\s*\d+[.)]\s*", "", l).strip().strip('"')
+                     for l in (resp.text or "").split("\n") if re.match(r"^\s*\d+[.)]", l)]
             lines = [l for l in lines if 4 < len(l.split()) < 20]
+            assert lines, f"no numbered instructions parsed for {r.task}: {resp.text[:120]!r}"
             # pick the first candidate that differs from CoVer's ERT phrase
             pick = next((l for l in lines if l.lower() != ert1[r.task].lower()), lines[0])
             ert2[r.task] = pick
