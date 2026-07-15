@@ -34,5 +34,6 @@ echo VERIFIER-DATA-DONE
 export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_POD_ID=')" || true
 export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_API_KEY=')" || true
 runpodctl config --apiKey "$RUNPOD_API_KEY" 2>&1 | tail -1
-nohup sh -c "sleep 20; runpodctl stop pod $RUNPOD_POD_ID >> /workspace/selfstop.log 2>&1" &
-echo SELF-STOP-QUEUED
+# FOREGROUND stop: nohup+& dies with the tmux server when this is the last session
+sleep 20
+runpodctl stop pod "$RUNPOD_POD_ID" 2>&1 | tee -a /workspace/selfstop.log
