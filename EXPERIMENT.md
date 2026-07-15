@@ -297,9 +297,19 @@ All earlier "sealed state range" designations are void.
 ### TASK-TIER REGISTRY — 10/4/6 split (designed 2026-07-13, COMMITTED 2026-07-15)
 
 Supersedes the provisional 6-variant list that stood here (PutCokeCanOnPlate was
-spent as VAL by the 2026-07-14 night suite; the rest are reassigned below). Custom
-combos are minted from the SIMPLER/Bridge asset grid via `sim_train_contexts --tasks`
-(widowx_<obj>_on_<recv>_clean naming, 24-layout grids, same episode_id semantics).
+spent as VAL by the 2026-07-14 night suite; the rest are reassigned below).
+
+SOURCE OF TASKS (audited 2026-07-15): INT-ACT's ManiSkill2_real2sim fork,
+`custom_scenes/put_on_in_new.py` @ eeb04c7 — 18 registered "-v2" (clean) combos
++ the 4 original Bridge tasks = 22; our 20 = all of them minus the 2 near-dup
+"sponge_larger" variants. widowx_<obj>_on_<recv>_clean names wrap the -v2 env ids.
+The battery is FINITE: adding combos beyond it = a new env subclass with
+hand-specified xy/quat layout grids (~40 lines, asset library ~8 sources x ~7
+targets). Success is analytic sim geometry+contact (source-on-target: xy within
+target top-surface extent, z above, source contacts only target/robot); ramekin
+and wheel targets use the looser src-IN-target override; nut_on_wheel tweaks
+z tolerance. No demos or learned detector involved — every registered task has
+a well-defined success signal, same rule for all arms.
 
 - TRAIN (10): the 4 ID Bridge tasks (spoon_on_towel, carrot_on_plate, stack_cube,
   eggplant_in_basket) + pepsi_on_plate, cube_on_plate, coke_can_on_keyboard,
