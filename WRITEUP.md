@@ -325,6 +325,42 @@ distance punishes wrong-object phrases that flow loss tolerates. Watch item:
 flow's spoon phrase is inflating ("...on the table surface") — the no-judge
 drift axis under surveillance.
 
+## Eval robustness ledger — how much to trust each L2@280 number (2026-07-15)
+
+Two headline claims about L2@280 look contradictory ("no better than base on the
+training tasks" vs "only arm above original on unseen tasks"). Both stand; they
+come from different eval generations with different strengths. The ledger, from
+the banked artifacts:
+
+| eval | inputs | tasks | n/arm | per-arm SE | L2@280 says |
+|---|---|---|---|---|---|
+| ID finalists ×24 (`rt_f40_l280`) | ERT red-team | 4 trained | 2,328 | ±1.0pp | 50.1% vs flow@40 48.7% |
+| ID baselines ×6 (`rt_baselines`) | ERT red-team | 4 trained | 300–700 | ±1.9–2.9pp | base 49.0%, direct 30.7% |
+| Val-task suite ×12 (`valtasks`) | nominal | 4 never-trained | 1,152 | ±1.3pp | 32.8 vs orig 28.3 / base 27.3 |
+
+Findings:
+
+1. **Episode count is no longer the binding constraint anywhere.** The ID
+   red-team eval is actually our most-replicated number (n=2,328, SE 1pp) —
+   *more* episodes per arm than the new val-task suite. On ID red-team inputs,
+   L2@280 vs base is +1.1pp ± 2.2 → a genuine tie, not an under-powered one.
+2. **Task-level variance is the binding constraint.** Per-task success spans
+   22.9–51.7% (task SD ≈ 13pp) and both evals sample only 4 tasks. The val-task
+   overall win is carried by ramekin (drop it: orig 33.9 / L2 34.1 / base 33.3 —
+   a three-way tie). More reps cannot fix this; only more tasks can.
+3. **Regime confound: no matched-methodology pair exists.** ID numbers are
+   red-team-input; val-task numbers are nominal-input. "L2@280 ties base on
+   trained tasks but wins on unseen tasks" compares across BOTH axes at once.
+   Missing cells: nominal-input ID eval at matched ×12/5-arm methodology
+   (queued, see below), ERT-input val-task eval (future).
+4. **All deployed numbers are single-greedy-phrase numbers.** Zero sampling
+   variance, but brittle: one token ("coke can"→"red can") moves a task 10–28pp.
+   Beam-k phrase sets would quantify this axis.
+
+**Fix queued 2026-07-15:** ID nominal mirror on pod 3 (behind the study queue) —
+same 5 arms, 4 ID tasks, ×12 × 24 layouts (5,760 eps), exact val-task-suite
+methodology. Completes the ID/val-task × nominal comparison with matched power.
+
 ## Next
 
 - **Phase 2 (primary):** advantage-weighted tuning of Qwen3.5-9B from base, with
