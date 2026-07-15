@@ -108,6 +108,100 @@ class Pi0PhraseScorer:
         return out.numpy()
 
     @torch.no_grad()
+    def score_verbose(self, image_chw: np.ndarray, state: np.ndarray, action_chunk: np.ndarray,
+                      phrases: list[str]):
+        """Like score(), but also returns the raw velocity vectors per draw.
+
+        Returns (losses (P,K), v_pred (P,K,H,7), u_target (P,K,H,7)) — first 7
+        (real) action dims only; padding dims dropped. v_theta is captured with a
+        forward hook on the velocity head (model.action_out_proj); u = noise - a_norm
+        is recomputed by mirroring forward()'s normalize/pad path and verified
+        against losses_after_forward on every micro-batch (fail-loud on mismatch).
+        """
+        proj = getattr(self.policy.model, "action_out_proj", None)
+        assert proj is not None, "pi0 layout changed: model.action_out_proj missing — adapt score_verbose"
+        P, K, H = len(phrases), self.k, self.horizon
+        img = torch.from_numpy(image_chw)
+        st = torch.from_numpy(state.astype(np.float32))
+        act = torch.from_numpy(action_chunk.astype(np.float32).reshape(H, self.action_dim))
+
+        captured = []
+        handle = proj.register_forward_hook(lambda m, i, o: captured.append(o.detach()))
+        out_l = torch.empty(P, K)
+        out_v = torch.empty(P, K, H, self.action_dim)
+        out_u = torch.empty(P, K, H, self.action_dim)
+        try:
+            pairs = [(p, k) for p in range(P) for k in range(K)]
+            for start in range(0, len(pairs), self.micro_batch):
+                chunk = pairs[start : start + self.micro_batch]
+                B = len(chunk)
+                batch = {
+                    "observation.state": st.expand(B, -1).to(self.device),
+                    "action": act.expand(B, -1, -1).to(self.device),
+                    "task": [phrases[p] for p, _ in chunk],
+                }
+                for key in self.image_keys:
+                    batch[key] = img.expand(B, -1, -1, -1).to(self.device)
+                noise = torch.stack([self.noise[k] for _, k in chunk]).to(self.device)
+                time = torch.stack([self.tau[k] for _, k in chunk]).to(self.device)
+                captured.clear()
+                losses = self._per_sample_loss(batch, noise, time)
+                assert len(captured) == 1, f"expected 1 action_out_proj call, got {len(captured)}"
+                v = captured[0][:, -H:, :].float()  # (B, H, padded)
+                # u = noise - normalized padded actions (mirror of forward's target path)
+                norm = self.policy.normalize_targets(dict(batch))
+                a_n = norm["action"]
+                if a_n.shape[-1] < v.shape[-1]:  # pad to match
+                    a_n = torch.nn.functional.pad(a_n, (0, v.shape[-1] - a_n.shape[-1]))
+                u = noise - a_n  # (B, H, padded)
+                recon = ((u - v) ** 2).mean(dim=(1, 2))
+                if not torch.allclose(recon, losses.to(recon.device), rtol=2e-2, atol=1e-4):
+                    raise RuntimeError(
+                        f"velocity reconstruction mismatch (recon {recon[:3].tolist()} vs "
+                        f"forward {losses[:3].tolist()}) — padded-dim/masking convention changed"
+                    )
+                for j, (p, k) in enumerate(chunk):
+                    out_l[p, k] = losses[j].cpu()
+                    out_v[p, k] = v[j, :, : self.action_dim].cpu()
+                    out_u[p, k] = u[j, :, : self.action_dim].cpu()
+        finally:
+            handle.remove()
+        return out_l.numpy(), out_v.numpy(), out_u.numpy()
+
+    @torch.no_grad()
+    def decode_verbose(self, image_chw: np.ndarray, state: np.ndarray, action_chunk: np.ndarray,
+                       phrases: list[str], dim_std: np.ndarray, k_l2: int = 4):
+        """Like score_l2(), but also returns raw decoded chunks (P, k_l2, H, 7) unnormalized."""
+        policy, model = self.policy, self.policy.model
+        P, H = len(phrases), self.horizon
+        a_star = torch.from_numpy(
+            action_chunk.astype(np.float32).reshape(H, self.action_dim)).to(self.device)
+        std = torch.from_numpy(np.asarray(dim_std, dtype=np.float32)).to(self.device)
+        img = torch.from_numpy(image_chw).to(self.device)
+        st = torch.from_numpy(state.astype(np.float32)).to(self.device)
+        batch = {"observation.state": st.expand(P, -1), "task": list(phrases)}
+        for key in self.image_keys:
+            batch[key] = img.expand(P, -1, -1, -1)
+        norm = policy.normalize_inputs(batch)
+        images, img_masks = policy.prepare_images(norm)
+        state_p = policy.prepare_state(norm)
+        lang_tokens, lang_masks = policy.prepare_language(norm)
+        g = torch.Generator().manual_seed(self.seed)
+        dnoise = torch.randn(k_l2, H, self.padded_dim, generator=g)
+        out_dec = torch.empty(P, k_l2, H, self.action_dim)
+        out_l2 = torch.empty(P, k_l2)
+        out_gr = torch.empty(P, k_l2)
+        for k in range(k_l2):
+            noise_k = dnoise[k][None].expand(P, -1, -1).to(self.device)
+            acts = model.sample_actions(images, img_masks, lang_tokens, lang_masks, state_p, noise=noise_k)
+            acts = policy.unnormalize_outputs({"action": acts[:, :, : self.action_dim]})["action"]
+            nrm = ((acts - a_star) / std)[:, :, :6]
+            out_l2[:, k] = torch.sqrt((nrm ** 2).mean(dim=(1, 2))).cpu()
+            out_gr[:, k] = (acts - a_star)[:, :, 6].abs().mean(dim=1).cpu()
+            out_dec[:, k] = acts.cpu()
+        return out_dec.numpy(), out_l2.numpy(), out_gr.numpy()
+
+    @torch.no_grad()
     def score_l2(self, image_chw: np.ndarray, state: np.ndarray, action_chunk: np.ndarray,
                  phrases: list[str], dim_std: np.ndarray, k_l2: int = 4) -> np.ndarray:
         """CRN decoded-action reward: returns per-dim-normalized L2 of shape (n_phrases, k_l2).
