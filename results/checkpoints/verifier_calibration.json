@@ -1,0 +1,50 @@
+{
+ "verifier_both_nodiff": {
+  "logit_shift": -0.6931471805599453,
+  "temperature": 3.2583940302521106,
+  "val_ece_raw": 0.0821,
+  "val_ece_cal": 0.0385,
+  "val_nll_raw": 0.4659,
+  "val_nll_cal": 0.3035
+ },
+ "verifier_l2_nodiff": {
+  "logit_shift": -0.6931471805599453,
+  "temperature": 2.3114378075267266,
+  "val_ece_raw": 0.0868,
+  "val_ece_cal": 0.0271,
+  "val_nll_raw": 0.4199,
+  "val_nll_cal": 0.3228
+ },
+ "verifier_flow": {
+  "logit_shift": -0.6931471805599453,
+  "temperature": 2.057287046462194,
+  "val_ece_raw": 0.0604,
+  "val_ece_cal": 0.0444,
+  "val_nll_raw": 0.3617,
+  "val_nll_cal": 0.3066
+ },
+ "verifier_both": {
+  "logit_shift": -0.6931471805599453,
+  "temperature": 3.890339429705322,
+  "val_ece_raw": 0.0862,
+  "val_ece_cal": 0.0525,
+  "val_nll_raw": 0.5286,
+  "val_nll_cal": 0.311
+ },
+ "verifier_l2": {
+  "logit_shift": -0.6931471805599453,
+  "temperature": 3.266365252275384,
+  "val_ece_raw": 0.0796,
+  "val_ece_cal": 0.0568,
+  "val_nll_raw": 0.4762,
+  "val_nll_cal": 0.3327
+ },
+ "verifier_flow_nodiff": {
+  "logit_shift": -0.6931471805599453,
+  "temperature": 4.212888138407385,
+  "val_ece_raw": 0.0841,
+  "val_ece_cal": 0.0449,
+  "val_nll_raw": 0.5555,
+  "val_nll_cal": 0.3036
+ }
+}
