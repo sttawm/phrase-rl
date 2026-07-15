@@ -19,14 +19,14 @@ def _stack(col):
     return np.stack([np.asarray(x, dtype=np.float32) for x in col])
 
 
-def featurize(df, mode: str) -> np.ndarray:
+def featurize(df, mode: str, include_diff: bool = True) -> np.ndarray:
     parts = []
     if mode in ("flow", "both"):
         v = _stack(df.flow_v)                      # (N, K*H*D)
         u = _stack(df.flow_u)
         r = v - u                                  # residual, the raw thing MSE averages
         rs = r.reshape(-1, K_FLOW, H * D)
-        parts += [v, u, r,
+        parts += [v, u] + ([r] if include_diff else []) + [
                   _stack(df.flow_loss),            # per-slot scalar loss (K,)
                   rs.std(axis=1)]                  # residual spread across slots (H*D,)
     if mode in ("l2", "both"):
@@ -34,7 +34,7 @@ def featurize(df, mode: str) -> np.ndarray:
         a = _stack(df.a_star)                      # (N, H*D)
         dd = dec.reshape(-1, K_DEC, H * D)
         diff = (dd - a[:, None, :]).reshape(len(a), -1)
-        parts += [dec, a, diff,
+        parts += [dec, a] + ([diff] if include_diff else []) + [
                   _stack(df.norm_l2), _stack(df.grip_err),
                   dd.std(axis=1)]                  # decode spread = policy uncertainty (H*D,)
     if not parts:

@@ -57,13 +57,14 @@ def main():
     ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--wd", type=float, default=1e-4)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--no-diff", action="store_true")
     args = ap.parse_args()
     torch.manual_seed(args.seed)
 
     tr = pd.read_parquet(args.train)
     va = pd.read_parquet(args.val)
-    Xtr, ytr = featurize(tr, args.mode), tr.label.values.astype(np.float32)
-    Xva, yva = featurize(va, args.mode), va.label.values.astype(np.float32)
+    Xtr, ytr = featurize(tr, args.mode, not args.no_diff), tr.label.values.astype(np.float32)
+    Xva, yva = featurize(va, args.mode, not args.no_diff), va.label.values.astype(np.float32)
     mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-6
     Xtr, Xva = (Xtr - mu) / sd, (Xva - mu) / sd
     print(f"mode={args.mode} d={Xtr.shape[1]} | train {len(tr)} (pos {int(ytr.sum())}) "
@@ -113,7 +114,7 @@ def main():
     }
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     torch.save({"state_dict": model.state_dict(), "mu": mu, "sd": sd,
-                "mode": args.mode, "d_in": Xtr.shape[1]}, args.out + ".pt")
+                "mode": args.mode, "d_in": Xtr.shape[1], "include_diff": not args.no_diff}, args.out + ".pt")
     json.dump(metrics, open(args.out + ".json", "w"), indent=1)
     print(json.dumps(metrics, indent=1))
 

@@ -1,133 +1,161 @@
 [
-  {
-    "id": "phase0b-sensitivity-gate",
-    "date": "2026-07-07",
-    "commit": "e4c9ee16e602a3a4e8764d33f59a33da35587672",
-    "overview": "Phase 0b sensitivity gate (GO/NO-GO for using frozen pi0 flow-matching loss as a phrase-level reward). 250 BridgeV2 val contexts x ~92 phrases each (original + 3 arms: gemini_pro=gemini-3.1-pro-preview, gemini_flash=gemini-3.5-flash, qwen=Qwen3.5-9B base with thinking disabled; 32 rephrases/arm, deduped) x K=16 shared (eps, tau) draws (CRN), scored on both INTACT pi0 checkpoints on 1x RTX A6000. RESULT: GO. Median z-scored split-half Spearman ~0.95 across all arms and both checkpoints (signal share ~0.98); phrase-length/loss correlation ~0 (no length hack axis); discriminability flat-high for tau>=0.3 and collapses near tau=0 (clean-action end, lerobot convention: tau=1 is noise). Rephrase-FT checkpoint shows ~25% SMALLER phrase spread than plain checkpoint (paraphrase training increased invariance, as hypothesized). Oracle: best rephrase beats original instruction in 96-98% of contexts, median 31-33% relative loss reduction \u2014 large candidate-set headroom. Qwen arm spread within ~75-100% of Gemini arms -> no larger generator model needed for now.",
-    "commands": [
-      "python -m phrase_rl.extract_contexts --split val --n 250 --out data/contexts_val_0b.parquet",
-      "python -m phrase_rl.gemini_rephrase --contexts data/contexts_val_0b.parquet --out data/rephrases_val_0b.parquet --n-rephrases 32 --model gemini-3.1-pro-preview --concurrency 8",
-      "python -m phrase_rl.gemini_rephrase --contexts data/contexts_val_0b.parquet --out data/rephrases35flash_val_0b.parquet --n-rephrases 32 --model gemini-3.5-flash --concurrency 8",
-      ".venv-gen/bin/python -m phrase_rl.qwen_generate --contexts data/contexts_val_0b.parquet --out data/qwen_rephrases_val_0b.parquet --n 32",
-      "bash scripts/run_phase0b_scoring.sh",
-      "python -m phrase_rl.phase0b_analyze --scores rephrase=data/scores_0b_rephrase.parquet plain=data/scores_0b_plain.parquet --outdir results/phase0b"
-    ],
-    "metrics_file": "results/phase0b/metrics.json",
-    "charts": [
-      "results/charts/phase0b_rephrase.png",
-      "results/charts/phase0b_plain.png"
-    ]
-  },
-  {
-    "id": "phase0c-rollout-sensitivity",
-    "date": "2026-07-07",
-    "commit": "f3c2127a664b01a6940abd76c4a63ab9b4810194",
-    "overview": "Phase 0c: 1,290 SIMPLER episodes (4 Bridge tasks x ~33 phrases x 10 shared episode_ids, INTACT rephrase-FT pi0, in-process INT-ACT harness) + CRN flow-loss scoring of the same phrases on 50 matched real Bridge contexts (3 tasks; eggplant has no Bridge counterpart) + LLM-judge faithfulness pass. (A) IN-SIM [clean]: phrasing moves success strongly \u2014 carrot range 0.1-0.7 across 33 phrasings on identical initial states; success std 0.17-0.18 vs binomial floor ~0.15; failures interpretable (goal drift). Sim-canonical originals are strong (unlike offline 0b). (B) REWARD vs SUCCESS [caveated]: pooled rho=-0.10 (carrot -0.25, spoon -0.29, stack +0.21). Faithfulness pass explains it: 40% of Qwen-generated 0c phrases are goal-drifted; drifted phrases have LOWER mean flow loss (0.0794) than faithful (0.0948) yet lower sim success (0.40 vs 0.56) \u2014 the reward systematically PREFERS goal-drifted phrases (teacher-forced loss rewards trajectory-style fit; goal words barely change mid-episode action targets). Faithful-only subset: negatives vanish (carrot/spoon -0.09), pooled +0.20. CONSEQUENCE: confirmed reward-hacking axis -> Phase 2 must gate the reward on semantic faithfulness (advantage computed among faithful candidates only / drift penalized). Within-faithful, reward is weakly-positive-to-uninformative about sim success at n=10 precision; Phase 4 remains the behavioral test.",
-    "commands": [
-      "bash scripts/run_phase0c_rollouts.sh",
-      "python -m phrase_rl.phase0c_match_contexts --per-task 20 --out data/contexts_0c_match.parquet",
-      "bash scripts/run_phase0c_scoring.sh",
-      "python -m phrase_rl.phase0c_analyze --rollouts results/phase0c/raw/rollouts_0c.parquet --scores results/phase0c/raw/scores_0c.parquet --outdir results/phase0c",
-      "python -m phrase_rl.phase0c_faithfulness --phrases data/phrases_0c.parquet --out results/phase0c/faithfulness.parquet"
-    ],
-    "metrics_file": "results/phase0c/metrics.json",
-    "charts": [
-      "results/charts/phase0c_insim_phrasing.png",
-      "results/charts/phase0c_reward_vs_success.png"
-    ]
-  },
-  {
-    "id": "step0-ab-and-0b-redo",
-    "date": "2026-07-08",
-    "commit": "1ea1f73ded2f261681f7db08b2fe80e24cd0ef4c",
-    "overview": "Step-0 A/B (inline vs Gemini-trace conditioning under CoVer verbatim template) + 0b-redo on the true training distributions. All three CoVer-template arms re-pass the reliability gate (rho 0.954-0.962 at K=16); oracle gain ~32% everywhere; trace==inline on judge-free axes -> interim primary conditioning = inline. Drift comparison pending credits. RL stack validated end-to-end to the gate (fail-closed checkpoint at step 0).",
-    "commands": [
-      "bash scripts/run_overnight.sh (pod)",
-      "python -m phrase_rl.ab_verdict --scores data/scores_0b_redo.parquet"
-    ],
-    "metrics_file": "results/overnight/ab_verdict.json",
-    "charts": [
-      "results/charts/step0_ab_verdict.png"
-    ]
-  },
-  {
-    "id": "phase2-v1-flow-degenerated",
-    "date": "2026-07-09",
-    "commit": "7496aad",
-    "overview": "First RL run (flow reward, from base Qwen, beta=0.04 lr=1e-5 cps=2). Healthy to ~step 300 then KL runaway (0.31->2.0), parse-fail collapse by 465. Post-mortem: KL leash too weak. best_val@200 banked; used as INIT for both v2 arms.",
-    "commands": [
-      "bash scripts/run_phase2.sh  # pre-7496aad config"
-    ],
-    "checkpoints": "results/checkpoints/phase2_v1_degenerated/best_val (local + pod1)",
-    "charts": [
-      "results/charts/phase2_v1_degeneration.png"
-    ]
-  },
-  {
-    "id": "phase2-v2-flow-arm",
-    "date": "2026-07-09..",
-    "commit": "44de48e..HEAD (regime changes in EXPERIMENT.md)",
-    "overview": "Flow-reward arm of the flow-vs-L2 A/B. Init v1@200, beta=0.15, kl-abort 1.2, source-aug 0.5, cover35 traces, local-Qwen judge (Gemini interlude 07-10 reverted: thinking-token drain). lr 5e-6->1e-5->7e-6, cps 2->6. Probes every 10-25 steps. Best val margin +8.0% @300. RUNNING. ARCHIVED @ step ~690 (best_val@680, margin +7.9%); superseded by v3 from-scratch.",
-    "commands": [
-      "bash scripts/run_phase2.sh"
-    ],
-    "checkpoints": "pod1 phase2/{latest,best_val}; local: results/checkpoints/phase2_flow/best_val",
-    "charts": [
-      "results/charts/phase2_flow_curves.png",
-      "results/charts/reward_margin.png",
-      "results/charts/probe_evolution.png"
-    ]
-  },
-  {
-    "id": "phase2-v2-l2-arm",
-    "date": "2026-07-09..",
-    "commit": "44de48e..HEAD",
-    "overview": "L2-reward arm: CRN decoded-action per-DoF-normalized L2 vs a*. Identical config to flow arm except --reward-mode l2 --k-l2 4. Best margin +3.1% @320 (best_val dir holds @100, raw-metric era). RUNNING. ARCHIVED @ step ~490 (best margin +3.1% @320); superseded by v3 from-scratch.",
-    "commands": [
-      "bash scripts/run_pod_l2.sh"
-    ],
-    "checkpoints": "pod2 phase2_l2/{latest,best_val}; local: results/checkpoints/phase2_l2/best_val",
-    "charts": [
-      "results/charts/phase2_l2_curves.png"
-    ]
-  },
-  {
-    "id": "val-eval-nominal-r1",
-    "date": "2026-07-10",
-    "commit": "d894602",
-    "overview": "First deployment eval, nominal instructions, ep 0-9: original 50 / base 60 / tuned_flow@300 55 / tuned_l2@100 57.5 (%). Rephrasing helps; RL not yet past base; flow's carrot rename costs success (30 vs 40).",
-    "commands": [
-      "bash scripts/run_pod3_val_eval.sh"
-    ],
-    "data": "results/overnight/raw/rollouts_val_eval.parquet"
-  },
-  {
-    "id": "redteam-eval-r1",
-    "date": "2026-07-10",
-    "commit": "3a47d65",
-    "overview": "Red-team eval (CoVer ERT phrases verbatim, Gemini traces, ep 0-24 x1): direct 29 / base 51 / flow 47 / l2 43 (%). Stack: 0 -> 32 (tuned). Identical-phrase cells expose 8-16pp pi0 decoding noise -> x3 repeats mandatory.",
-    "commands": [
-      "bash scripts/run_pod3_redteam_eval.sh"
-    ],
-    "data": "results/overnight/raw/rollouts_redteam_eval.parquet"
-  },
-  {
-    "id": "redteam-eval-loop",
-    "date": "2026-07-10..",
-    "commit": "HEAD",
-    "overview": "Continuous red-team leaderboard on pod3: freshest best_val pair, tuned arms x3 x 25 states (600 eps/round); baselines topped to x3 once. One parquet per pair: rollouts_rt_f<step>_l<step>.parquet. RUNNING.",
-    "commands": [
-      "bash scripts/run_pod3_eval_loop.sh"
-    ]
-  },
-  {
-    "id": "phase2-v3-from-scratch-ab",
-    "date": "2026-07-10..",
-    "commit": "05f3294+ (see git log)",
-    "overview": "A/B RESTARTED FROM SCRATCH (base Qwen, NO v1 init \u2014 kills the flow-shaped-init confound) with the standard-order batch config: cps=6, G=32 candidates/context, grad accumulation over 4 groups (~670 sequences/optimizer update), GATELESS both arms (judge removed; drift watch via probes+evals), lr 7e-6, beta 0.15, kl-abort 1.2, source-aug 0.5, cover35 traces, per-stage timers. Flow arm pod1 (run_phase2.sh), L2 arm pod2 (run_pod_l2.sh). v2 checkpoints archived on-pod (*_v2_archive) and locally (results/checkpoints/phase2_v2_*_final).",
-    "commands": [
-      "bash scripts/run_phase2.sh",
-      "bash scripts/run_pod_l2.sh"
-    ]
+ {
+  "id": "phase0b-sensitivity-gate",
+  "date": "2026-07-07",
+  "commit": "e4c9ee16e602a3a4e8764d33f59a33da35587672",
+  "overview": "Phase 0b sensitivity gate (GO/NO-GO for using frozen pi0 flow-matching loss as a phrase-level reward). 250 BridgeV2 val contexts x ~92 phrases each (original + 3 arms: gemini_pro=gemini-3.1-pro-preview, gemini_flash=gemini-3.5-flash, qwen=Qwen3.5-9B base with thinking disabled; 32 rephrases/arm, deduped) x K=16 shared (eps, tau) draws (CRN), scored on both INTACT pi0 checkpoints on 1x RTX A6000. RESULT: GO. Median z-scored split-half Spearman ~0.95 across all arms and both checkpoints (signal share ~0.98); phrase-length/loss correlation ~0 (no length hack axis); discriminability flat-high for tau>=0.3 and collapses near tau=0 (clean-action end, lerobot convention: tau=1 is noise). Rephrase-FT checkpoint shows ~25% SMALLER phrase spread than plain checkpoint (paraphrase training increased invariance, as hypothesized). Oracle: best rephrase beats original instruction in 96-98% of contexts, median 31-33% relative loss reduction \u2014 large candidate-set headroom. Qwen arm spread within ~75-100% of Gemini arms -> no larger generator model needed for now.",
+  "commands": [
+   "python -m phrase_rl.extract_contexts --split val --n 250 --out data/contexts_val_0b.parquet",
+   "python -m phrase_rl.gemini_rephrase --contexts data/contexts_val_0b.parquet --out data/rephrases_val_0b.parquet --n-rephrases 32 --model gemini-3.1-pro-preview --concurrency 8",
+   "python -m phrase_rl.gemini_rephrase --contexts data/contexts_val_0b.parquet --out data/rephrases35flash_val_0b.parquet --n-rephrases 32 --model gemini-3.5-flash --concurrency 8",
+   ".venv-gen/bin/python -m phrase_rl.qwen_generate --contexts data/contexts_val_0b.parquet --out data/qwen_rephrases_val_0b.parquet --n 32",
+   "bash scripts/run_phase0b_scoring.sh",
+   "python -m phrase_rl.phase0b_analyze --scores rephrase=data/scores_0b_rephrase.parquet plain=data/scores_0b_plain.parquet --outdir results/phase0b"
+  ],
+  "metrics_file": "results/phase0b/metrics.json",
+  "charts": [
+   "results/charts/phase0b_rephrase.png",
+   "results/charts/phase0b_plain.png"
+  ]
+ },
+ {
+  "id": "phase0c-rollout-sensitivity",
+  "date": "2026-07-07",
+  "commit": "f3c2127a664b01a6940abd76c4a63ab9b4810194",
+  "overview": "Phase 0c: 1,290 SIMPLER episodes (4 Bridge tasks x ~33 phrases x 10 shared episode_ids, INTACT rephrase-FT pi0, in-process INT-ACT harness) + CRN flow-loss scoring of the same phrases on 50 matched real Bridge contexts (3 tasks; eggplant has no Bridge counterpart) + LLM-judge faithfulness pass. (A) IN-SIM [clean]: phrasing moves success strongly \u2014 carrot range 0.1-0.7 across 33 phrasings on identical initial states; success std 0.17-0.18 vs binomial floor ~0.15; failures interpretable (goal drift). Sim-canonical originals are strong (unlike offline 0b). (B) REWARD vs SUCCESS [caveated]: pooled rho=-0.10 (carrot -0.25, spoon -0.29, stack +0.21). Faithfulness pass explains it: 40% of Qwen-generated 0c phrases are goal-drifted; drifted phrases have LOWER mean flow loss (0.0794) than faithful (0.0948) yet lower sim success (0.40 vs 0.56) \u2014 the reward systematically PREFERS goal-drifted phrases (teacher-forced loss rewards trajectory-style fit; goal words barely change mid-episode action targets). Faithful-only subset: negatives vanish (carrot/spoon -0.09), pooled +0.20. CONSEQUENCE: confirmed reward-hacking axis -> Phase 2 must gate the reward on semantic faithfulness (advantage computed among faithful candidates only / drift penalized). Within-faithful, reward is weakly-positive-to-uninformative about sim success at n=10 precision; Phase 4 remains the behavioral test.",
+  "commands": [
+   "bash scripts/run_phase0c_rollouts.sh",
+   "python -m phrase_rl.phase0c_match_contexts --per-task 20 --out data/contexts_0c_match.parquet",
+   "bash scripts/run_phase0c_scoring.sh",
+   "python -m phrase_rl.phase0c_analyze --rollouts results/phase0c/raw/rollouts_0c.parquet --scores results/phase0c/raw/scores_0c.parquet --outdir results/phase0c",
+   "python -m phrase_rl.phase0c_faithfulness --phrases data/phrases_0c.parquet --out results/phase0c/faithfulness.parquet"
+  ],
+  "metrics_file": "results/phase0c/metrics.json",
+  "charts": [
+   "results/charts/phase0c_insim_phrasing.png",
+   "results/charts/phase0c_reward_vs_success.png"
+  ]
+ },
+ {
+  "id": "step0-ab-and-0b-redo",
+  "date": "2026-07-08",
+  "commit": "1ea1f73ded2f261681f7db08b2fe80e24cd0ef4c",
+  "overview": "Step-0 A/B (inline vs Gemini-trace conditioning under CoVer verbatim template) + 0b-redo on the true training distributions. All three CoVer-template arms re-pass the reliability gate (rho 0.954-0.962 at K=16); oracle gain ~32% everywhere; trace==inline on judge-free axes -> interim primary conditioning = inline. Drift comparison pending credits. RL stack validated end-to-end to the gate (fail-closed checkpoint at step 0).",
+  "commands": [
+   "bash scripts/run_overnight.sh (pod)",
+   "python -m phrase_rl.ab_verdict --scores data/scores_0b_redo.parquet"
+  ],
+  "metrics_file": "results/overnight/ab_verdict.json",
+  "charts": [
+   "results/charts/step0_ab_verdict.png"
+  ]
+ },
+ {
+  "id": "phase2-v1-flow-degenerated",
+  "date": "2026-07-09",
+  "commit": "7496aad",
+  "overview": "First RL run (flow reward, from base Qwen, beta=0.04 lr=1e-5 cps=2). Healthy to ~step 300 then KL runaway (0.31->2.0), parse-fail collapse by 465. Post-mortem: KL leash too weak. best_val@200 banked; used as INIT for both v2 arms.",
+  "commands": [
+   "bash scripts/run_phase2.sh  # pre-7496aad config"
+  ],
+  "checkpoints": "results/checkpoints/phase2_v1_degenerated/best_val (local + pod1)",
+  "charts": [
+   "results/charts/phase2_v1_degeneration.png"
+  ]
+ },
+ {
+  "id": "phase2-v2-flow-arm",
+  "date": "2026-07-09..",
+  "commit": "44de48e..HEAD (regime changes in EXPERIMENT.md)",
+  "overview": "Flow-reward arm of the flow-vs-L2 A/B. Init v1@200, beta=0.15, kl-abort 1.2, source-aug 0.5, cover35 traces, local-Qwen judge (Gemini interlude 07-10 reverted: thinking-token drain). lr 5e-6->1e-5->7e-6, cps 2->6. Probes every 10-25 steps. Best val margin +8.0% @300. RUNNING. ARCHIVED @ step ~690 (best_val@680, margin +7.9%); superseded by v3 from-scratch.",
+  "commands": [
+   "bash scripts/run_phase2.sh"
+  ],
+  "checkpoints": "pod1 phase2/{latest,best_val}; local: results/checkpoints/phase2_flow/best_val",
+  "charts": [
+   "results/charts/phase2_flow_curves.png",
+   "results/charts/reward_margin.png",
+   "results/charts/probe_evolution.png"
+  ]
+ },
+ {
+  "id": "phase2-v2-l2-arm",
+  "date": "2026-07-09..",
+  "commit": "44de48e..HEAD",
+  "overview": "L2-reward arm: CRN decoded-action per-DoF-normalized L2 vs a*. Identical config to flow arm except --reward-mode l2 --k-l2 4. Best margin +3.1% @320 (best_val dir holds @100, raw-metric era). RUNNING. ARCHIVED @ step ~490 (best margin +3.1% @320); superseded by v3 from-scratch.",
+  "commands": [
+   "bash scripts/run_pod_l2.sh"
+  ],
+  "checkpoints": "pod2 phase2_l2/{latest,best_val}; local: results/checkpoints/phase2_l2/best_val",
+  "charts": [
+   "results/charts/phase2_l2_curves.png"
+  ]
+ },
+ {
+  "id": "val-eval-nominal-r1",
+  "date": "2026-07-10",
+  "commit": "d894602",
+  "overview": "First deployment eval, nominal instructions, ep 0-9: original 50 / base 60 / tuned_flow@300 55 / tuned_l2@100 57.5 (%). Rephrasing helps; RL not yet past base; flow's carrot rename costs success (30 vs 40).",
+  "commands": [
+   "bash scripts/run_pod3_val_eval.sh"
+  ],
+  "data": "results/overnight/raw/rollouts_val_eval.parquet"
+ },
+ {
+  "id": "redteam-eval-r1",
+  "date": "2026-07-10",
+  "commit": "3a47d65",
+  "overview": "Red-team eval (CoVer ERT phrases verbatim, Gemini traces, ep 0-24 x1): direct 29 / base 51 / flow 47 / l2 43 (%). Stack: 0 -> 32 (tuned). Identical-phrase cells expose 8-16pp pi0 decoding noise -> x3 repeats mandatory.",
+  "commands": [
+   "bash scripts/run_pod3_redteam_eval.sh"
+  ],
+  "data": "results/overnight/raw/rollouts_redteam_eval.parquet"
+ },
+ {
+  "id": "redteam-eval-loop",
+  "date": "2026-07-10..",
+  "commit": "HEAD",
+  "overview": "Continuous red-team leaderboard on pod3: freshest best_val pair, tuned arms x3 x 25 states (600 eps/round); baselines topped to x3 once. One parquet per pair: rollouts_rt_f<step>_l<step>.parquet. RUNNING.",
+  "commands": [
+   "bash scripts/run_pod3_eval_loop.sh"
+  ]
+ },
+ {
+  "id": "phase2-v3-from-scratch-ab",
+  "date": "2026-07-10..",
+  "commit": "05f3294+ (see git log)",
+  "overview": "A/B RESTARTED FROM SCRATCH (base Qwen, NO v1 init \u2014 kills the flow-shaped-init confound) with the standard-order batch config: cps=6, G=32 candidates/context, grad accumulation over 4 groups (~670 sequences/optimizer update), GATELESS both arms (judge removed; drift watch via probes+evals), lr 7e-6, beta 0.15, kl-abort 1.2, source-aug 0.5, cover35 traces, per-stage timers. Flow arm pod1 (run_phase2.sh), L2 arm pod2 (run_pod_l2.sh). v2 checkpoints archived on-pod (*_v2_archive) and locally (results/checkpoints/phase2_v2_*_final).",
+  "commands": [
+   "bash scripts/run_phase2.sh",
+   "bash scripts/run_pod_l2.sh"
+  ]
+ },
+ {
+  "id": "verifier-v1-bridge-contrastive",
+  "date": "2026-07-15",
+  "commit": "ec02480+ (see git log)",
+  "overview": "Learned reward v1: MLP classifier P(instruction matches context) from pi0's BEHAVIORAL response only \u2014 raw flow velocities (v,u per CRN slot, K=8), decoded chunks (K=4), losses/grip/spread; NO text input, NO rephrases in training. Data: 2,000 Bridge train contexts x (own / hard-neg shared-token / easy-neg) from shard2 (verifier_features_train.parquet); val = 250 episode-disjoint contexts. Bridge val hard-negative AUC ~0.90-0.91 all modes; diff-block ablation: no-diff slightly better -> adopted. STUDY TRANSFER (never trained on SIMPLER or success labels): verifier_l2_nodiff pooled pairwise preference acc 0.818 (n=110 pairs, carrot+stack) vs best raw baseline grip 0.718, spread 0.664, -l2 0.627, -flow 0.264 (inverted). Carrot: pairwise 0.963, spearman_own 0.695, top-1 regret 1.0pp (near-oracle). Stack weaker (0.679). Relevance AUC 0.95-1.0; red-team phrases correctly ranked toward bottom. flow/both modes await study_verbose_flow.parquet (pod3 queue) for study eval.",
+  "command": ".venv/bin/python -m phrase_rl.train_verifier --train results/overnight/raw/verifier_features_train.parquet --val results/overnight/raw/verifier_features_val.parquet --mode l2 --no-diff --out results/checkpoints/verifier_l2_nodiff; .venv/bin/python -m phrase_rl.eval_verifier_study --models results/checkpoints/verifier_l2 results/checkpoints/verifier_l2_nodiff --out results/verifier_study_eval.json",
+  "checkpoints": [
+   "results/checkpoints/verifier_{flow,l2,both}{,_nodiff}.pt (+.json metrics)"
+  ],
+  "metrics": {
+   "bridge_val_auc_hard": {
+    "flow": 0.906,
+    "l2": 0.901,
+    "both": 0.904,
+    "flow_nodiff": 0.911,
+    "l2_nodiff": 0.895,
+    "both_nodiff": 0.91
+   },
+   "study_pooled_pairwise_acc": {
+    "verifier_l2": 0.745,
+    "verifier_l2_nodiff": 0.818,
+    "raw_grip": 0.718,
+    "raw_spread": 0.664,
+    "raw_l2": 0.627,
+    "raw_flow": 0.264
+   }
   }
+ }
 ]

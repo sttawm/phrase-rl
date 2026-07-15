@@ -80,7 +80,7 @@ def model_scores(prefix, feats):
         print(f"SKIP {prefix}: mode={mode} needs study_verbose_flow.parquet (queued on pod 3)")
         return None
     from phrase_rl.verifier_features import featurize
-    X = (featurize(feats, mode) - ck["mu"]) / ck["sd"]
+    X = (featurize(feats, mode, ck.get("include_diff", True)) - ck["mu"]) / ck["sd"]
     m = MLP(ck["d_in"])
     m.load_state_dict(ck["state_dict"])
     m.eval()
