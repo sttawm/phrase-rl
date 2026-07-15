@@ -134,7 +134,7 @@
   "id": "verifier-v1-bridge-contrastive",
   "date": "2026-07-15",
   "commit": "ec02480+ (see git log)",
-  "overview": "Learned reward v1: MLP classifier P(instruction matches context) from pi0's BEHAVIORAL response only \u2014 raw flow velocities (v,u per CRN slot, K=8), decoded chunks (K=4), losses/grip/spread; NO text input, NO rephrases in training. Data: 2,000 Bridge train contexts x (own / hard-neg shared-token / easy-neg) from shard2 (verifier_features_train.parquet); val = 250 episode-disjoint contexts. Bridge val hard-negative AUC ~0.90-0.91 all modes; diff-block ablation: no-diff slightly better -> adopted. STUDY TRANSFER (never trained on SIMPLER or success labels): verifier_l2_nodiff pooled pairwise preference acc 0.818 (n=110 pairs, carrot+stack) vs best raw baseline grip 0.718, spread 0.664, -l2 0.627, -flow 0.264 (inverted). Carrot: pairwise 0.963, spearman_own 0.695, top-1 regret 1.0pp (near-oracle). Stack weaker (0.679). Relevance AUC 0.95-1.0; red-team phrases correctly ranked toward bottom. flow/both modes await study_verbose_flow.parquet (pod3 queue) for study eval.",
+  "overview": "Learned reward v1: MLP classifier P(instruction matches context) from pi0's BEHAVIORAL response only \u2014 raw flow velocities (v,u per CRN slot, K=8), decoded chunks (K=4), losses/grip/spread; NO text input, NO rephrases in training. Data: 2,000 Bridge train contexts x (own / hard-neg shared-token / easy-neg) from shard2 (verifier_features_train.parquet); val = 250 episode-disjoint contexts. Bridge val hard-negative AUC ~0.90-0.91 all modes; diff-block ablation: no-diff slightly better -> adopted. STUDY TRANSFER (never trained on SIMPLER or success labels): verifier_l2_nodiff pooled pairwise preference acc 0.818 (n=110 pairs, carrot+stack) vs best raw baseline grip 0.718, spread 0.664, -l2 0.627, -flow 0.264 (inverted). Carrot: pairwise 0.963, spearman_own 0.695, top-1 regret 1.0pp (near-oracle). Stack weaker (0.679). Relevance AUC 0.95-1.0; red-team phrases correctly ranked toward bottom. flow/both modes await study_verbose_flow.parquet (pod3 queue) for study eval. FULL 6-MODEL STUDY EVAL (2026-07-15, after verbose re-score): all six verifiers beat every raw baseline; l2_nodiff and both_nodiff tie at 0.818. KEY: flow-mode verifier hits 0.809 from the same draws whose scalar mean scores 0.264 \u2014 the raw velocity VECTORS carry correct ranking signal that MSE aggregation inverts. Diff ablation mode-dependent (helps flow, hurts l2). Provisional training-reward pick: verifier_both_nodiff (tied best, two feature families hedge Goodhart, +20% reward cost vs l2-only); confirm with spoon+eggplant labels.",
   "command": ".venv/bin/python -m phrase_rl.train_verifier --train results/overnight/raw/verifier_features_train.parquet --val results/overnight/raw/verifier_features_val.parquet --mode l2 --no-diff --out results/checkpoints/verifier_l2_nodiff; .venv/bin/python -m phrase_rl.eval_verifier_study --models results/checkpoints/verifier_l2 results/checkpoints/verifier_l2_nodiff --out results/verifier_study_eval.json",
   "checkpoints": [
    "results/checkpoints/verifier_{flow,l2,both}{,_nodiff}.pt (+.json metrics)"
@@ -149,8 +149,12 @@
     "both_nodiff": 0.91
    },
    "study_pooled_pairwise_acc": {
-    "verifier_l2": 0.745,
     "verifier_l2_nodiff": 0.818,
+    "verifier_both_nodiff": 0.818,
+    "verifier_flow": 0.809,
+    "verifier_both": 0.809,
+    "verifier_l2": 0.745,
+    "verifier_flow_nodiff": 0.736,
     "raw_grip": 0.718,
     "raw_spread": 0.664,
     "raw_l2": 0.627,
