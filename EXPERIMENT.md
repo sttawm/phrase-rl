@@ -288,14 +288,32 @@ ids 0-23. There is no unseen-state tier: val (ids 0-24) already covered every la
 All earlier "sealed state range" designations are void.
 
 - VAL: episode_ids 0-23 (the full grid), x6 repeats, CRN-pinned decode noise.
-- TEST = HELD-OUT TASKS, never states. The INT-ACT install registers task variants no
-  training or eval has ever touched: PutEggplantOnPlate-v1, PutCokeCanOnPlate-v1,
-  PutCarrotOnCokeCan-v1, PutCarrotOnGreenCube-v1, PutPlateOnGreenCube-v1,
-  PutCokeCanOnPepsiCan-v1. Final eval: chosen checkpoints on held-out tasks + CoVer's
-  ERT instructions (also unseen by training).
+- TEST = HELD-OUT TASKS, never states. Final eval: chosen checkpoints on held-out
+  tasks + CoVer's ERT instructions (also unseen by training).
 - Contrast-variance floor: ~96 (task,state) cells on the 4 ID tasks. Going below ~±4pp
   on paired contrasts requires ADDING TASKS, not states or reps.
 - Note: CoVer's "50 reset seeds" also sample (with replacement) from these same grids.
+
+### TASK-TIER REGISTRY — 10/4/6 split (designed 2026-07-13, COMMITTED 2026-07-15)
+
+Supersedes the provisional 6-variant list that stood here (PutCokeCanOnPlate was
+spent as VAL by the 2026-07-14 night suite; the rest are reassigned below). Custom
+combos are minted from the SIMPLER/Bridge asset grid via `sim_train_contexts --tasks`
+(widowx_<obj>_on_<recv>_clean naming, 24-layout grids, same episode_id semantics).
+
+- TRAIN (10): the 4 ID Bridge tasks (spoon_on_towel, carrot_on_plate, stack_cube,
+  eggplant_in_basket) + pepsi_on_plate, cube_on_plate, coke_can_on_keyboard,
+  carrot_on_ramekin, eggplant_on_sponge, nut_on_wheel.
+- VAL (4): coke_can_on_plate, carrot_on_keyboard, coke_can_on_ramekin,
+  carrot_on_wheel. First use: 2026-07-14 task-generalization night suite
+  (nominal inputs, 5 arms — L2@280 the only arm above original, 32.8 vs 28.3).
+  Reusable for model selection; NEVER for headline claims.
+- TEST (6, SEALED — no arm, no eval, no phrase generation may touch these until
+  the one final eval): nut_on_plate, orange_juice_on_plate, eggplant_on_keyboard,
+  carrot_on_sponge, coke_can_on_wheel, small_plate_on_green_cube.
+  Protocol: single shot, nominal + ERT inputs, all finalist arms in one run,
+  paired CRN contrasts, x12 reps. Opening this tier requires updating this line
+  with the date and commit of the eval that spent it.
 
 ## Rollout-reward arm LIVE (2026-07-12) — the wall fired
 
