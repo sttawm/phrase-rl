@@ -1,0 +1,11 @@
+{
+ "mode": "deploy",
+ "d_in": 392,
+ "best_epoch": 23,
+ "val_auc": 0.85792,
+ "val_auc_hard": 0.81464,
+ "val_auc_easy": 0.9012,
+ "n_train": 6000,
+ "n_val": 750,
+ "seed": 0
+}

@@ -50,7 +50,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--train", required=True)
     ap.add_argument("--val", required=True)
-    ap.add_argument("--mode", choices=["flow", "l2", "both"], required=True)
+    ap.add_argument("--mode", choices=["flow", "l2", "both", "deploy"], required=True)
     ap.add_argument("--out", required=True, help="output prefix (writes .pt + .json)")
     ap.add_argument("--epochs", type=int, default=400)
     ap.add_argument("--patience", type=int, default=40)

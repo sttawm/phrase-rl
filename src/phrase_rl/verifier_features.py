@@ -37,6 +37,14 @@ def featurize(df, mode: str, include_diff: bool = True) -> np.ndarray:
         parts += [dec, a] + ([diff] if include_diff else []) + [
                   _stack(df.norm_l2), _stack(df.grip_err),
                   dd.std(axis=1)]                  # decode spread = policy uncertainty (H*D,)
+    if mode == "deploy":
+        # DEMO-FREE: no a*-derived features — usable at deployment on tasks with no
+        # Bridge demo (test tiers). v is meaningful alone because eps is CRN-fixed.
+        v = _stack(df.flow_v)
+        vs = v.reshape(-1, K_FLOW, H * D)
+        dec = _stack(df.decoded)
+        dd = dec.reshape(-1, K_DEC, H * D)
+        parts = [v, vs.std(axis=1), dec, dd.std(axis=1)]
     if not parts:
         raise ValueError(f"unknown mode {mode!r}")
     return np.concatenate(parts, axis=1)

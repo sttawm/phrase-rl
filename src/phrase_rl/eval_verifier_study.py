@@ -76,7 +76,7 @@ def study_feature_rows():
 def model_scores(prefix, feats):
     ck = torch.load(prefix + ".pt", weights_only=False)
     mode = ck["mode"]
-    if mode in ("flow", "both") and "flow_v" not in feats.columns:
+    if mode in ("flow", "both", "deploy") and "flow_v" not in feats.columns:
         print(f"SKIP {prefix}: mode={mode} needs study_verbose_flow.parquet (queued on pod 3)")
         return None
     from phrase_rl.verifier_features import featurize
