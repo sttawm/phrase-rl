@@ -361,6 +361,20 @@ Findings:
 same 5 arms, 4 ID tasks, ×12 × 24 layouts (5,760 eps), exact val-task-suite
 methodology. Completes the ID/val-task × nominal comparison with matched power.
 
+**Bridge vocabulary check (2,250-episode instruction sample, 2026-07-15).**
+"coke"/"pepsi"/"soda": 0 hits (cans appear only as "the can"/"small can"/one
+"red can"). ramekin/keyboard/wheel/nut: 0. bowl: 88, plate: 108, towel: 85,
+cloth: 406, pot: 535. Template "put X on": 332 vs "place X on": 82. Two
+interpretation updates: (1) the coke-can-on-plate result (original "put coke can
+on plate" 69.1% vs every rephraser's "red can" 41–59%) canNOT be Bridge-vocab
+familiarity — "coke" isn't in Bridge; the binding must come from the VLM
+pretraining prior (PaliGemma backbone), meaning π0's usable vocabulary is
+Bridge-language ∪ web-prior, and brand-level names can bind *tighter* than color
+descriptions. Rephrasers that "simplify" a name the prior already knows destroy
+signal. (2) The ramekin win is confirmed as OOV→in-vocab translation: "ramekin"
+(0 hits) → "ramekin bowl" ("bowl": 88 hits) is exactly mapping into the training
+distribution's nouns.
+
 ## Next
 
 - **Phase 2 (primary):** advantage-weighted tuning of Qwen3.5-9B from base, with
