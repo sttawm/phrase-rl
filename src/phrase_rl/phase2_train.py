@@ -653,7 +653,7 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
     cuda_states = torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None
     torch.manual_seed(args.val_seed)
     try:
-        best, mean, orig = [], [], []
+        best, mean, orig, greedy, gphrases = [], [], [], [], []
         n_failed = judged = survived = 0
         rows = val_df.head(args.val_n)
         for i, (_, row) in enumerate(tqdm(rows.iterrows(), total=len(rows),
@@ -666,11 +666,29 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             if not res["ok"]:
                 n_failed += 1
                 continue
+            # deployment-mode greedy single phrase (what we'd actually ship) rides
+            # the same CRN job, so its reward is exactly comparable to orig/candidates
+            gp = res["instruction"]
+            try:
+                gm = cover_prompt.build_single_phrase_prefix(
+                    res["instruction"], res["img"], trace=res["trace"])
+                ginp = apply_template(processor, gm, continue_final_message=True).to(model.device)
+                with torch.no_grad():
+                    gout = model.generate(**ginp, do_sample=False, max_new_tokens=48)
+                gp = processor.decode(gout[0][ginp["input_ids"].shape[1]:],
+                                      skip_special_tokens=True).strip().split("\n")[0].strip() or gp
+            except Exception:
+                pass
             job = f"val{step:06d}i{i:03d}_{uuid.uuid4().hex[:8]}"
-            score_group(ipc_dir, job, [(row, res)], args)
+            losses = score_phrases(
+                ipc_dir, job, [(row, [res["instruction"]] + res["survivors"] + [gp])], args)[0]
+            rewards = -losses.mean(axis=1)
+            res.update(r_orig=float(rewards[0]), rewards=rewards[1:-1])
             best.append(float(res["rewards"].max()))
             mean.append(float(res["rewards"].mean()))
             orig.append(res["r_orig"])
+            greedy.append(float(rewards[-1]))
+            gphrases.append({"instruction": res["instruction"], "greedy": gp})
         return {
             "step": step,
             "n_scored": len(best),
@@ -678,6 +696,9 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             "mean_reward": float(np.mean(mean)) if mean else None,
             "mean_best_reward": float(np.mean(best)) if best else None,
             "mean_orig_reward": float(np.mean(orig)) if orig else None,
+            "mean_greedy_reward": float(np.mean(greedy)) if greedy else None,
+            "greedy_win_rate": float(np.mean([g > o for g, o in zip(greedy, orig)])) if greedy else None,
+            "greedy_phrases": gphrases,
             "gate_pass_rate": survived / judged if judged else None,
         }
     finally:
