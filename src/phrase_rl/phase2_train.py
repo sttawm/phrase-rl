@@ -523,7 +523,7 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
             tok = tokenize_phrase(processor, prefix_msgs, prefix_ids, cand)
             if tok is None:  # phrase adds no tokens; cannot contribute
                 continue
-            items.append((*tok, float(a)))
+            items.append((id(res), *tok, float(a)))
 
     # n_pos = contributing candidates = the objective divisor (mean over positives)
     stats = {"n_pos": len(items), "update_loss": None, "kl": None,
@@ -537,12 +537,31 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
     n_done = 0
     use_batched = getattr(args, "batched_update", True) and _BATCH_PARITY["use_batched"]
     pad_id = getattr(getattr(processor, "tokenizer", processor), "pad_token_id", None) or 0
-    for lo in range(0, n_tot, args.accum):
+    # context-local chunks: rows of a chunk share one context (=> identical image
+    # tensors, safe collate); chunk size still bounded by args.accum
+    chunks, cur, cur_ci = [], [], None
+    for it in items:
+        if it[0] != cur_ci or len(cur) >= args.accum:
+            if cur:
+                chunks.append(cur)
+            cur, cur_ci = [], it[0]
+        cur.append(it)
+    if cur:
+        chunks.append(cur)
+    for chunk in chunks:
         gloss = None
-        chunk = items[lo : lo + args.accum]
+        chunk = [it[1:] for it in chunk]  # drop ctx ordinal -> (inputs, start, n_new, a)
         if use_batched:
-            outs = phrase_logprob_and_kl_batched(model, chunk, args.beta, pad_id)
-            if not _BATCH_PARITY["checked"]:  # one-time parity vs sequential path
+            try:
+                outs = phrase_logprob_and_kl_batched(model, chunk, args.beta, pad_id)
+            except Exception as e:  # NEVER kill training on a batching bug — fall back
+                print(f"[batched-update] EXCEPTION ({type(e).__name__}: {e}) — permanent sequential fallback", flush=True)
+                _BATCH_PARITY["use_batched"] = False
+                use_batched = False
+                outs = None
+        if use_batched and outs is not None and not _BATCH_PARITY["checked"]:
+            pass  # parity check below consumes outs
+            if outs is not None and not _BATCH_PARITY["checked"]:  # one-time parity vs sequential path
                 _BATCH_PARITY["checked"] = True
                 ok = True
                 for (inputs, start, n_new, a), (mlp_b, kl_b) in zip(chunk, outs):
