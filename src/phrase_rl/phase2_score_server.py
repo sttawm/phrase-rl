@@ -73,23 +73,34 @@ class Heartbeat:
             self.last = now
 
 
-def process_job(policy, spec, micro_batch, hb, job_id, dim_std=None):
+def process_job(policy, spec, micro_batch, hb, job_id, dim_std=None, ensemble=None):
     """Score one job's parquet; returns (n_contexts, n_rows). Raises on any problem.
 
     reward_mode="flow" (default): CRN flow-matching residual (Pi0PhraseScorer.score).
     reward_mode="l2": CRN decoded-action per-DoF-normalized L2 (score_l2); needs dim_std.
-    Both return the same schema (loss, loss_per_draw), lower=better, so the trainer's
-    advantage/KL/val code is reward-mode-agnostic.
+    reward_mode="verifier": calibrated ensemble logit over pi0 behavioral features
+      (loss = -mean member logit; loss_per_draw = per-member -logits). k/seed/tau_min
+      are PINNED from the ensemble manifest (must match verifier training slots);
+      the job spec's values are ignored in this mode. Needs --stats-contexts and
+      --verifier-ensemble at server start.
+    All modes share the output schema (loss, loss_per_draw), lower=better, so the
+    trainer's advantage/KL/val code is reward-mode-agnostic.
     """
     mode = str(spec.get("reward_mode", "flow"))
-    # per-job (k, seed, tau_min) only re-derives the fixed draws — the policy is shared
-    scorer = Pi0PhraseScorer(
-        policy,
-        k=int(spec.get("k", 16)),
-        seed=int(spec.get("seed", 0)),
-        micro_batch=micro_batch,
-        tau_min=float(spec.get("tau_min", 0.0)),
-    )
+    if mode == "verifier":
+        if ensemble is None or dim_std is None:
+            raise RuntimeError("reward_mode='verifier' needs --verifier-ensemble and --stats-contexts")
+        scorer = Pi0PhraseScorer(policy, k=ensemble.k_flow, seed=ensemble.seed,
+                                 micro_batch=micro_batch, tau_min=ensemble.tau_min)
+    else:
+        # per-job (k, seed, tau_min) only re-derives the fixed draws — the policy is shared
+        scorer = Pi0PhraseScorer(
+            policy,
+            k=int(spec.get("k", 16)),
+            seed=int(spec.get("seed", 0)),
+            micro_batch=micro_batch,
+            tau_min=float(spec.get("tau_min", 0.0)),
+        )
     if mode == "l2" and dim_std is None:
         raise RuntimeError("reward_mode='l2' requires the server to be started with --stats-contexts")
     k_l2 = int(spec.get("k_l2", 4))
@@ -100,7 +111,24 @@ def process_job(policy, spec, micro_batch, hb, job_id, dim_std=None):
         row = g.iloc[0]  # context fields identical within a group by construction
         img = np.asarray(Image.open(io.BytesIO(row["image_png"]))).astype(np.float32) / 255.0
         phrases = [str(p) for p in g["phrase"]]
-        if mode == "l2":
+        if mode == "verifier":
+            a_star = np.asarray(row["action_chunk"], dtype=np.float32)
+            fl, v, u = scorer.score_verbose(
+                img.transpose(2, 0, 1), np.asarray(row["state"]), a_star, phrases)
+            dec, nl2, grip = scorer.decode_verbose(
+                img.transpose(2, 0, 1), np.asarray(row["state"]), a_star, phrases,
+                dim_std, k_l2=ensemble.k_decode)
+            feats = pd.DataFrame([{
+                "flow_loss": fl[i].astype(np.float32),
+                "flow_v": v[i].reshape(-1).astype(np.float32),
+                "flow_u": u[i].reshape(-1).astype(np.float32),
+                "decoded": dec[i].reshape(-1).astype(np.float32),
+                "norm_l2": nl2[i].astype(np.float32),
+                "grip_err": grip[i].astype(np.float32),
+                "a_star": a_star.reshape(-1),
+            } for i in range(len(phrases))])
+            losses = -ensemble.member_logits(feats)  # (P, n_members); lower = better
+        elif mode == "l2":
             losses = scorer.score_l2(
                 img.transpose(2, 0, 1), np.asarray(row["state"]),
                 np.asarray(row["action_chunk"]), phrases, dim_std, k_l2=k_l2,
@@ -142,7 +170,7 @@ def read_spec(req_path):
         raise  # stale and still unparseable -> fail the job through the normal path
 
 
-def handle_req(policy, req_path, micro_batch, hb, dim_std=None):
+def handle_req(policy, req_path, micro_batch, hb, dim_std=None, ensemble=None):
     """Process one req file end to end. Never raises (except KeyboardInterrupt)."""
     base = req_path[: -len(".req.json")]
     job_id = os.path.basename(base)
@@ -151,7 +179,8 @@ def handle_req(policy, req_path, micro_batch, hb, dim_std=None):
         if spec is None:
             return  # probably still being written; next poll retries
         t0 = time.time()
-        n_ctx, n_rows = process_job(policy, spec, micro_batch, hb, job_id, dim_std=dim_std)
+        n_ctx, n_rows = process_job(policy, spec, micro_batch, hb, job_id, dim_std=dim_std,
+                                    ensemble=ensemble)
         os.replace(req_path, base + ".done.json")  # atomic completion signal
         hb.n_done += 1
         log(f"job {job_id}: {n_ctx} contexts / {n_rows} rows in {time.time() - t0:.1f}s")
@@ -178,6 +207,8 @@ def main():
     ap.add_argument("--heartbeat", type=float, default=60.0)
     ap.add_argument("--stats-contexts", default=None,
                     help="parquet whose action_chunk column defines per-DoF L2 normalization (needed for reward_mode=l2)")
+    ap.add_argument("--verifier-ensemble", default=None,
+                    help="ensemble manifest json (needed for reward_mode=verifier)")
     ap.add_argument("--once", action="store_true", help="process pending jobs, then exit (testing)")
     args = ap.parse_args()
 
@@ -189,6 +220,13 @@ def main():
         dim_std = chunks.reshape(chunks.shape[0], -1, 7).std(axis=(0, 1)) + 1e-8  # (7,) per-DoF std
         log(f"L2 normalization per-DoF std: {np.round(dim_std, 4)}")
 
+    ensemble = None
+    if args.verifier_ensemble:
+        from phrase_rl.verifier_reward import VerifierEnsemble
+        ensemble = VerifierEnsemble(args.verifier_ensemble)
+        log(f"verifier ensemble loaded: {len(ensemble.members)} members, "
+            f"k_flow={ensemble.k_flow} k_decode={ensemble.k_decode} tau_min={ensemble.tau_min}")
+
     PI0Policy = import_pi0_policy()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     log(f"loading {args.ckpt} on {device} ...")
@@ -199,7 +237,7 @@ def main():
     while True:
         reqs = sorted(glob.glob(os.path.join(args.ipc_dir, "*.req.json")))
         for req_path in reqs:
-            handle_req(policy, req_path, args.micro_batch, hb, dim_std=dim_std)
+            handle_req(policy, req_path, args.micro_batch, hb, dim_std=dim_std, ensemble=ensemble)
         hb.beat()
         if args.once and not reqs:
             log(f"--once: queue drained ({hb.n_done} done, {hb.n_failed} failed); exiting")

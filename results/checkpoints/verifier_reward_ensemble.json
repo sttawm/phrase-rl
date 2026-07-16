@@ -26,5 +26,13 @@
    "temperature": 2.770894126346469
   }
  ],
- "aggregate": "mean of calibrated logits"
+ "aggregate": "mean of calibrated logits",
+ "k_flow": 8,
+ "k_decode": 4,
+ "seed": 0,
+ "tau_min": 0.0,
+ "locked": "2026-07-16",
+ "study_pooled_pairwise": 0.722,
+ "bridge_val_auc": 0.9451,
+ "bridge_hard_auc": 0.9181
 }
