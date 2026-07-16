@@ -161,5 +161,22 @@
     "raw_flow": 0.264
    }
   }
+ },
+ {
+  "id": "verifier-frame-curve",
+  "date": "2026-07-16",
+  "commit": "post-7b22bc0",
+  "overview": "Multi-frame verifier eval on 250 held-out Bridge val episodes x 4 quartile frames (shard4 concurrent session). Locked ensemble, episode-level decisions: 1 frame (best=q1) AUC 0.945/hard 0.914/acc 0.872 -> 2 frames 0.969/0.946/0.897 -> 4 frames 0.976/0.958/0.916. Hard-negative AUC-error nearly HALVED by 4 frames. Calibrated log-product == flat mean (0.9761 vs 0.9760) \u2014 user's independence-product aggregation validated as equivalent post-calibration. Early frames individually strongest (q1 0.914 vs mid 0.86-0.88 hard) but mid frames complementary. +hist RETIRED: +0.002 even at mid-episode frames. DECISION: adopt 4-frame training reward (+~24%% step time, update-dominated steps) at next checkpoint boundary of both A/B arms.",
+  "command": "analysis on results/overnight/raw/verifier_features_val_multit.parquet (see transcript)",
+  "metrics": {
+   "auc_1f": 0.945,
+   "auc_2f": 0.969,
+   "auc_4f": 0.976,
+   "hard_1f": 0.914,
+   "hard_2f": 0.946,
+   "hard_4f": 0.958,
+   "acc_1f": 0.872,
+   "acc_4f": 0.916
+  }
  }
 ]
