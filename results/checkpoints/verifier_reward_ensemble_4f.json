@@ -1,0 +1,35 @@
+{
+ "members": [
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff_4f.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 2.4
+  },
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff_4f_s1.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 1.9
+  },
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff_4f_s2.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 2.7
+  },
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff_4f_s3.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 1.75
+  },
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff_4f_s4.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 2.35
+  }
+ ],
+ "k_flow": 8,
+ "k_decode": 4,
+ "seed": 0,
+ "tau_min": 0.0,
+ "mode": "both_nodiff_4f",
+ "locked": "2026-07-16 native-4f (NOT the training reward; selection/eval use)"
+}
