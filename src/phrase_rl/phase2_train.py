@@ -445,9 +445,10 @@ def _left_pad_collate(chunk, pad_id, device):
     for i, x in enumerate(ids):
         input_ids[i, L - x.numel():] = x
         attn[i, L - x.numel():] = 1
+    # NB: do NOT pass explicit position_ids — Qwen3.5 computes multi-axis rope
+    # positions internally (vision mrope); overriding with 1D cumsum shifts logits
+    # (caught by the arm-B parity check 2026-07-16).
     batch = {"input_ids": input_ids.to(device), "attention_mask": attn.to(device)}
-    pos = (attn.cumsum(-1) - 1).clamp(min=0)
-    batch["position_ids"] = pos.to(device)
     for key in chunk[0][0].keys():
         if key in ("input_ids", "attention_mask", "position_ids"):
             continue
