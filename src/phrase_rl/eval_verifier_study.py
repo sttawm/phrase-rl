@@ -76,6 +76,12 @@ def study_feature_rows():
 def model_scores(prefix, feats):
     ck = torch.load(prefix + ".pt", weights_only=False)
     mode = ck["mode"]
+    if mode.endswith("+hist"):
+        h = pd.read_parquet("data/action_history.parquet")
+        feats = feats.merge(h, on=["episode_index", "t"], how="left")
+        if feats.t_frac.isna().any():
+            print(f"SKIP {prefix}: history missing for {int(feats.t_frac.isna().sum())} study rows")
+            return None
     if mode in ("flow", "both", "deploy") and "flow_v" not in feats.columns:
         print(f"SKIP {prefix}: mode={mode} needs study_verbose_flow.parquet (queued on pod 3)")
         return None

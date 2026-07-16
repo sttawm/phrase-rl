@@ -50,7 +50,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--train", required=True)
     ap.add_argument("--val", required=True)
-    ap.add_argument("--mode", choices=["flow", "l2", "both", "deploy"], required=True)
+    ap.add_argument("--mode", required=True, help="flow|l2|both|deploy, optionally +hist suffix")
+    ap.add_argument("--history", default=None, help="action_history.parquet to join for +hist modes")
     ap.add_argument("--out", required=True, help="output prefix (writes .pt + .json)")
     ap.add_argument("--epochs", type=int, default=400)
     ap.add_argument("--patience", type=int, default=40)
@@ -63,6 +64,11 @@ def main():
 
     tr = pd.read_parquet(args.train)
     va = pd.read_parquet(args.val)
+    if args.history:
+        h = pd.read_parquet(args.history)
+        tr = tr.merge(h, on=["episode_index", "t"], how="left")
+        va = va.merge(h, on=["episode_index", "t"], how="left")
+        assert tr.t_frac.notna().all() and va.t_frac.notna().all(), "history missing for rows"
     Xtr, ytr = featurize(tr, args.mode, not args.no_diff), tr.label.values.astype(np.float32)
     Xva, yva = featurize(va, args.mode, not args.no_diff), va.label.values.astype(np.float32)
     mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-6
