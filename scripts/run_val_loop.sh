@@ -35,7 +35,7 @@ pick_newest_ready() {
 mkdir -p results/val_screens
 while true; do
   did=0
-  for ARM in A B; do
+  for ARM in ${VAL_ARMS:-A B}; do
     DIR=$(pick_newest_ready $ARM) || continue
     STAMP=$(basename "$DIR")
     T="results/val_screens/.try_${ARM}_${STAMP}"

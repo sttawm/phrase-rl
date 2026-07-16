@@ -53,6 +53,7 @@ git add results/overnight/raw/ \
   && git -c user.name=batshard -c user.email=pod@runpod pull --rebase --no-edit \
   && git push
 echo "BATTERY-HALF-$HALF-DONE"
+[ "${NOSTOP:-0}" = "1" ] && exit 0
 export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_POD_ID=')" || true
 export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_API_KEY=')" || true
 runpodctl config --apiKey "$RUNPOD_API_KEY" 2>&1 | tail -1 || true
