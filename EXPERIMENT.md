@@ -294,7 +294,28 @@ All earlier "sealed state range" designations are void.
   on paired contrasts requires ADDING TASKS, not states or reps.
 - Note: CoVer's "50 reset seeds" also sample (with replacement) from these same grids.
 
-### TASK-TIER REGISTRY — 10/4/6 split (designed 2026-07-13, COMMITTED 2026-07-15)
+### TASK-TIER REGISTRY v2 — VAL-13 / TEST-10 (user decision 2026-07-16)
+
+Supersedes the 10/4/6 split below. Rationale: the verifier reward trains on
+Bridge only — no arm trains on sim tasks — so all registered tasks are eval
+capital.
+
+- VAL (13, selection + development): the 10 non-sealed native tasks (4 ID Bridge
+  tasks + coke_can_on_plate, carrot_on_keyboard, coke_can_on_ramekin,
+  carrot_on_wheel + pepsi_on_plate... i.e., every registered task not in the
+  sealed pool) + CoVer's 3 OOD tasks (redbull_on_plate, zucchini_on_towel,
+  tennis_in_basket; envs to be imported from CoVer's release or reimplemented —
+  object-novel/receptacle-familiar composition, report labeled as such).
+  Caveat on the 4 ID tasks: contaminated for LEGACY arms that trained on them
+  (rollout_s80); clean for all verifier-reward arms.
+- TEST (10, SEALED): every never-touched task — names deliberately not
+  enumerated here (see 2026-07-15 note below on composition-gaming). Eval
+  scripts must refuse these tasks unless FINAL_EVAL=1. One shot, all finalist
+  + static arms in a single run, nominal + ERT inputs, paired CRN, ×12.
+  Static-arm results may be pre-computed but remain SEALED-UNREAD until the
+  trained arms join the table.
+
+### TASK-TIER REGISTRY — 10/4/6 split (designed 2026-07-13, SUPERSEDED 2026-07-16)
 
 Supersedes the provisional 6-variant list that stood here (PutCokeCanOnPlate was
 spent as VAL by the 2026-07-14 night suite; the rest are reassigned below).
