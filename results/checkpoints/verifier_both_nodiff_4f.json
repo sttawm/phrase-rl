@@ -1,0 +1,11 @@
+{
+ "mode": "both",
+ "d_in": 660,
+ "best_epoch": 45,
+ "val_auc": 0.94201975,
+ "val_auc_hard": 0.9131195,
+ "val_auc_easy": 0.97092,
+ "n_train": 24000,
+ "n_val": 3000,
+ "seed": 0
+}

@@ -1,0 +1,11 @@
+{
+ "mode": "l2",
+ "d_in": 288,
+ "best_epoch": 87,
+ "val_auc": 0.933138,
+ "val_auc_hard": 0.902064,
+ "val_auc_easy": 0.964212,
+ "n_train": 24000,
+ "n_val": 3000,
+ "seed": 0
+}
