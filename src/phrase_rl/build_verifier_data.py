@@ -93,15 +93,15 @@ def main():
     scorer = Pi0PhraseScorer(policy, k=args.k, seed=args.seed, micro_batch=64)
 
     rows = []
-    done_eps = set()
+    done_keys = set()
     if os.path.exists(args.out):
         prev = pd.read_parquet(args.out)
         rows = prev.to_dict("records")
-        done_eps = set(prev.episode_index)
-        print(f"resume: {len(done_eps)} contexts already featurized")
+        done_keys = set(zip(prev.episode_index, prev.t))  # (ep, t): multi-t contexts share episodes
+        print(f"resume: {len(done_keys)} context-points already featurized")
 
     for i, row in enumerate(tqdm(list(df.itertuples()), desc="contexts")):
-        if row.episode_index in done_eps:
+        if (row.episode_index, row.t) in done_keys:
             continue
         img = np.asarray(Image.open(io.BytesIO(row.image_png))).astype(np.float32) / 255.0
         img_chw = img.transpose(2, 0, 1)
