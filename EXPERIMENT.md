@@ -395,3 +395,13 @@ FAIR-EVAL PROTOCOL (rollout RL trains in the same sim it is evaluated in):
 - TEST (once, end): the 6 untouched task variants, nominal + ERT instructions.
 - Contamination audit trail: training never sees ERT phrasings, layouts 18-23,
   eval noise seeds, or the held-out tasks.
+
+## Reward-function decision (2026-07-16)
+v5 arms A/B run to completion on the LOCKED 1-frame reward (5-seed calibrated
+both_nodiff ensemble, `verifier_reward_ensemble.json`) — unchanged mid-run for
+curve comparability. The native-4f ensemble (`verifier_reward_ensemble_4f.json`,
+5 seeds, calibrated T=1.75-2.7) is HELD for a later from-scratch run; until then
+it serves only as selection/eval scorer (CoVer-select arm, checkpoint picking).
+Basis: bridge-val 4f-agg AUC 0.972 vs 0.959 (hard 0.954 vs 0.937); study-exam
+pooled pairwise 0.89 vs 0.87 (ensemble+calibrated, all three evidence readings
+higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers_*.
