@@ -1,0 +1,314 @@
+{
+ "raw_-flow_mean": {
+  "per_task": {
+   "widowx_spoon_on_towel": {
+    "top1_success": 46.2,
+    "top1_regret": 2.1,
+    "random_pick": 40.3,
+    "spearman_own": 0.495,
+    "pairwise_acc": 0.971,
+    "relevance_auc": 0.418,
+    "rt_mean_rank": 2.0,
+    "rt_n_phrases": 18
+   },
+   "widowx_carrot_on_plate": {
+    "top1_success": 8.3,
+    "top1_regret": 37.5,
+    "random_pick": 35.6,
+    "spearman_own": -0.694,
+    "pairwise_acc": 0.093,
+    "relevance_auc": 0.113,
+    "rt_mean_rank": 4.0,
+    "rt_n_phrases": 18
+   },
+   "widowx_stack_cube": {
+    "top1_success": 0.3,
+    "top1_regret": 38.5,
+    "random_pick": 26.6,
+    "spearman_own": -0.113,
+    "pairwise_acc": 0.429,
+    "relevance_auc": 0.191,
+    "rt_mean_rank": 2.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_put_eggplant_in_basket": {}
+  },
+  "pooled": {
+   "pairwise_acc": 0.431,
+   "n_pairs": 144
+  }
+ },
+ "raw_-l2_mean": {
+  "per_task": {
+   "widowx_spoon_on_towel": {
+    "top1_success": 37.5,
+    "top1_regret": 10.8,
+    "random_pick": 40.3,
+    "spearman_own": -0.483,
+    "pairwise_acc": 0.294,
+    "relevance_auc": 0.934,
+    "rt_mean_rank": 6.0,
+    "rt_n_phrases": 18
+   },
+   "widowx_carrot_on_plate": {
+    "top1_success": 8.3,
+    "top1_regret": 37.5,
+    "random_pick": 35.6,
+    "spearman_own": 0.216,
+    "pairwise_acc": 0.648,
+    "relevance_auc": 0.363,
+    "rt_mean_rank": 2.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_stack_cube": {
+    "top1_success": 27.4,
+    "top1_regret": 11.5,
+    "random_pick": 26.6,
+    "spearman_own": 0.104,
+    "pairwise_acc": 0.607,
+    "relevance_auc": 0.91,
+    "rt_mean_rank": 13.0,
+    "rt_n_phrases": 18
+   },
+   "widowx_put_eggplant_in_basket": {}
+  },
+  "pooled": {
+   "pairwise_acc": 0.549,
+   "n_pairs": 144
+  }
+ },
+ "raw_-grip_err": {
+  "per_task": {
+   "widowx_spoon_on_towel": {
+    "top1_success": 46.5,
+    "top1_regret": 1.7,
+    "random_pick": 40.3,
+    "spearman_own": 0.629,
+    "pairwise_acc": 0.853,
+    "relevance_auc": 0.934,
+    "rt_mean_rank": 9.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_carrot_on_plate": {
+    "top1_success": 45.8,
+    "top1_regret": 0.0,
+    "random_pick": 35.6,
+    "spearman_own": 0.866,
+    "pairwise_acc": 0.981,
+    "relevance_auc": 0.965,
+    "rt_mean_rank": 5.0,
+    "rt_n_phrases": 18
+   },
+   "widowx_stack_cube": {
+    "top1_success": 19.4,
+    "top1_regret": 19.4,
+    "random_pick": 26.6,
+    "spearman_own": -0.026,
+    "pairwise_acc": 0.464,
+    "relevance_auc": 0.824,
+    "rt_mean_rank": 3.0,
+    "rt_n_phrases": 18
+   },
+   "widowx_put_eggplant_in_basket": {}
+  },
+  "pooled": {
+   "pairwise_acc": 0.75,
+   "n_pairs": 144
+  }
+ },
+ "raw_-act_spread": {
+  "per_task": {
+   "widowx_spoon_on_towel": {
+    "top1_success": 36.8,
+    "top1_regret": 11.5,
+    "random_pick": 40.3,
+    "spearman_own": -0.41,
+    "pairwise_acc": 0.235,
+    "relevance_auc": 0.812,
+    "rt_mean_rank": 16.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_carrot_on_plate": {
+    "top1_success": 21.9,
+    "top1_regret": 24.0,
+    "random_pick": 35.6,
+    "spearman_own": 0.296,
+    "pairwise_acc": 0.648,
+    "relevance_auc": 0.742,
+    "rt_mean_rank": 7.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_stack_cube": {
+    "top1_success": 38.9,
+    "top1_regret": 0.0,
+    "random_pick": 26.6,
+    "spearman_own": 0.246,
+    "pairwise_acc": 0.679,
+    "relevance_auc": 0.965,
+    "rt_mean_rank": 16.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_put_eggplant_in_basket": {}
+  },
+  "pooled": {
+   "pairwise_acc": 0.562,
+   "n_pairs": 144
+  }
+ },
+ "verifier_both_nodiff_4f": {
+  "per_task": {
+   "widowx_spoon_on_towel": {
+    "top1_success": 46.5,
+    "top1_regret": 1.7,
+    "random_pick": 40.3,
+    "spearman_own": -0.038,
+    "pairwise_acc": 0.412,
+    "relevance_auc": 0.941,
+    "rt_mean_rank": 17.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_carrot_on_plate": {
+    "top1_success": 37.8,
+    "top1_regret": 8.0,
+    "random_pick": 35.6,
+    "spearman_own": 0.676,
+    "pairwise_acc": 0.944,
+    "relevance_auc": 0.98,
+    "rt_mean_rank": 10.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_stack_cube": {
+    "top1_success": 34.0,
+    "top1_regret": 4.9,
+    "random_pick": 26.6,
+    "spearman_own": 0.288,
+    "pairwise_acc": 0.661,
+    "relevance_auc": 0.914,
+    "rt_mean_rank": 13.0,
+    "rt_n_phrases": 18
+   },
+   "widowx_put_eggplant_in_basket": {}
+  },
+  "pooled": {
+   "pairwise_acc": 0.708,
+   "n_pairs": 144
+  }
+ },
+ "verifier_flow_4f": {
+  "per_task": {
+   "widowx_spoon_on_towel": {
+    "top1_success": 46.5,
+    "top1_regret": 1.7,
+    "random_pick": 40.3,
+    "spearman_own": -0.108,
+    "pairwise_acc": 0.294,
+    "relevance_auc": 0.902,
+    "rt_mean_rank": 17.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_carrot_on_plate": {
+    "top1_success": 44.4,
+    "top1_regret": 1.4,
+    "random_pick": 35.6,
+    "spearman_own": 0.723,
+    "pairwise_acc": 0.963,
+    "relevance_auc": 0.977,
+    "rt_mean_rank": 10.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_stack_cube": {
+    "top1_success": 16.7,
+    "top1_regret": 22.2,
+    "random_pick": 26.6,
+    "spearman_own": 0.286,
+    "pairwise_acc": 0.696,
+    "relevance_auc": 0.871,
+    "rt_mean_rank": 13.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_put_eggplant_in_basket": {}
+  },
+  "pooled": {
+   "pairwise_acc": 0.701,
+   "n_pairs": 144
+  }
+ },
+ "verifier_l2_4f": {
+  "per_task": {
+   "widowx_spoon_on_towel": {
+    "top1_success": 26.0,
+    "top1_regret": 22.2,
+    "random_pick": 40.3,
+    "spearman_own": -0.196,
+    "pairwise_acc": 0.176,
+    "relevance_auc": 0.961,
+    "rt_mean_rank": 17.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_carrot_on_plate": {
+    "top1_success": 44.4,
+    "top1_regret": 1.4,
+    "random_pick": 35.6,
+    "spearman_own": 0.692,
+    "pairwise_acc": 0.944,
+    "relevance_auc": 0.992,
+    "rt_mean_rank": 11.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_stack_cube": {
+    "top1_success": 37.2,
+    "top1_regret": 1.7,
+    "random_pick": 26.6,
+    "spearman_own": 0.511,
+    "pairwise_acc": 0.786,
+    "relevance_auc": 0.984,
+    "rt_mean_rank": 9.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_put_eggplant_in_basket": {}
+  },
+  "pooled": {
+   "pairwise_acc": 0.701,
+   "n_pairs": 144
+  }
+ },
+ "verifier_both_nodiff": {
+  "per_task": {
+   "widowx_spoon_on_towel": {
+    "top1_success": 37.8,
+    "top1_regret": 10.4,
+    "random_pick": 40.3,
+    "spearman_own": -0.212,
+    "pairwise_acc": 0.412,
+    "relevance_auc": 0.969,
+    "rt_mean_rank": 16.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_carrot_on_plate": {
+    "top1_success": 40.6,
+    "top1_regret": 5.2,
+    "random_pick": 35.6,
+    "spearman_own": 0.701,
+    "pairwise_acc": 0.963,
+    "relevance_auc": 0.977,
+    "rt_mean_rank": 10.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_stack_cube": {
+    "top1_success": 34.0,
+    "top1_regret": 4.9,
+    "random_pick": 26.6,
+    "spearman_own": 0.287,
+    "pairwise_acc": 0.679,
+    "relevance_auc": 0.863,
+    "rt_mean_rank": 12.5,
+    "rt_n_phrases": 18
+   },
+   "widowx_put_eggplant_in_basket": {}
+  },
+  "pooled": {
+   "pairwise_acc": 0.722,
+   "n_pairs": 144
+  }
+ }
+}
