@@ -20,6 +20,11 @@ def _stack(col):
 
 
 def featurize(df, mode: str, include_diff: bool = True) -> np.ndarray:
+    want_hist = mode.endswith("+hist")
+    if want_hist:
+        mode = mode[:-5]
+        assert "history" in df.columns and "t_frac" in df.columns, \
+            "join action_history.parquet onto rows before using a +hist mode"
     parts = []
     if mode in ("flow", "both"):
         v = _stack(df.flow_v)                      # (N, K*H*D)
@@ -47,6 +52,8 @@ def featurize(df, mode: str, include_diff: bool = True) -> np.ndarray:
         parts = [v, vs.std(axis=1), dec, dd.std(axis=1)]
     if not parts:
         raise ValueError(f"unknown mode {mode!r}")
+    if want_hist:
+        parts += [_stack(df.history), df.t_frac.values.astype(np.float32)[:, None]]
     return np.concatenate(parts, axis=1)
 
 
