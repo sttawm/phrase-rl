@@ -178,5 +178,24 @@
    "acc_1f": 0.872,
    "acc_4f": 0.916
   }
+ },
+ {
+  "id": "verifier-full-spoon-update",
+  "date": "2026-07-16",
+  "overview": "FULL spoon labels (5,472 eps, 19 phrases) update the 3-task scorer table: locked ensemble pooled pairwise DROPS to 0.66 (spoon inverts: 0.206 pairwise, spearman -0.35 on own-16) while raw grip rises to 0.75 pooled \u2014 the partial-spoon 'noise' hypothesis is dead; the ensemble genuinely misranks spoon's mid-field. Mitigating: ensemble top-1 regret stays excellent on ALL tasks (1.7/5.2/4.9pp) \u2014 its best-pick is near-oracle even on spoon \u2014 and relevance/RT metrics remain strong (0.97 AUC, RT rank 16/18). DECISION: no mid-night reward thrash; the pre-registered decision table is the 4-frame multi-t study eval + eggplant sim-grounded column (in flight on shard4). If that confirms mid-pack ranking, revisit reward (grip-aware retrain) with a from-scratch A/B restart per the no-divergence policy. ALSO: pull the first tier-2 SIM rollout checkpoint eval EARLIER (~first best_val) \u2014 the dual-curve tripwire is the real guard while the reward's fine-ranking is in question.",
+  "metrics": {
+   "pooled_pairwise_full_spoon": {
+    "ensemble": 0.66,
+    "raw_grip": 0.75,
+    "raw_spread": 0.562,
+    "raw_l2": 0.549,
+    "raw_flow": 0.431
+   },
+   "ensemble_top1_regret": {
+    "spoon": 1.7,
+    "carrot": 5.2,
+    "stack": 4.9
+   }
+  }
  }
 ]
