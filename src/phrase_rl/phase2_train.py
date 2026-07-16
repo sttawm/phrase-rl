@@ -561,6 +561,7 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
         gloss = None
         chunk = [it[1:] for it in chunk]  # drop ctx ordinal -> (inputs, start, n_new, a)
         outs = None
+        _t0 = time.time()
         if use_batched:
             try:
                 outs = phrase_logprob_and_kl_batched(model, chunk, args.beta, pad_id)
@@ -602,11 +603,14 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
                 kl_sum += float(kl.detach())
                 logp_sum += float(mean_logp.detach())
                 n_done += 1
+        stats["fwd_sec"] = stats.get("fwd_sec", 0.0) + round(time.time() - _t0, 2)
+        _t1 = time.time()
         if gloss is not None:
             # extra /grad_accum_groups: gradients ACCUMULATE across steps until do_step,
             # so the aggregate update matches one step's scale (2026-07-10: standard-order
             # effective batches — e.g. accum 4 x cps 6 x ~28 phrases ~= 670 sequences/update)
             (gloss / n_tot / max(1, args.grad_accum_groups)).backward()
+        stats["bwd_sec"] = stats.get("bwd_sec", 0.0) + round(time.time() - _t1, 2)
 
     if n_done:
         stats.update(update_loss=loss_sum / n_done, kl=kl_sum / n_done,
@@ -837,7 +841,7 @@ def step_record(step: int, t0: float, ctx_results: list, upd: dict, args) -> dic
         "adv_max": float(advs.max()) if advs.size else None,
         "cand_loss_mean": float(np.mean([-r["rewards"].mean() for r in ok])) if ok else None,
         "orig_loss_mean": float(np.mean([-r["r_orig"] for r in ok])) if ok else None,
-        **{k: upd[k] for k in ("n_pos", "update_loss", "kl", "logprob", "grad_norm")},
+        **{k: upd.get(k) for k in ("n_pos", "update_loss", "kl", "logprob", "grad_norm", "fwd_sec", "bwd_sec")},
     }
     if step % args.example_every == 0 and ok:
         rec["examples"] = [

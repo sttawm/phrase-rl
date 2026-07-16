@@ -46,7 +46,7 @@ tmux new-session -d -s train \
      --gen-temp 1.0 --n-candidates 16 \
      --beta 0.15 --lr 7e-6 --kl-abort 1.2 \
      --contexts-per-step 6 --grad-accum-groups 4 \
-     --val-every 40 --save-every 10 --probe-every 25 \
+     --val-every 20 --save-every 10 --probe-every 25 \
      --traces results/phrase_artifacts/cover35_teacher_train.parquet \
      --probe-contexts results/phrase_artifacts/contexts_0c_tasks.parquet \
      --probe-traces results/phrase_artifacts/traces_0c_tasks.parquet \
