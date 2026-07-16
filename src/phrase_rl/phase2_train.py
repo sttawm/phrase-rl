@@ -722,6 +722,14 @@ def save_latest(model, optimizer, state, args, ckpt_dir: Path):
 
     _save_dir_atomic(ckpt_dir / "latest", write)
     print(f"[ckpt] latest saved at step {state['step']}", flush=True)
+    # retained step-stamped snapshots every 20 steps (user directive 2026-07-16:
+    # dense checkpoint history for retro val evals)
+    if state["step"] % 20 == 0:
+        import shutil
+        dst = ckpt_dir / f"step_{state['step']:04d}"
+        if not dst.exists():
+            shutil.copytree(ckpt_dir / "latest", dst)
+            print(f"[ckpt] retained snapshot {dst.name}", flush=True)
 
 
 def save_adapter(model, path: Path, extra: dict | None = None):
