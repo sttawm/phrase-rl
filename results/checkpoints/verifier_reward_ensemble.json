@@ -1,0 +1,30 @@
+{
+ "members": [
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 3.2583940302521106
+  },
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff_s1.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 4.088146984910404
+  },
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff_s2.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 3.4443062920107756
+  },
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff_s3.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 3.026490137667616
+  },
+  {
+   "ckpt": "results/checkpoints/verifier_both_nodiff_s4.pt",
+   "logit_shift": -0.6931471805599453,
+   "temperature": 2.770894126346469
+  }
+ ],
+ "aggregate": "mean of calibrated logits"
+}
