@@ -551,6 +551,7 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
     for chunk in chunks:
         gloss = None
         chunk = [it[1:] for it in chunk]  # drop ctx ordinal -> (inputs, start, n_new, a)
+        outs = None
         if use_batched:
             try:
                 outs = phrase_logprob_and_kl_batched(model, chunk, args.beta, pad_id)
@@ -559,35 +560,33 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
                 _BATCH_PARITY["use_batched"] = False
                 use_batched = False
                 outs = None
-        if use_batched and outs is not None and not _BATCH_PARITY["checked"]:
-            pass  # parity check below consumes outs
-            if outs is not None and not _BATCH_PARITY["checked"]:  # one-time parity vs sequential path
-                _BATCH_PARITY["checked"] = True
-                ok = True
-                for (inputs, start, n_new, a), (mlp_b, kl_b) in zip(chunk, outs):
-                    mlp_s, kl_s = phrase_logprob_and_kl(model, inputs, start, n_new, args.beta)
-                    if abs(float(mlp_b) - float(mlp_s)) > 2e-2 or abs(float(kl_b) - float(kl_s)) > 2e-2:
-                        ok = False
-                        print(f"[batched-update] PARITY FAIL: {float(mlp_b):.4f} vs {float(mlp_s):.4f} "
-                              f"kl {float(kl_b):.4f} vs {float(kl_s):.4f}", flush=True)
-                if ok:
-                    print("[batched-update] parity check PASSED — using batched path", flush=True)
-                else:
-                    print("[batched-update] falling back to SEQUENTIAL path", flush=True)
-                    _BATCH_PARITY["use_batched"] = False
-                    use_batched = False
-                    outs = None
-            if use_batched and outs is not None:
-                for (inputs, start, n_new, a), (mean_logp, kl) in zip(chunk, outs):
-                    li = -(a * mean_logp) + args.beta * kl
-                    gloss = li if gloss is None else gloss + li
-                    loss_sum += float(li.detach())
-                    kl_sum += float(kl.detach())
-                    logp_sum += float(mean_logp.detach())
-                    n_done += 1
-        if not use_batched:
-            for inputs, start, n_new, a in chunk:
-                mean_logp, kl = phrase_logprob_and_kl(model, inputs, start, n_new, args.beta)
+        if outs is not None and not _BATCH_PARITY["checked"]:  # one-time parity vs sequential
+            _BATCH_PARITY["checked"] = True
+            ok = True
+            for (inputs, start_, n_new, a), (mlp_b, kl_b) in zip(chunk, outs):
+                mlp_s, kl_s = phrase_logprob_and_kl(model, inputs, start_, n_new, args.beta)
+                if abs(float(mlp_b) - float(mlp_s)) > 2e-2 or abs(float(kl_b) - float(kl_s)) > 2e-2:
+                    ok = False
+                    print(f"[batched-update] PARITY FAIL: {float(mlp_b):.4f} vs {float(mlp_s):.4f} "
+                          f"kl {float(kl_b):.4f} vs {float(kl_s):.4f}", flush=True)
+            if ok:
+                print("[batched-update] parity check PASSED — using batched path", flush=True)
+            else:
+                print("[batched-update] falling back to SEQUENTIAL path", flush=True)
+                _BATCH_PARITY["use_batched"] = False
+                use_batched = False
+                outs = None
+        if outs is not None:
+            for (inputs, start_, n_new, a), (mean_logp, kl) in zip(chunk, outs):
+                li = -(a * mean_logp) + args.beta * kl
+                gloss = li if gloss is None else gloss + li
+                loss_sum += float(li.detach())
+                kl_sum += float(kl.detach())
+                logp_sum += float(mean_logp.detach())
+                n_done += 1
+        else:
+            for inputs, start_, n_new, a in chunk:
+                mean_logp, kl = phrase_logprob_and_kl(model, inputs, start_, n_new, args.beta)
                 li = -(a * mean_logp) + args.beta * kl
                 gloss = li if gloss is None else gloss + li
                 loss_sum += float(li.detach())
