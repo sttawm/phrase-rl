@@ -178,16 +178,24 @@ def score_phrases(ipc_dir: Path, job_id: str, contexts: list, args) -> list[np.n
     in_parquet = (ipc_dir / f"{job_id}.in.parquet").resolve()
     out_parquet = (ipc_dir / f"{job_id}.out.parquet").resolve()
     rollout = getattr(args, "reward_mode", "flow") == "rollout"
+    frames_by_ep = getattr(args, "_reward_frames_map", None)
     recs = []
     for ci, (row, phrases) in enumerate(contexts):
         cid = str(row["context_id"]) if rollout else ci  # rollout server keys on "task|episode_id"
-        for p in phrases:
-            rec = {"context_id": cid, "image_png": row["image_png"], "phrase": str(p)}
-            if not rollout:  # pi0 scoring needs proprioception + ground truth
-                rec["state"] = np.asarray(row["state"], dtype=np.float32)
-                rec["action_chunk"] = np.asarray(row["action_chunk"], dtype=np.float32)
-            recs.append(rec)
-    cols = ["context_id", "image_png", "phrase"] if rollout else         ["context_id", "image_png", "state", "action_chunk", "phrase"]
+        # multi-frame reward: emit each frame of the episode with a frame_id;
+        # the server averages calibrated logits across frames per phrase.
+        frames = [row]
+        if frames_by_ep is not None and not rollout:
+            frames = frames_by_ep.get(int(row["episode_index"]), [row])
+        for fi, fr in enumerate(frames):
+            for p in phrases:
+                rec = {"context_id": cid, "frame_id": fi,
+                       "image_png": fr["image_png"], "phrase": str(p)}
+                if not rollout:  # pi0 scoring needs proprioception + ground truth
+                    rec["state"] = np.asarray(fr["state"], dtype=np.float32)
+                    rec["action_chunk"] = np.asarray(fr["action_chunk"], dtype=np.float32)
+                recs.append(rec)
+    cols = ["context_id", "image_png", "phrase"] if rollout else         ["context_id", "frame_id", "image_png", "state", "action_chunk", "phrase"]
     pd.DataFrame(recs, columns=cols).to_parquet(in_parquet, index=False)
 
     req = ipc_dir / f"{job_id}.req.json"
@@ -852,6 +860,8 @@ def main():
     ap.add_argument("--n-candidates", type=int, default=16)
     ap.add_argument("--rollout-reps", type=int, default=2,
                     help="rollout reward: episodes per candidate (reward = success rate)")
+    ap.add_argument("--reward-frames", type=int, default=1,
+                    help=">1: score each candidate at N quartile frames of the episode (needs data/contexts_train_multit.parquet); server averages calibrated logits")
     ap.add_argument("--gen-mode", choices=["list", "sample_single"], default="list",
                     help="list: CoVer 16-list prompt (structural diversity). sample_single: "
                          "true sampling from the update prompt (on-policy GRPO), no dedupe")
@@ -922,6 +932,16 @@ def main():
         SOURCES = {(r.episode_index, r.t): [str(p) for p in r.rephrases]
                    for r in _t.itertuples() if hasattr(r, "rephrases")}
         train_df = train_df[train_df.apply(lambda r: (r["episode_index"], r["t"]) in TRACES, axis=1)]
+    args._reward_frames_map = None
+    if getattr(args, "reward_frames", 1) > 1:
+        mt = pd.read_parquet("data/contexts_train_multit.parquet")
+        fmap = {}
+        for ep, g in mt.groupby("episode_index"):
+            g = g.sort_values("t").reset_index(drop=True)
+            idx = np.unique(np.linspace(0, len(g) - 1, args.reward_frames).round().astype(int))
+            fmap[int(ep)] = g.iloc[idx].to_dict("records")
+        args._reward_frames_map = fmap
+        print(f"multi-frame reward: {len(fmap)} episodes x {args.reward_frames} frames")
         print(f"trace-conditioned: {len(TRACES)} traces, {len(train_df)} train contexts retained")
     if args.val_traces:
         _t = pd.read_parquet(args.val_traces)

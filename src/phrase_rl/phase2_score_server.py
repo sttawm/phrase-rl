@@ -112,22 +112,34 @@ def process_job(policy, spec, micro_batch, hb, job_id, dim_std=None, ensemble=No
         img = np.asarray(Image.open(io.BytesIO(row["image_png"]))).astype(np.float32) / 255.0
         phrases = [str(p) for p in g["phrase"]]
         if mode == "verifier":
-            a_star = np.asarray(row["action_chunk"], dtype=np.float32)
-            fl, v, u = scorer.score_verbose(
-                img.transpose(2, 0, 1), np.asarray(row["state"]), a_star, phrases)
-            dec, nl2, grip = scorer.decode_verbose(
-                img.transpose(2, 0, 1), np.asarray(row["state"]), a_star, phrases,
-                dim_std, k_l2=ensemble.k_decode)
-            feats = pd.DataFrame([{
-                "flow_loss": fl[i].astype(np.float32),
-                "flow_v": v[i].reshape(-1).astype(np.float32),
-                "flow_u": u[i].reshape(-1).astype(np.float32),
-                "decoded": dec[i].reshape(-1).astype(np.float32),
-                "norm_l2": nl2[i].astype(np.float32),
-                "grip_err": grip[i].astype(np.float32),
-                "a_star": a_star.reshape(-1),
-            } for i in range(len(phrases))])
-            losses = -ensemble.member_logits(feats)  # (P, n_members); lower = better
+            def _frame_logits(fr_row, plist):
+                im = np.asarray(Image.open(io.BytesIO(fr_row["image_png"]))).astype(np.float32) / 255.0
+                a_st = np.asarray(fr_row["action_chunk"], dtype=np.float32)
+                fl, v, u = scorer.score_verbose(
+                    im.transpose(2, 0, 1), np.asarray(fr_row["state"]), a_st, plist)
+                dec, nl2, grip = scorer.decode_verbose(
+                    im.transpose(2, 0, 1), np.asarray(fr_row["state"]), a_st, plist,
+                    dim_std, k_l2=ensemble.k_decode)
+                feats = pd.DataFrame([{
+                    "flow_loss": fl[i].astype(np.float32),
+                    "flow_v": v[i].reshape(-1).astype(np.float32),
+                    "flow_u": u[i].reshape(-1).astype(np.float32),
+                    "decoded": dec[i].reshape(-1).astype(np.float32),
+                    "norm_l2": nl2[i].astype(np.float32),
+                    "grip_err": grip[i].astype(np.float32),
+                    "a_star": a_st.reshape(-1),
+                } for i in range(len(plist))])
+                return ensemble.member_logits(feats)  # (P, n_members)
+            if "frame_id" in g.columns and g["frame_id"].nunique() > 1:
+                first = g[g.frame_id == g.frame_id.min()]
+                phrases = [str(p) for p in first["phrase"]]
+                per_frame = []
+                for _, gf in g.groupby("frame_id"):
+                    assert [str(p) for p in gf["phrase"]] == phrases, "phrase order mismatch across frames"
+                    per_frame.append(_frame_logits(gf.iloc[0], phrases))
+                losses = -np.mean(per_frame, axis=0)  # mean calibrated logit across frames
+            else:
+                losses = -_frame_logits(row, phrases)  # (P, n_members); lower = better
         elif mode == "l2":
             losses = scorer.score_l2(
                 img.transpose(2, 0, 1), np.asarray(row["state"]),
