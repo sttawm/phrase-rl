@@ -449,10 +449,19 @@ def _left_pad_collate(chunk, pad_id, device):
     pos = (attn.cumsum(-1) - 1).clamp(min=0)
     batch["position_ids"] = pos.to(device)
     for key in chunk[0][0].keys():
-        if key in ("input_ids", "attention_mask"):
+        if key in ("input_ids", "attention_mask", "position_ids"):
             continue
         vals = [it[0][key] for it in chunk]
-        if torch.is_tensor(vals[0]):
+        if not torch.is_tensor(vals[0]):
+            continue
+        if vals[0].ndim == 2 and vals[0].shape[0] == 1 and vals[0].shape[1] == ids[0].numel():
+            # sequence-aligned key (e.g. mm_token_type_ids): left-pad with zeros like input_ids
+            padded = torch.zeros((len(vals), L), dtype=vals[0].dtype)
+            for i, (v, x) in enumerate(zip(vals, ids)):
+                padded[i, L - x.numel():] = v[0]
+            batch[key] = padded.to(device)
+        else:
+            # per-sample stacked tensors (pixel patches, grid rows): concat on dim 0
             batch[key] = torch.cat(vals, dim=0).to(device)
     return batch
 
