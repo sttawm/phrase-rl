@@ -228,5 +228,16 @@
     "grip_pairwise": 1.0
    }
   }
+ },
+ {
+  "id": "v5-l40s-migration-speed",
+  "date": "2026-07-16",
+  "overview": "Both arms migrated A40->L40S with full checkpoint continuity (frozen step 75). First verified L40S step: 273.8s total (gen 55.8 / score 69.4 / update 148.4) = 1.9x the A40's 515s. Backward-stall RESOLVED: bwd 187->86s, ratio 4.6x->1.5x of fwd \u2014 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True (deployed via bootstrap) was the fix for the allocator fragmentation stalls; L40S compute uplift covers the rest. ~310 steps/day/arm. Retained step_NNNN snapshots every 20 steps from ~80. A40s converted: A40-1 battery host, A40-2 baseline-comparison roll + arm-B val pod.",
+  "metrics": {
+   "step_sec_a40": 515,
+   "step_sec_l40s": 274,
+   "bwd_sec_a40": 187,
+   "bwd_sec_l40s": 86
+  }
  }
 ]
