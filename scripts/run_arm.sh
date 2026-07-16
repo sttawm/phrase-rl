@@ -41,7 +41,7 @@ tmux new-session -d -s train \
   "bash -lc 'set -o pipefail; eval \"\$(grep -E \"^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY)\" ~/.bashrc || true)\"; export HF_HOME=\${HF_HOME:-/workspace/hf_cache}; cd /workspace/phrase-rl && \
    .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --resume \
-     --reward-mode verifier \
+     --reward-mode verifier --reward-frames ${REWARD_FRAMES:-1} \
      --gen-mode $GEN_MODE --update-rule grpo --no-gate \
      --gen-temp 1.0 --n-candidates 16 \
      --beta 0.15 --lr 7e-6 --kl-abort 1.2 \
