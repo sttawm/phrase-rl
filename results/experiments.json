@@ -197,5 +197,23 @@
     "stack": 4.9
    }
   }
+ },
+ {
+  "id": "verifier-4frame-study-validation",
+  "date": "2026-07-16",
+  "overview": "DECISION TABLE (study multit, full spoon labels): the spoon inversion was a CONTEXT artifact \u2014 on fresh quartile-sampled contexts the locked ensemble scores pooled pairwise 0.903 (1 early frame) / 0.917 (2f) / 0.868 (4f = the live training reward) vs 0.66 on the old single-frame contexts; spoon 0.206 -> 0.882; carrot 1.000 (54 pairs); grip dethroned (0.875 at 4f, weaker than ensemble on spoon). Early frames carry the signal (matches Bridge-val q1 dominance). 2f edges 4f study-side (~1 SE, n=144) while Bridge-val (n=750) says 4f>2f \u2014 HOLDING 4-frame training reward; 2f is the challenger if eggplant sim column splits the tie. The 4am grip-scare entry is superseded.",
+  "metrics": {
+   "pooled_pairwise_multit": {
+    "ens_1f": 0.903,
+    "ens_2f": 0.917,
+    "ens_4f": 0.868,
+    "grip_4f": 0.875,
+    "old_ctx_ens_1f": 0.66
+   },
+   "spoon_fix": {
+    "old": 0.206,
+    "new": 0.882
+   }
+  }
  }
 ]
