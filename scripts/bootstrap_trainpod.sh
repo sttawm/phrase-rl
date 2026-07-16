@@ -42,6 +42,10 @@ export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_API_KEY=')" || true
 runpodctl config --apiKey "$RUNPOD_API_KEY" 2>&1 | tail -1 || true
 setsid bash -c "sleep $((22*3600)); runpodctl stop pod $RUNPOD_POD_ID >> /workspace/autostop.log 2>&1" < /dev/null > /dev/null 2>&1 &
 
+if [ "${SKIP_LAUNCH:-0}" = "1" ]; then
+  echo "BOOTSTRAP-ENV-DONE-$ARM (launch deferred)"
+  exit 0
+fi
 # launch (resumes from shipped checkpoint; parity + banner checks run at startup)
 test -f data/contexts_train.parquet && test -f data/contexts_train_multit.parquet
 REWARD_FRAMES=4 bash scripts/run_arm.sh "$ARM"
