@@ -215,5 +215,18 @@
     "new": 0.882
    }
   }
+ },
+ {
+  "id": "verifier-eggplant-leave-task-out",
+  "date": "2026-07-16",
+  "overview": "Eggplant sim-grounded eval (60 recorded trajectories, 2,100 feature rows; full 5,472-ep labels, success 30-97%): locked ensemble INVERTS fine ranking (pairwise 0.172, spearman -0.555) while keeping coarse judgment (relevance AUC 0.996, top-1 regret 6.2pp); raw grip scores a PERFECT 1.0 pairwise. Interpretation: leave-task-out is confounded with leave-DOMAIN-out \u2014 these are the only SIM-rendered scoring images, and the learned readout misreads pi0's responses to sim visuals while raw physical-error metrics survive the shift. SCOPE: the training reward runs on REAL Bridge frames where it is validated (0.87-0.92 pooled pairwise, multit contexts); no training change. Any future SIM-side verifier use needs grip/raw hybrids or sim-domain adaptation.",
+  "metrics": {
+   "eggplant_sim": {
+    "ensemble_pairwise": 0.172,
+    "ensemble_top1_regret": 6.2,
+    "ensemble_relevance_auc": 0.996,
+    "grip_pairwise": 1.0
+   }
+  }
  }
 ]
