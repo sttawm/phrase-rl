@@ -549,15 +549,14 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
     pad_id = getattr(getattr(processor, "tokenizer", processor), "pad_token_id", None) or 0
     # context-local chunks: rows of a chunk share one context (=> identical image
     # tensors, safe collate); chunk size still bounded by args.accum
-    chunks, cur, cur_ci = [], [], None
+    _groups = {}
     for it in items:
-        if it[0] != cur_ci or len(cur) >= args.accum:
-            if cur:
-                chunks.append(cur)
-            cur, cur_ci = [], it[0]
-        cur.append(it)
-    if cur:
-        chunks.append(cur)
+        _groups.setdefault(it[0], []).append(it)
+    chunks = []
+    for _ci, _its in _groups.items():
+        _its = sorted(_its, key=lambda x: x[3])  # by n_new: length-bucketed chunks -> minimal padding
+        for _lo in range(0, len(_its), args.accum):
+            chunks.append(_its[_lo:_lo + args.accum])
     for chunk in chunks:
         gloss = None
         chunk = [it[1:] for it in chunk]  # drop ctx ordinal -> (inputs, start, n_new, a)
