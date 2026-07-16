@@ -260,22 +260,41 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
     res["trace"] = trace
     res["source"] = source  # used ONLY in the update (p_single) prompt — the inference-time
     res["source_augmented"] = source != instruction  # prompt; generation always farms candidates
-    msgs = cover_prompt.build_qwen_messages(  # from the ORIGINAL for max pool quality
-        image=img, instruction=instruction, batch_number=args.n_candidates, trace=trace)
-    inputs = apply_template(processor, msgs, add_generation_prompt=True).to(model.device)
     model.eval()
     _gen_t0 = time.time()
-    with torch.no_grad():
-        out = model.generate(
-            **inputs, do_sample=True, temperature=args.gen_temp,
-            max_new_tokens=args.max_new_tokens,
-        )
-    text = processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-    res["gen_sec"] = round(time.time() - _gen_t0, 1)
-    parsed = cover_prompt.parse_reworded(text)
-    unique = dedupe(parsed)
-    cands = unique[: args.n_candidates]
-    res.update(n_parsed=len(parsed), n_unique=len(unique))
+    if getattr(args, "gen_mode", "list") == "sample_single":
+        # Arm B: TRUE SAMPLING from the deployment/update prompt (p_single, source-
+        # augmented input) — on-policy GRPO estimator; NO dedupe (duplicates are
+        # legitimate samples), no list parsing.
+        msgs = cover_prompt.build_single_phrase_prefix(
+            instruction=source, image=img, trace=trace)
+        inputs = apply_template(processor, msgs, continue_final_message=True).to(model.device)
+        with torch.no_grad():
+            out = model.generate(
+                **inputs, do_sample=True, temperature=args.gen_temp,
+                num_return_sequences=args.n_candidates, max_new_tokens=48,
+            )
+        plen = inputs["input_ids"].shape[1]
+        cands = [processor.decode(o[plen:], skip_special_tokens=True).strip().split("\n")[0].strip()
+                 for o in out]
+        cands = [c for c in cands if c]
+        res["gen_sec"] = round(time.time() - _gen_t0, 1)
+        res.update(n_parsed=len(cands), n_unique=len(set(cands)))
+    else:
+        msgs = cover_prompt.build_qwen_messages(  # from the ORIGINAL for max pool quality
+            image=img, instruction=instruction, batch_number=args.n_candidates, trace=trace)
+        inputs = apply_template(processor, msgs, add_generation_prompt=True).to(model.device)
+        with torch.no_grad():
+            out = model.generate(
+                **inputs, do_sample=True, temperature=args.gen_temp,
+                max_new_tokens=args.max_new_tokens,
+            )
+        text = processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+        res["gen_sec"] = round(time.time() - _gen_t0, 1)
+        parsed = cover_prompt.parse_reworded(text)
+        unique = dedupe(parsed)
+        cands = unique[: args.n_candidates]
+        res.update(n_parsed=len(parsed), n_unique=len(unique))
     if len(cands) < args.min_parsed:
         res["reason"] = "parse_fail"
         return res
@@ -833,6 +852,9 @@ def main():
     ap.add_argument("--n-candidates", type=int, default=16)
     ap.add_argument("--rollout-reps", type=int, default=2,
                     help="rollout reward: episodes per candidate (reward = success rate)")
+    ap.add_argument("--gen-mode", choices=["list", "sample_single"], default="list",
+                    help="list: CoVer 16-list prompt (structural diversity). sample_single: "
+                         "true sampling from the update prompt (on-policy GRPO), no dedupe")
     ap.add_argument("--update-rule", choices=["raft", "grpo"], default="raft",
                     help="raft: positive-only advantage-weighted SFT (v1-v3). grpo: full group, signed advantages — negatives get pushed down")
     ap.add_argument("--max-pos-per-ctx", type=int, default=0,
@@ -856,7 +878,7 @@ def main():
     ap.add_argument("--score-seed", type=int, default=0)
     ap.add_argument("--tau-min", type=float, default=0.25, help="0b: tau<0.25 is non-discriminative")
     ap.add_argument("--score-timeout", type=float, default=600.0)
-    ap.add_argument("--reward-mode", choices=["flow", "l2", "rollout"], default="flow",
+    ap.add_argument("--reward-mode", choices=["flow", "l2", "rollout", "verifier"], default="flow",
                     help="flow: CRN flow-matching residual (multimodal-aware). l2: CRN decoded-action per-DoF-normalized L2 vs a* (clearer, unimodal). Both lower=better.")
     ap.add_argument("--k-l2", type=int, default=4, help="decode noise draws per phrase for reward_mode=l2 (each is a full denoise; keep small)")
     # optimization
