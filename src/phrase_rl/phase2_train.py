@@ -432,6 +432,58 @@ def phrase_logprob_and_kl(model, inputs, start, n_new, beta):
     return mean_logp, kl
 
 
+_BATCH_PARITY = {"checked": False, "use_batched": True}
+
+
+def _left_pad_collate(chunk, pad_id, device):
+    """LEFT-pad a chunk of processor outputs into one batch. Rows end aligned, so
+    each row's phrase tokens are its last n_new positions. 1 image per row."""
+    ids = [it[0]["input_ids"][0] for it in chunk]
+    L = max(x.numel() for x in ids)
+    input_ids = torch.full((len(ids), L), pad_id, dtype=ids[0].dtype)
+    attn = torch.zeros((len(ids), L), dtype=torch.long)
+    for i, x in enumerate(ids):
+        input_ids[i, L - x.numel():] = x
+        attn[i, L - x.numel():] = 1
+    batch = {"input_ids": input_ids.to(device), "attention_mask": attn.to(device)}
+    pos = (attn.cumsum(-1) - 1).clamp(min=0)
+    batch["position_ids"] = pos.to(device)
+    for key in chunk[0][0].keys():
+        if key in ("input_ids", "attention_mask"):
+            continue
+        vals = [it[0][key] for it in chunk]
+        if torch.is_tensor(vals[0]):
+            batch[key] = torch.cat(vals, dim=0).to(device)
+    return batch
+
+
+def phrase_logprob_and_kl_batched(model, chunk, beta, pad_id):
+    """Batched equivalent of phrase_logprob_and_kl over a chunk of
+    (inputs, start, n_new, a) items. One forward (plus one base forward for KL)
+    for the whole chunk. Returns lists (mean_logp_i, kl_i) as grad tensors."""
+    device = model.device
+    batch = _left_pad_collate(chunk, pad_id, device)
+    n_keep = max(it[2] for it in chunk) + 1
+    cur = forward_logits(model, batch, n_keep)
+    logp_cur = torch.log_softmax(cur[:, :-1, :].float(), dim=-1)  # (B, n_keep-1, V)
+    if beta > 0:
+        with model.disable_adapter(), torch.no_grad():
+            base = forward_logits(model, batch, n_keep)
+            logp_base = torch.log_softmax(base[:, :-1, :].float(), dim=-1)
+    outs = []
+    for i, (inputs, start, n_new, a) in enumerate(chunk):
+        f_ids = inputs["input_ids"][0]
+        targets = f_ids[start:].to(device)  # (n_new,)
+        row = logp_cur[i, -(n_new):, :] if n_new < logp_cur.shape[1] else logp_cur[i]
+        mean_logp = row.gather(-1, targets.view(-1, 1)).mean()
+        kl_i = torch.zeros((), device=device)
+        if beta > 0:
+            rb = logp_base[i, -(n_new):, :] if n_new < logp_base.shape[1] else logp_base[i]
+            kl_i = (row.exp() * (row - rb)).sum(-1).mean()
+        outs.append((mean_logp, kl_i))
+    return outs
+
+
 def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_step=True) -> dict:
     """Advantages -> positive-only candidate losses -> one AdamW step.
 
@@ -483,16 +535,46 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
     n_tot = len(items)
     loss_sum = kl_sum = logp_sum = 0.0
     n_done = 0
+    use_batched = getattr(args, "batched_update", True) and _BATCH_PARITY["use_batched"]
+    pad_id = getattr(getattr(processor, "tokenizer", processor), "pad_token_id", None) or 0
     for lo in range(0, n_tot, args.accum):
         gloss = None
-        for inputs, start, n_new, a in items[lo : lo + args.accum]:
-            mean_logp, kl = phrase_logprob_and_kl(model, inputs, start, n_new, args.beta)
-            li = -(a * mean_logp) + args.beta * kl
-            gloss = li if gloss is None else gloss + li
-            loss_sum += float(li.detach())
-            kl_sum += float(kl.detach())
-            logp_sum += float(mean_logp.detach())
-            n_done += 1
+        chunk = items[lo : lo + args.accum]
+        if use_batched:
+            outs = phrase_logprob_and_kl_batched(model, chunk, args.beta, pad_id)
+            if not _BATCH_PARITY["checked"]:  # one-time parity vs sequential path
+                _BATCH_PARITY["checked"] = True
+                ok = True
+                for (inputs, start, n_new, a), (mlp_b, kl_b) in zip(chunk, outs):
+                    mlp_s, kl_s = phrase_logprob_and_kl(model, inputs, start, n_new, args.beta)
+                    if abs(float(mlp_b) - float(mlp_s)) > 2e-2 or abs(float(kl_b) - float(kl_s)) > 2e-2:
+                        ok = False
+                        print(f"[batched-update] PARITY FAIL: {float(mlp_b):.4f} vs {float(mlp_s):.4f} "
+                              f"kl {float(kl_b):.4f} vs {float(kl_s):.4f}", flush=True)
+                if ok:
+                    print("[batched-update] parity check PASSED — using batched path", flush=True)
+                else:
+                    print("[batched-update] falling back to SEQUENTIAL path", flush=True)
+                    _BATCH_PARITY["use_batched"] = False
+                    use_batched = False
+                    outs = None
+            if use_batched and outs is not None:
+                for (inputs, start, n_new, a), (mean_logp, kl) in zip(chunk, outs):
+                    li = -(a * mean_logp) + args.beta * kl
+                    gloss = li if gloss is None else gloss + li
+                    loss_sum += float(li.detach())
+                    kl_sum += float(kl.detach())
+                    logp_sum += float(mean_logp.detach())
+                    n_done += 1
+        if not use_batched:
+            for inputs, start, n_new, a in chunk:
+                mean_logp, kl = phrase_logprob_and_kl(model, inputs, start, n_new, args.beta)
+                li = -(a * mean_logp) + args.beta * kl
+                gloss = li if gloss is None else gloss + li
+                loss_sum += float(li.detach())
+                kl_sum += float(kl.detach())
+                logp_sum += float(mean_logp.detach())
+                n_done += 1
         if gloss is not None:
             # extra /grad_accum_groups: gradients ACCUMULATE across steps until do_step,
             # so the aggregate update matches one step's scale (2026-07-10: standard-order
@@ -862,6 +944,8 @@ def main():
                     help="rollout reward: episodes per candidate (reward = success rate)")
     ap.add_argument("--reward-frames", type=int, default=1,
                     help=">1: score each candidate at N quartile frames of the episode (needs data/contexts_train_multit.parquet); server averages calibrated logits")
+    ap.add_argument("--batched-update", action=argparse.BooleanOptionalAction, default=True,
+                    help="batch candidate forwards in the update loop (parity-checked at startup)")
     ap.add_argument("--gen-mode", choices=["list", "sample_single"], default="list",
                     help="list: CoVer 16-list prompt (structural diversity). sample_single: "
                          "true sampling from the update prompt (on-policy GRPO), no dedupe")
