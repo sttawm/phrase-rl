@@ -405,3 +405,17 @@ it serves only as selection/eval scorer (CoVer-select arm, checkpoint picking).
 Basis: bridge-val 4f-agg AUC 0.972 vs 0.959 (hard 0.954 vs 0.937); study-exam
 pooled pairwise 0.89 vs 0.87 (ensemble+calibrated, all three evidence readings
 higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers_*.
+
+## v6 run spec (accumulating; 2026-07-17)
+- REWARD: native-4f calibrated 5-seed ensemble (`verifier_reward_ensemble_4f.json`)
+  — the held reward from the 2026-07-16 decision; v6 is the "later run" it was held for.
+  (Score server: --verifier-ensemble results/checkpoints/verifier_reward_ensemble_4f.json)
+- INPUTS: mixed-source conditioning — nominal / benign rephrase / hostile ERT-style
+  (`ert_train_sources.parquet`, stage-1 partial 2,124; retry pending credit top-up)
+- TRACES: ERT-derived for hostile-source steps (`ert_train_traces.parquet`, stage 2
+  pending credits) — leakage firewall: trace generator never sees the nominal phrase.
+- PROTOCOL: from-scratch (input-distribution + reward change); v5 runs to its
+  performance stop under the locked 1f reward for clean attribution.
+- SUCCESS CRITERIA (pre-registered): tuned ERT->greedy beats frozen ERT->greedy
+  (honest, ERT-derived-trace variant) within ~100 steps; x12 ERT rollouts separate
+  from frozen greedy 40.2%.
