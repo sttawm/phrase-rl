@@ -239,5 +239,19 @@
    "bwd_sec_a40": 187,
    "bwd_sec_l40s": 86
   }
+ },
+ {
+  "id": "v5_AB_final",
+  "date": "2026-07-17",
+  "commit": "9059a5c",
+  "overview": "v5 A/B ENDED by KL circuit breaker (rolling KL > 1.2): arm A step 279, arm B step 268. Nominal-input greedy reward: A -0.19->+0.22, B -0.35->+0.54 (originals +0.58). ERT-input greedy flat/declining (A -1.68->-1.88, B ~-1.4 = frozen level); mechanism: copy-drift (A input-echo, Jaccard 0.42->0.51) + input-proximity Goodhart; ERT x12 evals in val_screens/. All checkpoints archived (Mac adapter_archive, 24 entries incl finals+best_val).",
+  "command": "scripts/run_arm.sh A|B (REWARD_FRAMES=4)"
+ },
+ {
+  "id": "v6_AB_launch",
+  "date": "2026-07-17",
+  "commit": "9059a5c",
+  "overview": "v6 A/B FROM SCRATCH: native-4f 5-seed calibrated ensemble reward (verifier_reward_ensemble_4f.json), tiered inputs 25% nominal / 25% benign / 50% hostile-ERT (ert_train_sources 4,708 truncation-free across 3 styles incl short CoVer register; tier-matched ERT-derived traces 4,708), conditioning consistency (generation and p_single update share the source, both arms), ckpt dir phase2_v6, val+snapshots every 20, greedy + ERT-greedy val probes live. Success criteria pre-registered in EXPERIMENT.md.",
+  "command": "REWARD_FRAMES=4 scripts/run_arm_v6.sh A|B"
  }
 ]
