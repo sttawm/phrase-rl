@@ -76,6 +76,7 @@ import io
 import itertools
 import json
 import os
+import re
 import shutil
 import signal
 import sys
@@ -349,6 +350,13 @@ def process_context(model, processor, gate, row, args, min_survivors: int, plan=
         dropped = True
     if dropped:
         source = "infer the task from the context"
+    # v6.3 tier-conditioning tags: tell the model the input regime (constant at
+    # deployment — the benchmark is 100% hostile — so distribution knowledge,
+    # not per-example oracle). Kills surface-statistic regime inference.
+    if getattr(args, "tier_tags", False):
+        TAGS = {"nominal": "[input: original wording]", "benign": "[input: paraphrased]",
+                "ert": "[input: adversarially reworded]"}
+        source = f"[input: withheld] {source}" if dropped else f"{TAGS[tier]} {source}"
     res["trace"] = trace
     res["source"] = source
     res["source_augmented"] = source != instruction
@@ -371,6 +379,7 @@ def process_context(model, processor, gate, row, args, min_survivors: int, plan=
         plen = inputs["input_ids"].shape[1]
         cands = [processor.decode(o[plen:], skip_special_tokens=True).strip().split("\n")[0].strip()
                  for o in out]
+        cands = [re.sub(r"^\[input:[^\]]*\]\s*", "", c) for c in cands]
         cands = [c for c in cands if c]
         res["gen_sec"] = round(time.time() - _gen_t0, 1)
         res.update(n_parsed=len(cands), n_unique=len(set(cands)))
@@ -389,7 +398,7 @@ def process_context(model, processor, gate, row, args, min_survivors: int, plan=
             )
         text = processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
         res["gen_sec"] = round(time.time() - _gen_t0, 1)
-        parsed = cover_prompt.parse_reworded(text)
+        parsed = [re.sub(r"^\[input:[^\]]*\]\s*", "", p) for p in cover_prompt.parse_reworded(text)]
         unique = dedupe(parsed)
         cands = unique[: args.n_candidates]
         res.update(n_parsed=len(parsed), n_unique=len(unique))
@@ -760,8 +769,11 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             # the same CRN job, so its reward is exactly comparable to orig/candidates
             gp = res["instruction"]
             try:
+                gin = res["instruction"]
+                if getattr(args, "tier_tags", False):
+                    gin = f"[input: original wording] {gin}"
                 gm = cover_prompt.build_single_phrase_prefix(
-                    res["instruction"], res["img"], trace=res["trace"])
+                    gin, res["img"], trace=res["trace"])
                 ginp = apply_template(processor, gm, continue_final_message=True).to(model.device)
                 with torch.no_grad():
                     gout = model.generate(**ginp, do_sample=False, max_new_tokens=48)
@@ -778,7 +790,8 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             if ei:
                 gpe = ei
                 try:
-                    gme = cover_prompt.build_single_phrase_prefix(ei, res["img"], trace=res["trace"])
+                    ein = f"[input: adversarially reworded] {ei}" if getattr(args, "tier_tags", False) else ei
+                    gme = cover_prompt.build_single_phrase_prefix(ein, res["img"], trace=res["trace"])
                     ginp = apply_template(processor, gme, continue_final_message=True).to(model.device)
                     with torch.no_grad():
                         gout = model.generate(**ginp, do_sample=False, max_new_tokens=48)
@@ -1113,6 +1126,8 @@ def main():
     ap.add_argument("--probe-every", type=int, default=25)
     ap.add_argument("--source-aug", type=float, default=0.5,
                     help="prob of conditioning on a random teacher rephrase instead of the original (robustness; gate stays anchored to the original)")
+    ap.add_argument("--tier-tags", action="store_true",
+                    help="v6.3: prepend input-regime tags to the prompt's instruction slot (original wording | paraphrased | adversarially reworded | withheld)")
     ap.add_argument("--input-dropout", type=float, default=0.0,
                     help="v6.1: prob the prompt's instruction SLOT is a placeholder (trace-only grounding); gate/reward keep the true instruction")
     ap.add_argument("--source-mix", default=None,

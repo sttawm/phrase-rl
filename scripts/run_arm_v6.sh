@@ -44,6 +44,7 @@ tmux new-session -d -s train \
      --reward-mode verifier --reward-frames ${REWARD_FRAMES:-4} \
      --source-mix 0.25,0.25,0.5 \
      --input-dropout 0.3333 \
+     --tier-tags \
      --gen-mode $GEN_MODE --update-rule grpo --no-gate \
      --gen-temp 1.0 --n-candidates 16 \
      --beta 0.15 --lr 7e-6 --kl-abort 1.2 \
