@@ -20,23 +20,44 @@ vram_wait() {  # wait until >= $1 MiB free
   done
 }
 
-pick_newest_ready() {
-  for d in $(ls -dt /workspace/adapters/$1/*/ 2>/dev/null); do
+pick_spread_ready() {  # farthest-point sampling over training steps: keep the
+  # screened set SPREAD over the run instead of chasing only the newest ckpt
+  local arm=$1 cands="" done_steps="" stamp step tries
+  for d in /workspace/adapters/$arm/*/; do
     [ -f "$d/READY" ] || continue
     stamp=$(basename "$d")
-    [ -f "results/val_screens/.done_$1_$stamp" ] && continue
-    tries=$(cat "results/val_screens/.try_$1_$stamp" 2>/dev/null || echo 0)
-    [ "$tries" -ge 2 ] && continue
-    echo "$d"; return 0
+    case "$stamp" in
+      step_*) step=$((10#${stamp#step_})) ;;
+      *)      step=60 ;;   # legacy epoch stamps = the ~s60 relays
+    esac
+    if [ -f "results/val_screens/.done_${arm}_${stamp}" ]; then
+      done_steps="$done_steps $step"
+    else
+      tries=$(cat "results/val_screens/.try_${arm}_${stamp}" 2>/dev/null || echo 0)
+      [ "$tries" -ge 2 ] && continue
+      cands="$cands $stamp:$step"
+    fi
   done
-  return 1
+  [ -z "$cands" ] && return 1
+  local best="" best_d=-1 best_s=-1 cs mind ds dd
+  for cs in $cands; do
+    stamp=${cs%%:*}; step=${cs##*:}; mind=999999
+    for ds in $done_steps; do
+      dd=$(( step > ds ? step - ds : ds - step ))
+      [ "$dd" -lt "$mind" ] && mind=$dd
+    done
+    if [ "$mind" -gt "$best_d" ] || { [ "$mind" -eq "$best_d" ] && [ "$step" -gt "$best_s" ]; }; then
+      best=$stamp; best_d=$mind; best_s=$step
+    fi
+  done
+  echo "/workspace/adapters/$arm/$best/"
 }
 
 mkdir -p results/val_screens
 while true; do
   did=0
   for ARM in ${VAL_ARMS:-A B}; do
-    DIR=$(pick_newest_ready $ARM) || continue
+    DIR=$(pick_spread_ready $ARM) || continue
     STAMP=$(basename "$DIR")
     T="results/val_screens/.try_${ARM}_${STAMP}"
     echo $(( $(cat "$T" 2>/dev/null || echo 0) + 1 )) > "$T"
