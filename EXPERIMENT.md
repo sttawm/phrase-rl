@@ -444,3 +444,11 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   tier (3/8 = 37.5%). Replaces iid tier draws; kills zero-tier steps, halves gradient
   mixture variance, delivers the half-CoVer-register hostile share deterministically.
   grad-accum 4->6. Same objective; resumed in place (no from-scratch restart).
+- v6.3 (hot amendment, same night, resumed ~A65/B75): TIER-CONDITIONING TAGS —
+  the prompt's instruction slot is prefixed with its regime ([input: original
+  wording] | [input: paraphrased] | [input: adversarially reworded] | [input:
+  withheld]). Rationale: regime is TOLD, not inferred from surface statistics
+  (kills the style-fingerprint pathway); constant-at-deployment for the 100%-
+  hostile benchmark, so distribution knowledge, not per-example oracle —
+  DISCLOSE in writeup. Val probes tagged truthfully; candidate echo-strip added;
+  eval gen takes --input-tag (v6.3 ckpts screened with "adversarially reworded").
