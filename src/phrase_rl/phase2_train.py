@@ -1082,6 +1082,8 @@ def main():
                     help="rollout reward: episodes per candidate (reward = success rate)")
     ap.add_argument("--reward-frames", type=int, default=1,
                     help=">1: score each candidate at N quartile frames of the episode (needs data/contexts_train_multit.parquet); server averages calibrated logits")
+    ap.add_argument("--val-reward-frames-map", default="results/phrase_artifacts/contexts_val_multit.parquet",
+                    help="multi-t frames for the VAL episodes (git-canonical) so run_val scores at the same --reward-frames evidence as training; if missing, val probes fall back to single-frame with a warning")
     ap.add_argument("--batched-update", action=argparse.BooleanOptionalAction, default=True,
                     help="batch candidate forwards in the update loop (parity-checked at startup)")
     ap.add_argument("--gen-mode", choices=["list", "sample_single"], default="list",
@@ -1156,14 +1158,27 @@ def main():
         train_df = train_df[train_df.apply(lambda r: (r["episode_index"], r["t"]) in TRACES, axis=1)]
     args._reward_frames_map = None
     if getattr(args, "reward_frames", 1) > 1:
-        mt = pd.read_parquet("data/contexts_train_multit.parquet")
-        fmap = {}
-        for ep, g in mt.groupby("episode_index"):
-            g = g.sort_values("t").reset_index(drop=True)
-            idx = np.unique(np.linspace(0, len(g) - 1, args.reward_frames).round().astype(int))
-            fmap[int(ep)] = g.iloc[idx].to_dict("records")
+        def _frames_map(df):
+            m = {}
+            for ep, g in df.groupby("episode_index"):
+                g = g.sort_values("t").reset_index(drop=True)
+                idx = np.unique(np.linspace(0, len(g) - 1, args.reward_frames).round().astype(int))
+                m[int(ep)] = g.iloc[idx].to_dict("records")
+            return m
+        fmap = _frames_map(pd.read_parquet("data/contexts_train_multit.parquet"))
+        n_train, n_val = len(fmap), 0
+        vmp = Path(args.val_reward_frames_map)
+        if vmp.exists():
+            vmap = _frames_map(pd.read_parquet(vmp))
+            clash = sorted(set(fmap) & set(vmap))
+            assert not clash, f"train/val multi-t maps share episodes: {clash[:5]}"
+            fmap.update(vmap)
+            n_val = len(vmap)
+        else:
+            print(f"WARNING: {vmp} not found — val probes score at 1 frame while "
+                  f"training reward uses {args.reward_frames} (val curve not comparable)")
         args._reward_frames_map = fmap
-        print(f"multi-frame reward: {len(fmap)} episodes x {args.reward_frames} frames")
+        print(f"multi-frame reward: {n_train} train + {n_val} val episodes x {args.reward_frames} frames")
         print(f"trace-conditioned: {len(TRACES)} traces, {len(train_df)} train contexts retained")
     if args.val_traces:
         _t = pd.read_parquet(args.val_traces)

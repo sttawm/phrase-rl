@@ -430,3 +430,11 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   this drops the SLOT, not the information; targets the slot-keyed echo circuits).
   Gate/reward anchored to the true instruction; generation and update share the
   dropped prompt. Per-step telemetry: input_dropout_rate. From-scratch relaunch.
+- VAL-PROBE REWARD PARITY (2026-07-17, staged for next natural restart): run_val
+  scores at the same 4-frame evidence as training. New git-canonical
+  `results/phrase_artifacts/contexts_val_multit.parquet` (val40 x 4 quartile frames,
+  same generator/seed as the train multit); trainer merges it into the reward frames
+  map via --val-reward-frames-map (missing file -> loud warning + old 1f behavior).
+  Rationale: judge pairwise 0.769 at 4f vs 0.687 at 1f — val probes were the noisier
+  judge. NOTE: the val reward series LEVEL steps at the deploy boundary (4f-averaged
+  calibrated logits vs 1f); within-series comparisons resume after it.
