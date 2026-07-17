@@ -58,6 +58,9 @@ REPEATS=${VAL_REPEATS:-3}
 PREFIX=$([ "$REPEATS" = 3 ] && echo screen || echo eval${REPEATS})
 mkdir -p results/val_screens
 while true; do
+  # self-heal screen inputs from the git-tracked canonicals every pass (MFS
+  # volumes have eaten data/ files twice; git is the durable store)
+  cp -f results/phrase_artifacts/val_screen_frames.parquet results/phrase_artifacts/val_screen_assets.parquet data/ 2>/dev/null || true
   did=0
   for ARM in ${VAL_ARMS:-A B}; do
     DIR=$(pick_spread_ready $ARM) || continue
