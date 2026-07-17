@@ -27,6 +27,7 @@ Runs in .venv-gen on a GPU (pause training first — same card).
 import argparse
 import io
 import json
+import re
 
 import pandas as pd
 import torch
@@ -50,6 +51,15 @@ def gen_one(model, processor, msgs, max_new_tokens=60, continue_final=True):
 
 def first_line(text):
     return text.strip().split("\n")[0].strip()
+
+
+# v6.3 tier-conditioning tags: the tag belongs in the MODEL'S INPUT slot only.
+# If the model echoes it, it must never reach pi0's instruction.
+TAG_RE = re.compile(r"^\s*(?:\[input:[^\]]*\]\s*)+")
+
+
+def strip_tag(text):
+    return TAG_RE.sub("", text)
 
 
 def main():
@@ -104,9 +114,14 @@ def main():
                 trace = extract_trace(raw)
             else:
                 trace = extract_trace(str(r.raw_response))
-            gen_in = f"{args.input_tag} {instruction}" if args.input_tag else instruction
+            # tuned-only: v6.3 checkpoints were trained with the regime tag in the
+            # input slot; the frozen baseline never saw tags and stays untagged
+            use_tag = args.input_tag and arm == "tuned"
+            gen_in = f"{args.input_tag} {instruction}" if use_tag else instruction
             msgs = build_single_phrase_prefix(gen_in, img, trace=trace)
-            phrase = first_line(gen_one(model, processor, msgs))
+            phrase = strip_tag(first_line(strip_tag(gen_one(model, processor, msgs))))
+            if not phrase:
+                phrase = instruction
             rows.append({"task": task, "arm": arm, "phrase": phrase, "instruction": instruction})
             print(f"[{arm}] {task}: {phrase!r}")
 
