@@ -19,10 +19,15 @@ test -f data/val_screen_frames.parquet
 test -f results/phrase_artifacts/nominal_eval_assets.parquet
 
 if [ "$ADAPTER" = "passthrough" ]; then
-  # phrases = the nominal instructions themselves
-  .venv-gen/bin/python - <<'PY'
+  # phrases = the nominal instructions themselves; TASKS_KEEP (csv) optionally
+  # restricts to tasks lacking trustworthy historical passthrough numbers
+  TASKS_KEEP="${TASKS_KEEP:-}" .venv-gen/bin/python - <<'PY'
+import os
 import pandas as pd
 a = pd.read_parquet("results/phrase_artifacts/nominal_eval_assets.parquet")
+keep = [t for t in os.environ.get("TASKS_KEEP", "").split(",") if t]
+if keep:
+    a = a[a.task.isin(keep)]
 pd.DataFrame({"task": a.task, "arm": "tuned", "phrase": a.ert_instruction}).to_parquet(
     "data/nominal_phrases.parquet", index=False)
 print("passthrough phrases:", len(a))
@@ -78,7 +83,9 @@ import glob
 import os
 import pandas as pd
 d = pd.concat([pd.read_parquet(f) for f in sorted(glob.glob("data/nom_out_w*.parquet"))], ignore_index=True)
-assert len(d) == 2304, f"expected 2304, got {len(d)}"
+import glob as _g
+n_tasks = pd.read_parquet("data/nominal_phrases.parquet").task.nunique()
+assert len(d) == 288 * n_tasks, f"expected {288*n_tasks}, got {len(d)}"
 out = os.environ["OUT"]
 d.to_parquet(out, index=False)
 s = d.groupby("task").success.mean() * 100
