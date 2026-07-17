@@ -69,27 +69,31 @@ while true; do
         --out data/screen_phrases_all.parquet >> /workspace/valloop_stages.log 2>&1; then
       mark "GEN FAILED $ARM/$STAMP (will retry, cap 2)"; continue
     fi
-    .venv-gen/bin/python - <<'PY'
+    NW=${VAL_WORKERS:-2}   # 4 on 46GB A40s, 2 on 24GB cards
+    NW=$NW .venv-gen/bin/python - <<'PY'
+import os
 import pandas as pd
+nw = int(os.environ["NW"])
 d = pd.read_parquet("data/screen_phrases_all.parquet")
 d = d[d.arm == "tuned"]                       # tuned-only: baselines live in the battery
 tasks = sorted(d.task.unique())
-d[d.task.isin(tasks[:4])].to_parquet("data/screen_h1.parquet", index=False)
-d[d.task.isin(tasks[4:])].to_parquet("data/screen_h2.parquet", index=False)
-print("tuned rows:", len(d))
+for w in range(nw):
+    wt = [t for i, t in enumerate(tasks) if i % nw == w]
+    d[d.task.isin(wt)].to_parquet(f"data/screen_w{w}.parquet", index=False)
+print("tuned rows:", len(d), "| workers:", nw)
 PY
-    rm -f data/screen_out_h1.parquet data/screen_out_h2.parquet
+    rm -f data/screen_out_w*.parquet
     cd /workspace/INT-ACT
     pids=""
-    for h in 1 2; do
+    for w in $(seq 0 $((NW-1))); do
       /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
         --int-act-root /workspace/INT-ACT \
         --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
         --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
-        --phrases /workspace/phrase-rl/data/screen_h$h.parquet \
+        --phrases /workspace/phrase-rl/data/screen_w$w.parquet \
         --episode-ids 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 \
         --repeats 3 \
-        --out /workspace/phrase-rl/data/screen_out_h$h.parquet > /workspace/screen_h$h.log 2>&1 &
+        --out /workspace/phrase-rl/data/screen_out_w$w.parquet > /workspace/screen_w$w.log 2>&1 &
       pids="$pids $!"
     done
     wfail=0
@@ -98,9 +102,10 @@ PY
     if [ $wfail = 1 ]; then mark "WORKER FAILED $ARM/$STAMP (retry)"; continue; fi
     OUT="results/val_screens/screen_${ARM}_${STAMP}.parquet" \
     .venv-gen/bin/python - <<'PY' || { mark "MERGE FAILED $ARM/$STAMP (retry)"; continue; }
+import glob
 import os
 import pandas as pd
-d = pd.concat([pd.read_parquet(f"data/screen_out_h{h}.parquet") for h in (1,2)], ignore_index=True)
+d = pd.concat([pd.read_parquet(f) for f in sorted(glob.glob("data/screen_out_w*.parquet"))], ignore_index=True)
 assert len(d) == 576, f"expected 576 eps, got {len(d)}"
 out = os.environ["OUT"]
 d.to_parquet(out, index=False)
