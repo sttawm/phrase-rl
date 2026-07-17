@@ -452,3 +452,9 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   hostile benchmark, so distribution knowledge, not per-example oracle —
   DISCLOSE in writeup. Val probes tagged truthfully; candidate echo-strip added;
   eval gen takes --input-tag (v6.3 ckpts screened with "adversarially reworded").
+  CORRECTION (same night): the first v6.3 hot-swap silently failed (graceful
+  SIGTERM exit ~8-10 min vs a 5-min wait; the old untagged process kept the
+  GPU). Redone with a full-exit wait: BOTH arms resumed from step_0040, so
+  TAGS ARE ACTIVE FROM STEP 41 on A and B (untagged v6.2 steps 41-53 were
+  discarded and redone tagged). Ladder screens are step-gated (VAL_TAG_FROM=41):
+  v6step_0020/0040 screen untagged (pre-tag checkpoints), >=0050 screen tagged.

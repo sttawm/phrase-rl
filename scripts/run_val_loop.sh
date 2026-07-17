@@ -66,6 +66,15 @@ while true; do
   for ARM in ${VAL_ARMS:-A B}; do
     DIR=$(pick_spread_ready $ARM) || continue
     STAMP=$(basename "$DIR")
+    case "$STAMP" in
+      v6step_*) SNUM=$((10#${STAMP#v6step_})) ;;
+      step_*)   SNUM=$((10#${STAMP#step_})) ;;
+      *)        SNUM=60 ;;
+    esac
+    # v6.3: tag only checkpoints trained with tags (VAL_TAG_FROM = first tagged
+    # step); pre-tag v6 stamps and all v5 stamps screen untagged
+    EFFTAG=""
+    [ -n "${VAL_INPUT_TAG:-}" ] && [ "$SNUM" -ge "${VAL_TAG_FROM:-0}" ] && EFFTAG="$VAL_INPUT_TAG"
     T="results/val_screens/.try_${REPEATS}x_${ARM}_${STAMP}"
     echo $(( $(cat "$T" 2>/dev/null || echo 0) + 1 )) > "$T"
     mark "screen $ARM/$STAMP attempt $(cat $T)"
@@ -73,7 +82,7 @@ while true; do
     if ! .venv-gen/bin/python -m phrase_rl.phase4_generate_eval \
         --tasks data/val_screen_frames.parquet --ctx data/val_screen_frames.parquet \
         --assets data/val_screen_assets.parquet --adapter "$DIR" \
-        ${VAL_INPUT_TAG:+--input-tag "$VAL_INPUT_TAG"} \
+        ${EFFTAG:+--input-tag "$EFFTAG"} \
         --out data/screen_phrases_all.parquet >> /workspace/valloop_stages.log 2>&1; then
       mark "GEN FAILED $ARM/$STAMP (will retry, cap 2)"; continue
     fi
