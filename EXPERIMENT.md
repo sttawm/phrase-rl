@@ -438,3 +438,9 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   Rationale: judge pairwise 0.769 at 4f vs 0.687 at 1f — val probes were the noisier
   judge. NOTE: the val reward series LEVEL steps at the deploy boundary (4f-averaged
   calibrated logits vs 1f); within-series comparisons resume after it.
+- v6.2 (hot amendment, 2026-07-17 late, arms resumed at ~A52/B61): STRATIFIED step
+  plan — 8 contexts/step = exactly 2 nominal / 2 benign / 4 ERT (ERT quad = 2 short-
+  register + 1 rename + 1 stance variant); input-slot dropout = exactly one slot per
+  tier (3/8 = 37.5%). Replaces iid tier draws; kills zero-tier steps, halves gradient
+  mixture variance, delivers the half-CoVer-register hostile share deterministically.
+  grad-accum 4->6. Same objective; resumed in place (no from-scratch restart).
