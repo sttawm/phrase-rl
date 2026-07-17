@@ -292,10 +292,20 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
     nominal_trace = getattr(args, "_traces", {}).get((row["episode_index"], row["t"])) or \
             getattr(args, "_val_traces", {}).get((row["episode_index"], row["t"]))
     source, trace, tier = pick_source_and_trace(args, row, instruction, nominal_trace)
+    # input-SLOT dropout (v6.1): with prob --input-dropout the prompt's instruction
+    # slot gets a placeholder — the task must be read from the trace (which quotes
+    # its source phrase, so this drops the SLOT, not the information). Trains the
+    # trace-grounding pathway that input-echo starves. Gate/reward stay anchored
+    # to the true instruction; generation AND update share the dropped prompt.
+    dropped = False
+    if getattr(args, "input_dropout", 0.0) > 0 and np.random.random() < args.input_dropout:
+        source = "infer the task from the context"
+        dropped = True
     res["trace"] = trace
-    res["source"] = source  # v5: update-prompt only. v6 (--source-mix): generation AND
-    res["source_augmented"] = source != instruction  # update share it (conditioning consistency)
+    res["source"] = source
+    res["source_augmented"] = source != instruction
     res["source_tier"] = tier
+    res["input_dropped"] = dropped
     model.eval()
     _gen_t0 = time.time()
     if getattr(args, "gen_mode", "list") == "sample_single":
@@ -926,6 +936,7 @@ def step_record(step: int, t0: float, ctx_results: list, upd: dict, args) -> dic
         "orig_loss_mean": float(np.mean([-r["r_orig"] for r in ok])) if ok else None,
         "tier_counts": {t: sum(r.get("source_tier") == t for r in ctx_results)
                         for t in ("nominal", "benign", "ert")},
+        "input_dropout_rate": float(np.mean([bool(r.get("input_dropped")) for r in ctx_results])) if ctx_results else None,
         "cand_loss_by_tier": {t: float(np.mean([-r["rewards"].mean() for r in ok
                                                 if r.get("source_tier") == t] or [np.nan]))
                               for t in ("nominal", "benign", "ert")},
@@ -1052,6 +1063,8 @@ def main():
     ap.add_argument("--probe-every", type=int, default=25)
     ap.add_argument("--source-aug", type=float, default=0.5,
                     help="prob of conditioning on a random teacher rephrase instead of the original (robustness; gate stays anchored to the original)")
+    ap.add_argument("--input-dropout", type=float, default=0.0,
+                    help="v6.1: prob the prompt's instruction SLOT is a placeholder (trace-only grounding); gate/reward keep the true instruction")
     ap.add_argument("--source-mix", default=None,
                     help="v6 tiered inputs 'nominal,benign,ert' e.g. '0.25,0.25,0.5' — overrides --source-aug; hostile tiers use ERT-derived traces and generation shares the source")
     ap.add_argument("--ert-sources", default="results/phrase_artifacts/ert_train_sources.parquet",
