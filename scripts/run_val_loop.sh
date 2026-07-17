@@ -88,6 +88,7 @@ PY
     cd /workspace/INT-ACT
     pids=""
     for w in $(seq 0 $((NW-1))); do
+      sleep 45   # stagger pi0 loads: 4 simultaneous loads OOM-race on 46GB (w0 died 2x at startup)
       /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
         --int-act-root /workspace/INT-ACT \
         --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
