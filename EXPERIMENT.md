@@ -419,3 +419,8 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
 - SUCCESS CRITERIA (pre-registered): tuned ERT->greedy beats frozen ERT->greedy
   (honest, ERT-derived-trace variant) within ~100 steps; x12 ERT rollouts separate
   from frozen greedy 40.2%.
+- CONDITIONING CONSISTENCY (2026-07-17): the p_single update conditions on the SAME
+  source that generated the candidates — both arms. Arm A's v5 asymmetry (16-list
+  farmed from nominal, update conditioned on source) is eliminated; in v6 the list
+  prompt is source-conditioned as well. Trace lookup is tier-aware: (episode,t,variant)
+  -> ERT-derived trace for hostile sources, nominal trace for nominal/benign.
