@@ -653,7 +653,7 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
     cuda_states = torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None
     torch.manual_seed(args.val_seed)
     try:
-        best, mean, orig, greedy, gphrases = [], [], [], [], []
+        best, mean, orig, greedy, greedy_ert, gphrases = [], [], [], [], [], []
         n_failed = judged = survived = 0
         rows = val_df.head(args.val_n)
         for i, (_, row) in enumerate(tqdm(rows.iterrows(), total=len(rows),
@@ -679,16 +679,37 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
                                       skip_special_tokens=True).strip().split("\n")[0].strip() or gp
             except Exception:
                 pass
+            # deployment-realistic ERT probe: greedy from the ADVERSARIAL instruction
+            # (ert_val40), scored in the same CRN job — pairs against the frozen
+            # ERT->greedy reference
+            gpe = None
+            ei = (getattr(args, "_val_ert", None) or {}).get(
+                (row["episode_index"], row["t"]))
+            if ei:
+                gpe = ei
+                try:
+                    gme = cover_prompt.build_single_phrase_prefix(ei, res["img"], trace=res["trace"])
+                    ginp = apply_template(processor, gme, continue_final_message=True).to(model.device)
+                    with torch.no_grad():
+                        gout = model.generate(**ginp, do_sample=False, max_new_tokens=48)
+                    gpe = processor.decode(gout[0][ginp["input_ids"].shape[1]:],
+                                           skip_special_tokens=True).strip().split("\n")[0].strip() or ei
+                except Exception:
+                    pass
             job = f"val{step:06d}i{i:03d}_{uuid.uuid4().hex[:8]}"
-            losses = score_phrases(
-                ipc_dir, job, [(row, [res["instruction"]] + res["survivors"] + [gp])], args)[0]
+            plist = [res["instruction"]] + res["survivors"] + [gp] + ([gpe] if gpe else [])
+            losses = score_phrases(ipc_dir, job, [(row, plist)], args)[0]
             rewards = -losses.mean(axis=1)
-            res.update(r_orig=float(rewards[0]), rewards=rewards[1:-1])
+            n_tail = 2 if gpe else 1
+            res.update(r_orig=float(rewards[0]), rewards=rewards[1:-n_tail])
             best.append(float(res["rewards"].max()))
             mean.append(float(res["rewards"].mean()))
             orig.append(res["r_orig"])
-            greedy.append(float(rewards[-1]))
-            gphrases.append({"instruction": res["instruction"], "greedy": gp})
+            greedy.append(float(rewards[-n_tail]))
+            if gpe:
+                greedy_ert.append(float(rewards[-1]))
+            gphrases.append({"instruction": res["instruction"], "greedy": gp,
+                             "ert_instruction": ei, "greedy_ert": gpe})
         return {
             "step": step,
             "n_scored": len(best),
@@ -697,6 +718,7 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             "mean_best_reward": float(np.mean(best)) if best else None,
             "mean_orig_reward": float(np.mean(orig)) if orig else None,
             "mean_greedy_reward": float(np.mean(greedy)) if greedy else None,
+            "mean_greedy_ert_reward": float(np.mean(greedy_ert)) if greedy_ert else None,
             "greedy_win_rate": float(np.mean([g > o for g, o in zip(greedy, orig)])) if greedy else None,
             "greedy_phrases": gphrases,
             "gate_pass_rate": survived / judged if judged else None,
@@ -1092,6 +1114,12 @@ def main():
         VAL_TRACES = {(r.episode_index, r.t): str(r.trace) for r in _t.itertuples()}
     args._traces, args._val_traces = TRACES, VAL_TRACES
     args._sources = SOURCES if args.traces else {}
+    args._val_ert = {}
+    _ep = Path("results/phrase_artifacts/ert_val40.parquet")
+    if _ep.exists():  # tuned ERT->greedy val probe (pairs vs frozen ERT->greedy ref)
+        args._val_ert = {(r.episode_index, r.t): str(r.ert_instruction)
+                         for r in pd.read_parquet(_ep).itertuples()}
+        print(f"val ERT probe: {len(args._val_ert)} adversarial instructions loaded")
 
     args._probes = []
     if args.probe_contexts:
