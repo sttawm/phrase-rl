@@ -244,6 +244,36 @@ def score_phrases(ipc_dir: Path, job_id: str, contexts: list, args) -> list[np.n
 # ------------------------------------------------- generate / gate / score
 
 
+def pick_source_and_trace(args, row, instruction, nominal_trace):
+    """Choose the conditioning (source phrase, trace, tier) for one context.
+
+    v5 behavior (no --source-mix): benign source-aug with prob --source-aug,
+    nominal trace always. v6 (--source-mix "nom,benign,ert"): tiered draw;
+    hostile tiers pair with their ERT-DERIVED trace (leakage firewall — the
+    nominal trace would hand the canonical vocabulary to a hostile input).
+    """
+    key = (row["episode_index"], row["t"])
+    mix = getattr(args, "_source_mix", None)
+    if mix is None:  # v5 path, byte-identical
+        srcs = getattr(args, "_sources", {}).get(key)
+        if srcs and args.source_aug > 0 and np.random.random() < args.source_aug:
+            return str(np.random.choice(srcs)), nominal_trace, "benign"
+        return instruction, nominal_trace, "nominal"
+    r = np.random.random()
+    if r < mix[2]:  # hostile tier
+        variants = getattr(args, "_ert_sources", {}).get(key)
+        if variants:
+            variant, ert_phrase = variants[np.random.randint(len(variants))]
+            etr = getattr(args, "_ert_traces", {}).get((key[0], key[1], variant))
+            return ert_phrase, (etr or nominal_trace), "ert"
+        # no hostile variant for this context -> fall through to benign
+    if r < mix[2] + mix[1]:
+        srcs = getattr(args, "_sources", {}).get(key)
+        if srcs:
+            return str(np.random.choice(srcs)), nominal_trace, "benign"
+    return instruction, nominal_trace, "nominal"
+
+
 def process_context(model, processor, gate, row, args, min_survivors: int) -> dict:
     """Generate + gate for one context; shared by train steps and val.
 
@@ -253,21 +283,19 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
     """
     img = Image.open(io.BytesIO(row["image_png"])).convert("RGB")
     instruction = str(row["instruction"])  # the ORIGINAL: gate anchor + reward context
-    source = instruction
-    srcs = getattr(args, "_sources", {}).get((row["episode_index"], row["t"]))
-    if srcs and args.source_aug > 0 and np.random.random() < args.source_aug:
-        source = str(np.random.choice(srcs))  # robustness: condition on a synthetic phrasing
     res = {
         "instruction": instruction, "ok": False, "reason": None,
         "n_parsed": 0, "n_unique": 0, "n_judged": 0,
         "n_drift": 0, "n_rename": 0, "n_judge_fail": 0, "n_survivors": 0,
     }
 
-    trace = getattr(args, "_traces", {}).get((row["episode_index"], row["t"])) or \
+    nominal_trace = getattr(args, "_traces", {}).get((row["episode_index"], row["t"])) or \
             getattr(args, "_val_traces", {}).get((row["episode_index"], row["t"]))
+    source, trace, tier = pick_source_and_trace(args, row, instruction, nominal_trace)
     res["trace"] = trace
-    res["source"] = source  # used ONLY in the update (p_single) prompt — the inference-time
-    res["source_augmented"] = source != instruction  # prompt; generation always farms candidates
+    res["source"] = source  # v5: update-prompt only. v6 (--source-mix): generation AND
+    res["source_augmented"] = source != instruction  # update share it (conditioning consistency)
+    res["source_tier"] = tier
     model.eval()
     _gen_t0 = time.time()
     if getattr(args, "gen_mode", "list") == "sample_single":
@@ -289,8 +317,12 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
         res["gen_sec"] = round(time.time() - _gen_t0, 1)
         res.update(n_parsed=len(cands), n_unique=len(set(cands)))
     else:
-        msgs = cover_prompt.build_qwen_messages(  # from the ORIGINAL for max pool quality
-            image=img, instruction=instruction, batch_number=args.n_candidates, trace=trace)
+        # v5: farm the list from the ORIGINAL (max pool quality). v6 (--source-mix):
+        # generation shares the update's source — the v5 nominal/source mismatch is
+        # implicated in arm A's copy-drift (EXPERIMENT.md conditioning-consistency note).
+        list_input = source if getattr(args, "_source_mix", None) is not None else instruction
+        msgs = cover_prompt.build_qwen_messages(
+            image=img, instruction=list_input, batch_number=args.n_candidates, trace=trace)
         inputs = apply_template(processor, msgs, add_generation_prompt=True).to(model.device)
         with torch.no_grad():
             out = model.generate(
@@ -892,6 +924,11 @@ def step_record(step: int, t0: float, ctx_results: list, upd: dict, args) -> dic
         "adv_max": float(advs.max()) if advs.size else None,
         "cand_loss_mean": float(np.mean([-r["rewards"].mean() for r in ok])) if ok else None,
         "orig_loss_mean": float(np.mean([-r["r_orig"] for r in ok])) if ok else None,
+        "tier_counts": {t: sum(r.get("source_tier") == t for r in ctx_results)
+                        for t in ("nominal", "benign", "ert")},
+        "cand_loss_by_tier": {t: float(np.mean([-r["rewards"].mean() for r in ok
+                                                if r.get("source_tier") == t] or [np.nan]))
+                              for t in ("nominal", "benign", "ert")},
         **{k: upd.get(k) for k in ("n_pos", "update_loss", "kl", "logprob", "grad_norm", "fwd_sec", "bwd_sec")},
     }
     if step % args.example_every == 0 and ok:
@@ -1015,6 +1052,12 @@ def main():
     ap.add_argument("--probe-every", type=int, default=25)
     ap.add_argument("--source-aug", type=float, default=0.5,
                     help="prob of conditioning on a random teacher rephrase instead of the original (robustness; gate stays anchored to the original)")
+    ap.add_argument("--source-mix", default=None,
+                    help="v6 tiered inputs 'nominal,benign,ert' e.g. '0.25,0.25,0.5' — overrides --source-aug; hostile tiers use ERT-derived traces and generation shares the source")
+    ap.add_argument("--ert-sources", default="results/phrase_artifacts/ert_train_sources.parquet",
+                    help="parquet(episode_index,t,variant,ert_instruction) — hostile input pool for --source-mix")
+    ap.add_argument("--ert-traces", default="results/phrase_artifacts/ert_train_traces.parquet",
+                    help="parquet(episode_index,t,variant,trace) — ERT-derived traces (leakage firewall)")
     ap.add_argument("--val-contexts", default="data/contexts_val_0b.parquet")
     ap.add_argument("--ipc-dir", default="/workspace/ipc")
     ap.add_argument("--ckpt-dir", default="results/checkpoints/phase2")
@@ -1114,6 +1157,21 @@ def main():
         VAL_TRACES = {(r.episode_index, r.t): str(r.trace) for r in _t.itertuples()}
     args._traces, args._val_traces = TRACES, VAL_TRACES
     args._sources = SOURCES if args.traces else {}
+    args._source_mix = None
+    args._ert_sources, args._ert_traces = {}, {}
+    if args.source_mix:
+        parts = [float(x) for x in args.source_mix.split(",")]
+        assert len(parts) == 3 and abs(sum(parts) - 1.0) < 1e-6, "--source-mix must be 3 probs summing to 1"
+        args._source_mix = tuple(parts)  # (nominal, benign, ert)
+        _es = pd.read_parquet(args.ert_sources)
+        for r in _es.itertuples():
+            args._ert_sources.setdefault((r.episode_index, r.t), []).append(
+                (int(r.variant), str(r.ert_instruction)))
+        _et = pd.read_parquet(args.ert_traces)
+        args._ert_traces = {(r.episode_index, r.t, int(r.variant)): str(r.trace)
+                            for r in _et.itertuples()}
+        print(f"v6 source mix {args._source_mix}: {len(args._ert_sources)} contexts with hostile "
+              f"variants, {len(args._ert_traces)} ERT-derived traces")
     args._val_ert = {}
     _ep = Path("results/phrase_artifacts/ert_val40.parquet")
     if _ep.exists():  # tuned ERT->greedy val probe (pairs vs frozen ERT->greedy ref)
