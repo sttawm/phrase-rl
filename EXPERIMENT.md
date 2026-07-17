@@ -424,3 +424,9 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   farmed from nominal, update conditioned on source) is eliminated; in v6 the list
   prompt is source-conditioned as well. Trace lookup is tier-aware: (episode,t,variant)
   -> ERT-derived trace for hostile sources, nominal trace for nominal/benign.
+- v6.1 (launch amendment, same night): INPUT-SLOT DROPOUT p=1/3, orthogonal to the
+  tier mix — the prompt's instruction slot becomes "infer the task from the context"
+  while the tier-matched trace carries the task (traces quote their source phrase, so
+  this drops the SLOT, not the information; targets the slot-keyed echo circuits).
+  Gate/reward anchored to the true instruction; generation and update share the
+  dropped prompt. Per-step telemetry: input_dropout_rate. From-scratch relaunch.
