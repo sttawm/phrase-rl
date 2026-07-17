@@ -73,6 +73,7 @@ while true; do
     if ! .venv-gen/bin/python -m phrase_rl.phase4_generate_eval \
         --tasks data/val_screen_frames.parquet --ctx data/val_screen_frames.parquet \
         --assets data/val_screen_assets.parquet --adapter "$DIR" \
+        ${VAL_INPUT_TAG:+--input-tag "$VAL_INPUT_TAG"} \
         --out data/screen_phrases_all.parquet >> /workspace/valloop_stages.log 2>&1; then
       mark "GEN FAILED $ARM/$STAMP (will retry, cap 2)"; continue
     fi

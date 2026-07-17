@@ -58,6 +58,8 @@ def main():
     ap.add_argument("--tasks", required=True, help="cover_gemini_tasks.parquet (raw_response has the trace; also maps task->frame)")
     ap.add_argument("--adapter", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--input-tag", default=None,
+                    help="v6.3 checkpoints: prepend e.g. '[input: adversarially reworded]' to the instruction slot")
     ap.add_argument("--instructions", default=None,
                     help="json {task: instruction} overriding the nominal instructions (e.g. cover_ert_instructions.json)")
     ap.add_argument("--self-trace", action="store_true",
@@ -102,7 +104,8 @@ def main():
                 trace = extract_trace(raw)
             else:
                 trace = extract_trace(str(r.raw_response))
-            msgs = build_single_phrase_prefix(instruction, img, trace=trace)
+            gen_in = f"{args.input_tag} {instruction}" if args.input_tag else instruction
+            msgs = build_single_phrase_prefix(gen_in, img, trace=trace)
             phrase = first_line(gen_one(model, processor, msgs))
             rows.append({"task": task, "arm": arm, "phrase": phrase, "instruction": instruction})
             print(f"[{arm}] {task}: {phrase!r}")
