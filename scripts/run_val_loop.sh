@@ -53,13 +53,15 @@ pick_spread_ready() {  # farthest-point sampling over training steps: keep the
   echo "/workspace/adapters/$arm/$best/"
 }
 
+REPEATS=${VAL_REPEATS:-3}
+PREFIX=$([ "$REPEATS" = 3 ] && echo screen || echo eval${REPEATS})
 mkdir -p results/val_screens
 while true; do
   did=0
   for ARM in ${VAL_ARMS:-A B}; do
     DIR=$(pick_spread_ready $ARM) || continue
     STAMP=$(basename "$DIR")
-    T="results/val_screens/.try_${ARM}_${STAMP}"
+    T="results/val_screens/.try_${REPEATS}x_${ARM}_${STAMP}"
     echo $(( $(cat "$T" 2>/dev/null || echo 0) + 1 )) > "$T"
     mark "screen $ARM/$STAMP attempt $(cat $T)"
     vram_wait 20000
@@ -92,7 +94,7 @@ PY
         --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
         --phrases /workspace/phrase-rl/data/screen_w$w.parquet \
         --episode-ids 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 \
-        --repeats 3 \
+        --repeats $REPEATS \
         --out /workspace/phrase-rl/data/screen_out_w$w.parquet > /workspace/screen_w$w.log 2>&1 &
       pids="$pids $!"
     done
@@ -100,19 +102,19 @@ PY
     for p in $pids; do wait $p || wfail=1; done
     cd /workspace/phrase-rl
     if [ $wfail = 1 ]; then mark "WORKER FAILED $ARM/$STAMP (retry)"; continue; fi
-    OUT="results/val_screens/screen_${ARM}_${STAMP}.parquet" \
+    OUT="results/val_screens/${PREFIX}_${ARM}_${STAMP}.parquet" EXPECT=$((192 * REPEATS)) \
     .venv-gen/bin/python - <<'PY' || { mark "MERGE FAILED $ARM/$STAMP (retry)"; continue; }
 import glob
 import os
 import pandas as pd
 d = pd.concat([pd.read_parquet(f) for f in sorted(glob.glob("data/screen_out_w*.parquet"))], ignore_index=True)
-assert len(d) == 576, f"expected 576 eps, got {len(d)}"
+assert len(d) == int(os.environ["EXPECT"]), f"expected {os.environ['EXPECT']} eps, got {len(d)}"
 out = os.environ["OUT"]
 d.to_parquet(out, index=False)
 s = d.groupby("task").success.mean() * 100
 print(f"[val-loop] RESULT {out}: pooled {d.success.mean()*100:.1f}% |", s.round(1).to_dict(), flush=True)
 PY
-    touch "results/val_screens/.done_${ARM}_${STAMP}"
+    touch "results/val_screens/.done_${REPEATS}x_${ARM}_${STAMP}"
     git add results/val_screens/ && git -c user.name=pod3 -c user.email=pod@runpod commit -q -m "val screen $ARM $STAMP [pod]" && git -c user.name=pod3 -c user.email=pod@runpod pull -q --rebase --no-edit && git push -q
     mark "screen $ARM/$STAMP DONE"
     did=1
