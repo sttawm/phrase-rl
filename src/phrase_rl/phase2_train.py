@@ -244,7 +244,37 @@ def score_phrases(ipc_dir: Path, job_id: str, contexts: list, args) -> list[np.n
 # ------------------------------------------------- generate / gate / score
 
 
-def pick_source_and_trace(args, row, instruction, nominal_trace):
+def assign_step_tiers(args, n):
+    """v6.2 stratified step plan: exact tier counts (largest-remainder from
+    --source-mix), ERT variants half short-register (v2) / rest split v0+v1,
+    dropout exactly one slot per tier present. Returns a shuffled list of
+    (tier, variant_hint, drop) — one per context. None when mix is unset."""
+    mix = getattr(args, "_source_mix", None)
+    if mix is None:
+        return None
+    raw = [mix[0] * n, mix[1] * n, mix[2] * n]
+    counts = [int(x) for x in raw]
+    while sum(counts) < n:
+        rems = [r - c for r, c in zip(raw, counts)]
+        counts[int(np.argmax(rems))] += 1
+    n_ert = counts[2]
+    v2 = n_ert // 2
+    v01 = n_ert - v2
+    variants = [2] * v2 + [0] * (v01 - v01 // 2) + [1] * (v01 // 2)
+    plan = ([("nominal", None)] * counts[0] + [("benign", None)] * counts[1]
+            + [("ert", v) for v in variants])
+    # dropout: one slot per tier that appears (~3/8 at the 2/2/4 split)
+    drops = set()
+    for tier in ("nominal", "benign", "ert"):
+        idxs = [i for i, (t, _) in enumerate(plan) if t == tier]
+        if idxs and getattr(args, "input_dropout", 0.0) > 0:
+            drops.add(int(np.random.choice(idxs)))
+    out = [(t, v, i in drops) for i, (t, v) in enumerate(plan)]
+    np.random.shuffle(out)
+    return out
+
+
+def pick_source_and_trace(args, row, instruction, nominal_trace, forced=None):
     """Choose the conditioning (source phrase, trace, tier) for one context.
 
     v5 behavior (no --source-mix): benign source-aug with prob --source-aug,
@@ -258,6 +288,21 @@ def pick_source_and_trace(args, row, instruction, nominal_trace):
         srcs = getattr(args, "_sources", {}).get(key)
         if srcs and args.source_aug > 0 and np.random.random() < args.source_aug:
             return str(np.random.choice(srcs)), nominal_trace, "benign"
+        return instruction, nominal_trace, "nominal"
+    if forced is not None:  # v6.2 stratified plan: (tier, variant_hint)
+        tier, vhint = forced
+        if tier == "ert":
+            variants = getattr(args, "_ert_sources", {}).get(key)
+            if variants:
+                match = [(v, p) for v, p in variants if v == vhint]
+                variant, ert_phrase = match[0] if match else variants[np.random.randint(len(variants))]
+                etr = getattr(args, "_ert_traces", {}).get((key[0], key[1], variant))
+                return ert_phrase, (etr or nominal_trace), "ert"
+            tier = "benign"  # context lacks hostile variants
+        if tier == "benign":
+            srcs = getattr(args, "_sources", {}).get(key)
+            if srcs:
+                return str(np.random.choice(srcs)), nominal_trace, "benign"
         return instruction, nominal_trace, "nominal"
     r = np.random.random()
     if r < mix[2]:  # hostile tier
@@ -274,7 +319,7 @@ def pick_source_and_trace(args, row, instruction, nominal_trace):
     return instruction, nominal_trace, "nominal"
 
 
-def process_context(model, processor, gate, row, args, min_survivors: int) -> dict:
+def process_context(model, processor, gate, row, args, min_survivors: int, plan=None) -> dict:
     """Generate + gate for one context; shared by train steps and val.
 
     Result dict always has the counting fields; ok=True adds img/survivors.
@@ -291,16 +336,19 @@ def process_context(model, processor, gate, row, args, min_survivors: int) -> di
 
     nominal_trace = getattr(args, "_traces", {}).get((row["episode_index"], row["t"])) or \
             getattr(args, "_val_traces", {}).get((row["episode_index"], row["t"]))
-    source, trace, tier = pick_source_and_trace(args, row, instruction, nominal_trace)
-    # input-SLOT dropout (v6.1): with prob --input-dropout the prompt's instruction
-    # slot gets a placeholder — the task must be read from the trace (which quotes
-    # its source phrase, so this drops the SLOT, not the information). Trains the
-    # trace-grounding pathway that input-echo starves. Gate/reward stay anchored
-    # to the true instruction; generation AND update share the dropped prompt.
+    forced = (plan[0], plan[1]) if plan is not None else None
+    source, trace, tier = pick_source_and_trace(args, row, instruction, nominal_trace, forced=forced)
+    # input-SLOT dropout (v6.1): the prompt's instruction slot becomes a placeholder —
+    # the task must be read from the trace (which quotes its source phrase, so this
+    # drops the SLOT, not the information). v6.2: the stratified step plan decides
+    # WHICH slots drop (one per tier); pre-plan runs draw iid at --input-dropout.
     dropped = False
-    if getattr(args, "input_dropout", 0.0) > 0 and np.random.random() < args.input_dropout:
-        source = "infer the task from the context"
+    if plan is not None:
+        dropped = bool(plan[2])
+    elif getattr(args, "input_dropout", 0.0) > 0 and np.random.random() < args.input_dropout:
         dropped = True
+    if dropped:
+        source = "infer the task from the context"
     res["trace"] = trace
     res["source"] = source
     res["source_augmented"] = source != instruction
@@ -966,11 +1014,13 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
         t0 = time.time()
 
         ctx_results, ok_pairs = [], []
-        for row in rows:
+        step_plan = assign_step_tiers(args, len(rows))  # v6.2 stratified (None pre-mix)
+        for ci, row in enumerate(rows):
             if STOP["flag"]:
                 raise KeyboardInterrupt("SIGTERM between contexts")
             res = process_context(model, processor, gate, row, args,
-                                  min_survivors=args.min_survivors)
+                                  min_survivors=args.min_survivors,
+                                  plan=step_plan[ci] if step_plan else None)
             ctx_results.append(res)
             if res["ok"]:
                 ok_pairs.append((row, res))
