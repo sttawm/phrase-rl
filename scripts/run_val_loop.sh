@@ -27,8 +27,9 @@ pick_spread_ready() {  # farthest-point sampling over training steps: keep the
     [ -f "$d/READY" ] || continue
     stamp=$(basename "$d")
     case "$stamp" in
-      step_*) step=$((10#${stamp#step_})) ;;
-      *)      step=60 ;;   # legacy epoch stamps = the ~s60 relays
+      v6step_*) step=$((10#${stamp#v6step_})) ;;
+      step_*)   step=$((10#${stamp#step_})) ;;
+      *)        step=60 ;;   # legacy epoch stamps = the ~s60 relays
     esac
     if [ -f "results/val_screens/.done_${arm}_${stamp}" ]; then
       done_steps="$done_steps $step"
