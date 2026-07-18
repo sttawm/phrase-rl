@@ -1,0 +1,95 @@
+{
+ "per_task": {
+  "widowx_carrot_on_keyboard_clean": {
+   "frozen_clean_greedy_x12": 25.3,
+   "frozen_ert_repair_x3": 22.2,
+   "ert_passthrough_x3": 0.0,
+   "v6B_s60_x12": 22.9,
+   "v6B_s80_x12": 22.9,
+   "v6B_s120_x12": 22.9,
+   "headroom_clean_minus_repair": 3.1,
+   "tuned_minus_repair_last": 0.7
+  },
+  "widowx_carrot_on_plate": {
+   "frozen_clean_greedy_x12": 45.5,
+   "frozen_ert_repair_x3": 40.3,
+   "ert_passthrough_x3": 27.8,
+   "v6B_s60_x12": 45.1,
+   "v6B_s80_x12": 45.1,
+   "v6B_s120_x12": 42.4,
+   "headroom_clean_minus_repair": 5.2,
+   "tuned_minus_repair_last": 2.1
+  },
+  "widowx_carrot_on_wheel_clean": {
+   "frozen_clean_greedy_x12": 29.2,
+   "frozen_ert_repair_x3": 9.7,
+   "ert_passthrough_x3": 0.0,
+   "v6B_s60_x12": 0.0,
+   "v6B_s80_x12": 0.0,
+   "v6B_s120_x12": 3.1,
+   "headroom_clean_minus_repair": 19.4,
+   "tuned_minus_repair_last": -6.6
+  },
+  "widowx_coke_can_on_plate_clean": {
+   "frozen_clean_greedy_x12": 25.0,
+   "frozen_ert_repair_x3": 25.0,
+   "ert_passthrough_x3": 1.4,
+   "v6B_s60_x12": 27.4,
+   "v6B_s80_x12": 37.2,
+   "v6B_s120_x12": 27.4,
+   "headroom_clean_minus_repair": 0.0,
+   "tuned_minus_repair_last": 2.4
+  },
+  "widowx_coke_can_on_ramekin_clean": {
+   "frozen_clean_greedy_x12": 31.9,
+   "frozen_ert_repair_x3": 63.9,
+   "ert_passthrough_x3": 30.6,
+   "v6B_s60_x12": 64.2,
+   "v6B_s80_x12": 64.2,
+   "v6B_s120_x12": 64.2,
+   "headroom_clean_minus_repair": -31.9,
+   "tuned_minus_repair_last": 0.3
+  },
+  "widowx_put_eggplant_in_basket": {
+   "frozen_clean_greedy_x12": 92.7,
+   "frozen_ert_repair_x3": 77.8,
+   "ert_passthrough_x3": 48.6,
+   "v6B_s60_x12": 81.9,
+   "v6B_s80_x12": 81.9,
+   "v6B_s120_x12": 81.9,
+   "headroom_clean_minus_repair": 14.9,
+   "tuned_minus_repair_last": 4.2
+  },
+  "widowx_spoon_on_towel": {
+   "frozen_clean_greedy_x12": 54.5,
+   "frozen_ert_repair_x3": 50.0,
+   "ert_passthrough_x3": 20.8,
+   "v6B_s60_x12": 37.8,
+   "v6B_s80_x12": 37.8,
+   "v6B_s120_x12": 25.0,
+   "headroom_clean_minus_repair": 4.5,
+   "tuned_minus_repair_last": -25.0
+  },
+  "widowx_stack_cube": {
+   "frozen_clean_greedy_x12": 30.2,
+   "frozen_ert_repair_x3": 19.4,
+   "ert_passthrough_x3": 2.8,
+   "v6B_s60_x12": 24.3,
+   "v6B_s80_x12": 24.3,
+   "v6B_s120_x12": 30.6,
+   "headroom_clean_minus_repair": 10.8,
+   "tuned_minus_repair_last": 11.1
+  }
+ },
+ "pooled": {
+  "frozen_clean_greedy_x12": 41.8,
+  "frozen_ert_repair_x3": 38.5,
+  "ert_passthrough_x3": 16.5,
+  "v6B_s60_x12": 38.0,
+  "v6B_s80_x12": 39.2,
+  "v6B_s120_x12": 37.2,
+  "headroom_clean_minus_repair": 3.2,
+  "tuned_minus_repair_last": -1.4
+ },
+ "note": "repair/passthrough at x3 reps (n=72/task, +/-~9pp task SE); clean anchor and tuned at x12 (n=288/task). Several tasks show identical tuned numbers across checkpoints: greedy repair phrase is byte-identical across checkpoints and rollouts are CRN-pinned."
+}

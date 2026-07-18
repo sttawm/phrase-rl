@@ -1,0 +1,126 @@
+{
+ "n_steps": 172,
+ "first_step": 0,
+ "last_step": 171,
+ "dup_bands": {
+  "1-25": {
+   "dup_rate": 0.0813,
+   "eff_unique_of_16": 14.7,
+   "parse_fail": 0.0,
+   "gate_fail": 0.0,
+   "kl": 0.0007,
+   "adv_max": 2.0795,
+   "cand_loss_mean": 2.1009,
+   "n": 25
+  },
+  "26-50": {
+   "dup_rate": 0.0855,
+   "eff_unique_of_16": 14.63,
+   "parse_fail": 0.0,
+   "gate_fail": 0.0,
+   "kl": 0.0065,
+   "adv_max": 2.2007,
+   "cand_loss_mean": 2.1262,
+   "n": 25
+  },
+  "51-75": {
+   "dup_rate": 0.1366,
+   "eff_unique_of_16": 13.81,
+   "parse_fail": 0.0,
+   "gate_fail": 0.0,
+   "kl": 0.0278,
+   "adv_max": 2.2739,
+   "cand_loss_mean": 2.4023,
+   "n": 25
+  },
+  "76-100": {
+   "dup_rate": 0.2087,
+   "eff_unique_of_16": 12.66,
+   "parse_fail": 0.0,
+   "gate_fail": 0.0,
+   "kl": 0.0701,
+   "adv_max": 2.6467,
+   "cand_loss_mean": 2.1707,
+   "n": 25
+  },
+  "101-125": {
+   "dup_rate": 0.2306,
+   "eff_unique_of_16": 12.31,
+   "parse_fail": 0.0,
+   "gate_fail": 0.0,
+   "kl": 0.1011,
+   "adv_max": 2.4947,
+   "cand_loss_mean": 1.8568,
+   "n": 25
+  },
+  "126-150": {
+   "dup_rate": 0.2238,
+   "eff_unique_of_16": 12.42,
+   "parse_fail": 0.0,
+   "gate_fail": 0.0,
+   "kl": 0.1217,
+   "adv_max": 2.3475,
+   "cand_loss_mean": 1.8425,
+   "n": 25
+  },
+  "151-175": {
+   "dup_rate": 0.2496,
+   "eff_unique_of_16": 12.01,
+   "parse_fail": 0.0,
+   "gate_fail": 0.0,
+   "kl": 0.1608,
+   "adv_max": 2.467,
+   "cand_loss_mean": 1.7682,
+   "n": 21
+  }
+ },
+ "dup_trend": {
+  "slope_per_100_steps": 0.1253,
+  "intercept": 0.0646,
+  "last25_mean": 0.2475,
+  "first25_mean": 0.0842,
+  "max": 0.4609
+ },
+ "cand_loss_by_tier": {
+  "nominal": {
+   "first25": NaN,
+   "last25": 1.015
+  },
+  "benign": {
+   "first25": NaN,
+   "last25": 1.54
+  },
+  "ert": {
+   "first25": 2.59,
+   "last25": 2.396
+  }
+ },
+ "timing_last30": {
+  "sec": 398.4167,
+  "gen_sec": 55.6467,
+  "judge_sec": 0.0,
+  "score_sec": 119.0633,
+  "update_sec": 223.6367,
+  "fwd_sec": 58.8023,
+  "bwd_sec": 157.7647,
+  "share": {
+   "gen_sec": 0.14,
+   "score_sec": 0.299,
+   "update_sec": 0.561
+  }
+ },
+ "step_cost_8f": {
+  "extra_sec": 119.1,
+  "step_sec": 517.5,
+  "multiplier": 1.299
+ },
+ "step_cost_16f": {
+  "extra_sec": 357.2,
+  "step_sec": 755.6,
+  "multiplier": 1.897
+ },
+ "kl": {
+  "last10_mean": 0.1716,
+  "max": 0.2203
+ }
+}
