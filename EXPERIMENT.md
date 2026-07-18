@@ -505,3 +505,9 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   Ladder boundaries (pre-registered, vs 40.2 repair anchor, +/-3-4pp): STRONG
   >=38, WEAK 33-38, NULL 27-33, HARMFUL <27; verdict checkpoint >=step 120;
   mandatory echo byte-audit before interpreting any leg.
+  V6-B END OF RUN (user cost decision, 2026-07-18 night): training stopped at
+  step ~192 (of the >=300 protocol) after the migration; rationale = the flat
+  triptych (mode/distribution/oracle all unresponsive to verifier gains
+  through 180) made steps 192-300 marginal. Full step-190 state (adapter +
+  optimizer + trainer_state) archived locally (adapter_archive/B_v6_final_s190).
+  Fleet reduced to pod4 (A6000) for the exam + selection-exam workstream.
