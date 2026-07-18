@@ -471,3 +471,11 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   References rebuilt at true 4f: val40_references_true4f.json; criterion
   comparisons valid for vals >=60 vs the new refs. best_val_margin poisoning
   concern likewise withdrawn (orig shift was uniform per era).
+  ARM A TERMINATED (cost decision, ~step 80): v6 continues as arm B only.
+  Rationale: A ran 2.6x slower per dollar (batched-update parity fallback),
+  v5-A was the copy-drift arm, list-mode showed tag-era parse-fail uptick,
+  and the A/B contrast had delivered its finding (conditioning consistency).
+  ALL A checkpoints archived locally (adapter_archive/, incl. final state +
+  optimizer — resumable). Val fleet: nominal chain pod and pod4 self-remove
+  when their queues drain; v6-A ladder self-removes after screening
+  v6step_0060. Steady state: B RL pod + v6-B ladder.
