@@ -459,3 +459,12 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   were A@40 / B@50 from latest/; the abandoned untagged redo steps were dropped
   from telemetry by resume dedupe). Ladder screens are step-gated: VAL_TAG_FROM
   =41 for A, =51 for B (A v6step_0020/0040 and B v6step_0020..0050 = pre-tag).
+  VAL CAVEAT (v6.3, fixed same night): vals at A@60 and B@60 are CONTAMINATED —
+  process_context tags the source, so the val probe (a) scored the ORIGINAL
+  phrase WITH the tag text (orig 0.85 -> 0.617, identical across arms = the
+  tell), (b) double-tagged the greedy gen input, (c) scored greedy/ERT decodes
+  without echo-strip. Those vals cannot be read as model regression. Fixed
+  (score untagged orig; single tag; strip scored probes); best_val_margin at
+  @60 was computed against the depressed orig and is inflated — best_val
+  selection distrusted until a later val beats it honestly (all checkpoints
+  are archived regardless). First CLEAN tagged vals: A@80, B@80.
