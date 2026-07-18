@@ -85,3 +85,15 @@ WRITEUP.md exists (389 lines) — extend it. **Five sections are evidence-comple
 - Minority technical notes: lr ≤1.5x permissible with KL breaker (analyst 1, not recommended); 8f as checkpoint-selection-only scorer (analyst 5, recorded).
 
 **Bottom line:** the optimizer works, the coarse reward works, and the benchmark can't pay out. Stop tuning knobs; spend the next $100 on tasks with measured headroom, a fine-axis reward that passes a labeled audit it currently fails, and — most likely — the one quadrant (rollout-reward × hostile) where the proxy gap is zero by construction. The noninferiority result is already banked; write it down before v7 rolls.
+---
+## ADDENDUM (post-memo, same day): training-vocabulary coverage of eval-task nouns
+2,000 train contexts = 1,355 unique instructions, 542 content words, 329 object /
+480 receptacle phrases — style diversity is adequate. But the four OOD eval tasks'
+nouns appear ~ZERO times (coke 0, keyboard 0, wheel 0, ramekin 0, tire 1) vs
+19-106 mentions for the four native-task nouns. The reward therefore never
+carried any signal about pi0's preferred vocabulary for the OOD objects — the
+"tire" 0.0% failure is an out-of-coverage fallback to the LM prior, unfixable by
+more Bridge contexts (Bridge contains none of these objects). Strengthens:
+pseudo-demo harvest (puts OOD-object contexts INTO the reward loop) and Design B
+(rollout reward = direct gradient on those objects). Script:
+results/analysis/train_vocab_coverage.py
