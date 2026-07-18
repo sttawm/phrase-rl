@@ -1,0 +1,1445 @@
+{
+ "created": "2026-07-18",
+ "match_rule": "exact phrase string after NFKC+casefold+whitespace-collapse",
+ "tables": {
+  "widowx_carrot_on_plate": {
+   "source": "study_multit",
+   "n_raw_phrases": 35,
+   "n_score_keys": 35,
+   "n_episodes": 20,
+   "punct_merged_keys": {}
+  },
+  "widowx_put_eggplant_in_basket": {
+   "source": "eggplant_sim",
+   "n_raw_phrases": 35,
+   "n_score_keys": 35,
+   "n_episodes": 60,
+   "punct_merged_keys": {}
+  },
+  "widowx_spoon_on_towel": {
+   "source": "study_multit",
+   "n_raw_phrases": 35,
+   "n_score_keys": 35,
+   "n_episodes": 10,
+   "punct_merged_keys": {}
+  },
+  "widowx_stack_cube": {
+   "source": "study_multit",
+   "n_raw_phrases": 35,
+   "n_score_keys": 34,
+   "n_episodes": 20,
+   "punct_merged_keys": {
+    "put the green block on the yellow block": [
+     "Put the green block on the yellow block",
+     "Put the green block on the yellow block."
+    ]
+   }
+  }
+ },
+ "note": "study_scores_* old single-frame contexts carry the same 35-phrase sets as study_multit -> no additional coverage; OOD (_clean) tasks have no stored feature tables at all.",
+ "punct_only_matches": 0,
+ "counts": {
+  "native": {
+   "both": 4,
+   "one": 26,
+   "none": 38
+  },
+  "ood": {
+   "both": 0,
+   "one": 0,
+   "none": 71
+  }
+ },
+ "pairs": [
+  {
+   "pair_index": 0,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 63.5
+  },
+  {
+   "pair_index": 1,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 61.8
+  },
+  {
+   "pair_index": 2,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 55.3
+  },
+  {
+   "pair_index": 3,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 53.1
+  },
+  {
+   "pair_index": 4,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 52.9
+  },
+  {
+   "pair_index": 5,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 45.6
+  },
+  {
+   "pair_index": 6,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 44.8
+  },
+  {
+   "pair_index": 7,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 43.4
+  },
+  {
+   "pair_index": 8,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 43.2
+  },
+  {
+   "pair_index": 9,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 41.0
+  },
+  {
+   "pair_index": 10,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 40.6
+  },
+  {
+   "pair_index": 11,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "eggplant_sim",
+   "delta_pp": 40.3
+  },
+  {
+   "pair_index": 12,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "eggplant_sim",
+   "delta_pp": 39.9
+  },
+  {
+   "pair_index": 13,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 39.9
+  },
+  {
+   "pair_index": 14,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 39.6
+  },
+  {
+   "pair_index": 15,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "eggplant_sim",
+   "delta_pp": 37.8
+  },
+  {
+   "pair_index": 16,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "both",
+   "better_covered": true,
+   "worse_covered": true,
+   "table": "eggplant_sim",
+   "delta_pp": 37.8
+  },
+  {
+   "pair_index": 17,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 37.4
+  },
+  {
+   "pair_index": 18,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 37.3
+  },
+  {
+   "pair_index": 19,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 36.1
+  },
+  {
+   "pair_index": 20,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 36.0
+  },
+  {
+   "pair_index": 21,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 35.8
+  },
+  {
+   "pair_index": 22,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 35.8
+  },
+  {
+   "pair_index": 23,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 35.3
+  },
+  {
+   "pair_index": 24,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 35.1
+  },
+  {
+   "pair_index": 25,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 34.4
+  },
+  {
+   "pair_index": 26,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 34.4
+  },
+  {
+   "pair_index": 27,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 34.0
+  },
+  {
+   "pair_index": 28,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 33.3
+  },
+  {
+   "pair_index": 29,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 32.3
+  },
+  {
+   "pair_index": 30,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "eggplant_sim",
+   "delta_pp": 32.3
+  },
+  {
+   "pair_index": 31,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 32.1
+  },
+  {
+   "pair_index": 32,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "both",
+   "better_covered": true,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 31.7
+  },
+  {
+   "pair_index": 33,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 31.3
+  },
+  {
+   "pair_index": 34,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 30.9
+  },
+  {
+   "pair_index": 35,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 30.8
+  },
+  {
+   "pair_index": 36,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 30.6
+  },
+  {
+   "pair_index": 37,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 30.6
+  },
+  {
+   "pair_index": 38,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 30.6
+  },
+  {
+   "pair_index": 39,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 30.6
+  },
+  {
+   "pair_index": 40,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "both",
+   "better_covered": true,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 30.3
+  },
+  {
+   "pair_index": 41,
+   "task": "widowx_carrot_on_plate",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 30.2
+  },
+  {
+   "pair_index": 42,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 30.2
+  },
+  {
+   "pair_index": 43,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 30.2
+  },
+  {
+   "pair_index": 44,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 30.1
+  },
+  {
+   "pair_index": 45,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 29.6
+  },
+  {
+   "pair_index": 46,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 29.5
+  },
+  {
+   "pair_index": 47,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 29.2
+  },
+  {
+   "pair_index": 48,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 29.1
+  },
+  {
+   "pair_index": 49,
+   "task": "widowx_carrot_on_plate",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 28.8
+  },
+  {
+   "pair_index": 50,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "eggplant_sim",
+   "delta_pp": 28.8
+  },
+  {
+   "pair_index": 51,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 28.6
+  },
+  {
+   "pair_index": 52,
+   "task": "widowx_carrot_on_plate",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 28.5
+  },
+  {
+   "pair_index": 53,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 28.5
+  },
+  {
+   "pair_index": 54,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 28.5
+  },
+  {
+   "pair_index": 55,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "eggplant_sim",
+   "delta_pp": 28.5
+  },
+  {
+   "pair_index": 56,
+   "task": "widowx_carrot_on_plate",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 28.1
+  },
+  {
+   "pair_index": 57,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 27.4
+  },
+  {
+   "pair_index": 58,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 26.1
+  },
+  {
+   "pair_index": 59,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 26.0
+  },
+  {
+   "pair_index": 60,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 26.0
+  },
+  {
+   "pair_index": 61,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 25.9
+  },
+  {
+   "pair_index": 62,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 25.7
+  },
+  {
+   "pair_index": 63,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 25.6
+  },
+  {
+   "pair_index": 64,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 25.6
+  },
+  {
+   "pair_index": 65,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 25.3
+  },
+  {
+   "pair_index": 66,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 25.3
+  },
+  {
+   "pair_index": 67,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 25.1
+  },
+  {
+   "pair_index": 68,
+   "task": "widowx_carrot_on_plate",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 25.0
+  },
+  {
+   "pair_index": 69,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 25.0
+  },
+  {
+   "pair_index": 70,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 24.9
+  },
+  {
+   "pair_index": 71,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 24.7
+  },
+  {
+   "pair_index": 72,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 24.5
+  },
+  {
+   "pair_index": 73,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 24.4
+  },
+  {
+   "pair_index": 74,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 24.0
+  },
+  {
+   "pair_index": 75,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 23.9
+  },
+  {
+   "pair_index": 76,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 23.7
+  },
+  {
+   "pair_index": 77,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 23.6
+  },
+  {
+   "pair_index": 78,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 23.5
+  },
+  {
+   "pair_index": 79,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 23.5
+  },
+  {
+   "pair_index": 80,
+   "task": "widowx_carrot_on_plate",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 23.3
+  },
+  {
+   "pair_index": 81,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 23.3
+  },
+  {
+   "pair_index": 82,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 23.3
+  },
+  {
+   "pair_index": 83,
+   "task": "widowx_carrot_on_plate",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 23.1
+  },
+  {
+   "pair_index": 84,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 22.9
+  },
+  {
+   "pair_index": 85,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 22.6
+  },
+  {
+   "pair_index": 86,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 22.4
+  },
+  {
+   "pair_index": 87,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 22.2
+  },
+  {
+   "pair_index": 88,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 21.2
+  },
+  {
+   "pair_index": 89,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 20.8
+  },
+  {
+   "pair_index": 90,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 20.4
+  },
+  {
+   "pair_index": 91,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 20.1
+  },
+  {
+   "pair_index": 92,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 19.9
+  },
+  {
+   "pair_index": 93,
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 19.9
+  },
+  {
+   "pair_index": 94,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 19.4
+  },
+  {
+   "pair_index": 95,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 19.1
+  },
+  {
+   "pair_index": 96,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "both",
+   "better_covered": true,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 19.0
+  },
+  {
+   "pair_index": 97,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 18.8
+  },
+  {
+   "pair_index": 98,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 18.7
+  },
+  {
+   "pair_index": 99,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 18.6
+  },
+  {
+   "pair_index": 100,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 17.7
+  },
+  {
+   "pair_index": 101,
+   "task": "widowx_carrot_on_plate",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 17.6
+  },
+  {
+   "pair_index": 102,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 17.5
+  },
+  {
+   "pair_index": 103,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 17.4
+  },
+  {
+   "pair_index": 104,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 17.4
+  },
+  {
+   "pair_index": 105,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 17.4
+  },
+  {
+   "pair_index": 106,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 17.2
+  },
+  {
+   "pair_index": 107,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 17.2
+  },
+  {
+   "pair_index": 108,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 17.2
+  },
+  {
+   "pair_index": 109,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 17.0
+  },
+  {
+   "pair_index": 110,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 17.0
+  },
+  {
+   "pair_index": 111,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 16.7
+  },
+  {
+   "pair_index": 112,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 16.7
+  },
+  {
+   "pair_index": 113,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 16.2
+  },
+  {
+   "pair_index": 114,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 15.8
+  },
+  {
+   "pair_index": 115,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 15.6
+  },
+  {
+   "pair_index": 116,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 14.6
+  },
+  {
+   "pair_index": 117,
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "covered": "one",
+   "better_covered": false,
+   "worse_covered": true,
+   "table": "study_multit",
+   "delta_pp": 14.1
+  },
+  {
+   "pair_index": 118,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 13.1
+  },
+  {
+   "pair_index": 119,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 12.5
+  },
+  {
+   "pair_index": 120,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 12.4
+  },
+  {
+   "pair_index": 121,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 12.2
+  },
+  {
+   "pair_index": 122,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 12.2
+  },
+  {
+   "pair_index": 123,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 12.0
+  },
+  {
+   "pair_index": 124,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 11.9
+  },
+  {
+   "pair_index": 125,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 11.9
+  },
+  {
+   "pair_index": 126,
+   "task": "widowx_stack_cube",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "study_multit",
+   "delta_pp": 11.6
+  },
+  {
+   "pair_index": 127,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 11.5
+  },
+  {
+   "pair_index": 128,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 11.1
+  },
+  {
+   "pair_index": 129,
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 10.5
+  },
+  {
+   "pair_index": 130,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 10.4
+  },
+  {
+   "pair_index": 131,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 10.0
+  },
+  {
+   "pair_index": 132,
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 9.9
+  },
+  {
+   "pair_index": 133,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 9.2
+  },
+  {
+   "pair_index": 134,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 9.0
+  },
+  {
+   "pair_index": 135,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "one",
+   "better_covered": true,
+   "worse_covered": false,
+   "table": "eggplant_sim",
+   "delta_pp": 9.0
+  },
+  {
+   "pair_index": 136,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 8.0
+  },
+  {
+   "pair_index": 137,
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 7.9
+  },
+  {
+   "pair_index": 138,
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "covered": "none",
+   "better_covered": false,
+   "worse_covered": false,
+   "table": null,
+   "delta_pp": 7.6
+  }
+ ]
+}

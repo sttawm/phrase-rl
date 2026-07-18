@@ -1,0 +1,167 @@
+{
+ "created": "2026-07-18",
+ "purpose": "score these (task, phrase) cells on stored/matched contexts so every frozen gate-zero pair is fully covered; extraction must reproduce the training slots",
+ "extraction": {
+  "pins": {
+   "k_flow": 8,
+   "k_decode": 4,
+   "seed": 0,
+   "tau_min": 0.0,
+   "ckpt": "juexzz/INTACT-pi0-finetune-rephrase-bridge"
+  },
+  "verbose_table": "phrase_rl.study_verbose_rescore --contexts <ctx> --phrases <new phrase parquet> --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge --k 8  (flow v/u/loss)",
+  "l2_table": "phrase_rl.pi0_decode --contexts <ctx> --phrases <new phrase parquet> --stats-contexts data/contexts_train.parquet --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge  (decoded/norm_l2/grip_err, K=4)"
+ },
+ "tasks": [
+  {
+   "task": "widowx_carrot_on_plate",
+   "native": true,
+   "n_phrases": 7,
+   "phrases": [
+    "Pick up the orange carrot and place it on the green plate.",
+    "Pick up the orange carrot and place it on the light-green plate.",
+    "Place the carrot on the ceramic platter.",
+    "Place the orange carrot on the green plate.",
+    "Place the orange carrot on the light-green plate.",
+    "Place the vegetable on the ceramic dish.",
+    "pick up the orange carrot and place it on the light green plate"
+   ],
+   "regret_exam_only": [],
+   "contexts": "data/contexts_0c_match.parquet expanded to quartile frames via `python -m phrase_rl.multi_t_contexts --contexts data/contexts_0c_match.parquet --out data/contexts_0c_match_multit.parquet` (seed=0 -> reproduces the 200 contexts in results/overnight/raw/multit_astar.parquet)",
+   "context_origin": "experiments.json 'phase0c-rollout-sensitivity': `python -m phrase_rl.phase0c_match_contexts --per-task 20 --out data/contexts_0c_match.parquet`",
+   "required": true
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "native": true,
+   "n_phrases": 6,
+   "phrases": [
+    "Arrange the eggplant in the yellow bin.",
+    "Pick up the eggplant and place it in the yellow bin.",
+    "Pick up the purple eggplant and place it in the yellow bin.",
+    "Transfer the eggplant to the yellow drying rack.",
+    "place the purple aubergine in the yellow dish rack",
+    "put the eggplant into the yellow basket"
+   ],
+   "regret_exam_only": [],
+   "contexts": "results/overnight/raw/sim_contexts_eggplant.parquet (60 sim contexts; eggplant has no Bridge counterpart per the 0c entry). Learned fine readouts carry the sim-inversion caveat; grip/gate OK.",
+   "required": true
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "native": true,
+   "n_phrases": 10,
+   "phrases": [
+    "Move the spoon to the center of the blue towel.",
+    "Pick up the green-handled spoon and place it in the center of the blue towel.",
+    "Pick up the green-handled spoon and place it on the blue towel.",
+    "Pick up the spoon and place it in the middle of the towel.",
+    "Place the green spoon in the center of the blue towel.",
+    "Place the green-handled spoon in the center of the blue towel.",
+    "Place the spoon exactly in the middle of the towel.",
+    "Place the spoon in the middle of the towel.",
+    "place the green-handled spoon on the blue cloth",
+    "place the spoon on the towel"
+   ],
+   "regret_exam_only": [
+    "Place the spoon in the middle of the towel."
+   ],
+   "contexts": "data/contexts_0c_match.parquet expanded to quartile frames via `python -m phrase_rl.multi_t_contexts --contexts data/contexts_0c_match.parquet --out data/contexts_0c_match_multit.parquet` (seed=0 -> reproduces the 200 contexts in results/overnight/raw/multit_astar.parquet)",
+   "context_origin": "experiments.json 'phase0c-rollout-sensitivity': `python -m phrase_rl.phase0c_match_contexts --per-task 20 --out data/contexts_0c_match.parquet`",
+   "required": true
+  },
+  {
+   "task": "widowx_stack_cube",
+   "native": true,
+   "n_phrases": 5,
+   "phrases": [
+    "Pick up the green block and place it on top of the yellow block.",
+    "Stack the green block on top of the yellow block.",
+    "Take the green cube and place it on the yellow cube.",
+    "pick up the green cube and place it on the yellow cube",
+    "put carrot on plate"
+   ],
+   "regret_exam_only": [],
+   "contexts": "data/contexts_0c_match.parquet expanded to quartile frames via `python -m phrase_rl.multi_t_contexts --contexts data/contexts_0c_match.parquet --out data/contexts_0c_match_multit.parquet` (seed=0 -> reproduces the 200 contexts in results/overnight/raw/multit_astar.parquet)",
+   "context_origin": "experiments.json 'phase0c-rollout-sensitivity': `python -m phrase_rl.phase0c_match_contexts --per-task 20 --out data/contexts_0c_match.parquet`",
+   "required": true
+  },
+  {
+   "task": "widowx_carrot_on_keyboard_clean",
+   "native": false,
+   "n_phrases": 8,
+   "phrases": [
+    "Locate the long, orange vegetable with green leaves and place it carefully on top of the black peripheral device used for typing.",
+    "Locate the long, orange vegetable with green leaves and place it on top of the black peripheral device used for typing.",
+    "Pick up the orange carrot and place it on the black keyboard.",
+    "Pick up the orange carrot and place it on the keyboard.",
+    "Pick up the orange carrot and place it on top of the black keyboard.",
+    "pick up the orange carrot and place it on the black keyboard",
+    "place carrot on keyboard",
+    "put carrot on keyboard"
+   ],
+   "regret_exam_only": [],
+   "contexts": null,
+   "required": false,
+   "note": "OOD (_clean) task -- optional diagnostic per the style-claim constraint; no stored contexts exist (would need new sim-context capture for the _clean variant)."
+  },
+  {
+   "task": "widowx_carrot_on_wheel_clean",
+   "native": false,
+   "n_phrases": 9,
+   "phrases": [
+    "Pick up the carrot and place it in the center of the tire.",
+    "Pick up the carrot and place it inside the tire.",
+    "Pick up the carrot and place it into the center of the tire.",
+    "Pick up the orange carrot and place it in the center of the black tire.",
+    "Pick up the orange carrot and place it in the center of the tire.",
+    "Retrieve the long, tapered orange item that grows underground and deposit it onto the center of the circular object used for vehicle traction.",
+    "pick up the orange carrot and place it on the black tire",
+    "place carrot on wheel",
+    "put carrot on wheel"
+   ],
+   "regret_exam_only": [],
+   "contexts": null,
+   "required": false,
+   "note": "OOD (_clean) task -- optional diagnostic per the style-claim constraint; no stored contexts exist (would need new sim-context capture for the _clean variant)."
+  },
+  {
+   "task": "widowx_coke_can_on_plate_clean",
+   "native": false,
+   "n_phrases": 9,
+   "phrases": [
+    "Move the red beverage can to the yellow plate.",
+    "Pick up the carbonated drink container on the left and position it on top of the flat, yellow dining vessel to its right.",
+    "Pick up the red can and place it on the yellow plate.",
+    "Pick up the red cola can and place it on the yellow plate.",
+    "Pick up the red cola can on the left and place it on the yellow plate to its right.",
+    "Pick up the red soda can on the left and place it on the yellow plate to its right.",
+    "Retrieve the carbonated drink container on the left and position it carefully on top of the flat, yellow dining vessel to its right.",
+    "pick up the red can and place it on the yellow plate",
+    "put coke can on plate"
+   ],
+   "regret_exam_only": [],
+   "contexts": null,
+   "required": false,
+   "note": "OOD (_clean) task -- optional diagnostic per the style-claim constraint; no stored contexts exist (would need new sim-context capture for the _clean variant)."
+  },
+  {
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "native": false,
+   "n_phrases": 7,
+   "phrases": [
+    "Grasp the red-labeled cylinder containing carbonated drink and transfer it so that it is sitting upright inside the hollow white ceramic cup-like container nearby.",
+    "Lift the red can and put it vertically inside the white dish.",
+    "Pick up the red cola can and place it upright inside the white bowl.",
+    "Pick up the red cola can and place it upright inside the white ceramic bowl.",
+    "Pick up the red cola can and place it vertically inside the white bowl.",
+    "pick up the red can and place it on the white bowl",
+    "put coke can on ramekin"
+   ],
+   "regret_exam_only": [],
+   "contexts": null,
+   "required": false,
+   "note": "OOD (_clean) task -- optional diagnostic per the style-claim constraint; no stored contexts exist (would need new sim-context capture for the _clean variant)."
+  }
+ ]
+}

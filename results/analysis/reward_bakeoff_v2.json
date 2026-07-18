@@ -1,0 +1,1568 @@
+{
+ "created": "2026-07-18",
+ "frozen_decisions": {
+  "floor": {
+   "value": -0.8928,
+   "nominal_logits": {
+    "widowx_carrot_on_plate": 0.742,
+    "widowx_put_eggplant_in_basket": -5.6061,
+    "widowx_spoon_on_towel": -0.8801,
+    "widowx_stack_cube": -0.8928
+   },
+   "rule": "min over Bridge-context native tasks of the nominal-passthrough ensemble logit (sim eggplant excluded from derivation, floor applies everywhere; no margin)"
+  },
+  "group": "within-task scored group = all 35 stored table phrases (GRPO-group analog)",
+  "c5_penalty": "fine = rank01(-grip_winsorized) - lambda*|distinct lexicon tokens in candidate and not in nominal|; rank01 in [0,1] within task; C5b = rank01(ensemble logit) - lambda*echo; lambda in {0.5, 1.0}",
+  "bootstrap_limitation": "no per-layout rows in feature tables: frozen-exam success perturbed N(0, layout-clustered se); score side resamples feature episodes; supplementary exam resamples true layouts"
+ },
+ "coverage_counts": {
+  "native": {
+   "both": 4,
+   "one": 26,
+   "none": 38
+  },
+  "ood": {
+   "both": 0,
+   "one": 0,
+   "none": 71
+  }
+ },
+ "gate_zero": {
+  "n_covered_pairs": 4,
+  "pairs": [
+   {
+    "task": "widowx_put_eggplant_in_basket",
+    "better": "put eggplant into yellow basket",
+    "worse": "Arrange the eggplant neatly in the yellow bin.",
+    "delta_pp": 37.8,
+    "sim": true
+   },
+   {
+    "task": "widowx_spoon_on_towel",
+    "better": "put the spoon on the towel",
+    "worse": "Set the spoon exactly in the middle of the towel.",
+    "delta_pp": 31.7,
+    "sim": false
+   },
+   {
+    "task": "widowx_stack_cube",
+    "better": "Place the green block on top of the yellow block.",
+    "worse": "Arrange the lush green element atop the yellowish-orange element.",
+    "delta_pp": 30.3,
+    "sim": false
+   },
+   {
+    "task": "widowx_stack_cube",
+    "better": "stack the green block on the yellow block",
+    "worse": "Arrange the lush green element atop the yellowish-orange element.",
+    "delta_pp": 19.0,
+    "sim": false
+   }
+  ],
+  "summary": {
+   "C1_ens4f": {
+    "native_correct": 4,
+    "native_n": 4,
+    "all_correct": 4,
+    "all_n": 4,
+    "fails": []
+   },
+   "C2_relfloor_grip": {
+    "native_correct": 4,
+    "native_n": 4,
+    "all_correct": 4,
+    "all_n": 4,
+    "fails": []
+   },
+   "C3_relfloor_gripwins": {
+    "native_correct": 4,
+    "native_n": 4,
+    "all_correct": 4,
+    "all_n": 4,
+    "fails": []
+   },
+   "C4a_rank_50_50": {
+    "native_correct": 4,
+    "native_n": 4,
+    "all_correct": 4,
+    "all_n": 4,
+    "fails": []
+   },
+   "C4b_rank_25_75": {
+    "native_correct": 4,
+    "native_n": 4,
+    "all_correct": 4,
+    "all_n": 4,
+    "fails": []
+   },
+   "C5_echo_l05": {
+    "native_correct": 4,
+    "native_n": 4,
+    "all_correct": 4,
+    "all_n": 4,
+    "fails": []
+   },
+   "C5_echo_l10": {
+    "native_correct": 4,
+    "native_n": 4,
+    "all_correct": 4,
+    "all_n": 4,
+    "fails": []
+   },
+   "C5b_ens_echo_l05": {
+    "native_correct": 4,
+    "native_n": 4,
+    "all_correct": 4,
+    "all_n": 4,
+    "fails": []
+   },
+   "C5b_ens_echo_l10": {
+    "native_correct": 4,
+    "native_n": 4,
+    "all_correct": 4,
+    "all_n": 4,
+    "fails": []
+   }
+  },
+  "detail": {
+   "C1_ens4f": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 37.8,
+     "sim": true,
+     "score_better": -5.6061,
+     "score_worse": -5.8062,
+     "correct": true
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "sim": false,
+     "score_better": -0.8801,
+     "score_worse": -2.3567,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 30.3,
+     "sim": false,
+     "score_better": -0.6589,
+     "score_worse": -2.1583,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "stack the green block on the yellow block",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 19.0,
+     "sim": false,
+     "score_better": -0.8928,
+     "score_worse": -2.1583,
+     "correct": true
+    }
+   ],
+   "C2_relfloor_grip": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 37.8,
+     "sim": true,
+     "score_better": -1005.6061,
+     "score_worse": -1005.8062,
+     "correct": true
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "sim": false,
+     "score_better": 999.9195,
+     "score_worse": -1002.3567,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 30.3,
+     "sim": false,
+     "score_better": 999.8971,
+     "score_worse": -1002.1583,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "stack the green block on the yellow block",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 19.0,
+     "sim": false,
+     "score_better": 999.8884,
+     "score_worse": -1002.1583,
+     "correct": true
+    }
+   ],
+   "C3_relfloor_gripwins": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 37.8,
+     "sim": true,
+     "score_better": -1005.6061,
+     "score_worse": -1005.8062,
+     "correct": true
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "sim": false,
+     "score_better": 999.8881,
+     "score_worse": -1002.3567,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 30.3,
+     "sim": false,
+     "score_better": 999.8929,
+     "score_worse": -1002.1583,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "stack the green block on the yellow block",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 19.0,
+     "sim": false,
+     "score_better": 999.8884,
+     "score_worse": -1002.1583,
+     "correct": true
+    }
+   ],
+   "C4a_rank_50_50": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 37.8,
+     "sim": true,
+     "score_better": 0.75,
+     "score_worse": 0.4559,
+     "correct": true
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "sim": false,
+     "score_better": 1.0,
+     "score_worse": 0.3529,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 30.3,
+     "sim": false,
+     "score_better": 1.0,
+     "score_worse": 0.3485,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "stack the green block on the yellow block",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 19.0,
+     "sim": false,
+     "score_better": 0.803,
+     "score_worse": 0.3485,
+     "correct": true
+    }
+   ],
+   "C4b_rank_25_75": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 37.8,
+     "sim": true,
+     "score_better": 0.6544,
+     "score_worse": 0.2574,
+     "correct": true
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "sim": false,
+     "score_better": 1.0,
+     "score_worse": 0.2353,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 30.3,
+     "sim": false,
+     "score_better": 1.0,
+     "score_worse": 0.3561,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "stack the green block on the yellow block",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 19.0,
+     "sim": false,
+     "score_better": 0.8409,
+     "score_worse": 0.3561,
+     "correct": true
+    }
+   ],
+   "C5_echo_l05": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 37.8,
+     "sim": true,
+     "score_better": -1005.6061,
+     "score_worse": -1005.8062,
+     "correct": true
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "sim": false,
+     "score_better": 1000.9853,
+     "score_worse": -1002.3567,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 30.3,
+     "sim": false,
+     "score_better": 1000.9848,
+     "score_worse": -1002.1583,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "stack the green block on the yellow block",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 19.0,
+     "sim": false,
+     "score_better": 1000.8788,
+     "score_worse": -1002.1583,
+     "correct": true
+    }
+   ],
+   "C5_echo_l10": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 37.8,
+     "sim": true,
+     "score_better": -1005.6061,
+     "score_worse": -1005.8062,
+     "correct": true
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "sim": false,
+     "score_better": 1000.9853,
+     "score_worse": -1002.3567,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 30.3,
+     "sim": false,
+     "score_better": 1000.9848,
+     "score_worse": -1002.1583,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "stack the green block on the yellow block",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 19.0,
+     "sim": false,
+     "score_better": 1000.8788,
+     "score_worse": -1002.1583,
+     "correct": true
+    }
+   ],
+   "C5b_ens_echo_l05": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 37.8,
+     "sim": true,
+     "score_better": 0.9412,
+     "score_worse": 0.3529,
+     "correct": true
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "sim": false,
+     "score_better": 1.0,
+     "score_worse": -0.4118,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 30.3,
+     "sim": false,
+     "score_better": 1.0,
+     "score_worse": 0.3333,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "stack the green block on the yellow block",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 19.0,
+     "sim": false,
+     "score_better": 0.7273,
+     "score_worse": 0.3333,
+     "correct": true
+    }
+   ],
+   "C5b_ens_echo_l10": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 37.8,
+     "sim": true,
+     "score_better": 0.9412,
+     "score_worse": -0.1471,
+     "correct": true
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "sim": false,
+     "score_better": 1.0,
+     "score_worse": -1.4118,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 30.3,
+     "sim": false,
+     "score_better": 1.0,
+     "score_worse": 0.3333,
+     "correct": true
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "stack the green block on the yellow block",
+     "worse": "Arrange the lush green element atop the yellowish-orange element.",
+     "delta_pp": 19.0,
+     "sim": false,
+     "score_better": 0.7273,
+     "score_worse": 0.3333,
+     "correct": true
+    }
+   ]
+  }
+ },
+ "frozen_regret": {
+  "widowx_carrot_on_plate": {
+   "n_covered_phrases": 2,
+   "note": "insufficient coverage (<3) -- see feature gap job"
+  },
+  "widowx_spoon_on_towel": {
+   "n_covered_phrases": 2,
+   "note": "insufficient coverage (<3) -- see feature gap job"
+  },
+  "widowx_stack_cube": {
+   "n_covered_phrases": 3,
+   "phrases": [
+    {
+     "phrase": "Arrange the lush green element atop the yellowish-orange element.",
+     "succ": 4.9
+    },
+    {
+     "phrase": "Place the green block on top of the yellow block.",
+     "succ": 35.3
+    },
+    {
+     "phrase": "stack the green block on the yellow block",
+     "succ": 24.0
+    }
+   ],
+   "C1_ens4f": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "boot": {
+     "top1": {
+      "mean": 0.9201,
+      "p5": 0.0,
+      "p95": 7.703
+     },
+     "top3": {
+      "mean": 0.0,
+      "p5": 0.0,
+      "p95": 0.0
+     }
+    }
+   },
+   "C2_relfloor_grip": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "boot": {
+     "top1": {
+      "mean": 0.5808,
+      "p5": 0.0,
+      "p95": 4.7275
+     },
+     "top3": {
+      "mean": 0.0,
+      "p5": 0.0,
+      "p95": 0.0
+     }
+    }
+   },
+   "C3_relfloor_gripwins": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "boot": {
+     "top1": {
+      "mean": 0.5567,
+      "p5": 0.0,
+      "p95": 4.1471
+     },
+     "top3": {
+      "mean": 0.0,
+      "p5": 0.0,
+      "p95": 0.0
+     }
+    }
+   },
+   "C4a_rank_50_50": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "boot": {
+     "top1": {
+      "mean": 0.6125,
+      "p5": 0.0,
+      "p95": 4.8588
+     },
+     "top3": {
+      "mean": 0.0,
+      "p5": 0.0,
+      "p95": 0.0
+     }
+    }
+   },
+   "C4b_rank_25_75": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "boot": {
+     "top1": {
+      "mean": 0.4224,
+      "p5": 0.0,
+      "p95": 3.0029
+     },
+     "top3": {
+      "mean": 0.0,
+      "p5": 0.0,
+      "p95": 0.0
+     }
+    }
+   },
+   "C5_echo_l05": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "boot": {
+     "top1": {
+      "mean": 0.5567,
+      "p5": 0.0,
+      "p95": 4.1471
+     },
+     "top3": {
+      "mean": 0.0,
+      "p5": 0.0,
+      "p95": 0.0
+     }
+    }
+   },
+   "C5_echo_l10": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "boot": {
+     "top1": {
+      "mean": 0.5567,
+      "p5": 0.0,
+      "p95": 4.1471
+     },
+     "top3": {
+      "mean": 0.0,
+      "p5": 0.0,
+      "p95": 0.0
+     }
+    }
+   },
+   "C5b_ens_echo_l05": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "boot": {
+     "top1": {
+      "mean": 0.9201,
+      "p5": 0.0,
+      "p95": 7.703
+     },
+     "top3": {
+      "mean": 0.0,
+      "p5": 0.0,
+      "p95": 0.0
+     }
+    }
+   },
+   "C5b_ens_echo_l10": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "boot": {
+     "top1": {
+      "mean": 0.9201,
+      "p5": 0.0,
+      "p95": 7.703
+     },
+     "top3": {
+      "mean": 0.0,
+      "p5": 0.0,
+      "p95": 0.0
+     }
+    }
+   }
+  },
+  "widowx_put_eggplant_in_basket": {
+   "n_covered_phrases": 2,
+   "note": "insufficient coverage (<3) -- see feature gap job"
+  }
+ },
+ "supplementary_study_labels": {
+  "warning": "NOT selection evidence: the 4f ensemble was selected on this table (contaminated for C1); shown for context only",
+  "per_task": {
+   "widowx_carrot_on_plate": {
+    "n_covered_phrases": 18,
+    "n_eps_per_phrase": 288,
+    "C1_ens4f": {
+     "top1_point": 2.1,
+     "top3_point": 1.4,
+     "pairwise_acc": 0.984,
+     "n_pairs": 62,
+     "boot": {
+      "top1": {
+       "mean": 3.9892,
+       "p5": 0.0,
+       "p95": 8.3333
+      },
+      "top3": {
+       "mean": 2.1061,
+       "p5": 0.0,
+       "p95": 6.25
+      }
+     }
+    },
+    "C2_relfloor_grip": {
+     "top1_point": 8.0,
+     "top3_point": 1.4,
+     "pairwise_acc": 0.984,
+     "n_pairs": 62,
+     "boot": {
+      "top1": {
+       "mean": 6.7788,
+       "p5": 0.3472,
+       "p95": 13.8889
+      },
+      "top3": {
+       "mean": 2.5422,
+       "p5": 0.0,
+       "p95": 7.2917
+      }
+     }
+    },
+    "C3_relfloor_gripwins": {
+     "top1_point": 8.0,
+     "top3_point": 1.4,
+     "pairwise_acc": 0.984,
+     "n_pairs": 62,
+     "boot": {
+      "top1": {
+       "mean": 7.2255,
+       "p5": 0.3472,
+       "p95": 13.8889
+      },
+      "top3": {
+       "mean": 2.5422,
+       "p5": 0.0,
+       "p95": 7.2917
+      }
+     }
+    },
+    "C4a_rank_50_50": {
+     "top1_point": 1.4,
+     "top3_point": 1.4,
+     "pairwise_acc": 0.968,
+     "n_pairs": 62,
+     "boot": {
+      "top1": {
+       "mean": 5.5007,
+       "p5": 0.0,
+       "p95": 12.8472
+      },
+      "top3": {
+       "mean": 2.4059,
+       "p5": 0.0,
+       "p95": 6.9618
+      }
+     }
+    },
+    "C4b_rank_25_75": {
+     "top1_point": 8.0,
+     "top3_point": 1.4,
+     "pairwise_acc": 0.968,
+     "n_pairs": 62,
+     "boot": {
+      "top1": {
+       "mean": 6.525,
+       "p5": 0.0,
+       "p95": 13.5417
+      },
+      "top3": {
+       "mean": 2.475,
+       "p5": 0.0,
+       "p95": 6.9444
+      }
+     }
+    },
+    "C5_echo_l05": {
+     "top1_point": 8.0,
+     "top3_point": 1.4,
+     "pairwise_acc": 0.984,
+     "n_pairs": 62,
+     "boot": {
+      "top1": {
+       "mean": 7.2255,
+       "p5": 0.3472,
+       "p95": 13.8889
+      },
+      "top3": {
+       "mean": 2.5422,
+       "p5": 0.0,
+       "p95": 7.2917
+      }
+     }
+    },
+    "C5_echo_l10": {
+     "top1_point": 8.0,
+     "top3_point": 1.4,
+     "pairwise_acc": 0.984,
+     "n_pairs": 62,
+     "boot": {
+      "top1": {
+       "mean": 7.2255,
+       "p5": 0.3472,
+       "p95": 13.8889
+      },
+      "top3": {
+       "mean": 2.5422,
+       "p5": 0.0,
+       "p95": 7.2917
+      }
+     }
+    },
+    "C5b_ens_echo_l05": {
+     "top1_point": 2.1,
+     "top3_point": 1.4,
+     "pairwise_acc": 0.984,
+     "n_pairs": 62,
+     "boot": {
+      "top1": {
+       "mean": 3.9892,
+       "p5": 0.0,
+       "p95": 8.3333
+      },
+      "top3": {
+       "mean": 2.1061,
+       "p5": 0.0,
+       "p95": 6.25
+      }
+     }
+    },
+    "C5b_ens_echo_l10": {
+     "top1_point": 2.1,
+     "top3_point": 1.4,
+     "pairwise_acc": 0.984,
+     "n_pairs": 62,
+     "boot": {
+      "top1": {
+       "mean": 3.9892,
+       "p5": 0.0,
+       "p95": 8.3333
+      },
+      "top3": {
+       "mean": 2.1061,
+       "p5": 0.0,
+       "p95": 6.25
+      }
+     }
+    }
+   },
+   "widowx_put_eggplant_in_basket": {
+    "n_covered_phrases": 18,
+    "n_eps_per_phrase": 288,
+    "C1_ens4f": {
+     "top1_point": 6.9,
+     "top3_point": 4.9,
+     "pairwise_acc": 0.489,
+     "n_pairs": 47,
+     "boot": {
+      "top1": {
+       "mean": 8.8149,
+       "p5": 3.8194,
+       "p95": 11.8229
+      },
+      "top3": {
+       "mean": 4.7003,
+       "p5": 1.3889,
+       "p95": 7.6389
+      }
+     }
+    },
+    "C2_relfloor_grip": {
+     "top1_point": 6.9,
+     "top3_point": 4.9,
+     "pairwise_acc": 0.489,
+     "n_pairs": 47,
+     "boot": {
+      "top1": {
+       "mean": 8.8149,
+       "p5": 3.8194,
+       "p95": 11.8229
+      },
+      "top3": {
+       "mean": 4.7003,
+       "p5": 1.3889,
+       "p95": 7.6389
+      }
+     }
+    },
+    "C3_relfloor_gripwins": {
+     "top1_point": 6.9,
+     "top3_point": 4.9,
+     "pairwise_acc": 0.489,
+     "n_pairs": 47,
+     "boot": {
+      "top1": {
+       "mean": 8.8149,
+       "p5": 3.8194,
+       "p95": 11.8229
+      },
+      "top3": {
+       "mean": 4.7003,
+       "p5": 1.3889,
+       "p95": 7.6389
+      }
+     }
+    },
+    "C4a_rank_50_50": {
+     "top1_point": 4.9,
+     "top3_point": 4.9,
+     "pairwise_acc": 0.936,
+     "n_pairs": 47,
+     "boot": {
+      "top1": {
+       "mean": 6.2554,
+       "p5": 0.0,
+       "p95": 10.4167
+      },
+      "top3": {
+       "mean": 2.9762,
+       "p5": 0.0,
+       "p95": 6.5972
+      }
+     }
+    },
+    "C4b_rank_25_75": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 1.0,
+     "n_pairs": 47,
+     "boot": {
+      "top1": {
+       "mean": 4.7641,
+       "p5": 0.0,
+       "p95": 10.7639
+      },
+      "top3": {
+       "mean": 1.2139,
+       "p5": 0.0,
+       "p95": 5.9028
+      }
+     }
+    },
+    "C5_echo_l05": {
+     "top1_point": 6.9,
+     "top3_point": 4.9,
+     "pairwise_acc": 0.489,
+     "n_pairs": 47,
+     "boot": {
+      "top1": {
+       "mean": 8.8149,
+       "p5": 3.8194,
+       "p95": 11.8229
+      },
+      "top3": {
+       "mean": 4.7003,
+       "p5": 1.3889,
+       "p95": 7.6389
+      }
+     }
+    },
+    "C5_echo_l10": {
+     "top1_point": 6.9,
+     "top3_point": 4.9,
+     "pairwise_acc": 0.489,
+     "n_pairs": 47,
+     "boot": {
+      "top1": {
+       "mean": 8.8149,
+       "p5": 3.8194,
+       "p95": 11.8229
+      },
+      "top3": {
+       "mean": 4.7003,
+       "p5": 1.3889,
+       "p95": 7.6389
+      }
+     }
+    },
+    "C5b_ens_echo_l05": {
+     "top1_point": 6.9,
+     "top3_point": 4.9,
+     "pairwise_acc": 0.681,
+     "n_pairs": 47,
+     "boot": {
+      "top1": {
+       "mean": 7.9891,
+       "p5": 3.8194,
+       "p95": 10.4167
+      },
+      "top3": {
+       "mean": 4.5611,
+       "p5": 1.3889,
+       "p95": 7.2917
+      }
+     }
+    },
+    "C5b_ens_echo_l10": {
+     "top1_point": 6.9,
+     "top3_point": 4.9,
+     "pairwise_acc": 0.681,
+     "n_pairs": 47,
+     "boot": {
+      "top1": {
+       "mean": 7.9891,
+       "p5": 3.8194,
+       "p95": 10.4167
+      },
+      "top3": {
+       "mean": 4.5611,
+       "p5": 1.3889,
+       "p95": 7.2917
+      }
+     }
+    }
+   },
+   "widowx_spoon_on_towel": {
+    "n_covered_phrases": 19,
+    "n_eps_per_phrase": 288,
+    "C1_ens4f": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.908,
+     "n_pairs": 65,
+     "boot": {
+      "top1": {
+       "mean": 2.5535,
+       "p5": 0.0,
+       "p95": 18.4028
+      },
+      "top3": {
+       "mean": 1.6314,
+       "p5": 0.0,
+       "p95": 12.8472
+      }
+     }
+    },
+    "C2_relfloor_grip": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.908,
+     "n_pairs": 65,
+     "boot": {
+      "top1": {
+       "mean": 2.922,
+       "p5": 0.0,
+       "p95": 17.7083
+      },
+      "top3": {
+       "mean": 1.8198,
+       "p5": 0.0,
+       "p95": 12.8472
+      }
+     }
+    },
+    "C3_relfloor_gripwins": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.908,
+     "n_pairs": 65,
+     "boot": {
+      "top1": {
+       "mean": 2.9797,
+       "p5": 0.0,
+       "p95": 18.0729
+      },
+      "top3": {
+       "mean": 1.8198,
+       "p5": 0.0,
+       "p95": 12.8472
+      }
+     }
+    },
+    "C4a_rank_50_50": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.923,
+     "n_pairs": 65,
+     "boot": {
+      "top1": {
+       "mean": 2.4455,
+       "p5": 0.0,
+       "p95": 13.9062
+      },
+      "top3": {
+       "mean": 1.1373,
+       "p5": 0.0,
+       "p95": 7.9861
+      }
+     }
+    },
+    "C4b_rank_25_75": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.938,
+     "n_pairs": 65,
+     "boot": {
+      "top1": {
+       "mean": 3.0052,
+       "p5": 0.0,
+       "p95": 15.2951
+      },
+      "top3": {
+       "mean": 1.3245,
+       "p5": 0.0,
+       "p95": 9.375
+      }
+     }
+    },
+    "C5_echo_l05": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.908,
+     "n_pairs": 65,
+     "boot": {
+      "top1": {
+       "mean": 2.9797,
+       "p5": 0.0,
+       "p95": 18.0729
+      },
+      "top3": {
+       "mean": 1.8198,
+       "p5": 0.0,
+       "p95": 12.8472
+      }
+     }
+    },
+    "C5_echo_l10": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.908,
+     "n_pairs": 65,
+     "boot": {
+      "top1": {
+       "mean": 2.9797,
+       "p5": 0.0,
+       "p95": 18.0729
+      },
+      "top3": {
+       "mean": 1.8198,
+       "p5": 0.0,
+       "p95": 12.8472
+      }
+     }
+    },
+    "C5b_ens_echo_l05": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.938,
+     "n_pairs": 65,
+     "boot": {
+      "top1": {
+       "mean": 2.4366,
+       "p5": 0.0,
+       "p95": 18.0556
+      },
+      "top3": {
+       "mean": 1.6179,
+       "p5": 0.0,
+       "p95": 12.8472
+      }
+     }
+    },
+    "C5b_ens_echo_l10": {
+     "top1_point": 0.0,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.938,
+     "n_pairs": 65,
+     "boot": {
+      "top1": {
+       "mean": 2.4366,
+       "p5": 0.0,
+       "p95": 18.0556
+      },
+      "top3": {
+       "mean": 1.6179,
+       "p5": 0.0,
+       "p95": 12.8472
+      }
+     }
+    }
+   },
+   "widowx_stack_cube": {
+    "n_covered_phrases": 17,
+    "n_eps_per_phrase": 576,
+    "C1_ens4f": {
+     "top1_point": 1.7,
+     "top3_point": 1.7,
+     "pairwise_acc": 0.877,
+     "n_pairs": 73,
+     "boot": {
+      "top1": {
+       "mean": 5.9415,
+       "p5": 0.0,
+       "p95": 22.5694
+      },
+      "top3": {
+       "mean": 2.5509,
+       "p5": 0.0,
+       "p95": 9.0278
+      }
+     }
+    },
+    "C2_relfloor_grip": {
+     "top1_point": 1.7,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.863,
+     "n_pairs": 73,
+     "boot": {
+      "top1": {
+       "mean": 4.5451,
+       "p5": 0.0,
+       "p95": 19.0972
+      },
+      "top3": {
+       "mean": 1.6387,
+       "p5": 0.0,
+       "p95": 7.9861
+      }
+     }
+    },
+    "C3_relfloor_gripwins": {
+     "top1_point": 1.7,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.863,
+     "n_pairs": 73,
+     "boot": {
+      "top1": {
+       "mean": 5.5214,
+       "p5": 0.0,
+       "p95": 21.1806
+      },
+      "top3": {
+       "mean": 1.6387,
+       "p5": 0.0,
+       "p95": 7.9861
+      }
+     }
+    },
+    "C4a_rank_50_50": {
+     "top1_point": 1.7,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.89,
+     "n_pairs": 73,
+     "boot": {
+      "top1": {
+       "mean": 4.066,
+       "p5": 0.0,
+       "p95": 12.5
+      },
+      "top3": {
+       "mean": 1.5929,
+       "p5": 0.0,
+       "p95": 7.6389
+      }
+     }
+    },
+    "C4b_rank_25_75": {
+     "top1_point": 1.7,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.904,
+     "n_pairs": 73,
+     "boot": {
+      "top1": {
+       "mean": 3.7882,
+       "p5": 0.0,
+       "p95": 11.8056
+      },
+      "top3": {
+       "mean": 1.2031,
+       "p5": 0.0,
+       "p95": 7.6389
+      }
+     }
+    },
+    "C5_echo_l05": {
+     "top1_point": 1.7,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.863,
+     "n_pairs": 73,
+     "boot": {
+      "top1": {
+       "mean": 5.5214,
+       "p5": 0.0,
+       "p95": 21.1806
+      },
+      "top3": {
+       "mean": 1.6387,
+       "p5": 0.0,
+       "p95": 7.9861
+      }
+     }
+    },
+    "C5_echo_l10": {
+     "top1_point": 1.7,
+     "top3_point": 0.0,
+     "pairwise_acc": 0.863,
+     "n_pairs": 73,
+     "boot": {
+      "top1": {
+       "mean": 5.5214,
+       "p5": 0.0,
+       "p95": 21.1806
+      },
+      "top3": {
+       "mean": 1.6387,
+       "p5": 0.0,
+       "p95": 7.9861
+      }
+     }
+    },
+    "C5b_ens_echo_l05": {
+     "top1_point": 1.7,
+     "top3_point": 1.7,
+     "pairwise_acc": 0.877,
+     "n_pairs": 73,
+     "boot": {
+      "top1": {
+       "mean": 5.9415,
+       "p5": 0.0,
+       "p95": 22.5694
+      },
+      "top3": {
+       "mean": 2.5509,
+       "p5": 0.0,
+       "p95": 9.0278
+      }
+     }
+    },
+    "C5b_ens_echo_l10": {
+     "top1_point": 1.7,
+     "top3_point": 1.7,
+     "pairwise_acc": 0.877,
+     "n_pairs": 73,
+     "boot": {
+      "top1": {
+       "mean": 5.9415,
+       "p5": 0.0,
+       "p95": 22.5694
+      },
+      "top3": {
+       "mean": 2.5509,
+       "p5": 0.0,
+       "p95": 9.0278
+      }
+     }
+    }
+   }
+  },
+  "pooled": {
+   "C1_ens4f": {
+    "pairwise_acc": 0.838,
+    "n_pairs": 247
+   },
+   "C2_relfloor_grip": {
+    "pairwise_acc": 0.834,
+    "n_pairs": 247
+   },
+   "C3_relfloor_gripwins": {
+    "pairwise_acc": 0.834,
+    "n_pairs": 247
+   },
+   "C4a_rank_50_50": {
+    "pairwise_acc": 0.927,
+    "n_pairs": 247
+   },
+   "C4b_rank_25_75": {
+    "pairwise_acc": 0.947,
+    "n_pairs": 247
+   },
+   "C5_echo_l05": {
+    "pairwise_acc": 0.834,
+    "n_pairs": 247
+   },
+   "C5_echo_l10": {
+    "pairwise_acc": 0.834,
+    "n_pairs": 247
+   },
+   "C5b_ens_echo_l05": {
+    "pairwise_acc": 0.883,
+    "n_pairs": 247
+   },
+   "C5b_ens_echo_l10": {
+    "pairwise_acc": 0.883,
+    "n_pairs": 247
+   }
+  }
+ },
+ "normalization_control": {
+  "C1_ens4f": {
+   "pass": true,
+   "n_texts": 7,
+   "n_perturbations": 21,
+   "fails": []
+  },
+  "C2_relfloor_grip": {
+   "pass": true,
+   "n_texts": 7,
+   "n_perturbations": 21,
+   "fails": []
+  },
+  "C3_relfloor_gripwins": {
+   "pass": true,
+   "n_texts": 7,
+   "n_perturbations": 21,
+   "fails": []
+  },
+  "C4a_rank_50_50": {
+   "pass": true,
+   "n_texts": 7,
+   "n_perturbations": 21,
+   "fails": []
+  },
+  "C4b_rank_25_75": {
+   "pass": true,
+   "n_texts": 7,
+   "n_perturbations": 21,
+   "fails": []
+  },
+  "C5_echo_l05": {
+   "pass": true,
+   "n_texts": 7,
+   "n_perturbations": 21,
+   "fails": []
+  },
+  "C5_echo_l10": {
+   "pass": true,
+   "n_texts": 7,
+   "n_perturbations": 21,
+   "fails": []
+  },
+  "C5b_ens_echo_l05": {
+   "pass": true,
+   "n_texts": 7,
+   "n_perturbations": 21,
+   "fails": []
+  },
+  "C5b_ens_echo_l10": {
+   "pass": true,
+   "n_texts": 7,
+   "n_perturbations": 21,
+   "fails": []
+  }
+ },
+ "verdict_table": [
+  {
+   "candidate": "C1_ens4f",
+   "gate_zero_native": "4/4",
+   "gate_zero_all": "4/4",
+   "passes_all_native_signs": true,
+   "max_frozen_top1_regret": 0.0,
+   "supp_pooled_pairwise_acc": 0.838,
+   "supp_max_top1_regret": 6.9,
+   "norm_control_pass": true
+  },
+  {
+   "candidate": "C2_relfloor_grip",
+   "gate_zero_native": "4/4",
+   "gate_zero_all": "4/4",
+   "passes_all_native_signs": true,
+   "max_frozen_top1_regret": 0.0,
+   "supp_pooled_pairwise_acc": 0.834,
+   "supp_max_top1_regret": 8.0,
+   "norm_control_pass": true
+  },
+  {
+   "candidate": "C3_relfloor_gripwins",
+   "gate_zero_native": "4/4",
+   "gate_zero_all": "4/4",
+   "passes_all_native_signs": true,
+   "max_frozen_top1_regret": 0.0,
+   "supp_pooled_pairwise_acc": 0.834,
+   "supp_max_top1_regret": 8.0,
+   "norm_control_pass": true
+  },
+  {
+   "candidate": "C4a_rank_50_50",
+   "gate_zero_native": "4/4",
+   "gate_zero_all": "4/4",
+   "passes_all_native_signs": true,
+   "max_frozen_top1_regret": 0.0,
+   "supp_pooled_pairwise_acc": 0.927,
+   "supp_max_top1_regret": 4.9,
+   "norm_control_pass": true
+  },
+  {
+   "candidate": "C4b_rank_25_75",
+   "gate_zero_native": "4/4",
+   "gate_zero_all": "4/4",
+   "passes_all_native_signs": true,
+   "max_frozen_top1_regret": 0.0,
+   "supp_pooled_pairwise_acc": 0.947,
+   "supp_max_top1_regret": 8.0,
+   "norm_control_pass": true
+  },
+  {
+   "candidate": "C5_echo_l05",
+   "gate_zero_native": "4/4",
+   "gate_zero_all": "4/4",
+   "passes_all_native_signs": true,
+   "max_frozen_top1_regret": 0.0,
+   "supp_pooled_pairwise_acc": 0.834,
+   "supp_max_top1_regret": 8.0,
+   "norm_control_pass": true
+  },
+  {
+   "candidate": "C5_echo_l10",
+   "gate_zero_native": "4/4",
+   "gate_zero_all": "4/4",
+   "passes_all_native_signs": true,
+   "max_frozen_top1_regret": 0.0,
+   "supp_pooled_pairwise_acc": 0.834,
+   "supp_max_top1_regret": 8.0,
+   "norm_control_pass": true
+  },
+  {
+   "candidate": "C5b_ens_echo_l05",
+   "gate_zero_native": "4/4",
+   "gate_zero_all": "4/4",
+   "passes_all_native_signs": true,
+   "max_frozen_top1_regret": 0.0,
+   "supp_pooled_pairwise_acc": 0.883,
+   "supp_max_top1_regret": 6.9,
+   "norm_control_pass": true
+  },
+  {
+   "candidate": "C5b_ens_echo_l10",
+   "gate_zero_native": "4/4",
+   "gate_zero_all": "4/4",
+   "passes_all_native_signs": true,
+   "max_frozen_top1_regret": 0.0,
+   "supp_pooled_pairwise_acc": 0.883,
+   "supp_max_top1_regret": 6.9,
+   "norm_control_pass": true
+  }
+ ],
+ "selection_rule": "pass ALL covered native gate-zero signs AND norm control -> lowest max frozen top-1 regret -> tie-break on supplementary transfer (contaminated for C1; final tie-break deferred to full coverage)",
+ "subset_passers": [
+  "C1_ens4f",
+  "C2_relfloor_grip",
+  "C3_relfloor_gripwins",
+  "C4a_rank_50_50",
+  "C4b_rank_25_75",
+  "C5_echo_l05",
+  "C5_echo_l10",
+  "C5b_ens_echo_l05",
+  "C5b_ens_echo_l10"
+ ],
+ "leader_on_covered_subset": "C4b_rank_25_75",
+ "ranking": [
+  "C4b_rank_25_75",
+  "C4a_rank_50_50",
+  "C5b_ens_echo_l05",
+  "C5b_ens_echo_l10",
+  "C1_ens4f",
+  "C2_relfloor_grip",
+  "C3_relfloor_gripwins",
+  "C5_echo_l05",
+  "C5_echo_l10"
+ ],
+ "certified_outright": false,
+ "certification_blocker": "only 4/68 native gate-zero pairs are coverable from stored feature tables; frozen regret administrable on 1/4 native tasks -- run results/analysis/feature_extraction_needed.json, then re-run this script unchanged",
+ "sim_caveats_observed": [
+  "eggplant pair scored on SIM rows: all ensemble logits deeply negative (nominal z=-5.61); the Bridge-derived FLOOR fails every sim phrase, so gated candidates degenerate to C1 ordering there",
+  "supplementary eggplant table reproduces the recorded sim fine-inversion: C1 and every gate-inheriting candidate score pairwise_acc 0.489-0.681 on sim while the grip-heavy ungated blend (C4b) scores 1.000"
+ ]
+}
