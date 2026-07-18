@@ -294,7 +294,18 @@ All earlier "sealed state range" designations are void.
   on paired contrasts requires ADDING TASKS, not states or reps.
 - Note: CoVer's "50 reset seeds" also sample (with replacement) from these same grids.
 
-### TASK-TIER REGISTRY v3 — VAL-11 / TEST-12 (user decision 2026-07-16, final)
+### TASK-TIER REGISTRY v4 — VAL-8+screen / TEST-15 incl CoVer trio (user ruling 2026-07-18)
+
+Amends v3 on one point, USER RULING 2026-07-18: the CoVer OOD trio
+(redbull_on_plate, zucchini_on_towel, tennis_in_basket) moves to the SEALED
+TEST tier — reserved for the direct head-to-head against CoVer's published
+OOD ERT rows. NOTHING touches them before the one-shot final eval: no ERT
+generation, no screening rollouts, no reference scoring. VAL grows from the
+unused native _clean inventory instead (members picked by the Track-2
+improvability screen, disclosed as improvability-selected per dissent (f));
+TEST = 12 sealed natives + the trio = 15. v3 text below retained for history.
+
+### TASK-TIER REGISTRY v3 — VAL-11 / TEST-12 (user decision 2026-07-16, SUPERSEDED on the trio by v4 above)
 
 Supersedes v2 and the 10/4/6 split below. Rationale: the verifier reward trains
 on Bridge only — no arm trains on sim tasks — so all registered tasks are eval
