@@ -1,0 +1,8 @@
+{
+ "orig": 0.6192,
+ "frozen_nominal_greedy": -1.5498,
+ "frozen_ert_greedy_honest": -2.8394,
+ "ert_passthrough": -4.3379,
+ "scale": "true-4frame (post-0ede0b3 val parity)",
+ "n": 40
+}
