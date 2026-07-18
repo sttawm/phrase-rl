@@ -31,10 +31,10 @@ pick_spread_ready() {  # farthest-point sampling over training steps: keep the
       step_*)   step=$((10#${stamp#step_})) ;;
       *)        step=60 ;;   # legacy epoch stamps = the ~s60 relays
     esac
-    if [ -f "results/val_screens/.done_${arm}_${stamp}" ]; then
+    if [ -f "results/val_screens/.done_${PREFIX}_${arm}_${stamp}" ]; then
       done_steps="$done_steps $step"
     else
-      tries=$(cat "results/val_screens/.try_${arm}_${stamp}" 2>/dev/null || echo 0)
+      tries=$(cat "results/val_screens/.try_${PREFIX}_${arm}_${stamp}" 2>/dev/null || echo 0)
       [ "$tries" -ge 2 ] && continue
       cands="$cands $stamp:$step"
     fi
@@ -55,7 +55,9 @@ pick_spread_ready() {  # farthest-point sampling over training steps: keep the
 }
 
 REPEATS=${VAL_REPEATS:-3}
-PREFIX=$([ "$REPEATS" = 3 ] && echo screen || echo eval${REPEATS})
+SAMPK=${VAL_SAMPLE_K:-0}
+if [ "$SAMPK" -gt 0 ]; then PREFIX="sam${SAMPK}x${REPEATS}"
+else PREFIX=$([ "$REPEATS" = 3 ] && echo screen || echo eval${REPEATS}); fi
 mkdir -p results/val_screens
 while true; do
   # self-heal screen inputs from the git-tracked canonicals every pass (MFS
@@ -63,6 +65,7 @@ while true; do
   mkdir -p data
   cp -f results/phrase_artifacts/val_screen_frames.parquet results/phrase_artifacts/val_screen_assets.parquet data/ || mark "SELF-HEAL COPY FAILED"
   did=0
+  MULT=$([ "$SAMPK" -gt 0 ] && echo "$SAMPK" || echo 1)
   for ARM in ${VAL_ARMS:-A B}; do
     DIR=$(pick_spread_ready $ARM) || continue
     STAMP=$(basename "$DIR")
@@ -75,7 +78,7 @@ while true; do
     # step); pre-tag v6 stamps and all v5 stamps screen untagged
     EFFTAG=""
     [ -n "${VAL_INPUT_TAG:-}" ] && [ "$SNUM" -ge "${VAL_TAG_FROM:-0}" ] && EFFTAG="$VAL_INPUT_TAG"
-    T="results/val_screens/.try_${REPEATS}x_${ARM}_${STAMP}"
+    T="results/val_screens/.try_${PREFIX}_${ARM}_${STAMP}"
     echo $(( $(cat "$T" 2>/dev/null || echo 0) + 1 )) > "$T"
     mark "screen $ARM/$STAMP attempt $(cat $T)"
     vram_wait 20000
@@ -83,6 +86,7 @@ while true; do
         --tasks data/val_screen_frames.parquet --ctx data/val_screen_frames.parquet \
         --assets data/val_screen_assets.parquet --adapter "$DIR" \
         ${EFFTAG:+--input-tag "$EFFTAG"} \
+        ${VAL_SAMPLE_K:+--sample-k "$VAL_SAMPLE_K"} \
         --out data/screen_phrases_all.parquet >> /workspace/valloop_stages.log 2>&1; then
       mark "GEN FAILED $ARM/$STAMP (will retry, cap 2)"; continue
     fi
@@ -118,7 +122,7 @@ PY
     for p in $pids; do wait $p || wfail=1; done
     cd /workspace/phrase-rl
     if [ $wfail = 1 ]; then mark "WORKER FAILED $ARM/$STAMP (retry)"; continue; fi
-    OUT="results/val_screens/${PREFIX}_${ARM}_${STAMP}.parquet" EXPECT=$((192 * REPEATS)) \
+    OUT="results/val_screens/${PREFIX}_${ARM}_${STAMP}.parquet" EXPECT=$((192 * REPEATS * MULT)) \
     .venv-gen/bin/python - <<'PY' || { mark "MERGE FAILED $ARM/$STAMP (retry)"; continue; }
 import glob
 import os
@@ -130,7 +134,7 @@ d.to_parquet(out, index=False)
 s = d.groupby("task").success.mean() * 100
 print(f"[val-loop] RESULT {out}: pooled {d.success.mean()*100:.1f}% |", s.round(1).to_dict(), flush=True)
 PY
-    touch "results/val_screens/.done_${REPEATS}x_${ARM}_${STAMP}"
+    touch "results/val_screens/.done_${PREFIX}_${ARM}_${STAMP}"
     git add results/val_screens/ && git -c user.name=pod3 -c user.email=pod@runpod commit -q -m "val screen $ARM $STAMP [pod]" && git -c user.name=pod3 -c user.email=pod@runpod pull -q --rebase --no-edit && git push -q
     mark "screen $ARM/$STAMP DONE"
     did=1

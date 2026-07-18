@@ -67,6 +67,8 @@ def main():
     ap.add_argument("--model", default="Qwen/Qwen3.5-9B")
     ap.add_argument("--tasks", required=True, help="cover_gemini_tasks.parquet (raw_response has the trace; also maps task->frame)")
     ap.add_argument("--adapter", required=True)
+    ap.add_argument("--sample-k", type=int, default=0, help="if >0: k sampled phrases per task instead of greedy")
+    ap.add_argument("--sample-temp", type=float, default=1.0)
     ap.add_argument("--out", required=True)
     ap.add_argument("--input-tag", default=None,
                     help="v6.3 checkpoints: prepend e.g. '[input: adversarially reworded]' to the instruction slot")
@@ -119,11 +121,31 @@ def main():
             use_tag = args.input_tag and arm == "tuned"
             gen_in = f"{args.input_tag} {instruction}" if use_tag else instruction
             msgs = build_single_phrase_prefix(gen_in, img, trace=trace)
-            phrase = strip_tag(first_line(strip_tag(gen_one(model, processor, msgs))))
-            if not phrase:
-                phrase = instruction
-            rows.append({"task": task, "arm": arm, "phrase": phrase, "instruction": instruction})
-            print(f"[{arm}] {task}: {phrase!r}")
+            if args.sample_k > 0:
+                # sampled eval: k draws at the TRAINING temperature — measures the
+                # distribution GRPO actually optimizes, and averages the per-task
+                # phrase lottery (cluster-floor reduction). No dedupe: true samples.
+                from phrase_rl.phase2_train import apply_template
+                inputs = apply_template(processor, msgs, continue_final_message=True).to(model.device)
+                with torch.no_grad():
+                    out = model.generate(**inputs, do_sample=True,
+                                         temperature=args.sample_temp,
+                                         num_return_sequences=args.sample_k,
+                                         max_new_tokens=60)
+                plen = inputs["input_ids"].shape[1]
+                for si in range(args.sample_k):
+                    p = strip_tag(first_line(strip_tag(
+                        processor.decode(out[si][plen:], skip_special_tokens=True))))
+                    p = p or instruction
+                    rows.append({"task": task, "arm": arm, "phrase": p,
+                                 "instruction": instruction, "sample_idx": si})
+                print(f"[{arm}] {task}: {args.sample_k} samples, e.g. {rows[-1]['phrase']!r}")
+            else:
+                phrase = strip_tag(first_line(strip_tag(gen_one(model, processor, msgs))))
+                if not phrase:
+                    phrase = instruction
+                rows.append({"task": task, "arm": arm, "phrase": phrase, "instruction": instruction})
+                print(f"[{arm}] {task}: {phrase!r}")
 
     run_arm(base, "base")
     from peft import PeftModel
