@@ -78,6 +78,11 @@ import json
 import os
 import re
 import shutil
+
+# v6.3 tier tags live in the MODEL INPUT slot only; strip before anything
+# is scored or logged as a phrase (repeated-echo tolerant)
+_TAG_RE = re.compile(r"^\s*(?:\[input:[^\]]*\]\s*)+")
+
 import signal
 import sys
 import time
@@ -766,10 +771,13 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
                 n_failed += 1
                 continue
             # deployment-mode greedy single phrase (what we'd actually ship) rides
-            # the same CRN job, so its reward is exactly comparable to orig/candidates
-            gp = res["instruction"]
+            # the same CRN job, so its reward is exactly comparable to orig/candidates.
+            # res["instruction"] arrives TAGGED when tier_tags is on (process_context
+            # tags the source): strip for anything SCORED, tag exactly once for gen.
+            raw_instr = _TAG_RE.sub("", res["instruction"])
+            gp = raw_instr
             try:
-                gin = res["instruction"]
+                gin = raw_instr
                 if getattr(args, "tier_tags", False):
                     gin = f"[input: original wording] {gin}"
                 gm = cover_prompt.build_single_phrase_prefix(
@@ -777,8 +785,8 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
                 ginp = apply_template(processor, gm, continue_final_message=True).to(model.device)
                 with torch.no_grad():
                     gout = model.generate(**ginp, do_sample=False, max_new_tokens=48)
-                gp = processor.decode(gout[0][ginp["input_ids"].shape[1]:],
-                                      skip_special_tokens=True).strip().split("\n")[0].strip() or gp
+                gp = _TAG_RE.sub("", processor.decode(gout[0][ginp["input_ids"].shape[1]:],
+                                 skip_special_tokens=True).strip().split("\n")[0]).strip() or gp
             except Exception:
                 pass
             # deployment-realistic ERT probe: greedy from the ADVERSARIAL instruction
@@ -795,12 +803,12 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
                     ginp = apply_template(processor, gme, continue_final_message=True).to(model.device)
                     with torch.no_grad():
                         gout = model.generate(**ginp, do_sample=False, max_new_tokens=48)
-                    gpe = processor.decode(gout[0][ginp["input_ids"].shape[1]:],
-                                           skip_special_tokens=True).strip().split("\n")[0].strip() or ei
+                    gpe = _TAG_RE.sub("", processor.decode(gout[0][ginp["input_ids"].shape[1]:],
+                                      skip_special_tokens=True).strip().split("\n")[0]).strip() or ei
                 except Exception:
                     pass
             job = f"val{step:06d}i{i:03d}_{uuid.uuid4().hex[:8]}"
-            plist = [res["instruction"]] + res["survivors"] + [gp] + ([gpe] if gpe else [])
+            plist = [raw_instr] + res["survivors"] + [gp] + ([gpe] if gpe else [])
             losses = score_phrases(ipc_dir, job, [(row, plist)], args)[0]
             rewards = -losses.mean(axis=1)
             n_tail = 2 if gpe else 1
@@ -811,7 +819,7 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             greedy.append(float(rewards[-n_tail]))
             if gpe:
                 greedy_ert.append(float(rewards[-1]))
-            gphrases.append({"instruction": res["instruction"], "greedy": gp,
+            gphrases.append({"instruction": raw_instr, "greedy": gp,
                              "ert_instruction": ei, "greedy_ert": gpe})
         return {
             "step": step,
