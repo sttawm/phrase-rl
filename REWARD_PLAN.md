@@ -91,3 +91,27 @@ headroom ~7pp); secondary: OOD-4 transfer (style generalization).
 ## Timeline / cost
 Day 0: Steps 0-2 (~$2) | Day 1: Steps 3-4 ($0) + 5 (~$5) | Day 2: Step 6 +
 decision | Days 2-4: v7 run (~$55-70). Total ~$65-80.
+
+## STEP 3 VERDICT (2026-07-18 night — full exam, fresh same-GPU features)
+Coverage 68/68 native pairs. **NO WINNER under the pre-registered rule** (pass
+ALL signs): best = C4b 66/68 (rho 0.493) vs production C1 51/68 (rho 0.252).
+FAIL-branch facts that shape the escalation:
+- LTO chooses w*=0 in EVERY fold: pure grip-RANK scores 67/68 — the ceiling of
+  this feature space (one universal pair fails all 9 candidates: pi0 prefers
+  "cube" over "block" on stack, +12pp, invisible to both feature families).
+- The ensemble's fine axis is ANTI-correlated on spoon (fails rise 0->10 as
+  ensemble weight 0->1). Fine signal lives in grip rank; flow adds nothing.
+- IMPORTANT SCOPE NOTE: grip-RANK-within-relevant-set is NOT the dead
+  "gripper-only reward" (coarse AUC 0.191) — the exam pairs are all relevant,
+  so coarse protection was never tested here. Any v7 use still requires the
+  relevance gate (ensemble's validated job).
+- Regret: all candidates point-pass the 6pp cap (2.1-2.4) but nothing
+  CI-clears — the success-table noise floor (oracle p95 up to 21pp/task)
+  exceeds the cap on 3/4 tasks; the cap was mis-calibrated to measurement
+  precision. The selection exam (109 cells) is the higher-precision retest.
+ESCALATION RESOLUTION: the fail-branch option "coarse-gate + fine term"
+converges with the data: v7 fine reward candidate = relevance-gate +
+grip-rank (w in {0, 0.125} DISCLOSED as LTO-selected, outside the
+pre-registered family). Confirmation required from the SELECTION EXAM before
+any v7 launch. Echo penalty added no sign accuracy (C5==C2) — dropped from
+the reward, retained as telemetry.
