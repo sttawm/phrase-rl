@@ -5,7 +5,9 @@
 #   ARM_LABEL: tag for the output file (e.g. B_s260, frozen, passthrough)
 #   ADAPTER:   /workspace/adapters/B/step_0260 | none (frozen Qwen) | passthrough
 # Output: results/val_screens/eval12nom_<LABEL>.parquet (2304 eps: 8x24x12)
-set -euxo pipefail
+# no xtrace: this script evals secrets from ~/.bashrc; -x would print them
+# into tee'd logs (it did, once)
+set -euo pipefail
 LABEL="${1:?usage: run_nominal_eval12.sh <label> <adapter|none|passthrough> [workers]}"
 ADAPTER="${2:?}"
 NW="${3:-3}"
@@ -14,7 +16,10 @@ export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 export VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline HF_HUB_DISABLE_XET=1
 cd /workspace/phrase-rl
 git pull --no-edit -q || true
-cp -f /workspace/screen_inputs_backup/val_screen_frames.parquet data/ 2>/dev/null || true
+# heal screen inputs from the git-tracked canonicals (MFS has eaten data/
+# before; fresh pods have no data/ at all)
+mkdir -p data
+cp -f results/phrase_artifacts/val_screen_frames.parquet data/
 test -f data/val_screen_frames.parquet
 test -f results/phrase_artifacts/nominal_eval_assets.parquet
 
@@ -33,16 +38,23 @@ pd.DataFrame({"task": a.task, "arm": "tuned", "phrase": a.ert_instruction}).to_p
 print("passthrough phrases:", len(a))
 PY
 else
-  GEN_ARGS=""
-  [ "$ADAPTER" != "none" ] && GEN_ARGS="--adapter $ADAPTER"
+  # phase4 requires --adapter and always generates BOTH arms; for "none"
+  # (frozen Qwen) we pass any staged adapter and keep the base-arm rows
+  KEEP_ARM=tuned
+  GEN_ARGS="--adapter $ADAPTER"
+  if [ "$ADAPTER" = "none" ]; then
+    KEEP_ARM=base
+    GEN_ARGS="--adapter $(ls -d /workspace/adapters/*_nom /workspace/adapters/*/step_* 2>/dev/null | head -1)"
+  fi
   .venv-gen/bin/python -m phrase_rl.phase4_generate_eval \
     --tasks data/val_screen_frames.parquet --ctx data/val_screen_frames.parquet \
     --assets results/phrase_artifacts/nominal_eval_assets.parquet $GEN_ARGS \
     --out data/nominal_phrases_all.parquet
-  .venv-gen/bin/python - <<'PY'
+  KEEP_ARM=$KEEP_ARM .venv-gen/bin/python - <<'PY'
+import os
 import pandas as pd
 d = pd.read_parquet("data/nominal_phrases_all.parquet")
-d = d[d.arm == "tuned"]
+d = d[d.arm == os.environ["KEEP_ARM"]]
 d.to_parquet("data/nominal_phrases.parquet", index=False)
 print("greedy phrases:", len(d))
 for r in d.itertuples():
