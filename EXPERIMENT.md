@@ -455,6 +455,7 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   CORRECTION (same night): the first v6.3 hot-swap silently failed (graceful
   SIGTERM exit ~8-10 min vs a 5-min wait; the old untagged process kept the
   GPU). Redone with a full-exit wait: BOTH arms resumed from step_0040, so
-  TAGS ARE ACTIVE FROM STEP 41 on A and B (untagged v6.2 steps 41-53 were
-  discarded and redone tagged). Ladder screens are step-gated (VAL_TAG_FROM=41):
-  v6step_0020/0040 screen untagged (pre-tag checkpoints), >=0050 screen tagged.
+  TAGS ARE ACTIVE FROM STEP 41 on A and STEP 51 on B (the true resume states
+  were A@40 / B@50 from latest/; the abandoned untagged redo steps were dropped
+  from telemetry by resume dedupe). Ladder screens are step-gated: VAL_TAG_FROM
+  =41 for A, =51 for B (A v6step_0020/0040 and B v6step_0020..0050 = pre-tag).
