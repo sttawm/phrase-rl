@@ -967,7 +967,12 @@ def dedupe_train_log(path: Path, resume_step: int):
                 rec = json.loads(line)
             except json.JSONDecodeError:
                 continue  # partial trailing line from a crash mid-write
-            if rec.get("step", -1) < resume_step:
+            # keep step == resume_step too: the redo starts at resume_step + 1,
+            # so records AT the resume step (incl. its val row) are never
+            # re-created — dropping them loses them permanently (A lost val@20
+            # and val@40 this way; resumes land on val steps half the time
+            # since save_every=10 and val_every=20)
+            if rec.get("step", -1) <= resume_step:
                 kept.append(line)
     tmp = path.with_name(path.name + ".tmp")
     tmp.write_text("".join(ln + "\n" for ln in kept))
