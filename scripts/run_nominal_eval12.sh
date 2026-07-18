@@ -11,6 +11,12 @@ set -euo pipefail
 LABEL="${1:?usage: run_nominal_eval12.sh <label> <adapter|none|passthrough> [workers]}"
 ADAPTER="${2:?}"
 NW="${3:-3}"
+# a leg can be offloaded to another pod mid-chain: touch /workspace/skip_<label>
+if [ -f "/workspace/skip_${LABEL}" ]; then
+  echo "SKIPPED ${LABEL} (offloaded to another pod)"
+  echo "NOMINAL-EVAL-DONE ($LABEL)"
+  exit 0
+fi
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 export VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline HF_HUB_DISABLE_XET=1
