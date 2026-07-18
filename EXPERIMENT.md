@@ -479,3 +479,18 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   optimizer — resumable). Val fleet: nominal chain pod and pod4 self-remove
   when their queues drain; v6-A ladder self-removes after screening
   v6step_0060. Steady state: B RL pod + v6-B ladder.
+  QUARANTINE (2026-07-18 dawn, panel-verified byte-level): the 37.6% nominal
+  x12 headline is VOID as a reward-transfer verdict — (a) nominal_eval_assets
+  .parquet (8b3ae02) had a 3-cycle TRACE MISALIGNMENT (carrot<-eggplant<-stack
+  <-carrot): 288/2304 episodes ran wrong instructions (stack 0.0% = artifact);
+  fixed in nominal_eval_assets_v2.parquet (script now requires v2); (b) v5-B
+  s260 ECHOES the nominal input byte-exactly on all 7 clean tasks — the +0.54
+  verifier "climb" = converging to emit the original (score = originals ref).
+  Echo-Goodhart, not fine-axis transfer failure. Ex-bug: tuned 43.0% vs 42.6%
+  battery (deficit vanishes; parity PROVISIONAL, cross-pipeline). (c) The
+  40.2% battery anchor is RELABELED: base_greedy generated from ERT inputs —
+  it is frozen ERT->greedy HOSTILE REPAIR, not frozen-greedy-on-clean; no
+  clean-input frozen rollout anchor exists yet (pending fixed frozen leg).
+  Ladder boundaries (pre-registered, vs 40.2 repair anchor, +/-3-4pp): STRONG
+  >=38, WEAK 33-38, NULL 27-33, HARMFUL <27; verdict checkpoint >=step 120;
+  mandatory echo byte-audit before interpreting any leg.

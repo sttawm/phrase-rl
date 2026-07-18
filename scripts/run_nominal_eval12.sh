@@ -27,7 +27,7 @@ git pull --no-edit -q || true
 mkdir -p data
 cp -f results/phrase_artifacts/val_screen_frames.parquet data/
 test -f data/val_screen_frames.parquet
-test -f results/phrase_artifacts/nominal_eval_assets.parquet
+test -f results/phrase_artifacts/nominal_eval_assets_v2.parquet
 
 if [ "$ADAPTER" = "passthrough" ]; then
   # phrases = the nominal instructions themselves; TASKS_KEEP (csv) optionally
@@ -35,7 +35,7 @@ if [ "$ADAPTER" = "passthrough" ]; then
   TASKS_KEEP="${TASKS_KEEP:-}" .venv-gen/bin/python - <<'PY'
 import os
 import pandas as pd
-a = pd.read_parquet("results/phrase_artifacts/nominal_eval_assets.parquet")
+a = pd.read_parquet("results/phrase_artifacts/nominal_eval_assets_v2.parquet")
 keep = [t for t in os.environ.get("TASKS_KEEP", "").split(",") if t]
 if keep:
     a = a[a.task.isin(keep)]
@@ -54,7 +54,7 @@ else
   fi
   .venv-gen/bin/python -m phrase_rl.phase4_generate_eval \
     --tasks data/val_screen_frames.parquet --ctx data/val_screen_frames.parquet \
-    --assets results/phrase_artifacts/nominal_eval_assets.parquet $GEN_ARGS \
+    --assets results/phrase_artifacts/nominal_eval_assets_v2.parquet $GEN_ARGS \
     --out data/nominal_phrases_all.parquet
   KEEP_ARM=$KEEP_ARM .venv-gen/bin/python - <<'PY'
 import os
