@@ -459,12 +459,15 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   were A@40 / B@50 from latest/; the abandoned untagged redo steps were dropped
   from telemetry by resume dedupe). Ladder screens are step-gated: VAL_TAG_FROM
   =41 for A, =51 for B (A v6step_0020/0040 and B v6step_0020..0050 = pre-tag).
-  VAL CAVEAT (v6.3, fixed same night): vals at A@60 and B@60 are CONTAMINATED —
-  process_context tags the source, so the val probe (a) scored the ORIGINAL
-  phrase WITH the tag text (orig 0.85 -> 0.617, identical across arms = the
-  tell), (b) double-tagged the greedy gen input, (c) scored greedy/ERT decodes
-  without echo-strip. Those vals cannot be read as model regression. Fixed
-  (score untagged orig; single tag; strip scored probes); best_val_margin at
-  @60 was computed against the depressed orig and is inflated — best_val
-  selection distrusted until a later val beats it honestly (all checkpoints
-  are archived regardless). First CLEAN tagged vals: A@80, B@80.
+  VAL SCALE BREAK AT STEP 60 (root cause found, no bug): commit 0ede0b3
+  ("val probes at 4-frame parity", STAGED) activated at the v6.3 restarts.
+  Vals <=40 and val40_references_4f.json scored the 4f ENSEMBLE at 1 FRAME
+  (val episodes were absent from the frames map; silent fallback); vals >=60
+  score at TRUE 4 frames. The step-60 "drops" (orig 0.847 -> 0.617, identical
+  across arms) are this scale change, NOT the tags and NOT contamination —
+  the earlier CONTAMINATION note is WRONG on the orig/double-tag mechanism
+  (res["instruction"] was never tagged; gen input was single-tagged and
+  correct). The val-probe echo-strip added that night remains as hardening.
+  References rebuilt at true 4f: val40_references_true4f.json; criterion
+  comparisons valid for vals >=60 vs the new refs. best_val_margin poisoning
+  concern likewise withdrawn (orig shift was uniform per era).
