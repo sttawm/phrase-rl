@@ -105,14 +105,14 @@ def process_job(policy, spec, micro_batch, hb, job_id, dim_std=None, ensemble=No
         raise RuntimeError("reward_mode='l2' requires the server to be started with --stats-contexts")
     k_l2 = int(spec.get("k_l2", 4))
     df = pd.read_parquet(spec["in_parquet"])
-    ids, phrases_out, means, per_draw = [], [], [], []
+    ids, phrases_out, means, per_draw, grips = [], [], [], [], []
     groups = list(df.groupby("context_id", sort=False))
     for cid, g in tqdm(groups, desc=f"job {job_id} [{mode}]", leave=False):
         row = g.iloc[0]  # context fields identical within a group by construction
         img = np.asarray(Image.open(io.BytesIO(row["image_png"]))).astype(np.float32) / 255.0
         phrases = [str(p) for p in g["phrase"]]
         if mode == "verifier":
-            def _frame_logits(fr_row, plist):
+            def _frame_feats(fr_row, plist):
                 im = np.asarray(Image.open(io.BytesIO(fr_row["image_png"]))).astype(np.float32) / 255.0
                 a_st = np.asarray(fr_row["action_chunk"], dtype=np.float32)
                 fl, v, u = scorer.score_verbose(
@@ -129,17 +129,22 @@ def process_job(policy, spec, micro_batch, hb, job_id, dim_std=None, ensemble=No
                     "grip_err": grip[i].astype(np.float32),
                     "a_star": a_st.reshape(-1),
                 } for i in range(len(plist))])
-                return ensemble.member_logits(feats)  # (P, n_members)
+                # grip summary per phrase (mean over decode draws) rides along for
+                # the v7 blend reward — the trainer combines it with the logit
+                return ensemble.member_logits(feats), np.asarray([g_.mean() for g_ in grip])
             if "frame_id" in g.columns and g["frame_id"].nunique() > 1:
                 first = g[g.frame_id == g.frame_id.min()]
                 phrases = [str(p) for p in first["phrase"]]
-                per_frame = []
+                per_frame, per_frame_grip = [], []
                 for _, gf in g.groupby("frame_id"):
                     assert [str(p) for p in gf["phrase"]] == phrases, "phrase order mismatch across frames"
-                    per_frame.append(_frame_logits(gf.iloc[0], phrases))
+                    lg, gr = _frame_feats(gf.iloc[0], phrases)
+                    per_frame.append(lg); per_frame_grip.append(gr)
                 losses = -np.mean(per_frame, axis=0)  # mean calibrated logit across frames
+                grips_group = np.mean(per_frame_grip, axis=0)
             else:
-                losses = -_frame_logits(row, phrases)  # (P, n_members); lower = better
+                lg, grips_group = _frame_feats(row, phrases)
+                losses = -lg  # (P, n_members); lower = better
         elif mode == "l2":
             losses = scorer.score_l2(
                 img.transpose(2, 0, 1), np.asarray(row["state"]),
@@ -154,10 +159,15 @@ def process_job(policy, spec, micro_batch, hb, job_id, dim_std=None, ensemble=No
         phrases_out.extend(phrases)
         means.extend(losses.mean(axis=1).tolist())
         per_draw.extend([r.tolist() for r in losses])
+        if mode == "verifier":
+            grips.extend(np.asarray(grips_group, dtype=float).tolist())
+        else:
+            grips.extend([float("nan")] * len(phrases))
         hb.beat()
 
     out = pd.DataFrame(
-        {"context_id": ids, "phrase": phrases_out, "loss": means, "loss_per_draw": per_draw}
+        {"context_id": ids, "phrase": phrases_out, "loss": means, "loss_per_draw": per_draw,
+         "grip": grips}
     )
     out_path = spec["out_parquet"]
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)

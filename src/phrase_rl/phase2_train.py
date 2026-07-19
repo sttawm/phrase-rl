@@ -228,7 +228,7 @@ def score_phrases(ipc_dir: Path, job_id: str, contexts: list, args) -> list[np.n
             raise ScoreServerError(f"score server error for {job_id}: {msg}")
         if done.exists():
             out = pd.read_parquet(out_parquet)
-            losses = []
+            losses, grips = [], []
             for ci, (row, phrases) in enumerate(contexts):
                 key = str(row["context_id"]) if rollout else ci  # rollout ids are "task|ep" strings
                 g = out[out["context_id"] == key]
@@ -238,13 +238,54 @@ def score_phrases(ipc_dir: Path, job_id: str, contexts: list, args) -> list[np.n
                         f"for {len(phrases)} phrases")
                 losses.append(np.stack(
                     [np.asarray(r, dtype=np.float32) for r in g["loss_per_draw"]]))
+                if "grip" in g.columns:
+                    grips.append(np.asarray(g["grip"], dtype=np.float32))
+                else:
+                    grips.append(np.full(len(phrases), np.nan, dtype=np.float32))
             for p in (done, in_parquet, out_parquet):
                 p.unlink(missing_ok=True)
+            score_phrases.last_grips = grips  # sidecar for blend-aware callers
             return losses
         time.sleep(0.5)
     req.unlink(missing_ok=True)
     in_parquet.unlink(missing_ok=True)
     raise ScoreTimeout(f"no response for {job_id} after {args.score_timeout}s")
+
+
+
+def rank01(x):
+    """Average-rank in [0, 1], higher x -> higher rank. Singleton -> 0.5."""
+    x = np.asarray(x, dtype=np.float64)
+    n = len(x)
+    if n <= 1:
+        return np.full(n, 0.5)
+    order = np.argsort(x, kind="mergesort")
+    ranks = np.empty(n)
+    ranks[order] = np.arange(n, dtype=np.float64)
+    # average ties
+    for v in np.unique(x):
+        m = x == v
+        if m.sum() > 1:
+            ranks[m] = ranks[m].mean()
+    return ranks / (n - 1)
+
+
+def _rlog(res):
+    """Logit-scale candidate rewards for telemetry (blend-independent)."""
+    v = res.get("rewards_logit")
+    return v if v is not None else res["rewards"]
+
+
+def blend_rewards(logit_rewards, grips, w=0.25):
+    """v7 C4b reward: w*rank01(ensemble reward) + (1-w)*rank01(-grip_err),
+    ranks WITHIN the candidate group (GRPO consumes relative order; the exam
+    validated exactly this ranking). NaN grips (non-verifier modes) fall back
+    to pure logit rank."""
+    r01 = rank01(logit_rewards)
+    g = np.asarray(grips, dtype=np.float64)
+    if np.isnan(g).any():
+        return r01
+    return w * r01 + (1.0 - w) * rank01(-g)
 
 
 # ------------------------------------------------- generate / gate / score
@@ -450,9 +491,16 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
         return
     contexts = [(row, [res["instruction"]] + res["survivors"]) for row, res in pairs]
     all_losses = score_phrases(ipc_dir, job_id, contexts, args)
-    for (_, res), losses in zip(pairs, all_losses):
+    all_grips = getattr(score_phrases, "last_grips", [None] * len(all_losses))
+    for (_, res), losses, grips in zip(pairs, all_losses, all_grips):
         rewards = -losses.mean(axis=1)
-        res.update(r_orig=float(rewards[0]), rewards=rewards[1:])
+        res.update(r_orig=float(rewards[0]), rewards_logit=rewards[1:],
+                   grips=None if grips is None else grips[1:])
+        if getattr(args, "reward_blend", "") == "c4b" and grips is not None:
+            blended = blend_rewards(rewards, grips, w=getattr(args, "blend_w", 0.25))
+            res.update(r_orig_blend=float(blended[0]), rewards=blended[1:])
+        else:
+            res.update(rewards=rewards[1:])
 
 
 # ------------------------------------------------------------ log-prob + KL
@@ -758,6 +806,7 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
     torch.manual_seed(args.val_seed)
     try:
         best, mean, orig, greedy, greedy_ert, gphrases = [], [], [], [], [], []
+        g_orig, g_greedy, g_ert = [], [], []
         n_failed = judged = survived = 0
         rows = val_df.head(args.val_n)
         for i, (_, row) in enumerate(tqdm(rows.iterrows(), total=len(rows),
@@ -810,6 +859,7 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             job = f"val{step:06d}i{i:03d}_{uuid.uuid4().hex[:8]}"
             plist = [raw_instr] + res["survivors"] + [gp] + ([gpe] if gpe else [])
             losses = score_phrases(ipc_dir, job, [(row, plist)], args)[0]
+            vgrips = getattr(score_phrases, "last_grips", [None])[0]
             rewards = -losses.mean(axis=1)
             n_tail = 2 if gpe else 1
             res.update(r_orig=float(rewards[0]), rewards=rewards[1:-n_tail])
@@ -817,6 +867,10 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             mean.append(float(res["rewards"].mean()))
             orig.append(res["r_orig"])
             greedy.append(float(rewards[-n_tail]))
+            if vgrips is not None and not np.isnan(vgrips).all():
+                g_orig.append(float(vgrips[0])); g_greedy.append(float(vgrips[-n_tail]))
+                if gpe:
+                    g_ert.append(float(vgrips[-1]))
             if gpe:
                 greedy_ert.append(float(rewards[-1]))
             gphrases.append({"instruction": raw_instr, "greedy": gp,
@@ -831,6 +885,9 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             "mean_greedy_reward": float(np.mean(greedy)) if greedy else None,
             "mean_greedy_ert_reward": float(np.mean(greedy_ert)) if greedy_ert else None,
             "greedy_win_rate": float(np.mean([g > o for g, o in zip(greedy, orig)])) if greedy else None,
+            "mean_orig_grip": float(np.mean(g_orig)) if g_orig else None,
+            "mean_greedy_grip": float(np.mean(g_greedy)) if g_greedy else None,
+            "mean_greedy_ert_grip": float(np.mean(g_ert)) if g_ert else None,
             "greedy_phrases": gphrases,
             "gate_pass_rate": survived / judged if judged else None,
         }
@@ -1006,14 +1063,18 @@ def step_record(step: int, t0: float, ctx_results: list, upd: dict, args) -> dic
         "judge_fail_rate": sum(r["n_judge_fail"] for r in ctx_results) / n_judged if n_judged else None,
         "adv_mean": float(advs.mean()) if advs.size else None,
         "adv_max": float(advs.max()) if advs.size else None,
-        "cand_loss_mean": float(np.mean([-r["rewards"].mean() for r in ok])) if ok else None,
+        "cand_loss_mean": float(np.mean([-_rlog(r).mean() for r in ok])) if ok else None,
         "orig_loss_mean": float(np.mean([-r["r_orig"] for r in ok])) if ok else None,
+        "cand_blend_mean": float(np.mean([r["rewards"].mean() for r in ok])) if ok and getattr(args, "reward_blend", "") else None,
         "tier_counts": {t: sum(r.get("source_tier") == t for r in ctx_results)
                         for t in ("nominal", "benign", "ert")},
         "input_dropout_rate": float(np.mean([bool(r.get("input_dropped")) for r in ctx_results])) if ctx_results else None,
-        "cand_loss_by_tier": {t: float(np.mean([-r["rewards"].mean() for r in ok
+        "cand_loss_by_tier": {t: float(np.mean([-_rlog(r).mean() for r in ok
                                                 if r.get("source_tier") == t] or [np.nan]))
                               for t in ("nominal", "benign", "ert")},
+        "grip_by_tier": {t: float(np.mean([np.nanmean(r["grips"]) for r in ok
+                                           if r.get("source_tier") == t and r.get("grips") is not None] or [np.nan]))
+                         for t in ("nominal", "benign", "ert")},
         **{k: upd.get(k) for k in ("n_pos", "update_loss", "kl", "logprob", "grad_norm", "fwd_sec", "bwd_sec")},
     }
     if step % args.example_every == 0 and ok:
@@ -1169,6 +1230,11 @@ def main():
                          "true sampling from the update prompt (on-policy GRPO), no dedupe")
     ap.add_argument("--update-rule", choices=["raft", "grpo"], default="raft",
                     help="raft: positive-only advantage-weighted SFT (v1-v3). grpo: full group, signed advantages — negatives get pushed down")
+
+    ap.add_argument("--reward-blend", default="", choices=["", "c4b"],
+                    help="c4b: candidate rewards = 0.25*rank01(ensemble) + 0.75*rank01(-grip), within-group (v7)")
+    ap.add_argument("--blend-w", type=float, default=0.25,
+                    help="ensemble weight in the c4b blend (exam-selected 0.25)")
     ap.add_argument("--max-pos-per-ctx", type=int, default=0,
                     help="cap update to top-K positives per context by advantage (0 = all)")
     ap.add_argument("--grad-accum-groups", type=int, default=1,
