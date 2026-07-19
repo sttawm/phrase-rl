@@ -29,7 +29,7 @@ tmux kill-session -t train 2>/dev/null || true
 
 tmux new-session -d -s score \
   "bash -lc 'set -o pipefail; eval \"\$(grep -E \"^export (HF_TOKEN|HF_HOME)\" ~/.bashrc || true)\"; export HF_HOME=\${HF_HOME:-/workspace/hf_cache}; cd /workspace/phrase-rl && \
-   .venv/bin/python -m phrase_rl.phase2_score_server \
+   ${SCORE_PY:-.venv/bin/python} -m phrase_rl.phase2_score_server \
      --ipc-dir $IPC_DIR \
      --stats-contexts results/phrase_artifacts/chunk_stats.parquet \
      --verifier-ensemble results/checkpoints/verifier_reward_ensemble_4f.json \
