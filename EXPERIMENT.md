@@ -511,3 +511,19 @@ higher). Exams: results/overnight/raw/exam_4f_results.txt, charts reward_scorers
   through 180) made steps 192-300 marginal. Full step-190 state (adapter +
   optimizer + trainer_state) archived locally (adapter_archive/B_v6_final_s190).
   Fleet reduced to pod4 (A6000) for the exam + selection-exam workstream.
+
+### V7 RUN SPEC (authorized 2026-07-19; launches after selection-exam confirmation)
+Single treatment change from v6-B: the FINE reward. reward = C4b rank blend
+(0.25*rank01(ensemble logit) + 0.75*rank01(-grip_err), within candidate
+group) — exam-selected (66/68 native signs vs production's 51/68; grip-rank
+ceiling 67/68; 25/75 chosen over w=0 for pre-registration cleanliness,
+diversity against grip's per-task pathologies (carrot rho -0.12), and
+two-axis Goodhart resistance). Blend applies to TRAINING ADVANTAGES ONLY;
+all telemetry/val metrics stay on component scales (logit + grip) so every
+existing reference remains valid; grip_by_tier + val grip components added.
+Recipe otherwise FROZEN from v6-B: from scratch, ckpt phase2_v7, n=16
+sample_single, stratified 2/2/4, dropout 1/3, tier tags, beta 0.15, lr 7e-6,
+grad-accum 6, val/save cadence identical, tripwires identical. Host: pod4
+A6000. Gates before launch: selection exam (C4b as best-of-8 picker on
+native sampled cells) + 2-step smoke. Gemini NOT required (reuses v6's
+4,708-source ERT corpus); needed later only for keeper-task eval assets.
