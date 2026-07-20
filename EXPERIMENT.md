@@ -807,3 +807,15 @@ keys" in the SFT-17k entries is hereby corrected to "minus a file-order 10%
 (split-logic error, no downstream effect)". v1 instruction set kept as-is
 for v1->v2 comparability; frame extractor uses the CORRECT hash split for
 representative-episode preference.
+
+## V2 spec amendments (user, 2026-07-20): no dropout; copy-nouns is the point
+TRACE DROPOUT REMOVED — v1 already exists as the no-trace artifact; v2
+trains 100%-traced for its single deployment config (trace->reconstruct).
+Copying from the trace is the MECHANISM, not a failure mode: division of
+labor = nouns from the (image-grounded) trace, relation/goal from the
+variant text (a t=0 frame cannot know the goal), register from the
+trained prior. Only degenerate case: trace carrying the full answer
+sentence (collapses v2 into echo-the-trace = frozen relation-parsing =
+the measured 25.8). Referents-only trace format enforces the split.
+Train-time trace noise (Qwen misnaming objects on real frames) is the
+organic anti-blind-copy regularizer; no artificial safeguard added.
