@@ -758,3 +758,23 @@ placeholders. Implication: trace-conditioned v2 has a concrete mechanism
 (trace injects the resolved noun; SFT formats canonically) and the trace
 prompt should be a MINIMAL two-section scene+referents prompt (or Gemini
 traces), not the full CoVer template, for 9B reliability.
+
+## SFT-17k PRIMARY VERDICT: bare-vs-bare x12 complete (2026-07-20)
+SFT 31.1 vs frozen_bare 25.8 pooled; CRN-PAIRED +5.3pp +/- 2.3 (n=192
+cells) — the user-spec'd primary comparison is an SFT WIN (>2 sigma).
+Stratified: natives SFT 56.3 vs 38.5 (+17.8); quartet SFT 5.8 vs 13.0
+(-7.2, entirely ramekin). Per-task: SFT wins 7/8 (+1.7..+40.6; eggplant
+94.4 vs 53.8, spoon 59.7 vs 40.6); loses ONLY ramekin -38.2 (frozen echo
+of "hollow white ceramic cup-like container" scores 42.0 — pi0 parses
+that circumlocution! — vs SFT's "the white object" 3.8).
+PRE-REGISTERED PREDICTION OUTCOME: WRONG in the informative direction —
+predicted frozen_bare quartet ~15-30 via echoes; actual 13.0 with echoes
+mostly FAILING (keyboard circumlocution 0.3, deictic coke-plate 1.0).
+pi0's descriptive-language competence is OBJECT-DEPENDENT (ramekin
+circumlocution 42.0 vs keyboard circumlocution 0.3) — echo is not a
+reliable OOV fallback either; RESOLUTION (v6's "white bowl" 64.2, "black
+keyboard" 22.9) beats both echo and vague canonicalization.
+Ladder (greedy x12, current suite): frozen_bare 25.8 < SFT 31.1 < v6 RL
+37.2-39.2 (v6 generated under trace+image conditioning — not bare;
+frozen_trace leg launching to complete the ladder). QUEUED on freed GPU:
+trace leg then sampled leg (chained).

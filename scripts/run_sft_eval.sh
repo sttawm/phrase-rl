@@ -13,8 +13,28 @@ mark() { echo "[sft-eval $(date +%H:%M:%S)] $*" | tee -a /workspace/sfteval.log;
 
 LEG=${1:-greedy}
 NW=${VAL_WORKERS:-3}
+ARMS="sft frozen_bare"
 if [ "$LEG" = greedy ]; then
   PH=data/phrases_sft17k_ert_greedy.parquet; REPS=12; TAG=sfteval12
+elif [ "$LEG" = trace ]; then
+  # frozen + CoVer trace prompt, greedy — the missing same-suite anchor
+  PH=data/phrases_frozen_trace_greedy.parquet; REPS=12; TAG=sfteval12; ARMS="frozen_trace"
+  if [ ! -f "$PH" ]; then
+    mark "generating frozen+trace greedy phrases (phase4, base arm)"
+    PYTHONPATH=src .venv-gen/bin/python -m phrase_rl.phase4_generate_eval \
+      --tasks data/val_screen_frames.parquet --ctx data/val_screen_frames.parquet \
+      --assets data/val_screen_assets.parquet \
+      --adapter results/checkpoints/sft17k/final \
+      --out data/ph4_trace_tmp.parquet >> /workspace/sfteval.log 2>&1 \
+      || { mark "TRACE GEN FAILED"; exit 1; }
+    .venv-gen/bin/python -c "
+import pandas as pd
+d = pd.read_parquet('data/ph4_trace_tmp.parquet')
+d = d[d.arm == 'base'].copy()
+d['arm'] = 'frozen_trace'
+d.to_parquet('$PH', index=False)
+print('frozen_trace phrases:', len(d))" >> /workspace/sfteval.log 2>&1 || { mark "TRACE FILTER FAILED"; exit 1; }
+  fi
 else
   PH=data/phrases_sft17k_ert_sam8.parquet; REPS=1; TAG=sftsam8x1
   if [ ! -f "$PH" ]; then
@@ -27,7 +47,7 @@ else
 fi
 [ -f "$PH" ] || { mark "missing $PH — run the chain / generation first"; exit 1; }
 
-for ARM in sft frozen_bare; do
+for ARM in $ARMS; do
   OUT="results/val_screens/${TAG}_${ARM}.parquet"
   [ -f "results/val_screens/.done_${TAG}_${ARM}" ] && { mark "skip $ARM (done)"; continue; }
   ARM=$ARM PH=$PH NW=$NW .venv-gen/bin/python - <<'PY'
