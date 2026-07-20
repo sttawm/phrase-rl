@@ -859,3 +859,18 @@ frozen_trace (PASS, 31.5>=15.8) — sft_trace failing to READ traces (v1
 trained traceless) would be evidence FOR v2, not against; sft_trace stays
 as a diagnostic arm. Gate redeployed: waits for parallel tracegen
 TRACES-DONE (no double-run), then best_val smoke, then v2 training.
+
+## Arm naming convention (user, 2026-07-20 night)
+Reporting names (artifact/arm strings unchanged until the queue drains —
+waiters key on the short names):
+  frozen_bare        = frozen Qwen, bare wrapper, no trace
+  sft                = SFT-v1 adapter, bare wrapper, no trace
+  frozen_trace       -> FROZEN_GEMINI_TRACE (frozen + cached Gemini trace + image)
+  sft_trace          -> SFT_GEMINI_TRACE (v1 adapter under same conditioning; diagnostic)
+  frozen_selftrace   = FROZEN_QWEN_TRACE (frozen + Qwen self-trace)
+  sft_selftrace      = SFT_QWEN_TRACE (v1 adapter + Qwen self-trace)
+  v2                 = SFT retrained WITH Qwen traces (native trace format)
+Val suite unchanged: 8 SIMPLER tasks = 4 CoVer natives + keeper quartet
+(coke-plate/carrot-keyboard/coke-ramekin/carrot-wheel _clean, registry-v4
+prescreen survivors). natives-vs-quartet = stratification, not a suite
+change; it happens to align with in-vocab vs OOV receptacles.
