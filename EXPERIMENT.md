@@ -702,3 +702,30 @@ GREEDY x12 EVAL LAUNCHED (run_sft_eval.sh, sfteval tmux): SFT arm then
 frozen_bare, 2,304 eps each, results auto-commit to results/val_screens/
 sfteval12_{sft,frozen_bare}.parquet. Read against: frozen+trace repair
 40.2, clean ceiling 41.8, v6 RL tuned 37-39.6, passthrough anchors.
+
+## SFT-17k x12 INTERIM (sft arm landed 2026-07-20; frozen_bare running)
+SFT greedy x12: POOLED 31.1% — but pooled is the wrong statistic; the
+result is bimodal along the vocabulary axis:
+- NATIVES 56.3% = best ever recorded on this suite (v6 RL s80/s120
+  47.3/45.0; frozen+trace sampled 40.5). spoon 59.7 (v6: 25.0!),
+  eggplant 94.4 (81.9), carrot-plate/stack at par.
+- QUARTET 5.8% vs v6 29.4 — catastrophic, mechanism identified per-task:
+  ramekin: v6's 64.2% phrase mapped ramekin->"white bowl" (correct
+  in-vocab neighbor); SFT emitted "the white object" (vague) -> 3.8%.
+  keyboard: v6's 22.9% phrase KEPT the OOV noun ("black keyboard"); SFT
+  invented "mouse pad" (wrong neighbor; "mouse" = only desk-adjacent noun
+  in corpus, 4 OXE keys) -> 3.1%. wheel: SFT 10.4 actually beats v6 3.1.
+  keyboard/wheel/ramekin/tire have ZERO keys even OXE-WIDE -> a broader
+  dictionary slice does NOT fix this; the lesson is behavioral: resolve
+  the description, DON'T force the noun into training vocabulary (v6's
+  image+trace conditioning got this right; bare text SFT learned
+  always-in-vocab and pays for it exactly where the vocab ends).
+VERDICT SO FAR: supervised canonicalization CONFIRMED where the canonical
+target exists (natives +9-11pp over the best RL arm) and ANTI-confirmed
+on OOV receptacles (information destruction). The hypothesis test split
+cleanly along its own assumption boundary.
+PRE-REGISTERED PREDICTION (before frozen_bare lands): frozen_bare echoes
+5/8 -> its quartet should score near echo/passthrough (~15-30%), natives
+mixed; pooled plausibly ABOVE SFT's 31.1 — if so, the bare-vs-bare
+primary is a frozen win on pooled with SFT dominant on natives, and the
+honest headline is stratified, not pooled.
