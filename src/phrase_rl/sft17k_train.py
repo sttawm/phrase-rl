@@ -63,8 +63,8 @@ def main():
     ap.add_argument("--out", default="results/checkpoints/sft17k")
     ap.add_argument("--model", default="Qwen/Qwen3.5-9B")
     ap.add_argument("--epochs", type=int, default=2)
-    ap.add_argument("--bs", type=int, default=16)
-    ap.add_argument("--accum", type=int, default=4)
+    ap.add_argument("--bs", type=int, default=8)
+    ap.add_argument("--accum", type=int, default=8)
     ap.add_argument("--lr", type=float, default=1e-4)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--max-len", type=int, default=256)
@@ -91,6 +91,12 @@ def main():
     tok = AutoProcessor.from_pretrained(args.model)
     tok.tokenizer.padding_side = "right"
     base = AutoModelForImageTextToText.from_pretrained(args.model, dtype=torch.bfloat16, device_map="cuda")
+    # Qwen3.5's linear-attention layers run on the torch fallback here (no
+    # flash-linear-attention kernels): autograd through that recurrence stores
+    # per-step states and OOM'd a 48GB card at bs16. Checkpointing recomputes
+    # the forward in backward instead of storing it.
+    base.config.use_cache = False
+    base.gradient_checkpointing_enable()
 
     latest = os.path.join(args.out, "latest")
     state_path = os.path.join(latest, "trainer_state.pt")
@@ -106,6 +112,7 @@ def main():
                                           "q_proj", "up_proj", "down_proj"])
         model = get_peft_model(base, lcfg)
     model.print_trainable_parameters()
+    model.enable_input_require_grads()  # checkpointed blocks need grad-requiring inputs when only LoRA trains
     trainable = [p for p in model.parameters() if p.requires_grad]
 
     def encode_batch(rows):
