@@ -527,3 +527,37 @@ grad-accum 6, val/save cadence identical, tripwires identical. Host: pod4
 A6000. Gates before launch: selection exam (C4b as best-of-8 picker on
 native sampled cells) + 2-step smoke. Gemini NOT required (reuses v6's
 4,708-source ERT corpus); needed later only for keeper-task eval assets.
+
+## SFT-17k: supervised ERT->GT reconstruction (user pivot, 2026-07-19)
+Motivation: the GT-convergence result (tuned v6 ERT outputs drift toward
+Bridge GT phrasing, +0.134+/-0.027 overlap vs frozen, 5-sigma) plus the
+reward=GT-proximity-detector diagnosis imply the direct move: skip RL and
+supervise the mapping hostile->canonical on ALL Bridge train-split
+instructions. User: "give the VLM the ERT phrase and merely fine-tune it to
+reconstruct the original task phrase. No RL."
+DATA: 17,297 unique clean train-split instructions (60k episodes ->
+19,658 uniques -> minus val/test-split instruction keys, 5<=len<=120);
+3 hostile variants each, generated LOCALLY by frozen Qwen3.5-9B
+(pod4_gen_variants.py; styles: synonym/attribute injection, stance/manner+
+indirect reference, CONCISE 40-70ch; CoVer-release shots anchor the genre).
+Eval hostile sets remain Gemini/CoVer-authored => held-out attack
+distribution. Generation v1 bug: thinking-mode ate the token budget (0/48
+kept) — v2 uses enable_thinking=False + `ERT: "` prefill (the
+apply_template discipline). Filters: per-style length windows, !=GT,
+refusal/format rejects, and a SPATIAL-FLIP reject (variant introducing the
+antonym of a GT-stated relation, e.g. right->left, is a goal change, not a
+rewording — caught in smoke).
+TRAIN (sft17k_train.py, PRE-COMMITTED, no checkpoint selection): LoRA v6
+geometry (r16/a32/dropout0, same 7 targets) on Qwen3.5-9B; 2 epochs, cosine
+1e-4, bs16 x accum4, loss on target tokens only; text-val = held-out 5% of
+PAIRS (never SIMPLER). Conditioning: WRAPPER user turn + "Canonical:"
+prefill, continue_final_message, enable_thinking=False — reused byte-
+identical at eval (sft17k_generate_eval.py). Artifact = final/; best_val/
+archived per repo policy but NOT used for selection.
+EVAL PROTOCOL (ruling, 2026-07-19): NO SIMPLER val phase — nothing to
+select. One full x12 ERT eval on the 8 TOUCHED val tasks vs the existing
+frozen anchors (repair 40.2, sampled 33.7, oracles), CRN-paired; sampled
+k=8 companion for the distribution view. The SEALED test (12 natives +
+CoVer trio) stays unspent: it fires ONCE with all finalists (frozen, v6,
+SFT-17k, any v7/v8) per registry v4. If SFT-17k beats frozen repair on the
+touched-8, it enters that final one-shot as a finalist.
