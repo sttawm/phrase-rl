@@ -37,6 +37,49 @@ WRAPPER = ("This is a reworded robot instruction. Recover the original plain "
 PREFILL = "Canonical:"
 
 
+# OOV noun-retention probe: the validation text-CE cannot see the failure mode
+# that killed the quartet (no OOV nouns exist in held-out Bridge instructions).
+# These nouns are verified absent from the 17,297 GTs + OXE paraphrases; the
+# metric is the fraction of reconstructions that KEEP the noun instead of
+# substituting a Bridge-vocab neighbor. Logged as oov_keep at every val cycle.
+OOV_PROBES = [
+    ("set the soda can down on the computer keyboard", "keyboard"),
+    ("place the carrot atop the black device covered in typing keys", "keyboard"),
+    ("put the egg inside the small white ramekin", "ramekin"),
+    ("balance the spoon on the skateboard deck", "skateboard"),
+    ("rest the red block on top of the bicycle helmet", "helmet"),
+    ("lay the towel over the acoustic guitar", "guitar"),
+    ("put the sponge on the wifi router", "router"),
+    ("place the fork next to the dumbbell", "dumbbell"),
+    ("set the cup on the office stapler", "stapler"),
+    ("move the banana onto the laptop", "laptop"),
+    ("put the pot lid on the typewriter", "typewriter"),
+    ("place the bottle beside the microscope", "microscope"),
+]
+
+
+def probe_trace(noun):
+    return (f"Scene: a wooden table with several objects including a {noun}. "
+            f"Objects the instruction refers to: the described object -> {noun}.")
+
+
+def probe_oov(model, tok, use_traces):
+    model.eval()
+    import torch as _t
+    kept = 0
+    for text, noun in OOV_PROBES:
+        msgs = build_msgs(text, probe_trace(noun) if use_traces else None)
+        enc = tok.apply_chat_template(msgs, tokenize=True, return_dict=True,
+                                      return_tensors="pt", continue_final_message=True,
+                                      enable_thinking=False).to(model.device)
+        with _t.no_grad():
+            out = model.generate(**enc, do_sample=False, max_new_tokens=40)
+        dec = tok.decode(out[0][enc["input_ids"].shape[1]:], skip_special_tokens=True)
+        kept += noun in dec.casefold()
+    model.train()
+    return kept / len(OOV_PROBES)
+
+
 def build_msgs(variant, trace=None):
     # v2: image-grounded referent trace prepended in the SAME user turn —
     # nouns from the trace, relation/goal from the variant (EXPERIMENT.md
@@ -195,6 +238,7 @@ def main():
                        "lr": sched.get_last_lr()[0]}
                 if gstep % args.val_every == 0:
                     rec["val_loss"] = val_loss()
+                    rec["oov_keep"] = probe_oov(model, tok, traces is not None)
                     if rec["val_loss"] < best:
                         best = rec["val_loss"]
                         model.save_pretrained(os.path.join(args.out, "best_val"))
@@ -205,6 +249,7 @@ def main():
                     print(json.dumps(rec), flush=True)
                     log.write(json.dumps(rec) + "\n"); log.flush()
         vl = val_loss()
+        print(f"epoch {ep + 1} oov_keep={probe_oov(model, tok, traces is not None):.2f}", flush=True)
         if vl < best:
             best = vl
             model.save_pretrained(os.path.join(args.out, "best_val"))
