@@ -819,3 +819,13 @@ sentence (collapses v2 into echo-the-trace = frozen relation-parsing =
 the measured 25.8). Referents-only trace format enforces the split.
 Train-time trace noise (Qwen misnaming objects on real frames) is the
 organic anti-blind-copy regularizer; no artificial safeguard added.
+
+## Trace-source comparison protocol (user-confirmed 2026-07-20)
+No training on Gemini traces anywhere. Trace SOURCE is compared at EVAL
+(same v1 adapter, same 8 tasks, cached-Gemini vs Qwen self-trace
+conditioning — controlled, zero API cost). Trace TRAINING is Qwen-only
+(v2, 17.3k). Reserve design if v2 underperforms while the Gemini-trace
+gate passed: paired small-adapter ablation on the 1,353-instruction
+intersection (Gemini traces cached; Qwen traces free) — identical
+coverage, trace source the only variable. No new Gemini spend in any
+branch.
