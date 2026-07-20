@@ -75,9 +75,16 @@ def main():
     os.makedirs(args.out, exist_ok=True)
 
     df = pd.read_parquet(args.pairs).sample(frac=1.0, random_state=args.seed).reset_index(drop=True)
-    n_val = max(500, int(0.05 * len(df)))
-    val_df, train_df = df.iloc[:n_val], df.iloc[n_val:]
-    print(f"pairs: train {len(train_df)}, heldout-text-val {len(val_df)}", flush=True)
+    # GROUPED holdout by GT (not by pair): every GT has ~3 variants, so a pair-level
+    # split would score "new variant of a seen target" — memorizable. Holding out
+    # whole GTs makes text-val a real memorization probe: reconstruct instructions
+    # never seen as targets.
+    gts = pd.Series(sorted(df["gt"].unique())).sample(frac=1.0, random_state=args.seed)
+    hold = set(gts.iloc[:max(200, int(0.05 * len(gts)))])
+    val_df = df[df["gt"].isin(hold)].reset_index(drop=True)
+    train_df = df[~df["gt"].isin(hold)].reset_index(drop=True)
+    print(f"pairs: train {len(train_df)} ({df['gt'].nunique() - len(hold)} gts), "
+          f"heldout-text-val {len(val_df)} ({len(hold)} unseen gts)", flush=True)
 
     from transformers import AutoModelForImageTextToText, AutoProcessor
     from peft import LoraConfig, PeftModel, get_peft_model

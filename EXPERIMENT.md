@@ -561,3 +561,44 @@ k=8 companion for the distribution view. The SEALED test (12 natives +
 CoVer trio) stays unspent: it fires ONCE with all finalists (frozen, v6,
 SFT-17k, any v7/v8) per registry v4. If SFT-17k beats frozen repair on the
 touched-8, it enters that final one-shot as a finalist.
+
+## SFT-17k amendments + provenance discovery (2026-07-19, user design round)
+PROVENANCE (verified, HF card): the frozen pi0 IS the INTACT suite's
+rephrase-finetune (arXiv 2506.09930) — BridgeV2 fine-tune WITH instruction
+paraphrasing per the PUBLIC dictionary rail-berkeley/OXE_paraphrases.
+Bridge slice extracted + committed: results/phrase_artifacts/
+oxe_paraphrases_bridge.parquet — 6,463 Bridge keys x median 38 paraphrases
+= 235,764 benign phrases pi0 plausibly saw. Covers 5,506/17,297 (32%) of
+our SFT train GTs; 2 of 4 native SIMPLER nominals are keys (spoon-towel,
+carrot-plate) — their clusters are literal pi0 training inputs. Reframes
+the robustness story: pi0 saw ~38 benign paraphrases/instruction and still
+breaks on ERT => ERT sits outside the paraphrase manifold; GT-convergence
+result unchanged (GT = densest seen mode). results/phrase_artifacts/
+bridge_train_uniques.parquet = the 17,297 inventory (committed; matches
+pod4 count exactly).
+OVERFIT GUARDS (user concern): (1) trainer holdout switched to GT-GROUPED
+split — text-val now scores reconstruction of instructions never seen as
+targets, a true memorization probe (pair-level split only measured new-
+variant-of-seen-target); (2) eval attack distribution is held out by
+construction (train attacks = local Qwen styles; eval attacks = Gemini/
+CoVer-authored); (3) SIMPLER rollout vs frozen is the binding test, per
+user. Optional lever (PREPARED, not folded into v1): benign-arm data
+(paraphrase->GT pairs from the dictionary, downsampled) would add input
+diversity per target + pin nominal-input no-op behavior; v1 stays
+hostile-only per the launched spec — one-command rerun if wanted.
+ICL BASELINE ARM (user proposal, built): sft17k_icl_baseline.py — frozen
+Qwen + retrieval (char-3gram cosine over 17,297 GTs, matched THROUGH the
+235k paraphrase clusters, credit-to-GT) + reworded->canonical demos
+(benign from dictionary, hostile from SFT pairs) + optional Gemini trace
++ "Canonical:" prefill. Train-split content only. Control question: if
+frozen weights + inventory access ~= SFT-17k, the value was knowledge,
+not weights; also memorization-proof by construction. Runs on the same
+touched-8 protocol as SFT (greedy + sampled k=8).
+TRACE-SFT VARIANT (user question, assessed, HELD): SFT on the full CoVer-
+style prompt (self-trace in context, loss on final phrase tokens only)
+is the natural v2 if bare-wrapper SFT shows weak transfer — matched
+train/deploy conditioning, reasoning available. Cost: trace generation
+for ~50k examples (~10-20h A6000) or image extraction for 17k episodes;
+also loses the single-pass deployment advantage (bare SFT repairs in one
+forward pass; CoVer needs a trace round-trip). Decision deferred to v1
+reconstructions + rollout verdict.
