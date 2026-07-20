@@ -743,3 +743,18 @@ completes the all-greedy same-suite ladder passthrough -> frozen_bare ->
 frozen+trace -> SFT -> v6 RL. Protocol-clean claims that survive: SFT
 natives 56.3 vs v6 greedy natives 45.0-47.3 (+9pp, same protocol/suite);
 quartet 5.8 vs v6 29.4-31.1 (same protocol/suite).
+
+## OOV-hope trace probe (user request, 2026-07-20): Qwen vs Gemini on tire+ramekin
+results/analysis/trace_probe_oov.json. VERDICT: the resolution the SFT
+arm destroyed EXISTS in Qwen 9B's own image-grounded reasoning — 2/2:
+ramekin -> "white ceramic bowl" (verbatim the noun class that scored
+64.2% under v6), wheel -> "black tire with a silver rim". Gemini traces
+resolve the same nouns with cleaner structure + explicit replacement
+lists ("white bowl, white ramekin, ceramic cup" / "tire, wheel, hub").
+Qwen's gap is FORMAT, not content: 1/2 outputs degenerated into a
+repetition loop inside the CoVer template's word-list section
+(extract_trace -> None); the ramekin trace also echoed template
+placeholders. Implication: trace-conditioned v2 has a concrete mechanism
+(trace injects the resolved noun; SFT formats canonically) and the trace
+prompt should be a MINIMAL two-section scene+referents prompt (or Gemini
+traces), not the full CoVer template, for 9B reliability.
