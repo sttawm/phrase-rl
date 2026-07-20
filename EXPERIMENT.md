@@ -843,3 +843,19 @@ are DISTRIBUTION-DEEP (SFT's best of 8 still ~8) — vocabulary
 destruction, not decoding luck. Temperature tax symmetric (-3.4/-3.1),
 unlike the RL arms. Sharpens the v2 case: traces target exactly the
 distribution-deep pair; gate leg (gemini-trace arms) rolling now.
+
+## LADDER COMPLETE (greedy x12, current suite, protocol-clean, 2026-07-20 night)
+frozen_bare 25.8 < SFT-v1 31.1 < v6 RL 37.2-39.2 < FROZEN_TRACE 40.5.
+frozen_trace (frozen Qwen + cached Gemini trace + image, greedy) tops the
+ladder and reproduces the old cross-suite 40.2 anchor on the current suite
+(40.5). Stratified: natives 49.5 (SFT-v1 still wins natives, 56.3, +6.8);
+QUARTET 31.5 (ramekin 63.5 / keyboard 22.9 / coke-plate 27.4 — trace
+conditioning rescues OOV, concept PROVEN). Two sharpened conclusions:
+(1) v6 RL trained FROM this conditioning and landed BELOW it (37-39 vs
+40.5) — RL was net-negative vs its own frozen baseline, hardening the v6
+postmortem; (2) v2's target decomposes cleanly: SFT-v1's natives edge +
+trace-carried OOV rescue. GATE LOGIC FIXED: concept gate now keys on
+frozen_trace (PASS, 31.5>=15.8) — sft_trace failing to READ traces (v1
+trained traceless) would be evidence FOR v2, not against; sft_trace stays
+as a diagnostic arm. Gate redeployed: waits for parallel tracegen
+TRACES-DONE (no double-run), then best_val smoke, then v2 training.
