@@ -679,3 +679,26 @@ so the treatment is weights-only. The existing CoVer-style frozen repair
 anchor (with trace, 40.2) stays as context, not the primary comparison.
 Chain v2 on pod4: genvar -> pairs to git -> merge -> train (GT-grouped
 holdout spans both styles) -> greedy recon smoke (SFT + frozen_bare).
+
+## SFT-17k v1 TRAINED + smoke verdict (2026-07-20)
+Run: 73,304 merged pairs, 2 epochs, 2,180 steps, ~4.5h A6000 (fla-core
+fast path + non-reentrant grad ckpt after 2 OOMs on the linear-attn torch
+fallback; 22GB steady). Text-val (GT-grouped, 864 unseen instructions):
+best 0.663 (~epoch 1), final 0.706 (mild epoch-2 drift; best_val/
+archived, final/ = the pre-committed artifact). Adapters archived locally.
+SMOKE (greedy, val-8 ERT, both arms): frozen_bare ECHOES 5/8 hostile
+inputs unchanged; SFT echoes 0/8. SFT nails all in-vocabulary tasks:
+spoon/carrot-plate/stack/eggplant PERFECT Bridge register ("put the green
+block on top of the yellow block" from "lush green element atop the
+yellowish-orange element"), coke-on-plate preserves deixis correctly
+("take the can on the left and put it on top of the yellow plate on the
+right"). The 3 imperfect cases are ALL OOV-receptacle tasks — audit:
+keyboard/mouse pad/ramekin/wheel have ZERO hits in the 17,297 GTs +
+235,764 paraphrases (tire: 3) — keyboard->"mouse pad" (wrong neighbor),
+ramekin->"the white object" (graceful degrade), wheel->NAILED by pure
+language reasoning. The keeper quartet is thus an unintended OOD-object
+probe: in-vocab repair vs out-of-vocab repair split cleanly.
+GREEDY x12 EVAL LAUNCHED (run_sft_eval.sh, sfteval tmux): SFT arm then
+frozen_bare, 2,304 eps each, results auto-commit to results/val_screens/
+sfteval12_{sft,frozen_bare}.parquet. Read against: frozen+trace repair
+40.2, clean ceiling 41.8, v6 RL tuned 37-39.6, passthrough anchors.
