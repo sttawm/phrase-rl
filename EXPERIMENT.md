@@ -659,3 +659,23 @@ antonym flips, not object redirection).
 Keeper-quartet: traces verified image-fed (gemini_redteam_assets passes
 the task frame's image_png); the bank ERT instructions' own generation
 inputs remain unverifiable (producer not retained).
+
+## SFT v1 = the DEAD-SIMPLE experiment (user directive, 2026-07-19)
+User: "Get all of the bridge tasks, and ideally the rephrases as well from
+the pi0 bridge rephrase finetuning. Then generate red-team rephrases using
+text-only (no image). Then do SFT (no reasoning). Then evaluate vs frozen
+Qwen (no reasoning). Bells and whistles later (Qwen reasoning; Gemini
+frame traces for ERT and at inference)."
+Mapping: (1) tasks = the 17,297 train-clean uniques (val/test-split keys
+stay excluded — cross-experiment hygiene, costs 12%); (2) pi0-seen
+rephrases FOLDED IN: scripts/merge_sft_pairs.py adds OXE-paraphrase->GT
+pairs as style 3, downsampled to 4/key (~21k) to keep a hostile majority
+(~51k styles 0-2) — supersedes the earlier "v1 stays hostile-only" note;
+(3) red-team generation already text-only/no-image (running); (4) SFT
+already no-reasoning (enable_thinking=False, bare wrapper); (5) COMPARATOR
+CHANGE: primary baseline = frozen_bare — the BASE model under the
+IDENTICAL no-reasoning wrapper (sft17k_generate_eval --include-frozen),
+so the treatment is weights-only. The existing CoVer-style frozen repair
+anchor (with trace, 40.2) stays as context, not the primary comparison.
+Chain v2 on pod4: genvar -> pairs to git -> merge -> train (GT-grouped
+holdout spans both styles) -> greedy recon smoke (SFT + frozen_bare).
