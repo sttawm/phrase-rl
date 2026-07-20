@@ -37,18 +37,22 @@ WRAPPER = ("This is a reworded robot instruction. Recover the original plain "
 PREFILL = "Canonical:"
 
 
-def build_msgs(variant):
-    return [{"role": "user", "content": [{"type": "text", "text": WRAPPER.format(variant=variant)}]},
+def build_msgs(variant, trace=None):
+    # v2: image-grounded referent trace prepended in the SAME user turn —
+    # nouns from the trace, relation/goal from the variant (EXPERIMENT.md
+    # division-of-labor spec). v1: no trace, text unchanged.
+    text = (f"{trace}\n\n" if trace else "") + WRAPPER.format(variant=variant)
+    return [{"role": "user", "content": [{"type": "text", "text": text}]},
             {"role": "assistant", "content": [{"type": "text", "text": PREFILL}]}]
 
 
-def render_prompt(tok, variant):
-    return tok.apply_chat_template(build_msgs(variant), tokenize=False,
+def render_prompt(tok, variant, trace=None):
+    return tok.apply_chat_template(build_msgs(variant, trace), tokenize=False,
                                    continue_final_message=True, enable_thinking=False)
 
 
-def build_example(tok, variant, gt):
-    prompt = render_prompt(tok, variant)
+def build_example(tok, variant, gt, trace=None):
+    prompt = render_prompt(tok, variant, trace)
     full = prompt + " " + gt + tok.tokenizer.eos_token
     p_ids = tok.tokenizer(prompt, add_special_tokens=False)["input_ids"]
     f_ids = tok.tokenizer(full, add_special_tokens=False)["input_ids"]
@@ -68,6 +72,9 @@ def main():
     ap.add_argument("--lr", type=float, default=1e-4)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--max-len", type=int, default=256)
+    ap.add_argument("--traces", default=None,
+                    help="v2: parquet file or dir of shards with (gt, trace); 100%% traced "
+                         "training (no dropout — v1 is the no-trace artifact)")
     ap.add_argument("--save-every", type=int, default=100, help="optimizer steps between latest/ saves")
     ap.add_argument("--val-every", type=int, default=200, help="optimizer steps between text-val evals")
     args = ap.parse_args()
@@ -75,6 +82,22 @@ def main():
     os.makedirs(args.out, exist_ok=True)
 
     df = pd.read_parquet(args.pairs).sample(frac=1.0, random_state=args.seed).reset_index(drop=True)
+    traces = None
+    if args.traces:
+        import glob as _glob
+        tfiles = ([args.traces] if os.path.isfile(args.traces)
+                  else sorted(_glob.glob(os.path.join(args.traces, "*.parquet"))))
+        tdf = pd.concat([pd.read_parquet(f) for f in tfiles], ignore_index=True)
+        traces = dict(zip(tdf["gt"], tdf["trace"]))
+        n0 = len(df)
+        df = df[df["gt"].isin(traces)].reset_index(drop=True)
+        print(f"v2 traced training: {len(df)}/{n0} pairs have traces "
+              f"({tdf['gt'].nunique()} traced gts)", flush=True)
+        if args.max_len < 448:
+            # trace (~220) + wrapper+variant (~120) + gt: a 256 cap would truncate
+            # the TARGET tokens off the end
+            print(f"max-len {args.max_len} -> 448 (traced sequences)", flush=True)
+            args.max_len = 448
     # GROUPED holdout by GT (not by pair): every GT has ~3 variants, so a pair-level
     # split would score "new variant of a seen target" — memorizable. Holding out
     # whole GTs makes text-val a real memorization probe: reconstruct instructions
@@ -116,7 +139,8 @@ def main():
     trainable = [p for p in model.parameters() if p.requires_grad]
 
     def encode_batch(rows):
-        exs = [build_example(tok, r.variant, r.gt) for r in rows.itertuples()]
+        exs = [build_example(tok, r.variant, r.gt,
+                             traces.get(r.gt) if traces else None) for r in rows.itertuples()]
         exs = [(i[:args.max_len], l[:args.max_len]) for i, l in exs]
         L = max(len(i) for i, _ in exs)
         pad = tok.tokenizer.pad_token_id or tok.tokenizer.eos_token_id

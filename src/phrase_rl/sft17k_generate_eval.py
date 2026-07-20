@@ -37,6 +37,10 @@ def main():
                     help="parquet(task, ert_instruction): the hostile inputs to repair")
     ap.add_argument("--instructions", default=None, help="json {task: instruction} alternative")
     ap.add_argument("--arm", default="sft")
+    ap.add_argument("--trace-assets", default=None,
+                    help="v2: parquet(task, trace) of SELF-traces (sft17k_selftrace_gen "
+                         "output) prepended to the wrapper — must match the training "
+                         "conditioning of the adapter being evaluated")
     ap.add_argument("--include-frozen", action="store_true",
                     help="also run the BASE model under the identical wrapper (arm "
                          "'frozen_bare') — the no-reasoning frozen comparator: same "
@@ -53,6 +57,10 @@ def main():
         inputs = {r.task: str(r.ert_instruction) for r in adf.itertuples()}
     else:
         inputs = json.load(open(args.instructions))
+    task_traces = {}
+    if args.trace_assets:
+        tdf = pd.read_parquet(args.trace_assets)
+        task_traces = {r.task: str(r.trace) for r in tdf.itertuples()}
 
     from transformers import AutoModelForImageTextToText, AutoProcessor
     from peft import PeftModel
@@ -65,7 +73,7 @@ def main():
     def run_arm(model, arm):
         model.eval()
         for task, instr in inputs.items():
-            enc = apply_template(processor, build_msgs(instr),
+            enc = apply_template(processor, build_msgs(instr, task_traces.get(task)),
                                  continue_final_message=True).to(model.device)
             plen = enc["input_ids"].shape[1]
             with torch.no_grad():
