@@ -37,7 +37,7 @@ def main():
     pick = (pairs.sample(frac=1.0, random_state=0)
                  .drop_duplicates("gt")[["gt", "variant"]])
     todo = frames.merge(pick, on="gt", how="inner").reset_index(drop=True)
-    print(f"tracing {len(todo)} gts ({len(frames)} framed, {pick.gt.nunique()} varianted)",
+    print(f"tracing {len(todo)} gts ({len(frames)} framed, {pick['gt'].nunique()} varianted)",
           flush=True)
 
     from transformers import AutoModelForImageTextToText, AutoProcessor
