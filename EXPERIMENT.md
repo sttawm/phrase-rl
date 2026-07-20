@@ -631,3 +631,31 @@ appearance attacks ("orange vegetable with green leaves") resolve in text;
 the true blind spot of a text-only reconstructor is pure deixis ("the one
 on the left"), which appears in the quartet bank. Watch v1 failures for
 exactly that signature before reaching for image-conditioned v2.
+
+## How OUR ERT sources were scene-grounded (2026-07-19, user Q, verified)
+Chain for the 4,708 RL-training sources (and val40): each context is an
+(episode_index, t) FRAME from a real Bridge episode; the teacher pass
+(gemini-3.5-flash, CoVer template, cover35_teacher_train.parquet, 2000
+contexts) received that actual camera frame + instruction and wrote a
+trace VERBALIZING the scene (objects, colors, layout, distractors); the
+hostile batch then received trace[:400] as text. Grounding = whatever
+scene facts the teacher verbalized; the hostile generator never saw
+pixels. Verified example of what this bought: GT "put the blue
+rectangular block on top of the tower" -> ERT "Grasp the azure cuboid
+currently crowning the wooden spire and deposit it horizontally upon the
+pale, isolated block resting on the table surface" — "pale isolated
+block" is a REAL distractor knowable only from the frame.
+SAME EXAMPLE, the flip side: the trace said the blue block was ALREADY
+on the tower (mid-episode frame), so the generator redirected the goal
+to the distractor block — a goal-INCONSISTENT hostile input (not a
+rewording). For RL inputs this was tolerable-by-design (reward pulled
+toward the episode's true actions regardless of what the input claimed);
+for SUPERVISED pairs it would be label noise. Corollary: the SFT-17k
+text-only generator structurally CANNOT do this (no scene knowledge =
+nothing real to redirect to; it can only rename/decorate the GT's own
+content) — text-only is narrower in attack coverage but SAFER in goal
+preservation, complementing the spatial-flip filter (which catches
+antonym flips, not object redirection).
+Keeper-quartet: traces verified image-fed (gemini_redteam_assets passes
+the task frame's image_png); the bank ERT instructions' own generation
+inputs remain unverifiable (producer not retained).
