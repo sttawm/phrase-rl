@@ -602,3 +602,32 @@ for ~50k examples (~10-20h A6000) or image extraction for 17k episodes;
 also loses the single-pass deployment advantage (bare SFT repairs in one
 forward pass; CoVer needs a trace round-trip). Decision deferred to v1
 reconstructions + rollout verdict.
+
+## ERT construction provenance — image usage per source (2026-07-19, user Q)
+- Native-4 eval ERTs (cover_ert_instructions.json): verbatim CoVer release;
+  CoVer took them from the ERT framework (INTACT lineage): HAND-CRAFTED
+  linguistic variations (verb shifts, negation, referential appearance,
+  commonsense cues) — scene-aware via human familiarity with the fixed
+  SIMPLER scenes, not model-generated from image input.
+- Keeper-quartet eval ERTs (valtier_ert_bank.json): Gemini-authored (prior
+  session; producer script not retained). Text style is scene-referential
+  ("on the left", "red-labeled cylinder", "long orange vegetable with green
+  leaves" — matches real SIMPLER assets), so scene-grounded in effect;
+  whether the frame itself was in the request is unverifiable from
+  surviving artifacts.
+- RL-training hostile corpus (ert_train_sources.parquet, 4,708; also
+  gen_ert_val40): Gemini BATCH, NO image part — but prompt includes
+  "Scene context: {trace[:400]}" where the trace came from the image
+  (teacher pass) => indirectly image-grounded through trace text.
+- SFT-17k variants (pod4_gen_variants.py): pure text-only — no image, no
+  trace. The ONLY fully ungrounded ERT source in the project (documented
+  deviation; eval attack distribution stays grounded => honest gap).
+- Contrast, CoVer's own machinery: deployment repair VLM IS multimodal
+  (scene image + instruction -> reasoning + variants, their Sec 4.3);
+  their VERIFIER training augmentation was text-only GPT-4o (128
+  variants/instruction) — precedent for text-only training-side variants.
+Implication: the train/eval grounding gap is real but narrow — referential-
+appearance attacks ("orange vegetable with green leaves") resolve in text;
+the true blind spot of a text-only reconstructor is pure deixis ("the one
+on the left"), which appears in the quartet bank. Watch v1 failures for
+exactly that signature before reaching for image-conditioned v2.
