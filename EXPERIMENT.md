@@ -729,3 +729,17 @@ PRE-REGISTERED PREDICTION (before frozen_bare lands): frozen_bare echoes
 mixed; pooled plausibly ABOVE SFT's 31.1 — if so, the bare-vs-bare
 primary is a frozen win on pooled with SFT dominant on natives, and the
 honest headline is stratified, not pooled.
+
+## CORRECTION (user caught, 2026-07-20): protocol mixing in the interim table
+The interim comparison listed v6 greedy-x12 rows beside frozen+trace
+SAMPLED (33.7) — implying v6 RL > frozen, which was never the finding.
+Record: same-protocol sampled = TIE (tuned +1.5+/-1.6 vs frozen 33.7);
+greedy tuned 37.2-39.6 vs frozen repair 40.2 (older battery suite, cross-
+suite caveat) = frozen nominally ahead. The temperature tax is asymmetric
+(frozen -6.5pp sampled vs tuned -2.0) so cross-protocol reads are extra
+misleading for exactly that frozen row. Frozen+trace GREEDY x12 on the
+current suite has never been measured -> leg queued after frozen_bare:
+completes the all-greedy same-suite ladder passthrough -> frozen_bare ->
+frozen+trace -> SFT -> v6 RL. Protocol-clean claims that survive: SFT
+natives 56.3 vs v6 greedy natives 45.0-47.3 (+9pp, same protocol/suite);
+quartet 5.8 vs v6 29.4-31.1 (same protocol/suite).
