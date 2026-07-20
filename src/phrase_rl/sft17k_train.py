@@ -96,7 +96,7 @@ def main():
     # per-step states and OOM'd a 48GB card at bs16. Checkpointing recomputes
     # the forward in backward instead of storing it.
     base.config.use_cache = False
-    base.gradient_checkpointing_enable()
+    base.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
 
     latest = os.path.join(args.out, "latest")
     state_path = os.path.join(latest, "trainer_state.pt")
