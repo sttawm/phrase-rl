@@ -829,3 +829,17 @@ gate passed: paired small-adapter ablation on the 1,353-instruction
 intersection (Gemini traces cached; Qwen traces free) — identical
 coverage, trace source the only variable. No new Gemini spend in any
 branch.
+
+## SAMPLED k8 verdict (both arms, 2026-07-20 evening)
+SFT 27.7 vs frozen_bare 22.7 pooled; paired +5.0+/-2.2 (n=192) — pooled
+win replicates greedy's +5.3. NOT every axis: natives SFT 48.2 vs 27.2
+(+21, dominant, wins all 4 + wheel); quartet SFT 7.2 vs 18.1 (frozen
+wins ALL 3 OOV-vocab tasks: ramekin -26.6, coke-plate -11.5, keyboard
+-6.8). Best-of-8 oracles pooled SFT 42.7 vs 36.2, but per-task quartet
+oracles: frozen ramekin 70.8/coke-plate 41.7/keyboard 22.9 vs SFT
+54.2/8.3/8.3 => ramekin is a MODE ARTIFACT (SFT draws contain "white
+bowl" at 54.2; greedy just picked badly) while keyboard and coke-plate
+are DISTRIBUTION-DEEP (SFT's best of 8 still ~8) — vocabulary
+destruction, not decoding luck. Temperature tax symmetric (-3.4/-3.1),
+unlike the RL arms. Sharpens the v2 case: traces target exactly the
+distribution-deep pair; gate leg (gemini-trace arms) rolling now.
