@@ -778,3 +778,32 @@ Ladder (greedy x12, current suite): frozen_bare 25.8 < SFT 31.1 < v6 RL
 37.2-39.2 (v6 generated under trace+image conditioning — not bare;
 frozen_trace leg launching to complete the ladder). QUEUED on freed GPU:
 trace leg then sampled leg (chained).
+
+## V2 DIRECTIVE (user, 2026-07-20): jump directly to Qwen image-grounded traces
+No templated/text-derived intermediate. v2 training traces = Qwen-generated
+from (initial-scene frame + one sampled hostile variant per GT), SHORTENED
+2-section prompt (probe: CoVer template breaks the 9B; minimal prompt is
+reliable), all 17,297 v1 instructions (set held fixed for v1->v2
+comparability), trace dropout ~50% at train, referent-mapping deployment
+format. Existing Gemini traces cover only 1,353/17,297 uniques (7.8%) —
+hence generate, not reuse. Pipeline: frames (scripts/extract_frames_17k.py,
+CPU/network, t=0, one representative episode per instruction preferring
+hash-train, temp-download+delete, shard-resumable) NOW alongside rollouts
+-> Qwen trace gen (GPU, after eval queue) -> v2 retrain (~4h) -> v2 eval
+in ITS OWN native trace format. Gate stays: v2 proceeds only if the
+sft_trace / sft_selftrace arms move the quartet.
+
+## SPLIT-LOGIC CORRECTION (found 2026-07-20 building the frame extractor)
+The SFT inventory/exclusion (pod4_gen_variants + bridge_train_uniques)
+excluded the first 10% of episodes BY FILE ORDER; the real Bridge split is
+HASH-based (episode_split_u: val 0-5%, test 5-10%, train >=10%). Quantified:
+1,893 hash-val/test instruction keys (1,640 exclusive to val/test episodes)
+ARE in SFT training; the 2,360 excluded keys were an arbitrary file-order
+set. IMPACT: no live claim depends on it — SIMPLER eval is a different
+domain; verifier val/test episode integrity is episode-level and governed
+by rl_train_exclusions.json (hash-correct, regenerated); SFT text-val is
+internally consistent. Ledger language "minus val/test-split instruction
+keys" in the SFT-17k entries is hereby corrected to "minus a file-order 10%
+(split-logic error, no downstream effect)". v1 instruction set kept as-is
+for v1->v2 comparability; frame extractor uses the CORRECT hash split for
+representative-episode preference.
