@@ -39,6 +39,31 @@ d['arm'] = d.arm.map({'base': 'frozen_trace', 'tuned': 'sft_trace'})
 d.to_parquet('$PH', index=False)
 print(d.arm.value_counts().to_dict())" >> /workspace/sfteval.log 2>&1 || { mark "TRACE FILTER FAILED"; exit 1; }
   fi
+elif [ "$LEG" = selftrace ]; then
+  # fully self-contained: Qwen writes its own trace (minimal 2-section
+  # prompt), then the same phase4 plumbing as the Gemini-trace leg
+  PH=data/phrases_selftrace_greedy.parquet; REPS=12; TAG=sfteval12; ARMS="frozen_selftrace sft_selftrace"
+  if [ ! -f "$PH" ]; then
+    if [ ! -f data/val_screen_assets_selftrace.parquet ]; then
+      mark "generating Qwen self-traces (minimal prompt)"
+      PYTHONPATH=src .venv-gen/bin/python -m phrase_rl.sft17k_selftrace_gen \
+        >> /workspace/sfteval.log 2>&1 || { mark "SELFTRACE GEN FAILED"; exit 1; }
+    fi
+    mark "generating self-trace-conditioned phrases (phase4, both arms)"
+    PYTHONPATH=src .venv-gen/bin/python -m phrase_rl.phase4_generate_eval \
+      --tasks data/val_screen_frames.parquet --ctx data/val_screen_frames.parquet \
+      --assets data/val_screen_assets_selftrace.parquet \
+      --adapter results/checkpoints/sft17k/final \
+      --out data/ph4_selftrace_tmp.parquet >> /workspace/sfteval.log 2>&1 \
+      || { mark "SELFTRACE PHRASE GEN FAILED"; exit 1; }
+    .venv-gen/bin/python -c "
+import pandas as pd
+d = pd.read_parquet('data/ph4_selftrace_tmp.parquet')
+d = d[d.arm.isin(['base', 'tuned'])].copy()
+d['arm'] = d.arm.map({'base': 'frozen_selftrace', 'tuned': 'sft_selftrace'})
+d.to_parquet('$PH', index=False)
+print(d.arm.value_counts().to_dict())" >> /workspace/sfteval.log 2>&1 || { mark "SELFTRACE FILTER FAILED"; exit 1; }
+  fi
 else
   PH=data/phrases_sft17k_ert_sam8.parquet; REPS=1; TAG=sftsam8x1
   if [ ! -f "$PH" ]; then
