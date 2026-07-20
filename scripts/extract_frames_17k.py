@@ -37,10 +37,25 @@ def u(i):
 def fetch_first_frame(ep_idx):
     url = (f"https://huggingface.co/datasets/{REPO}/resolve/main/"
            f"videos/chunk-{ep_idx // 1000:03d}/{IMAGE_KEY}/episode_{ep_idx:06d}.mp4")
+    req = urllib.request.Request(url)
+    tok = os.environ.get("HF_TOKEN")
+    if tok:
+        req.add_header("Authorization", f"Bearer {tok}")
     with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tf:
         tmp = tf.name
     try:
-        urllib.request.urlretrieve(url, tmp)
+        last = None
+        for attempt in range(3):  # bursty 429s under concurrency: back off and retry
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r, open(tmp, "wb") as f:
+                    f.write(r.read())
+                break
+            except Exception as e:
+                last = e
+                import time
+                time.sleep(2 * 4 ** attempt)
+        else:
+            raise last
         with av.open(tmp) as c:
             for frame in c.decode(c.streams.video[0]):
                 img = frame.to_image()
@@ -73,13 +88,7 @@ def main():
           f"({sum(1 for g, _ in todo if best[nk(g)][0] == 1)} fall back to non-train episodes)",
           flush=True)
 
-    n_shards = (len(todo) + SHARD - 1) // SHARD
-    for si in range(n_shards):
-        path = f"{OUT_DIR}/shard_{si:03d}.parquet"
-        if os.path.exists(path):
-            continue
-        chunk = todo[si * SHARD:(si + 1) * SHARD]
-
+    def run_batch(chunk, path, label):
         def one(item):
             gt, ep = item
             try:
@@ -87,12 +96,34 @@ def main():
             except Exception as e:
                 return {"gt": gt, "episode_index": ep, "image_png": None, "err": str(e)[:120]}
 
-        with ThreadPoolExecutor(8) as ex:
+        with ThreadPoolExecutor(5) as ex:
             rows = list(ex.map(one, chunk))
         ok = [r for r in rows if r.get("image_png")]
-        fails = len(rows) - len(ok)
+        errs = [r["err"] for r in rows if not r.get("image_png")]
         pd.DataFrame(ok).to_parquet(path, index=False)
-        print(f"shard {si + 1}/{n_shards}: {len(ok)} ok, {fails} failed", flush=True)
+        print(f"{label}: {len(ok)} ok, {len(errs)} failed"
+              + (f" (e.g. {errs[0]})" if errs else ""), flush=True)
+
+    n_shards = (len(todo) + SHARD - 1) // SHARD
+    for si in range(n_shards):
+        path = f"{OUT_DIR}/shard_{si:03d}.parquet"
+        if os.path.exists(path):
+            continue
+        run_batch(todo[si * SHARD:(si + 1) * SHARD], path, f"shard {si + 1}/{n_shards}")
+
+    # repair rounds: refetch whatever any shard dropped (rate-limit casualties)
+    import glob
+    for rnd in range(1, 4):
+        have = set()
+        for f in glob.glob(f"{OUT_DIR}/shard_*.parquet") + glob.glob(f"{OUT_DIR}/repair_*.parquet"):
+            have.update(pd.read_parquet(f, columns=["gt"])["gt"])
+        missing = [it for it in todo if it[0] not in have]
+        if not missing:
+            break
+        print(f"repair round {rnd}: {len(missing)} missing", flush=True)
+        for si in range(0, len(missing), SHARD):
+            run_batch(missing[si:si + SHARD], f"{OUT_DIR}/repair_{rnd}_{si // SHARD:03d}.parquet",
+                      f"repair {rnd}.{si // SHARD}")
     print("FRAMES-DONE", flush=True)
 
 
