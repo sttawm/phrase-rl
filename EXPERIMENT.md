@@ -1000,3 +1000,20 @@ expert iteration iff yield probe passes; (7) C3 sealed one-shot. v7 RL:
 dead-unless-gate per critic; if ever run, from-scratch spec or disclosed
 2-arm init ablation. DPO on current data: demoted (8-10 CI-clear pairs is
 too thin); lexical facts fold into v3 SFT corpus instead.
+
+## ICL leg queued + benign-input eval axis (user, 2026-07-21)
+ICL arm (panel C2, built as sft17k_icl_baseline.py) queued behind the
+selftrace2 leg: trace-FREE form (clean vs the bare ladder), pre-registered
+read per C2 (ICL >= SFT-2pp natives => knowledge; <= frozen_bare+5 =>
+weights; between => decomposition). Retrieval inventory note (user Q):
+targets are the 17,297 Bridge GTs; the 235,764 pi0-seen benign paraphrases
+participate as retrieval bridges and demo pairs — and SFT-v1/v2 training
+likewise used BOTH (hostile styles 0-2 + benign style 3).
+BENIGN-INPUT EVAL AXIS (user, gated on v2's verdict): all rollout evals to
+date use HOSTILE (ERT) inputs + nominal anchors; pi0's trained benign-
+paraphrase distribution has never been an eval INPUT. Planned leg: feed
+benign paraphrases (OXE dict entries where the task instruction is a dict
+key — spoon-towel and carrot-plate have real clusters — light paraphrases
+elsewhere) through each finalist arm; tests the NO-HARM property (repair
+must not degrade already-benign inputs; the passthrough/echo question in
+its benign form). Build after the v2 verdict.

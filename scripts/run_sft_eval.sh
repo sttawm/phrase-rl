@@ -80,6 +80,16 @@ elif [ "$LEG" = v2 ]; then
       --arm sft_v2 --out "$PH" >> /workspace/sfteval.log 2>&1 \
       || { mark "V2 GEN FAILED"; exit 1; }
   fi
+elif [ "$LEG" = icl ]; then
+  # knowledge-vs-weights control (panel C2): frozen Qwen + retrieved inventory
+  # + demos, NO trace (clean comparison against the bare ladder arms)
+  PH=data/phrases_icl_ert.parquet; REPS=12; TAG=sfteval12; ARMS="icl"
+  if [ ! -f "$PH" ]; then
+    mark "generating ICL phrases (retrieval, no trace)"
+    PYTHONPATH=src .venv-gen/bin/python -m phrase_rl.sft17k_icl_baseline \
+      --assets data/val_screen_assets.parquet --no-trace \
+      --out "$PH" >> /workspace/sfteval.log 2>&1 || { mark "ICL GEN FAILED"; exit 1; }
+  fi
 else
   PH=data/phrases_sft17k_ert_sam8.parquet; REPS=1; TAG=sftsam8x1
   if [ ! -f "$PH" ]; then
