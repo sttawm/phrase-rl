@@ -906,3 +906,20 @@ change; it happens to align with in-vocab vs OOV receptacles.
    thinking_budget=0) at one-shot time for test ERTs + gemini-trace arms —
    held-out authorship is the hygiene that made every SFT claim honest.
    Requires user sign-off on the spend at endgame time.
+
+## sft_gemini_trace diagnostic landed + v2 training launched (2026-07-21 ~06:15)
+sft_gemini_trace (v1 adapter under Gemini-trace+image conditioning it never
+trained with): pooled 33.8 | natives 50.0 | quartet 17.6. Reading: v1 can
+PARTIALLY read traces — quartet +11.8 over its bare 5.8 (coke-plate 30.9 vs
+5.9, ramekin 28.5 vs 3.8 — trace nouns get through; keyboard 1.4 — vocab
+forcing still wins there) — but pays a NATIVES TAX of −6.3 (50.0 vs 56.3):
+the off-distribution conditioning degrades its canonicalization. Net +2.7
+pooled. Exactly the train/deploy-mismatch prediction; strengthens the v2
+thesis (train WITH traces natively → quartet rescue without the tax).
+CHAIN REPAIR: the auto-fired v2 train OOM'd against the still-running
+trace-arm rollout workers (3×6.76GB — bigger than planned) — V2-CHAIN-
+FAILED-TRAIN; meanwhile sft_gemini_trace completed+banked and the
+selftrace GENERATION completed (both arms' phrases written). Relaunched
+serial on the freed GPU: v2 train (alone) -> selftrace rollout leg.
+Trace-health gate re-confirmed on the full 17.3k set implicitly (8.5k
+audit clean; generation finished without errors).
