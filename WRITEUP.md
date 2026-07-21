@@ -388,6 +388,60 @@ distribution's nouns.
   RL-from-base-Qwen as the primary (cleaner claim: no frontier teacher), with
   teacher-distillation as an ablation.
 
+## v5 — GRPO against the rollout-era reward, and the echo-Goodhart discovery (2026-07-13..17)
+
+v5 ran two arms from scratch against the verifier reward: A = 16-list advantage-weighted,
+B = GRPO sample-16. The headline chart looks like success — arm B's greedy deployment
+phrase climbs from −0.35 to **+0.54 verifier logit**, crossing every baseline:
+
+![v5 reward curves](results/charts/v5_greedy_reward_curve.png)
+
+But look where B's blue line lands: it converges *into the gray original-phrase
+reference*. A byte-level audit of the s260 checkpoint showed why — on all 7 clean
+tasks the model **echoes the nominal input verbatim**. The reward had taught it that
+the best rephrase of a training-distribution instruction is the instruction itself
+(echo-Goodhart): the verifier scores GT-proximity, and identity is maximal proximity.
+The 37.6% nominal ×12 headline of that era was later VOIDED (trace-misalignment bug +
+echo + a mislabeled anchor — see the quarantine entry in EXPERIMENT.md); ex-bug, the
+echoing checkpoint simply matched the originals battery (43.0 vs 42.6), as an echo must.
+
+![v5 phrase evolution](results/charts/v5_phrase_evolution.png)
+
+The phrase-evolution probe shows the drift toward training-register phrasing that
+precedes full echo. v5's legacy is the mechanism insight that drove everything after:
+**the reward is a GT-proximity detector**, so optimizing it converges the policy onto
+the phrases π0 already knows — which cures nothing on hostile inputs and destroys the
+rephraser on clean ones.
+
+## v6 — hostile-majority tiers cure the echo; the reward's fine axis doesn't transfer (2026-07-17..18)
+
+v6-B kept GRPO but restructured the inputs: stratified 2/2/4 tiers
+(nominal / benign rephrase / hostile ERT-style sources), input dropout 1/3, tier tags
+in the input slot from step 51, β=0.15, native-4f verifier reward. The echo died —
+0/40 passthrough on every audit — and every verifier series climbed steadily:
+
+![v6 combined curves](results/charts/v6_greedy_reward_curve.png)
+
+Rollouts refused to follow. Greedy ERT×12 stayed flat (37.2/39.2/37.2 at s80/120/160),
+sampled k=8 flat (33.5–35.2 vs frozen 33.7, a paired tie), and the best-of-8 oracle
+flat (~49–51%) — mode, distribution, and headroom all unresponsive while the reward
+rose. The tracking chart makes the verdict visual — across checkpoints, ERT verifier
+reward vs ERT rollout success correlates at **r = −0.93**:
+
+![v6 tracking divergence](results/charts/v6_reward_vs_rollout_tracking.png)
+
+The mechanism was measured directly: tuned outputs converge toward Bridge GT wording
+(token overlap 0.29→0.353 vs frozen 0.226, +0.134±0.027 paired, 5σ) while buying no
+rollout points — GT-proximity again, now on the fine axis:
+
+![v6 GT convergence](results/charts/v6_gt_convergence.png)
+
+v6 ended at step ~192 on cost grounds with the negative primary verdict banked. Its
+positive legacies: the echo cure (hostile-majority inputs), the diagnosis that the
+reward's *fine* axis is the broken part (which the reward exams below then quantified),
+and — later, once the frozen_gemini_trace anchor existed — the sharpened postmortem
+that v6 RL finished *below* the frozen conditioning it was trained from (37–39 vs 40.5).
+
 ## Reward repair — the two exams behind v7's 25/75 blend (2026-07-18/19)
 
 v6's flat rollout triptych against a climbing verifier reward (tracking r = −0.93)
@@ -417,3 +471,32 @@ production reward captures 50% of that gap; 50/50 captures 58%; 25/75 captures 6
 chosen over pure grip for two-axis Goodhart resistance and grip's per-task
 pathologies (carrot ρ = −0.12). This blend (rank-space, training advantages only)
 is wired into the held v7 launcher.
+
+## SFT-v1 — the dead-simple experiment: corrupt-and-invert beats RL's whole premise where vocabulary exists (2026-07-19..20)
+
+The GT-proximity mechanism suggested skipping RL entirely: if π0 wants canonical
+phrasing, *supervise* the mapping. SFT-v1 trains the same LoRA geometry as v6 on
+73,304 text-only pairs — 51,296 hostile variants (frozen Qwen corrupting each of
+17,297 unique train-split Bridge instructions in 3 ERT styles, spatial-goal-flip
+filtered) plus ~22k benign pairs from the OXE paraphrase dictionary the INTACT π0
+was actually finetuned with, everything mapping back to the canonical GT. Recipe
+pre-committed (2 epochs, no checkpoint selection), eval attacks held out by
+authorship (Gemini/CoVer-authored vs our Qwen-authored training corruptions).
+
+![SFT-v1 ladder](results/charts/sft_v1_ladder.png)
+
+Bare-for-bare — identical no-reasoning wrapper, weights the only difference —
+SFT-v1 beats frozen Qwen **+5.3±2.3pp paired** (31.1 vs 25.8, ×12 greedy), replicated
+at +5.0±2.2 under sampling. The stratification is the finding: on in-vocabulary
+tasks SFT hits **56.3% — the best natives number ever recorded on this suite**,
++9pp over the strongest v6 RL checkpoint and +7 over even frozen_gemini_trace.
+On the OOV keeper quartet it collapses to 5.8: canonicalization *destroys* rich
+descriptions when the true noun has no target in the vocabulary (ramekin→"the white
+object" 3.8% where the frozen echo of the same description scores 42%;
+keyboard→"mouse pad"). Sampling forensics split the failures: ramekin is a mode
+artifact (SFT's own draws contain "white bowl" at 54%), keyboard/coke-plate are
+distribution-deep (best-of-8 stuck at 8.3). Meanwhile frozen_gemini_trace (40.5)
+proves image-grounded trace conditioning rescues exactly those tasks (quartet 31.5)
+— and a probe showed the 9B resolves both OOV receptacles from the image on its own.
+The v2 synthesis trains the reconstructor *with* Qwen self-traces: nouns from the
+trace, relation from the input, register from the prior.
