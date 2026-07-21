@@ -1017,3 +1017,12 @@ key — spoon-towel and carrot-plate have real clusters — light paraphrases
 elsewhere) through each finalist arm; tests the NO-HARM property (repair
 must not degrade already-benign inputs; the passthrough/echo question in
 its benign form). Build after the v2 verdict.
+
+## frozen_selftrace landed (2026-07-21 18:43): the Gemini trace-quality premium
+frozen_selftrace (frozen + Qwen self-trace): pooled 34.5 | natives 46.7 |
+quartet 22.3. vs frozen_gemini_trace 40.5/49.5/31.5 => GEMINI PREMIUM =
+6.0pp pooled, concentrated in the quartet (-9.2) and three tasks: ramekin
+-17.4, keyboard -15.6, spoon -12.5. Qwen self-traces carry the concept
+(quartet 22.3 still ~4x SFT-bare's 5.8) but lose real ground on trace
+quality. v2's pre-registered primary bar = 34.5 (paired). Ladder update:
+SFT-v1 31.1 < frozen_selftrace 34.5 < v6 RL 37.2-39.2 < frozen_gemini 40.5.
