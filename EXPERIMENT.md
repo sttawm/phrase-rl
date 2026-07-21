@@ -1053,3 +1053,15 @@ banned from naming val objects (rule-text inspectable before any spend).
 Evaluation: ONCE on minted tasks (Qwen-authored ERTs acceptable for the
 development read, flagged), then the rules arm joins the sealed one-shot
 as a finalist. Deployable form confirmed: rules + self-trace.
+
+## B4 data manifest (pinned 2026-07-21)
+Inputs to the rule-distillation reasoning — ALL of: (1) 17,297 GTs +
+235,764 OXE paraphrases (distribution structure, unlabeled); (2) the 68
+CI-separated contrast pairs (top evidentiary tier); (3) every greedy x12
+(task, phrase, success) cell at n=288; (4) the sampled pools per-draw WITH
+success — INCLUDING all best-of-8 oracle winners (user-confirmed in);
+(5) mechanism case families (ramekin/keyboard/cube-block numbers) + sample
+self-traces. Statistical discipline encoded in the analysis: oracle
+winners are winner's-cursed (24-ep SE ~10pp) — evidence tiering is
+CI-pairs > n=288 cells > pooled draw patterns > single oracle ranks;
+oracle phrases inform rules via STRUCTURE, not raw rank.
