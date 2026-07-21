@@ -42,7 +42,7 @@ print(d.arm.value_counts().to_dict())" >> /workspace/sfteval.log 2>&1 || { mark 
 elif [ "$LEG" = selftrace ]; then
   # fully self-contained: Qwen writes its own trace (minimal 2-section
   # prompt), then the same phase4 plumbing as the Gemini-trace leg
-  PH=data/phrases_selftrace_greedy.parquet; REPS=12; TAG=sfteval12; ARMS="frozen_selftrace sft_selftrace"
+  PH=data/phrases_selftrace_greedy.parquet; REPS=12; TAG=sfteval12; ARMS="frozen_selftrace"
   if [ ! -f "$PH" ]; then
     if [ ! -f data/val_screen_assets_selftrace.parquet ]; then
       mark "generating Qwen self-traces (minimal prompt)"
@@ -63,6 +63,22 @@ d = d[d.arm.isin(['base', 'tuned'])].copy()
 d['arm'] = d.arm.map({'base': 'frozen_selftrace', 'tuned': 'sft_selftrace'})
 d.to_parquet('$PH', index=False)
 print(d.arm.value_counts().to_dict())" >> /workspace/sfteval.log 2>&1 || { mark "SELFTRACE FILTER FAILED"; exit 1; }
+  fi
+elif [ "$LEG" = selftrace2 ]; then
+  # the deferred diagnostic arm (v1 adapter + self-trace, phase4 conditioning)
+  PH=data/phrases_selftrace_greedy.parquet; REPS=12; TAG=sfteval12; ARMS="sft_selftrace"
+elif [ "$LEG" = v2 ]; then
+  # v2 under its NATIVE conditioning: own wrapper + Qwen self-trace prepended
+  # (pre-registered primary read: sft_v2 vs frozen_selftrace, trace source held)
+  PH=data/phrases_v2_selftrace.parquet; REPS=12; TAG=sfteval12; ARMS="sft_v2"
+  if [ ! -f "$PH" ]; then
+    mark "generating v2 phrases (native trace format)"
+    PYTHONPATH=src .venv-gen/bin/python -m phrase_rl.sft17k_generate_eval \
+      --adapter results/checkpoints/sft17k_v2/final \
+      --assets data/val_screen_assets.parquet \
+      --trace-assets data/val_screen_assets_selftrace.parquet \
+      --arm sft_v2 --out "$PH" >> /workspace/sfteval.log 2>&1 \
+      || { mark "V2 GEN FAILED"; exit 1; }
   fi
 else
   PH=data/phrases_sft17k_ert_sam8.parquet; REPS=1; TAG=sftsam8x1
