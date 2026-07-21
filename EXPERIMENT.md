@@ -1042,3 +1042,14 @@ Caution: rules cannot resolve appearance descriptions without grounding —
 deployable form is rules + self-trace, not rules alone. Generalizes by
 structure (the answer to the task-space concern); also a writeup artifact
 regardless of outcome.
+
+## B4 amended (user, 2026-07-21): no retrodiction gate; structural generalization
+Retrodiction gate DROPPED (circular: rules derived from the pairs cannot
+be validated on them; a held-out split would halve the learning signal).
+ALL evidence feeds the reasoning (corpus, paraphrases, 68 pairs, sampled
+pools, trace forensics). Generalization guard is STRUCTURAL: rules must be
+task-agnostic and executable — functions of (input, trace, corpus stats),
+banned from naming val objects (rule-text inspectable before any spend).
+Evaluation: ONCE on minted tasks (Qwen-authored ERTs acceptable for the
+development read, flagged), then the rules arm joins the sealed one-shot
+as a finalist. Deployable form confirmed: rules + self-trace.
