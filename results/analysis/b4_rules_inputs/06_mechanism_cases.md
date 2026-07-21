@@ -60,19 +60,24 @@ object renamings ("cloth" for towel) cost real success.
 
 ## Case 6: length and complexity are enemies (can onto plate)
 Nominal instruction: "put coke can on plate" → 65% (n=864).
-The input arrived as a long, convoluted sentence with directions ("the
-container on the left ... vessel to its right").
-- Long phrasings that carefully preserve the left/right directions → 6-10%
-- Repeating the convoluted input unchanged → 1%
-Lesson: nothing recorded beats the short nominal here. Even when a long
-phrasing is accurate and preserves useful spatial detail, it loses badly;
-dropping the spatial qualifiers entirely was better than keeping them.
+Other phrasings tested for the same task (the can sits on the left, the
+plate on the right — so the spatial details below are all accurate):
+- "Retrieve the carbonated drink container on the left and position it
+  carefully on top of the flat, yellow dining vessel to its right." → 1%
+- "pick the can on the left side and put it on the yellow plate on the
+  right side" → 10%
+- "take the can on the left and put it on top of the yellow plate on the
+  right" → 6%
+Lesson: nothing recorded beats the short nominal. Long sentences lose
+badly even when their extra spatial detail is accurate and potentially
+useful — dropping the left/right qualifiers entirely beat keeping them.
 
 ## Case 7: cleaning up mild rewording is worth a lot (eggplant in basket)
 Nominal instruction: "put eggplant into yellow basket" → 91%.
-Input said "Arrange the eggplant neatly in the yellow bin."
+Other phrasings tested for the same task:
 - "put the eggplant in the yellow basket" → 94% (slightly beats the nominal)
-- Repeating the mildly-reworded input unchanged → 54%
-Lesson: converting even a MILD rewording back to plain training style
-("arrange...neatly"→"put", "bin"→"basket") gained 40 points over leaving it,
-and the cleaned form edged out the nominal itself.
+- "Arrange the eggplant neatly in the yellow bin." → 54%
+Lesson: a mild style shift — a fancier verb ("arrange...neatly" for "put")
+and a near-synonym for the receptacle ("bin" for "basket") — costs 40
+points. Plain wording with the training data's own object names wins, and
+the cleaned form even edged out the nominal.
