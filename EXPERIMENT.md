@@ -1026,3 +1026,19 @@ quartet 22.3. vs frozen_gemini_trace 40.5/49.5/31.5 => GEMINI PREMIUM =
 (quartet 22.3 still ~4x SFT-bare's 5.8) but lose real ground on trace
 quality. v2's pre-registered primary bar = 34.5 (paired). Ladder update:
 SFT-v1 31.1 < frozen_selftrace 34.5 < v6 RL 37.2-39.2 < frozen_gemini 40.5.
+
+## B4 (user proposal, 2026-07-21): explicit rule distillation via frontier reasoning
+Claude analyzes (i) the 17.3k GT corpus structure + 235k paraphrases and
+(ii) the banked phrase->success evidence (70+ measured cells, 68 powered
+contrast pairs, sampled pools) and authors an EXPLICIT pi0-phrasing rule
+set. RETRODICTION GATE ($0, before any rollout): the rule set must predict
+the measured winner on the 68 powered pairs at ~>=60/68 (context:
+production reward 51/68, exam blend 66/68). Application forms: (a) rules
+as prescriptive system prompt for frozen Qwen + self-trace (deployable);
+(b) Claude-authored phrases directly (ceiling). Testing: val-8 =
+development only (rules derive from its evidence); honest test = minted
+tasks, then the rules arm enters the sealed one-shot as a finalist per C3.
+Caution: rules cannot resolve appearance descriptions without grounding —
+deployable form is rules + self-trace, not rules alone. Generalizes by
+structure (the answer to the task-space concern); also a writeup artifact
+regardless of outcome.
