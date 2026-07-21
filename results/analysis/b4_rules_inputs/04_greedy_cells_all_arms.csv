@@ -1,0 +1,101 @@
+source,arm,task,phrase,success_pct,n_episodes
+eval12nom_frozen.parquet,base,widowx_carrot_on_keyboard_clean,pick up the orange carrot and place it on the black keyboard,25.3,288
+sfteval12_frozen_trace.parquet,frozen_trace,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the black keyboard.,22.9,288
+eval12_B_v6step_0060.parquet,tuned,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the black keyboard.,22.9,288
+eval12_B_v6step_0120.parquet,tuned,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the black keyboard.,22.9,288
+eval12_B_v6step_0080.parquet,tuned,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the black keyboard.,22.9,288
+eval12nom_passthrough_valtier.parquet,tuned,widowx_carrot_on_keyboard_clean,put carrot on keyboard,17.7,288
+eval12nom_B_s260.parquet,tuned,widowx_carrot_on_keyboard_clean,put carrot on keyboard,17.7,288
+eval12nom_A_s240.parquet,tuned,widowx_carrot_on_keyboard_clean,place carrot on keyboard,17.0,288
+sfteval12_sft_v2.parquet,sft_v2,widowx_carrot_on_keyboard_clean,put the orange carrot on top of the keyboard,16.7,288
+sfteval12_frozen_selftrace.parquet,frozen_selftrace,widowx_carrot_on_keyboard_clean,Pick up the carrot and put it on the keyboard.,7.3,288
+sfteval12_sft.parquet,sft,widowx_carrot_on_keyboard_clean,Place the carrot above the mouse pad,3.1,288
+sfteval12_sft_trace.parquet,sft_trace,widowx_carrot_on_keyboard_clean,pick up the carrot and put it above the keyboard,1.4,288
+sfteval12_frozen_bare.parquet,frozen_bare,widowx_carrot_on_keyboard_clean,"Locate the long, orange vegetable with green leaves and place it carefully on top of the black peripheral device used for typing.",0.3,288
+eval12nom_frozen.parquet,base,widowx_carrot_on_plate,pick up the orange carrot and place it on the light green plate,45.5,288
+sfteval12_frozen_trace.parquet,frozen_trace,widowx_carrot_on_plate,Pick up the orange carrot and place it on the green plate.,45.1,288
+eval12_B_v6step_0060.parquet,tuned,widowx_carrot_on_plate,Pick up the orange carrot and place it on the green plate.,45.1,288
+eval12_B_v6step_0080.parquet,tuned,widowx_carrot_on_plate,Pick up the orange carrot and place it on the green plate.,45.1,288
+eval12nom_A_s240.parquet,tuned,widowx_carrot_on_plate,put carrot on plate,44.8,288
+eval12nom_B_s260.parquet,tuned,widowx_carrot_on_plate,put carrot on plate,44.8,288
+eval12_B_v6step_0120.parquet,tuned,widowx_carrot_on_plate,Place the orange carrot on the green plate.,42.4,288
+sfteval12_frozen_selftrace.parquet,frozen_selftrace,widowx_carrot_on_plate,Place the carrot on the plate.,42.0,288
+sfteval12_sft.parquet,sft,widowx_carrot_on_plate,put the carrot on the plate,41.3,288
+sfteval12_sft_v2.parquet,sft_v2,widowx_carrot_on_plate,put the carrot on the plate,41.3,288
+sfteval12_sft_trace.parquet,sft_trace,widowx_carrot_on_plate,put the carrot on the plate,41.3,288
+sfteval12_frozen_bare.parquet,frozen_bare,widowx_carrot_on_plate,Balance the carrot on the ceramic platter.,35.1,288
+eval12nom_frozen.parquet,base,widowx_carrot_on_wheel_clean,pick up the orange carrot and place it on the black tire,29.2,288
+eval12nom_A_s240.parquet,tuned,widowx_carrot_on_wheel_clean,place carrot on wheel,20.5,288
+eval12nom_passthrough_valtier.parquet,tuned,widowx_carrot_on_wheel_clean,put carrot on wheel,16.3,288
+eval12nom_B_s260.parquet,tuned,widowx_carrot_on_wheel_clean,put carrot on wheel,16.3,288
+sfteval12_sft_v2.parquet,sft_v2,widowx_carrot_on_wheel_clean,pick the orange carrot and put it on the wheel,15.6,288
+sfteval12_frozen_trace.parquet,frozen_trace,widowx_carrot_on_wheel_clean,Pick up the orange carrot and place it in the center of the black tire.,12.2,288
+sfteval12_sft.parquet,sft,widowx_carrot_on_wheel_clean,pick the carrot and put it on the wheel,10.4,288
+sfteval12_sft_trace.parquet,sft_trace,widowx_carrot_on_wheel_clean,pick up the carrot and put it on the tire,9.7,288
+sfteval12_frozen_bare.parquet,frozen_bare,widowx_carrot_on_wheel_clean,Retrieve the carrot and place it on the tire.,8.7,288
+sfteval12_frozen_selftrace.parquet,frozen_selftrace,widowx_carrot_on_wheel_clean,Pick up the orange carrot and place it on the tire.,6.2,288
+eval12_B_v6step_0120.parquet,tuned,widowx_carrot_on_wheel_clean,Pick up the carrot and place it in the center of the tire.,3.1,288
+eval12_B_v6step_0060.parquet,tuned,widowx_carrot_on_wheel_clean,Pick up the orange carrot and place it in the center of the tire.,0.0,288
+eval12_B_v6step_0080.parquet,tuned,widowx_carrot_on_wheel_clean,Pick up the orange carrot and place it in the center of the tire.,0.0,288
+eval12nom_A_s240.parquet,tuned,widowx_coke_can_on_plate_clean,put coke can on plate,64.6,288
+eval12nom_passthrough_valtier.parquet,tuned,widowx_coke_can_on_plate_clean,put coke can on plate,64.6,288
+eval12nom_B_s260.parquet,tuned,widowx_coke_can_on_plate_clean,put coke can on plate,64.6,288
+eval12_B_v6step_0080.parquet,tuned,widowx_coke_can_on_plate_clean,Pick up the red cola can and place it on the yellow plate.,37.2,288
+sfteval12_sft_trace.parquet,sft_trace,widowx_coke_can_on_plate_clean,pick the red can and put it on the yellow plate,30.9,288
+sfteval12_frozen_selftrace.parquet,frozen_selftrace,widowx_coke_can_on_plate_clean,Pick up the red soda can and place it on the yellow plate.,29.5,288
+sfteval12_frozen_trace.parquet,frozen_trace,widowx_coke_can_on_plate_clean,Pick up the red can and place it on the yellow plate.,27.4,288
+eval12_B_v6step_0060.parquet,tuned,widowx_coke_can_on_plate_clean,Pick up the red can and place it on the yellow plate.,27.4,288
+eval12_B_v6step_0120.parquet,tuned,widowx_coke_can_on_plate_clean,Pick up the red can and place it on the yellow plate.,27.4,288
+eval12nom_frozen.parquet,base,widowx_coke_can_on_plate_clean,pick up the red can and place it on the yellow plate,25.0,288
+sfteval12_sft_v2.parquet,sft_v2,widowx_coke_can_on_plate_clean,pick the can on the left side and put it on the yellow plate on the right side,10.1,288
+sfteval12_sft.parquet,sft,widowx_coke_can_on_plate_clean,take the can on the left and put it on top of the yellow plate on the right,5.9,288
+sfteval12_frozen_bare.parquet,frozen_bare,widowx_coke_can_on_plate_clean,"Retrieve the carbonated drink container on the left and position it carefully on top of the flat, yellow dining vessel to its right.",1.0,288
+eval12_B_v6step_0060.parquet,tuned,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright inside the white bowl.,64.2,288
+eval12_B_v6step_0120.parquet,tuned,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright inside the white bowl.,64.2,288
+eval12_B_v6step_0080.parquet,tuned,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright inside the white bowl.,64.2,288
+sfteval12_frozen_trace.parquet,frozen_trace,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it vertically inside the white bowl.,63.5,288
+sfteval12_frozen_selftrace.parquet,frozen_selftrace,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it inside the white bowl.,46.2,288
+sfteval12_frozen_bare.parquet,frozen_bare,widowx_coke_can_on_ramekin_clean,Grasp the red-labeled cylinder containing carbonated drink and transfer it so that it is sitting upright inside the hollow white ceramic cup-like container nearby.,42.0,288
+eval12nom_frozen.parquet,base,widowx_coke_can_on_ramekin_clean,pick up the red can and place it on the white bowl,31.9,288
+sfteval12_sft_trace.parquet,sft_trace,widowx_coke_can_on_ramekin_clean,Pick up the can and put it in the bowl.,28.5,288
+sfteval12_sft_v2.parquet,sft_v2,widowx_coke_can_on_ramekin_clean,pick up the can with the red label and place it in the white object that looks like a cup,24.7,288
+eval12nom_A_s240.parquet,tuned,widowx_coke_can_on_ramekin_clean,put coke can on ramekin,11.1,288
+eval12nom_passthrough_valtier.parquet,tuned,widowx_coke_can_on_ramekin_clean,put coke can on ramekin,11.1,288
+eval12nom_B_s260.parquet,tuned,widowx_coke_can_on_ramekin_clean,put coke can on ramekin,11.1,288
+sfteval12_sft.parquet,sft,widowx_coke_can_on_ramekin_clean,Pick up the can and place it in the white object,3.8,288
+sfteval12_sft.parquet,sft,widowx_put_eggplant_in_basket,put the eggplant in the yellow basket,94.4,288
+sfteval12_sft_v2.parquet,sft_v2,widowx_put_eggplant_in_basket,put the eggplant in the yellow basket,94.4,288
+eval12nom_A_s240.parquet,tuned,widowx_put_eggplant_in_basket,put the eggplant into the yellow basket,93.1,288
+eval12nom_frozen.parquet,base,widowx_put_eggplant_in_basket,place the purple aubergine in the yellow dish rack,92.7,288
+eval12nom_B_s260.parquet,tuned,widowx_put_eggplant_in_basket,put eggplant into yellow basket,90.6,288
+sfteval12_frozen_selftrace.parquet,frozen_selftrace,widowx_put_eggplant_in_basket,Place the eggplant in the yellow dish rack.,85.4,288
+sfteval12_frozen_trace.parquet,frozen_trace,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow bin.,81.9,288
+eval12_B_v6step_0060.parquet,tuned,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow bin.,81.9,288
+eval12_B_v6step_0120.parquet,tuned,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow bin.,81.9,288
+eval12_B_v6step_0080.parquet,tuned,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow bin.,81.9,288
+sfteval12_sft_trace.parquet,sft_trace,widowx_put_eggplant_in_basket,pick up the purple eggplant and put it in the yellow bin,70.5,288
+sfteval12_frozen_bare.parquet,frozen_bare,widowx_put_eggplant_in_basket,Arrange the eggplant neatly in the yellow bin.,53.8,288
+sfteval12_sft_v2.parquet,sft_v2,widowx_spoon_on_towel,put the spoon on top of the towel,63.9,288
+sfteval12_sft_trace.parquet,sft_trace,widowx_spoon_on_towel,Place the green handled spoon on the blue cloth.,60.4,288
+sfteval12_sft.parquet,sft,widowx_spoon_on_towel,put the spoon onto the towel,59.7,288
+eval12nom_B_s260.parquet,tuned,widowx_spoon_on_towel,put the spoon on the towel,55.6,288
+eval12nom_A_s240.parquet,tuned,widowx_spoon_on_towel,place the spoon on the towel,55.2,288
+eval12nom_frozen.parquet,base,widowx_spoon_on_towel,place the green-handled spoon on the blue cloth,54.5,288
+sfteval12_frozen_trace.parquet,frozen_trace,widowx_spoon_on_towel,Pick up the green-handled spoon and place it on the blue towel.,46.5,288
+sfteval12_frozen_bare.parquet,frozen_bare,widowx_spoon_on_towel,Place the spoon in the center of the towel.,40.6,288
+eval12_B_v6step_0060.parquet,tuned,widowx_spoon_on_towel,Place the green-handled spoon in the center of the blue towel.,37.8,288
+eval12_B_v6step_0080.parquet,tuned,widowx_spoon_on_towel,Place the green-handled spoon in the center of the blue towel.,37.8,288
+sfteval12_frozen_selftrace.parquet,frozen_selftrace,widowx_spoon_on_towel,Place the spoon on the center of the blue towel.,34.0,288
+eval12_B_v6step_0120.parquet,tuned,widowx_spoon_on_towel,Place the green spoon in the center of the blue towel.,25.0,288
+eval12_B_v6step_0120.parquet,tuned,widowx_stack_cube,Stack the green block on top of the yellow block.,30.6,288
+eval12nom_frozen.parquet,base,widowx_stack_cube,pick up the green cube and place it on the yellow cube,30.2,288
+sfteval12_sft.parquet,sft,widowx_stack_cube,put the green block on top of the yellow block,29.9,288
+sfteval12_sft_v2.parquet,sft_v2,widowx_stack_cube,put the green block on top of the yellow block,29.9,288
+sfteval12_sft_trace.parquet,sft_trace,widowx_stack_cube,pick up the green block and place it on top of the yellow block,27.8,288
+sfteval12_frozen_selftrace.parquet,frozen_selftrace,widowx_stack_cube,Place the teal cube on top of the yellow cube.,25.3,288
+sfteval12_frozen_bare.parquet,frozen_bare,widowx_stack_cube,Place the green element on top of the yellow-orange element.,24.7,288
+sfteval12_frozen_trace.parquet,frozen_trace,widowx_stack_cube,Pick up the green block and place it on top of the yellow block.,24.3,288
+eval12_B_v6step_0060.parquet,tuned,widowx_stack_cube,Pick up the green block and place it on top of the yellow block.,24.3,288
+eval12_B_v6step_0080.parquet,tuned,widowx_stack_cube,Pick up the green block and place it on top of the yellow block.,24.3,288
+eval12nom_A_s240.parquet,tuned,widowx_stack_cube,stack the green block on the yellow block,24.0,288
+eval12nom_B_s260.parquet,tuned,widowx_stack_cube,put carrot on plate,0.0,288
