@@ -92,6 +92,32 @@ elif [ "$LEG" = icl ]; then
       --assets data/val_screen_assets_selftrace.parquet \
       --out "$PH" >> /workspace/sfteval.log 2>&1 || { mark "ICL GEN FAILED"; exit 1; }
   fi
+elif [ "$LEG" = v2sampled ]; then
+  # sampled face-off: v2 vs frozen_selftrace at k=8 (mode-artifact
+  # diagnosis for v2's ramekin hesitation + bo8 oracles for selection work)
+  PH=data/phrases_v2_faceoff_sam8.parquet; REPS=1; TAG=sftsam8x1; ARMS="sft_v2 frozen_selftrace"
+  if [ ! -f "$PH" ]; then
+    mark "generating sampled face-off phrases (k=8, both trace arms)"
+    PYTHONPATH=src .venv-gen/bin/python -m phrase_rl.sft17k_generate_eval \
+      --adapter results/checkpoints/sft17k_v2/final \
+      --assets data/val_screen_assets.parquet \
+      --trace-assets data/val_screen_assets_selftrace.parquet \
+      --arm sft_v2 --sample-k 8 --out data/v2sam_tmp.parquet >> /workspace/sfteval.log 2>&1 \
+      || { mark "V2 SAMPLED GEN FAILED"; exit 1; }
+    PYTHONPATH=src .venv-gen/bin/python -m phrase_rl.phase4_generate_eval \
+      --tasks data/val_screen_frames.parquet --ctx data/val_screen_frames.parquet \
+      --assets data/val_screen_assets_selftrace.parquet \
+      --adapter results/checkpoints/sft17k_v2/final \
+      --sample-k 8 --out data/fst_sam_tmp.parquet >> /workspace/sfteval.log 2>&1 \
+      || { mark "FROZEN_SELFTRACE SAMPLED GEN FAILED"; exit 1; }
+    .venv-gen/bin/python -c "
+import pandas as pd
+a = pd.read_parquet('data/v2sam_tmp.parquet')
+b = pd.read_parquet('data/fst_sam_tmp.parquet')
+b = b[b.arm == 'base'].copy(); b['arm'] = 'frozen_selftrace'
+pd.concat([a, b], ignore_index=True).to_parquet('$PH', index=False)
+print(len(a), len(b))" >> /workspace/sfteval.log 2>&1 || { mark "FACEOFF MERGE FAILED"; exit 1; }
+  fi
 else
   PH=data/phrases_sft17k_ert_sam8.parquet; REPS=1; TAG=sftsam8x1
   if [ ! -f "$PH" ]; then
