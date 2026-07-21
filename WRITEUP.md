@@ -387,3 +387,33 @@ distribution's nouns.
 - **Phase 1–2:** SFT + advantage-weighted tuning of Qwen3.5. Leaning toward
   RL-from-base-Qwen as the primary (cleaner claim: no frontier teacher), with
   teacher-distillation as an ablation.
+
+## Reward repair — the two exams behind v7's 25/75 blend (2026-07-18/19)
+
+v6's flat rollout triptych against a climbing verifier reward (tracking r = −0.93)
+demanded a reward audit before any v7. Two pre-registered exams compared the
+production reward (the 4-frame verifier ensemble's logit, "C1") against rank-blends
+of that logit with the action-chunk gripper error (grip-rank): 50/50 (C4a) and
+25/75 logit/grip (C4b).
+
+![sign-agreement exam](results/charts/reward_exam_signs.png)
+
+**Sign-agreement exam.** For 68 native-task phrase pairs whose true success gap was
+measured by rollouts, we ask each candidate to rank the pair. The production reward
+gets 51/68 (ρ = 0.25) — barely better than chance on the fine axis, consistent with
+v6's failure to convert reward gains into rollout gains. The 25/75 blend gets 66/68
+(ρ = 0.49); pure grip-rank reaches the 67/68 feature-space ceiling. One pair is
+universally invisible: π0 prefers "green cube" over "green block" by +12pp and no
+offline feature sees it. The fine signal lives in the gripper channel, not the flow
+logit — which was anti-correlated on spoon.
+
+![selection exam](results/charts/reward_exam_selection.png)
+
+**Selection exam (the confirmation).** Higher-precision retest: use each reward to
+pick the best of 8 real sampled phrases per task, score the pick's measured rollout
+success, pooled over 16 cells. Random picking scores 43.1%, the oracle 58.2%. The
+production reward captures 50% of that gap; 50/50 captures 58%; 25/75 captures 62%
+(52.4%), passing the pre-registered ≥ 1/3 bar and topping the family. 25/75 was
+chosen over pure grip for two-axis Goodhart resistance and grip's per-task
+pathologies (carrot ρ = −0.12). This blend (rank-space, training advantages only)
+is wired into the held v7 launcher.
