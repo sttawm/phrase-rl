@@ -923,3 +923,80 @@ selftrace GENERATION completed (both arms' phrases written). Relaunched
 serial on the freed GPU: v2 train (alone) -> selftrace rollout leg.
 Trace-health gate re-confirmed on the full 17.3k set implicitly (8.5k
 audit clean; generation finished without errors).
+
+## NEXT-PHASE PLAN — panel proposals (recorded 2026-07-21 for future reference)
+Source: 3-lens proposal panel + adversarial critic (workflow wf_c5b3cf82-efd;
+full text in the session transcript). Critic amendments recorded in the
+"Critic amendments" entry above; they modify items marked [amended].
+
+LENS A — exploit the oracle gap, no retraining:
+A1 VOCAB-ROUTER COMPOSITE ($0): pre-register a noun-coverage routing rule
+   (in-vocab -> SFT bare; OOV -> trace arm); compute composite from banked
+   CRN-paired parquets. Projects ~43.9 pooled vs ladder top 40.5. Risks:
+   winner's-curse (pre-register rule text incl. threshold before computing;
+   tire has 3 corpus hits); self-trace may undershoot cached-Gemini traces.
+   First: results/analysis/vocab_router_composite.py, rerun when self-trace
+   arms land. Default no-retrain finalist for the sealed test.
+A2 RETRO-SELECTION EXAMS ON BANKED POOLS ($0-8) [amended: must use the
+   demo-free 'deploy' feature mode — grip/logit are a*-derived and cannot
+   score quartet/sealed tasks]: (a) picker-transfer check on SFT/frozen
+   pools (0.62 capture was validated on v6-era pools only); (b) a*-free
+   picker search: decode-spread, text-MBR centrality (predicted to fix the
+   ramekin mode artifact), OOV-noun-preservation, frozen log-prob. Gate for
+   everything downstream incl. v7.
+A3 UNION-POOL BEST-OF-N ARM (~$10-20, one x12 leg): pool ALL banked phrases
+   per task (incl. v6 bank's ramekin->"white bowl" 64.2), pick offline with
+   the certified picker (NEVER with banked success labels — oracle leakage),
+   byte-audit picks, roll once. Expected 42-46 pooled; its residual vs
+   oracle = cleanest measure of what only execution-grounded learning buys.
+
+LENS B — beyond the training distribution:
+B1 ROLLOUT-RACED PHRASEBOOK (~$5): per-task successive-halving bandit over
+   structured families (referent alternates from trace replacement lists,
+   cube/block-class noun swaps, register variants) vs real CRN rollouts.
+   Calibration cell FIRST (stack + ramekin must reproduce the two known
+   preferences for ~$1). Output: measured better-than-GT headroom + test of
+   the lexical meta-rule (concrete familiar nouns > category nouns).
+   Winners are val-suite capital, not headline claims; confirm top-1 on
+   held-out layouts 18-23.
+B2 EXPERT ITERATION (ReST-style, ~$70-120, GATED): sample from v2, verify
+   vs the ANALYTIC sim success rule (not a learned detector — v5/v6 Goodhart
+   channel structurally absent), distill winners with margin weighting + v1
+   replay. Only mechanism whose ceiling is pi0's competence, not the Bridge
+   distribution. Fund only if the $10 yield probe (32 contexts x 8 samples
+   x 2 reps) shows >=25% contexts with a non-GT-register winner beating the
+   nominal anchor. Task space: mint new source x receptacle combos (~25-30
+   untouched); mandatory seen/held-out layout split.
+B3 REFERENCE-FREE BEHAVIORAL PICKER ($0 first step): mine banked decode
+   arrays for a*-free features (cross-seed action variance, gripper
+   decisiveness), benchmark on the frozen yardsticks (68-pair sign exam,
+   selection cells). Selection-time use ONLY — never promote to a training
+   reward (re-opens the r=-0.93 failure). Merges with A2's search.
+
+LENS C — scientific endgame:
+C1 SELECT-8 DEPLOYMENT ARM: reward-as-selector (the workstream's positive
+   result: reward fails as RL objective, works as picker). Offline replay
+   first on banked pools; stratified pre-registered read; confirmation
+   rollout only after the natives gate (>=1/3 capture) passes. [amended:
+   deploy-mode features required beyond natives]
+C2 ICL KNOWLEDGE-VS-WEIGHTS CONTROL: run the already-built
+   sft17k_icl_baseline greedy x12; pre-registered interpretation rule
+   (ICL >= SFT-2pp natives => knowledge; <= frozen+5 => weights; between =>
+   decomposition). Elevates the natives record to a mechanism claim.
+C3 SEALED ONE-SHOT PROTOCOL: fire once, only after v2 + select-8 verdicts;
+   <=6 arms (anchors, frozen_bare, frozen_qwen_trace, SFT-v1, v2, select-8);
+   in-vocab/OOV stratification drawn EX ANTE by an automated vocabulary
+   audit of sealed-task nouns (falsifiable prediction, not hindsight);
+   written predictions filed before FINAL_EVAL=1; full dry-run on a val task
+   with byte-level echo/trace-alignment audits (v5 trace-misalignment is the
+   cautionary precedent). [amended: test ERTs must NOT be Qwen-authored —
+   one small Gemini batch ~$5-10 at eval time, user sign-off required]
+
+MERGED PRIORITY (with critic amendments): (0) in flight: v2 + self-trace
+arms + pre-registered v2 read; (1) A2/B3 deploy-mode desk check ($0) — also
+the v7 gate; (2) A1 router ($0); (3) A3 union-pool arm (one leg); (4) B1
+phrasebook racing (~$5, calibration first); (5) C2 ICL control; (6) B2
+expert iteration iff yield probe passes; (7) C3 sealed one-shot. v7 RL:
+dead-unless-gate per critic; if ever run, from-scratch spec or disclosed
+2-arm init ablation. DPO on current data: demoted (8-10 CI-clear pairs is
+too thin); lexical facts fold into v3 SFT corpus instead.
