@@ -81,13 +81,15 @@ elif [ "$LEG" = v2 ]; then
       || { mark "V2 GEN FAILED"; exit 1; }
   fi
 elif [ "$LEG" = icl ]; then
-  # knowledge-vs-weights control (panel C2): frozen Qwen + retrieved inventory
-  # + demos, NO trace (clean comparison against the bare ladder arms)
+  # knowledge-vs-weights control (panel C2, user-amended to TRACED form):
+  # frozen Qwen + retrieved inventory + demos + Qwen SELF-trace — same trace
+  # source as frozen_selftrace and sft_v2, so the three-way read isolates
+  # in-context knowledge vs finetuned weights vs neither, trace held fixed
   PH=data/phrases_icl_ert.parquet; REPS=12; TAG=sfteval12; ARMS="icl"
   if [ ! -f "$PH" ]; then
-    mark "generating ICL phrases (retrieval, no trace)"
+    mark "generating ICL phrases (retrieval + qwen self-trace)"
     PYTHONPATH=src .venv-gen/bin/python -m phrase_rl.sft17k_icl_baseline \
-      --assets data/val_screen_assets.parquet --no-trace \
+      --assets data/val_screen_assets_selftrace.parquet \
       --out "$PH" >> /workspace/sfteval.log 2>&1 || { mark "ICL GEN FAILED"; exit 1; }
   fi
 else
