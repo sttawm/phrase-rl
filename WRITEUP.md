@@ -498,5 +498,11 @@ artifact (SFT's own draws contain "white bowl" at 54%), keyboard/coke-plate are
 distribution-deep (best-of-8 stuck at 8.3). Meanwhile frozen_gemini_trace (40.5)
 proves image-grounded trace conditioning rescues exactly those tasks (quartet 31.5)
 — and a probe showed the 9B resolves both OOV receptacles from the image on its own.
-The v2 synthesis trains the reconstructor *with* Qwen self-traces: nouns from the
+**The mismatch diagnostic (sft_gemini_trace).** Evaluating the v1 adapter under the
+trace conditioning it never trained with completes the argument: pooled 33.8 —
+quartet rescued halfway (+11.8 over its bare 5.8; coke-plate 5.9→30.9, ramekin
+3.8→28.5, though keyboard stays at 1.4 where vocabulary-forcing still wins) but a
+−6.3 *natives tax* (56.3→50.0) from the off-distribution prompt. A traceless-trained
+model can partially read traces, and pays for the format shift exactly where it was
+strongest. The v2 synthesis trains the reconstructor *with* Qwen self-traces: nouns from the
 trace, relation from the input, register from the prior.
