@@ -1130,3 +1130,13 @@ test time alongside the hostile instruction: a short model-written scene
 description plus a mapping from the instruction's object descriptions to
 plain object names. Rules must be executable given ONLY the hostile
 instruction, this trace, and the training corpus."
+
+## v2 checkpoint probe verdict (quartet x12, 2026-07-21 23:20)
+v2 best_val (step 600) quartet 15.0 vs final 16.8 — paired -1.7 +/- 2.0:
+NO rescue; the earlier-checkpoint hypothesis is settled negative with
+rollout evidence. Ramekin's "white cup" gained only +3.8 (28.5 vs 24.7;
+"cup" is a weaker neighbor than v6's "bowl" at 64.2), and best_val's
+LONGER coke-plate phrasing lost -8.3 (1.7 vs 10.1 — Case 6's length
+penalty exactly). keyboard/wheel flat. final/ stays the v2 artifact;
+the quartet gap is a phrasing-choice problem (bowl > cup > "cup-like
+object"), i.e. selection/rules territory, not training-duration.
