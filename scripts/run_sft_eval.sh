@@ -92,6 +92,18 @@ elif [ "$LEG" = icl ]; then
       --assets data/val_screen_assets_selftrace.parquet \
       --out "$PH" >> /workspace/sfteval.log 2>&1 || { mark "ICL GEN FAILED"; exit 1; }
   fi
+elif [ "$LEG" = v2ckpt ]; then
+  # checkpoint probe (user): v2 best_val on the QUARTET only — ramekin commits
+  # to "white cup" where final hedges; 1,152 eps prices it
+  PH=data/phrases_v2ckpt_quartet.parquet; REPS=12; TAG=sfteval12; ARMS="v2_best_val"
+  if [ ! -f "$PH" ]; then
+    .venv-gen/bin/python -c "
+import pandas as pd
+NAT = {'widowx_carrot_on_plate','widowx_spoon_on_towel','widowx_stack_cube','widowx_put_eggplant_in_basket'}
+d = pd.read_parquet('data/phrases_v2_best_val.parquet')
+d[~d.task.isin(NAT)].to_parquet('$PH', index=False)
+print(len(d))" >> /workspace/sfteval.log 2>&1 || { mark "V2CKPT FILTER FAILED"; exit 1; }
+  fi
 elif [ "$LEG" = v2sampled ]; then
   # sampled face-off: v2 vs frozen_selftrace at k=8 (mode-artifact
   # diagnosis for v2's ramekin hesitation + bo8 oracles for selection work)
