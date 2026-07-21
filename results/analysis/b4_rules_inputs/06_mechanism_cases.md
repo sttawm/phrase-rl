@@ -1,47 +1,73 @@
-# Mechanism case families (all numbers = measured rollout success, greedy ×12 unless noted)
+# Case studies: how wording changes the robot's success rate
 
-## Lexeme preference within concrete nouns (the cube/block pair)
-Task stack_cube, GT says "block". π0 prefers "cube": +12pp measured on a powered
-pair. Invisible to every offline reward feature (the one universal miss at the
-exam's 67/68 ceiling). Both words are concrete and in-corpus; frequency/embodiment
-in Bridge appears to decide.
+All numbers below are measured success rates from running the robot policy in
+simulation many times (hundreds of episodes per phrasing unless noted). Each
+case compares different ways of phrasing the SAME task.
 
-## OOV receptacle: ramekin family (coke_can_on_ramekin_clean)
-- v6's "Pick up the red cola can and place it upright inside the white bowl." → 64.2%  (resolve to in-vocab NEIGHBOR)
-- frozen echo of full circumlocution ("hollow white ceramic cup-like container") → 42.0%  (π0 parses this one)
-- frozen_selftrace rephrase → 46.2%
-- SFT-v1 "…in the white object" → 3.8%  (vague category placeholder = destruction)
-- SFT-v2 "…in the white object that looks like a cup" → 24.7%  (partial)
-Trace evidence: the self-trace referent map literally offers "→ ceramic bowl"; v2's
-greedy declined it. Sampled: "white bowl" draws hit 54.2% (winner's-curse caveat).
+## Case 1: which word to use when two correct words exist
+Task: stack the green block on the yellow block.
+The training data calls the objects "blocks". But phrasings that say "cube"
+succeed about 12 percentage points MORE than phrasings that say "block" —
+even though "block" is what the training data says. Lesson: the policy has
+its own preferred word for an object, which is not always the word its
+training data used most. Both candidates here are short, concrete nouns.
 
-## OOV receptacle: keyboard family (carrot_on_keyboard_clean)
-- v6's "…place it on the black keyboard." → 22.9%  (KEEP the OOV noun)
-- SFT-v2 "put the orange carrot on top of the keyboard" → 16.7%
-- frozen echo of circumlocution ("black peripheral device used for typing") → 0.3%  (π0 does NOT parse this one)
-- SFT-v1 "…above the mouse pad" → 3.1%  (wrong in-vocab neighbor = worst kind of miss)
-Contrast with ramekin: π0's parsing of rich descriptions is OBJECT-DEPENDENT.
+## Case 2: an object the training data has no word for (a ramekin)
+Task: put a soda can into a small white ceramic dish (a "ramekin" — a word
+that never appears anywhere in the training data).
+- "Pick up the red cola can and place it upright inside the white bowl." → 64%
+- Repeating the long input description unchanged ("...hollow white ceramic
+  cup-like container...") → 42%
+- "...place it in the white object" → 4%
+Lesson: for an unfamiliar object, the best move is to NAME it with the
+closest familiar concrete noun ("bowl"). Repeating a rich description works
+moderately. A vague category word like "object" is a disaster.
 
-## Wheel family (carrot_on_wheel_clean) — hard task, small numbers
-- SFT-v2 "pick the orange carrot and put it on the wheel" → 15.6% (task record)
-- SFT-v1 same shape → 10.4%; frozen "tire" repair → 8.7%; v6 → 3.1%
+## Case 3: another unfamiliar object (a computer keyboard) — the opposite echo result
+Task: put a carrot on a computer keyboard ("keyboard" also never appears in
+the training data).
+- "...place it on the black keyboard." → 23%  (keep the unfamiliar word)
+- "put the orange carrot on top of the keyboard" → 17%
+- Repeating the input's description unchanged ("...black peripheral device
+  used for typing") → 0.3%
+- "...above the mouse pad" (a familiar-sounding but WRONG object name) → 3%
+Lesson: unlike Case 2, repeating the description fails completely here — the
+policy understands some descriptions and not others. Keeping the unfamiliar
+object's actual name ("keyboard") works best. Substituting a wrong familiar
+name is nearly as bad as the description.
 
-## Spoon: register sensitivity (spoon_on_towel)
-- SFT-v2 "put the spoon on top of the towel" → 63.9%
-- SFT-v1 "put the spoon onto the towel" → 59.7%
-- frozen_bare "Place the spoon in the center of the towel." → 40.6%
-- frozen_selftrace → 34.0%; v6's phrase → 25.0%
-Small canonical-register differences move this task a lot.
+## Case 4: a third unfamiliar object (a wheel/tire) — hard task, small numbers
+Task: put a carrot on a wheel.
+- "pick the orange carrot and put it on the wheel" → 16% (best recorded)
+- "put it on the tire" style → 9%
+- Rich description repeated → ~6%
+All numbers are low (hard task), but naming the object beats describing it.
 
-## Deixis (coke_can_on_plate_clean)
-- GT-style "put coke can on plate" → 64.6% (n=864, from the pairs file)
-- frozen_selftrace version → 29.5%; frozen_gemini → 27.4%
-- SFT-v2 "pick the can on the left side and put it on the yellow plate on the right side" → 10.1%
-- SFT-v1 near-identical deixis-preserving form → 5.9%; echo of full hostile → 1.0%
-Preserved left/right deixis in long sentences does NOT rescue this task; the short
-canonical form dominates. Length/complexity itself may be the enemy here.
+## Case 5: small register differences matter (spoon on towel)
+Task: put the spoon on the towel.
+- "put the spoon on top of the towel" → 64%
+- "put the spoon onto the towel" → 60%
+- "Place the spoon in the center of the towel." → 41%
+- "place the spoon on the blue cloth" style → 25-34%
+Lesson: short, plain, imperative phrasing in the training data's style wins;
+added precision words ("in the center of") and object renamings ("cloth" for
+towel) cost real success.
 
-## Benign-input headroom (eggplant_in_basket)
-- canonical "put the eggplant in the yellow basket" → 94.4% (SFT-v1 and v2 tie)
-- frozen echo of mildly-hostile "Arrange the eggplant neatly in the yellow bin." → 53.8%
-Canonicalizing even MILD hostility is worth +40pp when the target is in-vocab.
+## Case 6: length and complexity are enemies (can onto plate)
+Task: put a coke can on a plate. The input arrived as a long, convoluted
+sentence with directions ("the container on the left ... vessel to its
+right").
+- "put coke can on plate" → 65% (n=864)
+- Long phrasings that carefully preserve the left/right directions → 6-10%
+- Repeating the convoluted input unchanged → 1%
+Lesson: even when a long phrasing is accurate and preserves useful spatial
+detail, it loses badly to a short canonical form. Dropping the spatial
+qualifiers entirely was better than keeping them.
+
+## Case 7: cleaning up mild rewording is worth a lot (eggplant in basket)
+Task: put an eggplant into a yellow basket. Input said "Arrange the eggplant
+neatly in the yellow bin."
+- "put the eggplant in the yellow basket" → 94%
+- Repeating the mildly-reworded input unchanged → 54%
+Lesson: converting even a MILD rewording back to the training data's plain
+style ("arrange...neatly"→"put", "bin"→"basket") gained 40 points.
