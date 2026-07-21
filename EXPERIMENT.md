@@ -1083,3 +1083,50 @@ canonicalization overrides. Ladder: SFT-v1 31.1 < frozen_selftrace 34.5
 the strongest FULLY-SELF-CONTAINED arm (no Gemini anywhere). Mode-vs-
 distribution question for ramekin/coke-plate goes to the queued sampled
 face-off; sft_selftrace diagnostic rolling now.
+
+## B4 prompt-ready file descriptions (user request, 2026-07-21)
+Draft descriptions for the learning-task prompt, one per input file
+(results/analysis/b4_rules_inputs/):
+
+01_bridge_gt_instructions.txt — "The complete list of 17,297 unique
+instructions from the robot policy's training data, one per line. This is
+the phrasing distribution the policy was trained to follow. No labels."
+
+02_oxe_paraphrases_SAMPLE60keys.csv — "A sample of 60 instruction
+'clusters' from the policy's finetuning augmentation: each row pairs a
+training instruction (gt) with one of its ~38 benign paraphrases that the
+policy also saw during training. 235,764 such paraphrases exist in total."
+
+03_contrast_pairs_139.json — "139 statistically confirmed preference
+facts. Each record is two phrasings of the SAME task, both executed many
+times in simulation; 'better' beat 'worse' by at least 6 percentage
+points of rollout success with z>1.96 under conservative (layout-
+clustered) errors, each phrase measured over >=200 episodes. These are
+the highest-confidence facts about which phrasings the policy executes
+better."
+
+04_greedy_cells_all_arms.csv — "A chart of rollout successes for 8
+simulated tasks. Each task is identified by its nominal instruction; each
+row is one alternative phrasing of that task with its measured success
+rate over at least 288 rollouts (up to 1,152 where measurements were
+pooled). 73 phrasings total. Compare phrasings within a task to see what
+wording the policy executes best."
+
+05_sampled_pools_per_draw.csv — "Individual sampled phrasings (8 random
+draws per task from various generator models) with their measured success
+over 24-96 rollouts each; 435 rows. The best draw in each pool is flagged
+(is_pool_oracle). CAUTION: per-row success is noisy (SE ~10pp at n=24)
+and pool winners are selected on noise — use these rows for the STRUCTURE
+of what wins, never for exact rankings."
+
+06_mechanism_cases.md — "Curated case studies with measured numbers:
+side-by-side phrasings of the same task showing large success differences
+and the apparent cause (e.g. concrete noun vs vague category word;
+keeping vs replacing an unfamiliar object name; short canonical form vs
+long descriptive form)."
+
+07_selftraces_val8.md — "What the deployed system actually receives at
+test time alongside the hostile instruction: a short model-written scene
+description plus a mapping from the instruction's object descriptions to
+plain object names. Rules must be executable given ONLY the hostile
+instruction, this trace, and the training corpus."
