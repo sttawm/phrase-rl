@@ -1065,3 +1065,21 @@ self-traces. Statistical discipline encoded in the analysis: oracle
 winners are winner's-cursed (24-ep SE ~10pp) — evidence tiering is
 CI-pairs > n=288 cells > pooled draw patterns > single oracle ranks;
 oracle phrases inform rules via STRUCTURE, not raw rank.
+
+## V2 VERDICT (x12 landed 2026-07-21 21:26)
+sft_v2: pooled 37.1 | natives 57.4 | quartet 16.8.
+PRIMARY (pre-registered, paired vs frozen_selftrace 34.5): +2.6 +/- 2.1
+(n=192) — a LEAN, not a certified win (1.2 sigma).
+SECONDARY: natives 57.4 vs SFT-v1 56.3 — the record HELD under trace
+conditioning (train/deploy match killed the -6.3 mismatch tax, as
+designed); quartet 16.8 vs frozen_gemini 31.5 / frozen_selftrace 22.3 —
+rescue only PARTIAL (+11.0 over v1's 5.8 but short of what traces offer).
+Per-task: spoon +29.9 (63.9), keyboard +9.4 (16.7, the carried noun
+paying off), wheel +9.4 (15.6 = task record), eggplant 94.4 (ties
+record); ramekin -21.5 (24.7 — the "white object that looks like a cup"
+hesitation priced) and coke-plate -19.4 (10.1) are the two residual
+canonicalization overrides. Ladder: SFT-v1 31.1 < frozen_selftrace 34.5
+< SFT-V2 37.1 ~ v6 RL s120 37.2 < s80 39.2 < frozen_gemini 40.5. v2 is
+the strongest FULLY-SELF-CONTAINED arm (no Gemini anywhere). Mode-vs-
+distribution question for ramekin/coke-plate goes to the queued sampled
+face-off; sft_selftrace diagnostic rolling now.
