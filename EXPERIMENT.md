@@ -874,3 +874,35 @@ Val suite unchanged: 8 SIMPLER tasks = 4 CoVer natives + keeper quartet
 (coke-plate/carrot-keyboard/coke-ramekin/carrot-wheel _clean, registry-v4
 prescreen survivors). natives-vs-quartet = stratification, not a suite
 change; it happens to align with in-vocab vs OOV receptacles.
+
+## Critic amendments to the next-phase plan (panel + adversarial critic, 2026-07-20 night)
+1. PICKER EXECUTABILITY: grip/logit are a*-derived — the 25/75 picker cannot
+   score quartet/sealed tasks at deployment. verifier_features.py has a
+   documented DEMO-FREE 'deploy' mode; the $0 desk check (deploy-mode
+   features as picker on banked sam8 tables, stratified, greedy included in
+   the candidate set) runs BEFORE any deployment selection code.
+2. DPO DEMOTED: current preference capital is ~8-10 CI-clear pairs from 70
+   phrases — too thin. Confirmed lexical facts fold into the v2/v3 SFT
+   corpus as targeted supervised pairs instead; preference harvesting waits
+   for minted tasks (~30 unused source x target combos).
+3. GENERALIZATION: confirmed preferences are pi0-idiolect lexical facts
+   about ~8 objects; transfer to the sealed set requires the META-rule
+   (concrete familiar nouns > category nouns; don't force OOV nouns), which
+   minted-task harvests can test pre-one-shot.
+4. V7 RL: demoted to DEAD-UNLESS-GATE — if the 25/75 argmax does not beat
+   greedy on-policy in the desk check, RL against that reward cannot beat
+   SFT (same optimum, $60 vs $5). If ever run: from-scratch per the
+   pre-registered spec, or a disclosed 2-arm init ablation.
+5. V2 READ PRE-REGISTERED (before any arm lands): PRIMARY = v2 vs
+   frozen_selftrace, CRN-paired (weights-only, trace source controlled) —
+   NOT vs frozen_gemini_trace 40.5 (different trace source). SECONDARY =
+   v2 natives vs SFT-v1 56.3; v2 quartet vs frozen_gemini_trace 31.5
+   (cross-source context). TRACE-HEALTH GATE (critic): PASSED — 8,500/17.3k
+   audited: 0.0% template echo, 0.1% repetition loops, 0.0% missing
+   referent sections, median 383 chars; retrain authorized.
+6. SEALED ONE-SHOT AUTHORSHIP: test-task ERTs must NOT be Qwen-authored
+   (SFT/v2 would face their own training corruption style on the decisive
+   eval). Budget ONE small eval-time Gemini batch (~$5-10, flash,
+   thinking_budget=0) at one-shot time for test ERTs + gemini-trace arms —
+   held-out authorship is the hygiene that made every SFT claim honest.
+   Requires user sign-off on the spend at endgame time.
