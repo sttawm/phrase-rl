@@ -1258,3 +1258,15 @@ the performance claim belongs exclusively to the sealed test. Predictions
 file must flag GreenCubeOnPlate as the one sealed task where a val
 lexical fact (cube>block) legitimately reaches the arm via the trace
 mechanism.
+
+## Three-arm sampled face-off COMPLETE (2026-07-22 07:25) — val program closed
+sampled k8: frozen_selftrace 34.8 (zero temperature tax) > sft_v2 32.0
+(-5.1 tax) > v2_best_val 29.8. CHECKPOINT QUESTION CLOSED BOTH WAYS:
+best_val loses on mode (greedy quartet 15.0 vs 16.8) AND distribution
+(sampled quartet 11.5 vs 15.0; its ramekin pool still never commits to
+"bowl" — best draw 45.8 'picked and transfer the can into the cup').
+bo8 oracles 44.5-47.6 for all three arms — far under the search's
+emerging per-task numbers (ramekin r1 leader 72.2@n36). Freeze decisions
+retro-validated (no sampled twins for v2 family). Val-side evidence
+program is now COMPLETE; remaining work is search rounds + sealed
+execution.
