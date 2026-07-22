@@ -18,6 +18,7 @@ while true; do
     [ -f "$OUT" ] && continue
     # confirm files run on the HELD-OUT layouts at full reps
     case "$f" in
+      *xcert*)   EPIDS="0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23"; REPS=6 ;;
       *confirm*) EPIDS="18 19 20 21 22 23"; REPS=12 ;;
       *)         EPIDS="0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17"; REPS=2 ;;
     esac
