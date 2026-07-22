@@ -1,0 +1,86 @@
+{
+ "task": "widowx_coke_can_on_plate_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "set the coke on the plate",
+   "success_pct": 75.0,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke down on the plate",
+   "success_pct": 66.7,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke onto the plate",
+   "success_pct": 66.7,
+   "n": 36
+  },
+  {
+   "phrase": "drop the coke can onto the plate",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke on the plate",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "lay the coke on the plate",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "place the coke on the plate",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "set the coke can on the plate",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "put a coke can on the plate",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "put the red coke can on the plate",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "put coke can on plate",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "Put the coke can on the plate",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "drop the coke can on the plate",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "coke on plate",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can on plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can on the plate.",
+   "success_pct": 47.2,
+   "n": 36
+  }
+ ]
+}
