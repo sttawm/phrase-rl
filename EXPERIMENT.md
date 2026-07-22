@@ -1183,3 +1183,16 @@ The C2 knowledge-vs-weights control is waived — the rules arm IS the
 knowledge-based approach going to the sealed test; its rollout budget goes
 there instead. Face-off waiter rekeyed to the sft_selftrace marker
 (pulls the three-arm sampled face-off ~3h earlier, ~08:15).
+
+## sft_selftrace diagnostic (2026-07-22 02:02): v1+qwen-trace MATCHES v2
+sft_selftrace (v1 adapter, phase4 image+selftrace conditioning): pooled
+36.6 | natives 56.7 | quartet 16.6 — vs sft_v2 native 37.1/57.4/16.8:
+all deltas within noise. TWO consequences: (1) the Gemini-trace mismatch
+tax (-6.3 natives) does NOT appear with Qwen self-traces (56.7 vs 50.0)
+— the tax was trace-content/length-specific, not trace-per-se; (2) v2's
+traced RETRAINING bought ~nothing measurable over v1-with-traces-at-
+inference on this suite. v2 retains the deployment edge (text-only native
+format, no image in the rephrase prompt; v1+selftrace needs phase4
+image conditioning) — but the writeup must state the marginal honestly.
+Freeze implication: sft_v2 stays the trained finalist on deployment
+profile; v1+selftrace is its no-retrain twin.
