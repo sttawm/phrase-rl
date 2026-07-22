@@ -44,6 +44,31 @@ cases — every search-split "improvement" on those tasks was winner's curse.
 
 ---
 
+## The scenes (one frame per task, episode 0)
+
+The images explain more of the minimal-pair table than any statistic — the
+unifying pattern is **visual-fidelity naming**: the winning noun is the one
+that names what the object *looks like*, not what it technically is.
+
+| | |
+|---|---|
+| <img src="results/search/scenes/coke_can_on_ramekin.png" width="380"> | **coke-ramekin.** The "ramekin" is a large fluted white vessel that simply *is* a white bowl to the eye. "white bowl" (95.8) ≫ "white cup" ≫ "white dish" tracks visual fit exactly; "ramekin" (22.2) loses to its own look-alike name. The can must go IN it — hence in/inside ≫ the nominal's "on". |
+| <img src="results/search/scenes/stack_cube.png" width="380"> | **stack-cube.** Both objects are literal, perfect cubes — muted teal-green and pale yellow. "cube" ≫ "block" (+12.5 confirmed) is visual fidelity again; and the green is genuinely teal-ish, which is why the trace honestly said "teal-green" — an adjective the corpus never uses (−30). Tiny objects, precision stack → modest ceiling. |
+| <img src="results/search/scenes/carrot_on_wheel.png" width="380"> | **carrot-wheel.** A small black tire lying flat, silver rim, shallow concave hub. Balancing a long rigid carrot on a narrow curved ring is mechanically awkward — the low ceiling (~31–39) is visible. "black tire"/"black wheel" are both faithful; "rubber" (material, not visible texture) hurts. |
+| <img src="results/search/scenes/carrot_on_keyboard.png" width="380"> | **carrot-keyboard.** A slim black keyboard, low-contrast against its own keys, slightly raised. Same story as the wheel: a rounded carrot on a narrow hard deck → execution-limited (~25–36 ceiling). The keyboard is unambiguously black — the one adjective that helps. |
+| <img src="results/search/scenes/put_eggplant_in_basket.png" width="380"> | **eggplant-basket.** The revelation: the "yellow basket" is literally a **yellow dish rack in a toy sink**. This explains the corpus-era mystery cell ("aubergine…dish rack" 92.7%), the trace naming it "dish rack", and why the task is easy (huge open target). The corpus name ("basket") and the visual name ("dish rack") BOTH work — when the target is this forgiving, naming barely matters. |
+| <img src="results/search/scenes/spoon_on_towel.png" width="380"> | **spoon-towel.** Green-handled spoon, light-blue folded towel — flat, wide, forgiving landing (69.4 nominal). "blue towel" is visually faithful yet HURT (−19): with an easy target and a dominant corpus form, any deviation from plain register is pure downside. |
+| <img src="results/search/scenes/coke_can_on_plate.png" width="380"> | **coke-plate.** The plate is pale yellow-green — genuinely ambiguous between "yellow" and "green". That ambiguity likely explains the adjective instability across the two plate tasks; the corpus-dominant bare form ("put coke can on plate") wins outright. |
+| <img src="results/search/scenes/carrot_on_plate.png" width="380"> | **carrot-plate.** Same ambiguous plate; here "green plate" phrasings scored well on the search split but the bare nominal won held-out — the adjective was noise, not signal. |
+
+**Implication for the rules:** the trace's vision-grounded name works because
+the policy's language grounding is appearance-first — the same reason "white
+bowl" beats "ramekin" and "cube" beats "block". Rule 1 (trust the trace's
+plain name) is the codified form of visual-fidelity naming; the scenes above
+are its mechanism.
+
+---
+
 ## Minimal pairs with drastic effects
 
 Search-split numbers (n=36) unless noted. Δ = worse-minus-better.
