@@ -1,0 +1,11 @@
+{
+ "task": "widowx_stack_cube",
+ "round": "pure1",
+ "phrases": [
+  "put the small green cube on the yellow cube",
+  "put the small green block on the yellow block",
+  "put the small teal-green cube on the yellow cube",
+  "put the green cube on the yellow cube",
+  "stack the small green cube on the yellow cube"
+ ]
+}

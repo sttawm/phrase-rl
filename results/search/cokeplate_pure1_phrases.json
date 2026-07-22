@@ -1,0 +1,10 @@
+{
+ "task": "widowx_coke_can_on_plate_clean",
+ "round": "pure1",
+ "phrases": [
+  "pick up the coke can and place it on the plate",
+  "take the coke can and place it on the plate",
+  "pick up the coke can and put it on the plate",
+  "put the coke can on the plate"
+ ]
+}
