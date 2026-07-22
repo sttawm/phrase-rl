@@ -64,9 +64,10 @@ and pale yellow) — "cube" ≫ "block" is visual-fidelity naming; the honest
 
 Full table (all measured pairs, including multi-edit):
 
+**Reality check:** the telegram "green cube on yellow cube" led the search split at 58.3% (n=72 across two boards, layouts 0–17) but fell to 11.1% (n=72) when re-measured on the never-searched layouts 18–23 — partly because those layouts are ~40pp harder for this task, partly winner's curse.
+
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
-| **+47.2** | "green cube on yellow cube" (telegram) | 58.3% (n=72) | same phrase, held-out | 11.1% (n=72) | split shift + winner's curse |
 | **+44.4** | "put the green cube on the yellow cube" | 44.4% (n=36) | "stack the cubes" | 0.0% (n=36) | both objects named → underspecified |
 | **+33.4** | "put the small green cube on the yellow cube" | 55.6% (n=36) | "put the teal-green cube on the yellow cube" | 22.2% (n=36) | plain color → compound color · **PURE ✂ single edit** |
 | **+8.4** | "put the green cube on the yellow cube" | 15.3% (n=72) | "stack the green block on the yellow block" (nominal) | 6.9% (n=72) | cube → block |
@@ -89,9 +90,10 @@ ceiling (~32) is visible in the picture.
 
 Full table (all measured pairs, including multi-edit):
 
+**Reality check:** "place the carrot on the keyboard keys" scored 36.1% (n=36) on the search layouts but only 8.3% (n=72) on the held-out layouts — a winner's-curse collapse; it was never a real winner.
+
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
-| **+27.8** | "place the carrot on the keyboard keys" | 36.1% (n=36) | same phrase, held-out | 8.3% (n=72) | winner's-curse collapse |
 | **+22.2** | "place the carrot on the black keyboard" | 25.0% (n=36) | "put the carrot on the keys" | 2.8% (n=36) | whole-name → part-name |
 | **+8.3** | "place the carrot on the black keyboard" | 25.0% (n=36) | "put carrot on keyboard" (nominal) | 16.7% (n=36) | +black, place-frame |
 | **+4.1** | "set the carrot on the black keyboard" | 31.9% (n=72) | "place the carrot on the black keyboard" | 27.8% (n=72) | set → place · **PURE ✂ single edit** |
@@ -173,9 +175,10 @@ search-best "place the orange carrot on the green plate" 45.8%.
 
 Full table (all measured pairs, including multi-edit):
 
+**Reality check:** "put the orange carrot on top of the plate" hit 61.1% (n=36) on the search layouts but 30.6% (n=72) held-out — the sharpest winner's-curse collapse recorded.
+
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
-| **+30.5** | "put the orange carrot on top of the plate" | 61.1% (n=36) | same phrase, held-out | 30.6% (n=72) | sharpest winner's-curse collapse |
 | **+16.7** | "place the orange carrot on the green plate" | 55.6% (n=36) | "put the carrot on the plate" | 38.9% (n=36) | +colors (search split only) |
 | **+2.8** | "put carrot on plate" (nominal) | 48.6% (n=72) | "place the orange carrot on the green plate" | 45.8% (n=72) | color gain did NOT survive |
 | **±0.0** | "put the carrot on the plate" | 38.9% (n=36) | "put the carrot on the dish" | 38.9% (n=36) | dish HARMLESS here (cf. scene 5) · **PURE ✂ single edit** |
@@ -190,7 +193,8 @@ Full table (all measured pairs, including multi-edit):
 |---|---|---|---|---|---|
 | **+19.4** | "put the spoon on top of the towel" | 58.3% (n=36) | "put the spoon on the blue towel" | 38.9% (n=36) | +blue — despite "blue towel" ×5,815 in training text |
 | **+16.6** | "put the spoon on top of the towel" | 58.3% (n=36) | "put the spoon on the cloth" | 41.7% (n=36) | towel → cloth |
-| **+9.7** | "set the spoon down on the towel" | 72.2% (n=36) | same phrase, held-out | 62.5% (n=72) | leader regression |
+
+**Reality check:** the search leader "set the spoon down on the towel" (72.2%, n=36) regressed to 62.5% (n=72) on the held-out layouts — still good, but below the nominal's 69.4%.
 
 ### 8. Eggplant → basket — null control (confirmed plateau)
 ![](results/search/scenes/put_eggplant_in_basket.png)
