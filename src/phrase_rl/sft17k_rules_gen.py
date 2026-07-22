@@ -16,7 +16,7 @@ import torch
 
 from phrase_rl.phase2_train import apply_template
 
-RULES_PATH = "results/analysis/b4_phrasing_rules.md"
+RULES_PATH = "results/analysis/b4_phrasing_rules.md"  # override with --rules-path
 
 
 def build_rules_msgs(rules_text, instr, trace):
@@ -32,13 +32,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="Qwen/Qwen3.5-9B")
     ap.add_argument("--assets", required=True, help="parquet(task, ert_instruction, trace)")
+    ap.add_argument("--rules-path", default=RULES_PATH)
     ap.add_argument("--arm", default="rules_qwen")
     ap.add_argument("--sample-k", type=int, default=0)
     ap.add_argument("--sample-temp", type=float, default=1.0)
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
-    rules = open(RULES_PATH).read()
+    rules = open(args.rules_path).read()
     adf = pd.read_parquet(args.assets)
 
     from transformers import AutoModelForImageTextToText, AutoProcessor
