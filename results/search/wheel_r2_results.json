@@ -1,0 +1,86 @@
+{
+ "task": "widowx_carrot_on_wheel_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "put the carrot on the black wheel",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot onto the black tire",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "drop the carrot on the black tire",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot on top of the black tire",
+   "success_pct": 30.6,
+   "n": 36
+  },
+  {
+   "phrase": "put the orange carrot on the black wheel",
+   "success_pct": 30.6,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot in the black wheel",
+   "success_pct": 30.6,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot on the black wheel",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "set the carrot on the black wheel",
+   "success_pct": 25.0,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot on the wheel",
+   "success_pct": 22.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the carrot on the black tire",
+   "success_pct": 19.4,
+   "n": 36
+  },
+  {
+   "phrase": "put the carrot down on the black tire",
+   "success_pct": 19.4,
+   "n": 36
+  },
+  {
+   "phrase": "place the orange carrot on the black tire",
+   "success_pct": 19.4,
+   "n": 36
+  },
+  {
+   "phrase": "set the carrot on the black tire",
+   "success_pct": 19.4,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot on the black tire",
+   "success_pct": 16.7,
+   "n": 36
+  },
+  {
+   "phrase": "put carrot on wheel",
+   "success_pct": 16.7,
+   "n": 36
+  },
+  {
+   "phrase": "lay the carrot across the black tire",
+   "success_pct": 13.9,
+   "n": 36
+  }
+ ]
+}
