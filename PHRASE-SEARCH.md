@@ -76,6 +76,28 @@ Search-split numbers (n=36) unless noted. Δ = worse-minus-better.
 | telegram: "put the eggplant in the yellow basket" vs "eggplant in yellow basket" | 97.2 vs 61.1 | **−36** | [1] too terse breaks it; yet "put coke can on plate" (terse-ish) is optimal there |
 | spoon: "put…down on" vs "put…on" | 63.9 vs mid-band | +~6 | [1] particle "down" mildly helps spoon |
 
+### Additions from the six-task extension (round 1–2 boards, 2026-07-22)
+
+**Ceiling-limited tasks (the law's refinement).** Keyboard: best "place the
+carrot on the black keyboard" 25.0 vs nominal 16.7 (+8.3). Wheel: "place the
+carrot on the black tire" 30.6 vs nominal 22.2 (+8.4). Both bad-nominal tasks,
+both nearly headroom-free — their phrasing-conditional CEILINGS are low.
+Final law: **headroom = ceiling − nominal**; big rescues need a bad nominal
+AND a capable policy.
+
+| new pair | values | Δ | note |
+|---|---|---|---|
+| stack: "…green **cube** on yellow **cube**" family vs "…**block**" family | 44–58 vs 22–33 | **~+25** | [R] the cube>block effect at full size; nominal ("stack the green block…") 22.2 |
+| stack: telegram "green cube on yellow cube" vs nominal | 58.3 vs 22.2 | **+36** | [1] verbless wins on stack — yet telegram LOST 36 on eggplant; terseness is task-specific |
+| stack: "**teal-green** cube" vs "green cube" | 22.2 vs 44–58 | **~−30** | [1] compound/unusual color adjectives are corpus-alien poison (rules-v1 emitted this) |
+| stack: "stack the cubes" (underspecified) | 0.0 | — | [1] both objects must be named |
+| wheel: "black tire" vs "black **rubber** tire" | 30.6 vs 16.7 | −14 | [1] color>material, third task replication |
+| keyboard: "the keys" vs "the keyboard" | 2.8 vs ~17–25 | ~−17 | [1] part-name loses to whole-name |
+| carrot-plate: "orange carrot…green plate" vs bare | 55.6/58.3 vs 38.9 | **+17** | [R] color adjectives HELP here (hurt on coke-plate/spoon) — per-object, not global |
+| spoon: "put the spoon **down** on" vs plain forms | 63.9 vs ~55–58 | +6 | [1] particle mildly helps |
+| spoon: "towel" vs "**cloth**" | ~58 vs 41.7 | −17 | [1] another near-synonym cliff |
+| eggplant: whole plateau at 97.2 | — | — | [R] null control confirmed: good nominals leave nothing to find |
+
 ---
 
 ## Reading discipline
