@@ -1196,3 +1196,23 @@ format, no image in the rephrase prompt; v1+selftrace needs phase4
 image conditioning) — but the writeup must state the marginal honestly.
 Freeze implication: sft_v2 stays the trained finalist on deployment
 profile; v1+selftrace is its no-retrain twin.
+
+## Sealed test-set plan v2 (user matrix, amended 2026-07-22)
+| # | trace  | rephraser        | decoding | eps   | question answered              |
+|---|--------|------------------|----------|-------|--------------------------------|
+| 1 | —      | originals        | greedy   | 4,320 | ceiling anchor                 |
+| 2 | —      | passthrough      | greedy   | 4,320 | floor + no-trace reference     |
+| 3 | gemini | frozen Qwen      | greedy   | 4,320 | trace premium (with #4)        |
+| 4 | qwen   | frozen Qwen      | greedy   | 4,320 | deployable no-training arm     |
+| 5 | gemini | v6 RL (native)   | greedy   | 4,320 | RL vs its own conditioning     |
+| 6 | qwen   | sft_v2 (native)  | greedy   | 4,320 | trained finalist               |
+| 7 | gemini | RULES -> Qwen    | greedy   | 4,320 | rules under best traces        |
+| 8 | qwen   | RULES -> Qwen    | greedy   | 4,320 | rules, fully self-contained    |
+| 9 | gemini | RULES -> Gemini  | greedy   | 4,320 | rules ceiling (executor probe) |
+CUT: qwen x RL (redundant; v6 not a deployment candidate). ABSENT BY
+DESIGN: gemini x sft_v2 (measured mismatch config, not deployable).
+Sampled k=8 for 1-2 headline arms decided at freeze (post face-off).
+Total ~38.9k greedy eps ~ 3.5 pod-days serial / ~1.8 with cloned pod.
+All prior checklist items stand (vocab audit ex-ante, predictions filed,
+dry-run, Gemini batch sign-off — now covers ERTs + eval-time traces +
+rules-execution calls).
