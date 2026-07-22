@@ -15,7 +15,12 @@ while true; do
     [ -e "$f" ] || continue
     OUT="${f%_phrases.json}_results.json"
     [ -f "$OUT" ] && continue
-    mark "processing $f"
+    # confirm files run on the HELD-OUT layouts at full reps
+    case "$f" in
+      *confirm*) EPIDS="18 19 20 21 22 23"; REPS=12 ;;
+      *)         EPIDS="0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17"; REPS=2 ;;
+    esac
+    mark "processing $f (ids: $EPIDS x$REPS)"
     F=$f .venv-gen/bin/python -c "
 import json, os
 import pandas as pd
@@ -36,8 +41,8 @@ print(len(d))" || { mark "BUILD FAILED $f"; continue; }
         --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
         --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
         --phrases /workspace/phrase-rl/data/search_w$w.parquet \
-        --episode-ids 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 \
-        --repeats 2 \
+        --episode-ids $EPIDS \
+        --repeats $REPS \
         --out /workspace/phrase-rl/data/search_out_w$w.parquet > /workspace/search_w$w.log 2>&1 &
       pids="$pids $!"
     done
