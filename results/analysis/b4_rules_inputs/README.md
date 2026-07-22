@@ -67,10 +67,17 @@ should follow. The rules must be:
   the instruction's object descriptions to plain object names. Your rules
   must be executable given only the instruction, a trace like these, and the
   training corpus.
+- `08_phrase_search.md` — Measured rollout search over phrasings: per-scene
+  images, confirmed per-task verdicts, minimal-pair tables with the single
+  differing concept bolded, and cross-cutting effects replicated across
+  scenes. THE HIGHEST-AUTHORITY EVIDENCE in this folder: where it conflicts
+  with anything else, file 08 wins.
+- `09_rules_v1_failures.md` — The previous rule set's seven observed failure
+  modes. The new rule set must repair each one.
 
 ## How to weigh the evidence
 
-CI-cleared pairs (03) > large-n success cells (04) > pooled patterns across
+File 08 (measured pairs, n labeled) > CI-cleared pairs (03) > large-n success cells (04) > pooled patterns across
 many noisy draws (05) > any single high-scoring draw. Treat oracle-flagged
 draws in 05 as inspiration for phrasing STRUCTURE, never as proof that the
 specific phrase is best.
