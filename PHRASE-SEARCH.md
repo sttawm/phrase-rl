@@ -32,7 +32,7 @@ are valid. Single-board deltas under ~16pp are noise-range.
 | carrot-plate | "place the orange carrot on the green plate" 45.8 | **48.6** | none | nominal WINS; r2 leader collapsed 61→30.6 |
 | spoon-towel | "set the spoon down on the towel" 62.5 | **69.4** | none | nominal WINS; search leader regressed |
 | eggplant-basket | plateau 94.4–95.8 | 94.4 | none | null control confirmed |
-| stack-cube | telegram "green cube on yellow cube" 58.3 [R, search split] | 22.2 (search split) | pending confirm | expected 2nd rescue |
+| stack-cube | "put the small green cube on the yellow cube" **19.4** | 6.9 | **+12.5** | modest 2nd rescue; held-out split ~40pp HARDER — telegram leadership did not transfer |
 | carrot-keyboard | "…on the keyboard keys" 36.1 [1, search split] | 16.7 (search split) | pending confirm | ceiling-limited |
 | carrot-wheel | "…on the black tire" 30.6 [1, search split] | 22.2 (search split) | pending confirm | ceiling-limited |
 
