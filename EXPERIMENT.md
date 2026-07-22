@@ -1314,3 +1314,17 @@ inputs: "set"/"please" wrongly banned (neutral); "upright" unnecessary;
 adjective TYPE (white>>ceramic); lexeme ladders (bowl>cup>>dish, coke
 token +15-30pp, "the coke" >= "the coke can"); single-clause preference
 confirmed; cross-split level-shift discipline.
+
+## PRE-ROLLOUT FINDING (2026-07-22 21:40): rules quality is EXECUTOR-BOUND
+Audit of generated sealed phrases: rules_v2 under the QWEN executor
+reproduces v1's failure modes on ~5/12 tasks ("purple object", "block on
+the dish", "fastener", coke->"soda can") despite the v2 rules explicitly
+repairing each — while the GEMINI executor, given the IDENTICAL v2 rules
+file, executes them correctly ("put the coke can on the keyboard", "put
+the carrot in the white bowl", no category words). The 9B cannot follow
+the longer v2 rule set's override logic (brand-token precedence, fallback
+ladder) in one pass; the frontier model can. Echoes CoVer's boot-time-
+frontier design choice. Consequence: pod2 leg order updated to measure
+rules_gemini (#9) tonight alongside rules_v2_selftrace — the #8-vs-#9
+gap is now a primary read (executor premium), pre-registered here BEFORE
+any sealed rollout of either arm.
