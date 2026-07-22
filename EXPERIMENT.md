@@ -1140,3 +1140,40 @@ LONGER coke-plate phrasing lost -8.3 (1.7 vs 10.1 — Case 6's length
 penalty exactly). keyboard/wheel flat. final/ stays the v2 artifact;
 the quartet gap is a phrasing-choice problem (bowl > cup > "cup-like
 object"), i.e. selection/rules territory, not training-duration.
+
+## SEALED TEST-SET PLAN — draft v1 (user directive 2026-07-21 night)
+Rules arm goes STRAIGHT to the sealed one-shot (no val-8 rollout spend —
+val evidence is its training data; minted-task step waived by user
+decision). One firing, all finalists together, FINAL_EVAL=1.
+
+ARMS (candidate list — FREEZES after the overnight legs land):
+| # | arm                       | decoding | eps    | notes                          |
+|---|---------------------------|----------|--------|--------------------------------|
+| 1 | originals (nominal input) | greedy   |  4,320 | ceiling anchor                 |
+| 2 | ERT passthrough           | greedy   |  4,320 | floor anchor                   |
+| 3 | frozen_selftrace          | greedy   |  4,320 | best no-training self-contained|
+| 4 | sft_v2 (native trace)     | greedy   |  4,320 | trained finalist               |
+| 5 | RULES + selftrace (Qwen)  | greedy   |  4,320 | b4_phrasing_rules.md as system |
+| 6 | RULES + selftrace (Qwen)  | k=8 x1   |  2,880 | distribution + bo8 oracle      |
+(optional 7: sft_v2 sampled k=8, +2,880 — decide at freeze)
+15 tasks (12 sealed natives + CoVer trio) x 24 CRN layouts; total ~24.5k
+eps ~ 2.5 pod-days single pod (clone a second pod: ~1.3 days, ~$1 setup).
+
+ASSETS NEEDED PER SEALED TASK (authored AT eval time, none exist yet):
+- nominal instruction (env registry — exists)
+- ERT instruction: ONE Gemini batch (~$5-10, flash, thinking_budget=0) —
+  held-out authorship per critic amendment; USER SIGN-OFF REQUIRED
+- initial-frame render + Qwen self-trace (existing machinery)
+- vocabulary audit: automated noun-coverage of each sealed task vs the
+  17,297+235k corpus, computed BEFORE any success number is read (the
+  in-vocab/OOV stratification is a pre-registered prediction)
+
+PRE-REGISTRATION CHECKLIST (all BEFORE any test asset is generated):
+[ ] arm list frozen (after ICL + sampled face-off land, ~morning)
+[ ] written predictions filed (per-arm, per-stratum)
+[ ] rules-arm generation SMOKE on val-8 (generation only, zero rollouts —
+    verifies Qwen can follow the prescriptive prompt; output eyeballed)
+[ ] dry-run of the full harness on ONE val task, FINAL_EVAL unset, with
+    byte-level echo + trace-alignment audits (v5 quarantine precedent)
+[ ] Gemini batch sign-off + key rotation check
+[ ] second-pod decision (clone pod4 per the documented ~45-60min path)
