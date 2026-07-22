@@ -1248,3 +1248,13 @@ trace's own scene noun without the pair ever being named. Eggplant maps
 to "yellow dish rack" (trace's visual name; historically a 92.7% cell —
 watch it). Wheel takes the trace's "tire" (record-holder said "wheel" —
 T5 tension, trace wins by design).
+
+## Rules smoke — inferential status caveat (user, 2026-07-22)
+The smoke's val-8 "winning moves" are DEVELOPMENT-FIT, not generalization:
+the rules were authored from val's own answer key (rule SELECTION carries
+val fit even where rule FORM is task-agnostic). What the smoke proves is
+executor compliance only (9B follows the 315-line prompt faithfully) —
+the performance claim belongs exclusively to the sealed test. Predictions
+file must flag GreenCubeOnPlate as the one sealed task where a val
+lexical fact (cube>block) legitimately reaches the arm via the trace
+mechanism.
