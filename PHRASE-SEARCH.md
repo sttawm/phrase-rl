@@ -25,14 +25,22 @@ are valid. Single-board deltas under ~16pp are noise-range.
   touched during search — the only numbers quoted as results.
 
 **Confirmed headlines (held-out split, n=72).**
-| task | best found | nominal (same split) | headroom |
-|---|---|---|---|
-| coke-ramekin | "place the red coke can inside the white bowl" **95.8** | 36.1 | **+59.7** |
-| coke-plate | "put the coke on the plate" 84.7 | 83.3 | tie |
-| eggplant-basket (1 round, search split) | plateau 97.2 | ~97 | none |
+| task | best found (confirmed) | nominal (same split) | headroom | verdict |
+|---|---|---|---|---|
+| coke-ramekin | "place the red coke can inside the white bowl" **95.8** | 36.1 | **+59.7** | RESCUED |
+| coke-plate | "put the coke on the plate" 84.7 | 83.3 | tie | nominal unbeaten |
+| carrot-plate | "place the orange carrot on the green plate" 45.8 | **48.6** | none | nominal WINS; r2 leader collapsed 61→30.6 |
+| spoon-towel | "set the spoon down on the towel" 62.5 | **69.4** | none | nominal WINS; search leader regressed |
+| eggplant-basket | plateau 94.4–95.8 | 94.4 | none | null control confirmed |
+| stack-cube | telegram "green cube on yellow cube" 58.3 [R, search split] | 22.2 (search split) | pending confirm | expected 2nd rescue |
+| carrot-keyboard | "…on the keyboard keys" 36.1 [1, search split] | 16.7 (search split) | pending confirm | ceiling-limited |
+| carrot-wheel | "…on the black tire" 30.6 [1, search split] | 22.2 (search split) | pending confirm | ceiling-limited |
 
-**The headroom law:** better-than-nominal headroom is inversely proportional
-to nominal quality. Search pays where the given instruction is bad.
+**The headroom law (final form):** headroom = phrasing-conditional ceiling −
+nominal. Confirmed rescues require a BAD nominal and a CAPABLE policy
+(ramekin; stack pending). Where the nominal is decent (coke-plate, carrot-plate,
+spoon, eggplant), held-out confirmation crowned the nominal itself in 4/4
+cases — every search-split "improvement" on those tasks was winner's curse.
 
 ---
 
@@ -113,6 +121,9 @@ AND a capable policy.
 | spoon: "put the spoon **down** on" vs plain forms | 63.9 vs ~55–58 | +6 | [1] particle mildly helps |
 | spoon: "towel" vs "**cloth**" | ~58 vs 41.7 | −17 | [1] another near-synonym cliff |
 | eggplant: whole plateau at 97.2 | — | — | [R] null control confirmed: good nominals leave nothing to find |
+| keyboard: "the **keyboard keys**" vs "the keyboard" | 36.1 vs ~25 | +11 | [1] compound part-name HELPS though bare "keys" scored 2.8 — compositionality is fragile |
+| spoon: "set…down" search leader vs held-out | 72.2 → 62.5 | −10 | winner's-curse case study |
+| carrot-plate: "on top of" r2 leader vs held-out | 61.1 → 30.6 | −31 | the sharpest winner's-curse collapse recorded |
 
 ---
 
