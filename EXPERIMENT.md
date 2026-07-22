@@ -1216,3 +1216,15 @@ Total ~38.9k greedy eps ~ 3.5 pod-days serial / ~1.8 with cloned pod.
 All prior checklist items stand (vocab audit ex-ante, predictions filed,
 dry-run, Gemini batch sign-off — now covers ERTs + eval-time traces +
 rules-execution calls).
+
+## Sealed plan v2 addendum: #10 oracle arm (user, 2026-07-22)
+| 10 | — | ORACLE best-of-16 nominal rephrases | 2-stage | ~10,080 | headroom above nominal |
+Design: frozen Qwen samples k=16 rephrases OF THE NOMINAL (temp 1.0, bare
+prompt, no trace); stage 1 screens all 16 at x1 (5,760 eps); stage 2
+confirms each task's winner at x12 (4,320 eps) — the CONFIRMED number is
+the reported oracle (winner's-curse honest). Reads: #10 vs #1 = better-
+than-nominal headroom out-of-sample (the cube>block question); #10 vs
+best of #4-9 = residual selection/search headroom. Measurement arm, not
+a competitor. Bonus: the stage-1 pool + successes = free out-of-sample
+selection-exam material for the offline pickers. New total ~49k eps
+~ 4.5 pod-days serial / ~2.3 with second pod.
