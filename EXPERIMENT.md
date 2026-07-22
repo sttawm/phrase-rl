@@ -1270,3 +1270,31 @@ emerging per-task numbers (ramekin r1 leader 72.2@n36). Freeze decisions
 retro-validated (no sampled twins for v2 family). Val-side evidence
 program is now COMPLETE; remaining work is search rounds + sealed
 execution.
+
+## SEARCH PHASE COMPLETE (2026-07-22 10:43) — the headroom law
+CONFIRMED on held-out layouts 18-23, n=72/phrase, same-split contrasts:
+- RAMEKIN: "place the red coke can inside the white bowl" 95.8% vs
+  nominal 36.1% on the same split — +59.7pp, near-ceiling, task
+  effectively SOLVED by phrasing alone. (Runner-up "into the white
+  bowl" form 83.3.) Every arm's full-grid ramekin (24-64) is dwarfed.
+- COKE-PLATE: search-best 84.7 vs nominal 83.3 — TIE. No better-than-
+  nominal phrase in 48 candidates across 3 rounds.
+THE LAW: better-than-nominal headroom is inversely proportional to
+nominal quality — enormous where the nominal is bad (ramekin), absent
+where it is good (coke-plate). Phrase optimization's entire value
+concentrates on bad-nominal tasks.
+Method verdict: LLM-guided search (3 rounds x 16 + confirmation, ~$8
+rollouts, one night) found the 95.8 phrase; its structure is exactly the
+rules' T-family prediction (single-clause place-frame, color+concrete
+noun, inside-relation, no orientation word needed). Round-trip lessons
+fed back: "set" and "please" wrongly banned (neutral), "upright"
+unnecessary, adjective TYPE matters (white>>ceramic), lexeme ladders
+(bowl>cup>>dish; coke-token worth 15-30pp; "the coke" >= "the coke can").
+Cross-split level shifts (~20pp) mean ONLY within-split contrasts are
+valid — all claims above are same-split.
+V7 IMPLICATION: a prize exists (bad-nominal tasks) but search+distill
+just demonstrated it's reachable for ~$8/task without RL; v7's reward
+also cannot represent rollout-defined winners by construction. The v7
+gate question is now "can RL find what search finds, cheaper or more
+generally?" — prior strongly no. Search scoreboards = fresh CI-grade
+pairs for rules-v2.
