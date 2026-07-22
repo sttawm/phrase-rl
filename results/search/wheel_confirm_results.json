@@ -1,0 +1,21 @@
+{
+ "task": "widowx_carrot_on_wheel_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "put the carrot on the black wheel",
+   "success_pct": 30.6,
+   "n": 72
+  },
+  {
+   "phrase": "place the carrot on the black tire",
+   "success_pct": 29.2,
+   "n": 72
+  },
+  {
+   "phrase": "put carrot on wheel",
+   "success_pct": 26.4,
+   "n": 72
+  }
+ ]
+}
