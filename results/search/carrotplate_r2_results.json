@@ -1,0 +1,86 @@
+{
+ "task": "widowx_carrot_on_plate",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "put the orange carrot on top of the plate",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "set the orange carrot on the green plate",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "place the orange carrot on the green plate",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "put the orange carrot on the plate",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the orange carrot onto the green plate",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "place the orange carrot on the green dish",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "lay the orange carrot on the green plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the orange carrot and place it on the green plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the orange carrot on the green plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "set the orange carrot on the plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "place the orange carrot on the plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot on the green plate",
+   "success_pct": 41.7,
+   "n": 36
+  },
+  {
+   "phrase": "put carrot on plate",
+   "success_pct": 41.7,
+   "n": 36
+  },
+  {
+   "phrase": "drop the orange carrot on the green plate",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "place the orange carrot on top of the green plate",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot on top of the plate",
+   "success_pct": 33.3,
+   "n": 36
+  }
+ ]
+}
