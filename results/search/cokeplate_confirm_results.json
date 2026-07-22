@@ -1,0 +1,21 @@
+{
+ "task": "widowx_coke_can_on_plate_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "put the coke on the plate",
+   "success_pct": 84.7,
+   "n": 72
+  },
+  {
+   "phrase": "put coke can on plate",
+   "success_pct": 83.3,
+   "n": 72
+  },
+  {
+   "phrase": "set the coke on the plate",
+   "success_pct": 75.0,
+   "n": 72
+  }
+ ]
+}
