@@ -1,0 +1,86 @@
+{
+ "task": "widowx_spoon_on_towel",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "set the spoon down on the towel",
+   "success_pct": 72.2,
+   "n": 36
+  },
+  {
+   "phrase": "set the spoon on top of the towel",
+   "success_pct": 66.7,
+   "n": 36
+  },
+  {
+   "phrase": "lay the spoon on the towel",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "lay the spoon on top of the towel",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "place the spoon down on the towel",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "put the spoon down on top of the towel",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "set the spoon on the towel",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "lay the spoon down on the towel",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "rest the spoon on the towel",
+   "success_pct": 55.6,
+   "n": 36
+  },
+  {
+   "phrase": "lay the spoon flat on the towel",
+   "success_pct": 55.6,
+   "n": 36
+  },
+  {
+   "phrase": "place the spoon on top of the towel",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the metal spoon on the towel",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the spoon down on the towel",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "place the spoon on the towel",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "put the spoon on the towel",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "drop the spoon on the towel",
+   "success_pct": 41.7,
+   "n": 36
+  }
+ ]
+}
