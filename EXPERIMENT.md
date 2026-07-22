@@ -1177,3 +1177,9 @@ PRE-REGISTRATION CHECKLIST (all BEFORE any test asset is generated):
     byte-level echo + trace-alignment audits (v5 quarantine precedent)
 [ ] Gemini batch sign-off + key rotation check
 [ ] second-pod decision (clone pod4 per the documented ~45-60min path)
+
+## ICL arm dropped (user, 2026-07-22): superseded by the B4 rules arm
+The C2 knowledge-vs-weights control is waived — the rules arm IS the
+knowledge-based approach going to the sealed test; its rollout budget goes
+there instead. Face-off waiter rekeyed to the sft_selftrace marker
+(pulls the three-arm sampled face-off ~3h earlier, ~08:15).
