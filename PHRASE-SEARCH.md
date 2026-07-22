@@ -4,9 +4,25 @@
 prior boards), each rolled on the SEARCH split (layouts 0–17, ×2, n=36/phrase,
 SE ≈ 8pp); survivors CONFIRMED on the held-out split (layouts 18–23, ×12,
 n=72). Cross-split levels differ by up to ~20pp — only within-split contrasts
-are valid. Single-board deltas under ~16pp are noise-range; pairs below are
-flagged: **[R]** replicated across rounds, **[1]** single measurement,
-**[U]** unstable across frames/rounds.
+are valid. Single-board deltas under ~16pp are noise-range.
+
+**Stability flags — exact meaning.**
+- **[1] single measurement**: each phrase in the pair was executed in exactly
+  ONE search round = 18 distinct object layouts (episode_ids 0–17) × 2
+  repeats = **36 sim episodes per phrase** (72 for the pair). Repeats within a
+  layout share object placement and differ only in the policy's stochastic
+  decode, so the effective sample is closer to 18 independent clusters than
+  36 episodes; per-phrase SE ≈ 8pp at mid success rates, SE of the pair's
+  Δ ≈ 11pp. A [1] delta under ~16pp is noise-range; even a large [1] delta
+  is provisional until replicated.
+- **[R] replicated**: the same pair (or the same contrast in a near-identical
+  frame) was re-measured in ≥2 independent rounds — a fresh 36-episode board
+  each time — with consistent sign. Evidence grade: rule-worthy.
+- **[U] unstable**: re-measured and the sign or magnitude flipped across
+  rounds/frames. Observed, not actionable.
+- **Confirmed** (headline table): measured on the HELD-OUT split, 6 layouts
+  (episode_ids 18–23) × 12 repeats = **72 episodes per phrase**, layouts never
+  touched during search — the only numbers quoted as results.
 
 **Confirmed headlines (held-out split, n=72).**
 | task | best found | nominal (same split) | headroom |
