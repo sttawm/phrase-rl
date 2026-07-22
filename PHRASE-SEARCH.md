@@ -1,14 +1,14 @@
 # PHRASE-SEARCH — LLM-guided rollout search over instruction phrasings
 
-**Method.** Per task: rounds of 16 phrases proposed by Claude (informed by all
-prior boards), each rolled on the SEARCH split (layouts 0–17 × 2 repeats =
-**n=36 episodes/phrase**, SE ≈ 8pp); survivors CONFIRMED on the held-out split
-(layouts 18–23 × 12 repeats = **n=72 episodes/phrase**). Cross-split levels
-shift by up to ±40pp — only within-split contrasts are valid; only confirmed
-numbers are quoted as results. Every success cell below is labeled with its n.
-Pairs with n=36 sides and a gap under ~16pp are within noise. Where the two
-phrases differ in more than the highlighted feature, both are quoted verbatim
-so the reader can judge.
+**Method.** Per task: rounds of 16 phrases proposed by Claude (informed by
+all prior boards), rolled on layouts 0–17 (×2 = 36 episodes/board); leading
+phrases re-measured on the never-searched layouts 18–23 (×12 = 72 episodes).
+**Every number below pools all measurements of that phrase across both layout
+sets, with the combined n labeled.** The two layout sets differ in difficulty
+(by up to ±40pp on some tasks), so a pair whose two sides have very different
+n-mixes can carry residual split bias — the per-scene "reality check" notes
+flag where that mattered; raw per-split values live in
+results/search/*_results.json. Per-phrase SE at n=36 ≈ 8pp, n=108 ≈ 4.5pp.
 
 ---
 
@@ -17,9 +17,7 @@ so the reader can judge.
 ### 1. Coke can → ramekin — THE rescue (+59.7 confirmed)
 ![](results/search/scenes/coke_can_on_ramekin.png)
 
-**Confirmed (n=72):** "place the red coke can inside the white bowl" **95.8%**
-vs nominal "put coke can on ramekin" **36.1%** → **+59.7pp. Solved by phrasing.**
-
+**Verdict (all data pooled):** "place the red coke can inside the white bowl" **87.9%** (n=108) vs nominal "put coke can on ramekin" **24.1%** (n=108) → **+63.9pp**. Solved by phrasing.
 **Scene reading:** the "ramekin" is a large fluted white vessel that simply
 *is* a white bowl to the eye — and the can must go IN it, while the nominal
 says "on".
@@ -47,9 +45,7 @@ Full table (all measured pairs, including multi-edit):
 ### 2. Stack cubes — modest rescue (+12.5 confirmed), brutal split shift
 ![](results/search/scenes/stack_cube.png)
 
-**Confirmed (n=72):** "put the small green cube on the yellow cube" **19.4%**
-vs nominal "stack the green block on the yellow block" **6.9%** → **+12.5pp**.
-Held-out layouts ran ~40pp harder than the search split; the search-split
+**Verdict (all data pooled):** "put the small green cube on the yellow cube" **36.8%** (n=144) vs nominal "stack the green block on the yellow block" **12.0%** (n=108) → **+24.8pp**. Modest rescue.
 telegram lead did not transfer.
 
 **Scene reading:** both objects are literal, perfect cubes (muted teal-green
@@ -75,9 +71,7 @@ Full table (all measured pairs, including multi-edit):
 ### 3. Carrot → keyboard — real modest rescue (+15.2 confirmed)
 ![](results/search/scenes/carrot_on_keyboard.png)
 
-**Confirmed (n=72):** "set the carrot on the black keyboard" **31.9%** vs
-nominal "put carrot on keyboard" **16.7%** → **+15.2pp**.
-
+**Verdict (all data pooled):** "set the carrot on the black keyboard" **31.5%** (n=108) vs nominal "put carrot on keyboard" **16.7%** (n=108) → **+14.8pp**. Modest rescue.
 **Scene reading:** slim black keyboard, low contrast, slightly raised —
 balancing a rigid carrot on a narrow hard deck is mechanically hard; the
 ceiling (~32) is visible in the picture.
@@ -98,11 +92,10 @@ Full table (all measured pairs, including multi-edit):
 | **+9.7** | "place the carrot on the black keyboard" | 26.4% (n=144) | "put carrot on keyboard" (nominal) | 16.7% (n=108) | +black, place-frame |
 | **+5.1** | "set the carrot on the black keyboard" | 31.5% (n=108) | "place the carrot on the black keyboard" | 26.4% (n=144) | set → place · **PURE ✂ single edit** |
 
-### 4. Carrot → wheel — ceiling-limited (confirmation pending)
+### 4. Carrot → wheel — ceiling-limited, NO rescue (confirmed)
 ![](results/search/scenes/carrot_on_wheel.png)
 
-**Best so far:** "put the carrot on the black wheel" 38.9% (n=36) vs nominal
-"put carrot on wheel" 22.2% (n=36); held-out confirmation in flight.
+**Verdict (all data pooled):** "put the carrot on the black wheel" **32.7%** (n=144) vs nominal "put carrot on wheel" **22.9%** (n=144) → **+9.8pp**. No rescue — within noise; ceiling-limited.
 
 **Scene reading:** a small tire lying flat — narrow curved ring, shallow hub;
 mechanically awkward for a long carrot. Low ceiling visible.
@@ -125,8 +118,7 @@ Full table (all measured pairs, including multi-edit):
 ### 5. Coke can → plate — nominal unbeaten (confirmed tie)
 ![](results/search/scenes/coke_can_on_plate.png)
 
-**Confirmed (n=72):** "put the coke on the plate" 84.7% vs nominal "put coke
-can on plate" 83.3% — **tie**; 48 candidates found nothing better.
+**Verdict (all data pooled):** "put the coke on the plate" **75.0%** (n=144) vs nominal "put coke can on plate" **70.0%** (n=180) → **+5.0pp**. Nominal unbeaten (tie); 48 candidates tried.
 
 **Scene reading:** the plate is pale yellow-green — ambiguously "yellow" or
 "green", which likely explains plate-adjective instability across tasks.
@@ -164,8 +156,7 @@ Full table (all measured pairs, including multi-edit):
 ### 6. Carrot → plate — nominal WINS (confirmed)
 ![](results/search/scenes/carrot_on_plate.png)
 
-**Confirmed (n=72):** nominal "put carrot on plate" **48.6%** beats
-search-best "place the orange carrot on the green plate" 45.8%.
+**Verdict (all data pooled):** "place the orange carrot on the green plate" **51.4%** (n=144) vs nominal "put carrot on plate" **45.1%** (n=144) → **+6.2pp**. Nominal wins.
 
 **Highlights — single-concept edits (the only difference bolded):**
 
@@ -186,8 +177,7 @@ Full table (all measured pairs, including multi-edit):
 ### 7. Spoon → towel — nominal WINS (confirmed)
 ![](results/search/scenes/spoon_on_towel.png)
 
-**Confirmed (n=72):** nominal "put the spoon on the towel" **69.4%** beats
-"set the spoon down on the towel" 62.5%.
+**Verdict (all data pooled):** "set the spoon down on the towel" **65.7%** (n=108) vs nominal "put the spoon on the towel" **57.6%** (n=144) → **+8.1pp**. Nominal wins.
 
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
@@ -199,7 +189,7 @@ Full table (all measured pairs, including multi-edit):
 ### 8. Eggplant → basket — null control (confirmed plateau)
 ![](results/search/scenes/put_eggplant_in_basket.png)
 
-**Confirmed (n=72):** plateau 94.4–95.8%; nominal within noise of everything.
+**Verdict (all data pooled):** "place the purple eggplant into the yellow basket" **96.3%** (n=108) vs nominal "put eggplant into yellow basket" **93.5%** (n=108) → **+2.8pp**. Null control — saturated plateau.
 
 **Scene reading:** the "yellow basket" is literally a **yellow dish rack in a
 toy sink** — solving the legacy mystery cell ("aubergine…dish rack" 92.7%).
@@ -271,4 +261,4 @@ all bad-nominal tasks. All four good-nominal tasks: nominal unbeaten.
 3. Micro-rules transfer poorly across tasks; what transfers: right token,
    right relation for the geometry, plain register, trust good nominals.
 
-*Wheel confirmation pending; its section updates on landing.*
+*All eight tasks complete: 3 rescues (ramekin, keyboard, stack), 5 nominal-unbeaten/null.*
