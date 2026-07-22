@@ -3,163 +3,165 @@
 **Method.** Per task: rounds of 16 phrases proposed by Claude (informed by all
 prior boards), each rolled on the SEARCH split (layouts 0–17, ×2, n=36/phrase,
 SE ≈ 8pp); survivors CONFIRMED on the held-out split (layouts 18–23, ×12,
-n=72). Cross-split levels differ by up to ~20pp — only within-split contrasts
-are valid. Single-board deltas under ~16pp are noise-range.
+n=72/phrase). Cross-split levels shift by up to ±40pp — only within-split
+contrasts are valid, and only CONFIRMED numbers are quoted as results.
 
-**Stability flags — exact meaning.**
-- **[1] single measurement**: each phrase in the pair was executed in exactly
-  ONE search round = 18 distinct object layouts (episode_ids 0–17) × 2
-  repeats = **36 sim episodes per phrase** (72 for the pair). Repeats within a
-  layout share object placement and differ only in the policy's stochastic
-  decode, so the effective sample is closer to 18 independent clusters than
-  36 episodes; per-phrase SE ≈ 8pp at mid success rates, SE of the pair's
-  Δ ≈ 11pp. A [1] delta under ~16pp is noise-range; even a large [1] delta
-  is provisional until replicated.
-- **[R] replicated**: the same pair (or the same contrast in a near-identical
-  frame) was re-measured in ≥2 independent rounds — a fresh 36-episode board
-  each time — with consistent sign. Evidence grade: rule-worthy.
-- **[U] unstable**: re-measured and the sign or magnitude flipped across
-  rounds/frames. Observed, not actionable.
-- **Confirmed** (headline table): measured on the HELD-OUT split, 6 layouts
-  (episode_ids 18–23) × 12 repeats = **72 episodes per phrase**, layouts never
-  touched during search — the only numbers quoted as results.
-
-**Confirmed headlines (held-out split, n=72).**
-| task | best found (confirmed) | nominal (same split) | headroom | verdict |
-|---|---|---|---|---|
-| coke-ramekin | "place the red coke can inside the white bowl" **95.8** | 36.1 | **+59.7** | RESCUED |
-| coke-plate | "put the coke on the plate" 84.7 | 83.3 | tie | nominal unbeaten |
-| carrot-plate | "place the orange carrot on the green plate" 45.8 | **48.6** | none | nominal WINS; r2 leader collapsed 61→30.6 |
-| spoon-towel | "set the spoon down on the towel" 62.5 | **69.4** | none | nominal WINS; search leader regressed |
-| eggplant-basket | plateau 94.4–95.8 | 94.4 | none | null control confirmed |
-| stack-cube | "put the small green cube on the yellow cube" **19.4** | 6.9 | **+12.5** | modest 2nd rescue; held-out split ~40pp HARDER — telegram leadership did not transfer |
-| carrot-keyboard | "…on the keyboard keys" 36.1 [1, search split] | 16.7 (search split) | pending confirm | ceiling-limited |
-| carrot-wheel | "…on the black tire" 30.6 [1, search split] | 22.2 (search split) | pending confirm | ceiling-limited |
-
-**The headroom law (final form):** headroom = phrasing-conditional ceiling −
-nominal. Confirmed rescues require a BAD nominal and a CAPABLE policy
-(ramekin; stack pending). Where the nominal is decent (coke-plate, carrot-plate,
-spoon, eggplant), held-out confirmation crowned the nominal itself in 4/4
-cases — every search-split "improvement" on those tasks was winner's curse.
+**Stability flags.** **[1]** one 36-episode board (18 layouts ×2; effective
+n ≈ 18 clusters; pair-Δ SE ≈ 11pp — under ~16pp is noise-range).
+**[R]** re-measured on ≥2 independent boards, consistent sign. **[U]** sign or
+magnitude flipped on re-measurement. **Confirmed** = held-out 6 layouts ×12.
 
 ---
 
-## The scenes (one frame per task, episode 0)
+## Scene by scene
 
-The images explain more of the minimal-pair table than any statistic — the
-unifying pattern is **visual-fidelity naming**: the winning noun is the one
-that names what the object *looks like*, not what it technically is.
+### 1. Coke can → ramekin — THE rescue (+59.7 confirmed)
+![](results/search/scenes/coke_can_on_ramekin.png)
 
-| | |
-|---|---|
-| ![](results/search/scenes/coke_can_on_ramekin.png) | **coke-ramekin.** The "ramekin" is a large fluted white vessel that simply *is* a white bowl to the eye. "white bowl" (95.8) ≫ "white cup" ≫ "white dish" tracks visual fit exactly; "ramekin" (22.2) loses to its own look-alike name. The can must go IN it — hence in/inside ≫ the nominal's "on". |
-| ![](results/search/scenes/stack_cube.png) | **stack-cube.** Both objects are literal, perfect cubes — muted teal-green and pale yellow. "cube" ≫ "block" (+12.5 confirmed) is visual fidelity again; and the green is genuinely teal-ish, which is why the trace honestly said "teal-green" — an adjective the corpus never uses (−30). Tiny objects, precision stack → modest ceiling. |
-| ![](results/search/scenes/carrot_on_wheel.png) | **carrot-wheel.** A small black tire lying flat, silver rim, shallow concave hub. Balancing a long rigid carrot on a narrow curved ring is mechanically awkward — the low ceiling (~31–39) is visible. "black tire"/"black wheel" are both faithful; "rubber" (material, not visible texture) hurts. |
-| ![](results/search/scenes/carrot_on_keyboard.png) | **carrot-keyboard.** A slim black keyboard, low-contrast against its own keys, slightly raised. Same story as the wheel: a rounded carrot on a narrow hard deck → execution-limited (~25–36 ceiling). The keyboard is unambiguously black — the one adjective that helps. |
-| ![](results/search/scenes/put_eggplant_in_basket.png) | **eggplant-basket.** The revelation: the "yellow basket" is literally a **yellow dish rack in a toy sink**. This explains the corpus-era mystery cell ("aubergine…dish rack" 92.7%), the trace naming it "dish rack", and why the task is easy (huge open target). The corpus name ("basket") and the visual name ("dish rack") BOTH work — when the target is this forgiving, naming barely matters. |
-| ![](results/search/scenes/spoon_on_towel.png) | **spoon-towel.** Green-handled spoon, light-blue folded towel — flat, wide, forgiving landing (69.4 nominal). "blue towel" is visually faithful yet HURT (−19): with an easy target and a dominant corpus form, any deviation from plain register is pure downside. |
-| ![](results/search/scenes/coke_can_on_plate.png) | **coke-plate.** The plate is pale yellow-green — genuinely ambiguous between "yellow" and "green". That ambiguity likely explains the adjective instability across the two plate tasks; the corpus-dominant bare form ("put coke can on plate") wins outright. |
-| ![](results/search/scenes/carrot_on_plate.png) | **carrot-plate.** Same ambiguous plate; here "green plate" phrasings scored well on the search split but the bare nominal won held-out — the adjective was noise, not signal. |
+**Confirmed:** "place the red coke can inside the white bowl" **95.8** vs
+nominal "put coke can on ramekin" **36.1** → **+59.7. Task solved by phrasing.**
 
-**Implication for the rules:** the trace's vision-grounded name works because
-the policy's language grounding is appearance-first — the same reason "white
-bowl" beats "ramekin" and "cube" beats "block". Rule 1 (trust the trace's
-plain name) is the codified form of visual-fidelity naming; the scenes above
-are its mechanism.
+**Scene reading:** the "ramekin" is a large fluted white vessel that simply
+*is* a white bowl to the eye — and the can must go IN it, while the nominal
+says "on".
+
+| pair (same frame) | values | Δ | flag |
+|---|---|---|---|
+| "white **bowl**" vs "white **dish**" | 63.9 vs 2.8 | **−61** | [1] most violent token swap recorded |
+| "white bowl" vs "white **ramekin**" | 63.9 vs 22.2 | −42 | [1] true name loses to look-alike name |
+| "**white** bowl" vs "**ceramic** bowl" | 63–72 vs 27.8 | ~−35 | [1] color ≫ material; corpus: appearance-adj+bowl ≈ 4.5k, "ceramic bowl" = 0 |
+| "white bowl" vs "white **cup**" | 61.1 vs 44.4 | −17 | [R] |
+| nominal's "**on** ramekin" vs in/inside-bowl forms | 0–11 vs 60–72 | ~−55 | [R] wrong relation + wrong noun |
+| "**move**…into" vs "place…inside" | 22.2 vs 61.1 | −39 | [1] |
+| single-clause vs pick-up-and-place | 69.4 vs 61.1 | +8 | [R] |
+| ± "upright" | pooled ~+10 for dropping | — | [U→R-ish] orientation word unnecessary |
+
+### 2. Stack cubes — modest rescue (+12.5 confirmed), brutal split shift
+![](results/search/scenes/stack_cube.png)
+
+**Confirmed:** "put the small green cube on the yellow cube" **19.4** vs
+nominal "stack the green block on the yellow block" **6.9** → **+12.5**.
+Held-out layouts ran ~40pp HARDER than the search split — the search-split
+telegram lead (58.3) did not transfer.
+
+**Scene reading:** both objects are literal, perfect cubes (muted teal-green
+and pale yellow) — "cube" ≫ "block" is visual-fidelity naming; the honest
+"teal-green" is corpus-alien.
+
+| pair | values | Δ | flag |
+|---|---|---|---|
+| cube-family vs block-family | 44–58 vs 22–33 (search) ; cube forms > block nominal (confirmed) | ~+25 | **[R + confirmed]** |
+| "**teal-green** cube" vs "green cube" | 22.2 vs 44–58 | ~−30 | [1] unusual compound adjective = poison |
+| telegram "green cube on yellow cube" | 58.3 search → 11.1 confirmed | — | winner's-curse + split-shift case study |
+| "stack the cubes" (underspecified) | 0.0 | — | [1] name both objects |
+
+### 3. Carrot → keyboard — real modest rescue (+15.2 confirmed)
+![](results/search/scenes/carrot_on_keyboard.png)
+
+**Confirmed:** "**set** the carrot on the **black** keyboard" **31.9** vs
+nominal **16.7** → **+15.2**.
+
+**Scene reading:** slim black keyboard, low contrast, slightly raised —
+balancing a rigid carrot on a narrow hard deck is mechanically hard; the
+ceiling (~32) is visible in the picture.
+
+| pair | values | Δ | flag |
+|---|---|---|---|
+| "black keyboard" vs bare "keyboard" | 25.0 vs ~17 | +8 | [R-ish] the one adjective that helps |
+| "the **keys**" vs "the keyboard" | 2.8 vs ~17–25 | ~−17 | [1] part-name loses |
+| "keyboard keys" compound | 36.1 search → **8.3 confirmed** | — | winner's-curse collapse #3 |
+| "set" vs "place" (confirmed) | 31.9 vs 27.8 | +4 | confirmed boards' first "set" win |
+
+### 4. Carrot → wheel — ceiling-limited (confirmation pending)
+![](results/search/scenes/carrot_on_wheel.png)
+
+**Best so far:** "put the carrot on the black wheel" 38.9 [1] vs nominal 22.2;
+held-out confirmation in flight.
+
+**Scene reading:** a small tire lying flat — narrow curved ring, shallow hub;
+mechanically awkward for a long carrot. Low ceiling is visible.
+
+| pair | values | Δ | flag |
+|---|---|---|---|
+| "black tire/wheel" vs bare | ~+8 | — | [R-ish] |
+| "black tire" vs "black **rubber** tire" | 30.6 vs 16.7 | −14 | [1] color ≫ material, replication #2 |
+| "the **rim**" | 5.6 | — | [1] part-name loses again |
+| "in the wheel" (hub probe) | mid-band | — | [1] no in-hub advantage |
+
+### 5. Coke can → plate — nominal unbeaten (confirmed tie)
+![](results/search/scenes/coke_can_on_plate.png)
+
+**Confirmed:** "put the coke on the plate" 84.7 vs nominal "put coke can on
+plate" 83.3 — **tie**; 48 candidates found nothing better.
+
+**Scene reading:** the plate is pale yellow-green — ambiguously "yellow" or
+"green", which likely explains plate-adjective instability across tasks.
+
+| pair | values | Δ | flag |
+|---|---|---|---|
+| "coke" vs "soda"/"cola"/bare "can" | 61.1 vs 47.2/44.4/30.6 | −14…−31 | [R] exact token carries 15–30pp |
+| "coke" vs "**pepsi**" | 61.1 vs 58.3 | −3 | [1] wrong brand ≈ free; wrong category ≈ fatal |
+| "the plate" vs "the **dish**" | 61.1 vs 30.6 | −31 | [1] |
+| "the plate" vs "the **yellow** plate" | 61.1 vs 41.7 | −19 | [R] |
+| "on" vs "on top of" | 61.1 vs 38.9 | −22 | [1] here only |
+| "on" vs "onto" | −17 then +3 | — | **[U]** |
+| "take X and put" vs "pick up X and place" | 30.6 vs 55.6 | −25 | [1] |
+| "please …" | ±0 | — | [1] politeness free |
+| "the coke" (no "can") | ≥ coke-can forms | +4…+8 | [R] |
+
+### 6. Carrot → plate — nominal WINS (confirmed)
+![](results/search/scenes/carrot_on_plate.png)
+
+**Confirmed:** nominal "put carrot on plate" **48.6** beats search-best
+"place the orange carrot on the green plate" 45.8. The search-split color
+advantage (+17) did not survive; the r2 leader collapsed 61.1 → **30.6**
+(winner's-curse case study #1, the sharpest recorded).
+
+### 7. Spoon → towel — nominal WINS (confirmed)
+![](results/search/scenes/spoon_on_towel.png)
+
+**Confirmed:** nominal "put the spoon on the towel" **69.4** beats
+"set the spoon down on the towel" 62.5.
+
+**Scene reading:** wide, flat, forgiving landing. "blue towel" is visually
+faithful yet HURT (−19 [1]) — despite "blue towel" appearing **5,815 times**
+in the policy's training text: corpus frequency does not overrule a task's
+dominant plain form. "towel" vs "cloth": −17 [1].
+
+### 8. Eggplant → basket — null control (confirmed plateau)
+![](results/search/scenes/put_eggplant_in_basket.png)
+
+**Confirmed:** plateau 94.4–95.8; nominal within noise of everything.
+
+**Scene reading:** the "yellow basket" is literally a **yellow dish rack in a
+toy sink** — solving the legacy mystery cell ("aubergine…dish rack" 92.7%).
+Huge open target → forgiving task → nothing for phrasing to fix.
+"bin" for "basket": −39 [1]. Full telegram: −36 [1].
 
 ---
 
-## Minimal pairs with drastic effects
+## Cross-cutting effects (replicated across ≥2 scenes)
 
-Search-split numbers (n=36) unless noted. Δ = worse-minus-better.
-
-### Receptacle noun (the biggest lever)
-| pair (same frame) | values | Δ | note |
+| effect | scenes | direction & size | grade |
 |---|---|---|---|
-| ramekin: "white **bowl**" vs "white **dish**" | 63.9 vs 2.8 | **−61** | [1] the most violent single-token swap recorded |
-| eggplant: "yellow **basket**" vs "yellow **bin**" | 97.2 vs 58.3 | **−39** | [1] near-synonyms are not synonyms to π0 |
-| coke-plate: "the **plate**" vs "the **dish**" | 61.1 vs 30.6 | **−31** | [1] |
-| carrot-plate: "the plate" vs "the dish" | 38.9 vs 38.9 | 0 | [1] …yet dish is HARMLESS here — toxicity is task-contextual |
-| ramekin: "white bowl" vs "white **cup**" | 61.1 vs 44.4 | −17 | [R] two rounds |
-| ramekin: "white bowl" vs "white **ramekin**" | 63.9 vs 22.2 | −42 | [1] the object's true name loses to its look-alike name |
+| **Exact-token identity**: near-synonyms are cliffs (coke/soda, basket/bin, towel/cloth, cube/block, bowl/dish) | 5 | −14…−61 | [R across scenes] |
+| **Visual-fidelity naming**: the winning noun names what the object LOOKS like (bowl-ramekin, cube-blocks, dish-rack-basket) | 3 | decides the rescues | [R] |
+| **Color ≫ material adjectives** (white/ceramic, black/rubber) + corpus template (appearance-adj+noun frequent, material-adj absent) | 2 + corpus | −14…−35 | [R] |
+| **Adjectives help only where the task is hard/OOV** (black on keyboard/wheel) and hurt on good-nominal tasks (yellow plate, blue towel) | 4 | ±8…−19 | [R] |
+| **Part-names lose to whole-names** (keys, rim) | 2 | −12…−17 | [R] |
+| **"set" ≈ "put"**, sometimes ahead (confirmed winner on keyboard); "please" free — both wrongly banned by rules-v1 | 4+ boards | ~0…+4 | [R] |
+| **Good nominal ⇒ unbeatable**: held-out crowned the nominal 4/4 times (coke-plate, carrot-plate, spoon, eggplant) | 4 | — | confirmed |
+| **Winner's curse universal**: every search-split leader regressed; 4 named collapses (−10…−31) | all | — | confirmed |
+| **Split-level shifts both directions** (coke-plate +20 easier held-out; stack −40 harder) | 2 | — | confirmed |
 
-### Source-object token identity
-| pair | values | Δ | note |
-|---|---|---|---|
-| "the **coke** can" vs "the **soda** can" | 61.1 vs 47.2 | −14 | [R] also ramekin-side 27.8 for soda forms |
-| "the coke can" vs "the **cola** can" | 61.1 vs 44.4 | −17 | [R] |
-| "the coke can" vs "the (bare) can" | 61.1 vs 30.6 | **−31** | [1] |
-| "the coke can" vs "the **pepsi** can" | 61.1 vs 58.3 | −3 | [1] wrong BRAND ≈ free; wrong CATEGORY ≈ fatal |
-| "the coke" vs "the coke can" | ~+4 to +8 for dropping "can" | — | [R] six r3 forms ≥63.9 |
-
-### Adjectives — value is per-object, not universal
-| pair | values | Δ | note |
-|---|---|---|---|
-| ramekin: "**white** bowl" vs "**ceramic** bowl" | 63–72 vs 27.8 | **~−35** | [1] COLOR attributes ≫ MATERIAL attributes |
-| coke-plate: "the plate" vs "the **yellow** plate" | 61.1 vs 41.7 | −19 | [R] adjective on familiar receptacle = dead weight |
-| carrot-plate: bare vs "**orange** carrot…**green** plate" | 38.9 vs 55.6 | **+17** | [1] same construction HELPS here |
-| spoon: "the towel" vs "the **blue** towel" | ~58 vs 38.9 | −19 | [1] |
-
-### Prepositions and relations
-| pair | values | Δ | note |
-|---|---|---|---|
-| coke-plate: "on" vs "**onto**" | 61.1 vs 44.4 (r1); 63.9 vs 66.7 (r3, "coke" frame) | −17 / +3 | **[U]** unstable — do not rule on it |
-| coke-plate: "on" vs "**on top of**" | 61.1 vs 38.9 | −22 | [1] yet "on top of" was FINE on spoon (58.3) and carrot-plate (52.8) |
-| ramekin: "place it **inside**" vs "put it **in**" | 61.1 vs 44.4 | −17 | [1] verb+prep bundle |
-| ramekin: nominal "**on** ramekin" vs "in/inside bowl" forms | 0–11 vs 60–72 | **~−55** | [R] wrong relation + wrong noun = the task's whole failure |
-
-### Verbs and clause structure
-| pair | values | Δ | note |
-|---|---|---|---|
-| "set" vs "put" (matched frames) | ≈ equal (63.9 vs 61.1; 66.7 vs 63.9 ×3 boards) | ~0 | [R] "set" was WRONGLY banned by rules-v1 (its bad rap came from a confounded pair) |
-| "please put…" vs "put…" | 61.1 vs 61.1 | 0 | [1] politeness free — another wrong ban |
-| coke-plate: "**take** X and put" vs "**pick up** X and place" | 30.6 vs 55.6 | −25 | [1] first-clause verb matters |
-| ramekin: "**move**…into" vs "place…inside" | 22.2 vs 61.1 | −39 | [1] |
-| ramekin: single-clause "place the…" vs "pick up the… and place it…" | 69.4 vs 61.1 | +8 | [R] single-clause ≥ two-clause |
-| ramekin: ±"upright" (same frame) | 61.1 vs 58.3 (r2); 72.2 vs 55.6 (r1) | pooled ~+10 for dropping | [U→R-ish] orientation word unnecessary, mildly negative |
-
-### Register and micro-features
-| pair | values | Δ | note |
-|---|---|---|---|
-| trailing period: "…on the plate" vs "…on the plate**.**" | 61.1 vs 47.2 | −14 | [U] cross-round measurement — flag, don't rule |
-| telegram: "put the eggplant in the yellow basket" vs "eggplant in yellow basket" | 97.2 vs 61.1 | **−36** | [1] too terse breaks it; yet "put coke can on plate" (terse-ish) is optimal there |
-| spoon: "put…down on" vs "put…on" | 63.9 vs mid-band | +~6 | [1] particle "down" mildly helps spoon |
-
-### Additions from the six-task extension (round 1–2 boards, 2026-07-22)
-
-**Ceiling-limited tasks (the law's refinement).** Keyboard: best "place the
-carrot on the black keyboard" 25.0 vs nominal 16.7 (+8.3). Wheel: "place the
-carrot on the black tire" 30.6 vs nominal 22.2 (+8.4). Both bad-nominal tasks,
-both nearly headroom-free — their phrasing-conditional CEILINGS are low.
-Final law: **headroom = ceiling − nominal**; big rescues need a bad nominal
-AND a capable policy.
-
-| new pair | values | Δ | note |
-|---|---|---|---|
-| stack: "…green **cube** on yellow **cube**" family vs "…**block**" family | 44–58 vs 22–33 | **~+25** | [R] the cube>block effect at full size; nominal ("stack the green block…") 22.2 |
-| stack: telegram "green cube on yellow cube" vs nominal | 58.3 vs 22.2 | **+36** | [1] verbless wins on stack — yet telegram LOST 36 on eggplant; terseness is task-specific |
-| stack: "**teal-green** cube" vs "green cube" | 22.2 vs 44–58 | **~−30** | [1] compound/unusual color adjectives are corpus-alien poison (rules-v1 emitted this) |
-| stack: "stack the cubes" (underspecified) | 0.0 | — | [1] both objects must be named |
-| wheel: "black tire" vs "black **rubber** tire" | 30.6 vs 16.7 | −14 | [1] color>material, third task replication |
-| keyboard: "the keys" vs "the keyboard" | 2.8 vs ~17–25 | ~−17 | [1] part-name loses to whole-name |
-| carrot-plate: "orange carrot…green plate" vs bare | 55.6/58.3 vs 38.9 | **+17** | [R] color adjectives HELP here (hurt on coke-plate/spoon) — per-object, not global |
-| spoon: "put the spoon **down** on" vs plain forms | 63.9 vs ~55–58 | +6 | [1] particle mildly helps |
-| spoon: "towel" vs "**cloth**" | ~58 vs 41.7 | −17 | [1] another near-synonym cliff |
-| eggplant: whole plateau at 97.2 | — | — | [R] null control confirmed: good nominals leave nothing to find |
-| keyboard: "the **keyboard keys**" vs "the keyboard" | 36.1 vs ~25 | +11 | [1] compound part-name HELPS though bare "keys" scored 2.8 — compositionality is fragile |
-| spoon: "set…down" search leader vs held-out | 72.2 → 62.5 | −10 | winner's-curse case study |
-| carrot-plate: "on top of" r2 leader vs held-out | 61.1 → 30.6 | −31 | the sharpest winner's-curse collapse recorded |
-
----
+**The headroom law (final):** headroom = phrasing-conditional ceiling −
+nominal. Confirmed rescues: ramekin +59.7, keyboard +15.2, stack +12.5 —
+all bad-nominal tasks. All four good-nominal tasks: nominal unbeaten.
 
 ## Reading discipline
-1. Per-phrase SE ≈ 8pp at n=36: singles under ~16pp are suggestive only.
-2. Winner's curse: every board's top regresses on replication (75.0→"set" plateau;
-   72.2→61.1 ramekin leader) — trust replicated bands, not single leaders.
-3. Cross-task transfer of micro-rules is POOR (dish, on-top-of, adjectives all
-   flip sign between tasks). What transfers: name objects with the right
-   concrete token, use the right relation for the geometry, stay in plain
-   imperative register, and prefer the task's nominal when it is already good.
+1. Per-phrase SE ≈ 8pp at n=36; singles under ~16pp are suggestive only.
+2. Trust replicated bands and confirmed numbers, never single leaders.
+3. Micro-rules transfer poorly across tasks; what transfers: right token,
+   right relation for the geometry, plain register, trust good nominals.
 
-*Living document — boards for keyboard, wheel, stack, and second rounds still
-landing; confirmed numbers supersede search-split numbers where present.*
+*Wheel confirmation pending; its row updates on landing.*
