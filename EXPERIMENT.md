@@ -1228,3 +1228,9 @@ best of #4-9 = residual selection/search headroom. Measurement arm, not
 a competitor. Bonus: the stage-1 pool + successes = free out-of-sample
 selection-exam material for the offline pickers. New total ~49k eps
 ~ 4.5 pod-days serial / ~2.3 with second pod.
+
+## Checklist update (2026-07-22): Gemini key rotated + batch signed off
+User rotated the Gemini key and provisioned it (file-transfer protocol,
+never in logs). Sign-off for the ~42-call sealed batch: GRANTED. Batch
+still fires only at eval time per pre-registration. Post-batch key
+rotation recommended once the one-shot completes.
