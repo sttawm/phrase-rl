@@ -1,0 +1,21 @@
+{
+ "task": "widowx_carrot_on_keyboard_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "set the carrot on the black keyboard",
+   "success_pct": 30.6,
+   "n": 36
+  },
+  {
+   "phrase": "put the carrot on the black keyboard",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "set the carrot on the keyboard",
+   "success_pct": 19.4,
+   "n": 36
+  }
+ ]
+}
