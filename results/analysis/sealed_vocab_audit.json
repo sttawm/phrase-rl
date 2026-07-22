@@ -1,0 +1,152 @@
+[
+ {
+  "env":"PutCarrotOnRamekinInScene-v2",
+  "nominal":"put carrot on ramekin",
+  "coverage":{
+   "ramekin":0,
+   "carrot":2846
+  },
+  "stratum":"OOV",
+  "oov_nouns":[
+   "ramekin"
+  ]
+ },
+ {
+  "env":"PutCarrotOnSpongeInScene-v2",
+  "nominal":"put carrot on sponge",
+  "coverage":{
+   "carrot":2846,
+   "sponge":123
+  },
+  "stratum":"in-vocab",
+  "oov_nouns":[
+
+  ]
+ },
+ {
+  "env":"PutCokeCanOnKeyboardInScene-v2",
+  "nominal":"put coke can on keyboard",
+  "coverage":{
+   "keyboard":0,
+   "coke":0,
+   "coke can":0
+  },
+  "stratum":"OOV",
+  "oov_nouns":[
+   "keyboard",
+   "coke",
+   "coke can"
+  ]
+ },
+ {
+  "env":"PutCokeCanOnWheelInScene-v2",
+  "nominal":"put coke can on wheel",
+  "coverage":{
+   "coke":0,
+   "coke can":0,
+   "wheel":0
+  },
+  "stratum":"OOV",
+  "oov_nouns":[
+   "coke",
+   "coke can",
+   "wheel"
+  ]
+ },
+ {
+  "env":"PutEggplantOnKeyboardInScene-v2",
+  "nominal":"put eggplant on keyboard",
+  "coverage":{
+   "keyboard":0,
+   "eggplant":2043
+  },
+  "stratum":"OOV",
+  "oov_nouns":[
+   "keyboard"
+  ]
+ },
+ {
+  "env":"PutEggplantOnSpongeInScene-v2",
+  "nominal":"put eggplant on sponge",
+  "coverage":{
+   "eggplant":2043,
+   "sponge":123
+  },
+  "stratum":"in-vocab",
+  "oov_nouns":[
+
+  ]
+ },
+ {
+  "env":"PutGreenCubeOnPlateInScene-v2",
+  "nominal":"put green cube on plate",
+  "coverage":{
+   "cube":1242,
+   "plate":2859
+  },
+  "stratum":"in-vocab",
+  "oov_nouns":[
+
+  ]
+ },
+ {
+  "env":"PutNutOnPlateInScene-v2",
+  "nominal":"put nut on plate",
+  "coverage":{
+   "nut":60,
+   "plate":2859
+  },
+  "stratum":"in-vocab",
+  "oov_nouns":[
+
+  ]
+ },
+ {
+  "env":"PutNutOnWheelInScene-v2",
+  "nominal":"put nut on wheel",
+  "coverage":{
+   "nut":60,
+   "wheel":0
+  },
+  "stratum":"OOV",
+  "oov_nouns":[
+   "wheel"
+  ]
+ },
+ {
+  "env":"PutOrangeJuiceOnPlateInScene-v2",
+  "nominal":"put orange juice on plate",
+  "coverage":{
+   "juice":0,
+   "plate":2859
+  },
+  "stratum":"OOV",
+  "oov_nouns":[
+   "juice"
+  ]
+ },
+ {
+  "env":"PutPepsiCanOnPlateInScene-v2",
+  "nominal":"put pepsi can on plate",
+  "coverage":{
+   "pepsi":0,
+   "plate":2859
+  },
+  "stratum":"OOV",
+  "oov_nouns":[
+   "pepsi"
+  ]
+ },
+ {
+  "env":"PutSmallPlateOnGreenCubeInScene-v2",
+  "nominal":"put small plate on green cube",
+  "coverage":{
+   "cube":1242,
+   "plate":2859
+  },
+  "stratum":"in-vocab",
+  "oov_nouns":[
+
+  ]
+ }
+]
