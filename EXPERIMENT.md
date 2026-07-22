@@ -1328,3 +1328,14 @@ frontier design choice. Consequence: pod2 leg order updated to measure
 rules_gemini (#9) tonight alongside rules_v2_selftrace — the #8-vs-#9
 gap is now a primary read (executor premium), pre-registered here BEFORE
 any sealed rollout of either arm.
+
+## FREEZE AMENDMENT 2 (user, 2026-07-22 ~22:30, PRE-MEASUREMENT): rules-v3 substitution
+The in-flight rules_v2_selftrace leg was killed mid-roll with NO result
+committed or read; no sealed rollout of ANY rules arm exists. Rationale:
+the purification boards showed rules-v2's evidence base was partially
+confounded (dish/ceramic/category bans overstated by stacked-edit frames;
+ramekin-true-name toxicity −41.7 is what survives). User directive: finish
+the certification suite (xcert + purification), author RULES-V3 on the
+certified evidence, then run all rules arms on sealed. Rules-independent
+arms (sft_v2, anchors, frozen x2, v6, oracle) proceed tonight — their
+phrases are frozen artifacts unaffected by rule revisions.
