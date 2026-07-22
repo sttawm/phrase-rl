@@ -1,0 +1,86 @@
+{
+ "task": "widowx_coke_can_on_ramekin_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "place the red coke can inside the white bowl",
+   "success_pct": 72.2,
+   "n": 36
+  },
+  {
+   "phrase": "place the red cola can into the white bowl",
+   "success_pct": 72.2,
+   "n": 36
+  },
+  {
+   "phrase": "set the red cola can inside the white bowl",
+   "success_pct": 66.7,
+   "n": 36
+  },
+  {
+   "phrase": "place the red cola can in the white bowl",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "place the red cola can inside the small white bowl",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "put the red cola can inside the white bowl",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "place the red cola can inside the white bowl",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the red cola can and place it inside the white bowl",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "place the red cola can inside white bowl",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "place the red soda can inside the white bowl",
+   "success_pct": 55.6,
+   "n": 36
+  },
+  {
+   "phrase": "move the red cola can inside the white bowl",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "place the red cola can upright inside the white bowl",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "place the cola can inside the white bowl",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "place the red cola can inside the white bowl.",
+   "success_pct": 41.7,
+   "n": 36
+  },
+  {
+   "phrase": "set the coke can in the white bowl",
+   "success_pct": 41.7,
+   "n": 36
+  },
+  {
+   "phrase": "place the red cola can inside the white ramekin",
+   "success_pct": 22.2,
+   "n": 36
+  }
+ ]
+}
