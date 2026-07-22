@@ -1,0 +1,86 @@
+{
+ "task": "widowx_coke_can_on_plate_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "set the coke can on the plate",
+   "success_pct": 66.7,
+   "n": 36
+  },
+  {
+   "phrase": "put coke can on plate",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can on the plate",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "put the pepsi can on the plate",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the coke can and place it on the plate",
+   "success_pct": 55.6,
+   "n": 36
+  },
+  {
+   "phrase": "place the coke can on the plate",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the soda can on the plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can onto the plate",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "put the cola can on the plate",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "move the coke can to the plate",
+   "success_pct": 41.7,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can on the yellow plate",
+   "success_pct": 41.7,
+   "n": 36
+  },
+  {
+   "phrase": "place the red can on the plate",
+   "success_pct": 41.7,
+   "n": 36
+  },
+  {
+   "phrase": "place the coke can on the yellow plate",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "put the red can on the yellow plate",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "put the can on the plate",
+   "success_pct": 30.6,
+   "n": 36
+  },
+  {
+   "phrase": "move the can to the plate",
+   "success_pct": 16.7,
+   "n": 36
+  }
+ ]
+}
