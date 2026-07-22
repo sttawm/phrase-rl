@@ -1,0 +1,21 @@
+{
+ "task": "widowx_coke_can_on_ramekin_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "place the red coke can inside the white bowl",
+   "success_pct": 95.8,
+   "n": 72
+  },
+  {
+   "phrase": "place the red cola can into the white bowl",
+   "success_pct": 83.3,
+   "n": 72
+  },
+  {
+   "phrase": "put coke can on ramekin",
+   "success_pct": 36.1,
+   "n": 72
+  }
+ ]
+}
