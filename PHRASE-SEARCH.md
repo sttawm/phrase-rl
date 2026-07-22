@@ -31,8 +31,8 @@ says "on".
 | **+47.2** | "place the red cola can inside the white bowl" | 69.4% (n=36) | "move the red can into the white bowl" | 22.2% (n=36) | place → move |
 | **+44.4** | "pick up the red cola can and place it inside the white bowl" | 72.2% (n=36) | "pick up the soda can and place it upright inside the ceramic bowl." | 27.8% (n=36) | white → ceramic (+ soda) |
 | **+33.4** | "Pick up the red cola can and place it upright inside the white bowl." | 55.6% (n=36) | "place the coke can inside the white ramekin" | 22.2% (n=36) | bowl → ramekin (true name) |
-| **+16.7** | "pick up the red cola can and place it inside the white bowl" | 61.1% (n=36, r2) | "pick up the red cola can and place it inside the white cup" | 44.4% (n=36) | bowl → cup · **PURE ✂ single edit** |
-| **+9.7** | "pick up the red cola can and place it inside the white bowl" | 72.2 / 61.1% (2 boards, n=36 each) | "pick up the red cola can and place it upright inside the white bowl" | 55.6 / 58.3% (2 boards) | ± "upright" · **PURE ✂ single edit** |
+| **+16.7** | "pick up the red cola can and place it inside the white bowl" | 61.1% (n=36) | "pick up the red cola can and place it inside the white cup" | 44.4% (n=36) | bowl → cup · **PURE ✂ single edit** |
+| **+9.7** | "pick up the red cola can and place it inside the white bowl" | 66.7% (n=72) | "pick up the red cola can and place it upright inside the white bowl" | 57.0% (n=72) | ± "upright" · **PURE ✂ single edit** |
 | **+8.3** | "place the red cola can inside the white bowl" (single clause) | 69.4% (n=36) | "pick up the red cola can and place it inside the white bowl" | 61.1% (n=36) | drop first clause |
 
 ### 2. Stack cubes — modest rescue (+12.5 confirmed), brutal split shift
@@ -49,10 +49,10 @@ and pale yellow) — "cube" ≫ "block" is visual-fidelity naming; the honest
 
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
-| **+47.2** | "green cube on yellow cube" (telegram) | 58.3% (n=36, twice) | same phrase, held-out | 11.1% (n=72) | split shift + winner's curse |
-| **+44.4** | "put the green cube on the yellow cube" | 44.4% (n=36, r2) | "stack the cubes" | 0.0% (n=36) | both objects named → underspecified |
+| **+47.2** | "green cube on yellow cube" (telegram) | 58.3% (n=72) | same phrase, held-out | 11.1% (n=72) | split shift + winner's curse |
+| **+44.4** | "put the green cube on the yellow cube" | 44.4% (n=36) | "stack the cubes" | 0.0% (n=36) | both objects named → underspecified |
 | **+33.4** | "put the small green cube on the yellow cube" | 55.6% (n=36) | "put the teal-green cube on the yellow cube" | 22.2% (n=36) | plain color → compound color · **PURE ✂ single edit** |
-| **+8.4** | "put the green cube on the yellow cube" | 15.3% (n=72, confirmed) | "stack the green block on the yellow block" (nominal) | 6.9% (n=72, confirmed) | cube → block |
+| **+8.4** | "put the green cube on the yellow cube" | 15.3% (n=72) | "stack the green block on the yellow block" (nominal) | 6.9% (n=72) | cube → block |
 
 ### 3. Carrot → keyboard — real modest rescue (+15.2 confirmed)
 ![](results/search/scenes/carrot_on_keyboard.png)
@@ -69,7 +69,7 @@ ceiling (~32) is visible in the picture.
 | **+27.8** | "place the carrot on the keyboard keys" | 36.1% (n=36) | same phrase, held-out | 8.3% (n=72) | winner's-curse collapse |
 | **+22.2** | "place the carrot on the black keyboard" | 25.0% (n=36) | "put the carrot on the keys" | 2.8% (n=36) | whole-name → part-name |
 | **+8.3** | "place the carrot on the black keyboard" | 25.0% (n=36) | "put carrot on keyboard" (nominal) | 16.7% (n=36) | +black, place-frame |
-| **+4.1** | "set the carrot on the black keyboard" | 31.9% (n=72, confirmed) | "place the carrot on the black keyboard" | 27.8% (n=72, confirmed) | set → place · **PURE ✂ single edit** |
+| **+4.1** | "set the carrot on the black keyboard" | 31.9% (n=72) | "place the carrot on the black keyboard" | 27.8% (n=72) | set → place · **PURE ✂ single edit** |
 
 ### 4. Carrot → wheel — ceiling-limited (confirmation pending)
 ![](results/search/scenes/carrot_on_wheel.png)
@@ -82,7 +82,7 @@ mechanically awkward for a long carrot. Low ceiling visible.
 
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
-| **+33.3** | "put the carrot on the black wheel" | 38.9% (n=36, r2) | "put the carrot on the rim" | 5.6% (n=36) | whole-name → part-name · **PURE ✂ single edit** |
+| **+33.3** | "put the carrot on the black wheel" | 38.9% (n=36) | "put the carrot on the rim" | 5.6% (n=36) | whole-name → part-name · **PURE ✂ single edit** |
 | **+22.3** | "place the carrot on the black tire" | 30.6% (n=36) | "put the carrot on the tire" | 8.3% (n=36) | +black, place-frame |
 | **+13.9** | "place the carrot on the black tire" | 30.6% (n=36) | "place the carrot on the black rubber tire" | 16.7% (n=36) | +material adjective · **PURE ✂ single edit** |
 
@@ -104,9 +104,9 @@ can on plate" 83.3% — **tie**; 48 candidates found nothing better.
 | **+19.4** | "put the coke can on the plate" | 61.1% (n=36) | "put the coke can on the yellow plate" | 41.7% (n=36) | +yellow · **PURE ✂ single edit** |
 | **+16.7** | "put the coke can on the plate" | 61.1% (n=36) | "put the cola can on the plate" | 44.4% (n=36) | coke → cola · **PURE ✂ single edit** |
 | **+13.9** | "put the coke can on the plate" | 61.1% (n=36) | "put the soda can on the plate" | 47.2% (n=36) | coke → soda · **PURE ✂ single edit** |
-| **+4.2** | "set the coke can on the plate" | 66.7 / 63.9% (2 boards, n=36) | "put coke can on plate" (nominal) | 61.1% (n=36) | set ≈ put (within noise) |
+| **+4.2** | "set the coke can on the plate" | 65.3% (n=72) | "put coke can on plate" (nominal) | 61.1% (n=36) | set ≈ put (within noise) |
 | **+2.8** | "put the coke can on the plate" | 61.1% (n=36) | "put the pepsi can on the plate" | 58.3% (n=36) | coke → pepsi (wrong brand ≈ free) · **PURE ✂ single edit** |
-| **+2.8** | "put the coke on the plate" | 63.9% (n=36); 84.7% (n=72) | "put the coke can on the plate" | 61.1% (n=36) | dropping "can" costs nothing · **PURE ✂ single edit** |
+| **+2.8** | "put the coke on the plate" | 63.9% (n=36) | "put the coke can on the plate" | 61.1% (n=36) | dropping "can" costs nothing · **PURE ✂ single edit** |
 | **±0.0** | "please put the coke can on the plate" | 61.1% (n=36) | "put the coke can on the plate" | 61.1% (n=36) | "please" is free · **PURE ✂ single edit** |
 
 ### 6. Carrot → plate — nominal WINS (confirmed)
@@ -117,9 +117,9 @@ search-best "place the orange carrot on the green plate" 45.8%.
 
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
-| **+30.5** | "put the orange carrot on top of the plate" | 61.1% (n=36, r2) | same phrase, held-out | 30.6% (n=72) | sharpest winner's-curse collapse |
+| **+30.5** | "put the orange carrot on top of the plate" | 61.1% (n=36) | same phrase, held-out | 30.6% (n=72) | sharpest winner's-curse collapse |
 | **+16.7** | "place the orange carrot on the green plate" | 55.6% (n=36) | "put the carrot on the plate" | 38.9% (n=36) | +colors (search split only) |
-| **+2.8** | "put carrot on plate" (nominal) | 48.6% (n=72, confirmed) | "place the orange carrot on the green plate" | 45.8% (n=72, confirmed) | color gain did NOT survive |
+| **+2.8** | "put carrot on plate" (nominal) | 48.6% (n=72) | "place the orange carrot on the green plate" | 45.8% (n=72) | color gain did NOT survive |
 | **±0.0** | "put the carrot on the plate" | 38.9% (n=36) | "put the carrot on the dish" | 38.9% (n=36) | dish HARMLESS here (cf. scene 5) · **PURE ✂ single edit** |
 
 ### 7. Spoon → towel — nominal WINS (confirmed)
