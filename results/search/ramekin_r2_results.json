@@ -1,0 +1,86 @@
+{
+ "task": "widowx_coke_can_on_ramekin_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "place the red cola can inside the white bowl",
+   "success_pct": 69.4,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the red coke can and place it inside the white bowl",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "set the red cola can inside the white bowl",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the red cola can and place it inside the small white bowl",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the red cola can and place it inside the white bowl",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can in the white bowl",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the red cola can and place it in the white bowl",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "drop the red cola can into the white bowl",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the red cola can and place it upright inside the white bowl",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "put the red cola can in the white bowl",
+   "success_pct": 55.6,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the red cola can and place it inside the bowl",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "stick the red cola can in the white bowl",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the coke can and place it inside the white bowl",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the red cola can and place it inside the white cup",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the red cola can and put it in the white bowl",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "put the cola can in the white bowl",
+   "success_pct": 41.7,
+   "n": 36
+  }
+ ]
+}
