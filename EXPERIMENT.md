@@ -1298,3 +1298,19 @@ also cannot represent rollout-defined winners by construction. The v7
 gate question is now "can RL find what search finds, cheaper or more
 generally?" — prior strongly no. Search scoreboards = fresh CI-grade
 pairs for rules-v2.
+
+## FREEZE AMENDMENT (user, 2026-07-22 ~14:40, PRE-MEASUREMENT): rules-v2 substitution
+No sealed rollout has run; only assets exist (authored once, canonical,
+committed). User directive: complete the 8-task search first, feed its
+lessons into a RULES-V2 (fresh-context re-run of the B4 runner with the
+search scoreboards + corrected case evidence added to the inputs folder),
+then evaluate rules-v2 on the sealed set. Amendment is legitimate because
+it precedes any sealed measurement; documented here for the record.
+Arms #7/#8/#9 use rules-v2. OPTIONAL +1 leg (decide at firing): rules-v1
+at #8's config alongside v2 — directly prices the search->rules feedback
+loop (~$3). The staged rules leg was INTERCEPTED post-asset-commit;
+pod1 search resumed. Known search->rules corrections queued for the v2
+inputs: "set"/"please" wrongly banned (neutral); "upright" unnecessary;
+adjective TYPE (white>>ceramic); lexeme ladders (bowl>cup>>dish, coke
+token +15-30pp, "the coke" >= "the coke can"); single-clause preference
+confirmed; cross-split level-shift discipline.
