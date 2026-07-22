@@ -24,6 +24,15 @@ vs nominal "put coke can on ramekin" **36.1%** → **+59.7pp. Solved by phrasing
 *is* a white bowl to the eye — and the can must go IN it, while the nominal
 says "on".
 
+**Highlights — single-concept edits (the only difference bolded):**
+
+| Δ (pp) | better | success | worse | success |
+|---|---|---|---|---|
+| **+16.7** | "pick up the red cola can and place it inside the white **bowl**" | 61.1% (n=36) | "pick up the red cola can and place it inside the white **cup**" | 44.4% (n=36) |
+| **+9.7** | "pick up the red cola can and place it inside the white bowl" | 66.7% (n=72) | "pick up the red cola can and place it **upright** inside the white bowl" | 57.0% (n=72) |
+
+Full table (all measured pairs, including multi-edit):
+
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
 | **+63.9** | "put the coke can in the white bowl" | 63.9% (n=36) | "put coke can on ramekin" (nominal) | 0.0% (n=36) | in-bowl → on-ramekin |
@@ -47,6 +56,14 @@ telegram lead did not transfer.
 and pale yellow) — "cube" ≫ "block" is visual-fidelity naming; the honest
 "teal-green" is corpus-alien.
 
+**Highlights — single-concept edits (the only difference bolded):**
+
+| Δ (pp) | better | success | worse | success |
+|---|---|---|---|---|
+| **+33.4** | "put the **small** **green** cube on the yellow cube" | 55.6% (n=36) | "put the **teal-green** cube on the yellow cube" | 22.2% (n=36) |
+
+Full table (all measured pairs, including multi-edit):
+
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
 | **+47.2** | "green cube on yellow cube" (telegram) | 58.3% (n=72) | same phrase, held-out | 11.1% (n=72) | split shift + winner's curse |
@@ -64,6 +81,14 @@ nominal "put carrot on keyboard" **16.7%** → **+15.2pp**.
 balancing a rigid carrot on a narrow hard deck is mechanically hard; the
 ceiling (~32) is visible in the picture.
 
+**Highlights — single-concept edits (the only difference bolded):**
+
+| Δ (pp) | better | success | worse | success |
+|---|---|---|---|---|
+| **+4.1** | "**set** the carrot on the black keyboard" | 31.9% (n=72) | "**place** the carrot on the black keyboard" | 27.8% (n=72) |
+
+Full table (all measured pairs, including multi-edit):
+
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
 | **+27.8** | "place the carrot on the keyboard keys" | 36.1% (n=36) | same phrase, held-out | 8.3% (n=72) | winner's-curse collapse |
@@ -80,6 +105,15 @@ ceiling (~32) is visible in the picture.
 **Scene reading:** a small tire lying flat — narrow curved ring, shallow hub;
 mechanically awkward for a long carrot. Low ceiling visible.
 
+**Highlights — single-concept edits (the only difference bolded):**
+
+| Δ (pp) | better | success | worse | success |
+|---|---|---|---|---|
+| **+33.3** | "put the carrot on the **black** **wheel**" | 38.9% (n=36) | "put the carrot on the **rim**" | 5.6% (n=36) |
+| **+13.9** | "place the carrot on the black tire" | 30.6% (n=36) | "place the carrot on the black **rubber** tire" | 16.7% (n=36) |
+
+Full table (all measured pairs, including multi-edit):
+
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
 | **+33.3** | "put the carrot on the black wheel" | 38.9% (n=36) | "put the carrot on the rim" | 5.6% (n=36) | whole-name → part-name · **PURE ✂ single edit** |
@@ -94,6 +128,22 @@ can on plate" 83.3% — **tie**; 48 candidates found nothing better.
 
 **Scene reading:** the plate is pale yellow-green — ambiguously "yellow" or
 "green", which likely explains plate-adjective instability across tasks.
+
+**Highlights — single-concept edits (the only difference bolded):**
+
+| Δ (pp) | better | success | worse | success |
+|---|---|---|---|---|
+| **+30.5** | "put the **coke** can on the plate" | 61.1% (n=36) | "put the can on the plate" | 30.6% (n=36) |
+| **+30.5** | "put the coke can on the **plate**" | 61.1% (n=36) | "put the coke can on the **dish**" | 30.6% (n=36) |
+| **+22.2** | "put the coke can on the plate" | 61.1% (n=36) | "put the coke can on **top** **of** the plate" | 38.9% (n=36) |
+| **+19.4** | "put the coke can on the plate" | 61.1% (n=36) | "put the coke can on the **yellow** plate" | 41.7% (n=36) |
+| **+16.7** | "put the **coke** can on the plate" | 61.1% (n=36) | "put the **cola** can on the plate" | 44.4% (n=36) |
+| **+13.9** | "put the **coke** can on the plate" | 61.1% (n=36) | "put the **soda** can on the plate" | 47.2% (n=36) |
+| **+2.8** | "put the **coke** can on the plate" | 61.1% (n=36) | "put the **pepsi** can on the plate" | 58.3% (n=36) |
+| **+2.8** | "put the coke on the plate" | 63.9% (n=36) | "put the coke **can** on the plate" | 61.1% (n=36) |
+| **+0.0** | "**please** put the coke can on the plate" | 61.1% (n=36) | "put the coke can on the plate" | 61.1% (n=36) |
+
+Full table (all measured pairs, including multi-edit):
 
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
@@ -114,6 +164,14 @@ can on plate" 83.3% — **tie**; 48 candidates found nothing better.
 
 **Confirmed (n=72):** nominal "put carrot on plate" **48.6%** beats
 search-best "place the orange carrot on the green plate" 45.8%.
+
+**Highlights — single-concept edits (the only difference bolded):**
+
+| Δ (pp) | better | success | worse | success |
+|---|---|---|---|---|
+| **+0.0** | "put the carrot on the **plate**" | 38.9% (n=36) | "put the carrot on the **dish**" | 38.9% (n=36) |
+
+Full table (all measured pairs, including multi-edit):
 
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
@@ -142,6 +200,14 @@ search-best "place the orange carrot on the green plate" 45.8%.
 **Scene reading:** the "yellow basket" is literally a **yellow dish rack in a
 toy sink** — solving the legacy mystery cell ("aubergine…dish rack" 92.7%).
 Huge open target → nothing for phrasing to fix.
+
+**Highlights — single-concept edits (the only difference bolded):**
+
+| Δ (pp) | better | success | worse | success |
+|---|---|---|---|---|
+| **+38.9** | "put the eggplant in the yellow **basket**" | 97.2% (n=36) | "put the eggplant in the yellow **bin**" | 58.3% (n=36) |
+
+Full table (all measured pairs, including multi-edit):
 
 | Δ (pp) | better phrase | success | worse phrase | success | feature |
 |---|---|---|---|---|---|
