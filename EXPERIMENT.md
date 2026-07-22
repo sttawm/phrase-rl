@@ -1339,3 +1339,37 @@ the certification suite (xcert + purification), author RULES-V3 on the
 certified evidence, then run all rules arms on sealed. Rules-independent
 arms (sft_v2, anchors, frozen x2, v6, oracle) proceed tonight — their
 phrases are frozen artifacts unaffected by rule revisions.
+
+## 2026-07-22 late — grip⊕full-L2 reward exam addendum (POST-HOC EXPLORATORY; frozen bakeoff unchanged)
+
+User question: did any examined reward blend gripper error with full-action-chunk
+L2? Answer: no — norm_l2 was only a verifier input feature + norm control. Addendum
+(results/analysis/reward_exam_l2_addendum.py, same frozen features/pairs/exams):
+
+| candidate | signs | max top-1 regret | pooled ρ |
+|---|---|---|---|
+| C4b (frozen winner) | 66/68 | 2.1 | 0.493 |
+| GRIP_pure | 67/68 | 2.1 | 0.528 |
+| **L2_pure** | **36/68 (coin flip)** | **41.0** | **−0.024** |
+| GL_75_25 (25% L2) | 65/68 | 11.8 | 0.451 |
+| GL_50_50 | 52/68 | 12.6 | 0.254 |
+| GL_25_75 | 39/68 | 36.1 | 0.038 |
+| ZL_25_75 (C4b w/ L2 in grip's seat) | 38/68 | 41.0 | 0.029 |
+
+**Full-chunk L2 carries ~zero phrase-quality signal** (ρ=−0.02) and ANY admixture
+degrades grip (even 25% L2 costs 2 signs and 10pp regret on stack). Failure mode:
+L2 prefers verbose "exactly in the middle of the towel" phrasings on spoon (arm
+path matches a* while grip catches the real difference) — the same verbose family
+v5's echo-Goodhart chased. Implications: (1) v7-w0 stays PURE grip-rank (adding L2
+would only dilute); (2) prediction for the resurrected phase2_v2_l2 arm's ladder
+eval: noise-guided RL — drift, not targeted gain (filed pre-eval).
+
+## 2026-07-22 late — purification consolidated into PHRASE-SEARCH.md
+
+All five *_pure1 boards folded in (per-scene purified tables + revised
+cleanest-evidence table + cross-cutting rewrite). Headlines: ramekin TRUE-NAME
+−41.7 is the largest clean single edit; dish/ceramic/cloth cliffs were confound
+artifacts; category words fine (basin +16.7 over bowl); teal-green −33.4 = visual
+fidelity must stay inside corpus vocabulary; clause verbs place≫put +19.4,
+pick-up≫take +22.2; set≥put (+13.9 spoon); stack verb −19.4; onto harmless +2.8.
+xcert/xcert2 certification (n=144/phrase/task) supersedes on overlap when it lands.

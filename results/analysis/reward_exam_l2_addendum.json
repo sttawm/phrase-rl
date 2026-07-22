@@ -1,0 +1,1291 @@
+{
+ "note": "POST-HOC EXPLORATORY; frozen bakeoff decisions unchanged",
+ "covered_pairs": 68,
+ "B": 2000,
+ "verdict_rows": [
+  {
+   "candidate": "C1_ens4f",
+   "signs": "51/68",
+   "max_top1_regret": 2.4,
+   "max_top1_scorefix_p95": 11.5,
+   "top1_per_task": {
+    "widowx_carrot_on_plate": 2.1,
+    "widowx_spoon_on_towel": 0.0,
+    "widowx_stack_cube": 0.5,
+    "widowx_put_eggplant_in_basket": 2.4
+   },
+   "spearman_pooled": 0.252
+  },
+  {
+   "candidate": "C4b_rank_25_75",
+   "signs": "66/68",
+   "max_top1_regret": 2.1,
+   "max_top1_scorefix_p95": 12.6,
+   "top1_per_task": {
+    "widowx_carrot_on_plate": 2.1,
+    "widowx_spoon_on_towel": 0.0,
+    "widowx_stack_cube": 0.5,
+    "widowx_put_eggplant_in_basket": 0.3
+   },
+   "spearman_pooled": 0.493
+  },
+  {
+   "candidate": "GRIP_pure",
+   "signs": "67/68",
+   "max_top1_regret": 2.1,
+   "max_top1_scorefix_p95": 35.8,
+   "top1_per_task": {
+    "widowx_carrot_on_plate": 2.1,
+    "widowx_spoon_on_towel": 0.0,
+    "widowx_stack_cube": 0.5,
+    "widowx_put_eggplant_in_basket": 0.3
+   },
+   "spearman_pooled": 0.528
+  },
+  {
+   "candidate": "L2_pure",
+   "signs": "36/68",
+   "max_top1_regret": 41.0,
+   "max_top1_scorefix_p95": 41.0,
+   "top1_per_task": {
+    "widowx_carrot_on_plate": 12.6,
+    "widowx_spoon_on_towel": 41.0,
+    "widowx_stack_cube": 11.8,
+    "widowx_put_eggplant_in_basket": 2.4
+   },
+   "spearman_pooled": -0.024
+  },
+  {
+   "candidate": "GL_75_25",
+   "signs": "65/68",
+   "max_top1_regret": 11.8,
+   "max_top1_scorefix_p95": 36.1,
+   "top1_per_task": {
+    "widowx_carrot_on_plate": 2.1,
+    "widowx_spoon_on_towel": 0.0,
+    "widowx_stack_cube": 11.8,
+    "widowx_put_eggplant_in_basket": 0.3
+   },
+   "spearman_pooled": 0.451
+  },
+  {
+   "candidate": "GL_50_50",
+   "signs": "52/68",
+   "max_top1_regret": 12.6,
+   "max_top1_scorefix_p95": 36.1,
+   "top1_per_task": {
+    "widowx_carrot_on_plate": 12.6,
+    "widowx_spoon_on_towel": 6.9,
+    "widowx_stack_cube": 11.8,
+    "widowx_put_eggplant_in_basket": 0.3
+   },
+   "spearman_pooled": 0.254
+  },
+  {
+   "candidate": "GL_25_75",
+   "signs": "39/68",
+   "max_top1_regret": 36.1,
+   "max_top1_scorefix_p95": 41.0,
+   "top1_per_task": {
+    "widowx_carrot_on_plate": 12.6,
+    "widowx_spoon_on_towel": 36.1,
+    "widowx_stack_cube": 11.8,
+    "widowx_put_eggplant_in_basket": 2.4
+   },
+   "spearman_pooled": 0.038
+  },
+  {
+   "candidate": "ZL_25_75",
+   "signs": "38/68",
+   "max_top1_regret": 41.0,
+   "max_top1_scorefix_p95": 41.0,
+   "top1_per_task": {
+    "widowx_carrot_on_plate": 12.6,
+    "widowx_spoon_on_towel": 41.0,
+    "widowx_stack_cube": 11.8,
+    "widowx_put_eggplant_in_basket": 2.4
+   },
+   "spearman_pooled": 0.029
+  }
+ ],
+ "signs": {
+  "C1_ens4f": {
+   "correct": 51,
+   "n": 68,
+   "fails": [
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put the eggplant into the yellow basket",
+     "worse": "Arrange the eggplant neatly in the yellow bin.",
+     "delta_pp": 40.3,
+     "margin": -0.1373
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 39.9,
+     "margin": -0.2406
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.1,
+     "margin": -0.4172
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put the eggplant into the yellow basket",
+     "worse": "Arrange the eggplant in the yellow bin.",
+     "delta_pp": 30.9,
+     "margin": -0.0766
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 30.6,
+     "margin": -0.4828
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Move the spoon to the center of the blue towel.",
+     "delta_pp": 25.0,
+     "margin": -0.0691
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 24.9,
+     "margin": -0.2237
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 23.5,
+     "margin": -0.1806
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 20.1,
+     "margin": -0.4003
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 18.6,
+     "margin": -0.3572
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 15.6,
+     "margin": -0.4659
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 14.1,
+     "margin": -0.4228
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Take the green cube and place it on the yellow cube.",
+     "worse": "Pick up the green block and place it on top of the yellow block.",
+     "delta_pp": 12.0,
+     "margin": -0.1546
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put the eggplant into the yellow basket",
+     "worse": "Pick up the purple eggplant and place it in the yellow bin.",
+     "delta_pp": 11.5,
+     "margin": -0.718
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "place the purple aubergine in the yellow dish rack",
+     "worse": "Pick up the purple eggplant and place it in the yellow bin.",
+     "delta_pp": 11.1,
+     "margin": -0.1144
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put eggplant into yellow basket",
+     "worse": "Pick up the purple eggplant and place it in the yellow bin.",
+     "delta_pp": 9.0,
+     "margin": -0.4072
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put the eggplant into the yellow basket",
+     "worse": "Pick up the eggplant and place it in the yellow bin.",
+     "delta_pp": 8.0,
+     "margin": -0.3787
+    }
+   ]
+  },
+  "C4b_rank_25_75": {
+   "correct": 66,
+   "n": 68,
+   "fails": [
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 20.1,
+     "margin": -0.025
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Take the green cube and place it on the yellow cube.",
+     "worse": "Pick up the green block and place it on top of the yellow block.",
+     "delta_pp": 12.0,
+     "margin": -0.1429
+    }
+   ]
+  },
+  "GRIP_pure": {
+   "correct": 67,
+   "n": 68,
+   "fails": [
+    {
+     "task": "widowx_stack_cube",
+     "better": "Take the green cube and place it on the yellow cube.",
+     "worse": "Pick up the green block and place it on top of the yellow block.",
+     "delta_pp": 12.0,
+     "margin": -0.1429
+    }
+   ]
+  },
+  "L2_pure": {
+   "correct": 36,
+   "n": 68,
+   "fails": [
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 41.0,
+     "margin": -0.8
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 40.6,
+     "margin": -0.9
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 39.9,
+     "margin": -1.0
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 36.1,
+     "margin": -0.7
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.8,
+     "margin": -0.8
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.1,
+     "margin": -0.9
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 34.0,
+     "margin": -0.5
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "margin": -0.6
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.3,
+     "margin": -0.7
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 30.6,
+     "margin": -0.5
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 30.6,
+     "margin": -0.8
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 30.2,
+     "margin": -0.6
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 29.5,
+     "margin": -0.7
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 29.2,
+     "margin": -0.4
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Move the spoon to the center of the blue towel.",
+     "delta_pp": 26.0,
+     "margin": -0.2
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Move the spoon to the center of the blue towel.",
+     "delta_pp": 25.7,
+     "margin": -0.3
+    },
+    {
+     "task": "widowx_carrot_on_plate",
+     "better": "Place the orange carrot on the green plate.",
+     "worse": "Place the vegetable on the ceramic dish.",
+     "delta_pp": 25.0,
+     "margin": -0.125
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Move the spoon to the center of the blue towel.",
+     "delta_pp": 25.0,
+     "margin": -0.4
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 24.9,
+     "margin": -0.7
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 24.7,
+     "margin": -0.3
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 23.6,
+     "margin": -0.2
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 23.5,
+     "margin": -0.4
+    },
+    {
+     "task": "widowx_carrot_on_plate",
+     "better": "Place the orange carrot on the light-green plate.",
+     "worse": "Place the vegetable on the ceramic dish.",
+     "delta_pp": 23.3,
+     "margin": -0.25
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 20.1,
+     "margin": -0.6
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "Pick up the purple eggplant and place it in the yellow bin.",
+     "worse": "Arrange the eggplant in the yellow bin.",
+     "delta_pp": 19.4,
+     "margin": -0.1429
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 18.6,
+     "margin": -0.3
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the green-handled spoon in the center of the blue towel.",
+     "delta_pp": 17.5,
+     "margin": -0.4
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the green-handled spoon in the center of the blue towel.",
+     "delta_pp": 17.2,
+     "margin": -0.5
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 15.6,
+     "margin": -0.5
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 14.1,
+     "margin": -0.2
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Pick up the green block and place it on top of the yellow block.",
+     "delta_pp": 11.6,
+     "margin": -0.2857
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put the eggplant into the yellow basket",
+     "worse": "Pick up the eggplant and place it in the yellow bin.",
+     "delta_pp": 8.0,
+     "margin": -0.1429
+    }
+   ]
+  },
+  "GL_75_25": {
+   "correct": 65,
+   "n": 68,
+   "fails": [
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.1,
+     "margin": -0.0
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 20.1,
+     "margin": -0.075
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Take the green cube and place it on the yellow cube.",
+     "worse": "Pick up the green block and place it on top of the yellow block.",
+     "delta_pp": 12.0,
+     "margin": -0.0714
+    }
+   ]
+  },
+  "GL_50_50": {
+   "correct": 52,
+   "n": 68,
+   "fails": [
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 40.6,
+     "margin": 0.0
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 39.9,
+     "margin": -0.15
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 36.1,
+     "margin": -0.05
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.8,
+     "margin": -0.15
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.1,
+     "margin": -0.3
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.3,
+     "margin": -0.05
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 30.6,
+     "margin": -0.2
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 29.5,
+     "margin": -0.05
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 29.2,
+     "margin": 0.0
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 24.9,
+     "margin": -0.1
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 20.1,
+     "margin": -0.25
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 18.6,
+     "margin": -0.05
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the green-handled spoon in the center of the blue towel.",
+     "delta_pp": 17.5,
+     "margin": 0.0
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the green-handled spoon in the center of the blue towel.",
+     "delta_pp": 17.2,
+     "margin": -0.1
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 15.6,
+     "margin": -0.15
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Take the green cube and place it on the yellow cube.",
+     "worse": "Pick up the green block and place it on top of the yellow block.",
+     "delta_pp": 12.0,
+     "margin": 0.0
+    }
+   ]
+  },
+  "GL_25_75": {
+   "correct": 39,
+   "n": 68,
+   "fails": [
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 41.0,
+     "margin": -0.35
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 40.6,
+     "margin": -0.45
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 39.9,
+     "margin": -0.575
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 36.1,
+     "margin": -0.375
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.8,
+     "margin": -0.475
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.1,
+     "margin": -0.6
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 34.0,
+     "margin": -0.175
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "margin": -0.275
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.3,
+     "margin": -0.375
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 30.6,
+     "margin": -0.15
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 30.6,
+     "margin": -0.5
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 30.2,
+     "margin": -0.25
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 29.5,
+     "margin": -0.375
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 29.2,
+     "margin": -0.2
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Move the spoon to the center of the blue towel.",
+     "delta_pp": 25.7,
+     "margin": -0.05
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Move the spoon to the center of the blue towel.",
+     "delta_pp": 25.0,
+     "margin": -0.175
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 24.9,
+     "margin": -0.4
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 24.7,
+     "margin": -0.1
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 23.5,
+     "margin": -0.15
+    },
+    {
+     "task": "widowx_carrot_on_plate",
+     "better": "Place the orange carrot on the light-green plate.",
+     "worse": "Place the vegetable on the ceramic dish.",
+     "delta_pp": 23.3,
+     "margin": -0.0625
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 20.1,
+     "margin": -0.425
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "Pick up the purple eggplant and place it in the yellow bin.",
+     "worse": "Arrange the eggplant in the yellow bin.",
+     "delta_pp": 19.4,
+     "margin": -0.0357
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 18.6,
+     "margin": -0.175
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the green-handled spoon in the center of the blue towel.",
+     "delta_pp": 17.5,
+     "margin": -0.2
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the green-handled spoon in the center of the blue towel.",
+     "delta_pp": 17.2,
+     "margin": -0.3
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 15.6,
+     "margin": -0.325
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 14.1,
+     "margin": -0.075
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Pick up the green block and place it on top of the yellow block.",
+     "delta_pp": 11.6,
+     "margin": -0.0714
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put the eggplant into the yellow basket",
+     "worse": "Pick up the eggplant and place it in the yellow bin.",
+     "delta_pp": 8.0,
+     "margin": -0.0357
+    }
+   ]
+  },
+  "ZL_25_75": {
+   "correct": 38,
+   "n": 68,
+   "fails": [
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 41.0,
+     "margin": -0.475
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 40.6,
+     "margin": -0.575
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 39.9,
+     "margin": -0.85
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 36.1,
+     "margin": -0.425
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.8,
+     "margin": -0.525
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 35.1,
+     "margin": -0.8
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 34.0,
+     "margin": -0.3
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.7,
+     "margin": -0.375
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 31.3,
+     "margin": -0.475
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 30.6,
+     "margin": -0.125
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 30.6,
+     "margin": -0.75
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 30.2,
+     "margin": -0.225
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Place the green spoon in the center of the blue towel.",
+     "delta_pp": 29.5,
+     "margin": -0.5
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 29.2,
+     "margin": -0.25
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Move the spoon to the center of the blue towel.",
+     "delta_pp": 26.0,
+     "margin": 0.0
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Move the spoon to the center of the blue towel.",
+     "delta_pp": 25.7,
+     "margin": -0.1
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the green-handled spoon on the blue cloth",
+     "worse": "Move the spoon to the center of the blue towel.",
+     "delta_pp": 25.0,
+     "margin": -0.375
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 24.9,
+     "margin": -0.6
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it on the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 24.7,
+     "margin": -0.2
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Pick up the spoon and place it in the middle of the towel.",
+     "delta_pp": 23.5,
+     "margin": -0.35
+    },
+    {
+     "task": "widowx_carrot_on_plate",
+     "better": "Place the orange carrot on the light-green plate.",
+     "worse": "Place the vegetable on the ceramic dish.",
+     "delta_pp": 23.3,
+     "margin": -0.0938
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 20.1,
+     "margin": -0.55
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Place the spoon exactly in the middle of the towel.",
+     "delta_pp": 18.6,
+     "margin": -0.3
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "put the spoon on the towel",
+     "worse": "Place the green-handled spoon in the center of the blue towel.",
+     "delta_pp": 17.5,
+     "margin": -0.125
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "place the spoon on the towel",
+     "worse": "Place the green-handled spoon in the center of the blue towel.",
+     "delta_pp": 17.2,
+     "margin": -0.225
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Pick up the green-handled spoon and place it in the center of the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 15.6,
+     "margin": -0.5
+    },
+    {
+     "task": "widowx_spoon_on_towel",
+     "better": "Place the green-handled spoon in the center of the blue towel.",
+     "worse": "Set the spoon exactly in the middle of the towel.",
+     "delta_pp": 14.1,
+     "margin": -0.25
+    },
+    {
+     "task": "widowx_stack_cube",
+     "better": "Place the green block on top of the yellow block.",
+     "worse": "Pick up the green block and place it on top of the yellow block.",
+     "delta_pp": 11.6,
+     "margin": -0.0714
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put the eggplant into the yellow basket",
+     "worse": "Pick up the purple eggplant and place it in the yellow bin.",
+     "delta_pp": 11.5,
+     "margin": 0.0
+    },
+    {
+     "task": "widowx_put_eggplant_in_basket",
+     "better": "put the eggplant into the yellow basket",
+     "worse": "Pick up the eggplant and place it in the yellow bin.",
+     "delta_pp": 8.0,
+     "margin": -0.25
+    }
+   ]
+  }
+ },
+ "regret_per_task": {
+  "widowx_carrot_on_plate": {
+   "C1_ens4f": {
+    "top1_point": 2.1,
+    "top3_point": 2.1,
+    "top1_scorefix_p95": 2.1
+   },
+   "C4b_rank_25_75": {
+    "top1_point": 2.1,
+    "top3_point": 2.1,
+    "top1_scorefix_p95": 12.6
+   },
+   "GRIP_pure": {
+    "top1_point": 2.1,
+    "top3_point": 2.1,
+    "top1_scorefix_p95": 12.6
+   },
+   "L2_pure": {
+    "top1_point": 12.6,
+    "top3_point": 1.4,
+    "top1_scorefix_p95": 30.2
+   },
+   "GL_75_25": {
+    "top1_point": 2.1,
+    "top3_point": 2.1,
+    "top1_scorefix_p95": 12.6
+   },
+   "GL_50_50": {
+    "top1_point": 12.6,
+    "top3_point": 2.1,
+    "top1_scorefix_p95": 12.6
+   },
+   "GL_25_75": {
+    "top1_point": 12.6,
+    "top3_point": 1.4,
+    "top1_scorefix_p95": 12.6
+   },
+   "ZL_25_75": {
+    "top1_point": 12.6,
+    "top3_point": 1.4,
+    "top1_scorefix_p95": 12.6
+   }
+  },
+  "widowx_spoon_on_towel": {
+   "C1_ens4f": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "top1_scorefix_p95": 0.3
+   },
+   "C4b_rank_25_75": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "top1_scorefix_p95": 6.9
+   },
+   "GRIP_pure": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "top1_scorefix_p95": 16.0
+   },
+   "L2_pure": {
+    "top1_point": 41.0,
+    "top3_point": 31.7,
+    "top1_scorefix_p95": 41.0
+   },
+   "GL_75_25": {
+    "top1_point": 0.0,
+    "top3_point": 0.0,
+    "top1_scorefix_p95": 36.1
+   },
+   "GL_50_50": {
+    "top1_point": 6.9,
+    "top3_point": 6.9,
+    "top1_scorefix_p95": 36.1
+   },
+   "GL_25_75": {
+    "top1_point": 36.1,
+    "top3_point": 31.7,
+    "top1_scorefix_p95": 41.0
+   },
+   "ZL_25_75": {
+    "top1_point": 41.0,
+    "top3_point": 31.7,
+    "top1_scorefix_p95": 41.0
+   }
+  },
+  "widowx_stack_cube": {
+   "C1_ens4f": {
+    "top1_point": 0.5,
+    "top3_point": 0.5,
+    "top1_scorefix_p95": 5.6
+   },
+   "C4b_rank_25_75": {
+    "top1_point": 0.5,
+    "top3_point": 0.5,
+    "top1_scorefix_p95": 0.5
+   },
+   "GRIP_pure": {
+    "top1_point": 0.5,
+    "top3_point": 0.5,
+    "top1_scorefix_p95": 35.8
+   },
+   "L2_pure": {
+    "top1_point": 11.8,
+    "top3_point": 0.0,
+    "top1_scorefix_p95": 11.8
+   },
+   "GL_75_25": {
+    "top1_point": 11.8,
+    "top3_point": 0.5,
+    "top1_scorefix_p95": 12.0
+   },
+   "GL_50_50": {
+    "top1_point": 11.8,
+    "top3_point": 0.5,
+    "top1_scorefix_p95": 11.8
+   },
+   "GL_25_75": {
+    "top1_point": 11.8,
+    "top3_point": 0.0,
+    "top1_scorefix_p95": 11.8
+   },
+   "ZL_25_75": {
+    "top1_point": 11.8,
+    "top3_point": 0.0,
+    "top1_scorefix_p95": 11.8
+   }
+  },
+  "widowx_put_eggplant_in_basket": {
+   "C1_ens4f": {
+    "top1_point": 2.4,
+    "top3_point": 0.3,
+    "top1_scorefix_p95": 11.5
+   },
+   "C4b_rank_25_75": {
+    "top1_point": 0.3,
+    "top3_point": 0.3,
+    "top1_scorefix_p95": 11.5
+   },
+   "GRIP_pure": {
+    "top1_point": 0.3,
+    "top3_point": 0.0,
+    "top1_scorefix_p95": 11.5
+   },
+   "L2_pure": {
+    "top1_point": 2.4,
+    "top3_point": 0.3,
+    "top1_scorefix_p95": 2.4
+   },
+   "GL_75_25": {
+    "top1_point": 0.3,
+    "top3_point": 0.3,
+    "top1_scorefix_p95": 8.0
+   },
+   "GL_50_50": {
+    "top1_point": 0.3,
+    "top3_point": 0.3,
+    "top1_scorefix_p95": 2.4
+   },
+   "GL_25_75": {
+    "top1_point": 2.4,
+    "top3_point": 0.3,
+    "top1_scorefix_p95": 2.4
+   },
+   "ZL_25_75": {
+    "top1_point": 2.4,
+    "top3_point": 0.3,
+    "top1_scorefix_p95": 2.4
+   }
+  }
+ },
+ "spearman_per_task": {
+  "C1_ens4f": {
+   "widowx_carrot_on_plate": 0.067,
+   "widowx_spoon_on_towel": 0.3,
+   "widowx_stack_cube": 0.643,
+   "widowx_put_eggplant_in_basket": 0.048
+  },
+  "C4b_rank_25_75": {
+   "widowx_carrot_on_plate": -0.117,
+   "widowx_spoon_on_towel": 0.827,
+   "widowx_stack_cube": 0.524,
+   "widowx_put_eggplant_in_basket": 0.826
+  },
+  "GRIP_pure": {
+   "widowx_carrot_on_plate": -0.117,
+   "widowx_spoon_on_towel": 0.9,
+   "widowx_stack_cube": 0.524,
+   "widowx_put_eggplant_in_basket": 0.886
+  },
+  "L2_pure": {
+   "widowx_carrot_on_plate": -0.033,
+   "widowx_spoon_on_towel": -0.918,
+   "widowx_stack_cube": 0.429,
+   "widowx_put_eggplant_in_basket": 0.695
+  },
+  "GL_75_25": {
+   "widowx_carrot_on_plate": -0.117,
+   "widowx_spoon_on_towel": 0.716,
+   "widowx_stack_cube": 0.452,
+   "widowx_put_eggplant_in_basket": 0.826
+  },
+  "GL_50_50": {
+   "widowx_carrot_on_plate": -0.084,
+   "widowx_spoon_on_towel": -0.018,
+   "widowx_stack_cube": 0.479,
+   "widowx_put_eggplant_in_basket": 0.855
+  },
+  "GL_25_75": {
+   "widowx_carrot_on_plate": -0.017,
+   "widowx_spoon_on_towel": -0.764,
+   "widowx_stack_cube": 0.452,
+   "widowx_put_eggplant_in_basket": 0.717
+  },
+  "ZL_25_75": {
+   "widowx_carrot_on_plate": 0.017,
+   "widowx_spoon_on_towel": -0.767,
+   "widowx_stack_cube": 0.467,
+   "widowx_put_eggplant_in_basket": 0.663
+  }
+ }
+}
