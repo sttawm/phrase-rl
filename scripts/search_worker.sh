@@ -23,20 +23,22 @@ while true; do
       *)         EPIDS="0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17"; REPS=2 ;;
     esac
     mark "processing $f (ids: $EPIDS x$REPS)"
+    rm -f data/search_w*.parquet
     F=$f .venv-gen/bin/python -c "
 import json, os
 import pandas as pd
 j = json.load(open(os.environ['F']))
 rows = [{'task': j['task'], 'arm': 'search', 'phrase': p, 'instruction': p} for p in j['phrases']]
 d = pd.DataFrame(rows)
-nw = $NW
-for w in range(nw):
-    d.iloc[w::nw].to_parquet(f'data/search_w{w}.parquet', index=False)
-print(len(d))" || { mark "BUILD FAILED $f"; continue; }
+k = max(1, min($NW, len(d)))   # never emit an empty shard (2-phrase boards!)
+for w in range(k):
+    d.iloc[w::k].to_parquet(f'data/search_w{w}.parquet', index=False)
+print(len(d), 'phrases ->', k, 'shards')" || { mark "BUILD FAILED $f"; continue; }
     rm -f data/search_out_w*.parquet
     cd /workspace/INT-ACT
     pids=""
     for w in $(seq 0 $((NW-1))); do
+      [ -f /workspace/phrase-rl/data/search_w$w.parquet ] || continue
       sleep 45
       /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
         --int-act-root /workspace/INT-ACT \

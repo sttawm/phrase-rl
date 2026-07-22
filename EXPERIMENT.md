@@ -1373,3 +1373,15 @@ artifacts; category words fine (basin +16.7 over bowl); teal-green −33.4 = vis
 fidelity must stay inside corpus vocabulary; clause verbs place≫put +19.4,
 pick-up≫take +22.2; set≥put (+13.9 spoon); stack verb −19.4; onto harmless +2.8.
 xcert/xcert2 certification (n=144/phrase/task) supersedes on overlap when it lands.
+
+## 2026-07-22 late — pair-measurement standard upgraded to all-24-layouts
+
+Per user: the 18/6 layout split only serves ACTIVE SEARCH (selection needs
+untouched layouts). Pre-registered minimal pairs get no benefit — so all
+future purification/minimal-pair boards run all 24 layouts ×6 (n=144, paired
+SE ≈ 5.9pp), i.e. xcert mode, via file naming xcert_pure_*. The three round-2
+boards (wheel/carrotplate/eggplant) upgraded before first run. Completed
+n=36 pure1 boards stand; after xcert lands, any pure1-unique cells worth
+certifying get topped up to 24×6. Also fixed search_worker.sh empty-shard
+bug (2-phrase boards + NW=3 → KeyError 'task' → whole board failed; now
+shards = min(NW, n_phrases)).
