@@ -9,6 +9,9 @@ uv.lock
 results/checkpoints/*
 !results/checkpoints/.gitkeep
 !results/checkpoints/metrics.json
+# curated checkpoint archive: 90MB split tars + manifests (scripts/ckpt_archive.sh)
+!results/checkpoints/archive/
+!results/checkpoints/archive/**
 data/
 *.safetensors
 *.pt
