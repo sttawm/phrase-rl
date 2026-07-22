@@ -1234,3 +1234,17 @@ User rotated the Gemini key and provisioned it (file-transfer protocol,
 never in logs). Sign-off for the ~42-call sealed batch: GRANTED. Batch
 still fires only at eval time per pre-registration. Post-batch key
 rotation recommended once the one-shot completes.
+
+## Rules-arm generation smoke: PASS (2026-07-22, checklist item 3)
+Qwen follows the B4 rules with high fidelity on all 8 val inputs — and
+makes the winning move on ALL THREE tasks the trained arms kept failing:
+ramekin -> "pick up the soda can and place it upright inside the ceramic
+bowl" (the exact v6-64.2% shape: Rule 7 upright-inside + Rule 1 trace
+noun); coke-plate -> "put the soda can on the plate" (deixis dropped per
+Rule 8/Case 6 — the move v2 never made); keyboard -> "put the carrot on
+the keyboard" (noun kept). Bonus: stack -> "put the teal-green cube on
+the yellow cube" — T5 implemented the cube>block preference from the
+trace's own scene noun without the pair ever being named. Eggplant maps
+to "yellow dish rack" (trace's visual name; historically a 92.7% cell —
+watch it). Wheel takes the trace's "tire" (record-holder said "wheel" —
+T5 tension, trace wins by design).
