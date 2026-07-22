@@ -25,11 +25,11 @@ SEALED = {
  "widowx_coke_can_on_wheel_clean": "put coke can on wheel",
  "widowx_eggplant_on_keyboard_clean": "put eggplant on keyboard",
  "widowx_eggplant_on_sponge_clean": "put eggplant on sponge",
- "widowx_green_cube_on_plate_clean": "put green cube on plate",
+ "widowx_cube_on_plate_clean": "put green cube on plate",
  "widowx_nut_on_plate_clean": "put nut on plate",
  "widowx_nut_on_wheel_clean": "put nut on wheel",
  "widowx_orange_juice_on_plate_clean": "put orange juice on plate",
- "widowx_pepsi_can_on_plate_clean": "put pepsi can on plate",
+ "widowx_pepsi_on_plate_clean": "put pepsi can on plate",
  "widowx_small_plate_on_green_cube_clean": "put small plate on green cube",
 }
 DRY = {"widowx_spoon_on_towel": "put the spoon on the towel"}
