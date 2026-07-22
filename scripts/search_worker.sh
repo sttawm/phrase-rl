@@ -13,6 +13,7 @@ while true; do
   git pull -q --rebase 2>/dev/null
   for f in results/search/*_phrases.json; do
     [ -e "$f" ] || continue
+    [[ "$(basename $f)" =~ ${TASK_FILTER:-.} ]] || continue
     OUT="${f%_phrases.json}_results.json"
     [ -f "$OUT" ] && continue
     # confirm files run on the HELD-OUT layouts at full reps
