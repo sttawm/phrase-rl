@@ -1,0 +1,12 @@
+{
+ "task": "widowx_put_eggplant_in_basket",
+ "control": "put the eggplant in the yellow basket",
+ "phrases": [
+  "put the eggplant in the yellow basket",
+  "put the eggplant in the basket",
+  "put the eggplant in the yellow rack",
+  "put the eggplant in the yellow dish rack",
+  "put the eggplant into the yellow basket",
+  "put the aubergine in the yellow basket"
+ ]
+}

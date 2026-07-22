@@ -1,0 +1,12 @@
+{
+ "task": "widowx_carrot_on_plate",
+ "control": "put the carrot on the plate",
+ "phrases": [
+  "put the carrot on the plate",
+  "put the orange carrot on the plate",
+  "put the carrot on the green plate",
+  "put the carrot on the yellow plate",
+  "place the carrot on the plate",
+  "put carrot on plate"
+ ]
+}

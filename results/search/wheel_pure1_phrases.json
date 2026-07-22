@@ -1,0 +1,11 @@
+{
+ "task": "widowx_carrot_on_wheel_clean",
+ "control": "put the carrot on the black wheel",
+ "phrases": [
+  "put the carrot on the black wheel",
+  "put the carrot on the wheel",
+  "put the carrot on the black tire",
+  "set the carrot on the black wheel",
+  "place the carrot on the black wheel"
+ ]
+}
