@@ -1,0 +1,86 @@
+{
+ "task": "widowx_put_eggplant_in_basket",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "place the purple eggplant into the yellow basket",
+   "success_pct": 97.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the purple eggplant in the yellow basket",
+   "success_pct": 97.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the eggplant into the yellow basket",
+   "success_pct": 97.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the eggplant in the yellow basket",
+   "success_pct": 97.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the eggplant down in the yellow basket",
+   "success_pct": 94.4,
+   "n": 36
+  },
+  {
+   "phrase": "place the eggplant in the yellow basket",
+   "success_pct": 94.4,
+   "n": 36
+  },
+  {
+   "phrase": "set the eggplant in the yellow basket",
+   "success_pct": 94.4,
+   "n": 36
+  },
+  {
+   "phrase": "put the eggplant in the yellow dish rack",
+   "success_pct": 94.4,
+   "n": 36
+  },
+  {
+   "phrase": "lay the eggplant in the yellow basket",
+   "success_pct": 91.7,
+   "n": 36
+  },
+  {
+   "phrase": "place the eggplant inside the yellow basket",
+   "success_pct": 91.7,
+   "n": 36
+  },
+  {
+   "phrase": "put the aubergine in the yellow basket",
+   "success_pct": 91.7,
+   "n": 36
+  },
+  {
+   "phrase": "put eggplant into yellow basket",
+   "success_pct": 91.7,
+   "n": 36
+  },
+  {
+   "phrase": "drop the eggplant in the yellow basket",
+   "success_pct": 88.9,
+   "n": 36
+  },
+  {
+   "phrase": "put the eggplant in the basket",
+   "success_pct": 80.6,
+   "n": 36
+  },
+  {
+   "phrase": "eggplant in yellow basket",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "put the eggplant in the yellow bin",
+   "success_pct": 58.3,
+   "n": 36
+  }
+ ]
+}
