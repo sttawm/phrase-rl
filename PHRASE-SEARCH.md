@@ -122,11 +122,13 @@ and pale yellow) — "cube" ≫ "block" is visual-fidelity naming; the honest
 | **−33.4** | "put the small **teal-green** cube on the yellow cube" | 19.4% | green → teal-green |
 
 The nominal's own verb "stack" costs −19.4 fully specified. "Cube ≫ block"
-is confirmed clean (−25.0; corpus: cube ×407, block ×159). The visually
-honest "teal-green" is the worst single edit on the board (−33.4): the
-corpus's plain color word beats visual precision — visual-fidelity naming
-works only *within* the training vocabulary. And the size cue "small"
-carries real signal (−13.9 when dropped).
+is confirmed clean (−25.0 here; **certified −15.3 at n=144** — real). The
+visually honest "teal-green" is the worst single edit on the board (−33.4):
+the corpus's plain color word beats visual precision — visual-fidelity
+naming works only *within* the training vocabulary. The size cue "small"
+looked like signal here (−13.9 when dropped) but was **REFUTED at
+certification** (+0.7 at n=144) — an n=36 fluke, and a good example of why
+pure1 gaps under ~11pp stay provisional.
 
 Full table (all measured pairs, including multi-edit):
 
@@ -437,14 +439,16 @@ task; each cell is the Δ (pp) of that single edit vs the task's base phrase
 "put the [source] on/in the [target]" (articles included), all at n=144 per
 phrase on all 24 layouts. |Δ| ≳ 12 is ~2σ under conservative errors.
 
-| edit | carrot→plate (base 43.1) | carrot→keyboard (base 15.3) | coke→white bowl (base 62.5) |
-|---|---|---|---|
-| put → set | +4.1 | −0.7 | −7.6 |
-| relation swap | −2.8 (onto) | +0.7 (onto) | −3.5 (into) · −4.9 (inside) |
-| on → on top of | +0.7 | +1.4 | — |
-| + target color adjective | −0.7 (green) | **+11.1** (black) | — |
-| source → category/brand word | **−25.7** (vegetable) | **−7.7** (vegetable) | **−47.2** (coke→soda) |
-| receptacle synonym | −1.4 (dish) | — | **0.0** (cup!) · −6.3 (dish) |
+| edit | carrot→plate (43.1) | carrot→keyboard (15.3) | coke→white bowl (62.5) | stack cubes (41.0) |
+|---|---|---|---|---|
+| put → set | +4.1 | −0.7 | −7.6 | −2.8 |
+| relation swap | −2.8 (onto) | +0.7 (onto) | −3.5 (into) · −4.9 (inside) | −2.1 (onto) |
+| on → on top of | +0.7 | +1.4 | — | −7.0 |
+| + target color adjective | −0.7 (green) | **+11.1** (black) | — | — |
+| + size adjective ("small") | — | — | — | +0.7 (pure1's −13.9 REFUTED) |
+| source → category/brand word | **−25.7** (vegetable) | **−7.7** (vegetable) | **−47.2** (coke→soda) | — |
+| object-noun family swap | — | — | — | **−15.3** (cube→block) |
+| receptacle synonym | −1.4 (dish) | — | **0.0** (cup!) · −6.3 (dish) | — |
 
 Certified so far: **source-token identity is the sovereign effect** —
 category/brand degradation costs −7.7 to **−47.2** (coke→soda on the
