@@ -496,15 +496,15 @@ task; each cell is the Δ (pp) of that single edit vs the task's base phrase
 "put the [source] on/in the [target]" (articles included), all at n=144 per
 phrase on all 24 layouts. |Δ| ≳ 12 is ~2σ under conservative errors.
 
-| edit | carrot→plate (43.1) | carrot→keyboard (15.3) | coke→white bowl (62.5) | stack cubes (41.0) | eggplant→basket (93.1) |
-|---|---|---|---|---|---|
-| put → set | +4.1 | −0.7 | −7.6 | −2.8 | −0.7 |
-| relation swap | −2.8 (onto) | +0.7 (onto) | −3.5 (into) · −4.9 (inside) | −2.1 (onto) | −0.7 (into) · 0.0 (inside) |
-| on → on top of | +0.7 | +1.4 | — | −7.0 | — |
+| edit | carrot→plate (43.1) | carrot→keyboard (15.3) | coke→white bowl (62.5) | stack cubes (41.0) | eggplant→basket (93.1) | spoon→towel (52.1) |
+|---|---|---|---|---|---|---|
+| put → set | +4.1 | −0.7 | −7.6 | −2.8 | −0.7 | +5.5 |
+| relation swap | −2.8 (onto) | +0.7 (onto) | −3.5 (into) · −4.9 (inside) | −2.1 (onto) | −0.7 (into) · 0.0 (inside) | −1.4 (onto) |
+| on → on top of | +0.7 | +1.4 | — | −7.0 | — | **+9.7** (high-variance edit: −22…+10 across tasks) |
 | + source color adjective | — | — | — | — | +1.3 (purple) |
 | + target color adjective | −0.7 (green) | **+11.1** (black) | — | — | — |
 | + size adjective ("small") | — | — | — | +0.7 (pure1's −13.9 REFUTED) | — |
-| source → category/brand word | **−25.7** (vegetable) | **−7.7** (vegetable) | **−47.2** (coke→soda) | — | −4.2 (vegetable, at ceiling) |
+| source → category/brand word | **−25.7** (vegetable) | **−7.7** (vegetable) | **−47.2** (coke→soda) | — | −4.2 (vegetable, at ceiling) | **−8.3** (utensil) · +3.5 (cloth = in-family, free) |
 | object-noun family swap | — | — | — | **−15.3** (cube→block) | — |
 | receptacle synonym/token | −1.4 (dish) | — | **0.0** (cup!) · −6.3 (dish) | — | **−31.3** (basket→bin) |
 
