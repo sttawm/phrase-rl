@@ -1537,3 +1537,26 @@ the explicit guard PRESENCE NEVER OVERRIDES A BAN (frequency != outcome).
 1.2c heuristic replaced by exact lookup. No rules-leg rollouts had run;
 Gemini-executor phrases regenerated under v3.1. Amendment is sealed-blind
 (appendix derives from training corpus only).
+
+## 2026-07-24 ~00:45 — plans logged (user session)
+
+**v8 sketch (rules-primed RL; PLANNED, not launched):** policy prompt =
+rules-v3.1 + trace + ERT (identical conditioning to the rules_v3_selftrace
+sealed arm = its step-0 baseline); inputs 100% hostile ERT; reward C4b F=16
+unchanged; KL anchors to rules-primed behavior. Rationale: executor-bound
+failures (soda/rubber-tire class) are exactly what the reward punishes → RL
+as the bridge between rules and a 9B executor; RL learns the coin-flip
+arbitrations rules can't encode. Decision point: current v7 val at step
+60/80 — flat → swap; climbing → v8 queues.
+
+**PRE-REGISTERED: sealed sampled twin for rules_v3 gemini executor** —
+declared before any rules-leg result is read. k=8 Gemini samples per sealed
+ERT (temp ~0.9), rolled 24 layouts x3 (n=72/phrase). Purpose: pipeline
+variance + greedy-vs-pool position. Runs after the three greedy rules legs.
+
+**CoVer 3-task port:** still deferred; revisit post-matrix iff CoVer release
+ships zucchini/tennis assets.
+
+**v7 rollout evals:** post-hoc on named checkpoints (best_val/s80/s120) per
+v6 protocol; in-loop probes select which checkpoints earn rollout spend;
+probe phrases may be grip-screened as a leading indicator.
