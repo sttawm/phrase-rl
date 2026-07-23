@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
-# v7 launcher (reward = relevance-gate ensemble 25 / grip 75 rank blend) — NATIVE-4F REWARD + TIERED INPUTS (EXPERIMENT.md "v6 run spec").
-#   run_arm_v6.sh A   -> 16-list gen (SOURCE-conditioned: conditioning consistency),
-#                        signed advantages, gateless
-#   run_arm_v6.sh B   -> true p_single sampling (on-policy GRPO), no dedupe
-# Both: reward = native-4f calibrated 5-seed ensemble; inputs 25% nominal / 25%
-# benign / 50% hostile-ERT with tier-matched traces; FROM SCRATCH in a fresh
-# ckpt dir (v5's results/checkpoints/phase2 is never touched).
+# v7 launcher — C4b reward (0.25*rank01(ensemble z) + 0.75*rank01(-grip), the
+# frozen bakeoff winner: 66/68 signs, 2.1pp max top-1 regret), otherwise the
+# v6 recipe verbatim: inputs 25% nominal / 25% benign / 50% hostile-ERT with
+# tier-matched Gemini traces; ERT-val reward curve every 20 steps; sampled
+# rollout probes on the val-8 task contexts every 25 steps.
+#   run_arm_v7.sh A   -> 16-list gen, signed advantages, gateless
+#   run_arm_v7.sh B   -> true p_single sampling (on-policy GRPO)  [the shot]
+# USER SPEC 2026-07-23 ("one last shot"): input-dropout 0.5 (up from v6's
+# 0.3333) to force trace reliance when the phrase is dropped.
+# FROM SCRATCH in results/checkpoints/phase2_v7 (stale desk-check latest/ removed).
 set -euxo pipefail
 ARM="${1:?usage: run_arm_v6.sh A|B}"
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY)' ~/.bashrc || true)"
@@ -21,6 +24,7 @@ esac
 
 IPC_DIR=/workspace/ipc
 mkdir -p "$IPC_DIR" results/checkpoints/phase2_v7
+rm -rf results/checkpoints/phase2_v7/latest   # fresh start; desk-check era stubs out
 rm -f "$IPC_DIR"/*.req.json "$IPC_DIR"/*.done.json "$IPC_DIR"/*.failed.json \
       "$IPC_DIR"/*.err.txt "$IPC_DIR"/*.parquet "$IPC_DIR"/*.tmp
 
@@ -43,7 +47,7 @@ tmux new-session -d -s train \
      --ckpt-dir results/checkpoints/phase2_v7 \
      --reward-mode verifier --reward-frames ${REWARD_FRAMES:-4} \
      --source-mix 0.25,0.25,0.5 \
-     --input-dropout 0.3333 \
+     --input-dropout 0.5 \
      --tier-tags \
      --reward-blend c4b --blend-w 0.25 \
      --gen-mode $GEN_MODE --update-rule grpo --no-gate \

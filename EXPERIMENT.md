@@ -1385,3 +1385,25 @@ n=36 pure1 boards stand; after xcert lands, any pure1-unique cells worth
 certifying get topped up to 24×6. Also fixed search_worker.sh empty-shard
 bug (2-phrase boards + NW=3 → KeyError 'task' → whole board failed; now
 shards = min(NW, n_phrases)).
+
+## 2026-07-23 — v7 GREENLIT (user: "one last shot"): C4b RL, v6 recipe + 50% phrase dropout
+
+User spec: redo RL with C4b; "50/25/25" mix (= v6's 50 hostile-ERT / 25 nominal /
+25 benign, unchanged); phrase dropout 0.5 (v6: 0.3333) to force trace usage;
+train with the cached Gemini teacher traces (cover35, same as v6); val = reward
+curve on the ERT val set (rephrases_val_0b, every 20 steps) + sampled rollout
+probes on the val-8 task contexts (every 25 steps) — v6-identical instrumentation.
+Arm B (on-policy GRPO), from scratch in phase2_v7. Harness pre-existed
+(run_arm_v7.sh: --reward-blend c4b --blend-w 0.25; score-server grip sidecar;
+within-group rank blend); only delta applied: --input-dropout 0.5.
+
+Queue: launches on the first pod freed after the certification queue drains
+(pod1 or pod3, est. ~04:30); sealed legs on pod2 unaffected.
+
+Pre-registered expectations: unlike v5/v6 (reward climbed while probes diverged
+— fine-axis pathology), C4b's exam profile (66/68 signs, 2.1pp max regret,
+rho 0.49) predicts ERT-val reward and probe success should move TOGETHER.
+Watch-fors: (a) trace-copy degeneracy amplified by 0.5 dropout — acceptable if
+probes hold (noun-copying is the desired mechanism); (b) echo-style verbose
+drift — C4b carries no echo penalty, but the L2-addendum showed grip (unlike
+L2) does not prefer the verbose family; (c) KL runaway (kl-abort 1.2 armed).
