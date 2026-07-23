@@ -1455,3 +1455,16 @@ Certification ETA ~08:00 (was ~11:30); v7 launches on pod1 after its share
 (~07:30; 16-frame tables already staged). Clause certification 6/8 in:
 structure free except keyboard −11.8 (~3σ). Sealed leg 1 (sft_v2) landed
 03:04: pooled 24.6, in-vocab carries / OOV craters per vocab-audit strata.
+
+## 2026-07-23 ~05:00 — grip-screen proposal (user): corpus-scale phrase comparison via the 67/68 reward
+
+Idea: use the exam-validated grip channel (rank01(-grip_err), CRN-paired) to
+compare phrase edits on the TRAINING corpus itself — 2000 Bridge episodes x
+16 frames (contexts_train_multit16), each with its GT instruction. Text-only
+edit family per instruction (put→set, on→onto/on-top-of, clause-wrap,
+telegram, please, category-noun map); paired per-context grip deltas.
+PRE-REGISTERED VALIDATION: sign agreement vs the certified rollout cells
+(clause family x8 + six-edit matrix); screen is DISCOVERY ONLY — rollout
+certification stays ground truth. Pilot 200 episodes (~20 min GPU) slotted
+after pod3's certification tail; full screen opportunistic behind sealed
+legs. Script: src/phrase_rl/phrase_grip_screen.py (writing now).
