@@ -36,11 +36,40 @@ CATEGORY_MAP = {
     "towel": "fabric", "sushi": "food", "mushroom": "vegetable",
 }
 
+# noun-family substitution candidates for the substitutability table (cat 11)
+FAMILY_MAP = {
+    "towel": ["cloth", "rag"], "cloth": ["towel", "rag"], "rag": ["cloth", "towel"],
+    "cup": ["mug", "bowl"], "mug": ["cup"], "bowl": ["dish", "basin"],
+    "pot": ["pan", "saucepan"], "pan": ["pot", "skillet"],
+    "block": ["cube"], "cube": ["block"], "basket": ["bin", "rack"],
+    "plate": ["dish"], "spoon": ["scoop"], "knife": ["blade"],
+    "bottle": ["flask"], "can": ["tin"], "lid": ["cover", "cap"],
+    "drawer": ["tray"], "sink": ["basin"],
+}
 
-def edits_for(instr: str):
-    """Yield (edit_name, variant) for every transform applicable to instr."""
+COLOR_WORDS = {"red", "blue", "green", "yellow", "orange", "purple", "white",
+               "black", "brown", "pink", "silver", "gray", "grey", "teal"}
+
+
+def trace_colors(trace: str):
+    """noun -> color the Gemini trace assigns it (first 'color noun' bigram wins)."""
     out = {}
-    low = instr.lower().strip()
+    for m in re.finditer(r"\b(" + "|".join(COLOR_WORDS) + r")\b\s+(?:toy\s+|metal\s+|plastic\s+)?(\w+)",
+                         trace.lower()):
+        color, noun = m.group(1), m.group(2)
+        out.setdefault(noun, color)
+    return out
+
+
+def edits_for(instr: str, trace: str = ""):
+    """Yield (edit_name, variant) for every transform applicable to instr.
+
+    With a trace (Gemini scene description), adds trace-grounded categories:
+    add_color (the color the TRACE assigns the noun — scene-true, not corpus
+    prior), drop_color, and noun-family swaps (only for nouns present in the
+    instruction; families reported per-pair by the analysis)."""
+    out = {}
+    low = instr.lower().strip().rstrip(".")
     if re.search(r"\bput\b", low):
         out["put_to_set"] = re.sub(r"\bput\b", "set", low, count=1)
         out["put_to_place"] = re.sub(r"\bput\b", "place", low, count=1)
@@ -59,6 +88,23 @@ def edits_for(instr: str):
         if re.search(rf"\b{noun}\b", low):
             out["category_noun"] = re.sub(rf"\b{noun}\b", cat, low, count=1)
             break
+    # --- trace-grounded categories ---
+    toks = set(re.findall(r"[a-z]+", low))
+    present_colors = toks & COLOR_WORDS
+    if present_colors:
+        c = sorted(present_colors)[0]
+        out["drop_color"] = re.sub(rf"\b{c}\b ?", "", low, count=1).replace("  ", " ").strip()
+    elif trace:
+        tc = trace_colors(trace)
+        for noun in toks:
+            if noun in tc:
+                out["add_color_traced"] = re.sub(rf"\b{noun}\b", f"{tc[noun]} {noun}", low, count=1)
+                break
+    for noun in sorted(toks):
+        if noun in FAMILY_MAP:
+            for alt in FAMILY_MAP[noun]:
+                out[f"family:{noun}->{alt}"] = re.sub(rf"\b{noun}\b", alt, low, count=1)
+            break
     return out
 
 
@@ -74,8 +120,16 @@ def main():
     ap.add_argument("--phrase-sets", default=None,
                     help="json {episode: {gt, phrases:[...]}} — image-grounded per-scene "
                          "boards (partial-order mode) instead of auto text edits")
+    ap.add_argument("--traces", default="results/phrase_artifacts/cover35_teacher_train.parquet",
+                    help="episode-keyed Gemini trace parquet for trace-grounded edits ('' disables)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
+
+    tmap = {}
+    if args.traces and not args.phrase_sets:
+        tdf = pd.read_parquet(args.traces, columns=["episode_index", "trace"])
+        tmap = {int(r.episode_index): str(r.trace) for r in tdf.itertuples()}
+        print(f"traces loaded: {len(tmap)} episodes")
 
     chunks = np.stack(pd.read_parquet(args.stats_contexts, columns=["action_chunk"])
                       ["action_chunk"].map(np.asarray))
@@ -111,7 +165,7 @@ def main():
             names = [f"p{i}" for i in range(1, len(plist))]  # vs phrases[0] as base
             phrases = [plist[0]] + plist[1:]
         else:
-            variants = edits_for(instr)
+            variants = edits_for(instr, tmap.get(int(ep), ""))
             if not variants:
                 continue
             phrases = [instr] + list(variants.values())
