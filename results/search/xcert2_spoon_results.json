@@ -1,0 +1,16 @@
+{
+ "task": "widowx_spoon_on_towel",
+ "n_per_phrase": 144,
+ "scoreboard": [
+  {
+   "phrase": "put the spoon on the towel",
+   "success_pct": 52.1,
+   "n": 144
+  },
+  {
+   "phrase": "pick up the spoon and put it on the towel",
+   "success_pct": 46.5,
+   "n": 144
+  }
+ ]
+}
