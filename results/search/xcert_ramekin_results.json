@@ -1,0 +1,41 @@
+{
+ "task": "widowx_coke_can_on_ramekin_clean",
+ "n_per_phrase": 144,
+ "scoreboard": [
+  {
+   "phrase": "put the coke can in the white bowl",
+   "success_pct": 62.5,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can in the white cup",
+   "success_pct": 62.5,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can into the white bowl",
+   "success_pct": 59.0,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can inside the white bowl",
+   "success_pct": 57.6,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can in the white dish",
+   "success_pct": 56.2,
+   "n": 144
+  },
+  {
+   "phrase": "set the coke can in the white bowl",
+   "success_pct": 54.9,
+   "n": 144
+  },
+  {
+   "phrase": "put the soda can in the white bowl",
+   "success_pct": 15.3,
+   "n": 144
+  }
+ ]
+}
