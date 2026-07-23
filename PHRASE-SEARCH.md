@@ -56,6 +56,28 @@ ceramic, cloth, blue).
 
 ---
 
+## Ten transferable rewriting rules (rules-v3 seed)
+
+Prescriptions a rewriter can execute given only the incoming instruction,
+the scene trace, and the training corpus — derived exclusively from the
+val-suite search + certification above, with zero knowledge of the sealed
+test set. Ordered by expected value.
+
+| # | rule | evidence |
+|---|---|---|
+| 1 | **Copy every concrete noun token exactly.** Never drift to a near-synonym of a token that's already in the corpus — brand names especially. | coke→soda −47.2 · basket→bin −31.3 · cube→block −15.3 (all n=144) |
+| 2 | **If a noun is absent from the training corpus, replace it with the corpus's name for what the object looks like** (from the trace) — otherwise leave names alone. | "ramekin" (corpus-absent) −41.7; "aubergine"/"rack" (corpus-present) free; "white bowl" rescue +69 |
+| 3 | **Never substitute a category word for a nameable object** ("object", "vegetable", "item"). If the trace names it, use that name. | vegetable-for-carrot −25.7 (plate) and −7.7 (keyboard) |
+| 4 | **Add the trace's color adjective to a target noun that is rare or hard to ground; add nothing to common ones.** | +black keyboard +11.1 · +black wheel +13.9 · green/yellow on plate ≈0 · dropping "yellow basket" −8.4 |
+| 5 | **Assemble the output as one complete corpus template** ("put the X on the Y" / "pick up the X and place it on the Y"), not as a pile of local edits. | template combo +8.3 where summed edits predicted −10 |
+| 6 | **Keep it to ONE short clause when the task looks hard** (rare target, awkward geometry per trace); extra clauses are only safe on easy tasks. | clause tax scales with difficulty: −4.2 → −5.6 → −7.0 → −11.8 (8/8 tasks) |
+| 7 | **Do not tune prepositions or swap put/set/place** — keep the incoming relation word unless it contradicts the geometry (in vs on). | onto/into/inside/on-top-of +1…−5 everywhere; set +4…−8 coin-flip |
+| 8 | **Take nouns from the trace, structure from the corpus:** adopt the trace's concrete object namings into the template slots; take nothing else from the trace. | trace-noun adoption is the mechanism behind every rescue arm; structure effects are rules 5–7 |
+| 9 | **If the input is already a short corpus-style imperative, pass it through unchanged.** Rewriting a good phrase risks rule-1 damage and buys ~nothing blind. | good nominals: best blind edits ≤ +8 with heavy downside tails; rephraser arms lose exactly where they rewrote good inputs |
+| 10 | **Strip verbose wrappers from hostile inputs down to the minimal template with the traced nouns** — politeness and filler are neutral at best; spatial elaborations add risk, never value. | "please" +0 · telegram +3.4 · "on top of" −22 (worst case) · every rescue used a minimal template |
+
+---
+
 ## Scene by scene
 
 ### 1. Coke can → ramekin — THE rescue (+59.7 confirmed)
