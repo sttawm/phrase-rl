@@ -76,6 +76,24 @@ test set. Ordered by expected value.
 | 9 | **If the input is already a short corpus-style imperative, pass it through unchanged.** Rewriting a good phrase risks rule-1 damage and buys ~nothing blind. | good nominals: best blind edits ≤ +8 with heavy downside tails; rephraser arms lose exactly where they rewrote good inputs |
 | 10 | **Strip verbose wrappers from hostile inputs down to the minimal template with the traced nouns** — politeness and filler are neutral at best; spatial elaborations add risk, never value. | "please" +0 · telegram +3.4 · "on top of" −22 (worst case) · every rescue used a minimal template |
 
+## Ten more transferable rules (11–20)
+
+Second tier: smaller or mixed-n evidence where noted, same sealed-blind
+derivation.
+
+| # | rule | evidence |
+|---|---|---|
+| 11 | **Articles are optional; the VERB is not.** Dropping the/a is free; never emit a verbless fragment. | telegram +3.4 (n=144) · verbless "eggplant in yellow basket" −34.2 · "stack the cubes" 0.0% |
+| 12 | **Name BOTH objects explicitly, source and target** — no pronouns, no collapsed forms. | fully-named +33.0 over underspecified "stack the cubes" (n=180 vs 36) |
+| 13 | **Whole-object names only — never part names.** | "keys" −23.6 · "rim" −29.2 (single-edit, n=36–144) |
+| 14 | **Keep any in-corpus brand/proper name, even a wrong-ish one — never genericize it.** The wrong brand is free; the generic word is a cliff. | pepsi-for-coke ≈0 (−2.8) vs soda-for-coke **−13.9/−47.2** |
+| 15 | **Color adjectives yes (rule 4); material adjectives no.** The corpus names appearance, not composition. | "rubber tire" −6.9 · corpus: appearance-adj templates ~4.5k, material-adj ≈0 |
+| 16 | **Prefer generic put/place over task-jargon verbs** (stack, move, drag...). | "stack" −19.4 even fully specified · "move" −8.3 (pure1, n=36) |
+| 17 | **Use simple, corpus-common color words from the trace — never compound or precise shades.** When a color is ambiguous, either simple reading works. | teal-green **−33.4** vs green · green≈yellow both ≈0 on the ambiguous plate (n=144) |
+| 18 | **Pick the relation (in vs on) from the scene geometry in the trace; spell it in its simplest form.** Within the right relation, spelling is free. | in/into/inside/onto all ±5 (n=144) · the ramekin rescue REQUIRED on→in · "on top of" is the risky spelling (−22 worst case) |
+| 19 | **Insert no adverbs or precision words** (upright, exactly, carefully, gently...). They never help and this lexicon is a known reward-hacking artifact. | "upright" −7.8/−9.7 (PURE) · "please" 0 · v5 echo-Goodhart forensics |
+| 20 | **Edit aggressiveness should scale with expected failure**: if the trace shows a rare/OOV target or a geometry mismatch, rewrite hard (rules 2/4/6); if the input already reads like corpus text, touch nothing (rule 9). | all big rescues occurred on bad nominals (headroom +69→+4 anti-correlates with nominal quality); rewriter arms lose exactly on good inputs |
+
 ---
 
 ## Scene by scene
