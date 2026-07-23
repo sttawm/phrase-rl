@@ -24,6 +24,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the carrot and place it in the white bowl.'
 - **v6_rl**: 'Pick up the orange carrot and place it in the white bowl.'
 - **rules_gemini**: 'put the carrot in the white bowl'
+- **rules_v3_gemini_executor**: 'put the carrot in the white bowl'
 - **oracle_pool** (16 draws):
     - 'Sprinkle the carrot onto the ramekin.'
     - 'Place the carrot on the ramekin.'
@@ -50,6 +51,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the orange carrot and place it on the green and yellow sponge.'
 - **v6_rl**: 'Place the orange carrot on top of the green and yellow sponge.'
 - **rules_gemini**: 'set the carrot on the sponge'
+- **rules_v3_gemini_executor**: 'put the carrot on the sponge'
 - **oracle_pool** (16 draws):
     - 'Place the carrot on the sponge.'
     - 'Place the carrot onto the sponge.'
@@ -76,6 +78,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the red soda can and place it on the black keyboard.'
 - **v6_rl**: 'Pick up the red soda can and place it on the black keyboard.'
 - **rules_gemini**: 'put the coke can on the keyboard'
+- **rules_v3_gemini_executor**: 'put the coca-cola can on the black keyboard'
 - **oracle_pool** (16 draws):
     - 'Place a can of Coca-Cola on the keyboard.'
     - 'Place a Coke can on the keyboard.'
@@ -102,6 +105,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Put the red can into the middle of the black wheel.'
 - **v6_rl**: 'Put the red can into the middle of the black tire.'
 - **rules_gemini**: 'place the coke can in the tire'
+- **rules_v3_gemini_executor**: 'put the coke can in the black wheel'
 - **oracle_pool** (16 draws):
     - 'Place the Coke can onto the wheel.'
     - 'Place the Coke can on the wheel.'
@@ -128,6 +132,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the teal cube and place it on the yellow plate.'
 - **v6_rl**: 'Pick up the teal cube and place it on the yellow plate.'
 - **rules_gemini**: 'set the green cube on the yellow plate'
+- **rules_v3_gemini_executor**: 'put the green cube on the yellow plate'
 - **oracle_pool** (16 draws):
     - 'Place the green cube onto the plate.'
     - 'Please place the green cube onto the plate.'
@@ -154,6 +159,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the purple eggplant and place it on the black keyboard.'
 - **v6_rl**: 'Pick up the purple eggplant and place it on the black keyboard.'
 - **rules_gemini**: 'put the eggplant on the keyboard'
+- **rules_v3_gemini_executor**: 'put the purple eggplant on the black keyboard'
 - **oracle_pool** (16 draws):
     - 'Place the eggplant on the keyboard.'
     - 'Place the eggplant on the keyboard.'
@@ -180,6 +186,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the purple eggplant and place it on the yellow and green sponge.'
 - **v6_rl**: 'Pick up the purple eggplant and place it on the yellow and green sponge.'
 - **rules_gemini**: 'put the eggplant on the sponge'
+- **rules_v3_gemini_executor**: 'put the eggplant on the sponge'
 - **oracle_pool** (16 draws):
     - 'Place the eggplant slice onto the sponge.'
     - 'Please place the eggplant on top of the sponge.'
@@ -206,6 +213,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the grey nut and place it on the yellow plate.'
 - **v6_rl**: 'Pick up the grey nut and place it on the yellow plate.'
 - **rules_gemini**: 'put the nut on the yellow plate'
+- **rules_v3_gemini_executor**: 'put the grey nut on the yellow plate'
 - **oracle_pool** (16 draws):
     - 'Secure the nut onto the plate.'
     - 'Place the nut onto the plate.'
@@ -232,6 +240,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the grey nut and put it in the middle hole of the black tire.'
 - **v6_rl**: 'Pick up the grey nut and put it in the middle hole of the black tire.'
 - **rules_gemini**: 'put the nut in the tire'
+- **rules_v3_gemini_executor**: 'put the gray nut in the black wheel'
 - **oracle_pool** (16 draws):
     - 'Secure the nut onto the wheel.'
     - 'Install the nut onto the wheel.'
@@ -258,6 +267,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Place the orange juice box on the yellow plate.'
 - **v6_rl**: 'Place the orange juice box on the yellow plate.'
 - **rules_gemini**: 'put the juice box on the yellow plate'
+- **rules_v3_gemini_executor**: 'put the orange juice carton on the yellow plate'
 - **oracle_pool** (16 draws):
     - 'Place orange juice on the plate.'
     - 'Place a serving of orange juice on the plate.'
@@ -284,6 +294,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the blue can and place it on the yellow plate.'
 - **v6_rl**: 'Pick up the blue can and place it on the yellow plate.'
 - **rules_gemini**: 'put the pepsi can on the yellow plate'
+- **rules_v3_gemini_executor**: 'put the pepsi can on the yellow plate'
 - **oracle_pool** (16 draws):
     - 'Place the Pepsi can on the plate.'
     - 'Place the Pepsi can on the plate.'
@@ -310,6 +321,7 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
 - **frozen_gemini_trace**: 'Pick up the yellow bowl and stack it on the teal cube.'
 - **v6_rl**: 'Pick up the yellow dish and place it on top of the teal block.'
 - **rules_gemini**: 'put the yellow dish on the green block'
+- **rules_v3_gemini_executor**: 'put the yellow plate on the blue cube'
 - **oracle_pool** (16 draws):
     - 'Place the small plate onto the green cube.'
     - 'Place the small plate on top of the green cube.'
