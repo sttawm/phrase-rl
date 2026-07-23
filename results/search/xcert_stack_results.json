@@ -1,0 +1,36 @@
+{
+ "task": "widowx_stack_cube",
+ "n_per_phrase": 144,
+ "scoreboard": [
+  {
+   "phrase": "put the small green cube on the yellow cube",
+   "success_pct": 41.7,
+   "n": 144
+  },
+  {
+   "phrase": "put the green cube on the yellow cube",
+   "success_pct": 41.0,
+   "n": 144
+  },
+  {
+   "phrase": "put the green cube onto the yellow cube",
+   "success_pct": 38.9,
+   "n": 144
+  },
+  {
+   "phrase": "set the green cube on the yellow cube",
+   "success_pct": 38.2,
+   "n": 144
+  },
+  {
+   "phrase": "put the green cube on top of the yellow cube",
+   "success_pct": 34.0,
+   "n": 144
+  },
+  {
+   "phrase": "put the green block on the yellow block",
+   "success_pct": 25.7,
+   "n": 144
+  }
+ ]
+}
