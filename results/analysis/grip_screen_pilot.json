@@ -1,0 +1,634 @@
+{
+ "contexts": "results/analysis/grip_screen_contexts12.parquet",
+ "mode": "phrase_sets",
+ "frames_per_ep": 8,
+ "k": 4,
+ "note": "negative delta = phrase reduced grip error vs the scene's base (row 0 of its set); per-scene boards sorted best-first",
+ "scenes": {
+  "scene_9": {
+   "gt": "Move the can in the middle bottom of the table",
+   "order_best_to_worst": [
+    {
+     "phrase": "move the blue can to the middle bottom of the table",
+     "mean_delta_vs_base": -0.000255,
+     "se": 0.000508
+    },
+    {
+     "phrase": "move the can to the middle bottom of the table",
+     "mean_delta_vs_base": -5.2e-05,
+     "se": 0.000387
+    },
+    {
+     "phrase": "move the tin can to the middle bottom of the table",
+     "mean_delta_vs_base": -3.5e-05,
+     "se": 0.000578
+    },
+    {
+     "phrase": "Move the can in the middle bottom of the table",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    },
+    {
+     "phrase": "move the can to the front of the table",
+     "mean_delta_vs_base": 0.000112,
+     "se": 0.00049
+    },
+    {
+     "phrase": "push the can to the middle bottom of the table",
+     "mean_delta_vs_base": 0.000188,
+     "se": 0.000455
+    },
+    {
+     "phrase": "pick up the can and move it to the middle bottom of the table",
+     "mean_delta_vs_base": 0.000401,
+     "se": 0.000785
+    },
+    {
+     "phrase": "move can to middle bottom of table",
+     "mean_delta_vs_base": 0.000494,
+     "se": 0.000762
+    },
+    {
+     "phrase": "move the object to the middle bottom of the table",
+     "mean_delta_vs_base": 0.022905,
+     "se": 0.022491
+    }
+   ]
+  },
+  "scene_147": {
+   "gt": "put the light blue cube on the right side of the red spoon",
+   "order_best_to_worst": [
+    {
+     "phrase": "put the light blue cube on the right side of the red spoon",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    },
+    {
+     "phrase": "set the light blue cube on the right side of the red spoon",
+     "mean_delta_vs_base": 0.014504,
+     "se": 0.009478
+    },
+    {
+     "phrase": "put the light blue block on the right side of the red spoon",
+     "mean_delta_vs_base": 0.021267,
+     "se": 0.010366
+    },
+    {
+     "phrase": "put the light blue cube on the right side of the spoon",
+     "mean_delta_vs_base": 0.021489,
+     "se": 0.015949
+    },
+    {
+     "phrase": "put the light blue cube to the right of the red spoon",
+     "mean_delta_vs_base": 0.02153,
+     "se": 0.010603
+    },
+    {
+     "phrase": "put the light blue cube next to the red spoon",
+     "mean_delta_vs_base": 0.022704,
+     "se": 0.015945
+    },
+    {
+     "phrase": "put the blue cube on the right side of the red spoon",
+     "mean_delta_vs_base": 0.029027,
+     "se": 0.016046
+    },
+    {
+     "phrase": "put the light blue cube beside the red spoon",
+     "mean_delta_vs_base": 0.029572,
+     "se": 0.016059
+    },
+    {
+     "phrase": "put the blue sponge on the right side of the red spoon",
+     "mean_delta_vs_base": 0.272903,
+     "se": 0.149984
+    }
+   ]
+  },
+  "scene_189": {
+   "gt": "move the cloth from top right to bottom left",
+   "order_best_to_worst": [
+    {
+     "phrase": "move the cloth to the bottom left",
+     "mean_delta_vs_base": -0.007745,
+     "se": 0.007605
+    },
+    {
+     "phrase": "move the fabric from top right to bottom left",
+     "mean_delta_vs_base": -0.007702,
+     "se": 0.007604
+    },
+    {
+     "phrase": "move the rag from top right to bottom left",
+     "mean_delta_vs_base": -0.007677,
+     "se": 0.007591
+    },
+    {
+     "phrase": "move the blue towel from top right to bottom left",
+     "mean_delta_vs_base": -0.007582,
+     "se": 0.007481
+    },
+    {
+     "phrase": "drag the cloth from top right to bottom left",
+     "mean_delta_vs_base": -0.007558,
+     "se": 0.007411
+    },
+    {
+     "phrase": "move the towel from top right to bottom left",
+     "mean_delta_vs_base": -0.00752,
+     "se": 0.007286
+    },
+    {
+     "phrase": "move the cloth to the bottom left corner",
+     "mean_delta_vs_base": -0.007443,
+     "se": 0.007635
+    },
+    {
+     "phrase": "move the blue cloth from top right to bottom left",
+     "mean_delta_vs_base": -0.003004,
+     "se": 0.003037
+    },
+    {
+     "phrase": "move the cloth from top right to bottom left",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    }
+   ]
+  },
+  "scene_270": {
+   "gt": "put pear in bowl",
+   "order_best_to_worst": [
+    {
+     "phrase": "put the pear in the blue bowl",
+     "mean_delta_vs_base": -0.024557,
+     "se": 0.018063
+    },
+    {
+     "phrase": "put the yellow pear in the blue bowl",
+     "mean_delta_vs_base": -0.010126,
+     "se": 0.007222
+    },
+    {
+     "phrase": "put the pear in the cup",
+     "mean_delta_vs_base": -0.009077,
+     "se": 0.007374
+    },
+    {
+     "phrase": "put the pear in the bowl",
+     "mean_delta_vs_base": -0.002746,
+     "se": 0.01254
+    },
+    {
+     "phrase": "put the pear into the bowl",
+     "mean_delta_vs_base": -0.002715,
+     "se": 0.002127
+    },
+    {
+     "phrase": "put pear in bowl",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    },
+    {
+     "phrase": "pick up the pear and put it in the bowl",
+     "mean_delta_vs_base": 0.001017,
+     "se": 0.02219
+    },
+    {
+     "phrase": "set the pear in the bowl",
+     "mean_delta_vs_base": 0.008001,
+     "se": 0.007343
+    },
+    {
+     "phrase": "put the fruit in the bowl",
+     "mean_delta_vs_base": 0.008404,
+     "se": 0.010432
+    },
+    {
+     "phrase": "put the pear in the dish",
+     "mean_delta_vs_base": 0.033947,
+     "se": 0.025104
+    }
+   ]
+  },
+  "scene_303": {
+   "gt": "put the blue towel into the basket",
+   "order_best_to_worst": [
+    {
+     "phrase": "put the blue towel into the basket",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    },
+    {
+     "phrase": "put the blue towel in the basket",
+     "mean_delta_vs_base": 0.052972,
+     "se": 0.034655
+    },
+    {
+     "phrase": "put the blue towel into the laundry basket",
+     "mean_delta_vs_base": 0.057893,
+     "se": 0.041033
+    },
+    {
+     "phrase": "put the towel into the basket",
+     "mean_delta_vs_base": 0.061295,
+     "se": 0.03893
+    },
+    {
+     "phrase": "set the blue towel in the basket",
+     "mean_delta_vs_base": 0.066185,
+     "se": 0.033235
+    },
+    {
+     "phrase": "put the blue towel into the white basket",
+     "mean_delta_vs_base": 0.067509,
+     "se": 0.04177
+    },
+    {
+     "phrase": "put the fabric into the basket",
+     "mean_delta_vs_base": 0.070166,
+     "se": 0.045986
+    },
+    {
+     "phrase": "put the blue rag into the basket",
+     "mean_delta_vs_base": 0.102077,
+     "se": 0.043679
+    },
+    {
+     "phrase": "put the blue cloth into the basket",
+     "mean_delta_vs_base": 0.107704,
+     "se": 0.053885
+    },
+    {
+     "phrase": "pick up the blue towel and put it in the basket",
+     "mean_delta_vs_base": 0.131118,
+     "se": 0.055057
+    }
+   ]
+  },
+  "scene_346": {
+   "gt": "put carrot on plate",
+   "order_best_to_worst": [
+    {
+     "phrase": "pick up the carrot and put it on the plate",
+     "mean_delta_vs_base": -0.028088,
+     "se": 0.020701
+    },
+    {
+     "phrase": "put the carrot on the green plate",
+     "mean_delta_vs_base": -0.006412,
+     "se": 0.006771
+    },
+    {
+     "phrase": "place the orange carrot on the green plate",
+     "mean_delta_vs_base": -0.000613,
+     "se": 0.010943
+    },
+    {
+     "phrase": "please put the carrot on the plate",
+     "mean_delta_vs_base": -0.000504,
+     "se": 0.000436
+    },
+    {
+     "phrase": "put the carrot on the plate",
+     "mean_delta_vs_base": -0.000306,
+     "se": 0.000653
+    },
+    {
+     "phrase": "put the carrot onto the plate",
+     "mean_delta_vs_base": -0.000198,
+     "se": 0.000847
+    },
+    {
+     "phrase": "set the carrot on the plate",
+     "mean_delta_vs_base": -8e-05,
+     "se": 0.000455
+    },
+    {
+     "phrase": "put carrot on plate",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    },
+    {
+     "phrase": "put the vegetable on the plate",
+     "mean_delta_vs_base": 0.008311,
+     "se": 0.014215
+    },
+    {
+     "phrase": "put the carrot on the dish",
+     "mean_delta_vs_base": 0.01982,
+     "se": 0.014977
+    }
+   ]
+  },
+  "scene_659": {
+   "gt": "put cup from anywhere into sink",
+   "order_best_to_worst": [
+    {
+     "phrase": "put the cup into the basin",
+     "mean_delta_vs_base": -0.086899,
+     "se": 0.048122
+    },
+    {
+     "phrase": "put the cup into the blue sink",
+     "mean_delta_vs_base": -0.06532,
+     "se": 0.057367
+    },
+    {
+     "phrase": "put the white cup into the sink",
+     "mean_delta_vs_base": -0.052087,
+     "se": 0.048844
+    },
+    {
+     "phrase": "put the cup in the sink",
+     "mean_delta_vs_base": -0.049514,
+     "se": 0.0412
+    },
+    {
+     "phrase": "put the mug into the sink",
+     "mean_delta_vs_base": -0.042861,
+     "se": 0.049941
+    },
+    {
+     "phrase": "put the cup into the sink",
+     "mean_delta_vs_base": -0.042423,
+     "se": 0.048266
+    },
+    {
+     "phrase": "set the cup in the sink",
+     "mean_delta_vs_base": -0.031199,
+     "se": 0.036414
+    },
+    {
+     "phrase": "pick up the cup and put it in the sink",
+     "mean_delta_vs_base": -0.016758,
+     "se": 0.030681
+    },
+    {
+     "phrase": "put the container into the sink",
+     "mean_delta_vs_base": -0.003179,
+     "se": 0.045675
+    },
+    {
+     "phrase": "put cup from anywhere into sink",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    }
+   ]
+  },
+  "scene_1550": {
+   "gt": "move the yellow block above the green arch and the tower",
+   "order_best_to_worst": [
+    {
+     "phrase": "move the yellow cube above the green arch and the tower",
+     "mean_delta_vs_base": -0.007149,
+     "se": 0.007372
+    },
+    {
+     "phrase": "move the yellow block above the green arch and the tower",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    },
+    {
+     "phrase": "move the yellow block above the arch",
+     "mean_delta_vs_base": 0.039469,
+     "se": 0.039132
+    },
+    {
+     "phrase": "put the yellow block on the tower",
+     "mean_delta_vs_base": 0.169692,
+     "se": 0.122475
+    },
+    {
+     "phrase": "stack the yellow block on the tower",
+     "mean_delta_vs_base": 0.169995,
+     "se": 0.122226
+    },
+    {
+     "phrase": "move the yellow block on top of the tower",
+     "mean_delta_vs_base": 0.170219,
+     "se": 0.122168
+    },
+    {
+     "phrase": "place the yellow block on top of the tower",
+     "mean_delta_vs_base": 0.17045,
+     "se": 0.122334
+    },
+    {
+     "phrase": "put the yellow block on top of the tower",
+     "mean_delta_vs_base": 0.170562,
+     "se": 0.122516
+    }
+   ]
+  },
+  "scene_2159": {
+   "gt": "Put the metal pot in front of the mushroom.",
+   "order_best_to_worst": [
+    {
+     "phrase": "put the pan in front of the mushroom",
+     "mean_delta_vs_base": -0.012414,
+     "se": 0.011734
+    },
+    {
+     "phrase": "put the silver pot in front of the mushroom",
+     "mean_delta_vs_base": -0.011972,
+     "se": 0.011574
+    },
+    {
+     "phrase": "put the steel pot in front of the mushroom",
+     "mean_delta_vs_base": -0.011912,
+     "se": 0.01159
+    },
+    {
+     "phrase": "put the saucepan in front of the mushroom",
+     "mean_delta_vs_base": -0.011702,
+     "se": 0.011437
+    },
+    {
+     "phrase": "put the metal pot in front of the white mushroom",
+     "mean_delta_vs_base": -0.005543,
+     "se": 0.014219
+    },
+    {
+     "phrase": "Put the metal pot in front of the mushroom.",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    },
+    {
+     "phrase": "set the metal pot in front of the mushroom",
+     "mean_delta_vs_base": 0.003516,
+     "se": 0.004053
+    },
+    {
+     "phrase": "put the metal pot in front of the mushroom",
+     "mean_delta_vs_base": 0.003518,
+     "se": 0.003649
+    },
+    {
+     "phrase": "put the pot in front of the mushroom",
+     "mean_delta_vs_base": 0.003729,
+     "se": 0.0207
+    },
+    {
+     "phrase": "put the metal pot next to the mushroom",
+     "mean_delta_vs_base": 0.088224,
+     "se": 0.095007
+    }
+   ]
+  },
+  "scene_2887": {
+   "gt": "take banana out of colander",
+   "order_best_to_worst": [
+    {
+     "phrase": "take the yellow banana out of the colander",
+     "mean_delta_vs_base": -0.000786,
+     "se": 0.000551
+    },
+    {
+     "phrase": "take the banana out of the colander",
+     "mean_delta_vs_base": -0.000256,
+     "se": 0.000556
+    },
+    {
+     "phrase": "lift the banana out of the colander",
+     "mean_delta_vs_base": -0.00025,
+     "se": 0.000476
+    },
+    {
+     "phrase": "take banana out of colander",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    },
+    {
+     "phrase": "remove the banana from the colander",
+     "mean_delta_vs_base": 0.000116,
+     "se": 0.000446
+    },
+    {
+     "phrase": "pick up the banana and take it out of the colander",
+     "mean_delta_vs_base": 0.007527,
+     "se": 0.007696
+    },
+    {
+     "phrase": "take the fruit out of the colander",
+     "mean_delta_vs_base": 0.008528,
+     "se": 0.008318
+    },
+    {
+     "phrase": "take the banana out of the metal basket",
+     "mean_delta_vs_base": 0.030117,
+     "se": 0.030848
+    },
+    {
+     "phrase": "take the banana out of the strainer",
+     "mean_delta_vs_base": 0.030655,
+     "se": 0.030828
+    }
+   ]
+  },
+  "scene_3431": {
+   "gt": "put the sushi in the pan",
+   "order_best_to_worst": [
+    {
+     "phrase": "put the food in the pan",
+     "mean_delta_vs_base": -0.077154,
+     "se": 0.040164
+    },
+    {
+     "phrase": "put the sushi roll in the pan",
+     "mean_delta_vs_base": -0.035515,
+     "se": 0.02639
+    },
+    {
+     "phrase": "put the sushi in the frying pan",
+     "mean_delta_vs_base": -0.033706,
+     "se": 0.022149
+    },
+    {
+     "phrase": "put the sushi in the skillet",
+     "mean_delta_vs_base": -0.017485,
+     "se": 0.010578
+    },
+    {
+     "phrase": "pick up the sushi and put it in the pan",
+     "mean_delta_vs_base": -0.016718,
+     "se": 0.010021
+    },
+    {
+     "phrase": "put the sushi into the pan",
+     "mean_delta_vs_base": -0.008985,
+     "se": 0.007708
+    },
+    {
+     "phrase": "set the sushi in the pan",
+     "mean_delta_vs_base": -0.000666,
+     "se": 0.000649
+    },
+    {
+     "phrase": "put the sushi in the pan",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    }
+   ]
+  },
+  "scene_4629": {
+   "gt": "Put the eggplant in the metal pot.",
+   "order_best_to_worst": [
+    {
+     "phrase": "put the eggplant in the metal pot",
+     "mean_delta_vs_base": -0.010807,
+     "se": 0.010752
+    },
+    {
+     "phrase": "Put the eggplant in the metal pot.",
+     "mean_delta_vs_base": 0.0,
+     "se": 0.0
+    },
+    {
+     "phrase": "put the eggplant in the steel pot",
+     "mean_delta_vs_base": 0.002887,
+     "se": 0.009351
+    },
+    {
+     "phrase": "set the eggplant in the pot",
+     "mean_delta_vs_base": 0.00908,
+     "se": 0.025716
+    },
+    {
+     "phrase": "put the eggplant in the pot",
+     "mean_delta_vs_base": 0.013631,
+     "se": 0.019771
+    },
+    {
+     "phrase": "put the purple eggplant in the metal pot",
+     "mean_delta_vs_base": 0.017565,
+     "se": 0.014767
+    },
+    {
+     "phrase": "put the aubergine in the metal pot",
+     "mean_delta_vs_base": 0.017677,
+     "se": 0.012139
+    },
+    {
+     "phrase": "put the eggplant in the silver pot",
+     "mean_delta_vs_base": 0.018971,
+     "se": 0.033779
+    },
+    {
+     "phrase": "pick up the eggplant and put it in the pot",
+     "mean_delta_vs_base": 0.033341,
+     "se": 0.022727
+    },
+    {
+     "phrase": "put the eggplant in the pan",
+     "mean_delta_vs_base": 0.038685,
+     "se": 0.035995
+    },
+    {
+     "phrase": "put the vegetable in the metal pot",
+     "mean_delta_vs_base": 0.063464,
+     "se": 0.049539
+    }
+   ]
+  }
+ }
+}
