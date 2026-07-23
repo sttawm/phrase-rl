@@ -45,7 +45,7 @@ tmux new-session -d -s train \
    .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --resume \
      --ckpt-dir results/checkpoints/phase2_v7 \
-     --reward-mode verifier --reward-frames ${REWARD_FRAMES:-4} \
+     --reward-mode verifier --reward-frames ${REWARD_FRAMES:-16} \
      --source-mix 0.25,0.25,0.5 \
      --input-dropout 0.5 \
      --tier-tags \

@@ -1431,3 +1431,16 @@ slots are calibrated to 4; frames dominate anyway). Cost ≈ 2x score time
 multi_t_contexts --points 8; running locally; shipped to the training pod
 before launch; trainer linspace-subsamples so the 8-frame tables remain
 compatible with any REWARD_FRAMES <= 8).
+
+## 2026-07-23 — v7 frames finalized: REWARD_FRAMES=16 (user), k_decode=4
+
+Extended decomposition: coin-flip zone 89% (F=4) -> 62% (F=8) -> 48% (F=12) ->
+43% (F=16); achievable floor ~25% (F=64). F=16 captures ~72% of the possible
+improvement. Cost per user's timing notes (scoring = 30% of v6 step):
+step = 0.7 + 0.3*4 = 1.9x v6 — ~5-6 min/step, 130-160 steps by tomorrow
+evening (v6 peaked s80). Launcher default now REWARD_FRAMES=16; 16-octile
+context tables building locally (multi_t_contexts --points 16, train+val),
+to be dropped in at data/contexts_train_multit.parquet / contexts_val_multit
+.parquet on the training pod (linspace subsampling keeps them valid for any
+F<=16). Final v7 deltas vs v6: C4b reward (w=0.25) · input-dropout 0.5 ·
+REWARD_FRAMES=16.
