@@ -1528,3 +1528,12 @@ table; corpus-absence rename with color license; category fallback-to-guess),
 adjective licenses, difficulty-gated clause count, geometry-driven relation.
 Sealed legs next: rules_v3_gemini_executor (API), rules_v3 x Qwen x
 {selftrace, gemini-trace}. Executor-premium read preserved (#8 vs #9).
+
+## 2026-07-23 ~22:40 — rules-v3.1 amendment (PRE-MEASUREMENT): corpus vocabulary appendix
+
+User: make the corpus-absence test executable. Appendix added (150 common
+words with counts + 354 present-tier; <5 occurrences excluded as noise) with
+the explicit guard PRESENCE NEVER OVERRIDES A BAN (frequency != outcome).
+1.2c heuristic replaced by exact lookup. No rules-leg rollouts had run;
+Gemini-executor phrases regenerated under v3.1. Amendment is sealed-blind
+(appendix derives from training corpus only).
