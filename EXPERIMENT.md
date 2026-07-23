@@ -1493,3 +1493,12 @@ actual frames, per-scene grip scoreboards = partial-order chains.
 
 Remaining: frozen_selftrace (running, ~16:15), frozen_gemini, v6_rl, oracle_pool,
 then rules-v3 legs post-authoring.
+
+## 2026-07-23 20:21 — sealed leg 5: frozen_gemini_trace 31.0
+
+originals 36.1 > frozen_gemini 31.0 > passthrough 26.6 > sft_v2 24.6 >
+frozen_selftrace 23.7. Gemini-trace premium +7.3 (val said +6.0 — transfers).
+First rephraser above passthrough. Beats the NOMINAL on bad-nominal ramekin
+(46.2 vs 14.6) = the val rescue mechanism on sealed. Still loses where it
+rewrites good inputs (pepsi 19.1 vs passthrough 52.4 — rule-1 damage).
+Next: v6_rl leg (pod2, ~01:00), then oracle_pool.
