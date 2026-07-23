@@ -454,8 +454,31 @@ cliff is task-specific, NOT a law; **put→set is null-to-mild here** — the
 big spoon set-effect (+13.9 pure1) is also task-specific, pending its own
 xcert column. 6 more task columns land by ~09:00.
 
-**Round-2 purification (xcert_pure ×3)** lands after the xcert boards;
-`pure2` tag, n=144, separate per-scene tables.
+**Round-2 purification — carrot→plate (pure2, n=144/row, all 24 layouts).**
+Control = "put the carrot on the plate" **43.1%**, one edit per row:
+
+| Δ vs control (pp) | phrase | success | the single edit |
+|---|---|---|---|
+| +3.4 | "put carrot on plate" | 46.5 | telegram (drop articles) — free · pure2 |
+| −0.7 | "put the carrot on the **green** plate" | 42.4 | +green (null) · pure2 |
+| −1.4 | "put the carrot on the **yellow** plate" | 41.7 | +yellow (null) · pure2 |
+| −4.2 | "put the **orange** carrot on the plate" | 38.9 | +source color (mild drag) · pure2 |
+| −5.6 | "**place** the carrot on the plate" | 37.5 | put → place (mild drag) · pure2 |
+
+**The green-vs-yellow face-off is a double null** — the same ambiguous
+plate named either color measures identically (42.4 vs 41.7). Target-color
+adjectives simply don't matter on this easy task; coke-plate's yellow −19.4
+stays task-specific. Under single-edit additivity the old stratified combo
+leader "place the orange carrot on the green plate" (54.2) looks inflated
+(−5.6 −4.2 −0.7 would predict ~33) — a 2-phrase combo board is queued to
+certify it directly (interaction vs split-artifact).
+
+**Determinism note:** cells duplicated across boards reproduce EXACTLY
+(rollouts are deterministic given phrase + layout + rep grid), so
+cross-board comparisons of identical phrases are exact — and duplicate
+cells in future boards are pure waste (dedupe against existing cells).
+
+Remaining round-2 boards: wheel + eggplant (pod3 tail).
 
 ## Reading discipline
 1. Per-phrase SE ≈ 8pp at n=36; n=36 gaps under ~16pp are noise-range.
