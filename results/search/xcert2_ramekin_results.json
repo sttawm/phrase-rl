@@ -1,0 +1,16 @@
+{
+ "task": "widowx_coke_can_on_ramekin_clean",
+ "n_per_phrase": 144,
+ "scoreboard": [
+  {
+   "phrase": "pick up the coke can and put it in the white bowl",
+   "success_pct": 63.2,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can in the white bowl",
+   "success_pct": 62.5,
+   "n": 144
+  }
+ ]
+}
