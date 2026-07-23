@@ -410,12 +410,15 @@ pick-up clause differs. 6 of 8 tasks in:
 | carrot → plate | 45.1 | 43.1 | +2.0 |
 | coke → plate | 56.2 | 60.4 | −4.2 |
 | **carrot → keyboard** | **3.5** | **15.3** | **−11.8** |
-| stack cubes | — | — | running |
-| carrot → wheel | — | — | queued |
+| **stack cubes** | 34.0 | 41.0 | **−7.0** |
+| carrot → wheel | — | — | running |
 
-Read: the extra clause is free on ordinary tasks (pooled Δ excl. keyboard
-≈ −1.0pp) but collapses the hardest OOV task (−11.8, ~3σ) — on
-marginal tasks, longer instructions appear to dilute the tokens that matter.
+Read: the extra clause is free on the easier scenes (+2.0, +0.7, +2.0, −4.2)
+but taxes the hard ones, and the tax scales with difficulty: spoon −5.6,
+stack −7.0, keyboard −11.8. On marginal tasks, longer instructions dilute
+the tokens that matter. (Also: stack's certified single-clause 41.0 at
+n=144/24L supersedes the noisier stratified 33.0 — that task's split
+volatility is the widest measured.)
 The clause-*verb* effects (place≫put, pick-up≫take) are separate and large;
 see the coke-plate purified table.
 
