@@ -496,19 +496,23 @@ task; each cell is the Δ (pp) of that single edit vs the task's base phrase
 "put the [source] on/in the [target]" (articles included), all at n=144 per
 phrase on all 24 layouts. |Δ| ≳ 12 is ~2σ under conservative errors.
 
-| edit | carrot→plate (43.1) | carrot→keyboard (15.3) | coke→white bowl (62.5) | stack cubes (41.0) | eggplant→basket (93.1) | spoon→towel (52.1) |
-|---|---|---|---|---|---|---|
-| put → set | +4.1 | −0.7 | −7.6 | −2.8 | −0.7 | +5.5 |
-| relation swap | −2.8 (onto) | +0.7 (onto) | −3.5 (into) · −4.9 (inside) | −2.1 (onto) | −0.7 (into) · 0.0 (inside) | −1.4 (onto) |
-| on → on top of | +0.7 | +1.4 | — | −7.0 | — | **+9.7** (high-variance edit: −22…+10 across tasks) |
+| edit | carrot→plate (43.1) | carrot→keyboard (15.3) | coke→white bowl (62.5) | stack cubes (41.0) | eggplant→basket (93.1) | spoon→towel (52.1) | carrot→wheel (16.0) |
+|---|---|---|---|---|---|---|---|
+| put → set | +4.1 | −0.7 | −7.6 | −2.8 | −0.7 | +5.5 | +6.2 |
+| relation swap | −2.8 (onto) | +0.7 (onto) | −3.5 (into) · −4.9 (inside) | −2.1 (onto) | −0.7 (into) · 0.0 (inside) | −1.4 (onto) | −1.4 (onto) |
+| on → on top of | +0.7 | +1.4 | — | −7.0 | — | +9.7 | +8.3 (final read: task-split, −22…+10) |
 | + source color adjective | — | — | — | — | +1.3 (purple) |
 | + target color adjective | −0.7 (green) | **+11.1** (black) | — | — | — |
 | + size adjective ("small") | — | — | — | +0.7 (pure1's −13.9 REFUTED) | — |
-| source → category/brand word | **−25.7** (vegetable) | **−7.7** (vegetable) | **−47.2** (coke→soda) | — | −4.2 (vegetable, at ceiling) | **−8.3** (utensil) · +3.5 (cloth = in-family, free) |
+| source → category/brand word | **−25.7** (vegetable) | **−7.7** (vegetable) | **−47.2** (coke→soda) | — | −4.2 (vegetable, at ceiling) | **−8.3** (utensil) · +3.5 (cloth = in-family, free) | **−13.9** (vegetable) |
+| + target color adj (hard task) | — | **+11.1** (black) | — | — | — | — | **+13.2** (black; pure2 said +13.9 ✓) |
+| receptacle/target token | −1.4 (dish) | — | 0.0 (cup) · −6.3 (dish) | — | −31.3 (bin) | — | **−9.1** (tire; pure2 −7.0 ✓) |
 | object-noun family swap | — | — | — | **−15.3** (cube→block) | — |
 | receptacle synonym/token | −1.4 (dish) | — | **0.0** (cup!) · −6.3 (dish) | — | **−31.3** (basket→bin) |
 
-Certified so far: **source-token identity is the sovereign effect** —
+**CERTIFICATION COMPLETE (2026-07-23 21:15): all 20 boards — 8 clause,
+8 six-edit columns, 3 round-2 purification, 1 combo.** Summary of what
+certified: **source-token identity is the sovereign effect** —
 category/brand degradation costs −7.7 to **−47.2** (coke→soda on the
 ramekin scene is the largest certified single edit in the program);
 **the "+color on hard/OOV targets" rule** (+11.1 keyboard vs −0.7 easy
