@@ -437,22 +437,26 @@ task; each cell is the Δ (pp) of that single edit vs the task's base phrase
 "put the [source] on/in the [target]" (articles included), all at n=144 per
 phrase on all 24 layouts. |Δ| ≳ 12 is ~2σ under conservative errors.
 
-| edit | carrot→plate (base 43.1) | carrot→keyboard (base 15.3) |
-|---|---|---|
-| put → set | +4.1 | −0.7 |
-| on → onto | −2.8 | +0.7 |
-| on → on top of | +0.7 | +1.4 |
-| + target color adjective | −0.7 (green) | **+11.1** (black) |
-| source → category word | **−25.7** (vegetable) | **−7.7** (vegetable) |
-| receptacle synonym | −1.4 (dish) | — |
+| edit | carrot→plate (base 43.1) | carrot→keyboard (base 15.3) | coke→white bowl (base 62.5) |
+|---|---|---|---|
+| put → set | +4.1 | −0.7 | −7.6 |
+| relation swap | −2.8 (onto) | +0.7 (onto) | −3.5 (into) · −4.9 (inside) |
+| on → on top of | +0.7 | +1.4 | — |
+| + target color adjective | −0.7 (green) | **+11.1** (black) | — |
+| source → category/brand word | **−25.7** (vegetable) | **−7.7** (vegetable) | **−47.2** (coke→soda) |
+| receptacle synonym | −1.4 (dish) | — | **0.0** (cup!) · −6.3 (dish) |
 
-Certified so far: **the "+color on hard/OOV targets" rule** (+11.1 keyboard
-vs −0.7 on the easy plate — replicating pure1's +11.2 exactly);
-**category-words for the source object are toxic everywhere** (−25.7, −7.7);
-**onto and on-top-of are FREE** on both tasks — coke-plate's −22 "top of"
-cliff is task-specific, NOT a law; **put→set is null-to-mild here** — the
-big spoon set-effect (+13.9 pure1) is also task-specific, pending its own
-xcert column. 6 more task columns land by ~09:00.
+Certified so far: **source-token identity is the sovereign effect** —
+category/brand degradation costs −7.7 to **−47.2** (coke→soda on the
+ramekin scene is the largest certified single edit in the program);
+**the "+color on hard/OOV targets" rule** (+11.1 keyboard vs −0.7 easy
+plate — replicating pure1's +11.2 exactly); **receptacle synonyms inside
+the visual family are free** (cup ties bowl at 62.5 exactly) while
+off-family ones cost mildly (dish −1.4/−6.3); **relation words are
+mild-to-free everywhere** (onto, into, inside, on-top-of: +1.4…−4.9) —
+coke-plate's −22 "top of" cliff stays task-specific; **put→set is a
+coin-flip across tasks** (+4.1, −0.7, −7.6 — spoon's +13.9 is
+task-conditional, NOT a rule). 5 more task columns land by ~09:30.
 
 **Round-2 purification — carrot→plate (pure2, n=144/row, all 24 layouts).**
 Control = "put the carrot on the plate" **43.1%**, one edit per row:
