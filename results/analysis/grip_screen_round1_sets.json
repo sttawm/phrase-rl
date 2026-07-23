@@ -1,0 +1,657 @@
+{
+ "6997": {
+  "gt": "Place the metal pot on the green cloth.",
+  "phrases": [
+   "Place the metal pot on the green cloth.",
+   "place the metal pot on the green cloth",
+   "Place the cookware on the green cloth.",
+   "Place the metal saucepan on the green cloth.",
+   "Could you please place the metal pot on the green cloth for me?",
+   "Place the metal stockpot on the green cloth.",
+   "Place the small silver metal pot on the square green cloth.",
+   "Place the silver pot on the green cloth.",
+   "Move the pot on the right side of the stove onto the green cloth.",
+   "Set the metal pot on the green cloth.",
+   "Place the metal pot on the cloth.",
+   "Place the toy pot on the green cloth."
+  ]
+ },
+ "270": {
+  "gt": "put pear in bowl",
+  "phrases": [
+   "put pear in bowl",
+   "put the pear in the bowl",
+   "put the green fruit in the bowl",
+   "put the apple in the bowl",
+   "could you please put the pear in the bowl",
+   "pear in bowl",
+   "put the light green pear in the bowl",
+   "put the toy pear in the light blue plastic bowl",
+   "put the pear on the counter into the bowl on the right",
+   "place pear in bowl",
+   "put pear in blue bowl"
+  ]
+ },
+ "40884": {
+  "gt": "put cup from anywhere into sink",
+  "phrases": [
+   "put cup from anywhere into sink",
+   "put cup into sink",
+   "put the drinkware into the sink",
+   "put mug from anywhere into sink",
+   "put cup from anywhere into basin",
+   "cup into sink",
+   "put the cream cup into the sink",
+   "put the cup on the table into the sink",
+   "put any cup into the sink",
+   "place cup from anywhere into sink",
+   "put cup from anywhere in sink"
+  ]
+ },
+ "33177": {
+  "gt": "Place the spoon on the orange cloth.",
+  "phrases": [
+   "Place the spoon on the orange cloth.",
+   "place the spoon on the orange cloth",
+   "Place the utensil on the orange cloth.",
+   "Place the spoon on the orange towel.",
+   "Carefully place the spoon exactly on the orange cloth.",
+   "Place the blue handle on the orange cloth.",
+   "Place the blue-handled spoon on the folded orange cloth.",
+   "Place the blue spoon on the orange cloth.",
+   "Place the silver spoon on the orange cloth.",
+   "Set the spoon on the orange cloth.",
+   "Place the spoon on the cloth."
+  ]
+ },
+ "34051": {
+  "gt": "put the ball in the cup",
+  "phrases": [
+   "put the ball in the cup",
+   "put the ball in the cup.",
+   "put the round object in the cup",
+   "put the sphere in the cup",
+   "put the orb in the cup",
+   "put the ball in the container",
+   "put the small translucent ball in the translucent cup",
+   "put the ball you are holding in the cup",
+   "put the white ball in the cup",
+   "place the ball in the cup",
+   "put the ball into the cup"
+  ]
+ },
+ "30171": {
+  "gt": "put pot or pan on stove and put cheese in pot or pan",
+  "phrases": [
+   "put pot or pan on stove and put cheese in pot or pan",
+   "put the pot on the stove and put the cheese in the pot",
+   "put the cookware on the stove and put the cheese in the cookware",
+   "put the saucepan on the stove and put the cheese in the saucepan",
+   "put pot or pan on stove and put the yellow wedge in pot or pan",
+   "put pot or pan on stove and put cheese in pot or pan, making sure the pot sits flat on the burner first",
+   "put the pan on the stove and put the cheese in the pan",
+   "put the silver pot on the stove and put the yellow cheese in the pot",
+   "place the pot on a burner, then put the cheese inside",
+   "set pot or pan on stove and put cheese in pot or pan",
+   "put pot or pan on stove and put yellow cheese in pot or pan"
+  ]
+ },
+ "41015": {
+  "gt": "put the knife in the silver pot",
+  "phrases": [
+   "put the knife in the silver pot",
+   "put the knife in the silver pot.",
+   "put the cutting utensil in the silver pot",
+   "put the blade in the silver pot",
+   "put the knife in the pot",
+   "when you get a chance, please put the knife in the silver pot",
+   "put the yellow-handled knife in the silver pot",
+   "put the knife in the silver pot, not the orange pan",
+   "put the white knife in the silver pot",
+   "put the knife in the metal pot",
+   "place the knife in the silver pot",
+   "put the knife into the silver pot"
+  ]
+ },
+ "18003": {
+  "gt": "put corn into bowl",
+  "phrases": [
+   "put corn into bowl",
+   "put the corn into the bowl",
+   "put the vegetable into the bowl",
+   "put the maize into the bowl",
+   "put the banana into the bowl",
+   "please put the corn into the bowl for me",
+   "take the corn from the dispenser and put it into the bowl",
+   "put the yellow corn into the light blue bowl",
+   "put the corn into the bowl on the stove",
+   "place corn into bowl",
+   "put corn in bowl",
+   "put corn into blue bowl"
+  ]
+ },
+ "41190": {
+  "gt": "move the green block from the arch to the surface of yellow block",
+  "phrases": [
+   "move the green block from the arch to the surface of yellow block",
+   "move the green block from the arch to the yellow block",
+   "move the green shape from the arch to the surface of yellow block",
+   "move the green parallelepiped from the arch to the surface of yellow block",
+   "could you please move the green block from the arch to the surface of yellow block for me",
+   "move the block from the arch to the surface of yellow block",
+   "move the green brick from the arch to the surface of yellow block",
+   "move the green cuboid from the arch to the surface of yellow block",
+   "move the green block from the arch to the surface of yellow cube",
+   "move the green block from above the blue block to the surface of yellow block",
+   "move the green block from the wooden arch to the surface of yellow block",
+   "move the green block from the arch to the top of the yellow block"
+  ]
+ },
+ "9293": {
+  "gt": "move the fork on the purple napkin",
+  "phrases": [
+   "move the fork on the purple napkin",
+   "move the fork onto the purple napkin",
+   "move the utensil on the purple napkin",
+   "move the fork on the purple serviette",
+   "could you please move the fork on the purple napkin for me",
+   "move the plastic fork on the purple napkin",
+   "move the fork on the purple cloth",
+   "move the cyan fork on the purple napkin",
+   "move the fork onto the folded cloth behind the pan",
+   "put the fork on the purple napkin",
+   "move the light blue fork on the purple napkin",
+   "move the toy fork on the purple napkin"
+  ]
+ },
+ "34706": {
+  "gt": "Move the pot onto the towel.",
+  "phrases": [
+   "Move the pot onto the towel.",
+   "Move the pot onto the towel",
+   "Move the cookware onto the towel.",
+   "Move the cauldron onto the towel.",
+   "Move the pan onto the towel.",
+   "Could you please move the pot over onto the towel for me?",
+   "Move the silver pot onto the folded towel.",
+   "Move the metal cooking pot onto the towel.",
+   "Move the pot onto the cloth.",
+   "Move the pot onto the folded cloth to the right of the spoon.",
+   "Set the pot onto the towel.",
+   "Move the pot onto the light blue towel."
+  ]
+ },
+ "32346": {
+  "gt": "Move the green rectangular block in the center of the table",
+  "phrases": [
+   "Move the green rectangular block in the center of the table",
+   "Move the green rectangular block to the center of the table",
+   "Move the rectangular block in the center of the table",
+   "Move the green block in the center of the table",
+   "Move the green rectangular object in the center of the table",
+   "Move the green oblong in the center of the table",
+   "Could you please move the green rectangular block in the center of the table",
+   "Move the green cuboid in the center of the table",
+   "Move the green prism in the center of the table",
+   "Move the block you are holding to the center of the table",
+   "Place the green rectangular block in the center of the table",
+   "Move the green rectangular block into the middle of the table"
+  ]
+ },
+ "13073": {
+  "gt": "move the rectangular block towards the cylinder block",
+  "phrases": [
+   "move the rectangular block towards the cylinder block",
+   "move the rectangular block toward the cylinder block",
+   "move the rectangular toy towards the cylinder block",
+   "move the rectangular block towards the wooden pawn",
+   "move the plank towards the cylinder block",
+   "could you please move the rectangular block towards the cylinder block",
+   "move the rectangular block towards the cylinder",
+   "move the flat rectangular block towards the cylinder block",
+   "move the rectangular block towards the peg standing in the square base",
+   "move the rectangular block to the upper left, towards the cylinder block",
+   "move the wooden rectangular block towards the cylinder block",
+   "move the rectangular block to the cylinder block"
+  ]
+ },
+ "39912": {
+  "gt": "Put the red arc on top of the yellow prism",
+  "phrases": [
+   "Put the red arc on top of the yellow prism",
+   "put the red arc on top of the yellow prism",
+   "Put the red block on top of the yellow prism",
+   "Put the red piece on top of the yellow prism",
+   "Put the red crescent on top of the yellow prism",
+   "Could you please put the red arc on top of the yellow prism",
+   "Put the red arch on top of the yellow prism",
+   "Put the red bridge on top of the yellow prism",
+   "Put the red arc on top of the yellow block",
+   "Put the red arc on the block at the top of the stack",
+   "Put the red arc on top of the yellow prism at the top of the stack",
+   "Set the red arc on top of the yellow prism",
+   "Put the arc on top of the yellow prism"
+  ]
+ },
+ "40601": {
+  "gt": "take the rectangular block and put it on top of the other rectangular block",
+  "phrases": [
+   "take the rectangular block and put it on top of the other rectangular block",
+   "Take the rectangular block and put it on top of the other rectangular block",
+   "take the block and put it on top of the other block",
+   "take the rectangular piece and put it on top of the other rectangular piece",
+   "take the cuboid and put it on top of the other cuboid",
+   "could you please take the rectangular block and put it on top of the other rectangular block",
+   "put the rectangular block on top of the other rectangular block",
+   "take the Jenga block and put it on top of the other Jenga block",
+   "put the rectangular block you are holding on top of the pile of blocks",
+   "stack the rectangular block on top of the other rectangular block",
+   "take the rectangular block and set it on top of the other rectangular block",
+   "take the wooden rectangular block and put it on top of the other rectangular block"
+  ]
+ },
+ "43317": {
+  "gt": "Put the drain cover on top of the orange cloth",
+  "phrases": [
+   "Put the drain cover on top of the orange cloth",
+   "Put the white drain cover on top of the orange cloth",
+   "Put the cover on top of the orange cloth",
+   "Put the lid on top of the orange cloth",
+   "Put the plug on top of the orange cloth",
+   "Could you please put the drain cover on top of the orange cloth",
+   "Put the sink stopper on top of the orange cloth",
+   "Put the drain plug on top of the orange cloth",
+   "Put the white plug on top of the orange cloth",
+   "Put the drain cover on top of the flat orange cloth",
+   "Set the drain cover on top of the orange cloth",
+   "Put the drain cover on top of the cloth",
+   "Put the drain cover on the orange cloth"
+  ]
+ },
+ "52820": {
+  "gt": "Pick up the red fork and place it behind the green cloth",
+  "phrases": [
+   "Pick up the red fork and place it behind the green cloth",
+   "Pick up the red fork and place it behind the green cloth.",
+   "Pick up the red utensil and place it behind the green cloth",
+   "Pick up the red fork and place it behind the green towel",
+   "Could you please pick up the red fork and place it behind the green cloth for me",
+   "Carefully pick up the red fork and place it exactly behind the green cloth",
+   "Pick up the red plastic fork and place it behind the green cloth",
+   "Pick up the red fork and place it on the empty wooden surface behind the green cloth",
+   "Pick up the red fork and place it behind the cloth with the strawberry on it",
+   "Pick up the red fork and set it behind the green cloth",
+   "Pick up the fork and place it behind the green cloth"
+  ]
+ },
+ "6712": {
+  "gt": "Pick up the metal bowl and place it behind the orange towel .",
+  "phrases": [
+   "Pick up the metal bowl and place it behind the orange towel .",
+   "Pick up the metal bowl and place it behind the orange towel.",
+   "Pick up the silver bowl and place it behind the orange towel.",
+   "Pick up the metal container and place it behind the orange towel.",
+   "Pick up the metal bowl and place it behind the orange cloth.",
+   "Would you kindly pick up the metal bowl and place it behind the orange towel.",
+   "Pick up the small metal bowl with handles and place it behind the orange towel.",
+   "Pick up the metal bowl and place it behind the towel with the ice cream scoop on it.",
+   "Pick up the metal bowl and place it on the wooden surface directly behind the orange towel.",
+   "Pick up the metal bowl and set it behind the orange towel.",
+   "Pick up the metal bowl and place it behind the towel."
+  ]
+ },
+ "33981": {
+  "gt": "take lid off pot",
+  "phrases": [
+   "take lid off pot",
+   "Take the lid off the pot.",
+   "take cover off pot",
+   "take lid off crock",
+   "take knob off pot",
+   "lid off pot",
+   "take the orange glass lid off the pot",
+   "lift the lid to uncover the pot",
+   "take the amber lid off the pot",
+   "take orange lid off pot",
+   "remove the lid from the pot"
+  ]
+ },
+ "32345": {
+  "gt": "Take the pot off the blue cloth and place it slightly behind the red spoon.",
+  "phrases": [
+   "Take the pot off the blue cloth and place it slightly behind the red spoon.",
+   "Take the pot off the blue cloth and place it behind the red spoon.",
+   "Take the pan off the blue cloth and place it slightly behind the red spoon.",
+   "Take the container off the blue cloth and place it slightly behind the red spoon.",
+   "Take the pot off the blue cloth and place it slightly behind the red handle.",
+   "Take the pot off the blue cloth, avoiding the avocado, and place it slightly behind the red spoon.",
+   "Take the silver cooking pot off the blue cloth and place it slightly behind the red spoon.",
+   "Take the pot off the blue cloth and place it slightly behind the spoon with the red handle.",
+   "Move the pot from the blue cloth to a spot slightly behind the red spoon.",
+   "Take the pot off the blue cloth and set it slightly behind the red spoon.",
+   "Take the pot off the cloth and place it slightly behind the red spoon."
+  ]
+ },
+ "45758": {
+  "gt": "take carrot off plate",
+  "phrases": [
+   "take carrot off plate",
+   "Take the carrot off the plate.",
+   "take vegetable off plate",
+   "take carrot off dish",
+   "carrot off plate",
+   "would you please take the carrot off the plate",
+   "take the orange toy carrot off the plate",
+   "take the carrot off the light green plate",
+   "lift the carrot off the plate on the left side of the stove",
+   "take orange carrot off plate",
+   "remove the carrot from the plate"
+  ]
+ },
+ "22771": {
+  "gt": "take lid off pot or pan",
+  "phrases": [
+   "take lid off pot or pan",
+   "Take the lid off the pot.",
+   "take cover off pot or pan",
+   "take lid off cookware",
+   "take lid off stockpot",
+   "please take the lid off of the pot or pan for me",
+   "Take the lid off the pot or pan.",
+   "take the silver lid off the silver pot",
+   "take the lid off the pot on the front-left burner",
+   "take silver lid off pot or pan",
+   "remove lid from pot or pan"
+  ]
+ },
+ "32491": {
+  "gt": "take sushi off plate",
+  "phrases": [
+   "take sushi off plate",
+   "Take the red sushi off the plate.",
+   "take nigiri off plate",
+   "take food off plate",
+   "take sushi off dish",
+   "take rice off plate",
+   "take the sushi off the light blue plate",
+   "take the red sushi block off the plate",
+   "pick the sushi up off the plate",
+   "take red sushi off plate",
+   "remove the sushi from the plate"
+  ]
+ },
+ "27626": {
+  "gt": "take lid off pot",
+  "phrases": [
+   "take lid off pot",
+   "Take the lid off the pot.",
+   "take top off pot",
+   "take lid off container",
+   "take lid off bowl",
+   "carefully take lid off pot",
+   "take the translucent lid off the pot",
+   "take the orange lid off the orange pot",
+   "take the pot lid off the pot",
+   "take orange lid off pot",
+   "remove the lid from the pot"
+  ]
+ },
+ "34335": {
+  "gt": "put the green object on top of the yellow cloth",
+  "phrases": [
+   "put the green object on top of the yellow cloth",
+   "put the green object on the yellow cloth",
+   "put the vegetable on top of the yellow cloth",
+   "could you please put the green object on top of the yellow cloth",
+   "put the green object on top of the cloth",
+   "carefully put the green object on top of the yellow cloth",
+   "put the plastic lime on top of the yellow cloth",
+   "put the green object on top of the yellow napkin",
+   "put the green object on the yellow cloth on the right burner",
+   "set the green object on top of the yellow cloth",
+   "place the green object on top of the yellow cloth"
+  ]
+ },
+ "14686": {
+  "gt": "open book",
+  "phrases": [
+   "open book",
+   "open the book",
+   "open the blue book",
+   "open the tome",
+   "open the item",
+   "open the cover",
+   "could you please open the book",
+   "open the Rome book",
+   "open the travel book",
+   "flip the book open"
+  ]
+ },
+ "8547": {
+  "gt": "open microwave",
+  "phrases": [
+   "open microwave",
+   "open the microwave",
+   "open the microwave door",
+   "open the appliance",
+   "would you please open the microwave",
+   "carefully open the microwave",
+   "open the toy microwave",
+   "open the microwave oven",
+   "open the microwave above the sink",
+   "open the grey microwave",
+   "pull the microwave open"
+  ]
+ },
+ "30128": {
+  "gt": "close the drawer",
+  "phrases": [
+   "close the drawer",
+   "shut the drawer",
+   "close drawer",
+   "close the box",
+   "go ahead and close the drawer",
+   "close the drawer fully",
+   "push the drawer shut",
+   "close the wooden drawer",
+   "push the red front panel shut",
+   "close the red drawer",
+   "close the open drawer"
+  ]
+ },
+ "15673": {
+  "gt": "fold the cloth from bottom left to top right",
+  "phrases": [
+   "fold the cloth from bottom left to top right",
+   "fold the cloth from the bottom left to the top right",
+   "fold the rag from bottom left to top right",
+   "I want you to fold the cloth from bottom left to top right",
+   "fold the cloth",
+   "neatly fold the cloth from bottom left to top right",
+   "fold the bottom left corner of the cloth over to the top right corner",
+   "fold the cloth on the stove from bottom left to top right",
+   "fold the orange towel from bottom left to top right",
+   "fold the orange cloth from bottom left to top right",
+   "fold the cloth from bottom left up to the top right"
+  ]
+ },
+ "16188": {
+  "gt": "fold the cloth from right to middle",
+  "phrases": [
+   "fold the cloth from right to middle",
+   "fold the cloth from the right to the middle",
+   "fold the towel from right to middle",
+   "please fold the cloth from right to middle",
+   "fold cloth from right to middle",
+   "carefully fold the cloth from right to middle",
+   "fold the right edge of the cloth over to the center",
+   "fold the cloth from right to center",
+   "fold the bright orange cloth from right to middle",
+   "fold the orange cloth from right to middle",
+   "fold the cloth on the table from right to middle"
+  ]
+ },
+ "38056": {
+  "gt": "take the cloth up and spread it",
+  "phrases": [
+   "take the cloth up and spread it",
+   "take up the cloth and spread it",
+   "take the rag up and spread it",
+   "take the linen up and spread it",
+   "when you get a chance, take the cloth up and spread it",
+   "take the cloth up and spread it evenly",
+   "lift the cloth and spread it",
+   "take the cloth up and unfold it",
+   "take the cloth up and spread it on the wooden table",
+   "take the orange cloth up and spread it",
+   "pick the cloth up and spread it"
+  ]
+ },
+ "5544": {
+  "gt": "taking the item out of the drawer",
+  "phrases": [
+   "taking the item out of the drawer",
+   "take the item out of the drawer",
+   "take the thing out of the drawer",
+   "take the item out of the box",
+   "the item out of the drawer",
+   "please take the item out of the drawer for me",
+   "take the sushi out of the drawer",
+   "take the sushi roll out of the wooden drawer",
+   "take the item out of the compartment",
+   "take the item out of the wooden drawer",
+   "remove the item from the drawer"
+  ]
+ },
+ "23571": {
+  "gt": "put sweet potato in pan which is on stove",
+  "phrases": [
+   "put sweet potato in pan which is on stove",
+   "put sweet potato in pan on stove",
+   "put the vegetable in pan which is on stove",
+   "put kumara in pan which is on stove",
+   "could you please put the sweet potato in the pan which is on the stove",
+   "put sweet potato in pan which is on stove, on the front-left burner",
+   "put sweet potato in the silver pot on the stove",
+   "put the yam in pan which is on stove",
+   "put the orange vegetable in the pan on the stove",
+   "put the sweet potato in the pan on the stove",
+   "set sweet potato in pan which is on stove",
+   "put orange sweet potato in pan which is on stove"
+  ]
+ },
+ "14397": {
+  "gt": "Put the mushroom below the yellow can.",
+  "phrases": [
+   "Put the mushroom below the yellow can.",
+   "put the mushroom below the yellow can",
+   "Put the mushroom below the yellow tin.",
+   "Put the mushroom below the yellow container.",
+   "mushroom below the yellow can",
+   "Would you kindly put the mushroom below the yellow can for me.",
+   "Put the mushroom below the pineapple can.",
+   "Put the mushroom below the yellow pineapple can.",
+   "Put the mushroom below the can.",
+   "Put the mushroom under the yellow can.",
+   "Put the white mushroom below the yellow can."
+  ]
+ },
+ "22286": {
+  "gt": "turn lever vertical to front",
+  "phrases": [
+   "turn lever vertical to front",
+   "turn the grey lever vertical to front",
+   "turn the handle vertical to front",
+   "lever vertical to front",
+   "carefully turn lever vertical to front",
+   "turn lever vertical to front, the small lever near the base of the faucet",
+   "rotate the lever so it points vertically to the front",
+   "turn the faucet lever vertical to front",
+   "turn the switch vertical to front",
+   "turn the lever vertical to front",
+   "turn lever upright to front"
+  ]
+ },
+ "13998": {
+  "gt": "move the green spatula beside the blue cloth on the top of the right burner",
+  "phrases": [
+   "move the green spatula beside the blue cloth on the top of the right burner",
+   "move the green spatula beside the blue cloth",
+   "move the green utensil beside the blue cloth on the top of the right burner",
+   "move the green turner beside the blue cloth on the top of the right burner",
+   "move the spatula beside the blue cloth on the top of the right burner",
+   "when you get a chance, move the green spatula over so it sits beside the blue cloth on the top of the right burner",
+   "move the green-handled spatula beside the blue cloth",
+   "move the green spatula next to the blue cloth on the top-left burner",
+   "move the green spatula onto the left burner, beside the blue cloth",
+   "put the green spatula beside the blue cloth on the top of the right burner",
+   "move the green spatula beside the cloth on the top of the right burner"
+  ]
+ },
+ "42147": {
+  "gt": "pick the pot and place it on bottom right edge of table",
+  "phrases": [
+   "pick the pot and place it on bottom right edge of table",
+   "pick the pot and place it on the bottom right edge of the table",
+   "pick the pan and place it on bottom right edge of table",
+   "pick the cookware and place it on bottom right edge of table",
+   "could you please pick the pot and place it on the bottom right edge of the table for me",
+   "pick the pot with the two handles and place it on bottom right edge of table",
+   "pick the metal cooking pot and place it on the bottom right edge of the table",
+   "move the pot to the bottom right corner of the table",
+   "set the pot down in the empty space at the bottom right of the table",
+   "pick the silver pot and place it on bottom right edge of table",
+   "pick the pot and put it on bottom right edge of table"
+  ]
+ },
+ "44170": {
+  "gt": "Move the green napkin from back to front side of the table.",
+  "phrases": [
+   "Move the green napkin from back to front side of the table.",
+   "Move the green napkin from the back to the front side of the table.",
+   "Move the green towel from back to front side of the table.",
+   "Move the green fabric from back to front side of the table.",
+   "green napkin from back to front side of the table",
+   "Please could you move the green napkin from the back to the front side of the table.",
+   "Move the green cloth from back to front side of the table.",
+   "Move the light green napkin from back to front side of the table.",
+   "Bring the green napkin to the front of the table.",
+   "Move the napkin from back to front side of the table.",
+   "Move the green rag from back to front side of the table."
+  ]
+ },
+ "44832": {
+  "gt": "move the green pepper to the upper right side of the table",
+  "phrases": [
+   "move the green pepper to the upper right side of the table",
+   "Move the green pepper to the upper right side of the table.",
+   "move the green vegetable to the upper right side of the table",
+   "move the green capsicum to the upper right side of the table",
+   "when you can, please move the green pepper over to the upper right side of the table",
+   "move the green pepper carefully to the upper right side of the table",
+   "move the green pepper toy to the upper right side of the table",
+   "place the green pepper down on the top right area of the table",
+   "move the green pepper to the top right side of the table",
+   "move the pepper to the upper right side of the table",
+   "put the green pepper on the upper right side of the table",
+   "green pepper to the upper right side of the table"
+  ]
+ },
+ "46568": {
+  "gt": "Place the strawberry on top left of the orange cloth in the table.",
+  "phrases": [
+   "Place the strawberry on top left of the orange cloth in the table.",
+   "Place the strawberry on the top left of the orange cloth in the table.",
+   "Place the berry on top left of the orange cloth in the table.",
+   "Place the fruit on top left of the orange cloth in the table.",
+   "Place the strawberry on top left of the orange napkin in the table.",
+   "Place the strawberry precisely on top left of the orange cloth in the table.",
+   "Place the strawberry on top left of the folded orange cloth.",
+   "Place the strawberry on the upper left corner of the orange cloth.",
+   "Place the strawberry on top left of the orange cloth on the table.",
+   "Place the red strawberry on top left of the orange cloth in the table.",
+   "Put the strawberry on top left of the orange cloth in the table.",
+   "Set the strawberry down on the top left of the orange cloth."
+  ]
+ }
+}
