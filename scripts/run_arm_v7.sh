@@ -52,6 +52,7 @@ tmux new-session -d -s train \
      --reward-blend c4b --blend-w 0.25 \
      --gen-mode $GEN_MODE --update-rule grpo --no-gate \
      --gen-temp 1.0 --n-candidates 16 \
+     --score-timeout 1800 \
      --beta 0.15 --lr 7e-6 --kl-abort 1.2 \
      --contexts-per-step 8 --grad-accum-groups 6 \
      --val-every 20 --save-every 10 --probe-every 25 \
