@@ -477,17 +477,62 @@ Control = "put the carrot on the plate" **43.1%**, one edit per row:
 **The green-vs-yellow face-off is a double null** — the same ambiguous
 plate named either color measures identically (42.4 vs 41.7). Target-color
 adjectives simply don't matter on this easy task; coke-plate's yellow −19.4
-stays task-specific. Under single-edit additivity the old stratified combo
-leader "place the orange carrot on the green plate" (54.2) looks inflated
-(−5.6 −4.2 −0.7 would predict ~33) — a 2-phrase combo board is queued to
-certify it directly (interaction vs split-artifact).
+stays task-specific.
+
+**Combo certification (pure2, n=144/row):** the follow-up board certified
+the full template phrases directly against the same control (43.1):
+
+| Δ vs control (pp) | phrase | success | |
+|---|---|---|---|
+| **+8.3** | "set the orange carrot on the green plate" | 51.4 | combo · pure2 |
+| **+6.9** | "place the orange carrot on the green plate" | 50.0 | combo · pure2 |
+
+Single-edit additivity predicted ~33–42 for these — the certified 50–51
+means the edits **interact positively**: the complete corpus-template FORM
+("set/place the [color] [source] on the [color] [target]") is worth ~+9–17pp
+more than the sum of its parts. Rules implication: prefer whole known
+templates over per-edit optimization. (The old stratified 54.2 was nearly
+right; the additivity prediction was the wrong model, not the measurement.)
 
 **Determinism note:** cells duplicated across boards reproduce EXACTLY
 (rollouts are deterministic given phrase + layout + rep grid), so
 cross-board comparisons of identical phrases are exact — and duplicate
 cells in future boards are pure waste (dedupe against existing cells).
 
-Remaining round-2 boards: wheel + eggplant (pod3 tail).
+**Round-2 purification — eggplant→basket (pure2, n=144/row).** Control =
+"put the eggplant in the yellow basket" **93.1%**:
+
+| Δ vs control (pp) | phrase | success | the single edit |
+|---|---|---|---|
+| +1.3 | "put the eggplant in the yellow **rack**" | 94.4 | basket → rack (FREE) · pure2 |
+| +0.7 | "put the **aubergine** in the yellow basket" | 93.8 | eggplant → aubergine (FREE) · pure2 |
+| −1.4 | "put the eggplant **into** the yellow basket" | 91.7 | in → into · pure2 |
+| −2.1 | "put the eggplant in the yellow **dish rack**" | 91.0 | basket → dish rack · pure2 |
+| **−8.4** | "put the eggplant in the basket" | 84.7 | drop "yellow" · pure2 |
+
+Theory capstone: on this good-nominal task the true-ish names "rack" and
+even "aubergine" are FREE — direct contrast with ramekin's true-name −41.7.
+True-name toxicity is about **corpus absence, not name rarity** (aubergine
+and dish-rack both appear in Bridge text; "ramekin" doesn't). And the color
+adjective earns −8.4 when dropped even at ceiling: "yellow" is doing
+disambiguation work.
+
+**Round-2 purification — carrot→wheel (pure2, n=144/row).** Control =
+"put the carrot on the black wheel" **29.9%**:
+
+| Δ vs control (pp) | phrase | success | the single edit |
+|---|---|---|---|
+| −1.4 | "**place** the carrot on the black wheel" | 28.5 | put → place (null) · pure2 |
+| −3.5 | "**set** the carrot on the black wheel" | 26.4 | put → set (null) · pure2 |
+| **−7.0** | "put the carrot on the black **tire**" | 22.9 | wheel → tire · pure2 |
+| **−13.9** | "put the carrot on the wheel" | 16.0 | drop "black" · pure2 |
+
+The +color-on-hard-targets rule now has TWO certified ~+12pp cells
+(keyboard +11.1, wheel +13.9). "wheel" beats the visually-truer "tire"
+(−7.0) — corpus vocabulary over visual fidelity, again. Verbs null, again.
+
+*All three round-2 boards + the combo board are complete: 16 designed
+comparisons at n=144 per side (14 single-edit + 2 combo).*
 
 ## Reading discipline
 1. Per-phrase SE ≈ 8pp at n=36; n=36 gaps under ~16pp are noise-range.
