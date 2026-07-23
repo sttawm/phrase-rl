@@ -1482,3 +1482,14 @@ on these the screen's per-scene partial order is compared to the certified
 rollout order (transfer check on matched tasks, explicitly narrow). Pilot
 design: 12+ scenes, image-grounded phrase sets authored by Claude from the
 actual frames, per-scene grip scoreboards = partial-order chains.
+
+## 2026-07-23 11:43 — sealed legs 1-2 scoreboard (12 tasks x 24 layouts x 12)
+
+| arm | pooled | note |
+|---|---|---|
+| originals (nominal) | 36.1 | 2 bad-nominal tasks (ramekin 14.6, coke-wheel 12.2 both BELOW their ERT) |
+| passthrough (raw ERT) | 26.6 | hostile tax -9.5 vs originals |
+| sft_v2 | 24.6 | BELOW passthrough pooled: big OOV losses (pepsi -33.6, coke-wheel -22.6 vs passthrough) vs in-vocab wins (+10..+16) |
+
+Remaining: frozen_selftrace (running, ~16:15), frozen_gemini, v6_rl, oracle_pool,
+then rules-v3 legs post-authoring.
