@@ -1,0 +1,188 @@
+{
+  "_note": "Image-grounded phrase sets for the grip-screen pilot (authored by Claude from the actual quarter-frames; EXPERIMENT.md 2026-07-23). Scene 346 is the ANCHOR: its cells mirror the rollout-certified carrot-plate cells for the cross-domain transfer check. Suggestive-tier evidence only.",
+  "346": {
+    "gt": "put carrot on plate",
+    "scene": "toy stovetop; orange carrot center; light-green plate top-left (same ambiguous green as SIMPLER); banana, red pepper, teal cabbage distractors",
+    "phrases": [
+      "put carrot on plate",
+      "put the carrot on the plate",
+      "set the carrot on the plate",
+      "put the carrot on the green plate",
+      "place the orange carrot on the green plate",
+      "put the vegetable on the plate",
+      "put the carrot on the dish",
+      "pick up the carrot and put it on the plate",
+      "put the carrot onto the plate",
+      "please put the carrot on the plate"
+    ]
+  },
+  "303": {
+    "gt": "put the blue towel into the basket",
+    "scene": "white lattice plastic basket on wood board; crumpled blue microfiber towel right of it; yellow towel in dryer drum behind",
+    "phrases": [
+      "put the blue towel into the basket",
+      "put the towel into the basket",
+      "put the blue towel in the basket",
+      "put the blue cloth into the basket",
+      "put the blue rag into the basket",
+      "put the blue towel into the white basket",
+      "put the blue towel into the laundry basket",
+      "set the blue towel in the basket",
+      "pick up the blue towel and put it in the basket",
+      "put the fabric into the basket"
+    ]
+  },
+  "270": {
+    "gt": "put pear in bowl",
+    "scene": "toy sink counter; blue bowl bottom-right; pear partially visible in sink; carrot/chili/corn/mushroom distractors",
+    "phrases": [
+      "put pear in bowl",
+      "put the pear in the bowl",
+      "put the pear in the blue bowl",
+      "put the pear into the bowl",
+      "set the pear in the bowl",
+      "put the fruit in the bowl",
+      "put the yellow pear in the blue bowl",
+      "put the pear in the dish",
+      "put the pear in the cup",
+      "pick up the pear and put it in the bowl"
+    ]
+  },
+  "4629": {
+    "gt": "Put the eggplant in the metal pot.",
+    "scene": "wooden counter; steel pot with handles right; purple eggplant on green cloth center-left",
+    "phrases": [
+      "Put the eggplant in the metal pot.",
+      "put the eggplant in the metal pot",
+      "put the eggplant in the pot",
+      "put the eggplant in the steel pot",
+      "put the eggplant in the silver pot",
+      "put the eggplant in the pan",
+      "put the aubergine in the metal pot",
+      "put the purple eggplant in the metal pot",
+      "put the vegetable in the metal pot",
+      "set the eggplant in the pot",
+      "pick up the eggplant and put it in the pot"
+    ]
+  },
+  "2887": {
+    "gt": "take banana out of colander",
+    "scene": "school desk; small metal colander with yellow banana inside; chili, lemon, bread, spatula distractors",
+    "phrases": [
+      "take banana out of colander",
+      "take the banana out of the colander",
+      "take the banana out of the strainer",
+      "take the banana out of the metal basket",
+      "take the yellow banana out of the colander",
+      "take the fruit out of the colander",
+      "remove the banana from the colander",
+      "pick up the banana and take it out of the colander",
+      "lift the banana out of the colander"
+    ]
+  },
+  "3431": {
+    "gt": "put the sushi in the pan",
+    "scene": "dark wooden counter; gripper mid-grasp; pan poorly visible at this frame — AMBIGUOUS scene, chain still informative",
+    "phrases": [
+      "put the sushi in the pan",
+      "put the sushi in the skillet",
+      "put the sushi in the frying pan",
+      "put the food in the pan",
+      "put the sushi roll in the pan",
+      "set the sushi in the pan",
+      "put the sushi into the pan",
+      "pick up the sushi and put it in the pan"
+    ]
+  },
+  "9": {
+    "gt": "Move the can in the middle bottom of the table",
+    "scene": "wooden table; blue-silver labeled tin can center-right; colander with banana left",
+    "phrases": [
+      "Move the can in the middle bottom of the table",
+      "move the can to the middle bottom of the table",
+      "move the can to the front of the table",
+      "move the blue can to the middle bottom of the table",
+      "move the tin can to the middle bottom of the table",
+      "move the object to the middle bottom of the table",
+      "push the can to the middle bottom of the table",
+      "move can to middle bottom of table",
+      "pick up the can and move it to the middle bottom of the table"
+    ]
+  },
+  "147": {
+    "gt": "put the light blue cube on the right side of the red spoon",
+    "scene": "black cooktop; light-blue sponge-like cube left; red spoon center; white brick backsplash",
+    "phrases": [
+      "put the light blue cube on the right side of the red spoon",
+      "put the blue cube on the right side of the red spoon",
+      "put the blue sponge on the right side of the red spoon",
+      "put the light blue block on the right side of the red spoon",
+      "put the light blue cube to the right of the red spoon",
+      "put the light blue cube next to the red spoon",
+      "put the light blue cube beside the red spoon",
+      "set the light blue cube on the right side of the red spoon",
+      "put the light blue cube on the right side of the spoon"
+    ]
+  },
+  "189": {
+    "gt": "move the cloth from top right to bottom left",
+    "scene": "white table; large blue towel center in gripper",
+    "phrases": [
+      "move the cloth from top right to bottom left",
+      "move the towel from top right to bottom left",
+      "move the blue cloth from top right to bottom left",
+      "move the blue towel from top right to bottom left",
+      "move the rag from top right to bottom left",
+      "move the cloth to the bottom left",
+      "move the cloth to the bottom left corner",
+      "drag the cloth from top right to bottom left",
+      "move the fabric from top right to bottom left"
+    ]
+  },
+  "659": {
+    "gt": "put cup from anywhere into sink",
+    "scene": "toy kitchen; light-blue plastic sink basin center; white cup at sink edge; green dish rack behind; pink lid left",
+    "phrases": [
+      "put cup from anywhere into sink",
+      "put the cup into the sink",
+      "put the cup in the sink",
+      "put the white cup into the sink",
+      "put the mug into the sink",
+      "put the cup into the blue sink",
+      "put the cup into the basin",
+      "set the cup in the sink",
+      "put the container into the sink",
+      "pick up the cup and put it in the sink"
+    ]
+  },
+  "1550": {
+    "gt": "move the yellow block above the green arch and the tower",
+    "scene": "wooden table; block tower: blue arch base, red cube, wood cube, blue roof piece; yellow block near gripper bottom-right",
+    "phrases": [
+      "move the yellow block above the green arch and the tower",
+      "move the yellow block on top of the tower",
+      "put the yellow block on top of the tower",
+      "put the yellow block on the tower",
+      "move the yellow cube above the green arch and the tower",
+      "stack the yellow block on the tower",
+      "move the yellow block above the arch",
+      "place the yellow block on top of the tower"
+    ]
+  },
+  "2159": {
+    "gt": "Put the metal pot in front of the mushroom.",
+    "scene": "toy counter; steel pot center; white-stem toy mushroom right; two sauce cans top; teal cloth + yellow-handled knife left",
+    "phrases": [
+      "Put the metal pot in front of the mushroom.",
+      "put the metal pot in front of the mushroom",
+      "put the pot in front of the mushroom",
+      "put the steel pot in front of the mushroom",
+      "put the silver pot in front of the mushroom",
+      "put the pan in front of the mushroom",
+      "put the saucepan in front of the mushroom",
+      "put the metal pot in front of the white mushroom",
+      "put the metal pot next to the mushroom",
+      "set the metal pot in front of the mushroom"
+    ]
+  }
+}

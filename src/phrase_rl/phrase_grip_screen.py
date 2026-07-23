@@ -71,6 +71,9 @@ def main():
     ap.add_argument("--frames", type=int, default=4, help="frames per episode (linspace subsample)")
     ap.add_argument("--k", type=int, default=4, help="CRN decode draws")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--phrase-sets", default=None,
+                    help="json {episode: {gt, phrases:[...]}} — image-grounded per-scene "
+                         "boards (partial-order mode) instead of auto text edits")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -79,10 +82,16 @@ def main():
     dim_std = chunks.reshape(chunks.shape[0], -1, 7).std(axis=(0, 1)) + 1e-8
 
     df = pd.read_parquet(args.contexts)
-    eps = sorted(df.episode_index.unique())
-    rng = np.random.default_rng(args.seed)
-    eps = list(rng.choice(eps, size=min(args.episodes, len(eps)), replace=False))
-    df = df[df.episode_index.isin(eps)]
+    sets = None
+    if args.phrase_sets:
+        sets = {int(k): v for k, v in json.load(open(args.phrase_sets)).items()
+                if not k.startswith("_")}
+        df = df[df.episode_index.isin(sets)]
+    else:
+        eps = sorted(df.episode_index.unique())
+        rng = np.random.default_rng(args.seed)
+        eps = list(rng.choice(eps, size=min(args.episodes, len(eps)), replace=False))
+        df = df[df.episode_index.isin(eps)]
 
     PI0Policy = import_pi0_policy()
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -96,11 +105,17 @@ def main():
         idx = np.unique(np.linspace(0, len(g) - 1, args.frames).round().astype(int))
         g = g.iloc[idx]
         instr = str(g.iloc[0]["instruction"]).strip()
-        variants = edits_for(instr)
-        if not variants:
-            continue
-        phrases = [instr] + list(variants.values())
-        names = list(variants.keys())
+        if sets is not None:
+            plist = sets[int(ep)]["phrases"]
+            phrases = plist
+            names = [f"p{i}" for i in range(1, len(plist))]  # vs phrases[0] as base
+            phrases = [plist[0]] + plist[1:]
+        else:
+            variants = edits_for(instr)
+            if not variants:
+                continue
+            phrases = [instr] + list(variants.values())
+            names = list(variants.keys())
         frame_deltas = {nm: [] for nm in names}
         ok = True
         for _, row in g.iterrows():
@@ -120,10 +135,44 @@ def main():
         if not ok:
             continue
         n_ctx += 1
-        for nm in names:
-            per_edit.setdefault(nm, []).append(float(np.mean(frame_deltas[nm])))
-        if n_ctx % 20 == 0:
-            print(f"[{n_ctx}] episodes screened", flush=True)
+        if sets is not None:
+            # per-scene partial order: absolute mean grip per phrase across frames,
+            # plus per-frame paired deltas vs base for chain SEs
+            board = {"gt": instr, "phrases": {}}
+            base_mean = float(np.mean([0.0]))  # base delta is 0 by construction
+            board["phrases"][phrases[0]] = {"mean_delta_vs_base": 0.0, "se": 0.0}
+            for i, nm in enumerate(names):
+                d = np.asarray(frame_deltas[nm])
+                board["phrases"][phrases[i + 1]] = {
+                    "mean_delta_vs_base": round(float(d.mean()), 6),
+                    "se": round(float(d.std(ddof=1) / np.sqrt(len(d))), 6) if len(d) > 1 else None,
+                }
+            per_edit[f"scene_{ep}"] = board
+            print(f"[scene {ep}] done ({len(phrases)} phrases)", flush=True)
+        else:
+            for nm in names:
+                per_edit.setdefault(nm, []).append(float(np.mean(frame_deltas[nm])))
+            if n_ctx % 20 == 0:
+                print(f"[{n_ctx}] episodes screened", flush=True)
+
+    if sets is not None:
+        out = {"contexts": args.contexts, "mode": "phrase_sets",
+               "frames_per_ep": args.frames, "k": args.k,
+               "note": "negative delta = phrase reduced grip error vs the scene's base "
+                       "(row 0 of its set); per-scene boards sorted best-first",
+               "scenes": {}}
+        for key, board in per_edit.items():
+            ordered = sorted(board["phrases"].items(), key=lambda kv: kv[1]["mean_delta_vs_base"])
+            out["scenes"][key] = {"gt": board["gt"],
+                                  "order_best_to_worst": [
+                                      {"phrase": p, **v} for p, v in ordered]}
+        json.dump(out, open(args.out, "w"), indent=1)
+        for key, sc in out["scenes"].items():
+            print(f"\n== {key}  (gt: {sc['gt']!r})")
+            for r in sc["order_best_to_worst"]:
+                print(f"  {r['mean_delta_vs_base']:+.5f} (se {r['se']})  {r['phrase'][:64]}")
+        print(f"\nwrote {args.out}")
+        return
 
     rows = []
     for nm, deltas in sorted(per_edit.items()):
