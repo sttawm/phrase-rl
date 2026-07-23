@@ -1,0 +1,16 @@
+{
+ "task": "widowx_carrot_on_plate",
+ "n_per_phrase": 144,
+ "scoreboard": [
+  {
+   "phrase": "pick up the carrot and put it on the plate",
+   "success_pct": 45.1,
+   "n": 144
+  },
+  {
+   "phrase": "put the carrot on the plate",
+   "success_pct": 43.1,
+   "n": 144
+  }
+ ]
+}
