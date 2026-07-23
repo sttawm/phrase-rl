@@ -411,14 +411,17 @@ pick-up clause differs. 6 of 8 tasks in:
 | coke → plate | 56.2 | 60.4 | −4.2 |
 | **carrot → keyboard** | **3.5** | **15.3** | **−11.8** |
 | **stack cubes** | 34.0 | 41.0 | **−7.0** |
-| carrot → wheel | — | — | running |
+| carrot → wheel | 11.8 | 16.0 | −4.2 |
 
-Read: the extra clause is free on the easier scenes (+2.0, +0.7, +2.0, −4.2)
-but taxes the hard ones, and the tax scales with difficulty: spoon −5.6,
-stack −7.0, keyboard −11.8. On marginal tasks, longer instructions dilute
-the tokens that matter. (Also: stack's certified single-clause 41.0 at
-n=144/24L supersedes the noisier stratified 33.0 — that task's split
-volatility is the widest measured.)
+**CLAUSE FAMILY COMPLETE (8/8, n=144/side each).** The extra clause is free
+on the easier scenes (+2.0, +0.7, +2.0, −4.2) and taxes the hard ones, with
+the tax scaling with difficulty: wheel −4.2, spoon −5.6, stack −7.0,
+keyboard −11.8. Pooled −3.6pp across 8 tasks. On marginal tasks, longer
+instructions dilute the tokens that matter — a rules-v3 input: keep
+instructions SHORT on hard/OOV targets; clause structure is stylistic
+elsewhere. (Also: stack's certified single-clause 41.0 at n=144/24L
+supersedes the noisier stratified 33.0 — that task's split volatility is
+the widest measured.)
 The clause-*verb* effects (place≫put, pick-up≫take) are separate and large;
 see the coke-plate purified table.
 
