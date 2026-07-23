@@ -1502,3 +1502,12 @@ First rephraser above passthrough. Beats the NOMINAL on bad-nominal ramekin
 (46.2 vs 14.6) = the val rescue mechanism on sealed. Still loses where it
 rewrites good inputs (pepsi 19.1 vs passthrough 52.4 — rule-1 damage).
 Next: v6_rl leg (pod2, ~01:00), then oracle_pool.
+
+## 2026-07-23 ~21:15 — grip sweep approved: SPLIT DESIGN
+
+User: Gemini cover35 traces (2000/2000 coverage verified) ground the edits;
+split design chosen over flat F=16: leg A = 2000 eps x F=8 (pooled corpus
+tables; between-episode variance dominates), leg B = 100 eps x F=16
+(resolvable per-scene partial orders). 11 edit categories incl. trace-true
+add_color and noun-family swaps (substitutability table). ~18h on pod3,
+launching at wheel-RESULT. Output: suggestive-tier; nominations only.

@@ -152,7 +152,8 @@ def main():
     policy = PI0Policy.from_pretrained(args.ckpt).to(device).eval()
     scorer = Pi0PhraseScorer(policy, k=8, seed=args.seed, micro_batch=64)
 
-    per_edit = {}   # edit -> list of per-episode mean paired deltas
+    per_edit = {}       # edit -> list of per-episode mean paired deltas
+    per_episode = {}    # episode -> {edit: delta} for post-hoc per-scene boards
     n_ctx = 0
     for ep, g in df.groupby("episode_index"):
         g = g.sort_values("t").reset_index(drop=True)
@@ -189,6 +190,9 @@ def main():
         if not ok:
             continue
         n_ctx += 1
+        per_episode.setdefault(int(ep), {"gt": instr})
+        for nm in names:
+            per_episode[int(ep)][nm] = round(float(np.mean(frame_deltas[nm])), 6)
         if sets is not None:
             # per-scene partial order: absolute mean grip per phrase across frames,
             # plus per-frame paired deltas vs base for chain SEs
@@ -240,7 +244,7 @@ def main():
     out = {"contexts": args.contexts, "episodes_screened": n_ctx,
            "frames_per_ep": args.frames, "k": args.k,
            "note": "negative mean_delta_grip = edit reduced grip error (screen-better)",
-           "table": rows}
+           "table": rows, "per_episode": per_episode}
     json.dump(out, open(args.out, "w"), indent=1)
     print(f"\n{'edit':18s} {'n':>5s} {'mean d(grip)':>13s} {'z':>7s} {'frac<0':>7s}")
     for r in rows:
