@@ -432,12 +432,30 @@ on the full 24-layout grid: spoon nominal 52.1 vs stratified 52.0; coke-plate
 in the white bowl" 62.5 vs 61.1. The stratified pooling is unbiased in
 practice.
 
-**Six-edit certification (xcert) and round-2 purification (xcert_pure):**
-1 of 8 xcert boards in (carrot-plate; cells already folded into the tables
-above); the rest + 3 round-2 purification boards land by ~08:00. Round-2
-rows get the `pure2` tag and n=144, and their scene sections get a separate
-"Purified minimal pairs — round 2 (n=144/row)" table so they never mix with
-the n=36 round-1 tables.
+**Six-edit certification (xcert) — rolling matrix.** Each column is one
+task; each cell is the Δ (pp) of that single edit vs the task's base phrase
+"put the [source] on/in the [target]" (articles included), all at n=144 per
+phrase on all 24 layouts. |Δ| ≳ 12 is ~2σ under conservative errors.
+
+| edit | carrot→plate (base 43.1) | carrot→keyboard (base 15.3) |
+|---|---|---|
+| put → set | +4.1 | −0.7 |
+| on → onto | −2.8 | +0.7 |
+| on → on top of | +0.7 | +1.4 |
+| + target color adjective | −0.7 (green) | **+11.1** (black) |
+| source → category word | **−25.7** (vegetable) | **−7.7** (vegetable) |
+| receptacle synonym | −1.4 (dish) | — |
+
+Certified so far: **the "+color on hard/OOV targets" rule** (+11.1 keyboard
+vs −0.7 on the easy plate — replicating pure1's +11.2 exactly);
+**category-words for the source object are toxic everywhere** (−25.7, −7.7);
+**onto and on-top-of are FREE** on both tasks — coke-plate's −22 "top of"
+cliff is task-specific, NOT a law; **put→set is null-to-mild here** — the
+big spoon set-effect (+13.9 pure1) is also task-specific, pending its own
+xcert column. 6 more task columns land by ~09:00.
+
+**Round-2 purification (xcert_pure ×3)** lands after the xcert boards;
+`pure2` tag, n=144, separate per-scene tables.
 
 ## Reading discipline
 1. Per-phrase SE ≈ 8pp at n=36; n=36 gaps under ~16pp are noise-range.
