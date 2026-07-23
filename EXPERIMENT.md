@@ -1444,3 +1444,14 @@ to be dropped in at data/contexts_train_multit.parquet / contexts_val_multit
 .parquet on the training pod (linspace subsampling keeps them valid for any
 F<=16). Final v7 deltas vs v6: C4b reward (w=0.25) · input-dropout 0.5 ·
 REWARD_FRAMES=16.
+
+## 2026-07-23 ~03:30 — user trade: certification-first; v7 deferred to ~07:30
+
+Per user: pod1 stays on certification after its clause boards instead of
+flipping to v7. Disjoint filters at next board boundary — pod1:
+xcert2_wheel + xcert_{eggplant,keyboard,ramekin} + xcert_pure_carrotplate;
+pod3: xcert_{cokeplate,spoon,stack,wheel} + xcert_pure_{wheel,eggplant}.
+Certification ETA ~08:00 (was ~11:30); v7 launches on pod1 after its share
+(~07:30; 16-frame tables already staged). Clause certification 6/8 in:
+structure free except keyboard −11.8 (~3σ). Sealed leg 1 (sft_v2) landed
+03:04: pooled 24.6, in-vocab carries / OOV craters per vocab-audit strata.

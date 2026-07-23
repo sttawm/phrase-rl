@@ -373,7 +373,8 @@ their attribution is suggestive, not airtight.
 | **TRUE-NAME toxicity**: naming a rare object by its real name when a corpus-common look-alike fits (ramekin vs bowl) | 1 (largest clean effect) | −41.7pp | pure1 |
 | **Category words are FINE, hyper-specific compounds are toxic**: container/basin ≥ bowl (+11/+17) but teal-green −33; specificity must stay inside corpus vocabulary | 2 | +17…−33pp | pure1 |
 | **Visual-fidelity naming**: the winning noun names what the object LOOKS like (bowl-ramekin, cube-blocks, dish-rack-basket) — *in the corpus's own words* (teal-green fails) | 3 | decides the rescues | replicated, refined by pure1 |
-| **Clause-template verb identity**: extra pick-up clause free, but inside it "place" ≫ "put" (+19.4) and "pick up" ≫ "take" (+22.2) — the corpus template's exact verbs | 1 | ±20pp | pure1 |
+| **Clause-template verb identity**: inside a two-clause form "place" ≫ "put" (+19.4) and "pick up" ≫ "take" (+22.2) — the corpus template's exact verbs | 1 | ±20pp | pure1 |
+| **Clause STRUCTURE is free — except on the hardest task**: certified single-vs-two-clause on 6 tasks (n=144/side each): +2.0, −4.2, +2.0, +0.7, −5.6 … and keyboard **−11.8** (~3σ). See certification table below | 6 | ~0 (one −12) | **xcert2 certified** |
 | **Adjectives help on hard/OOV objects** (black on keyboard −11.2 dropped · pure1; black on wheel); mild-to-harmful on good-nominal tasks (yellow plate −19; blue towel −5.6 pure1) | 4 | +11…−19pp | replicated |
 | **Part-names lose to whole-names** (keys, rim) | 2 | −12…−29pp | replicated |
 | **"set" ≥ "put" — and set-forms now LEAD four scenes** (spoon 69.8, coke-plate 75.0, carrot-plate 56.6, keyboard 30.9 stratified); single-edit: +13.9 (spoon pure1), +3.7 (coke L0–17), +2.8 (keyboard pure1), 0.0 (ramekin pure1) — never negative; "please" free. Both wrongly banned by rules-v1 | 6 | 0…+14pp | replicated · pure1 · xcert certifying |
@@ -391,6 +392,41 @@ keyboard **+14.2**, carrot-plate **+13.2**, wheel **+12.5**, coke-plate
 +8.4 (suggestive), eggplant +4.5 (ceiling). Magnitude anti-correlates with
 nominal quality — but the earlier "good nominals are unbeatable" claim was
 an episode-weighting artifact and is withdrawn.
+
+## Certification results (rolling — all 24 layouts ×6, n=144 per phrase)
+
+**Clause structure (xcert2): "pick up the X and put it on the Y" vs "put the
+X on the Y"** — same second verb ("put") both sides, so only the extra
+pick-up clause differs. 6 of 8 tasks in:
+
+| task | two-clause | single | Δ (two − single) |
+|---|---|---|---|
+| eggplant → basket | 95.1 | 93.1 | +2.0 |
+| coke → white bowl (ramekin scene) | 63.2 | 62.5 | +0.7 |
+| spoon → towel | 46.5 | 52.1 | −5.6 |
+| carrot → plate | 45.1 | 43.1 | +2.0 |
+| coke → plate | 56.2 | 60.4 | −4.2 |
+| **carrot → keyboard** | **3.5** | **15.3** | **−11.8** |
+| stack cubes | — | — | running |
+| carrot → wheel | — | — | queued |
+
+Read: the extra clause is free on ordinary tasks (pooled Δ excl. keyboard
+≈ −1.0pp) but collapses the hardest OOV task (−11.8, ~3σ) — on
+marginal tasks, longer instructions appear to dilute the tokens that matter.
+The clause-*verb* effects (place≫put, pick-up≫take) are separate and large;
+see the coke-plate purified table.
+
+**Cross-validation of the stratified estimates:** three certification cells
+re-measured phrases the stratified pool already estimated, independently and
+on the full 24-layout grid: spoon nominal 52.1 vs stratified 52.0; coke-plate
+"put the coke can on the plate" 60.4 vs 61.1; ramekin-scene "put the coke can
+in the white bowl" 62.5 vs 61.1. The stratified pooling is unbiased in
+practice.
+
+**Six-edit certification (xcert) and round-2 purification (xcert_pure):**
+1 of 8 xcert boards in (carrot-plate; cells already folded into the tables
+above); the rest + 3 pure boards land by ~08:00 and get their own tables
+here.
 
 ## Reading discipline
 1. Per-phrase SE ≈ 8pp at n=36; n=36 gaps under ~16pp are noise-range.
