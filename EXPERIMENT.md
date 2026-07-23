@@ -1407,3 +1407,27 @@ Watch-fors: (a) trace-copy degeneracy amplified by 0.5 dropout — acceptable if
 probes hold (noun-copying is the desired mechanism); (b) echo-style verbose
 drift — C4b carries no echo penalty, but the L2-addendum showed grip (unlike
 L2) does not prefer the verbose family; (c) KL runaway (kl-abort 1.2 armed).
+
+## 2026-07-23 — v7 reward-noise analysis (user idea): frames >> decode draws; spec now F=8, k=4
+
+User asked whether more pi0 decode samples would sharpen the reward (flow
+sampling is cheap-ish). Desk analysis on the stored exam features (per-draw
+grip_err, CRN pairing, 400 adjacent-rank candidate pairs across contexts):
+- Frame-to-frame disagreement carries ~62% of the reward-difference variance;
+  decode-draw noise ~38% (already suppressed by common-random-numbers pairing).
+- Adjacent-pair "coin-flip zone" (|gap| < 1 SE): F=4,k=4 (v6 prod): 89%.
+  Doubling draws (k=8): 86% — nearly nothing. Doubling frames (F=8): 62%.
+  Both: 52%.
+- The user's own follow-up ("roughly equivalent to using more frames") is the
+  right frame: only frames touch the dominant component (different t, a*).
+- Also noted: the bakeoff's 67/68 grip signs averaged over ~9 episodes/task on
+  top of 4 frames; training rewards get no episode averaging — per-context
+  signal is far noisier than the exam headline suggests, which is why F matters.
+
+DECISION: v7 trains with REWARD_FRAMES=8, k_decode stays 4 (verifier feature
+slots are calibrated to 4; frames dominate anyway). Cost ≈ 2x score time
+(~+50% step time) — quality over step count for the one-shot run. Requires an
+8-octile rebuild of contexts_train_multit / contexts_val_multit (builder
+multi_t_contexts --points 8; running locally; shipped to the training pod
+before launch; trainer linspace-subsamples so the 8-frame tables remain
+compatible with any REWARD_FRAMES <= 8).
