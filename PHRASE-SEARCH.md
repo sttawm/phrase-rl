@@ -19,14 +19,23 @@ n=108 ≈ 4.5pp; machine-readable values: results/search/stratified_pool.json.
 **This stratification flipped three scene verdicts** vs the earlier
 episode-weighted draft (spoon, carrot-plate, wheel) — flagged in place.
 
-**Purification rounds (`*_pure1`).** After the main search, each scene got a
-follow-up round designed for clean attribution: all phrases in the round run
-on the same scene and the same 18 layouts (36 tries per phrase), and every
-phrase differs from the round's control phrase by exactly one word-change.
-Because everything is measured side by side under identical conditions, a
-difference can only come from that one word. Where these rounds contradict
-the earlier mixed-edit tables, **the purified number wins** — several
-headline "cliffs" were revised this way (dish, ceramic, cloth, blue).
+**Purification rounds.** After the main search, each scene gets a follow-up
+round designed for clean attribution: all phrases in the round run side by
+side on the same scene and the same layouts, and every phrase differs from
+the round's control phrase by exactly one word-change — so a difference can
+only come from that one word. Two protocol generations:
+- **Round 1 (`*_pure1`, 5 scenes: ramekin, stack, keyboard, coke-plate
+  clauses, spoon):** 18 layouts ×2 = 36 tries per phrase; pair differences
+  resolved to ≈ ±11pp.
+- **Round 2 onward (`xcert_pure_*`, starting with wheel, carrot-plate,
+  eggplant):** all 24 layouts ×6 = **144 tries per phrase**, pair SE
+  ≈ 5.9pp. The 18/6 layout reservation only ever protected *active search*
+  (selection needs untouched layouts); pre-registered pairs don't select,
+  so they use every layout.
+
+Where purification contradicts the earlier mixed-edit tables, **the purified
+number wins** — several headline "cliffs" were revised this way (dish,
+ceramic, cloth, blue).
 
 ---
 
