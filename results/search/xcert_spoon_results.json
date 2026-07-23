@@ -1,0 +1,41 @@
+{
+ "task": "widowx_spoon_on_towel",
+ "n_per_phrase": 144,
+ "scoreboard": [
+  {
+   "phrase": "put the spoon on top of the towel",
+   "success_pct": 61.8,
+   "n": 144
+  },
+  {
+   "phrase": "set the spoon on the towel",
+   "success_pct": 57.6,
+   "n": 144
+  },
+  {
+   "phrase": "put the spoon on the cloth",
+   "success_pct": 55.6,
+   "n": 144
+  },
+  {
+   "phrase": "put the spoon on the towel",
+   "success_pct": 52.1,
+   "n": 144
+  },
+  {
+   "phrase": "put the spoon onto the towel",
+   "success_pct": 50.7,
+   "n": 144
+  },
+  {
+   "phrase": "put the spoon on the blue towel",
+   "success_pct": 49.3,
+   "n": 144
+  },
+  {
+   "phrase": "put the utensil on the towel",
+   "success_pct": 43.8,
+   "n": 144
+  }
+ ]
+}
