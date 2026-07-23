@@ -321,12 +321,15 @@ Full table (all measured pairs, including multi-edit):
 
 ## The cleanest evidence — single-edit pairs (one concept changed, everything else identical)
 
-Rows marked `pure1` come from the purification rounds: both phrases in the
-pair were tested side by side on the same scene and the same 18 layouts, 36
-tries each, and they differ by exactly one word-change. With 36 tries per
-phrase, a difference between two phrases is only pinned down to about ±11
-percentage points — so treat gaps under ~11pp as possibly luck, and the
-25–40pp gaps as solid.
+Row tags say which purification generation a pair comes from:
+- **`pure1`** = round 1: same scene, same 18 layouts, **36 tries per phrase**
+  (pair differences pinned to ≈ ±11pp — treat gaps under ~11pp as possibly
+  luck, 25–40pp gaps as solid).
+- **`pure2`** = round 2 (wheel, carrot-plate, eggplant; landing morning of
+  07-23): same design but **all 24 layouts, 144 tries per phrase** (pair
+  differences pinned to ≈ ±6pp).
+Both tag styles always carry their n, so the n alone also identifies the
+generation (36 vs 144).
 
 | abs Δ (pp) | better | worse | the single edit |
 |---|---|---|---|
@@ -425,8 +428,10 @@ practice.
 
 **Six-edit certification (xcert) and round-2 purification (xcert_pure):**
 1 of 8 xcert boards in (carrot-plate; cells already folded into the tables
-above); the rest + 3 pure boards land by ~08:00 and get their own tables
-here.
+above); the rest + 3 round-2 purification boards land by ~08:00. Round-2
+rows get the `pure2` tag and n=144, and their scene sections get a separate
+"Purified minimal pairs — round 2 (n=144/row)" table so they never mix with
+the n=36 round-1 tables.
 
 ## Reading discipline
 1. Per-phrase SE ≈ 8pp at n=36; n=36 gaps under ~16pp are noise-range.
