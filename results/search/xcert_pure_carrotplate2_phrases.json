@@ -1,0 +1,8 @@
+{
+ "task": "widowx_carrot_on_plate",
+ "control_note": "control cell put-the-carrot-on-the-plate certified 43.1 (deterministic grid; not re-run)",
+ "phrases": [
+  "place the orange carrot on the green plate",
+  "set the orange carrot on the green plate"
+ ]
+}
