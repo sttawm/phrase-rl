@@ -1,0 +1,41 @@
+{
+ "task": "widowx_coke_can_on_plate_clean",
+ "n_per_phrase": 144,
+ "scoreboard": [
+  {
+   "phrase": "set the coke can on the plate",
+   "success_pct": 65.3,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can on the plate",
+   "success_pct": 60.4,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can onto the plate",
+   "success_pct": 58.3,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can on top of the plate",
+   "success_pct": 56.2,
+   "n": 144
+  },
+  {
+   "phrase": "put the soda can on the plate",
+   "success_pct": 48.6,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can on the yellow plate",
+   "success_pct": 40.3,
+   "n": 144
+  },
+  {
+   "phrase": "put the coke can on the dish",
+   "success_pct": 37.5,
+   "n": 144
+  }
+ ]
+}
