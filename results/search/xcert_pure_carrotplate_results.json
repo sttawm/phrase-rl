@@ -1,0 +1,36 @@
+{
+ "task": "widowx_carrot_on_plate",
+ "n_per_phrase": 144,
+ "scoreboard": [
+  {
+   "phrase": "put carrot on plate",
+   "success_pct": 46.5,
+   "n": 144
+  },
+  {
+   "phrase": "put the carrot on the plate",
+   "success_pct": 43.1,
+   "n": 144
+  },
+  {
+   "phrase": "put the carrot on the green plate",
+   "success_pct": 42.4,
+   "n": 144
+  },
+  {
+   "phrase": "put the carrot on the yellow plate",
+   "success_pct": 41.7,
+   "n": 144
+  },
+  {
+   "phrase": "put the orange carrot on the plate",
+   "success_pct": 38.9,
+   "n": 144
+  },
+  {
+   "phrase": "place the carrot on the plate",
+   "success_pct": 37.5,
+   "n": 144
+  }
+ ]
+}
