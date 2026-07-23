@@ -1,20 +1,268 @@
 {
   "phase2": {
-    "step": 600,
+    "step": 20,
     "best_val": {
-      "mean_reward": -0.05095868667121976,
-      "step": 40
+      "mean_reward": -2.0357599668204784,
+      "step": 20
     },
     "latest_val": {
-      "step": 600,
+      "step": 20,
       "n_scored": 40,
       "n_failed": 0,
-      "mean_reward": -0.053768160031177105,
-      "mean_best_reward": -0.03742985650897026,
-      "mean_orig_reward": -0.05899492361349985,
+      "mean_reward": -2.0357599668204784,
+      "mean_best_reward": -0.2718320863787085,
+      "mean_orig_reward": 0.629072462208569,
+      "mean_greedy_reward": -1.7221254211850465,
+      "mean_greedy_ert_reward": -2.250560873327777,
+      "greedy_win_rate": 0.025,
+      "mean_orig_grip": 0.05333934577647596,
+      "mean_greedy_grip": 0.08528200699947774,
+      "mean_greedy_ert_grip": 0.0951755272457376,
+      "greedy_phrases": [
+        {
+          "instruction": "open fridge",
+          "greedy": "grasp the black handle and pull the door open",
+          "ert_instruction": "Grasp the dark lever of the grey chiller and pull the door outward.",
+          "greedy_ert": "Open the grey refrigerator by pulling the black handle."
+        },
+        {
+          "instruction": "take spoon out of bowl sink",
+          "greedy": "remove the blue spoon from the blue bowl in the sink",
+          "ert_instruction": "Extract the azure utensil vertically from the cobalt basin.",
+          "greedy_ert": "Pick up the blue spoon from the blue bowl."
+        },
+        {
+          "instruction": "sweep into pile",
+          "greedy": "gather the black beans into a pile",
+          "ert_instruction": "Using the flat grey scraping tool, herd the scattered dark legumes into a single dense mound in the center of the wooden tabletop, keeping well away from the background canisters.",
+          "greedy_ert": "Use the flat grey scraper to push the black beans into a pile in the middle of the table, avoiding the cans."
+        },
+        {
+          "instruction": "fold the cloth from bottom to top",
+          "greedy": "Fold the green cloth upwards.",
+          "ert_instruction": "Crease the light green rag on the brown wooden table by aligning the proximal hem flatly against the distal edge.",
+          "greedy_ert": "Fold the light green cloth on the wooden table by bringing the bottom edge to the top edge."
+        },
+        {
+          "instruction": "move the carrot above the red object beside the cloth",
+          "greedy": "Place the carrot over the red block next to the cloth.",
+          "ert_instruction": "Hold the orange plastic root vegetable vertically, hovering it directly over the scarlet C-shaped block adjacent to the emerald fabric.",
+          "greedy_ert": "Hold the orange carrot over the red block."
+        },
+        {
+          "instruction": "put carrot in pot or pan",
+          "greedy": "place the orange carrot in the metal pot",
+          "ert_instruction": "Gently lower the orange root vegetable vertically into the silver metallic vessel on the cooking range.",
+          "greedy_ert": "Place the carrot in the pot."
+        },
+        {
+          "instruction": "put carrot on plate",
+          "greedy": "place the orange carrot on the pink plate",
+          "ert_instruction": "Lower the orange toy produce from the black gripper and release it vertically onto the pink dish in the light blue sink.",
+          "greedy_ert": "Place the orange toy vegetable on the pink plate in the sink."
+        },
+        {
+          "instruction": "put pan from sink into drying rack",
+          "greedy": "Move the metal pan from the sink to the orange drying rack.",
+          "ert_instruction": "Relocate the silver skillet from the basin and place it face down inside the orange plastic drainer.",
+          "greedy_ert": "Move the metal pan from the sink to the orange rack."
+        },
+        {
+          "instruction": "put the blue object on the top right of the cloth",
+          "greedy": "Place the blue cylinder on the upper right corner of the green cloth.",
+          "ert_instruction": "Position the cobalt aluminum container perfectly upright on the northeast quadrant of the pale lime fabric.",
+          "greedy_ert": "Place the blue can on the top right of the green cloth."
+        },
+        {
+          "instruction": "turn lever vertical to front",
+          "greedy": "Rotate the grey faucet handle to face forward.",
+          "ert_instruction": "Pivot the silver-colored tap controller on the right side of the sink until it points straight forward, perpendicular to the basin wall.",
+          "greedy_ert": "Rotate the grey faucet handle on the right to face forward."
+        },
+        {
+          "instruction": "Move the green cloth from left to right side of table.",
+          "greedy": "Take the green cloth and place it on the right side of the table.",
+          "ert_instruction": "Slide the emerald textile flat against the brown wooden surface to the rightmost edge of the table.",
+          "greedy_ert": "Move the green cloth to the right side of the table."
+        },
+        {
+          "instruction": "put the maroon cylinder on top of the yellow cube",
+          "greedy": "pick up the maroon cylinder and place it on the yellow cube",
+          "ert_instruction": "Carefully hoist the flat burgundy roller from the wooden desk and set it upright on the topmost lemon block without disturbing the colored tower.",
+          "greedy_ert": "Pick up the maroon cylinder from the desk and place it on the yellow block."
+        },
+        {
+          "instruction": "topple hot sauce bottle cardboard fence",
+          "greedy": "knock the red hot sauce bottle against the cardboard fence",
+          "ert_instruction": "Tip the scarlet condiment cylinder so that it falls flat against the corrugated paperboard partition.",
+          "greedy_ert": "Knock the red sauce bottle over against the cardboard fence."
+        },
+        {
+          "instruction": "MOVE THE BLENDER INSIDE THE VESSEL",
+          "greedy": "Pick up the green blender and put it in the metal pot.",
+          "ert_instruction": "Gently deposit the green-handled utensil upright inside the silver metal pot containing the toy mushroom.",
+          "greedy_ert": "Place the green spoon in the metal pot."
+        },
+        {
+          "instruction": "put the yellow block on top of the tower",
+          "greedy": "place the yellow block on the tower",
+          "ert_instruction": "Gently lower the grasped golden cuboid upright onto the center of the pale timber cylinder, keeping it clear of the dark mahogany pieces on the right.",
+          "greedy_ert": "Place the yellow block on the light cylinder."
+        },
+        {
+          "instruction": "flip pot upright in sink",
+          "greedy": "place the silver pot upright in the sink",
+          "ert_instruction": "Position the small metallic vessel vertically inside the grey basin with its circular opening pointing directly upward.",
+          "greedy_ert": "Place the silver pot upright in the sink."
+        },
+        {
+          "instruction": "close the drawer",
+          "greedy": "push the red drawer shut",
+          "ert_instruction": "Push the crimson sliding compartment using the ebony grip until it is flush with the housing.",
+          "greedy_ert": "Close the red drawer using the black handle."
+        },
+        {
+          "instruction": "open the drawer",
+          "greedy": "pull the drawer out",
+          "ert_instruction": "Gently pull the white compartment of the ivory box on the right side of the wooden table straight outward.",
+          "greedy_ert": "Pull the white drawer of the ivory box on the right side of the table."
+        },
+        {
+          "instruction": "move the pot into the left side of sink",
+          "greedy": "Place the metal pot in the left section of the sink.",
+          "ert_instruction": "Gently deposit the silver metallic vessel upright within the left section of the azure basin.",
+          "greedy_ert": "place the metal pot in the left part of the blue sink"
+        },
+        {
+          "instruction": "put pear in bowl",
+          "greedy": "Pick up the green pear and place it in the blue bowl.",
+          "ert_instruction": "Place the green fruit upright in the center of the light blue basin.",
+          "greedy_ert": "Pick up the green pear and put it in the light blue bowl."
+        },
+        {
+          "instruction": "sweep into pile",
+          "greedy": "push the blue beads into a pile",
+          "ert_instruction": "Utilizing the grey squeegee, scrape the scattered cobalt spheres together to form a singular consolidated mound within the alabaster tray.",
+          "greedy_ert": "Use the grey squeegee to push the blue beads into a pile in the white tray."
+        },
+        {
+          "instruction": "fold cloth in half",
+          "greedy": "fold the white cloth in half",
+          "ert_instruction": "Symmetrically double the pale fabric by bringing the gripped edge to the opposite border over the grey stove.",
+          "greedy_ert": "Fold the white cloth in half over the grey stove."
+        },
+        {
+          "instruction": "Place the orange towel behind the chicken wing",
+          "greedy": "Put the orange towel behind the chicken wing.",
+          "ert_instruction": "Gently lay the tangerine cloth flat on the wooden board directly behind the synthetic poultry.",
+          "greedy_ert": "Place the orange towel on the wooden surface behind the toy chicken wing."
+        },
+        {
+          "instruction": "PICK UP THE BLENDER AND PUT ANOTHER SIDE OF THE TABLE",
+          "greedy": "Pick up the teal appliance and move it to the other side of the table.",
+          "ert_instruction": "Carefully grasp the red plastic blender and place it upright on the opposite side of the wooden table.",
+          "greedy_ert": "Grasp the red blender and set it upright on the other side of the table."
+        },
+        {
+          "instruction": "put banana in pot or pan",
+          "greedy": "Place the yellow banana into the metal pot.",
+          "ert_instruction": "Deposit the grasped yellow produce horizontally inside the silver metallic cooking vessel.",
+          "greedy_ert": "Place the yellow banana into the silver pot."
+        },
+        {
+          "instruction": "pick up green mug",
+          "greedy": "grasp the green mug and lift it from the rack",
+          "ert_instruction": "Gently extract the emerald-hued ceramic cup vertically from the metallic dish rack without disturbing the adjacent glass drinkware.",
+          "greedy_ert": "Pick up the green mug from the metal rack."
+        },
+        {
+          "instruction": "open microwave",
+          "greedy": "Grasp the microwave handle and pull the door open.",
+          "ert_instruction": "Firmly grasp the vertical silver lever on the white appliance and swing the translucent front panel fully open.",
+          "greedy_ert": "Grasp the silver handle on the white microwave and pull the door open."
+        },
+        {
+          "instruction": "Pick the yellow fruit and put it on the green towel",
+          "greedy": "Take the yellow fruit and place it on the green towel.",
+          "ert_instruction": "Gently deposit the gripped yellow citrus upright in the center of the green textile.",
+          "greedy_ert": "Place the yellow fruit on the green towel."
+        },
+        {
+          "instruction": "flip pot upright in sink",
+          "greedy": "Rotate the green pot to stand upright in the sink.",
+          "ert_instruction": "Orient the sideways metallic vessel inside the sink basin to stand vertically with its open aperture facing skyward.",
+          "greedy_ert": "Rotate the silver pot in the sink to stand upright."
+        },
+        {
+          "instruction": "place the grey thing and put it near the drawer",
+          "greedy": "Grasp the grey plush toy and move it next to the drawer.",
+          "ert_instruction": "Gently position the ash-colored plush creature upright on the surface immediately adjacent to the wooden sliding compartment.",
+          "greedy_ert": "Place the grey plush toy next to the wooden drawer."
+        },
+        {
+          "instruction": "moved the yellow pepper to the right side of the stove.",
+          "greedy": "Place the yellow pepper on the right burner.",
+          "ert_instruction": "Gently lower the golden capsicum vertically onto the vacant right-side burner of the metallic stove.",
+          "greedy_ert": "Place the yellow pepper on the empty right burner."
+        },
+        {
+          "instruction": "put clothes in laundry machine",
+          "greedy": "place the red, blue, and green fabric into the washing machine",
+          "ert_instruction": "Gently insert the multicolored textile deep into the center of the circular washing drum.",
+          "greedy_ert": "Place the red, blue, and green cloth inside the washing machine drum."
+        },
+        {
+          "instruction": "flip pot upright in sink",
+          "greedy": "place the metal pot upright in the sink",
+          "ert_instruction": "Carefully right the silver metal saucepan to stand vertically on its circular base within the white plastic washbasin.",
+          "greedy_ert": "Place the silver pot upright in the sink."
+        },
+        {
+          "instruction": "turn lever vertical to front",
+          "greedy": "rotate the faucet handle to face forward",
+          "ert_instruction": "Rotate the plastic faucet switch until it points directly towards the front of the blue basin.",
+          "greedy_ert": "Turn the faucet handle to face the front of the blue basin."
+        },
+        {
+          "instruction": "moved the can to the upper right corner of the right burner.",
+          "greedy": "Place the can in the upper right corner of the right burner.",
+          "ert_instruction": "Position the silver cylinder upright in the top-right quadrant of the vacant right burner.",
+          "greedy_ert": "Place the silver can in the upper right corner of the right burner."
+        },
+        {
+          "instruction": "move faucet front to left",
+          "greedy": "rotate the grey faucet to the left",
+          "ert_instruction": "Carefully swivel the grey plastic tap horizontally until the spout points toward the left side of the washbasin.",
+          "greedy_ert": "Rotate the grey tap so the spout faces the left side of the sink."
+        },
+        {
+          "instruction": "take the red sushi outside the brown pot and put it to the right side of the brown lid",
+          "greedy": "Remove the red sushi from the brown pot and place it to the right of the brown lid.",
+          "ert_instruction": "Carefully extract the scarlet seafood roll from the semi-transparent amber vessel and deposit it upright on the wooden surface, directly to the right of the cover with the yellow knob.",
+          "greedy_ert": "Take the red sushi from the amber pot and place it on the table next to the lid."
+        },
+        {
+          "instruction": "put small spoon from basket to tray",
+          "greedy": "move the small spoon from the basket to the tray",
+          "ert_instruction": "Deposit the silver teaspoon face down in the central slot of the black sorting organizer.",
+          "greedy_ert": "Place the silver spoon in the middle compartment of the black tray."
+        },
+        {
+          "instruction": "put broccoli in pot",
+          "greedy": "Place the green broccoli in the pot.",
+          "ert_instruction": "Gently deposit the green floret stem-down into the silver cooking vessel.",
+          "greedy_ert": "Place the green broccoli into the silver pot."
+        },
+        {
+          "instruction": "move the pink cup to the middle bottom of the table",
+          "greedy": "pick up the pink cup and place it at the bottom center of the table",
+          "ert_instruction": "Carefully deposit the fuchsia tumbler, currently situated near the blue toy, upright onto the empty wooden space at the bottom center of the table.",
+          "greedy_ert": "Pick up the pink cup near the blue toy and place it on the empty space at the bottom center of the table."
+        }
+      ],
       "gate_pass_rate": 1.0
     },
     "objective": "mean_over_positive_advantages",
-    "updated": "2026-07-13T14:59:46"
+    "updated": "2026-07-23T18:22:36"
   }
 }
