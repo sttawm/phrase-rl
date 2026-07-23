@@ -39,6 +39,23 @@ ceramic, cloth, blue).
 
 ---
 
+## The ten headline findings
+
+| # | finding | the number that proves it | grade |
+|---|---|---|---|
+| 1 | **Phrasing alone can rescue a failing task.** The robot goes from almost-never to almost-always on the same task by rewording. | ramekin task: nominal **9.0%** → "place the red coke can inside the white bowl" **78.1%** (+69) | 24-layout, n=108/side |
+| 2 | **Getting one noun token wrong can cost half the task.** Near-synonyms are NOT interchangeable. | coke→soda **−47.2** · basket→bin **−31.3** · cube→block **−15.3** | certified, n=144/side |
+| 3 | **The right name is the corpus's name, not the visually-true one.** Rare true names are catastrophic; corpus-present names are free even when unusual. | "ramekin" **−41.7** (absent from training text) vs "aubergine"/"rack" **free** (present) | pure1 + pure2 |
+| 4 | **Color adjectives help only where the task is hard or the object is untrained** — and are dead weight on easy tasks. | keyboard **+11.1**, wheel **+13.9**; easy plate: green/yellow both **≈0** | certified, n=144/side |
+| 5 | **Never replace a nameable object with a category word.** "vegetable", "object" etc. destroy grounding. | "vegetable" for carrot: **−25.7** (plate), **−7.7** (keyboard) | certified, n=144/side |
+| 6 | **Whole familiar templates beat single-edit optimization** — edits interact positively inside known sentence forms. | "set the orange carrot on the green plate" **+8.3** where summing its edits predicted **−10** | certified, n=144/side |
+| 7 | **Extra clauses are free on easy tasks and taxed on hard ones** — keep instructions short where the task is marginal. | 8/8 tasks: easy ≈0; wheel −4.2 → spoon −5.6 → stack −7.0 → keyboard **−11.8** | certified, n=144/side |
+| 8 | **Prepositions and put/set/place are nearly free everywhere — stop tuning them; nouns are where the money is.** | onto/into/inside/on-top-of: **+1…−5** across all tasks; set: +4…−8 (coin-flip) | certified, n=144/side |
+| 9 | **Every non-saturated task has phrasing headroom, and it grows as the nominal gets worse.** | headroom ladder: ramekin +69 · stack +27 · spoon +18 · keyboard +14 · carrot-plate +13 · wheel +12 · coke-plate +8 · eggplant +4 | stratified, 24-layout |
+| 10 | **Small-n effects lie; pooling can lie too.** n=36 "effects" died at n=144, and episode-weighted pooling had three verdicts backwards. | "small" −13.9 → **+0.7** at n=144; spoon/carrot-plate/wheel verdicts **flipped** under uniform layout weighting | methodological |
+
+---
+
 ## Scene by scene
 
 ### 1. Coke can → ramekin — THE rescue (+59.7 confirmed)
