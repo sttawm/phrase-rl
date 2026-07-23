@@ -1,0 +1,16 @@
+{
+ "task": "widowx_put_eggplant_in_basket",
+ "n_per_phrase": 144,
+ "scoreboard": [
+  {
+   "phrase": "pick up the eggplant and put it in the yellow basket",
+   "success_pct": 95.1,
+   "n": 144
+  },
+  {
+   "phrase": "put the eggplant in the yellow basket",
+   "success_pct": 93.1,
+   "n": 144
+  }
+ ]
+}
