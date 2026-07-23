@@ -24,7 +24,7 @@ esac
 
 IPC_DIR=/workspace/ipc
 mkdir -p "$IPC_DIR" results/checkpoints/phase2_v7
-rm -rf results/checkpoints/phase2_v7/latest   # fresh start; desk-check era stubs out
+# (fresh-start guard removed 07-23: run is live, --resume must find latest/)
 rm -f "$IPC_DIR"/*.req.json "$IPC_DIR"/*.done.json "$IPC_DIR"/*.failed.json \
       "$IPC_DIR"/*.err.txt "$IPC_DIR"/*.parquet "$IPC_DIR"/*.tmp
 
