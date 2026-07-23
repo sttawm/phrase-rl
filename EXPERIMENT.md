@@ -1511,3 +1511,20 @@ tables; between-episode variance dominates), leg B = 100 eps x F=16
 (resolvable per-scene partial orders). 11 edit categories incl. trace-true
 add_color and noun-family swaps (substitutability table). ~18h on pod3,
 launching at wheel-RESULT. Output: suggestive-tier; nominations only.
+
+## 2026-07-23 ~22:00 — RULES-V3 FROZEN (pre-sealed-rules-legs)
+
+Derived via fan-out workflow (7 agents): 3 drafts (maximalist / minimalist /
+template-first) -> adversarial executor red-team on the 7 historical failure
+ERTs -> synthesis. Backbone = maximalist (best red-team grade); all surviving
+patches applied. Sealed-blind by construction (agents restricted to
+PHRASE-SEARCH.md + rules-inputs; sealed files banned). Reviewed by Claude
+against the certified matrix: zero contradictions. File:
+results/analysis/b4_phrasing_rules_v3.md (~16.5k chars; Gemini-primary).
+Key mechanisms: Step-0 triage (pass-through vs rebuild, aggressiveness scales
+with input badness), two-template bank with fixed clause verbs, noun ladder
+(brand-carry + visual brand-guess exploiting wrong-brand-free; closed family
+table; corpus-absence rename with color license; category fallback-to-guess),
+adjective licenses, difficulty-gated clause count, geometry-driven relation.
+Sealed legs next: rules_v3_gemini_executor (API), rules_v3 x Qwen x
+{selftrace, gemini-trace}. Executor-premium read preserved (#8 vs #9).
