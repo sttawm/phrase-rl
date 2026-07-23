@@ -1468,3 +1468,17 @@ PRE-REGISTERED VALIDATION: sign agreement vs the certified rollout cells
 certification stays ground truth. Pilot 200 episodes (~20 min GPU) slotted
 after pod3's certification tail; full screen opportunistic behind sealed
 legs. Script: src/phrase_rl/phrase_grip_screen.py (writing now).
+
+## 2026-07-23 — grip-screen epistemic status CORRECTED (user challenge)
+
+The earlier "pre-registered validation vs certified cells" framing overclaimed:
+certified cells live on SIMPLER scenes, the screen on Bridge scenes — agreement
+conflates proxy validity with domain shift, and novel screen effects have NO
+possible rollout ground truth. Status: the screen is SUGGESTIVE-TIER evidence
+(rules-inputs file-05 rung: structure, not proof). Proxy validity itself rests
+on the exam (67/68, bridge-real features). Added: ANCHOR SCENES — Bridge
+episodes that mirror val-8 tasks (carrot-plate, spoon-towel, eggplant-basket);
+on these the screen's per-scene partial order is compared to the certified
+rollout order (transfer check on matched tasks, explicitly narrow). Pilot
+design: 12+ scenes, image-grounded phrase sets authored by Claude from the
+actual frames, per-scene grip scoreboards = partial-order chains.
