@@ -9,6 +9,7 @@ eval "$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 cd /workspace/phrase-rl
 git pull --no-edit -q || true
+export PYTHONPATH=/workspace/phrase-rl/src:${PYTHONPATH:-}
 PY=${SCREEN_PY:-/workspace/INT-ACT/.venv/bin/python}
 $PY -c "from lerobot.common.policies.pi0.modeling_pi0 import PI0Policy" 2>/dev/null \
   || PY=/root/venv/bin/python
