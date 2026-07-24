@@ -1572,3 +1572,20 @@ baseline independently finds white-bowl rescue but deletes brands (red can,
 blue can), emits teal block + tire. Leg queued on pod3 after rules leg 2.
 Prediction: rules arm > bare on brand/OOV tasks by the certified magnitudes;
 bare ~ frozen_gemini_trace elsewhere.
+
+## 2026-07-24 ~02:15 — paired analysis: sft_v2 vs frozen_selftrace (sealed, existing data)
+
+Paired over the shared 288-cell grid: +0.87pp pooled, cell-bootstrap CI
+[-2.7,+4.2], task-cluster CI [-4.4,+6.5], cells 85/85/118 — pooled effect
+indistinguishable from zero. BUT per-task: SFT +14..+18 on the in-vocab
+stratum (ramekin +18.1, nut-plate +16.3, eggplant-sponge +16.0, cube-plate
++14.2) and -9..-16 on OOV (eggplant-keyboard -16.0, carrot-sponge -13.2,
+nut-wheel -11.1, coke-keyboard -9.0). The val vocabulary-redistribution
+story transfers to sealed: SFT != null effect; SFT = +-15pp redistribution
+netting ~0 on this OOV-heavy set.
+
+**QUEUED (post-hoc robustness, motivated by the greedy read):** sampled
+twins of both arms — k=8 samples/task/arm, identical conditioning, rolled
+24 layouts x3 (n=72/phrase, ~7h/arm) — measures whether the redistribution
+is a mode-effect or a distribution-effect. Runs on pods freed after the
+rules+bare legs and the pre-registered gemini-rules sampled twin.
