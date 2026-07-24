@@ -122,6 +122,7 @@ def main():
                          "boards (partial-order mode) instead of auto text edits")
     ap.add_argument("--traces", default="results/phrase_artifacts/cover35_teacher_train.parquet",
                     help="episode-keyed Gemini trace parquet for trace-grounded edits ('' disables)")
+    ap.add_argument("--ep-slice", default="", help="a:b slice of the (seeded) episode list for multi-pod sharding")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -145,6 +146,10 @@ def main():
         eps = sorted(df.episode_index.unique())
         rng = np.random.default_rng(args.seed)
         eps = list(rng.choice(eps, size=min(args.episodes, len(eps)), replace=False))
+        if args.ep_slice:
+            a, b = (int(x) for x in args.ep_slice.split(":"))
+            eps = eps[a:b]
+            print(f"episode slice [{a}:{b}] -> {len(eps)} episodes")
         df = df[df.episode_index.isin(eps)]
 
     PI0Policy = import_pi0_policy()
