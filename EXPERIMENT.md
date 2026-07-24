@@ -1703,3 +1703,14 @@ sealed-oracle search rounds/confirms.
 gemini_bare (flash, no rules) 27.5 vs flash+RULES 31.1: rules worth +3.6
 pooled at identical executor/traces/temp; bare itself is only +0.9 over
 passthrough. Agent leg auto-launched (pod3); pro pair mid-flight (pod2).
+
+## 2026-07-25 ~02:00 — QUEUED (build+run gated on user go): sandboxed agent arm
+
+rules_v3_claude_agent_sandboxed: headless Claude (claude -p / Agent SDK) in
+a container whose filesystem holds ONLY RULES-V3.md + corpus txt + the task
+input (clean-room mount, no repo, network = API only, access-audited).
+Model: Fable 5 at the user's "Ultra" effort tier (map to harness xhigh at
+build time; confirm with user). 12 invocations -> one 12-phrase sealed leg.
+PRE-REGISTERED PREDICTION: phrases ~= the measured instruction-isolated
+agent arm (its decision notes suggest the soft firewall held). Do NOT build
+or run until explicit go-ahead.
