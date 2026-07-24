@@ -1597,3 +1597,14 @@ below on every stratum. CLEAN NEGATIVE: v6's RL polish (+~5 on val) buys
 ~0 on sealed — the pipeline's entire sealed value is the Gemini trace.
 Remaining: oracle leg (pod2, ~05:00 UTC) -> leg3 chain; rules leg 1 grinding
 on pod3 (~08:30 UTC at mfs pace) with L40S-pause option pending user.
+
+## 2026-07-24 ~05:30 — SEALED RULES LEG 1 COMPLETE: rules_v3+Gemini 31.1
+
+Pooled 31.1 (in-vocab 37.2 / OOV 26.7) = dead heat with frozen_gemini 31.0
+but mirror-image strata: rules +3.7 OOV (0.6 below the ORIGINALS' OOV) and
+-4.9 in-vocab. Mean recovery ratio 1.02x (vs 0.97x), 3 nominal-beating
+rescues (coke-wheel 2.31x, ramekin 1.90x, eggplant-keyboard 1.49x). Brand
+rule validated: pepsi 37.5 vs frozen 19.1. Autopsy cells: nut-plate 17.0
+(adjective tax), carrot-ramekin 27.8 vs frozen 46.2 (uninstructed rewrite
+beat the textbook one). No arm beats originals pooled; rules closed ~half
+the hostile gap. gemini_bare twin pending (the rules-isolation read).
