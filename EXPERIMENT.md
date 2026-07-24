@@ -1642,3 +1642,13 @@ tire" phrase won nut-wheel (25.7 vs correct-phrase 8.0) — certified tire
 penalty was carrot-sourced; task-conditionality strikes the closed family
 table. Rules>no-rules at Qwen executor: +5.5 OOV. Pending: pro + agent +
 bare executors.
+
+## 2026-07-24 ~13:30 — sealed: deployable rules arm 27.3 (RULES TRIO COMPLETE)
+
+rules_v3_selftrace (Qwen+Qwen, deployable) 27.3 (26.9/27.6) vs twin
+frozen_selftrace 23.7 (29.7/19.4): +3.6 pooled, +8.2 OOV, -2.8 in-vocab —
+the FLATTEST strata profile on the board (rules erase the vocab cliff).
+eggplant_keyboard 46.9 = best score of ANY arm on any-arm basis for that
+task (originals 25.3). Clears passthrough where its twin couldn't. Rules
+gains now consistent across all 3 configs: OOV-led +5.5..+8.2, small
+in-vocab tax, pooled +0.5..+3.6. Bare baseline rolling; executor pair next.
