@@ -1620,3 +1620,14 @@ corpus grep access (executes 1.2c/appendix as real lookups), one fresh agent
 per task, sealed-reads banned. Phrases to be banked on workflow completion.
 Both declared before any of their rollouts; combined leg queued after
 gemini_bare on pod3.
+
+## 2026-07-24 ~07:30 — sealed oracle pool: nominal-rephrasing headroom is ~ZERO
+
+oracle_pool (16 Qwen rephrases of each NOMINAL, x24x1): mean-of-pool 29.5
+(random rephrasing hurts, -6.6 vs originals), best-of-16 37.8 optimistic
+(n=24/cell) vs originals 36.1 — the ERT-free rephrase ceiling is the
+originals, +-noise. Sharp contrast with val (bo8 44.5-47.6 = real headroom).
+Notably the pool NEVER finds the ramekin rescue (best 16.7 vs rules 27.8,
+frozen_gemini 46.2): rescues need scene/trace knowledge, not phrase lottery.
+Stage-2 confirm deferred (headline is null). Pod2 batch COMPLETE; leg3
+(rules_v3 gemini-trace -> Qwen) auto-launching.
