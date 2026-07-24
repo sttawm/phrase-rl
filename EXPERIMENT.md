@@ -1659,3 +1659,15 @@ Pro-with-reasoning NO-rules twin (same prompt as flash bare, gemini-pro-latest,
 thinking 16384): the matched isolation for rules_v3_gemini_pro. Folded into
 the chained executor-pair leg (36 phrases, one pass): pro+RULES,
 claude_agent+RULES, pro-bare. Declared pre-rollout.
+
+## 2026-07-24 ~21:00 — SEALED ORACLE SEARCH (user): headroom estimation protocol
+
+Adaptive phrase search ON the sealed tasks to estimate the phrasing ceiling.
+EXPLICIT FRAMING: outputs are ORACLE/ceiling numbers (test-set-adaptive),
+never comparable to the blind arms; all blind arms measured+frozen before
+this begins; rules-v3.1 frozen earlier. Round-1: 10 boards x16 seeded from
+the 11 arms' measured per-task phrases + certified-law recombinations,
+exploiting sealed-specific inversions (purple-object 46.9 on eggplant-kbd;
+clause+into on ramekin 46.2; telegram dominance on plate tasks; pepsi's
+verbose 52.4). Search grade 0-17x2 (n=36); leaders confirm at 24x6.
+Skipped: 2 saturated tasks. Runs on pods 2/3 post-tournament.
