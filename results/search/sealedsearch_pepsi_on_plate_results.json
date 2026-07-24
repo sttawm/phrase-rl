@@ -1,0 +1,86 @@
+{
+ "task": "widowx_pepsi_on_plate_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "place pepsi on plate",
+   "success_pct": 75.0,
+   "n": 36
+  },
+  {
+   "phrase": "put pepsi on plate",
+   "success_pct": 69.4,
+   "n": 36
+  },
+  {
+   "phrase": "put a pepsi can on the plate",
+   "success_pct": 63.9,
+   "n": 36
+  },
+  {
+   "phrase": "put the blue pepsi can on the plate",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "lay the pepsi can on the plate",
+   "success_pct": 55.6,
+   "n": 36
+  },
+  {
+   "phrase": "set pepsi can on plate",
+   "success_pct": 55.6,
+   "n": 36
+  },
+  {
+   "phrase": "place pepsi can on plate",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "gently place the blue beverage container on the yellow dish",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "set the pepsi can on the plate",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "put pepsi can onto plate",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "put pepsi can on the plate",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "Gently deposit the cylindrical blue carbonated beverage container onto the circular yellow dish.",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put pepsi can on plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the pepsi can on the plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "drop the pepsi can on the plate",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "deposit the cylindrical blue carbonated beverage container onto the circular yellow dish",
+   "success_pct": 41.7,
+   "n": 36
+  }
+ ]
+}
