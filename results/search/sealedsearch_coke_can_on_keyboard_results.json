@@ -1,0 +1,86 @@
+{
+ "task": "widowx_coke_can_on_keyboard_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "put coke on keyboard",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "put coke can on keyboard",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "place coke can on keyboard",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "put coke can onto keyboard",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "put coke can on the black keyboard",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "put coke can on black keyboard",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "set coke can on keyboard",
+   "success_pct": 22.2,
+   "n": 36
+  },
+  {
+   "phrase": "place coke can on the keyboard",
+   "success_pct": 22.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can on the keyboard",
+   "success_pct": 19.4,
+   "n": 36
+  },
+  {
+   "phrase": "put a coke can on the keyboard",
+   "success_pct": 19.4,
+   "n": 36
+  },
+  {
+   "phrase": "lay the coke can on the keyboard",
+   "success_pct": 16.7,
+   "n": 36
+  },
+  {
+   "phrase": "place the coke can onto the keyboard",
+   "success_pct": 13.9,
+   "n": 36
+  },
+  {
+   "phrase": "set the coke can on the keyboard",
+   "success_pct": 13.9,
+   "n": 36
+  },
+  {
+   "phrase": "Place a Coke can on the keyboard.",
+   "success_pct": 11.1,
+   "n": 36
+  },
+  {
+   "phrase": "drop the coke can on the keyboard",
+   "success_pct": 11.1,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the coke can and place it on the keyboard",
+   "success_pct": 8.3,
+   "n": 36
+  }
+ ]
+}
