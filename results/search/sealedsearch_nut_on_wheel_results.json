@@ -1,0 +1,86 @@
+{
+ "task": "widowx_nut_on_wheel_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "put nut in tire",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the grey nut into the black tire",
+   "success_pct": 25.0,
+   "n": 36
+  },
+  {
+   "phrase": "put the hex nut in the black tire",
+   "success_pct": 19.4,
+   "n": 36
+  },
+  {
+   "phrase": "place the nut in the black tire",
+   "success_pct": 19.4,
+   "n": 36
+  },
+  {
+   "phrase": "put the gray nut in the black tire",
+   "success_pct": 16.7,
+   "n": 36
+  },
+  {
+   "phrase": "put the nut in the black tire",
+   "success_pct": 16.7,
+   "n": 36
+  },
+  {
+   "phrase": "put the grey nut in the black tire",
+   "success_pct": 16.7,
+   "n": 36
+  },
+  {
+   "phrase": "put the nut in the tire",
+   "success_pct": 13.9,
+   "n": 36
+  },
+  {
+   "phrase": "put the grey nut in the black wheel",
+   "success_pct": 11.1,
+   "n": 36
+  },
+  {
+   "phrase": "put nut in wheel",
+   "success_pct": 11.1,
+   "n": 36
+  },
+  {
+   "phrase": "drop the grey nut into the black tire",
+   "success_pct": 8.3,
+   "n": 36
+  },
+  {
+   "phrase": "drop the nut in the tire",
+   "success_pct": 8.3,
+   "n": 36
+  },
+  {
+   "phrase": "set the grey nut in the black tire",
+   "success_pct": 5.6,
+   "n": 36
+  },
+  {
+   "phrase": "put the grey nut in the tire",
+   "success_pct": 5.6,
+   "n": 36
+  },
+  {
+   "phrase": "put the nut in the wheel",
+   "success_pct": 2.8,
+   "n": 36
+  },
+  {
+   "phrase": "place the grey nut in the tire",
+   "success_pct": 0.0,
+   "n": 36
+  }
+ ]
+}
