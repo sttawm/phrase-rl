@@ -48,9 +48,10 @@ PYEOF
   rm -f data/rval_out_w*.parquet
   cd /workspace/INT-ACT
   pids=""
+  NW_LIVE=0
   for w in 0 1 2; do
-    [ -s /workspace/phrase-rl/data/rval_phrases_w$w.parquet ] || continue
-    python3 -c "import pandas as pd,sys; sys.exit(0 if len(pd.read_parquet('/workspace/phrase-rl/data/rval_phrases_w$w.parquet')) else 1)" 2>/dev/null || continue
+    /workspace/phrase-rl/.venv-gen/bin/python -c "import pandas as pd,sys; sys.exit(0 if len(pd.read_parquet('/workspace/phrase-rl/data/rval_phrases_w$w.parquet')) else 1)" 2>/dev/null || continue
+    NW_LIVE=$((NW_LIVE+1))
     sleep 45
     /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
       --int-act-root /workspace/INT-ACT \
@@ -65,6 +66,7 @@ PYEOF
   wfail=0; for pid in $pids; do wait $pid || wfail=1; done
   cd /workspace/phrase-rl
   [ $wfail = 1 ] && { mark "ROLLOUT FAILED step $STEP"; sleep 300; continue; }
+  [ "$NW_LIVE" = 0 ] && { mark "NO WORKERS LAUNCHED step $STEP"; sleep 300; continue; }
   STEP=$STEP .venv-gen/bin/python - <<'PYEOF'
 import glob, json, os
 import pandas as pd
@@ -76,6 +78,8 @@ with open("results/analysis/v7_rollout_curve.jsonl", "a") as f:
     f.write(json.dumps(rec) + "\n")
 print("step", rec["step"], "pooled", rec["pooled"], "n", rec["n"])
 PYEOF
+  rc=$?
+  [ $rc != 0 ] && { mark "MERGE FAILED step $STEP"; sleep 300; continue; }
   git add results/analysis/v7_rollout_curve.jsonl && git commit -q -m "v7 rollout-val step $STEP [pod]" && git pull -q --rebase && git push -q
   mark "DONE step $STEP"
 done
