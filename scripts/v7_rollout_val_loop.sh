@@ -9,6 +9,8 @@
 set -uo pipefail
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
+export VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline
+mkdir -p "$VLA_DATA_DIR" "$VLA_LOG_DIR"
 cd /workspace/phrase-rl
 CKPT_LOG=/workspace/phrase-rl/results/checkpoints/phase2_v7/train_log.jsonl
 TRAIN_HOST_SSH=${TRAIN_HOST_SSH:?set TRAIN_HOST_SSH}
