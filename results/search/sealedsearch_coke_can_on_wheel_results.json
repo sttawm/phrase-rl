@@ -1,0 +1,86 @@
+{
+ "task": "widowx_coke_can_on_wheel_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "put coke can in black wheel",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the red coke can in the black wheel",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put coke can in tire",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "drop the coke can in the black wheel",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "put coke can in wheel",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "set the coke can in the black wheel",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "drop the coke can into the black tire",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can in the black wheel",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can into the black wheel",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can inside the black wheel",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "place the coke can in the black wheel",
+   "success_pct": 22.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can in the black tire",
+   "success_pct": 22.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can in the wheel",
+   "success_pct": 13.9,
+   "n": 36
+  },
+  {
+   "phrase": "place the coke can in the middle of the black wheel",
+   "success_pct": 8.3,
+   "n": 36
+  },
+  {
+   "phrase": "put the coke can in the tire",
+   "success_pct": 8.3,
+   "n": 36
+  },
+  {
+   "phrase": "set the coke can in the tire",
+   "success_pct": 8.3,
+   "n": 36
+  }
+ ]
+}
