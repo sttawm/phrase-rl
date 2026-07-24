@@ -1608,3 +1608,15 @@ rule validated: pepsi 37.5 vs frozen 19.1. Autopsy cells: nut-plate 17.0
 (adjective tax), carrot-ramekin 27.8 vs frozen 46.2 (uninstructed rewrite
 beat the textbook one). No arm beats originals pooled; rules closed ~half
 the hostile gap. gemini_bare twin pending (the rules-isolation read).
+
+## 2026-07-24 ~06:30 — PRE-REGISTERED: two executor arms (user)
+
+(1) rules_v3_gemini_pro: gemini-pro-latest, thinking_budget=16384, max_out
+4000 (the measured flash arm ran thinking_budget=0, max 100 — now labeled
+"flash, no reasoning" wherever reported). Phrases banked; differ from flash
+on ~7/12 tasks with visibly tighter adjective-license discipline.
+(2) rules_v3_claude_agent: Claude subagents as executor, RULES-V3.md + LIVE
+corpus grep access (executes 1.2c/appendix as real lookups), one fresh agent
+per task, sealed-reads banned. Phrases to be banked on workflow completion.
+Both declared before any of their rollouts; combined leg queued after
+gemini_bare on pod3.
