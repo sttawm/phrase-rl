@@ -1652,3 +1652,10 @@ eggplant_keyboard 46.9 = best score of ANY arm on any-arm basis for that
 task (originals 25.3). Clears passthrough where its twin couldn't. Rules
 gains now consistent across all 3 configs: OOV-led +5.5..+8.2, small
 in-vocab tax, pooled +0.5..+3.6. Bare baseline rolling; executor pair next.
+
+## 2026-07-24 ~19:30 — PRE-REGISTERED: gemini_pro_bare (user) + pair leg now 3 arms
+
+Pro-with-reasoning NO-rules twin (same prompt as flash bare, gemini-pro-latest,
+thinking 16384): the matched isolation for rules_v3_gemini_pro. Folded into
+the chained executor-pair leg (36 phrases, one pass): pro+RULES,
+claude_agent+RULES, pro-bare. Declared pre-rollout.
