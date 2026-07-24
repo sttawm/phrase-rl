@@ -1671,3 +1671,15 @@ exploiting sealed-specific inversions (purple-object 46.9 on eggplant-kbd;
 clause+into on ramekin 46.2; telegram dominance on plate tasks; pepsi's
 verbose 52.4). Search grade 0-17x2 (n=36); leaders confirm at 24x6.
 Skipped: 2 saturated tasks. Runs on pods 2/3 post-tournament.
+
+## 2026-07-24 ~22:00 — EPISTEMIC REFRAME of the corpus sweep (user challenge)
+
+The sweep's hypothesis space (11 edit categories, family maps) was chosen
+post-val by Claude — so the sweep tests GENERALIZATION of the val-derived
+laws across the corpus, NOT offline discoverability (question-selection is
+val-polluted even though measurements are independent). The clean
+discoverability test is a BLIND-DISCOVERER protocol: fresh agents with
+corpus + traces + screen instrument only (PHRASE-SEARCH/rules/val results
+firewalled) derive their own laws; grade against certification (overlap =
+discoverable; misses = rollout-only knowledge; inventions = nominations).
+Designed, not yet run — awaiting user go.
