@@ -1,0 +1,86 @@
+{
+ "task": "widowx_nut_on_plate_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "put nut on plate",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "put nut onto plate",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "put the hexagon on the plate",
+   "success_pct": 50.0,
+   "n": 36
+  },
+  {
+   "phrase": "Secure the nut onto the plate.",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the gray hexagon on the plate",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "put nut on yellow plate",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "put a nut on the plate",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "lay the nut on the plate",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "put the nut on the plate",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "set nut on plate",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "drop the nut on the plate",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "place nut on plate",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "secure the nut on the plate",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "place the nut on the plate",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "set the nut on the plate",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "put bolt on plate",
+   "success_pct": 19.4,
+   "n": 36
+  }
+ ]
+}
