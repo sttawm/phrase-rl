@@ -1,0 +1,86 @@
+{
+ "task": "widowx_orange_juice_on_plate_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "place the orange juice onto the plate",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "Place some orange juice on the plate.",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "set the orange juice on the plate",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "place orange juice on plate",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "put orange juice on plate",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "put orange juice on the plate",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "place orange juice on the plate",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "Place orange juice onto the plate.",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "put the juice on the plate",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "place the juice on the plate",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "place the orange juice on the plate",
+   "success_pct": 30.6,
+   "n": 36
+  },
+  {
+   "phrase": "put the orange juice on the plate",
+   "success_pct": 30.6,
+   "n": 36
+  },
+  {
+   "phrase": "set orange juice on the plate",
+   "success_pct": 30.6,
+   "n": 36
+  },
+  {
+   "phrase": "Please place the orange juice on the plate.",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "please put the orange juice on the plate",
+   "success_pct": 27.8,
+   "n": 36
+  },
+  {
+   "phrase": "place the orange juice on the yellow plate",
+   "success_pct": 22.2,
+   "n": 36
+  }
+ ]
+}
