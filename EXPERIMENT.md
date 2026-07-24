@@ -1714,3 +1714,15 @@ build time; confirm with user). 12 invocations -> one 12-phrase sealed leg.
 PRE-REGISTERED PREDICTION: phrases ~= the measured instruction-isolated
 agent arm (its decision notes suggest the soft firewall held). Do NOT build
 or run until explicit go-ahead.
+
+## 2026-07-24 — Row 14 confirm round authored (oracle headroom, estimation stage)
+Search phase complete: 10/10 boards (n=36/phrase, layouts 0-17x2). Confirm boards
+authored per pre-registration: top-3 GENUINELY-NEW phrases per task (search winners
+already measured in a sealed x12 leg are excluded — their layout-18-23 cells are
+extracted from the leg parquets instead; rollouts are deterministic per
+phrase+layout grid). Confirm = held-out layouts 18-23 x12 reps (n=72/phrase),
+run by the search worker's *confirm* case on pod4. FINAL headroom estimates use
+ONLY held-out cells: selection on 0-17, estimation on 18-23. Search-grade numbers
+never enter the final estimate. Caveat carried: per-phrase held-out estimates are
+unbiased, but taking the max across confirmed phrases retains a small winner's
+curse; report per-phrase CIs alongside the max.
