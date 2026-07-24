@@ -1560,3 +1560,15 @@ ships zucchini/tennis assets.
 **v7 rollout evals:** post-hoc on named checkpoints (best_val/s80/s120) per
 v6 protocol; in-loop probes select which checkpoints earn rollout spend;
 probe phrases may be grip-screened as a leading indicator.
+
+## 2026-07-24 ~01:30 — PRE-REGISTERED: gemini_bare baseline arm (user)
+
+Declared before ANY rules-leg result is read. Same executor/machinery as
+rules_v3_gemini (model, temp 0.2, parsing, trace+ERT conditioning); prompt =
+RULES-V3 preamble + output contract with ALL rules/tables/examples removed
+(results/analysis/gemini_bare_baseline_prompt.md). Isolates rules-effect from
+strong-executor-effect. Phrases banked (ph_sealed_gemini_bare.parquet):
+baseline independently finds white-bowl rescue but deletes brands (red can,
+blue can), emits teal block + tire. Leg queued on pod3 after rules leg 2.
+Prediction: rules arm > bare on brand/OOV tasks by the certified magnitudes;
+bare ~ frozen_gemini_trace elsewhere.
