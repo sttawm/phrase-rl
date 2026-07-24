@@ -1,0 +1,21 @@
+{
+ "task": "widowx_carrot_on_ramekin_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "pick up the carrot and place it in the white container",
+   "success_pct": 61.1,
+   "n": 72
+  },
+  {
+   "phrase": "pick up the orange carrot and place it into the white bowl",
+   "success_pct": 52.8,
+   "n": 72
+  },
+  {
+   "phrase": "pick up the carrot and set it in the white bowl",
+   "success_pct": 51.4,
+   "n": 72
+  }
+ ]
+}
