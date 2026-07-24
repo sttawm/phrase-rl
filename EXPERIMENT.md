@@ -1683,3 +1683,11 @@ corpus + traces + screen instrument only (PHRASE-SEARCH/rules/val results
 firewalled) derive their own laws; grade against certification (overlap =
 discoverable; misses = rollout-only knowledge; inventions = nominations).
 Designed, not yet run — awaiting user go.
+
+## 2026-07-24 ~23:00 — sampled-twin gate (user)
+
+Row-15 sampled twin = k=8 temperature draws of the GEMINI rules pipeline
+(pre-registered; referent updated to the pro executor when run) — NOT a
+sampled Claude-agent arm (none declared). Per user: GATED on explicit
+go-ahead; removed from the auto-queue. Row-16 twins (sft_v2 /
+frozen_selftrace) remain queued as post-hoc robustness.
