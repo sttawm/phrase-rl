@@ -1,0 +1,86 @@
+{
+ "task": "widowx_small_plate_on_green_cube_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "put the saucer on the green cube",
+   "success_pct": 5.6,
+   "n": 36
+  },
+  {
+   "phrase": "place the yellow saucer on the green block",
+   "success_pct": 2.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the plate on top of the green cube",
+   "success_pct": 2.8,
+   "n": 36
+  },
+  {
+   "phrase": "set the plate on the green cube",
+   "success_pct": 2.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the yellow lid on the green cube",
+   "success_pct": 2.8,
+   "n": 36
+  },
+  {
+   "phrase": "stack the yellow plate on the green cube",
+   "success_pct": 2.8,
+   "n": 36
+  },
+  {
+   "phrase": "flip the yellow plate onto the green cube",
+   "success_pct": 0.0,
+   "n": 36
+  },
+  {
+   "phrase": "balance the yellow plate on the green cube",
+   "success_pct": 0.0,
+   "n": 36
+  },
+  {
+   "phrase": "put plate on cube",
+   "success_pct": 0.0,
+   "n": 36
+  },
+  {
+   "phrase": "place the yellow plate over the green cube",
+   "success_pct": 0.0,
+   "n": 36
+  },
+  {
+   "phrase": "place the small plate onto the green cube",
+   "success_pct": 0.0,
+   "n": 36
+  },
+  {
+   "phrase": "lay the yellow plate on the green cube",
+   "success_pct": 0.0,
+   "n": 36
+  },
+  {
+   "phrase": "cover the green cube with the yellow plate",
+   "success_pct": 0.0,
+   "n": 36
+  },
+  {
+   "phrase": "put the dish on the cube",
+   "success_pct": 0.0,
+   "n": 36
+  },
+  {
+   "phrase": "put the small yellow plate on the green cube",
+   "success_pct": 0.0,
+   "n": 36
+  },
+  {
+   "phrase": "put the yellow plate on top of the green cube",
+   "success_pct": 0.0,
+   "n": 36
+  }
+ ]
+}
