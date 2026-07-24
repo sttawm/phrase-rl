@@ -1589,3 +1589,11 @@ twins of both arms — k=8 samples/task/arm, identical conditioning, rolled
 24 layouts x3 (n=72/phrase, ~7h/arm) — measures whether the redistribution
 is a mode-effect or a distribution-effect. Runs on pods freed after the
 rules+bare legs and the pre-registered gemini-rules sampled twin.
+
+## 2026-07-24 ~03:00 — sealed leg 6: v6_rl 30.1 (in-vocab 40.6 / OOV 22.6)
+
+Statistically tied with frozen_gemini_trace (31.0/42.1/23.0), marginally
+below on every stratum. CLEAN NEGATIVE: v6's RL polish (+~5 on val) buys
+~0 on sealed — the pipeline's entire sealed value is the Gemini trace.
+Remaining: oracle leg (pod2, ~05:00 UTC) -> leg3 chain; rules leg 1 grinding
+on pod3 (~08:30 UTC at mfs pace) with L40S-pause option pending user.
