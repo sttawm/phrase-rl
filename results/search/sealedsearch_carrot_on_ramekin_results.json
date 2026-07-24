@@ -1,0 +1,86 @@
+{
+ "task": "widowx_carrot_on_ramekin_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "pick up the carrot and place it in the white container",
+   "success_pct": 52.8,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the carrot and set it in the white bowl",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put carrot into bowl",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "Pick up the carrot and place it in the white bowl.",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the orange carrot and place it into the white bowl",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the carrot and place it in the bowl",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the carrot and put it in the white bowl",
+   "success_pct": 41.7,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the carrot and drop it in the white bowl",
+   "success_pct": 41.7,
+   "n": 36
+  },
+  {
+   "phrase": "put carrot in bowl",
+   "success_pct": 38.9,
+   "n": 36
+  },
+  {
+   "phrase": "drop the carrot into the white bowl",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the carrot and place it into the white bowl",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "put the carrot into the white basin",
+   "success_pct": 36.1,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot into the white bowl",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "place the carrot in the white bowl.",
+   "success_pct": 33.3,
+   "n": 36
+  },
+  {
+   "phrase": "put the carrot into the bowl",
+   "success_pct": 25.0,
+   "n": 36
+  },
+  {
+   "phrase": "set the carrot in the white bowl",
+   "success_pct": 25.0,
+   "n": 36
+  }
+ ]
+}
