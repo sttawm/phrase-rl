@@ -1691,3 +1691,9 @@ Row-15 sampled twin = k=8 temperature draws of the GEMINI rules pipeline
 sampled Claude-agent arm (none declared). Per user: GATED on explicit
 go-ahead; removed from the auto-queue. Row-16 twins (sft_v2 /
 frozen_selftrace) remain queued as post-hoc robustness.
+
+## 2026-07-24 ~23:10 — row-16 twins also gated (user)
+
+sft_v2 / frozen_selftrace sampled twins now ALSO gated on explicit user
+go-ahead. No sampled-twin work runs without it; freed pod capacity goes to
+sealed-oracle search rounds/confirms.
