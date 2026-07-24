@@ -1631,3 +1631,14 @@ Notably the pool NEVER finds the ramekin rescue (best 16.7 vs rules 27.8,
 frozen_gemini 46.2): rescues need scene/trace knowledge, not phrase lottery.
 Stage-2 confirm deferred (headline is null). Pod2 batch COMPLETE; leg3
 (rules_v3 gemini-trace -> Qwen) auto-launching.
+
+## 2026-07-24 ~11:00 — sealed leg: rules_v3 -> QWEN executor 31.5 (OOV CROWN 28.5)
+
+Qwen+rules 31.5 (35.7/28.5) edges Gemini-flash+rules 31.1 (37.2/26.7):
+executor premium INVERTED at this tier; per-task the two trade +-18 while
+tying pooled. OOV 28.5 beats the ORIGINALS' 27.3 = first arm above nominal
+on the OOV stratum. Anomaly for the record: Qwen's rule-violating "rubber
+tire" phrase won nut-wheel (25.7 vs correct-phrase 8.0) — certified tire
+penalty was carrot-sourced; task-conditionality strikes the closed family
+table. Rules>no-rules at Qwen executor: +5.5 OOV. Pending: pro + agent +
+bare executors.
