@@ -1697,3 +1697,9 @@ frozen_selftrace) remain queued as post-hoc robustness.
 sft_v2 / frozen_selftrace sampled twins now ALSO gated on explicit user
 go-ahead. No sampled-twin work runs without it; freed pod capacity goes to
 sealed-oracle search rounds/confirms.
+
+## 2026-07-25 ~01:00 — sealed: flash-bare 27.5 -> RULES EFFECT +3.6 at matched executor
+
+gemini_bare (flash, no rules) 27.5 vs flash+RULES 31.1: rules worth +3.6
+pooled at identical executor/traces/temp; bare itself is only +0.9 over
+passthrough. Agent leg auto-launched (pod3); pro pair mid-flight (pod2).
