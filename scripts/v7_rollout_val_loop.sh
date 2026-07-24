@@ -34,7 +34,10 @@ for it in p["probes"]:
     task, phrase = it.get("task"), it.get("greedy") or it.get("phrase")
     if task and phrase:
         rows.append({"task": task, "arm": f"v7_step{p['step']}", "phrase": phrase, "instruction": phrase})
-pd.DataFrame(rows).to_parquet("data/rval_phrases.parquet", index=False)
+df = pd.DataFrame(rows)
+k = max(1, min(3, len(df)))
+for w in range(3):
+    (df.iloc[w::k] if w < k else df.iloc[0:0]).to_parquet(f"data/rval_phrases_w{w}.parquet", index=False)
 json.dump({"step": p["step"], "n_phrases": len(rows)}, open("/tmp/rval_meta.json","w"))
 PYEOF
   rc=$?
@@ -46,13 +49,14 @@ PYEOF
   cd /workspace/INT-ACT
   pids=""
   for w in 0 1 2; do
+    [ -s /workspace/phrase-rl/data/rval_phrases_w$w.parquet ] || continue
+    python3 -c "import pandas as pd,sys; sys.exit(0 if len(pd.read_parquet('/workspace/phrase-rl/data/rval_phrases_w$w.parquet')) else 1)" 2>/dev/null || continue
     sleep 45
     /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
       --int-act-root /workspace/INT-ACT \
       --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
       --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
-      --phrases /workspace/phrase-rl/data/rval_phrases.parquet \
-      --worker-index $w --num-workers 3 \
+      --phrases /workspace/phrase-rl/data/rval_phrases_w$w.parquet \
       --episode-ids 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 \
       --repeats 2 \
       --out /workspace/phrase-rl/data/rval_out_w$w.parquet > /workspace/rval_w$w.log 2>&1 &
