@@ -33,11 +33,13 @@ for r in ga.itertuples():
                 contents=[prompt],
                 config=types.GenerateContentConfig(
                     temperature=0.2,
-                    max_output_tokens=100,
+                    max_output_tokens=20000,  # includes thinking tokens (16384) — 100 truncated to fragments, see ledger
                     thinking_config=types.ThinkingConfig(thinking_budget=16384),
                 ),
             )
             p = (resp.text or "").strip().strip('"').split("\n")[0].strip()
+            if len(p.split()) < 3:
+                raise ValueError(f"fragment output: {p!r}")
             break
         except Exception as e:
             print(f"[retry {attempt}] {r.task}: {type(e).__name__}", flush=True)
