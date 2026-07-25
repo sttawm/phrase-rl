@@ -1794,3 +1794,16 @@ cap 20000 + fragment guard. Corrected phrases (pre-rollout observations):
 rebuilds; pass-through bar is stricter than predicted). Ramekin rename fires
 ("white bowl" — oracle-confirmed family); brand kept on pepsi; size word
 dropped on small_plate; orange_juice "box" collapse RECURS on clean input.
+
+## 2026-07-25 — Round-2 confirms land: FULL 12-task oracle coverage
+12-task confirmed oracle 50.1 (held-out) vs nominal 35.4 vs per-task best arm
+45.9. Round-2 boards behaved as predicted: eggplant_sponge near-ceiling (80.6
+best — full color-combo template, echoing the certified combo interaction),
+cube 72.2 (clause phrase, +6.9 over nominal held-out ~1sigma). NOTE the
+held-out-only slice REORDERS some pairs vs the pooled full-grid estimates
+(pro rules gap -0.5 held-out vs +3.8 pooled; Qwen pairs compress): n=72/task
+cells are noisy and layout-heterogeneous. FRAMING DECISION: pooled full-grid
+numbers (n=6912/pair) remain the primary intervention estimates; the held-out
+slice is for oracle comparability only. Cube best-arm on held-out = frozen_
+selftrace 87.5 (!) — above its own oracle confirm; single-cell excursions at
+n=72 are exactly why we don't headline this stratum.

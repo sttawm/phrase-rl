@@ -101,7 +101,7 @@ def main() -> None:
     if ceiling is not None:
         ax.axvline(ceiling, ls="--", color="#822727", lw=1.4)
         ax.text(ceiling + 0.3, len(sb) - 0.5,
-                f"confirmed oracle ceiling {ceiling:.1f}\n(held-out, 10-task mean)",
+                f"confirmed oracle ceiling {ceiling:.1f}\n(held-out, {len(conf)}-task mean)",
                 color="#822727", fontsize=8, va="top")
     ax.set_xlabel("success rate % (24 layouts × 12 reps per task)")
     ax.set_title("Sealed test scoreboard — task-mean success by pipeline")

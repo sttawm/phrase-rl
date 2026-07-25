@@ -42,6 +42,16 @@
    "best_arm_heldout": 52.8
   },
   {
+   "task": "widowx_cube_on_plate_clean",
+   "oracle_pct": 72.2,
+   "oracle_se": 5.3,
+   "oracle_phrase": "pick up the green cube and place it on the plate",
+   "n": 72,
+   "nominal_heldout": 65.3,
+   "best_arm": "frozen_selftrace",
+   "best_arm_heldout": 87.5
+  },
+  {
    "task": "widowx_eggplant_on_keyboard_clean",
    "oracle_pct": 40.3,
    "oracle_se": 5.8,
@@ -50,6 +60,16 @@
    "nominal_heldout": 15.3,
    "best_arm": "rules_v3_gemini_trace",
    "best_arm_heldout": 38.9
+  },
+  {
+   "task": "widowx_eggplant_on_sponge_clean",
+   "oracle_pct": 80.6,
+   "oracle_se": 4.7,
+   "oracle_phrase": "put the purple eggplant on the yellow sponge",
+   "n": 72,
+   "nominal_heldout": 76.4,
+   "best_arm": "frozen_gemini_trace",
+   "best_arm_heldout": 75.0
   },
   {
    "task": "widowx_nut_on_plate_clean",
@@ -102,7 +122,7 @@
    "best_arm_heldout": 1.4
   }
  ],
- "mean_oracle": 44.9,
- "mean_nominal_heldout": 28.3,
- "mean_best_arm_heldout": 38.9
+ "mean_oracle": 50.1,
+ "mean_nominal_heldout": 35.4,
+ "mean_best_arm_heldout": 45.9
 }
