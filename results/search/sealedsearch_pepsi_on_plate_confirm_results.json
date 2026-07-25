@@ -1,0 +1,21 @@
+{
+ "task": "widowx_pepsi_on_plate_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "put pepsi on plate",
+   "success_pct": 77.8,
+   "n": 72
+  },
+  {
+   "phrase": "place pepsi on plate",
+   "success_pct": 62.5,
+   "n": 72
+  },
+  {
+   "phrase": "put a pepsi can on the plate",
+   "success_pct": 47.2,
+   "n": 72
+  }
+ ]
+}
