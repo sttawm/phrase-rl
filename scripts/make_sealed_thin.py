@@ -43,9 +43,9 @@ BARS = [  # (label, arm or callable, color)
     ("oracle", oracle_value, "#822727"),
     ("nominal + gem-trace ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0", "rules_pro_nominal", "#805ad5"),
     ("nominal ⇒ π0", "originals", "#48bb78"),
-    ("ERT + gem-trace ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0", "rules_v3_gemini_pro", "#2b6cb0"),
-    ("ERT + gem-trace ⇒ Gemini-pro (with reasoning) ⇒ π0", "gemini_pro_bare", "#63b3ed"),
-    ("ERT ⇒ π0", "passthrough", "#a0aec0"),
+    ("adversarial phrasing + gem-trace ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0", "rules_v3_gemini_pro", "#2b6cb0"),
+    ("adversarial phrasing + gem-trace ⇒ Gemini-pro (with reasoning) ⇒ π0", "gemini_pro_bare", "#63b3ed"),
+    ("adversarial phrasing ⇒ π0", "passthrough", "#a0aec0"),
 ]
 
 rows = []
