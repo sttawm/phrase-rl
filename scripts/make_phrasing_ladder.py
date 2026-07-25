@@ -42,11 +42,11 @@ def task_mean(arm: str) -> tuple[float, float]:
 
 BARS = [
     ("adversarial phrasing ⇒ π0", "passthrough", "#a0aec0"),
-    ("adversarial phrasing + gem-trace ⇒ Gemini-pro (with reasoning) ⇒ π0", "gemini_pro_bare", "#63b3ed"),
-    ("adversarial phrasing + gem-trace ⇒ v6-RL Qwen ⇒ π0", "v6_rl", "#9f7aea"),
-    ("adversarial phrasing + gem-trace ⇒ frozen Qwen ⇒ π0", "frozen_gemini_trace", "#c3a6e8"),
-    ("adversarial phrasing + gem-trace ⇒ frozen Qwen + RULES ⇒ π0", "rules_v3_gemini_trace", "#6b46c1"),
-    ("adversarial phrasing + gem-trace ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0", "rules_v3_gemini_pro", "#2b6cb0"),
+    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro (with reasoning) ⇒ π0", "gemini_pro_bare", "#63b3ed"),
+    ("adversarial phrasing + Gemini scene description ⇒ v6-RL Qwen ⇒ π0", "v6_rl", "#9f7aea"),
+    ("adversarial phrasing + Gemini scene description ⇒ frozen Qwen ⇒ π0", "frozen_gemini_trace", "#c3a6e8"),
+    ("adversarial phrasing + Gemini scene description ⇒ frozen Qwen + RULES ⇒ π0", "rules_v3_gemini_trace", "#6b46c1"),
+    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0", "rules_v3_gemini_pro", "#2b6cb0"),
     ("nominal ⇒ π0", "originals", "#48bb78"),
     ("oracle phrase (adaptive search) ⇒ π0", None, "#822727"),
 ]
