@@ -1,0 +1,86 @@
+{
+ "task": "widowx_cube_on_plate_clean",
+ "n_per_phrase": 36,
+ "scoreboard": [
+  {
+   "phrase": "pick up the green cube and place it on the plate",
+   "success_pct": 88.9,
+   "n": 36
+  },
+  {
+   "phrase": "put green cube on plate",
+   "success_pct": 83.3,
+   "n": 36
+  },
+  {
+   "phrase": "stack the green cube on the plate",
+   "success_pct": 77.8,
+   "n": 36
+  },
+  {
+   "phrase": "put the green cube on the yellow plate",
+   "success_pct": 72.2,
+   "n": 36
+  },
+  {
+   "phrase": "put cube on plate",
+   "success_pct": 69.4,
+   "n": 36
+  },
+  {
+   "phrase": "put the teal block on the yellow plate",
+   "success_pct": 66.7,
+   "n": 36
+  },
+  {
+   "phrase": "set the teal block on the plate",
+   "success_pct": 66.7,
+   "n": 36
+  },
+  {
+   "phrase": "put the teal block on the plate",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "put the teal cube on the yellow plate",
+   "success_pct": 61.1,
+   "n": 36
+  },
+  {
+   "phrase": "put the cube on the plate",
+   "success_pct": 58.3,
+   "n": 36
+  },
+  {
+   "phrase": "put the green block on the yellow plate",
+   "success_pct": 55.6,
+   "n": 36
+  },
+  {
+   "phrase": "put the blue cube on the yellow plate",
+   "success_pct": 55.6,
+   "n": 36
+  },
+  {
+   "phrase": "put the block on the plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "put the small block on the yellow plate",
+   "success_pct": 47.2,
+   "n": 36
+  },
+  {
+   "phrase": "pick up the teal block and place it on the yellow plate",
+   "success_pct": 44.4,
+   "n": 36
+  },
+  {
+   "phrase": "place the teal block on the yellow plate",
+   "success_pct": 44.4,
+   "n": 36
+  }
+ ]
+}
