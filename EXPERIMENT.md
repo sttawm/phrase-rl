@@ -1759,3 +1759,16 @@ small_plate 5.6(sel)->0.0(conf) — floor task, no phrasing rescue.
 Two tasks where search found NOTHING above existing arms/nominal on held-out:
 nut_on_plate (nominal 40.3 > oracle 37.5), carrot_on_sponge (frozen_gemini_trace
 47.2 > oracle 41.7). Chart ceiling line = 44.9.
+
+## 2026-07-25 — Row 11 lands: executor tournament COMPLETE, gradient totally flat
+rules_v3_claude_agent (Fable, max effort, corpus grep access): 31.0 pooled
+(35.3 in-vocab / 27.9 OOV). Final executor ladder at fixed RULES-v3:
+  pro+16k 31.6 ~ Qwen-gem-trace 31.5 ~ flash-no-think 31.1 ~ Claude-agent 31.0
+Agent produced byte-identical phrases to pro on 8/12 tasks (deterministic grid
+=> identical outcomes). The 4 divergences: pepsi +11.5 (agent grepped "yellow
+plate"=0 and DROPPED the unsupported attribute — caution won), nut_on_plate
+-14.2 ("gray hexagon" rename backfired vs plain handling), nut_wheel -3.8,
+small_plate -0.3. Net -0.58pp ~ 0: grep-driven divergence is a wash.
+VERDICT: the rules are the artifact. Executor reasoning tier, agency, and
+corpus access add nothing detectable beyond them (range 0.6pp across four
+executors spanning no-think flash to max-effort agent).
