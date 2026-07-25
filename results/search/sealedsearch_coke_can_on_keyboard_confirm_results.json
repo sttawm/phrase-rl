@@ -1,0 +1,21 @@
+{
+ "task": "widowx_coke_can_on_keyboard_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "put coke on keyboard",
+   "success_pct": 47.2,
+   "n": 72
+  },
+  {
+   "phrase": "place coke can on keyboard",
+   "success_pct": 45.8,
+   "n": 72
+  },
+  {
+   "phrase": "put coke can onto keyboard",
+   "success_pct": 36.1,
+   "n": 72
+  }
+ ]
+}
