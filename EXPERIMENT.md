@@ -1741,3 +1741,21 @@ coke_wheel +13.9, coke_keyboard +9.7 (all OOV). Casualties: orange_juice -11.5
 (OOV — the one anomaly, phrase-level autopsy pending), cube_on_plate -11.1
 (in-vocab tax, same site as flash pair's -11.1 — suspiciously identical, check
 shared phrase choice).
+
+## 2026-07-25 — Row 14 COMPLETE: confirmed oracle headroom (held-out estimation)
+Protocol: selection on layouts 0-17 (n=36/phrase); estimation on virgin layouts
+18-23 (n=72/phrase); comparators = the SAME held-out cells from sealed x12
+parquets (deterministic grid). 10-task means:
+  confirmed oracle      44.9   (per-task adaptive best phrase)
+  per-task best arm     38.9   (itself an oracle-ish comparator: argmax over 12 arms per task)
+  nominal (originals)   28.3
+Headroom read: +6.0pp above even per-task-best-arm selection; +16.6pp above
+nominals — phrasing alone, no weights touched. Ceiling framing stands: phrase
+chosen adaptively per task; not a blind arm.
+Standouts (held-out): pepsi 77.8±4.9 ("place pepsi on plate"); ramekin 61.1±5.7
+(corpus-absence rename); coke_keyboard 47.2 vs best-arm 31.9 (drop "can").
+Winner's-curse cases now visible: eggplant "purple object" 55.6(sel)->40.3(conf);
+small_plate 5.6(sel)->0.0(conf) — floor task, no phrasing rescue.
+Two tasks where search found NOTHING above existing arms/nominal on held-out:
+nut_on_plate (nominal 40.3 > oracle 37.5), carrot_on_sponge (frozen_gemini_trace
+47.2 > oracle 41.7). Chart ceiling line = 44.9.

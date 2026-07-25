@@ -1,0 +1,108 @@
+{
+ "protocol": "selection layouts 0-17 (n=36); estimation layouts 18-23 (n=72); comparators = same held-out cells from sealed x12 parquets",
+ "tasks": [
+  {
+   "task": "widowx_carrot_on_ramekin_clean",
+   "oracle_pct": 61.1,
+   "oracle_se": 5.7,
+   "oracle_phrase": "pick up the carrot and place it in the white container",
+   "n": 72,
+   "nominal_heldout": 22.2,
+   "best_arm": "frozen_gemini_trace",
+   "best_arm_heldout": 51.4
+  },
+  {
+   "task": "widowx_carrot_on_sponge_clean",
+   "oracle_pct": 41.7,
+   "oracle_se": 5.8,
+   "oracle_phrase": "place carrot on sponge",
+   "n": 72,
+   "nominal_heldout": 36.1,
+   "best_arm": "frozen_gemini_trace",
+   "best_arm_heldout": 47.2
+  },
+  {
+   "task": "widowx_coke_can_on_keyboard_clean",
+   "oracle_pct": 47.2,
+   "oracle_se": 5.9,
+   "oracle_phrase": "put coke on keyboard",
+   "n": 72,
+   "nominal_heldout": 41.7,
+   "best_arm": "frozen_gemini_trace",
+   "best_arm_heldout": 31.9
+  },
+  {
+   "task": "widowx_coke_can_on_wheel_clean",
+   "oracle_pct": 51.4,
+   "oracle_se": 5.9,
+   "oracle_phrase": "put coke can in black wheel",
+   "n": 72,
+   "nominal_heldout": 29.2,
+   "best_arm": "rules_v3_selftrace",
+   "best_arm_heldout": 52.8
+  },
+  {
+   "task": "widowx_eggplant_on_keyboard_clean",
+   "oracle_pct": 40.3,
+   "oracle_se": 5.8,
+   "oracle_phrase": "put the purple object onto the black keyboard",
+   "n": 72,
+   "nominal_heldout": 15.3,
+   "best_arm": "rules_v3_gemini_trace",
+   "best_arm_heldout": 38.9
+  },
+  {
+   "task": "widowx_nut_on_plate_clean",
+   "oracle_pct": 37.5,
+   "oracle_se": 5.7,
+   "oracle_phrase": "put nut onto plate",
+   "n": 72,
+   "nominal_heldout": 40.3,
+   "best_arm": "gemini_pro_bare",
+   "best_arm_heldout": 13.9
+  },
+  {
+   "task": "widowx_nut_on_wheel_clean",
+   "oracle_pct": 48.6,
+   "oracle_se": 5.9,
+   "oracle_phrase": "put the grey nut into the black tire",
+   "n": 72,
+   "nominal_heldout": 20.8,
+   "best_arm": "rules_v3_gemini_trace",
+   "best_arm_heldout": 47.2
+  },
+  {
+   "task": "widowx_orange_juice_on_plate_clean",
+   "oracle_pct": 43.1,
+   "oracle_se": 5.8,
+   "oracle_phrase": "place orange juice on plate",
+   "n": 72,
+   "nominal_heldout": 30.6,
+   "best_arm": "frozen_gemini_trace",
+   "best_arm_heldout": 38.9
+  },
+  {
+   "task": "widowx_pepsi_on_plate_clean",
+   "oracle_pct": 77.8,
+   "oracle_se": 4.9,
+   "oracle_phrase": "put pepsi on plate",
+   "n": 72,
+   "nominal_heldout": 47.2,
+   "best_arm": "passthrough",
+   "best_arm_heldout": 65.3
+  },
+  {
+   "task": "widowx_small_plate_on_green_cube_clean",
+   "oracle_pct": 0.0,
+   "oracle_se": 0.0,
+   "oracle_phrase": "place the yellow saucer on the green block",
+   "n": 72,
+   "nominal_heldout": 0.0,
+   "best_arm": "gemini_pro_bare",
+   "best_arm_heldout": 1.4
+  }
+ ],
+ "mean_oracle": 44.9,
+ "mean_nominal_heldout": 28.3,
+ "mean_best_arm_heldout": 38.9
+}
