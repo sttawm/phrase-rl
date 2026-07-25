@@ -41,13 +41,13 @@ def task_mean(arm: str) -> tuple[float, float]:
 
 
 BARS = [
-    ("adversarial phrasing", "passthrough", "#a0aec0"),
-    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro (with reasoning)", "gemini_pro_bare", "#63b3ed"),
-    ("adversarial phrasing + Gemini scene description ⇒ v6-RL Qwen", "v6_rl", "#9f7aea"),
-    ("adversarial phrasing + Gemini scene description ⇒ frozen Qwen", "frozen_gemini_trace", "#c3a6e8"),
-    ("adversarial phrasing + Gemini scene description ⇒ frozen Qwen + RULES", "rules_v3_gemini_trace", "#6b46c1"),
-    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning)", "rules_v3_gemini_pro", "#2b6cb0"),
-    ("original phrasing", "originals", "#48bb78"),
+    ("Adv", "passthrough", "#a0aec0"),
+    ("Adv + Scene-Desc ⇒ Gem-Pro", "gemini_pro_bare", "#63b3ed"),
+    ("Adv + Scene-Desc ⇒ v6-RL Qwen", "v6_rl", "#9f7aea"),
+    ("Adv + Scene-Desc ⇒ Qwen", "frozen_gemini_trace", "#c3a6e8"),
+    ("Adv + Scene-Desc ⇒ Qwen + Rules", "rules_v3_gemini_trace", "#6b46c1"),
+    ("Adv + Scene-Desc ⇒ Gem-Pro + Rules", "rules_v3_gemini_pro", "#2b6cb0"),
+    ("Orig", "originals", "#48bb78"),
     ("oracle", None, "#822727"),
 ]
 
@@ -79,6 +79,7 @@ ax.set_xlabel(f"success % on {len(tasks)} tasks")
 ax.set_title("What phrasing recovers — the intervention ladder (sealed test)")
 ax.grid(axis="x", alpha=0.25)
 ax.set_xlim(0, max(v + e for v, e in zip(vals, errs)) + 6)
+fig.text(0.01, 0.01, "Key: Adv = adversarial phrasing · Orig = original phrasing · Scene-Desc = Gemini-written scene description · Gem-Pro = Gemini-pro (reasoning on) · Qwen = frozen Qwen3.5-9B · Rules = phrasing rules v3 · every pipeline ends at π0", fontsize=7, color="#4a5568")
 fig.tight_layout()
 fig.savefig("results/charts/sealed_phrasing_ladder.png", dpi=150, bbox_inches="tight", pad_inches=0.25)
 print("chart -> results/charts/sealed_phrasing_ladder.png")

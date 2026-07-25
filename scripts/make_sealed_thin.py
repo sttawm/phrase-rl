@@ -41,11 +41,11 @@ def oracle_value():
 
 BARS = [  # (label, arm or callable, color)
     ("oracle", oracle_value, "#822727"),
-    ("original phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning)", "rules_pro_nominal", "#805ad5"),
-    ("original phrasing", "originals", "#48bb78"),
-    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning)", "rules_v3_gemini_pro", "#2b6cb0"),
-    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro (with reasoning)", "gemini_pro_bare", "#63b3ed"),
-    ("adversarial phrasing", "passthrough", "#a0aec0"),
+    ("Orig + Scene-Desc ⇒ Gem-Pro + Rules", "rules_pro_nominal", "#805ad5"),
+    ("Orig", "originals", "#48bb78"),
+    ("Adv + Scene-Desc ⇒ Gem-Pro + Rules", "rules_v3_gemini_pro", "#2b6cb0"),
+    ("Adv + Scene-Desc ⇒ Gem-Pro", "gemini_pro_bare", "#63b3ed"),
+    ("Adv", "passthrough", "#a0aec0"),
 ]
 
 rows = []
@@ -69,11 +69,12 @@ for yi, (label, v, se, color) in zip(y, rows):
                 error_kw={"ecolor": "#4a5568", "capsize": 3, "lw": 1.1})
         ax.text(v + se + 0.6, yi, f"{v:.1f}", va="center", fontsize=11, fontweight="bold")
 ax.set_yticks(y)
-ax.set_yticklabels([r[0] for r in rows], fontsize=9.5)
+ax.set_yticklabels([r[0] for r in rows], fontsize=11)
 ax.set_xlabel("success % on 12 tasks (24 layouts × 12 reps)")
 ax.set_title("Sealed test — thin scoreboard")
 ax.grid(axis="x", alpha=0.25)
 ax.set_xlim(0, max((r[1] or 0) + (r[2] or 0) for r in rows) + 7)
+fig.text(0.01, 0.055, "Key: Adv = adversarial phrasing · Orig = original phrasing · Scene-Desc = Gemini-written scene description · Gem-Pro = Gemini-pro rewriter (reasoning on) · Rules = phrasing rules v3 · every pipeline ends at π0", fontsize=7, color="#4a5568")
 if any("*" in r[0] for r in rows):
     fig.text(0.01, 0.01, "* held-out estimate — full-grid leg rolling", fontsize=7, color="#718096")
 fig.tight_layout()
