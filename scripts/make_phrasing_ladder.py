@@ -49,15 +49,19 @@ BARS = [
     ("oracle phrase (adaptive search) ⇒ π0", None, "#822727"),
 ]
 
-vals, errs = [], []
-for label, arm, _ in BARS:
+rows = []
+for label, arm, color in BARS:
     if arm:
         v, se = task_mean(arm)
     else:
         v = sum(oracle.values()) / len(oracle)
         se = 100 * math.sqrt(sum(p / 100 * (1 - p / 100) / 72 for p in oracle.values())) / len(oracle)
-    vals.append(v)
-    errs.append(se)
+    rows.append((v, se, label, color))
+rows.sort()  # ascending rungs — chart stays monotone whatever the data says
+BARS = [(label, None, color) for _, _, label, color in rows]
+vals = [r[0] for r in rows]
+errs = [r[1] for r in rows]
+for v, se, label, _ in rows:
     print(f"{v:5.1f} ±{se:3.1f}  {label}")
 
 fig, ax = plt.subplots(figsize=(9.5, 4.6))
