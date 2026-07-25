@@ -1828,3 +1828,11 @@ violates the standing always-archive order). LOST: adapter snapshots 60-280
 REMEDIATION (mandatory for every future run): checkpoint-sync watcher that
 pushes each snapshot to the git archive ON CREATION and round-trip-verifies;
 liveness of the sync checked at every fleet status pass, not just at setup.
+
+## 2026-07-25 — CORRECTION to loss record: FULL v7 RECOVERY
+The old L40S /workspace was a network volume; it survived termination and the
+new pod (103.196.86.46) attached it. First probes hit mfs cold-mount metadata
+lag and read empty — false alarm. RECOVERED: all snapshots step_0000..0240 +
+train_log through step 244. Actual loss: ~4 steps of momentum. The mirror-lapse
+lesson stands (remediation unchanged: sync watcher + liveness checks); archive
+of all 13 snapshots to git in progress before any other use of the pod.
