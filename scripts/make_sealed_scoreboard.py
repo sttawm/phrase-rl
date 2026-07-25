@@ -36,6 +36,7 @@ NAME = {
     "executor_pair": "ERT + gem-trace ⇒ Claude agent + RULES + corpus ⇒ π0",
     "rules_v3_claude_agent": "ERT + gem-trace ⇒ Claude agent + RULES + corpus ⇒ π0",
     "rules_pro_nominal": "nominal + gem-trace ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0",
+    "oracle_confirmed": "oracle phrase (adaptive search) ⇒ π0  *selected on layouts 0-17",
 }
 
 ENV_OVERRIDE = {  # audit env names that don't mechanically map to task names

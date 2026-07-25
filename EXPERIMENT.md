@@ -1807,3 +1807,13 @@ numbers (n=6912/pair) remain the primary intervention estimates; the held-out
 slice is for oracle comparability only. Cube best-arm on held-out = frozen_
 selftrace 87.5 (!) — above its own oracle confirm; single-cell excursions at
 n=72 are exactly why we don't headline this stratum.
+
+## 2026-07-25 — QUEUED: oracle_confirmed full-grid leg (user directive)
+User: oracle belongs on the main scoreboard at all 24 configurations. The 12
+confirm-winner phrases (frozen) roll as a standard x12 leg (arm=oracle_confirmed,
+n=288/task). Framing: full-grid number carries mild selection bias (phrases
+chosen on 0-17 evidence; n=216 re-roll washes selection LUCK but keeps adaptive
+layout-fit). Unbiased held-out reference stays 50.1. PREDICTION: full-grid
+pooled lands 48-53. Bonus validation: its 18-23 cells must reproduce the
+confirm numbers exactly (determinism check). Chart label carries the asterisk.
+Queue: after row-17 leg on first restarted pod.
