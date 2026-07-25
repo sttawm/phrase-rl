@@ -1,0 +1,21 @@
+{
+ "task": "widowx_nut_on_wheel_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "put the grey nut into the black tire",
+   "success_pct": 48.6,
+   "n": 72
+  },
+  {
+   "phrase": "put nut in tire",
+   "success_pct": 26.4,
+   "n": 72
+  },
+  {
+   "phrase": "put the hex nut in the black tire",
+   "success_pct": 20.8,
+   "n": 72
+  }
+ ]
+}
