@@ -43,6 +43,7 @@ def task_mean(arm: str) -> tuple[float, float]:
 BARS = [
     ("ERT ⇒ π0", "passthrough", "#a0aec0"),
     ("ERT + gem-trace ⇒ Gemini-pro (16k think) ⇒ π0", "gemini_pro_bare", "#63b3ed"),
+    ("ERT + gem-trace ⇒ v6-RL Qwen ⇒ π0", "v6_rl", "#9f7aea"),
     ("ERT + gem-trace ⇒ Gemini-pro + RULES (16k think) ⇒ π0", "rules_v3_gemini_pro", "#2b6cb0"),
     ("nominal ⇒ π0", "originals", "#48bb78"),
     ("oracle phrase (adaptive search) ⇒ π0", None, "#822727"),
