@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 NAME = {
-    "originals": "originals ⇒ π0",
+    "originals": "original phrasing ⇒ π0",
     "passthrough": "adversarial phrasing ⇒ π0",
     "frozen_gemini_trace": "adversarial phrasing + Gemini scene description ⇒ frozen Qwen ⇒ π0",
     "frozen_selftrace": "adversarial phrasing + self-written scene description ⇒ frozen Qwen ⇒ π0",
@@ -35,7 +35,7 @@ NAME = {
     "claude_agent": "adversarial phrasing + Gemini scene description ⇒ Claude agent + RULES + corpus ⇒ π0",
     "executor_pair": "adversarial phrasing + Gemini scene description ⇒ Claude agent + RULES + corpus ⇒ π0",
     "rules_v3_claude_agent": "adversarial phrasing + Gemini scene description ⇒ Claude agent + RULES + corpus ⇒ π0",
-    "rules_pro_nominal": "nominal + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0",
+    "rules_pro_nominal": "original phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0",
     "oracle_confirmed": "oracle phrase (adaptive search) ⇒ π0  *selected on layouts 0-17",
 }
 

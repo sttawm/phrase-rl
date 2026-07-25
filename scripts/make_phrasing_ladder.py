@@ -47,7 +47,7 @@ BARS = [
     ("adversarial phrasing + Gemini scene description ⇒ frozen Qwen ⇒ π0", "frozen_gemini_trace", "#c3a6e8"),
     ("adversarial phrasing + Gemini scene description ⇒ frozen Qwen + RULES ⇒ π0", "rules_v3_gemini_trace", "#6b46c1"),
     ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0", "rules_v3_gemini_pro", "#2b6cb0"),
-    ("nominal ⇒ π0", "originals", "#48bb78"),
+    ("original phrasing ⇒ π0", "originals", "#48bb78"),
     ("oracle phrase (adaptive search) ⇒ π0", None, "#822727"),
 ]
 
