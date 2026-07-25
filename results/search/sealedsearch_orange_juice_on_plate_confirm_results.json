@@ -1,0 +1,21 @@
+{
+ "task": "widowx_orange_juice_on_plate_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "place orange juice on plate",
+   "success_pct": 43.1,
+   "n": 72
+  },
+  {
+   "phrase": "place the orange juice onto the plate",
+   "success_pct": 38.9,
+   "n": 72
+  },
+  {
+   "phrase": "set the orange juice on the plate",
+   "success_pct": 31.9,
+   "n": 72
+  }
+ ]
+}
