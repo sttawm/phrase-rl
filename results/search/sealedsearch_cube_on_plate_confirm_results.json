@@ -1,0 +1,21 @@
+{
+ "task": "widowx_cube_on_plate_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "pick up the green cube and place it on the plate",
+   "success_pct": 72.2,
+   "n": 72
+  },
+  {
+   "phrase": "stack the green cube on the plate",
+   "success_pct": 65.3,
+   "n": 72
+  },
+  {
+   "phrase": "put cube on plate",
+   "success_pct": 61.1,
+   "n": 72
+  }
+ ]
+}
