@@ -57,7 +57,7 @@ for label, arm, color in BARS:
         v = sum(oracle.values()) / len(oracle)
         se = 100 * math.sqrt(sum(p / 100 * (1 - p / 100) / 72 for p in oracle.values())) / len(oracle)
     rows.append((v, se, label, color))
-rows.sort()  # ascending rungs — chart stays monotone whatever the data says
+rows.sort(reverse=True)  # best rung on top
 BARS = [(label, None, color) for _, _, label, color in rows]
 vals = [r[0] for r in rows]
 errs = [r[1] for r in rows]
