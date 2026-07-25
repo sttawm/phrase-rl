@@ -53,5 +53,5 @@ for r in rows:
     t = r["task"].replace("widowx_", "").replace("_clean", "")
     print(f"{t:28s} {r['oracle_pct']:5.1f}±{r['oracle_se']:3.1f} {r['nominal_heldout']:7.1f} "
           f"{r['best_arm_heldout']:8.1f}  ({r['best_arm'][:20]})")
-print(f"\n{'MEAN (10 tasks)':28s} {out['mean_oracle']:5.1f}      {out['mean_nominal_heldout']:7.1f} "
+print(f"\n{'MEAN (' + str(len(rows)) + ' tasks)':28s} {out['mean_oracle']:5.1f}      {out['mean_nominal_heldout']:7.1f} "
       f"{out['mean_best_arm_heldout']:8.1f}")
