@@ -1817,3 +1817,14 @@ layout-fit). Unbiased held-out reference stays 50.1. PREDICTION: full-grid
 pooled lands 48-53. Bonus validation: its 18-23 cells must reproduce the
 confirm numbers exactly (determinism check). Chart label carries the asterisk.
 Queue: after row-17 leg on first restarted pod.
+
+## 2026-07-25 — LOSS RECORD: v7 weight snapshots steps 60-280
+Old L40S pod terminated with its volume; local mirror had silently stopped
+syncing after step_0040 and was never re-verified (process failure, mine —
+violates the standing always-archive order). LOST: adapter snapshots 60-280
+(~2.3 days L40S). KEPT: full measured record — real-rollout curve to step 200
+(v7_rollout_curve.jsonl), proxy vals + all probe phrases to step 200
+(phase2_v7_record/train_log.jsonl), snapshots 20+40 (l40s_mirror).
+REMEDIATION (mandatory for every future run): checkpoint-sync watcher that
+pushes each snapshot to the git archive ON CREATION and round-trip-verifies;
+liveness of the sync checked at every fleet status pass, not just at setup.
