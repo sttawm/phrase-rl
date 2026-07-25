@@ -36,6 +36,9 @@ for it in p["probes"]:
     task, phrase = it.get("task"), it.get("greedy") or it.get("phrase")
     if task and phrase:
         rows.append({"task": task, "arm": f"v7_step{p['step']}", "phrase": phrase, "instruction": phrase})
+    for sp in dict.fromkeys(it.get("samples") or []):  # dedupe, keep order
+        if task and sp:
+            rows.append({"task": task, "arm": f"v7samp_step{p['step']}", "phrase": sp, "instruction": sp})
 df = pd.DataFrame(rows)
 k = max(1, min(3, len(df)))
 for w in range(3):
@@ -73,9 +76,17 @@ PYEOF
 import glob, json, os
 import pandas as pd
 d = pd.concat([pd.read_parquet(x) for x in sorted(glob.glob("data/rval_out_w*.parquet"))], ignore_index=True)
-rec = {"step": int(os.environ["STEP"]), "n": int(len(d)),
-       "pooled": round(float(d.success.mean()*100), 2),
-       "per_task": {t: round(float(g.success.mean()*100), 1) for t, g in d.groupby("task")}}
+g = d[d.arm.str.startswith("v7_")]
+s = d[d.arm.str.startswith("v7samp_")]
+rec = {"step": int(os.environ["STEP"]), "n": int(len(g)),
+       "pooled": round(float(g.success.mean()*100), 2),
+       "per_task": {t: round(float(x.success.mean()*100), 1) for t, x in g.groupby("task")}}
+if len(s):
+    pm = s.groupby(["task", "phrase"]).success.mean()
+    rec["sampled_n"] = int(len(s))
+    rec["sampled_mean"] = round(float(pm.groupby("task").mean().mean()*100), 2)
+    rec["sampled_max"] = round(float(pm.groupby("task").max().mean()*100), 2)
+    rec["sampled_per_task"] = {t: round(float(v*100), 1) for t, v in pm.groupby("task").mean().items()}
 with open("results/analysis/v7_rollout_curve.jsonl", "a") as f:
     f.write(json.dumps(rec) + "\n")
 print("step", rec["step"], "pooled", rec["pooled"], "n", rec["n"])

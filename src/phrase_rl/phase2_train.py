@@ -793,7 +793,26 @@ def run_probes(model, processor, args) -> list[dict]:
         with torch.no_grad():
             gen = model.generate(**inputs, do_sample=False, max_new_tokens=48)
         text = processor.decode(gen[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-        out.append({"task": pr["task"], "phrase": text.strip().split("\n")[0].strip()})
+        rec = {"task": pr["task"], "phrase": text.strip().split("\n")[0].strip()}
+        k = getattr(args, "probe_samples", 0)
+        if k:
+            # sampled distribution probe (user 2026-07-25). RNG snapshot/restore
+            # keeps the exact-resume guarantee; fixed seed => same draw on resume.
+            cpu_state = torch.get_rng_state()
+            cuda_states = torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None
+            torch.manual_seed(args.val_seed + 7)
+            try:
+                with torch.no_grad():
+                    sg = model.generate(**inputs, do_sample=True, temperature=1.0,
+                                        num_return_sequences=k, max_new_tokens=48)
+                plen = inputs["input_ids"].shape[1]
+                rec["samples"] = [processor.decode(o[plen:], skip_special_tokens=True)
+                                  .strip().split("\n")[0].strip() for o in sg]
+            finally:
+                torch.set_rng_state(cpu_state)
+                if cuda_states is not None:
+                    torch.cuda.set_rng_state_all(cuda_states)
+        out.append(rec)
     return out
 
 
@@ -1197,6 +1216,8 @@ def main():
     ap.add_argument("--probe-contexts", default=None,
                     help="parquet(task,episode_index,t,instruction,image_png): fixed contexts probed with a greedy deployment phrase every --probe-every steps (logged as type=probe)")
     ap.add_argument("--probe-traces", default=None, help="parquet(episode_index,t,trace) for the probe contexts")
+    ap.add_argument("--probe-samples", type=int, default=0,
+                    help="also emit K temperature-1.0 sampled phrases per probe (distribution coverage; RNG-safe)")
     ap.add_argument("--probe-every", type=int, default=25)
     ap.add_argument("--source-aug", type=float, default=0.5,
                     help="prob of conditioning on a random teacher rephrase instead of the original (robustness; gate stays anchored to the original)")
