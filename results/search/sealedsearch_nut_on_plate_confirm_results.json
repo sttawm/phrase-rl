@@ -1,0 +1,21 @@
+{
+ "task": "widowx_nut_on_plate_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "put nut onto plate",
+   "success_pct": 37.5,
+   "n": 72
+  },
+  {
+   "phrase": "put the hexagon on the plate",
+   "success_pct": 13.9,
+   "n": 72
+  },
+  {
+   "phrase": "put the gray hexagon on the plate",
+   "success_pct": 4.2,
+   "n": 72
+  }
+ ]
+}
