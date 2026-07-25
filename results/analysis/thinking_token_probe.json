@@ -1,0 +1,70 @@
+{
+ "budget": 16384,
+ "conditions": {
+  "rules_adversarial": {
+   "n": 12,
+   "mean_thoughts": 2915,
+   "min": 876,
+   "max": 10131,
+   "mean_prompt": 6384
+  },
+  "bare_adversarial": {
+   "n": 12,
+   "mean_thoughts": 570,
+   "min": 387,
+   "max": 774,
+   "mean_prompt": 419
+  },
+  "rules_nominal": {
+   "n": 12,
+   "mean_thoughts": 1497,
+   "min": 853,
+   "max": 2935,
+   "mean_prompt": 6376
+  }
+ },
+ "raw": {
+  "rules_adversarial": [
+   891,
+   1307,
+   2132,
+   1879,
+   876,
+   1261,
+   10131,
+   3094,
+   4003,
+   5071,
+   998,
+   3342
+  ],
+  "bare_adversarial": [
+   483,
+   387,
+   619,
+   774,
+   641,
+   482,
+   572,
+   429,
+   590,
+   581,
+   554,
+   734
+  ],
+  "rules_nominal": [
+   898,
+   1267,
+   1171,
+   1111,
+   1025,
+   853,
+   2124,
+   1202,
+   2935,
+   1722,
+   896,
+   2758
+  ]
+ }
+}
