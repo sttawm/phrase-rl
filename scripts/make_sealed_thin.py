@@ -31,21 +31,21 @@ def full_grid(arm):
 def oracle_value():
     v, se = full_grid("oracle_confirmed")
     if v is not None:
-        return v, se, "oracle phrase (adaptive search) ⇒ π0"
+        return v, se, "oracle"
     conf = sorted(glob.glob("results/search/sealedsearch_*_confirm_results.json"))
     best = [max(e["success_pct"] for e in json.load(open(f))["scoreboard"]) / 100 for f in conf]
     v = 100 * sum(best) / len(best)
     se = 100 * math.sqrt(sum(p * (1 - p) / 72 for p in best)) / len(best)
-    return v, se, "oracle phrase (adaptive search) ⇒ π0  *held-out est., full-grid leg rolling"
+    return v, se, "oracle*"
 
 
 BARS = [  # (label, arm or callable, color)
     ("oracle", oracle_value, "#822727"),
-    ("original phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0", "rules_pro_nominal", "#805ad5"),
-    ("original phrasing ⇒ π0", "originals", "#48bb78"),
-    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0", "rules_v3_gemini_pro", "#2b6cb0"),
-    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro (with reasoning) ⇒ π0", "gemini_pro_bare", "#63b3ed"),
-    ("adversarial phrasing ⇒ π0", "passthrough", "#a0aec0"),
+    ("original phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning)", "rules_pro_nominal", "#805ad5"),
+    ("original phrasing", "originals", "#48bb78"),
+    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning)", "rules_v3_gemini_pro", "#2b6cb0"),
+    ("adversarial phrasing + Gemini scene description ⇒ Gemini-pro (with reasoning)", "gemini_pro_bare", "#63b3ed"),
+    ("adversarial phrasing", "passthrough", "#a0aec0"),
 ]
 
 rows = []
@@ -74,6 +74,8 @@ ax.set_xlabel("success % on 12 tasks (24 layouts × 12 reps)")
 ax.set_title("Sealed test — thin scoreboard")
 ax.grid(axis="x", alpha=0.25)
 ax.set_xlim(0, max((r[1] or 0) + (r[2] or 0) for r in rows) + 7)
+if any("*" in r[0] for r in rows):
+    fig.text(0.01, 0.01, "* held-out estimate — full-grid leg rolling", fontsize=7, color="#718096")
 fig.tight_layout()
 fig.savefig("results/charts/sealed_thin.png", dpi=150, bbox_inches="tight", pad_inches=0.25)
 print("chart -> results/charts/sealed_thin.png")
