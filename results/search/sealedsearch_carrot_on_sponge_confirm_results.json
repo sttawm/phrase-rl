@@ -1,0 +1,21 @@
+{
+ "task": "widowx_carrot_on_sponge_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "place carrot on sponge",
+   "success_pct": 41.7,
+   "n": 72
+  },
+  {
+   "phrase": "set carrot on sponge",
+   "success_pct": 41.7,
+   "n": 72
+  },
+  {
+   "phrase": "place a carrot on a sponge",
+   "success_pct": 34.7,
+   "n": 72
+  }
+ ]
+}
