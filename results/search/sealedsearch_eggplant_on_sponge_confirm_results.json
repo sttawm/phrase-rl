@@ -1,0 +1,21 @@
+{
+ "task": "widowx_eggplant_on_sponge_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "put the purple eggplant on the yellow sponge",
+   "success_pct": 80.6,
+   "n": 72
+  },
+  {
+   "phrase": "place the eggplant on the sponge",
+   "success_pct": 65.3,
+   "n": 72
+  },
+  {
+   "phrase": "pick up the eggplant and set it on the yellow sponge",
+   "success_pct": 55.6,
+   "n": 72
+  }
+ ]
+}
