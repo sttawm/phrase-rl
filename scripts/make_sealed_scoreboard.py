@@ -34,6 +34,8 @@ NAME = {
     "gemini_pro_bare": "ERT + gem-trace ⇒ Gemini-pro bare (with reasoning) ⇒ π0",
     "claude_agent": "ERT + gem-trace ⇒ Claude agent + RULES + corpus ⇒ π0",
     "executor_pair": "ERT + gem-trace ⇒ Claude agent + RULES + corpus ⇒ π0",
+    "rules_v3_claude_agent": "ERT + gem-trace ⇒ Claude agent + RULES + corpus ⇒ π0",
+    "rules_pro_nominal": "nominal + gem-trace ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0",
 }
 
 ENV_OVERRIDE = {  # audit env names that don't mechanically map to task names
