@@ -1772,3 +1772,25 @@ small_plate -0.3. Net -0.58pp ~ 0: grep-driven divergence is a wash.
 VERDICT: the rules are the artifact. Executor reasoning tier, agency, and
 corpus access add nothing detectable beyond them (range 0.6pp across four
 executors spanning no-think flash to max-effort agent).
+
+## 2026-07-25 — PRE-REGISTERED row 17: nominal-input RULES arm (row 18 DROPPED)
+Row 17: nominal + gem-trace => Gemini-pro + RULES (with reasoning) => pi0.
+UNCHANGED production prompt (rules-v3.1); input = the 12 nominal instructions
+instead of ERT. Measures the polish/deployment question: does the pipeline
+leave good input alone (step-0 triage) and capture corpus-law headroom above
+nominal (ramekin-class renames)? Comparator = originals arm, same cells, free.
+Predictions filed: pass-through on most in-vocab tasks; renames on
+corpus-absent nouns; pooled >= nominal iff unforced-error rate stays low.
+Row 18 (nominal => pro-bare) DROPPED (user 2026-07-25): bare prompt has no
+pass-through concept — would measure forced rewriting of good input; not
+deployment-relevant. Leg: 12 rows x24x12 (~4h), pod5 after round-2 confirms.
+
+## 2026-07-25 — Row 17 generation notes (pre-rollout)
+First generation pass TRUNCATED (max_output_tokens=100 includes thinking tokens
+at 16384 budget -> fragments like 'put'); discarded wholesale, regenerated at
+cap 20000 + fragment guard. Corrected phrases (pre-rollout observations):
+0/12 byte-identical pass-throughs — prediction #1 REFUTED at generation time
+(nominals all violate the template bank, e.g. missing articles, so step-0
+rebuilds; pass-through bar is stricter than predicted). Ramekin rename fires
+("white bowl" — oracle-confirmed family); brand kept on pepsi; size word
+dropped on small_plate; orange_juice "box" collapse RECURS on clean input.
