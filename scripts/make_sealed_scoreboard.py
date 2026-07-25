@@ -30,8 +30,8 @@ NAME = {
     "rules_gemini": "ERT + gem-trace ⇒ Gemini-flash + RULES ⇒ π0",
     "gemini_bare": "ERT + gem-trace ⇒ Gemini-flash bare ⇒ π0",
     "rules_v3_selftrace": "ERT + qwen-trace ⇒ frozen Qwen + RULES ⇒ π0",
-    "rules_v3_gemini_pro": "ERT + gem-trace ⇒ Gemini-pro + RULES (16k think) ⇒ π0",
-    "gemini_pro_bare": "ERT + gem-trace ⇒ Gemini-pro bare (16k think) ⇒ π0",
+    "rules_v3_gemini_pro": "ERT + gem-trace ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0",
+    "gemini_pro_bare": "ERT + gem-trace ⇒ Gemini-pro bare (with reasoning) ⇒ π0",
     "claude_agent": "ERT + gem-trace ⇒ Claude agent + RULES + corpus ⇒ π0",
     "executor_pair": "ERT + gem-trace ⇒ Claude agent + RULES + corpus ⇒ π0",
 }

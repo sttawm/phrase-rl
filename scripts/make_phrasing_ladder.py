@@ -3,8 +3,8 @@
 10 searched tasks x held-out layouts 18-23 x 12 reps (n=720 per bar).
 
   ERT => pi0                                     (passthrough)
-  ERT + gem-trace => Gemini-pro (16k think) => pi0        (gemini_pro_bare)
-  ERT + gem-trace => Gemini-pro + RULES (16k think) => pi0 (rules_v3_gemini_pro)
+  ERT + gem-trace => Gemini-pro (with reasoning) => pi0        (gemini_pro_bare)
+  ERT + gem-trace => Gemini-pro + RULES (with reasoning) => pi0 (rules_v3_gemini_pro)
   nominal => pi0                                 (originals)
   oracle phrase (adaptive search) => pi0         (row-14 confirm winners)
 
@@ -42,9 +42,9 @@ def task_mean(arm: str) -> tuple[float, float]:
 
 BARS = [
     ("ERT ⇒ π0", "passthrough", "#a0aec0"),
-    ("ERT + gem-trace ⇒ Gemini-pro (16k think) ⇒ π0", "gemini_pro_bare", "#63b3ed"),
+    ("ERT + gem-trace ⇒ Gemini-pro (with reasoning) ⇒ π0", "gemini_pro_bare", "#63b3ed"),
     ("ERT + gem-trace ⇒ v6-RL Qwen ⇒ π0", "v6_rl", "#9f7aea"),
-    ("ERT + gem-trace ⇒ Gemini-pro + RULES (16k think) ⇒ π0", "rules_v3_gemini_pro", "#2b6cb0"),
+    ("ERT + gem-trace ⇒ Gemini-pro + RULES (with reasoning) ⇒ π0", "rules_v3_gemini_pro", "#2b6cb0"),
     ("nominal ⇒ π0", "originals", "#48bb78"),
     ("oracle phrase (adaptive search) ⇒ π0", None, "#822727"),
 ]
