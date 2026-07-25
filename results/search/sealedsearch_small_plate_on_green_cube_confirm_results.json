@@ -1,0 +1,21 @@
+{
+ "task": "widowx_small_plate_on_green_cube_clean",
+ "n_per_phrase": 72,
+ "scoreboard": [
+  {
+   "phrase": "place the yellow saucer on the green block",
+   "success_pct": 0.0,
+   "n": 72
+  },
+  {
+   "phrase": "put the plate on top of the green cube",
+   "success_pct": 0.0,
+   "n": 72
+  },
+  {
+   "phrase": "put the saucer on the green cube",
+   "success_pct": 0.0,
+   "n": 72
+  }
+ ]
+}
