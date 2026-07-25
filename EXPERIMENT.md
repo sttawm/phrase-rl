@@ -1726,3 +1726,18 @@ ONLY held-out cells: selection on 0-17, estimation on 18-23. Search-grade number
 never enter the final estimate. Caveat carried: per-phrase held-out estimates are
 unbiased, but taking the max across confirmed phrases retains a small winner's
 curse; report per-phrase CIs alongside the max.
+
+## 2026-07-25 — Rows 12/13 land: rules isolation REPLICATES at pro tier
+pairA_pro_x12 (n=6912, both arms same leg, 24x12 all layouts):
+  rules_v3_gemini_pro  31.6 pooled (38.2 in-vocab / 26.8 OOV)
+  gemini_pro_bare      27.8 pooled (40.2 / 18.9)
+Paired rules effect +3.79pp pooled, +7.9 OOV, -2.0 in-vocab — near-identical to
+the flash pair (+3.6 / +8.5 / -3.2). Executor gradient at fixed RULES is FLAT
+(pro 31.6 ~ Qwen 31.5 ~ flash 31.1): the rules do the work; reasoning tier adds
+~0. Bare gradient also flat (pro 27.8 ~ flash 27.5): 16k-token reasoning without
+rules does not rediscover corpus law — confirms the phrase-level finding at
+outcome level. Largest effects: eggplant_on_keyboard +27.8, pepsi +17.0,
+coke_wheel +13.9, coke_keyboard +9.7 (all OOV). Casualties: orange_juice -11.5
+(OOV — the one anomaly, phrase-level autopsy pending), cube_on_plate -11.1
+(in-vocab tax, same site as flash pair's -11.1 — suspiciously identical, check
+shared phrase choice).

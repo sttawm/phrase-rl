@@ -339,3 +339,4 @@ sampled draws (temp 1.0). Source parquets: results/sealed/ph_sealed_*.parquet.
     - 'Place a small plate onto the green cube.'
     - 'Place the small plate on top of the green cube.'
     - 'Place the small plate on top of the green cube.'
+- 2026-07-25: rows 12/13 measured (pairA_pro leg, pod2). rules_v3_gemini_pro 31.6, gemini_pro_bare 27.8.
