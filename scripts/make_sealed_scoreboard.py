@@ -106,7 +106,7 @@ def main() -> None:
     ax.legend(loc="lower right", fontsize=8)
     ax.grid(axis="x", alpha=0.25)
     fig.tight_layout()
-    fig.savefig("results/charts/sealed_scoreboard.png", dpi=140)
+    fig.savefig("results/charts/sealed_scoreboard.png", dpi=140, bbox_inches="tight", pad_inches=0.25)
     print("chart -> results/charts/sealed_scoreboard.png")
 
 

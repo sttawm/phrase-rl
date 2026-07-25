@@ -73,7 +73,7 @@ for i, v in enumerate(vals):
 ax.set_yticks(list(y))
 ax.set_yticklabels([b[0] for b in BARS], fontsize=10)
 ax.invert_yaxis()
-ax.set_xlabel("success % — identical cells: 10 searched tasks × held-out layouts 18–23 × 12 reps")
+ax.set_xlabel("success % on 10 tasks")
 ax.set_title("What phrasing recovers — the intervention ladder (sealed test)")
 ax.grid(axis="x", alpha=0.25)
 ax.set_xlim(0, max(v + e for v, e in zip(vals, errs)) + 6)
