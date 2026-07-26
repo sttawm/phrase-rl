@@ -608,3 +608,8 @@ coke-plate suggestive +8.4, eggplant ceiling-null. Purification: 5 scenes
 done, 3 more boards queued (wheel, carrot-plate, eggplant). Cross-task
 certification (xcert: 6 edits × 8 tasks × n=144; xcert2: clause pairs ×
 8 tasks) rolling — uniform 24-layout numbers that supersede on overlap.*
+> **Determinism caveat (2026-07-26, sealed cross-check):** rollout determinism
+> holds exactly only when the same pod (GPU/driver) re-rolls a cell. Across
+> pods, 1-4 episodes per 72 flip (borderline trajectories under numeric drift).
+> Within-pod dedupe of repeated cells remains exact; cross-pod comparisons
+> carry a small machine-noise term on top of sampling noise.

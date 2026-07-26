@@ -1851,3 +1851,18 @@ input, corpus-absence rename should be the ONLY active rule (conditional
 rewriting captures the +13..+17 rescues and skips the tax). Deployment
 verdict: unconditional rewriting of good input is not safe; input-aware
 gating is the path.
+
+## 2026-07-26 — Oracle full-grid leg lands: 48.2 (prediction 48-53 CONFIRMED)
+oracle_confirmed_x12: pooled 48.23 (in-vocab 50.3 / OOV 46.8). Held-out
+estimate was 50.1 — the two agree within ~1 sigma; honest summary "oracle ~ 49".
+Selection bias worry was overblown: full-grid came in BELOW held-out.
+DETERMINISM DOCTRINE REVISED: the 18-23 cross-check reproduced exactly on only
+5/12 tasks; deviations = 1-4 flipped episodes per 72 (max 5.6pp). Rollouts are
+exact WITHIN a pod (same GPU/driver); across pods there is a small machine-
+noise term (cuDNN/numeric drift flipping borderline trajectories). Cell-dedupe
+and comparator-extraction remain statistically valid (unbiased, ~independent)
+but are NOT byte-exact across pods. All prior cross-pod "exact" claims should
+be read as "exact within-pod, ±2-5pp across-pod at n=72".
+Ladder rebuilt full-grid: ordering now matches the main scoreboard (held-out
+slice anomalies were slice noise, as suspected). Charts: oracle bar replaces
+the dashed ceiling line.

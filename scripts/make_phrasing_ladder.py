@@ -20,13 +20,15 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
-HELD = set(range(18, 24))
+HELD = set(range(24))  # full grid — oracle now has a full-grid leg
 
+op = [f for f in glob.glob("results/sealed/*_x12.parquet") if "oracle_confirmed" in f]
 conf = sorted(glob.glob("results/search/sealedsearch_*_confirm_results.json"))
 tasks = [json.load(open(f))["task"] for f in conf]
-oracle = {json.load(open(f))["task"]:
+oracle = ({t: v for t, v in (pd.read_parquet(op[0]).groupby("task").success.mean() * 100).items()}
+          if op else {json.load(open(f))["task"]:
           max(json.load(open(f))["scoreboard"], key=lambda e: e["success_pct"])["success_pct"]
-          for f in conf}
+          for f in conf})
 
 legs = pd.concat([pd.read_parquet(f) for f in sorted(glob.glob("results/sealed/*_x12.parquet"))],
                  ignore_index=True)
@@ -75,7 +77,7 @@ for i, v in enumerate(vals):
 ax.set_yticks(list(y))
 ax.set_yticklabels([b[0] for b in BARS], fontsize=10)
 ax.invert_yaxis()
-ax.set_xlabel(f"success % on {len(tasks)} tasks")
+ax.set_xlabel(f"success % on {len(tasks)} tasks (full grid)")
 ax.set_title("What phrasing recovers — the intervention ladder (sealed test)")
 ax.grid(axis="x", alpha=0.25)
 ax.set_xlim(0, max(v + e for v, e in zip(vals, errs)) + 6)

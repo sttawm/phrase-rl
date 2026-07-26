@@ -84,6 +84,8 @@ def main() -> None:
 
     ceiling = None
     conf = sorted(glob.glob("results/search/sealedsearch_*_confirm_results.json"))
+    if (d.arm == "oracle_confirmed").any():
+        conf = []  # full-grid oracle bar exists — no separate ceiling line
     if len(conf) >= 10:
         best = [max(e["success_pct"] for e in json.load(open(f))["scoreboard"]) for f in conf]
         ceiling = sum(best) / len(best)
