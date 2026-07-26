@@ -37,6 +37,13 @@ for key, label, kw in [
     ("mean_reward", "sample mean", {"color": "#a0aec0", "ls": "--"}),
 ]:
     a1.plot(s, [v.get(key) for v in vals], marker="o", ms=3, label=label, **kw)
+aw = a1.twinx()
+aw.plot(s, [100 * v.get("greedy_win_rate", 0) for v in vals], marker="s", ms=3,
+        color="#d69e2e", lw=1.1, ls="-.", label="win-rate (greedy > orig)")
+aw.set_ylabel("win-rate %", color="#d69e2e", fontsize=8)
+aw.set_ylim(0, 50)
+aw.tick_params(axis="y", labelcolor="#d69e2e", labelsize=7)
+aw.legend(loc="upper right", fontsize=7)
 a1.set_xlabel("step")
 a1.set_ylabel("proxy reward (C4b)")
 a1.set_title("proxy-reward val (n=40 contexts)")
