@@ -24,8 +24,18 @@ for line in open(log):
         vals.append(d)
 vals.sort(key=lambda d: d["step"])
 
-curve = sorted((json.loads(x) for x in open("results/analysis/v7_rollout_curve.jsonl")),
-               key=lambda d: d["step"])
+# merge live + backfill curves; prefer backfill per step (it has greedy+sampled)
+import os
+by_step = {}
+for f in ["results/analysis/v7_rollout_curve.jsonl", "results/analysis/v7_curve_backfill.jsonl"]:
+    if not os.path.exists(f):
+        continue
+    for x in open(f):
+        d = json.loads(x)
+        cur = by_step.get(d["step"])
+        if cur is None or ("sampled_pooled" in d and "sampled_pooled" not in cur):
+            by_step[d["step"]] = d
+curve = sorted(by_step.values(), key=lambda d: d["step"])
 
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(12.5, 4.4))
 s = [v["step"] for v in vals]
@@ -51,15 +61,19 @@ a1.legend(fontsize=8)
 a1.grid(alpha=0.25)
 
 cs = [c["step"] for c in curve]
-a2.plot(cs, [c["pooled"] for c in curve], marker="o", color="#2b6cb0", lw=2, label="pooled (4 tasks)")
+a2.plot(cs, [c["pooled"] for c in curve], marker="o", color="#2b6cb0", lw=2.2, label="greedy (deploy)")
+sc = [c for c in curve if c.get("sampled_pooled") is not None]
+if sc:
+    a2.plot([c["step"] for c in sc], [c["sampled_pooled"] for c in sc],
+            marker="D", ms=4, color="#dd6b20", lw=2.0, label="sampled (mean)")
 tasks = sorted(curve[0]["per_task"])
-for t, col in zip(tasks, ["#a0aec0", "#48bb78", "#ed8936", "#9f7aea"]):
-    a2.plot(cs, [c["per_task"][t] for c in curve], marker=".", ms=4, lw=0.9, alpha=0.7,
+for t, col in zip(tasks, ["#a0aec0", "#48bb78", "#90cdf4", "#9f7aea"]):
+    a2.plot(cs, [c["per_task"].get(t) for c in curve], marker=".", ms=3, lw=0.7, alpha=0.5,
             color=col, label=t.replace("widowx_", ""))
 a2.set_xlabel("checkpoint step")
 a2.set_ylabel("rollout success %")
-a2.set_title("REAL rollout val (n=192/pt)")
-a2.legend(fontsize=7)
+a2.set_title("REAL rollout val (n=192/pt, greedy + sampled)")
+a2.legend(fontsize=6.5, ncol=2)
 a2.grid(alpha=0.25)
 
 fig.suptitle("v7 RL (C4b reward, F=16, 25/25/50 mix, 0.5 dropout)", fontsize=11)
