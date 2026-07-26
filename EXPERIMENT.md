@@ -1836,3 +1836,18 @@ lag and read empty — false alarm. RECOVERED: all snapshots step_0000..0240 +
 train_log through step 244. Actual loss: ~4 steps of momentum. The mirror-lapse
 lesson stands (remediation unchanged: sync watcher + liveness checks); archive
 of all 13 snapshots to git in progress before any other use of the pod.
+
+## 2026-07-26 — Row 17 lands: rules on ORIGINAL phrasing = vocabulary redistribution, not free lunch
+rules_pro_nominal 34.8 pooled (42.1 in-vocab / 29.6 OOV) vs originals 36.1
+(48.3 / 27.3). Paired -1.30pp pooled (~1 sigma, statistically nil). Structure
+is the familiar redistribution: OOV +2.3 with three big corpus-law rescues
+(eggplant_keyboard +17.4 — reaching oracle level; coke_wheel +16.0; ramekin
++13.2 — rename family works from clean starts) offset by in-vocab tax
+(nut_plate -18.7, coke_keyboard -14.9, cube -11.5 vs its 75% nominal).
+Notable inversion vs certification: +color on keyboard was certified +11 in
+ERT-repair context but costs -14.9 applied to a clean nominal — the license
+is CONTEXT-dependent, not task-dependent. RULES-V4 DESIGN INPUT: on clean
+input, corpus-absence rename should be the ONLY active rule (conditional
+rewriting captures the +13..+17 rescues and skips the tax). Deployment
+verdict: unconditional rewriting of good input is not safe; input-aware
+gating is the path.
