@@ -1,46 +1,65 @@
 #!/usr/bin/env python3
-"""Thin sealed scoreboard — 6 pipelines, one full-grid bar each (12 tasks x 24
-layouts x 12 reps). Slots that are still rolling draw as placeholders and fill
-in automatically on the next run once their parquet/leg lands:
-  - nominal+RULES (row 17): placeholder until rules_pro_nominal_x12.parquet
-  - oracle: held-out estimate (asterisk) until oracle_confirmed_x12.parquet
+"""Thin sealed scoreboard — 6 pipelines x (pooled / in-vocab / OOV) on the full
+grid (12 tasks x 24 layouts x 12 reps). Strata from the ex-ante vocab audit;
+legend carries the task counts. Slots still rolling draw as placeholders; the
+oracle uses held-out confirm estimates (asterisk) until its full-grid leg lands.
 """
 import glob
 import json
-import math
-import os
+import re
 
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
+from matplotlib.patches import Patch
 
+ENV_OVERRIDE = {"PutGreenCubeOnPlate": "widowx_cube_on_plate_clean",
+                "PutPepsiCanOnPlate": "widowx_pepsi_on_plate_clean"}
+
+
+def env_to_task(env):
+    base = re.sub(r"InScene.*$", "", env)
+    for k, v in ENV_OVERRIDE.items():
+        if base.startswith(k):
+            return v
+    s = re.sub(r"([a-z])([A-Z])", r"\1_\2", re.sub(r"^Put", "", base)).lower()
+    return f"widowx_{s}_clean"
+
+
+audit = json.load(open("results/analysis/sealed_vocab_audit.json"))
+STRAT = {env_to_task(e["env"]): e["stratum"] for e in audit}
 legs = pd.concat([pd.read_parquet(f) for f in sorted(glob.glob("results/sealed/*_x12.parquet"))],
                  ignore_index=True)
+ALL_TASKS = sorted(STRAT)
+IV = [t for t in ALL_TASKS if STRAT[t] != "OOV"]
+OO = [t for t in ALL_TASKS if STRAT[t] == "OOV"]
 
 
-def full_grid(arm):
-    g = legs[legs.arm == arm].groupby("task").success.agg(["mean", "count"])
-    if len(g) < 12:
-        return None, None
-    se = 100 * math.sqrt((g["mean"] * (1 - g["mean"]) / g["count"]).sum()) / len(g)
-    return 100 * g["mean"].mean(), se
+def strata_from_per_task(pt):
+    return {"pooled": sum(pt.values()) / len(pt),
+            "iv": sum(pt[t] for t in IV) / len(IV),
+            "oov": sum(pt[t] for t in OO) / len(OO)}
 
 
-def oracle_value():
-    v, se = full_grid("oracle_confirmed")
-    if v is not None:
-        return v, se, "oracle"
+def arm_per_task(arm):
+    g = legs[legs.arm == arm].groupby("task").success.mean() * 100
+    return dict(g) if len(g) == 12 else None
+
+
+def oracle_per_task():
+    pt = arm_per_task("oracle_confirmed")
+    if pt:
+        return pt, ""
     conf = sorted(glob.glob("results/search/sealedsearch_*_confirm_results.json"))
-    best = [max(e["success_pct"] for e in json.load(open(f))["scoreboard"]) / 100 for f in conf]
-    v = 100 * sum(best) / len(best)
-    se = 100 * math.sqrt(sum(p * (1 - p) / 72 for p in best)) / len(best)
-    return v, se, "oracle*"
+    pt = {json.load(open(f))["task"]:
+          max(e["success_pct"] for e in json.load(open(f))["scoreboard"]) for f in conf}
+    return pt, "*"
 
 
-BARS = [  # (label, arm or callable, color)
-    ("oracle", oracle_value, "#822727"),
+BARS = [
+    ("oracle", "ORACLE", "#822727"),
     ("Orig + Scene-Desc ⇒ Gem-Pro + Rules", "rules_pro_nominal", "#805ad5"),
     ("Orig", "originals", "#48bb78"),
     ("Adv + Scene-Desc ⇒ Gem-Pro + Rules", "rules_v3_gemini_pro", "#2b6cb0"),
@@ -49,34 +68,48 @@ BARS = [  # (label, arm or callable, color)
 ]
 
 rows = []
-for label, src, color in BARS:
-    if callable(src):
-        v, se, label = src()
+star = ""
+for label, arm, color in BARS:
+    if arm == "ORACLE":
+        pt, star = oracle_per_task()
+        label += star
     else:
-        v, se = full_grid(src)
-    rows.append((label, v, se, color))
-    print(f"{'PENDING' if v is None else f'{v:5.1f} ±{se:3.1f}':>12s}  {label}")
+        pt = arm_per_task(arm)
+    rows.append((label, strata_from_per_task(pt) if pt else None, color))
+    s = rows[-1][1]
+    print(f"{label:42s} " + ("PENDING" if s is None else
+          f"pooled {s['pooled']:4.1f}  in-vocab {s['iv']:4.1f}  OOV {s['oov']:4.1f}"))
 
-fig, ax = plt.subplots(figsize=(9.8, 3.9))
+fig, ax = plt.subplots(figsize=(10.2, 0.78 * len(rows) + 2.4))
 y = list(range(len(rows)))[::-1]
-for yi, (label, v, se, color) in zip(y, rows):
-    if v is None:
-        ax.barh(yi, ax.get_xlim()[1] * 0 + 1e-9, 0.6)
+h = 0.24
+for yi, (label, s, color) in zip(y, rows):
+    if s is None:
         ax.text(0.6, yi, "leg rolling — lands shortly", va="center",
                 fontsize=9, style="italic", color="#718096")
-    else:
-        ax.barh(yi, v, 0.6, xerr=se, color=color,
-                error_kw={"ecolor": "#4a5568", "capsize": 3, "lw": 1.1})
-        ax.text(v + se + 0.6, yi, f"{v:.1f}", va="center", fontsize=11, fontweight="bold")
+        continue
+    ax.barh(yi + h, s["pooled"], h, color=color)
+    ax.barh(yi, s["iv"], h, color=color, alpha=0.55)
+    ax.barh(yi - h, s["oov"], h, color=color, alpha=0.3, hatch="//", edgecolor=color, lw=0)
+    ax.text(s["pooled"] + 0.5, yi + h, f"{s['pooled']:.1f}", va="center",
+            fontsize=10, fontweight="bold")
+    ax.text(s["iv"] + 0.5, yi, f"{s['iv']:.1f}", va="center", fontsize=7.5, color="#4a5568")
+    ax.text(s["oov"] + 0.5, yi - h, f"{s['oov']:.1f}", va="center", fontsize=7.5, color="#4a5568")
 ax.set_yticks(y)
 ax.set_yticklabels([r[0] for r in rows], fontsize=11)
-ax.set_xlabel("success % on 12 tasks (24 layouts × 12 reps)")
-ax.set_title("Sealed test — thin scoreboard")
+ax.legend(handles=[Patch(color="#4a5568", label="pooled (12 tasks)"),
+                   Patch(color="#4a5568", alpha=0.55, label=f"in-vocab ({len(IV)} tasks)"),
+                   Patch(facecolor="#4a5568", alpha=0.3, hatch="//", label=f"OOV ({len(OO)} tasks)")],
+          loc="lower right", fontsize=8)
+ax.set_xlabel("success % (full grid: 24 layouts × 12 reps per task)")
+ax.set_title("Sealed test — thin scoreboard, by vocabulary stratum")
 ax.grid(axis="x", alpha=0.25)
-ax.set_xlim(0, max((r[1] or 0) + (r[2] or 0) for r in rows) + 7)
-fig.text(0.01, 0.045, "Key: Adv = adversarial phrasing · Orig = original phrasing · Scene-Desc = Gemini-written scene description · Gem-Pro = Gemini-pro rewriter (reasoning on) · Rules = phrasing rules v3 · every pipeline ends at π0", fontsize=7, color="#4a5568")
-if any("*" in r[0] for r in rows):
+ax.set_xlim(0, 68)
+fig.text(0.01, 0.045, "Key: Adv = adversarial phrasing · Orig = original phrasing · "
+         "Scene-Desc = Gemini-written scene description · Gem-Pro = Gemini-pro rewriter (reasoning on) · "
+         "Rules = phrasing rules v3 · every pipeline ends at π0", fontsize=7, color="#4a5568")
+if star:
     fig.text(0.01, 0.012, "* held-out estimate — full-grid leg rolling", fontsize=7, color="#718096")
-fig.tight_layout(rect=[0, 0.09, 1, 1])
+fig.tight_layout(rect=[0, 0.07, 1, 1])
 fig.savefig("results/charts/sealed_thin.png", dpi=150, bbox_inches="tight", pad_inches=0.25)
 print("chart -> results/charts/sealed_thin.png")
