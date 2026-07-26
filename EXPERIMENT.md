@@ -1866,3 +1866,16 @@ be read as "exact within-pod, ±2-5pp across-pod at n=72".
 Ladder rebuilt full-grid: ordering now matches the main scoreboard (held-out
 slice anomalies were slice noise, as suspected). Charts: oracle bar replaces
 the dashed ceiling line.
+
+## 2026-07-26 — Comprehensive rollout-val backfill (user: "backfill everything")
+Regenerate greedy+sampled phrases from ALL 15 archived v7 adapters (step_0020..0300)
+and roll both at equal 192-ep budgets (greedy 24x2, sampled 2 samples x24x1).
+Writes results/analysis/v7_curve_backfill.jsonl (own file; make_v7_progress.py
+merges live+backfill per step, prefers backfill). pod5 only (L40S GPU-saturated
+training). Setup: venv-gen rebuilt torch/transformers/peft (wiped in restart);
+adapters scp'd L40S->pod5 via relay (rsync absent both pods). Self-healing
+orchestrator (run_backfill_day.sh): waits for setup markers, stops live rval,
+runs backfill resumably (skip steps already in curve), resumes live rval for
+320+ after. ~11h/pod; STEP_FILTER sharding ready if more pods added.
+DECISION LOG: sampled = 192 (RVAL_SAMPLES=2, user 2026-07-26), not the old 5x
+nor 384; pooled sampled-mean is the checkpoint-selection metric.
