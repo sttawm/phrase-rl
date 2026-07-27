@@ -1999,3 +1999,19 @@ held-out-episode check before launching v7f.
 FULL-BRIDGE census (53,192 eps, 19,974 instructions): >=2-ep instructions cover
 65% (34,812 eps; sample-2k was 40%) -> v7e viable at scale from the full set;
 anomaly to check: top instruction has 14,532 episodes (possible placeholder).
+
+## 2026-07-27 — PRE-REGISTERED v7e-strong (user cell: grip F=2 C=16)
+User: "grip at C=16, F=2 is 86% — why not try that?" Arithmetic agrees and
+overturns the naive many-cheap-steps lean once FIXED step costs (gen+update
+~325s) are included: signal-per-GPU-hour ~2.8-3.1x v7's config (C4b F16C1 =
+1.0x; the optimum is flat-topped over F*C ~12-32). SPEC: grip-pure rank01
+reward, averaged over C=16 same-instruction contexts x F=2 frames/context;
+everything else v7b-like (beta 0.05, grpo, sample_single). Pool: full-Bridge
+census gives 214 instructions with >=16 eps (~16k episodes) EXCLUDING the
+empty-string label (14,532 unlabeled eps — anomaly resolved: placeholder).
+Trade accepted: instruction diversity narrows 1361 -> 213 (canonical head).
+Semantics note: cross-context reward optimizes scene-AGNOSTIC phrase quality
+(mild tension with scene-color licenses; arguably right for repair).
+Step est ~1150-1400s. Judged on real rollouts vs v7 58.3 / v7b. Queue: build
+club context tables (bg) + trainer multi-context scoring patch; launch at the
+v7b step-100 gate on the L40S.
