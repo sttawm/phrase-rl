@@ -2048,3 +2048,17 @@ RL's stack_cube (35) crushes its nominal (6.9) — RL's clearest per-task win.
 QUEUED: rolled reference leg (Orig + canonical-ERT Adv + Oracle-best, 8 tasks
 x 24 layouts x 12 reps, sealed protocol) on pod5 after the fine-exam scoring;
 Adv phrases to be drawn from the ERT registry per task at leg-build time.
+
+## 2026-07-27 — GATE EXECUTED: v7b -> v7e (pre-registered rule)
+v7b at step 100: rollout 56.8/56.8/56.3 (steps 25/50/75) — below the 58.3 bar.
+VERDICT: beta=0.05 unfroze the policy (KL 4x, win-rate 15% program-best) and
+TIGHTENED the distribution (sampled closed onto greedy at step 75; samples are
+genuine variants, not self-copies) but did NOT raise the argmax. Beta was a
+distribution-sharpness lever, not the bottleneck. v7b findings banked; adapters
+archived via v7bsync. L40S swaps to v7e-strong: grip-pure reward averaged over
+C=16 same-instruction contexts x F=4 frames (86-89% measured per-decision sign
+accuracy), fork step_0140, beta 0.05 retained, 8-task probes from birth,
+ensemble-z tripwire logged.
+Also: val-8 reference leg assets authored (ph_val8_reference.parquet — orig/
+ERT-adv/oracle-best x 8 tasks; ERT provenance-matched to sealed stage_gemini);
+leg queued on pod6 post-ship.
