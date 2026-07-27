@@ -1879,3 +1879,19 @@ runs backfill resumably (skip steps already in curve), resumes live rval for
 320+ after. ~11h/pod; STEP_FILTER sharding ready if more pods added.
 DECISION LOG: sampled = 192 (RVAL_SAMPLES=2, user 2026-07-26), not the old 5x
 nor 384; pooled sampled-mean is the checkpoint-selection metric.
+
+## 2026-07-26 — v7b: beta-sweep fork (user-approved)
+Hypothesis from v7's KL panel: policy over-regularized — KL collapsed to ~0.04
+(abort 1.2, beta 0.15) exactly as rollout plateaued; KL/grad-norm peaked at
+steps 100-150 = the rollout peak (58.3), then both decayed and rollout flatlined
+at ~56. v7b tests it: warm-start POLICY from v7 step_0140 (greedy-rollout peak)
+via --init-adapter (fresh optimizer/step), KL reference stays = frozen base
+(unchanged), beta 0.15 -> 0.05. Everything else identical (C4b, F=16, 25/25/50,
+0.5 dropout, grpo, lr 7e-6, probe-samples 4). scripts/run_arm_v7b.sh.
+JUDGMENT RULE: evaluate on REAL rollouts, not proxy — lower beta lets the policy
+chase the C4b proxy harder, which could widen the known proxy->real gap
+(best-of-16 rising while rollout flat). If v7b's rollout climbs above v7's 58.3
+plateau, beta was the brake; if only its proxy/win-rate rise, it's reward-hacking.
+Fork point step_0140 provisional (backfill still running; re-point via FORK_CKPT
+if a better checkpoint emerges). v7 proper stopped at ~step 355 (plateaued;
+snapshots archived); L40S repurposed to v7b.
