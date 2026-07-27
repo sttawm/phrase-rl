@@ -1945,3 +1945,15 @@ pod-era ad-hoc (lost); reconstruct from sim_contexts_extract.py sibling, extend
 t-grid to 16/32, extract on pod5 idle (small: 27 phrases x ~10 eps), rerun exam
 per F. Deliverable: spearman(F) + signs(F) -> evidence for the v7d gate
 (if corr plateaus by F=16, v7d premise dies cheaply).
+
+## 2026-07-27 — CAVEAT pinned (user): exam metrics are in-the-limit figures
+The bakeoff/addendum sign agreements (C4b 66/68) and spearman (0.493) are
+computed on EPISODE-AVERAGED rewards: 10-20 episodes x 4 t x 8 draws (up to
+~640 evaluations) per phrase before the comparison. They are the reward's
+asymptotic discrimination, NOT its per-decision accuracy. GRPO's operating
+point is ONE context x F frames x k_decode draws — where the decomposition
+estimated ~43% adjacent-pair sign-flips at F=16. F-SWEEP DESIGN AMENDED: report
+per-F metrics at BOTH aggregation levels — (a) in-the-limit (all episodes),
+(b) per-single-context (the training-relevant operating point). Curve (b) vs F
+is the primary v7d gate evidence; (a) tracks whether the reward's ceiling
+itself improves with frames.
