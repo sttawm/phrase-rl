@@ -1910,3 +1910,17 @@ deploy-sampled -> step 200. Fork point for v7b (step 140) confirmed as the
 greedy peak with strong sampled (52.1); within noise of 200/260 so a sound
 choice. This plateau (+ the collapsed KL) is exactly what motivated the v7b
 beta=0.05 fork.
+
+## 2026-07-27 — PRE-REGISTERED: step-100 gate for v7b + v7c (lr arm)
+v7b evidence at step 58: KL 0.16 (4x v7a), win-rate 15% (program best), ERT
+proxy improving — but rollout still on v7a's plateau (56.8; peak ref 58.3).
+GATE at v7b step ~100: (a) if v7b rollout > ~58.3, beta was causal — continue
+v7b. (b) else swap L40S to v7c = same fork (v7 step_0140), beta=0.05, lr
+7e-6 -> 2e-5 (scripts/run_arm_v7c.sh, ready) — the last optimizer knob.
+(c) If NEITHER v7b nor v7c converts proxy gains to rollout > 58.3 by ~step
+100-150 of its run, the optimizer family is exhausted: bottleneck = reward
+signal; L40S goes to v8a (real-rollout reward, already designed).
+KL-interpretation note (user obs + refinement): v7a's rollout peak coincided
+with its KL/grad-norm peak (steps 100-150). v7b tests whether KL is lever or
+symptom: KL now 2x v7a's best-ever WITHOUT rollout following (yet) — leaning
+symptom-of-productive-learning; the fork adjudicates.
