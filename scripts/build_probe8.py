@@ -52,6 +52,12 @@ def stage_traces():
         text = call_with_retry(client, types, "gemini-3.5-flash", [img_part, prompt],
                                temperature=0.8, max_tokens=2000)
         trace = text.split("Reworded Instructions")[0].rstrip().rstrip(":").rstrip()
+        # normalize markdown-header drift to the canonical teacher-trace tags
+        import re
+        trace = re.sub(r"\*\*Description of the image:?\*\*:?", "<Description of the image>", trace)
+        trace = re.sub(r"\*\*Meaning of the instruction in the context of the image:?\*\*:?",
+                       "<Meaning of the instruction in the context of the image>", trace)
+        trace = trace.replace("**", "")
         assert "<Description of the image>" in trace, f"unexpected trace format for {r.task}"
         rows.append({"episode_index": EP0[r.task], "t": 0, "trace": trace})
         print(f"trace for {r.task}: {len(trace)} chars")
