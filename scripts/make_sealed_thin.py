@@ -80,6 +80,7 @@ for label, arm, color in BARS:
     print(f"{label:42s} " + ("PENDING" if s is None else
           f"pooled {s['pooled']:4.1f}  in-vocab {s['iv']:4.1f}  OOV {s['oov']:4.1f}"))
 
+rows.sort(key=lambda r: (r[1] is not None, r[1]["pooled"] if r[1] else -1), reverse=True)
 fig, ax = plt.subplots(figsize=(10.2, 0.78 * len(rows) + 2.4))
 y = list(range(len(rows)))[::-1]
 h = 0.24
@@ -99,10 +100,10 @@ ax.set_yticks(y)
 ax.set_yticklabels([r[0] for r in rows], fontsize=11)
 ax.legend(handles=[Patch(color="#4a5568", label="pooled (12 tasks)"),
                    Patch(color="#4a5568", alpha=0.55, label=f"in-vocab ({len(IV)} tasks)"),
-                   Patch(facecolor="#4a5568", alpha=0.3, hatch="//", label=f"OOV ({len(OO)} tasks)")],
+                   Patch(facecolor="#4a5568", alpha=0.3, hatch="//", label=f"out-of-vocab ({len(OO)} tasks)")],
           loc="lower right", fontsize=8)
-ax.set_xlabel("success % (full grid: 24 layouts × 12 reps per task)")
-ax.set_title("Sealed test — thin scoreboard, by vocabulary stratum")
+ax.set_xlabel("success % — 12 tasks × 24 layouts × 12 reps per task")
+ax.set_title("How instruction phrasing moves π0 — 12 Bridge tasks in SIMPLER")
 ax.grid(axis="x", alpha=0.25)
 ax.set_xlim(0, 68)
 fig.text(0.01, 0.045, "Key: Adv = adversarial phrasing · Orig = original phrasing · "
