@@ -37,7 +37,11 @@ for f in ["results/analysis/v7_rollout_curve.jsonl", "results/analysis/v7_curve_
             by_step[d["step"]] = d
 curve = sorted(by_step.values(), key=lambda d: d["step"])
 
-fig, (a1, a2) = plt.subplots(1, 2, figsize=(12.5, 4.4))
+trec = [d for d in (json.loads(l) for l in open(log))
+        if d.get("type") not in ("val", "probe") and d.get("kl") is not None]
+trec.sort(key=lambda d: d["step"])
+
+fig, (a1, a2, a3) = plt.subplots(1, 3, figsize=(17.5, 4.4))
 s = [v["step"] for v in vals]
 for key, label, kw in [
     ("mean_orig_reward", "orig (no rewrite)", {"color": "#718096", "ls": ":"}),
@@ -76,7 +80,23 @@ a2.set_title("REAL rollout val (n=192/pt, greedy + sampled)")
 a2.legend(fontsize=6.5, ncol=2)
 a2.grid(alpha=0.25)
 
-fig.suptitle("v7 RL (C4b reward, F=16, 25/25/50 mix, 0.5 dropout)", fontsize=11)
+ts = [d["step"] for d in trec]
+a3.plot(ts, [d["kl"] for d in trec], color="#805ad5", lw=1.3, label="KL(policy‖ref)")
+a3.axhline(0.15, ls=":", color="#a0aec0", lw=1, label="β=0.15 (penalty coef)")
+a3.set_ylabel("KL divergence", color="#805ad5", fontsize=9)
+a3.tick_params(axis="y", labelcolor="#805ad5")
+ag = a3.twinx()
+gn = [(d["step"], d["grad_norm"]) for d in trec if d.get("grad_norm") is not None]
+if gn:
+    ag.plot([s for s, _ in gn], [g for _, g in gn], color="#dd6b20", lw=0.8, alpha=0.6, label="grad norm")
+    ag.set_ylabel("grad norm", color="#dd6b20", fontsize=9)
+    ag.tick_params(axis="y", labelcolor="#dd6b20", labelsize=7)
+a3.set_xlabel("step")
+a3.set_title("GRPO dynamics (KL abort = 1.2, far above)")
+a3.legend(loc="upper left", fontsize=7)
+a3.grid(alpha=0.25)
+
+fig.suptitle("v7 RL — GRPO (C4b reward, F=16, 25/25/50 mix, 0.5 dropout, β=0.15, lr=7e-6)", fontsize=11)
 fig.tight_layout()
 fig.savefig("results/charts/v7_progress.png", dpi=140, bbox_inches="tight", pad_inches=0.2)
 print("chart -> results/charts/v7_progress.png")
