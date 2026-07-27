@@ -21,7 +21,7 @@ import reward_bakeoff_v3 as bk  # noqa: E402
 RNG = np.random.default_rng(7)
 B = 400
 F_GRID = [1, 2, 4]
-C_GRID = [1, 2, 4, 8, 10, 16, 20]
+C_GRID = [1, 2, 4, 8, 16, 20]
 
 feats = bk.load_features()
 ens = bk.VerifierEnsemble("results/checkpoints/verifier_reward_ensemble_4f.json")

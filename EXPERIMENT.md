@@ -1981,3 +1981,21 @@ corrected curve ~58 (C=1) -> 85 (C=10) -> 97 only at the complete zero-variance
 banked sample (10-60 eps/task). fc_grid.png v2 replaces v1; fsweep_model.png's
 frame-axis projections inherit the v1-adjacent assumptions — treat as
 superseded pending the measured extraction (task #7).
+
+## 2026-07-27 — BLEND x AGGREGATION grid: the bakeoff optimized the wrong regime
+5-blend F x C grid (same CRN draws, 68 pairs, B=400): at C=1 — GRPO's actual
+operating point — 100% ENSEMBLE scores 71.5% vs C4b's 58.6 (+12.9pp); ordering
+INVERTS with aggregation (C=20: grip 92.4 > C4b 90.9 >> ens 74.0, matching the
+bakeoff's full-sample verdict 51/68 for ens). Reading: ensemble = low-variance,
+BIASED (errors systematic, ceiling ~75); grip = high-variance, low-bias
+(averaging keeps paying). The frozen bakeoff graded at full aggregation and
+crowned grip-heavy C4b — correct for that regime, never measured at C=1.
+CANDIDATE ARM v7f: flip --reward-blend to ensemble-heavy (blend-w 1.0 or 0.75)
+— zero new infrastructure, +13pp per-decision sign accuracy by this grid.
+CAVEATS before full trust: (a) 68 pairs are large-gap (median 25pp) — verify on
+fine-gap pairs; (b) verifier's episode-hash split means exam episodes may
+overlap verifier TRAIN -> ens C=1 advantage could be partly memorization; run a
+held-out-episode check before launching v7f.
+FULL-BRIDGE census (53,192 eps, 19,974 instructions): >=2-ep instructions cover
+65% (34,812 eps; sample-2k was 40%) -> v7e viable at scale from the full set;
+anomaly to check: top instruction has 14,532 episodes (possible placeholder).
