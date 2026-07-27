@@ -59,10 +59,10 @@ def oracle_per_task():
 
 
 BARS = [
-    ("Oracle", "ORACLE", "#822727"),
-    ("Orig + Scene-Desc ⇒ Gem-Pro + Rules", "rules_pro_nominal", "#805ad5"),
+    ("Oracle (ceiling)", "ORACLE", "#822727"),
+    ("Orig + Scene-Desc ⇒ Gem-Pro + Rules (ours)", "rules_pro_nominal", "#805ad5"),
     ("Orig", "originals", "#48bb78"),
-    ("Adv + Scene-Desc ⇒ Gem-Pro + Rules", "rules_v3_gemini_pro", "#2b6cb0"),
+    ("Adv + Scene-Desc ⇒ Gem-Pro + Rules (ours)", "rules_v3_gemini_pro", "#2b6cb0"),
     ("Adv + Scene-Desc ⇒ Gem-Pro", "gemini_pro_bare", "#63b3ed"),
     ("Adv", "passthrough", "#a0aec0"),
 ]
@@ -98,6 +98,9 @@ for yi, (label, s, color) in zip(y, rows):
     ax.text(s["oov"] + 0.5, yi - h, f"{s['oov']:.1f}", va="center", fontsize=7.5, color="#4a5568")
 ax.set_yticks(y)
 ax.set_yticklabels([r[0] for r in rows], fontsize=11)
+for tick, (label, _, _) in zip(ax.get_yticklabels(), rows):
+    if "(ours)" in label:
+        tick.set_fontweight("bold")
 ax.legend(handles=[Patch(color="#4a5568", label="pooled (12 tasks)"),
                    Patch(color="#4a5568", alpha=0.55, label=f"in-vocab ({len(IV)} tasks)"),
                    Patch(facecolor="#4a5568", alpha=0.3, hatch="//", label=f"out-of-vocab ({len(OO)} tasks)")],
