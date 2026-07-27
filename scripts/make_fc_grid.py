@@ -43,7 +43,8 @@ for t, sub in feats.groupby("task"):
     for r in sub.itertuples():
         Z[ki[r.key], ei[r.episode_index], ti[r.t]] = r.z_row
         G[ki[r.key], ei[r.episode_index], ti[r.t]] = r.grip_row
-    states[t] = dict(Z=Z, G=G, ki=ki, n_eps=len(eps), n_t=len(ts))
+    t_avail = {ei[e]: np.where(~np.isnan(Z[0, ei[e], :]))[0] for e in eps}
+    states[t] = dict(Z=Z, G=G, ki=ki, n_eps=len(eps), n_t=len(ts), t_avail=t_avail)
 
 pairs = json.load(open("results/analysis/gate_zero_pairs.json"))["pairs"]
 covered = [p for p in pairs if p["task"] in states
@@ -62,9 +63,14 @@ for fi, F in enumerate(F_GRID):
             per_task_scores = {}
             for t, s in states.items():
                 epick = RNG.choice(s["n_eps"], size=min(C, s["n_eps"]), replace=False)
-                fpick = RNG.choice(s["n_t"], size=min(F, s["n_t"]), replace=False)
-                z = np.nanmean(s["Z"][:, epick][:, :, fpick], axis=(1, 2))
-                g = np.nanmean(s["G"][:, epick][:, :, fpick], axis=(1, 2))
+                zsel, gsel = [], []
+                for e in epick:
+                    avail = s["t_avail"][e]  # this episode's own frames
+                    fp = RNG.choice(avail, size=min(F, len(avail)), replace=False)
+                    zsel.append(np.nanmean(s["Z"][:, e, :][:, fp], axis=1))
+                    gsel.append(np.nanmean(s["G"][:, e, :][:, fp], axis=1))
+                z = np.nanmean(np.stack(zsel), axis=0)
+                g = np.nanmean(np.stack(gsel), axis=0)
                 per_task_scores[t] = 0.25 * r01(z) + 0.75 * r01(-g)
             for p in covered:
                 s = states[p["task"]]
@@ -93,7 +99,7 @@ ax.set_xticklabels(C_GRID)
 ax.set_yticks(range(len(F_GRID)))
 ax.set_yticklabels(F_GRID)
 ax.set_xlabel("contexts averaged C (episodes, CRN-shared across the pair)")
-ax.set_ylabel("frames F (capped at banked 4 — extraction extends)")
+ax.set_ylabel("frames F PER EPISODE (banked 1-4/ep — extraction extends)")
 ax.set_title("MEASURED C4b sign accuracy on 68 frozen pairs (%, floor 50)")
 # iso-cost guides: cells with equal F*C
 for cost in [4, 8, 16]:
@@ -103,7 +109,7 @@ for cost in [4, 8, 16]:
         ax.annotate(f"F·C={cost}", pts[-1], textcoords="offset points", xytext=(10, 4),
                     color="white", fontsize=7.5, alpha=0.85)
 fig.colorbar(im, label="sign accuracy %")
-fig.text(0.01, 0.01, "Bootstrap B=400/cell over banked exam features (10-20 eps x 4 t x 8 draws per phrase). "
+fig.text(0.01, 0.01, "Bootstrap B=400/cell, frames drawn WITHIN each episode (v2 — v1 t-column bug corrected). Banked: 10-60 eps/task, 1-4 frames/ep. "
          "Training operates at C=1; the exam limit (97%) is the C→20 row. Iso-cost dashes: equal F·C compute.",
          fontsize=7, color="#4a5568")
 fig.tight_layout(rect=[0, 0.04, 1, 1])

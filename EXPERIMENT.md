@@ -1966,3 +1966,18 @@ which frames cannot buy. v7e: score each GRPO candidate on 2 contexts (parent +
 context idiosyncrasy AND frame noise. Gate menu now: v7b (running) -> v7d (F=32)
 vs v7e (2-context) vs v7c (lr) -> v8a. Choice between d/e informed by the
 measured F-sweep (task #7) when it lands.
+
+## 2026-07-27 — F x C grid CORRECTED (v2) — context axis dominates; v7e favored
+Grid v1 had a t-column sampling bug (drew F shared columns from the sparse
+per-task t-UNION -> NaN holes, discarded data; its 60-67% numbers are VOID).
+v2 draws F frames WITHIN each selected episode. All cells carry the full banked
+draw averaging (8 flow / 4 decode) — same as the 97% asymptote; draws constant.
+MEASURED (68 pairs, B=400): C=1 row is FLAT in F (57.1/56.9/58.0 at F=1/2/4)
+— at GRPO's single-context operating point, frames buy ~nothing in the banked
+range. Context axis: 58 -> 85 (C=1 -> 10 at F=4). Iso-cost: F1C4 65.9 >> F4C1
+58.0. VERDICT: measured evidence favors v7e (context-averaged reward) over v7d
+(F=32) at equal cost; also resolves the user's 67-vs-97 question — no cliff:
+corrected curve ~58 (C=1) -> 85 (C=10) -> 97 only at the complete zero-variance
+banked sample (10-60 eps/task). fc_grid.png v2 replaces v1; fsweep_model.png's
+frame-axis projections inherit the v1-adjacent assumptions — treat as
+superseded pending the measured extraction (task #7).
