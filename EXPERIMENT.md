@@ -1895,3 +1895,18 @@ plateau, beta was the brake; if only its proxy/win-rate rise, it's reward-hackin
 Fork point step_0140 provisional (backfill still running; re-point via FORK_CKPT
 if a better checkpoint emerges). v7 proper stopped at ~step 355 (plateaued;
 snapshots archived); L40S repurposed to v7b.
+
+## 2026-07-27 — v7 backfill COMPLETE: best-checkpoint analysis (15/15, greedy+sampled from weights)
+Full curve, n=192/condition/checkpoint (SE ~3.6pp, so ~2pp diffs are within noise):
+  best greedy   step 120/140 (58.3)
+  best sampled  step 200 (54.7)
+  best mean     step 260 (55.7)
+VERDICT: v7 PLATEAUED. Mean rollout sits 53-56% across steps 100-300 with no
+statistically distinguishable peak (all within ~1 SE). Greedy peaks early
+(120-140) then eases to ~56-57; sampled is noisier and slightly favors LATER
+checkpoints (200, 260) — i.e. late training tightened the distribution a hair
+(sampled 45->54) without moving the argmax. Deploy-greedy -> ship step 140;
+deploy-sampled -> step 200. Fork point for v7b (step 140) confirmed as the
+greedy peak with strong sampled (52.1); within noise of 200/260 so a sound
+choice. This plateau (+ the collapsed KL) is exactly what motivated the v7b
+beta=0.05 fork.
