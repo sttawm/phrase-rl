@@ -59,7 +59,7 @@ def oracle_per_task():
 
 
 BARS = [
-    ("oracle", "ORACLE", "#822727"),
+    ("Oracle", "ORACLE", "#822727"),
     ("Orig + Scene-Desc ⇒ Gem-Pro + Rules", "rules_pro_nominal", "#805ad5"),
     ("Orig", "originals", "#48bb78"),
     ("Adv + Scene-Desc ⇒ Gem-Pro + Rules", "rules_v3_gemini_pro", "#2b6cb0"),
