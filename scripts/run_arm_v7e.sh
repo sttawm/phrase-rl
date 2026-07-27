@@ -54,8 +54,8 @@ tmux new-session -d -s train \
      --contexts-per-step 8 --grad-accum-groups 6 \
      --val-every 20 --save-every 10 --probe-every 25 --probe-samples 4 \
      --traces results/phrase_artifacts/cover35_teacher_train.parquet \
-     --probe-contexts results/phrase_artifacts/contexts_0c_tasks.parquet \
-     --probe-traces results/phrase_artifacts/traces_0c_tasks.parquet \
+     --probe-contexts results/phrase_artifacts/contexts_probe8.parquet \
+     --probe-traces results/phrase_artifacts/traces_probe8.parquet \
      --val-traces results/phrase_artifacts/rephrases_val_0b.parquet \
    2>&1 | tee -a results/checkpoints/phase2_v7e/train.log; \
    echo \"trainer exited rc=\$?\"; sleep infinity'"
