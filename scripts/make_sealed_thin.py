@@ -111,7 +111,7 @@ key_lines = ["Key:",
              "  Orig = original phrasing",
              "  Scene-Desc = Gemini-written scene description",
              "  Gem-Pro = Gemini-pro rewriter (reasoning on)",
-             "  Rules = phrasing rules v3",
+             "  Rules = LLM-derived phrasing rules from probing 8 other simulated tasks",
              "  every pipeline ends at π0"]
 fig.text(0.01, 0.155, "\n".join(key_lines), fontsize=9, color="#4a5568", va="top")
 if star:
