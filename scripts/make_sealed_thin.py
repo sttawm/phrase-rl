@@ -106,11 +106,16 @@ ax.set_xlabel("success % — 12 tasks × 24 layouts × 12 reps per task")
 ax.set_title("How instruction phrasing moves π0 — 12 Bridge tasks in SIMPLER")
 ax.grid(axis="x", alpha=0.25)
 ax.set_xlim(0, 68)
-fig.text(0.01, 0.045, "Key: Adv = adversarial phrasing · Orig = original phrasing · "
-         "Scene-Desc = Gemini-written scene description · Gem-Pro = Gemini-pro rewriter (reasoning on) · "
-         "Rules = phrasing rules v3 · every pipeline ends at π0", fontsize=7, color="#4a5568")
+key_lines = ["Key:",
+             "  Adv = adversarial phrasing",
+             "  Orig = original phrasing",
+             "  Scene-Desc = Gemini-written scene description",
+             "  Gem-Pro = Gemini-pro rewriter (reasoning on)",
+             "  Rules = phrasing rules v3",
+             "  every pipeline ends at π0"]
+fig.text(0.01, 0.155, "\n".join(key_lines), fontsize=9, color="#4a5568", va="top")
 if star:
     fig.text(0.01, 0.012, "* held-out estimate — full-grid leg rolling", fontsize=7, color="#718096")
-fig.tight_layout(rect=[0, 0.07, 1, 1])
+fig.tight_layout(rect=[0, 0.17, 1, 1])
 fig.savefig("results/charts/sealed_thin.png", dpi=150, bbox_inches="tight", pad_inches=0.25)
 print("chart -> results/charts/sealed_thin.png")
