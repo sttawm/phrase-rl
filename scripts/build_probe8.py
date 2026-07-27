@@ -11,10 +11,10 @@ import sys
 
 import pandas as pd
 
-VAL4 = {"widowx_carrot_on_keyboard": "put carrot on keyboard",
-        "widowx_carrot_on_wheel": "put carrot on wheel",
-        "widowx_coke_can_on_ramekin": "put coke can on ramekin",
-        "widowx_coke_can_on_plate": "put coke can on plate"}
+VAL4 = {"widowx_carrot_on_keyboard_clean": "put carrot on keyboard",
+        "widowx_carrot_on_wheel_clean": "put carrot on wheel",
+        "widowx_coke_can_on_ramekin_clean": "put coke can on ramekin",
+        "widowx_coke_can_on_plate_clean": "put coke can on plate"}
 EP0 = {t: 990001 + i for i, t in enumerate(sorted(VAL4))}
 FRAMES = "data/probe8_frames.parquet"
 
