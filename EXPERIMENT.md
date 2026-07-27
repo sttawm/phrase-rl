@@ -2026,3 +2026,15 @@ ordering truth: results/analysis/close_pairs_val.json) + 260 pairs at 0.5-5pp
 ~16k phrase-frames ~7h pod5 idle, standalone score-server), then re-run the
 F x C x blend grid on close pairs. Purpose: does the C-axis dominance and the
 blend inversion hold in the fine-gap regime v7e actually operates in?
+
+## 2026-07-27 — Fine-discrimination exam EXTENDED to OOV via sim-grounded a* (user)
+User: evaluate reward on OOV tasks using successful rollouts' executed actions
+as a*. Mechanism pre-exists (sim_contexts_extract.py, 07-09 note; eggplant exam
+contexts were built this way) and phase0c already has --record-dir /
+--record-success-only. OOV harvest: 155 phrases n>=36 on the 4 OOV val tasks ->
+717 pairs 5-10pp + 562 pairs 10-15pp. COMBINED exam: ~254 phrases, ~1068
+fine-gap pairs across 8 tasks (native: club/Bridge a*; OOV: sim-grounded a*).
+Caveats carried: sim a* = pi0's own successful behavior (self-consistent
+estimand, mild successful-layout selection bias) — for predicting SIM rollout
+success this REMOVES the real->sim confound; calibration bucket = 0.5-5pp pairs
+(clean reward should score ~50%). Runs on pod5 idle after the v7e gate.
