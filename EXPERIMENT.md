@@ -2015,3 +2015,14 @@ Semantics note: cross-context reward optimizes scene-AGNOSTIC phrase quality
 Step est ~1150-1400s. Judged on real rollouts vs v7 58.3 / v7b. Queue: build
 club context tables (bg) + trainer multi-context scoring patch; launch at the
 v7b step-100 gate on the L40S.
+
+## 2026-07-27 — Fine-discrimination reward exam DESIGNED (user: closer pairs)
+Gate-zero pairs are coarse (median 25pp). Harvested from val phrase-search
+ground truth: 99 distinct phrases (n>=36) on the 4 Bridge-native tasks ->
+351 pairs at 5-10pp gap + 202 at 10-15pp (analysis set, confidence-weighted
+ordering truth: results/analysis/close_pairs_val.json) + 260 pairs at 0.5-5pp
+(calibration bucket — a clean reward should score ~50% there). Plan: score all
+99 phrases on club contexts for these instructions (C<=10 eps x F<=4 frames,
+~16k phrase-frames ~7h pod5 idle, standalone score-server), then re-run the
+F x C x blend grid on close pairs. Purpose: does the C-axis dominance and the
+blend inversion hold in the fine-gap regime v7e actually operates in?

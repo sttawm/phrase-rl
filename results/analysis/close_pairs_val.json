@@ -1,0 +1,7337 @@
+{
+ "note": "val phrase-search close pairs for fine-discrimination reward exam; gaps 0.5-10pp; confidence = P(ordering correct | binomial SEs)",
+ "pairs": [
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 8.3,
+   "ordering_confidence": 0.632,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 8.3,
+   "ordering_confidence": 0.746,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "put carrot on plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.66,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "put carrot on plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.66,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "put carrot on plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.66,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "lay the carrot on the plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.66,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.66,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.753,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.753,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.753,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "carrot on plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 9.7,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "put carrot on plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.66,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "put carrot on plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "lay the orange carrot on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "pick up the orange carrot and place it on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "put the orange carrot on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "set the orange carrot on the plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "place the orange carrot on the plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put carrot on plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 2.7,
+   "se_pp": 8.3,
+   "ordering_confidence": 0.628,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 7.0,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 7.0,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 7.0,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 4.1,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.658,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 4.1,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.658,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 4.1,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.658,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "carrot on plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 7.0,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.66,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "place the orange carrot on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.83,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.83,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.83,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 4.1,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.657,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 1.3,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.551,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 1.3,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.551,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 1.4,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "carrot on plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 9.7,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.83,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 6.9,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.751,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 4.1,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.657,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 4.1,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.657,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 4.1,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.657,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 4.1,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.657,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "set the orange carrot on the green plate",
+   "gap_pp": 4.1,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.657,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the green plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 9.8,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.842,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "carrot on plate",
+   "worse": "put the orange carrot on top of the plate",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "drop the carrot on the plate",
+   "worse": "put the orange carrot on top of the plate",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on the dish",
+   "worse": "put the orange carrot on top of the plate",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on the green plate",
+   "worse": "put the orange carrot on top of the plate",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on the plate",
+   "worse": "put the orange carrot on top of the plate",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "drop the orange carrot on the green plate",
+   "worse": "put the orange carrot on top of the plate",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on top of the green plate",
+   "worse": "put the orange carrot on top of the plate",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on top of the plate",
+   "worse": "put the orange carrot on top of the plate",
+   "gap_pp": 2.7,
+   "se_pp": 9.5,
+   "ordering_confidence": 0.611,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "lay the carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "place the orange carrot on the green dish",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "lay the orange carrot on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "pick up the orange carrot and place it on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "put the orange carrot on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "set the orange carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on top of the plate",
+   "worse": "place the orange carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "lay the carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "place the orange carrot on the green dish",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "lay the orange carrot on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "pick up the orange carrot and place it on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "put the orange carrot on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "set the orange carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the carrot on the plate",
+   "worse": "place the orange carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "lay the carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "place the orange carrot on the green dish",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "lay the orange carrot on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "pick up the orange carrot and place it on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "put the orange carrot on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "set the orange carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the plate",
+   "worse": "place the orange carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "carrot on plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "lay the carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "lay the carrot on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the carrot on the plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "carrot on plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "put the carrot down on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot down on the plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "carrot on plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "move the carrot to the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "move the carrot to the plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the carrot and place it on the plate",
+   "worse": "carrot on plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the carrot and place it on the plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the carrot and place it on the plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the carrot and place it on the plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the carrot and place it on the plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "pick up the carrot and place it on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the carrot and place it on the plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the carrot and place it on the plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the carrot and place it on the plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.77,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the green plate",
+   "worse": "carrot on plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the green plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the green plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the green plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the green plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "place the carrot on the green plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the green plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the green plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the green plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.77,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the plate",
+   "worse": "carrot on plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "place the carrot on the plate",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the carrot on the plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 8.4,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.77,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "carrot on plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "carrot on plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "carrot on plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "carrot on plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "carrot on plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "carrot on plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "drop the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "drop the carrot on the plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "put the carrot on the dish",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on the dish",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "put the carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on the green plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "put the carrot on the plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the carrot on the plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "place the orange carrot on the green dish",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "lay the orange carrot on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "pick up the orange carrot and place it on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "put the orange carrot on the green plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "set the orange carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot onto the green plate",
+   "worse": "place the orange carrot on the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "lay the orange carrot on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "pick up the orange carrot and place it on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "put the orange carrot on the green plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "set the orange carrot on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the green dish",
+   "worse": "place the orange carrot on the plate",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "lay the orange carrot on the green plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "pick up the orange carrot and place it on the green plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "put the orange carrot on the green plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "set the orange carrot on the plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "drop the orange carrot on the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on the plate",
+   "worse": "place the orange carrot on top of the green plate",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "drop the orange carrot on the green plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "better": "place the orange carrot on top of the green plate",
+   "worse": "place the carrot on top of the plate",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "put eggplant into yellow basket",
+   "gap_pp": 1.4,
+   "se_pp": 3.6,
+   "ordering_confidence": 0.651,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "put the eggplant in the yellow basket",
+   "gap_pp": 1.4,
+   "se_pp": 3.6,
+   "ordering_confidence": 0.651,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "place the purple eggplant into the yellow basket",
+   "gap_pp": 1.4,
+   "se_pp": 3.6,
+   "ordering_confidence": 0.65,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "place the purple eggplant into the yellow basket",
+   "gap_pp": 1.4,
+   "se_pp": 3.6,
+   "ordering_confidence": 0.65,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "put the eggplant down in the yellow basket",
+   "gap_pp": 1.4,
+   "se_pp": 4.5,
+   "ordering_confidence": 0.622,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "place the eggplant in the yellow basket",
+   "gap_pp": 1.4,
+   "se_pp": 4.5,
+   "ordering_confidence": 0.622,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "set the eggplant in the yellow basket",
+   "gap_pp": 1.4,
+   "se_pp": 4.5,
+   "ordering_confidence": 0.622,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "put the eggplant in the yellow dish rack",
+   "gap_pp": 1.4,
+   "se_pp": 4.5,
+   "ordering_confidence": 0.622,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "lay the eggplant in the yellow basket",
+   "gap_pp": 4.1,
+   "se_pp": 5.2,
+   "ordering_confidence": 0.786,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "place the eggplant inside the yellow basket",
+   "gap_pp": 4.1,
+   "se_pp": 5.2,
+   "ordering_confidence": 0.786,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "put the aubergine in the yellow basket",
+   "gap_pp": 4.1,
+   "se_pp": 5.2,
+   "ordering_confidence": 0.786,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the purple eggplant into the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 6.9,
+   "se_pp": 5.7,
+   "ordering_confidence": 0.885,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "put eggplant into yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 3.9,
+   "ordering_confidence": 0.766,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "put eggplant into yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 3.9,
+   "ordering_confidence": 0.766,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put eggplant into yellow basket",
+   "worse": "lay the eggplant in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 5.3,
+   "ordering_confidence": 0.694,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put eggplant into yellow basket",
+   "worse": "place the eggplant inside the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 5.3,
+   "ordering_confidence": 0.694,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put eggplant into yellow basket",
+   "worse": "put the aubergine in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 5.3,
+   "ordering_confidence": 0.694,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put eggplant into yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 5.9,
+   "ordering_confidence": 0.825,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "put the eggplant in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 3.9,
+   "ordering_confidence": 0.766,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "put the eggplant in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 3.9,
+   "ordering_confidence": 0.766,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant in the yellow basket",
+   "worse": "lay the eggplant in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 5.3,
+   "ordering_confidence": 0.694,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant in the yellow basket",
+   "worse": "place the eggplant inside the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 5.3,
+   "ordering_confidence": 0.694,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant in the yellow basket",
+   "worse": "put the aubergine in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 5.3,
+   "ordering_confidence": 0.694,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant in the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 5.9,
+   "ordering_confidence": 0.825,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "put the eggplant down in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 4.7,
+   "ordering_confidence": 0.724,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "place the eggplant in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 4.7,
+   "ordering_confidence": 0.724,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "set the eggplant in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 4.7,
+   "ordering_confidence": 0.724,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "put the eggplant in the yellow dish rack",
+   "gap_pp": 2.8,
+   "se_pp": 4.7,
+   "ordering_confidence": 0.724,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "lay the eggplant in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 5.4,
+   "ordering_confidence": 0.848,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "place the eggplant inside the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 5.4,
+   "ordering_confidence": 0.848,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "put the aubergine in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 5.4,
+   "ordering_confidence": 0.848,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the purple eggplant in the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 8.3,
+   "se_pp": 5.9,
+   "ordering_confidence": 0.92,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "put the eggplant down in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 4.7,
+   "ordering_confidence": 0.724,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "place the eggplant in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 4.7,
+   "ordering_confidence": 0.724,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "set the eggplant in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 4.7,
+   "ordering_confidence": 0.724,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "put the eggplant in the yellow dish rack",
+   "gap_pp": 2.8,
+   "se_pp": 4.7,
+   "ordering_confidence": 0.724,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "lay the eggplant in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 5.4,
+   "ordering_confidence": 0.848,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "place the eggplant inside the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 5.4,
+   "ordering_confidence": 0.848,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "put the aubergine in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 5.4,
+   "ordering_confidence": 0.848,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant into the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 8.3,
+   "se_pp": 5.9,
+   "ordering_confidence": 0.92,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant down in the yellow basket",
+   "worse": "lay the eggplant in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant down in the yellow basket",
+   "worse": "place the eggplant inside the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant down in the yellow basket",
+   "worse": "put the aubergine in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant down in the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 6.5,
+   "ordering_confidence": 0.802,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the eggplant in the yellow basket",
+   "worse": "lay the eggplant in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the eggplant in the yellow basket",
+   "worse": "place the eggplant inside the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the eggplant in the yellow basket",
+   "worse": "put the aubergine in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the eggplant in the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 6.5,
+   "ordering_confidence": 0.802,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "set the eggplant in the yellow basket",
+   "worse": "lay the eggplant in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "set the eggplant in the yellow basket",
+   "worse": "place the eggplant inside the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "set the eggplant in the yellow basket",
+   "worse": "put the aubergine in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "set the eggplant in the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 6.5,
+   "ordering_confidence": 0.802,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant in the yellow dish rack",
+   "worse": "lay the eggplant in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant in the yellow dish rack",
+   "worse": "place the eggplant inside the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant in the yellow dish rack",
+   "worse": "put the aubergine in the yellow basket",
+   "gap_pp": 2.7,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.674,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the eggplant in the yellow dish rack",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 5.5,
+   "se_pp": 6.5,
+   "ordering_confidence": 0.802,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "lay the eggplant in the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 7.0,
+   "ordering_confidence": 0.656,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "place the eggplant inside the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 7.0,
+   "ordering_confidence": 0.656,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "put the aubergine in the yellow basket",
+   "worse": "drop the eggplant in the yellow basket",
+   "gap_pp": 2.8,
+   "se_pp": 7.0,
+   "ordering_confidence": 0.656,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "drop the eggplant in the yellow basket",
+   "worse": "put the eggplant in the basket",
+   "gap_pp": 8.3,
+   "se_pp": 8.4,
+   "ordering_confidence": 0.838,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "better": "eggplant in yellow basket",
+   "worse": "put the eggplant in the yellow bin",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the towel",
+   "worse": "set the spoon down on the towel",
+   "gap_pp": 6.9,
+   "se_pp": 7.9,
+   "ordering_confidence": 0.809,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the towel",
+   "worse": "set the spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the towel",
+   "worse": "lay the spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the towel",
+   "worse": "place the spoon on top of the towel",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the towel",
+   "worse": "set the spoon on top of the towel",
+   "gap_pp": 2.7,
+   "se_pp": 9.5,
+   "ordering_confidence": 0.611,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the towel",
+   "worse": "lay the spoon on top of the towel",
+   "gap_pp": 5.5,
+   "se_pp": 9.7,
+   "ordering_confidence": 0.715,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the towel",
+   "worse": "place the spoon down on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 9.7,
+   "ordering_confidence": 0.715,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the towel",
+   "worse": "put the spoon down on top of the towel",
+   "gap_pp": 8.3,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 8.2,
+   "ordering_confidence": 0.845,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "set the spoon on the towel",
+   "gap_pp": 1.4,
+   "se_pp": 9.9,
+   "ordering_confidence": 0.556,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "lay the spoon on the towel",
+   "gap_pp": 1.4,
+   "se_pp": 9.9,
+   "ordering_confidence": 0.556,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "place the spoon on top of the towel",
+   "gap_pp": 1.4,
+   "se_pp": 9.9,
+   "ordering_confidence": 0.556,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "put the spoon on top of the towel",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "spoon on towel",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "place the spoon on the blue towel",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "set the spoon down on the towel",
+   "gap_pp": 4.2,
+   "se_pp": 9.7,
+   "ordering_confidence": 0.667,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "set the spoon down on the towel",
+   "gap_pp": 1.4,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.557,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "set the spoon down on the towel",
+   "gap_pp": 1.4,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.557,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "put the spoon down on top of the towel",
+   "gap_pp": 1.4,
+   "se_pp": 9.9,
+   "ordering_confidence": 0.556,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "lay the spoon down on the towel",
+   "gap_pp": 4.2,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.663,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 6.9,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 6.9,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon down on the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 9.7,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.832,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on the towel",
+   "worse": "put the spoon onto the towel",
+   "gap_pp": 4.2,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.66,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on the towel",
+   "worse": "put the spoon on the cloth",
+   "gap_pp": 9.8,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on top of the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on top of the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 4.1,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.658,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "spoon on towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 4.1,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.658,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on the blue towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 4.1,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.658,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on the towel",
+   "worse": "drop the spoon on the towel",
+   "gap_pp": 4.2,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.66,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on the towel",
+   "worse": "pick up the spoon and place it on the towel",
+   "gap_pp": 9.8,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on the towel",
+   "worse": "place the spoon on the towel",
+   "gap_pp": 9.8,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.833,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 9.7,
+   "se_pp": 9.9,
+   "ordering_confidence": 0.836,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 9.7,
+   "se_pp": 9.9,
+   "ordering_confidence": 0.836,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on top of the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 6.9,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.754,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon down on the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 4.1,
+   "se_pp": 10.1,
+   "ordering_confidence": 0.658,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "rest the spoon on the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon flat on the towel",
+   "worse": "put the spoon down on the towel",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 1.4,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.555,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on the towel",
+   "worse": "put the spoon on top of the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on the towel",
+   "worse": "spoon on towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on the towel",
+   "worse": "place the spoon on the blue towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "set the spoon on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "set the spoon on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "set the spoon on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on the towel",
+   "worse": "lay the spoon down on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on the towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on the towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon onto the towel",
+   "worse": "put the spoon on the cloth",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon onto the towel",
+   "worse": "put the spoon on the blue towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on top of the towel",
+   "worse": "put the spoon onto the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "spoon on towel",
+   "worse": "put the spoon onto the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on the blue towel",
+   "worse": "put the spoon onto the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon onto the towel",
+   "worse": "pick up the spoon and place it on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon onto the towel",
+   "worse": "place the spoon on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon onto the towel",
+   "worse": "move the spoon to the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon onto the towel",
+   "worse": "put the spoon on the blue cloth",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon down on the towel",
+   "worse": "put the spoon onto the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "rest the spoon on the towel",
+   "worse": "put the spoon onto the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon flat on the towel",
+   "worse": "put the spoon onto the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the metal spoon on the towel",
+   "worse": "put the spoon onto the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the cloth",
+   "worse": "put the spoon on the blue towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "drop the spoon on the towel",
+   "worse": "put the spoon on the cloth",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the cloth",
+   "worse": "move the spoon to the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on the cloth",
+   "worse": "put the spoon on the blue cloth",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the metal spoon on the towel",
+   "worse": "put the spoon on the cloth",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "drop the spoon on the towel",
+   "worse": "put the spoon on the blue towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "pick up the spoon and place it on the towel",
+   "worse": "put the spoon on the blue towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on the towel",
+   "worse": "put the spoon on the blue towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on the towel",
+   "worse": "put the spoon on top of the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on the towel",
+   "worse": "spoon on towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on the towel",
+   "worse": "place the spoon on the blue towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "lay the spoon on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "lay the spoon on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "lay the spoon on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on the towel",
+   "worse": "lay the spoon down on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on the towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on the towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on top of the towel",
+   "worse": "put the spoon on top of the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on top of the towel",
+   "worse": "spoon on towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on top of the towel",
+   "worse": "place the spoon on the blue towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "place the spoon on top of the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "place the spoon on top of the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "place the spoon on top of the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on top of the towel",
+   "worse": "lay the spoon down on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on top of the towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on top of the towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on top of the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on top of the towel",
+   "worse": "drop the spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "put the spoon on top of the towel",
+   "gap_pp": 8.4,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.77,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "put the spoon on top of the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.687,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "put the spoon on top of the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.687,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on top of the towel",
+   "worse": "put the spoon on top of the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on top of the towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on top of the towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon on top of the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "spoon on towel",
+   "worse": "drop the spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "spoon on towel",
+   "gap_pp": 8.4,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.77,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "spoon on towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.687,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "spoon on towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.687,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on top of the towel",
+   "worse": "spoon on towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "spoon on towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "spoon on towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "spoon on towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on the blue towel",
+   "worse": "drop the spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "place the spoon on the blue towel",
+   "gap_pp": 8.4,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.77,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "place the spoon on the blue towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.687,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "place the spoon on the blue towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.687,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on top of the towel",
+   "worse": "place the spoon on the blue towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on the blue towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on the blue towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on the blue towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "drop the spoon on the towel",
+   "worse": "pick up the spoon and place it on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "drop the spoon on the towel",
+   "worse": "place the spoon on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "drop the spoon on the towel",
+   "worse": "move the spoon to the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "drop the spoon on the towel",
+   "worse": "put the spoon on the blue cloth",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon down on the towel",
+   "worse": "drop the spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.761,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "rest the spoon on the towel",
+   "worse": "drop the spoon on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon flat on the towel",
+   "worse": "drop the spoon on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the metal spoon on the towel",
+   "worse": "drop the spoon on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "pick up the spoon and place it on the towel",
+   "worse": "move the spoon to the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "pick up the spoon and place it on the towel",
+   "worse": "put the spoon on the blue cloth",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the metal spoon on the towel",
+   "worse": "pick up the spoon and place it on the towel",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on the towel",
+   "worse": "move the spoon to the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon on the towel",
+   "worse": "put the spoon on the blue cloth",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the metal spoon on the towel",
+   "worse": "place the spoon on the towel",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "lay the spoon on top of the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "place the spoon down on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "put the spoon down on top of the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "set the spoon on top of the towel",
+   "worse": "lay the spoon down on the towel",
+   "gap_pp": 8.4,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.77,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "put the spoon down on top of the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "lay the spoon down on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.687,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon on top of the towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "put the spoon down on top of the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "lay the spoon down on the towel",
+   "gap_pp": 5.6,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.687,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "place the spoon down on the towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on top of the towel",
+   "worse": "lay the spoon down on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.596,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on top of the towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on top of the towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "put the spoon down on top of the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon down on the towel",
+   "worse": "rest the spoon on the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon down on the towel",
+   "worse": "lay the spoon flat on the towel",
+   "gap_pp": 2.7,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.592,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon down on the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 5.5,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.681,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "rest the spoon on the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "better": "lay the spoon flat on the towel",
+   "worse": "put the metal spoon on the towel",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small green cube on the yellow cube",
+   "worse": "put the green cube on the yellow cube",
+   "gap_pp": 4.1,
+   "se_pp": 6.3,
+   "ordering_confidence": 0.742,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small green cube on the yellow cube",
+   "worse": "green cube on yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 6.0,
+   "ordering_confidence": 0.918,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small green block on the yellow block",
+   "worse": "put the small green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 8.8,
+   "ordering_confidence": 0.83,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on the yellow cube",
+   "worse": "put the small green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 8.8,
+   "ordering_confidence": 0.83,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green block on the yellow block",
+   "worse": "put the small green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 8.6,
+   "ordering_confidence": 0.743,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the teal-green cube on the yellow cube",
+   "worse": "put the small green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 8.3,
+   "ordering_confidence": 0.631,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow block",
+   "worse": "put the small green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 8.8,
+   "ordering_confidence": 0.83,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on top of the yellow block",
+   "worse": "put the small green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 8.6,
+   "ordering_confidence": 0.743,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green block on yellow block",
+   "worse": "put the small green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 8.6,
+   "ordering_confidence": 0.743,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow cube",
+   "worse": "green cube on yellow cube",
+   "gap_pp": 4.2,
+   "se_pp": 5.6,
+   "ordering_confidence": 0.772,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow cube",
+   "worse": "stack the green block on the yellow block",
+   "gap_pp": 8.4,
+   "se_pp": 5.2,
+   "ordering_confidence": 0.947,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small teal-green cube on the yellow cube",
+   "worse": "put the green cube on the yellow cube",
+   "gap_pp": 4.1,
+   "se_pp": 7.8,
+   "ordering_confidence": 0.7,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green block on the yellow block",
+   "worse": "put the green cube on the yellow cube",
+   "gap_pp": 9.7,
+   "se_pp": 8.4,
+   "ordering_confidence": 0.877,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the teal-green cube on the yellow cube",
+   "worse": "put the green cube on the yellow cube",
+   "gap_pp": 6.9,
+   "se_pp": 8.1,
+   "ordering_confidence": 0.802,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on top of the yellow block",
+   "worse": "put the green cube on the yellow cube",
+   "gap_pp": 9.7,
+   "se_pp": 8.4,
+   "ordering_confidence": 0.877,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green block on yellow block",
+   "worse": "put the green cube on the yellow cube",
+   "gap_pp": 9.7,
+   "se_pp": 8.4,
+   "ordering_confidence": 0.877,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow cube",
+   "worse": "cube on cube",
+   "gap_pp": 7.0,
+   "se_pp": 6.3,
+   "ordering_confidence": 0.868,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on yellow cube",
+   "worse": "stack the green block on the yellow block",
+   "gap_pp": 4.2,
+   "se_pp": 4.8,
+   "ordering_confidence": 0.811,
+   "n": [
+    72,
+    72
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small teal-green cube on the yellow cube",
+   "worse": "green cube on yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 7.6,
+   "ordering_confidence": 0.864,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on yellow cube",
+   "worse": "cube on cube",
+   "gap_pp": 2.8,
+   "se_pp": 5.9,
+   "ordering_confidence": 0.682,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green block on the yellow block",
+   "worse": "stack the cubes",
+   "gap_pp": 6.9,
+   "se_pp": 3.0,
+   "ordering_confidence": 0.99,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "cube on cube",
+   "worse": "stack the green block on the yellow block",
+   "gap_pp": 1.4,
+   "se_pp": 5.5,
+   "ordering_confidence": 0.601,
+   "n": [
+    72,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the small green cube on the yellow cube",
+   "worse": "put the small green block on the yellow block",
+   "gap_pp": 5.5,
+   "se_pp": 10.8,
+   "ordering_confidence": 0.694,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on top of the yellow cube",
+   "worse": "stack the small green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube on the yellow cube",
+   "worse": "stack the small green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the small green cube on the yellow cube",
+   "worse": "pick up the green cube and place it on the yellow cube",
+   "gap_pp": 2.7,
+   "se_pp": 11.0,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the small green cube on the yellow cube",
+   "worse": "stack the green cube on the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 10.8,
+   "ordering_confidence": 0.694,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the small green cube on the yellow cube",
+   "worse": "put the green block on the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.782,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on top of yellow cube",
+   "worse": "stack the small green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put green cube on yellow cube",
+   "worse": "stack the small green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "the green cube on the yellow cube",
+   "worse": "stack the small green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the small green cube on the yellow cube",
+   "worse": "put the green cube onto the yellow cube",
+   "gap_pp": 2.7,
+   "se_pp": 11.0,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the small green cube on the yellow cube",
+   "worse": "put the green cube on the yellow block",
+   "gap_pp": 5.5,
+   "se_pp": 10.8,
+   "ordering_confidence": 0.694,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the small green cube on the yellow cube",
+   "worse": "put the green cube on top of the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.782,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the small green cube on the yellow cube",
+   "worse": "green block on yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.782,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small green block on the yellow block",
+   "worse": "put the small teal-green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.801,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube on the yellow cube",
+   "worse": "put the small green block on the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.9,
+   "ordering_confidence": 0.776,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow one",
+   "worse": "put the small green block on the yellow block",
+   "gap_pp": 5.5,
+   "se_pp": 10.8,
+   "ordering_confidence": 0.694,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "pick up the green cube and place it on the yellow cube",
+   "worse": "put the small green block on the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.603,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small green block on the yellow block",
+   "worse": "put the green block on the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.4,
+   "ordering_confidence": 0.606,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small green block on the yellow block",
+   "worse": "put the teal-green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.709,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put green cube on yellow cube",
+   "worse": "put the small green block on the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.9,
+   "ordering_confidence": 0.776,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "the green cube on the yellow cube",
+   "worse": "put the small green block on the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.9,
+   "ordering_confidence": 0.776,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "small green cube on yellow cube",
+   "worse": "put the small green block on the yellow block",
+   "gap_pp": 5.5,
+   "se_pp": 10.8,
+   "ordering_confidence": 0.694,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube onto the yellow cube",
+   "worse": "put the small green block on the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.603,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small green block on the yellow block",
+   "worse": "put the green cube on top of the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.4,
+   "ordering_confidence": 0.606,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the small green block on the yellow block",
+   "worse": "green block on yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.4,
+   "ordering_confidence": 0.606,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on the yellow cube",
+   "worse": "put the small teal-green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.801,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green block on the yellow block",
+   "worse": "put the small teal-green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.717,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the teal-green cube on the yellow cube",
+   "worse": "put the small teal-green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 9.6,
+   "ordering_confidence": 0.615,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow block",
+   "worse": "put the small teal-green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.801,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on top of the yellow block",
+   "worse": "put the small teal-green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.717,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green block on yellow block",
+   "worse": "put the small teal-green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 9.8,
+   "ordering_confidence": 0.717,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube onto the yellow cube",
+   "worse": "put the green cube on top of the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube onto the yellow cube",
+   "worse": "put the green box on the yellow box",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube onto the yellow cube",
+   "worse": "set the green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube onto the yellow cube",
+   "worse": "place the small green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on top of the yellow cube",
+   "worse": "put the green box on the yellow box",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on top of the yellow cube",
+   "worse": "set the green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "set the green cube on top of the yellow cube",
+   "worse": "put the green cube on top of the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on top of the yellow cube",
+   "worse": "place the small green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green box on the yellow box",
+   "worse": "stack the green cube on top of the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green box on the yellow box",
+   "worse": "place the green cube on the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "set the green cube on top of the yellow cube",
+   "worse": "put the green box on the yellow box",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the small green cube on the yellow cube",
+   "worse": "put the green box on the yellow box",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green box on the yellow box",
+   "worse": "green cube on top of yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green box on the yellow box",
+   "worse": "put green cube on yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green box on the yellow box",
+   "worse": "the green cube on the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "set the green cube on the yellow cube",
+   "worse": "stack the green cube on top of the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "set the green cube on the yellow cube",
+   "worse": "place the green cube on the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "set the green cube on top of the yellow cube",
+   "worse": "set the green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.763,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the small green cube on the yellow cube",
+   "worse": "set the green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.7,
+   "ordering_confidence": 0.594,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "set the green cube on the yellow cube",
+   "worse": "green cube on top of yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.682,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "set the green cube on the yellow cube",
+   "worse": "put green cube on yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "set the green cube on the yellow cube",
+   "worse": "the green cube on the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.5,
+   "ordering_confidence": 0.764,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on top of the yellow cube",
+   "worse": "place the green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on top of the yellow cube",
+   "worse": "put the green cube on the yellow one",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on top of the yellow cube",
+   "worse": "pick up the green cube and place it on the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.771,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the small green cube on the yellow cube",
+   "worse": "stack the green cube on top of the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on top of the yellow cube",
+   "worse": "put green cube on yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on top of the yellow cube",
+   "worse": "the green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on top of the yellow cube",
+   "worse": "small green cube on yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on top of the yellow cube",
+   "worse": "put the green cube onto the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.771,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube on the yellow cube",
+   "worse": "put the green cube on the yellow one",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube on the yellow cube",
+   "worse": "pick up the green cube and place it on the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.1,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube on the yellow cube",
+   "worse": "stack the green cube on the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 10.9,
+   "ordering_confidence": 0.776,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on top of yellow cube",
+   "worse": "place the green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube on the yellow cube",
+   "worse": "small green cube on yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube on the yellow cube",
+   "worse": "put the green cube onto the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.1,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the green cube on the yellow cube",
+   "worse": "put the green cube on the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.9,
+   "ordering_confidence": 0.776,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow one",
+   "worse": "pick up the green cube and place it on the yellow cube",
+   "gap_pp": 2.7,
+   "se_pp": 11.0,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow one",
+   "worse": "stack the green cube on the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 10.8,
+   "ordering_confidence": 0.694,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow one",
+   "worse": "put the green block on the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.782,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on top of yellow cube",
+   "worse": "put the green cube on the yellow one",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put green cube on yellow cube",
+   "worse": "put the green cube on the yellow one",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "the green cube on the yellow cube",
+   "worse": "put the green cube on the yellow one",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow one",
+   "worse": "put the green cube onto the yellow cube",
+   "gap_pp": 2.7,
+   "se_pp": 11.0,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow one",
+   "worse": "put the green cube on the yellow block",
+   "gap_pp": 5.5,
+   "se_pp": 10.8,
+   "ordering_confidence": 0.694,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow one",
+   "worse": "put the green cube on top of the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.782,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow one",
+   "worse": "green block on yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.782,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "pick up the green cube and place it on the yellow cube",
+   "worse": "stack the green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.603,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "pick up the green cube and place it on the yellow cube",
+   "worse": "put the green block on the yellow block",
+   "gap_pp": 5.6,
+   "se_pp": 10.5,
+   "ordering_confidence": 0.702,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "pick up the green cube and place it on the yellow cube",
+   "worse": "put the teal-green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 10.3,
+   "ordering_confidence": 0.792,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on top of yellow cube",
+   "worse": "pick up the green cube and place it on the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.771,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put green cube on yellow cube",
+   "worse": "pick up the green cube and place it on the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.1,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "the green cube on the yellow cube",
+   "worse": "pick up the green cube and place it on the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.1,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "small green cube on yellow cube",
+   "worse": "pick up the green cube and place it on the yellow cube",
+   "gap_pp": 2.7,
+   "se_pp": 11.0,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "pick up the green cube and place it on the yellow cube",
+   "worse": "put the green cube on the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.603,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "pick up the green cube and place it on the yellow cube",
+   "worse": "put the green cube on top of the yellow block",
+   "gap_pp": 5.6,
+   "se_pp": 10.5,
+   "ordering_confidence": 0.702,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "pick up the green cube and place it on the yellow cube",
+   "worse": "green block on yellow block",
+   "gap_pp": 5.6,
+   "se_pp": 10.5,
+   "ordering_confidence": 0.702,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on the yellow cube",
+   "worse": "put the green block on the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.4,
+   "ordering_confidence": 0.606,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on the yellow cube",
+   "worse": "put the teal-green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.709,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put green cube on yellow cube",
+   "worse": "stack the green cube on the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 10.9,
+   "ordering_confidence": 0.776,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "the green cube on the yellow cube",
+   "worse": "stack the green cube on the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 10.9,
+   "ordering_confidence": 0.776,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "small green cube on yellow cube",
+   "worse": "stack the green cube on the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 10.8,
+   "ordering_confidence": 0.694,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube onto the yellow cube",
+   "worse": "stack the green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.603,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on the yellow cube",
+   "worse": "put the green cube on top of the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.4,
+   "ordering_confidence": 0.606,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "stack the green cube on the yellow cube",
+   "worse": "green block on yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.4,
+   "ordering_confidence": 0.606,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green block on the yellow block",
+   "worse": "put the teal-green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.61,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "small green cube on yellow cube",
+   "worse": "put the green block on the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.782,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube onto the yellow cube",
+   "worse": "put the green block on the yellow block",
+   "gap_pp": 5.6,
+   "se_pp": 10.5,
+   "ordering_confidence": 0.702,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow block",
+   "worse": "put the green block on the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.4,
+   "ordering_confidence": 0.606,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube onto the yellow cube",
+   "worse": "put the teal-green cube on the yellow cube",
+   "gap_pp": 8.4,
+   "se_pp": 10.3,
+   "ordering_confidence": 0.792,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow block",
+   "worse": "put the teal-green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 10.2,
+   "ordering_confidence": 0.709,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on top of the yellow block",
+   "worse": "put the teal-green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.61,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green block on yellow block",
+   "worse": "put the teal-green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 10.0,
+   "ordering_confidence": 0.61,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "cube on cube",
+   "worse": "stack the cubes",
+   "gap_pp": 8.3,
+   "se_pp": 4.6,
+   "ordering_confidence": 0.964,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "set the green cube on top of the yellow cube",
+   "worse": "place the small green cube on the yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 11.8,
+   "ordering_confidence": 0.683,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "place the small green cube on the yellow cube",
+   "worse": "green cube on top of yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.6,
+   "ordering_confidence": 0.762,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on top of yellow cube",
+   "worse": "put green cube on yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on top of yellow cube",
+   "worse": "the green cube on the yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.4,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on top of yellow cube",
+   "worse": "small green cube on yellow cube",
+   "gap_pp": 5.6,
+   "se_pp": 11.3,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "green cube on top of yellow cube",
+   "worse": "put the green cube onto the yellow cube",
+   "gap_pp": 8.3,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.771,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put green cube on yellow cube",
+   "worse": "small green cube on yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put green cube on yellow cube",
+   "worse": "put the green cube onto the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.1,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put green cube on yellow cube",
+   "worse": "put the green cube on the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.9,
+   "ordering_confidence": 0.776,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "the green cube on the yellow cube",
+   "worse": "small green cube on yellow cube",
+   "gap_pp": 2.8,
+   "se_pp": 11.2,
+   "ordering_confidence": 0.599,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "the green cube on the yellow cube",
+   "worse": "put the green cube onto the yellow cube",
+   "gap_pp": 5.5,
+   "se_pp": 11.1,
+   "ordering_confidence": 0.69,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "the green cube on the yellow cube",
+   "worse": "put the green cube on the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.9,
+   "ordering_confidence": 0.776,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "small green cube on yellow cube",
+   "worse": "put the green cube onto the yellow cube",
+   "gap_pp": 2.7,
+   "se_pp": 11.0,
+   "ordering_confidence": 0.597,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "small green cube on yellow cube",
+   "worse": "put the green cube on the yellow block",
+   "gap_pp": 5.5,
+   "se_pp": 10.8,
+   "ordering_confidence": 0.694,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "small green cube on yellow cube",
+   "worse": "put the green cube on top of the yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.782,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "small green cube on yellow cube",
+   "worse": "green block on yellow block",
+   "gap_pp": 8.3,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.782,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube onto the yellow cube",
+   "worse": "put the green cube on the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.7,
+   "ordering_confidence": 0.603,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube onto the yellow cube",
+   "worse": "put the green cube on top of the yellow block",
+   "gap_pp": 5.6,
+   "se_pp": 10.5,
+   "ordering_confidence": 0.702,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube onto the yellow cube",
+   "worse": "green block on yellow block",
+   "gap_pp": 5.6,
+   "se_pp": 10.5,
+   "ordering_confidence": 0.702,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow block",
+   "worse": "put the green cube on top of the yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.4,
+   "ordering_confidence": 0.606,
+   "n": [
+    36,
+    36
+   ]
+  },
+  {
+   "task": "widowx_stack_cube",
+   "better": "put the green cube on the yellow block",
+   "worse": "green block on yellow block",
+   "gap_pp": 2.8,
+   "se_pp": 10.4,
+   "ordering_confidence": 0.606,
+   "n": [
+    36,
+    36
+   ]
+  }
+ ]
+}
