@@ -53,11 +53,12 @@ covered = [p for p in pairs if p["task"] in states
 print(f"{len(covered)} covered pairs")
 
 r01 = bk.rank01
-acc = {"c4b": np.zeros((len(F_GRID), len(C_GRID))), "grip": np.zeros((len(F_GRID), len(C_GRID)))}
+acc = {r: np.zeros((len(F_GRID), len(C_GRID))) for r in ("ens100", "z75g25", "z50g50", "c4b", "grip")}
 for fi, F in enumerate(F_GRID):
     for ci, C in enumerate(C_GRID):
-        hits_d = {"c4b": 0, "grip": 0}
-        tot_d = {"c4b": 0, "grip": 0}
+        RW = ("ens100", "z75g25", "z50g50", "c4b", "grip")
+        hits_d = {r: 0 for r in RW}
+        tot_d = {r: 0 for r in RW}
         for _ in range(B):
             # per task: one shared (episode, frame) draw — CRN across the whole
             # candidate set, mirroring a GRPO group sharing its contexts
@@ -72,27 +73,32 @@ for fi, F in enumerate(F_GRID):
                     gsel.append(np.nanmean(s["G"][:, e, :][:, fp], axis=1))
                 z = np.nanmean(np.stack(zsel), axis=0)
                 g = np.nanmean(np.stack(gsel), axis=0)
-                per_task_scores[t] = {"c4b": 0.25 * r01(z) + 0.75 * r01(-g), "grip": r01(-g)}
+                z01, g01 = r01(z), r01(-g)
+                per_task_scores[t] = {"ens100": z01, "z75g25": 0.75 * z01 + 0.25 * g01,
+                                      "z50g50": 0.5 * z01 + 0.5 * g01,
+                                      "c4b": 0.25 * z01 + 0.75 * g01, "grip": g01}
             for p in covered:
                 s = states[p["task"]]
-                for rw in ("c4b", "grip"):
+                for rw in RW:
                     sc = per_task_scores[p["task"]][rw]
                     sb = sc[s["ki"][bk.norm_key(p["better"])]]
                     sw = sc[s["ki"][bk.norm_key(p["worse"])]]
                     if not (np.isnan(sb) or np.isnan(sw)):
                         hits_d[rw] += int(sb > sw)
                         tot_d[rw] += 1
-        for rw in ("c4b", "grip"):
+        for rw in RW:
             acc[rw][fi, ci] = 100 * hits_d[rw] / tot_d[rw]
-        print(f"F={F} C={C}: c4b {acc['c4b'][fi, ci]:.1f}%  grip {acc['grip'][fi, ci]:.1f}%")
+        print(f"F={F} C={C}: " + "  ".join(f"{r} {acc[r][fi, ci]:.1f}" for r in acc))
 
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-fig, axes = plt.subplots(1, 2, figsize=(15.5, 5.0))
-for ax, rw, name in [(axes[0], "c4b", "C4b (0.25·ens + 0.75·grip)"), (axes[1], "grip", "GRIP-only (rank01(-grip))")]:
+fig, axes = plt.subplots(1, 5, figsize=(30, 4.6))
+PANELS = [("ens100", "100% ensemble"), ("z75g25", "75% ens / 25% grip"), ("z50g50", "50/50"),
+          ("c4b", "C4b: 25% ens / 75% grip"), ("grip", "100% grip")]
+for ax, (rw, name) in zip(axes, PANELS):
     A = acc[rw]
     im = ax.imshow(A, origin="lower", cmap="viridis", vmin=50, vmax=100, aspect="auto")
     for fi, F in enumerate(F_GRID):
@@ -117,6 +123,6 @@ fig.text(0.01, 0.01, "Bootstrap B=400/cell, frames drawn WITHIN each episode (v2
 fig.tight_layout(rect=[0, 0.04, 1, 1])
 fig.savefig("results/charts/fc_grid.png", dpi=150, bbox_inches="tight", pad_inches=0.25)
 print("chart -> results/charts/fc_grid.png")
-json.dump({"F_grid": F_GRID, "C_grid": C_GRID, "acc_c4b": acc["c4b"].tolist(), "acc_grip": acc["grip"].tolist(), "B": B,
+json.dump({"F_grid": F_GRID, "C_grid": C_GRID, **{f"acc_{r}": a.tolist() for r, a in acc.items()}, "B": B,
            "pairs": len(covered)},
           open("results/analysis/fc_grid.json", "w"), indent=1)
