@@ -1924,3 +1924,13 @@ KL-interpretation note (user obs + refinement): v7a's rollout peak coincided
 with its KL/grad-norm peak (steps 100-150). v7b tests whether KL is lever or
 symptom: KL now 2x v7a's best-ever WITHOUT rollout following (yet) — leaning
 symptom-of-productive-learning; the fork adjudicates.
+
+## 2026-07-27 — GATE AMENDED (user): v7d (F=32 noise arm) jumps ahead of v7c (lr)
+User proposal: attack reward noise at the fork — F=32 or k_flow 16. Decomposition
+evidence (frames-vs-draws): between-frame variance = 62% of reward-diff noise ->
+F=32 is the dominant-axis cut; k=16 the minor axis (deferred; optional later).
+Design logic: if noise is the bottleneck, lr-up AMPLIFIES it while F=32 fixes the
+instrument for every later arm -> noise arm first. Amended order at v7b step-100
+gate (if v7b rollout <= ~58.3): v7d = fork step_0140, beta=0.05, REWARD_FRAMES=32
+(scripts/run_arm_v7d.sh, ready; step ~1200s/it, 100 steps ~33h) -> then v7c (lr)
+-> then v8a. Gate criteria unchanged: judge on real rollout > 58.3.
