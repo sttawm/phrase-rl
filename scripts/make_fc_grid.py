@@ -21,7 +21,7 @@ import reward_bakeoff_v3 as bk  # noqa: E402
 RNG = np.random.default_rng(7)
 B = 400
 F_GRID = [1, 2, 4]
-C_GRID = [1, 2, 4, 8, 10]
+C_GRID = [1, 2, 4, 8, 10, 16, 20]
 
 feats = bk.load_features()
 ens = bk.VerifierEnsemble("results/checkpoints/verifier_reward_ensemble_4f.json")
@@ -53,10 +53,11 @@ covered = [p for p in pairs if p["task"] in states
 print(f"{len(covered)} covered pairs")
 
 r01 = bk.rank01
-acc = np.zeros((len(F_GRID), len(C_GRID)))
+acc = {"c4b": np.zeros((len(F_GRID), len(C_GRID))), "grip": np.zeros((len(F_GRID), len(C_GRID)))}
 for fi, F in enumerate(F_GRID):
     for ci, C in enumerate(C_GRID):
-        hits = tot = 0
+        hits_d = {"c4b": 0, "grip": 0}
+        tot_d = {"c4b": 0, "grip": 0}
         for _ in range(B):
             # per task: one shared (episode, frame) draw — CRN across the whole
             # candidate set, mirroring a GRPO group sharing its contexts
@@ -71,50 +72,51 @@ for fi, F in enumerate(F_GRID):
                     gsel.append(np.nanmean(s["G"][:, e, :][:, fp], axis=1))
                 z = np.nanmean(np.stack(zsel), axis=0)
                 g = np.nanmean(np.stack(gsel), axis=0)
-                per_task_scores[t] = 0.25 * r01(z) + 0.75 * r01(-g)
+                per_task_scores[t] = {"c4b": 0.25 * r01(z) + 0.75 * r01(-g), "grip": r01(-g)}
             for p in covered:
                 s = states[p["task"]]
-                sc = per_task_scores[p["task"]]
-                sb = sc[s["ki"][bk.norm_key(p["better"])]]
-                sw = sc[s["ki"][bk.norm_key(p["worse"])]]
-                if not (np.isnan(sb) or np.isnan(sw)):
-                    hits += int(sb > sw)
-                    tot += 1
-        acc[fi, ci] = 100 * hits / tot
-        print(f"F={F} C={C}: {acc[fi, ci]:.1f}%")
+                for rw in ("c4b", "grip"):
+                    sc = per_task_scores[p["task"]][rw]
+                    sb = sc[s["ki"][bk.norm_key(p["better"])]]
+                    sw = sc[s["ki"][bk.norm_key(p["worse"])]]
+                    if not (np.isnan(sb) or np.isnan(sw)):
+                        hits_d[rw] += int(sb > sw)
+                        tot_d[rw] += 1
+        for rw in ("c4b", "grip"):
+            acc[rw][fi, ci] = 100 * hits_d[rw] / tot_d[rw]
+        print(f"F={F} C={C}: c4b {acc['c4b'][fi, ci]:.1f}%  grip {acc['grip'][fi, ci]:.1f}%")
 
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots(figsize=(8.6, 5.2))
-im = ax.imshow(acc, origin="lower", cmap="viridis", vmin=50, vmax=100, aspect="auto")
-for fi, F in enumerate(F_GRID):
-    for ci, C in enumerate(C_GRID):
-        ax.text(ci, fi, f"{acc[fi, ci]:.0f}", ha="center", va="center",
-                color="white", fontsize=11, fontweight="bold")
-ax.set_xticks(range(len(C_GRID)))
-ax.set_xticklabels(C_GRID)
-ax.set_yticks(range(len(F_GRID)))
-ax.set_yticklabels(F_GRID)
-ax.set_xlabel("contexts averaged C (episodes, CRN-shared across the pair)")
-ax.set_ylabel("frames F PER EPISODE (banked 1-4/ep — extraction extends)")
-ax.set_title("MEASURED C4b sign accuracy on 68 frozen pairs (%, floor 50)")
-# iso-cost guides: cells with equal F*C
-for cost in [4, 8, 16]:
-    pts = [(ci, fi) for fi, F in enumerate(F_GRID) for ci, C in enumerate(C_GRID) if F * C == cost]
-    if len(pts) > 1:
-        ax.plot([p[0] for p in pts], [p[1] for p in pts], "w--", lw=1, alpha=0.6)
-        ax.annotate(f"F·C={cost}", pts[-1], textcoords="offset points", xytext=(10, 4),
-                    color="white", fontsize=7.5, alpha=0.85)
-fig.colorbar(im, label="sign accuracy %")
+fig, axes = plt.subplots(1, 2, figsize=(15.5, 5.0))
+for ax, rw, name in [(axes[0], "c4b", "C4b (0.25·ens + 0.75·grip)"), (axes[1], "grip", "GRIP-only (rank01(-grip))")]:
+    A = acc[rw]
+    im = ax.imshow(A, origin="lower", cmap="viridis", vmin=50, vmax=100, aspect="auto")
+    for fi, F in enumerate(F_GRID):
+        for ci, C in enumerate(C_GRID):
+            ax.text(ci, fi, f"{A[fi, ci]:.0f}", ha="center", va="center",
+                    color="white", fontsize=10, fontweight="bold")
+    ax.set_xticks(range(len(C_GRID)))
+    ax.set_xticklabels(C_GRID)
+    ax.set_yticks(range(len(F_GRID)))
+    ax.set_yticklabels(F_GRID)
+    ax.set_xlabel("contexts averaged C (per-task cap: spoon 10, carrot/stack 20, egg 60)")
+    ax.set_ylabel("frames F per episode (banked 1-4)")
+    ax.set_title(f"{name} — sign accuracy % (floor 50)")
+    for cost in [4, 8, 16]:
+        pts = [(ci, fi) for fi, F in enumerate(F_GRID) for ci, C in enumerate(C_GRID) if F * C == cost]
+        if len(pts) > 1:
+            ax.plot([p[0] for p in pts], [p[1] for p in pts], "w--", lw=1, alpha=0.6)
+    fig.colorbar(im, ax=ax, label="sign accuracy %")
 fig.text(0.01, 0.01, "Bootstrap B=400/cell, frames drawn WITHIN each episode (v2 — v1 t-column bug corrected). Banked: 10-60 eps/task, 1-4 frames/ep. "
          "Training operates at C=1; the exam limit (97%) is the C→20 row. Iso-cost dashes: equal F·C compute.",
          fontsize=7, color="#4a5568")
 fig.tight_layout(rect=[0, 0.04, 1, 1])
 fig.savefig("results/charts/fc_grid.png", dpi=150, bbox_inches="tight", pad_inches=0.25)
 print("chart -> results/charts/fc_grid.png")
-json.dump({"F_grid": F_GRID, "C_grid": C_GRID, "acc": acc.tolist(), "B": B,
+json.dump({"F_grid": F_GRID, "C_grid": C_GRID, "acc_c4b": acc["c4b"].tolist(), "acc_grip": acc["grip"].tolist(), "B": B,
            "pairs": len(covered)},
           open("results/analysis/fc_grid.json", "w"), indent=1)
