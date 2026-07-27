@@ -14,13 +14,16 @@ export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 export VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline
 mkdir -p "$VLA_DATA_DIR" "$VLA_LOG_DIR"
 cd /workspace/phrase-rl
-CKPT_LOG=/workspace/phrase-rl/results/checkpoints/phase2_v7/train_log.jsonl
+CKPT_LOG=${CKPT_LOG:-/workspace/phrase-rl/results/checkpoints/phase2_v7/train_log.jsonl}
+CURVE_FILE=${CURVE_FILE:-results/analysis/v7_rollout_curve.jsonl}
+RUN_TAG=${RUN_TAG:-v7}
 TRAIN_HOST_SSH=${TRAIN_HOST_SSH:?set TRAIN_HOST_SSH}
 GEN=/workspace/phrase-rl/.venv-gen/bin/python
 VLA=/workspace/INT-ACT/.venv/bin/python
 ROLL=/workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py
 CFG=config/experiment/simpler/pi0_finetune_bridge_ev.yaml
 CKPT=juexzz/INTACT-pi0-finetune-rephrase-bridge
+export CURVE_FILE RUN_TAG
 mark() { echo "[rval $(date +%H:%M:%S)] $*" | tee -a /workspace/rval.log; }
 
 # roll_one <phrases.parquet> <repeats> <out.parquet> : one phase0c call on layouts 0-23
@@ -40,7 +43,7 @@ while true; do
 import json, os, sys
 import pandas as pd
 done = set()
-curve = "results/analysis/v7_rollout_curve.jsonl"
+curve = os.environ["CURVE_FILE"]
 if os.path.exists(curve):
     done = {json.loads(l)["step"] for l in open(curve)}
 probes = [json.loads(l) for l in open("/tmp/train_log.jsonl") if '"probe"' in l]
@@ -95,13 +98,13 @@ if os.path.exists(sf):
         rec["sampled_n"] = int(len(s))
         rec["sampled_pooled"] = round(float(s.success.mean() * 100), 2)
         rec["sampled_per_task"] = {t: round(float(x.success.mean() * 100), 1) for t, x in s.groupby("task")}
-with open("results/analysis/v7_rollout_curve.jsonl", "a") as f:
+with open(os.environ["CURVE_FILE"], "a") as f:
     f.write(json.dumps(rec) + "\n")
 print("step", rec["step"], "greedy", rec["pooled"], "sampled", rec.get("sampled_pooled"))
 PYEOF
   rc=$?
   [ $rc != 0 ] && { mark "MERGE FAILED step $STEP"; sleep 300; continue; }
-  git add results/analysis/v7_rollout_curve.jsonl && git commit -q -m "v7 rollout-val step $STEP (greedy+sampled, equal budget) [pod]" \
+  git add "$CURVE_FILE" && git commit -q -m "$RUN_TAG rollout-val step $STEP (greedy+sampled) [pod]" \
     && git pull -q --rebase && git push -q
   mark "DONE step $STEP"
 done
