@@ -56,12 +56,12 @@ ax.set_xscale("log", base=2)
 ax.set_xticks([4, 8, 16, 32, 64])
 ax.set_xticklabels(["4", "8", "16", "32", "64"])
 ax.set_xlabel("reward frames F (per single context — GRPO's operating point)")
-ax.set_ylabel("% of adjacent-rank phrase pairs RESOLVED (sign stable, |gap| ≥ 1 SE)")
+ax.set_ylabel("% of adjacent-rank pairs with |true gap| ≥ 1 SE of noise\n(resolution, NOT sign accuracy — unresolved ≈ noise-dominated, not wrong)")
 ax.set_ylim(0, 105)
 ax.set_title("Reward discrimination vs frames: single-context vs in-the-limit")
 ax.legend(loc="lower right", fontsize=8)
 ax.grid(alpha=0.25)
-fig.text(0.01, 0.01, "Model points derive from stored per-draw exam features (frames-vs-draws decomposition, ledger 2026-07-23). "
+fig.text(0.01, 0.01, "Resolution metric: unresolved pairs have sign accuracy 50-84%, not <50%. Floor = frame-invariant noise share (decode draws at k=4 + residual). Model points derive from stored per-draw exam features (frames-vs-draws decomposition, ledger 2026-07-23). "
          "Direct measured F=16/32 exam pending (task #7) — will replace the extrapolation.",
          fontsize=7, color="#718096")
 fig.tight_layout(rect=[0, 0.045, 1, 1])
