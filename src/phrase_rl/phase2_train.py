@@ -490,12 +490,36 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
     if not pairs:
         return
     contexts = [(row, [res["instruction"]] + res["survivors"]) for row, res in pairs]
+    # v7e: fan out N-1 same-instruction club contexts per pair (appended after
+    # the parents, pair-ordered); reward below averages across each pair's set.
+    n_extra = []
+    club = getattr(args, "_club_index", None)
+    NC = getattr(args, "reward_contexts", 1)
+    if club and NC > 1:
+        fmap = args._reward_frames_map or {}
+        for row, res in pairs:
+            plist = [res["instruction"]] + res["survivors"]
+            pool = [e for e in club.get(str(row["instruction"]), [])
+                    if e != int(row["episode_index"]) and e in fmap]
+            pick = (list(np.random.choice(pool, size=min(NC - 1, len(pool)), replace=False))
+                    if pool else [])
+            for e in pick:
+                contexts.append((dict(fmap[int(e)][0]), plist))
+            n_extra.append(len(pick))
     all_losses = score_phrases(ipc_dir, job_id, contexts, args)
     all_grips = getattr(score_phrases, "last_grips", [None] * len(all_losses))
-    for (_, res), losses, grips in zip(pairs, all_losses, all_grips):
-        rewards = -losses.mean(axis=1)
+    off = len(pairs)
+    for i, (_, res) in enumerate(pairs):
+        k = n_extra[i] if n_extra else 0
+        L = [all_losses[i]] + [all_losses[off + j] for j in range(k)]
+        G = [all_grips[i]] + [all_grips[off + j] for j in range(k)]
+        off += k
+        rewards = -np.stack([l.mean(axis=1) for l in L]).mean(axis=0)
+        grips = None if G[0] is None else np.nanmean(np.stack(G), axis=0)
         res.update(r_orig=float(rewards[0]), rewards_logit=rewards[1:],
-                   grips=None if grips is None else grips[1:])
+                   grips=None if grips is None else grips[1:],
+                   n_reward_contexts=1 + k,
+                   z_parent=(-all_losses[i].mean(axis=1))[1:])
         if getattr(args, "reward_blend", "") == "c4b" and grips is not None:
             blended = blend_rewards(rewards, grips, w=getattr(args, "blend_w", 0.25))
             res.update(r_orig_blend=float(blended[0]), rewards=blended[1:])
@@ -1218,6 +1242,10 @@ def main():
     ap.add_argument("--probe-traces", default=None, help="parquet(episode_index,t,trace) for the probe contexts")
     ap.add_argument("--probe-samples", type=int, default=0,
                     help="also emit K temperature-1.0 sampled phrases per probe (distribution coverage; RNG-safe)")
+    ap.add_argument("--reward-contexts", type=int, default=1,
+                    help="v7e: score each candidate on N same-instruction contexts (parent + N-1 club episodes); reward uses context-AVERAGED logits/grips")
+    ap.add_argument("--club-contexts", default=None,
+                    help="parquet(instruction, episode_index, t, action_chunk, state, image_png): untraced scoring contexts for --reward-contexts > 1")
     ap.add_argument("--probe-every", type=int, default=25)
     ap.add_argument("--source-aug", type=float, default=0.5,
                     help="prob of conditioning on a random teacher rephrase instead of the original (robustness; gate stays anchored to the original)")
@@ -1345,6 +1373,28 @@ def main():
         args._reward_frames_map = fmap
         print(f"multi-frame reward: {n_train} train + {n_val} val episodes x {args.reward_frames} frames")
         print(f"trace-conditioned: {len(TRACES)} traces, {len(train_df)} train contexts retained")
+    args._club_index = None
+    if getattr(args, "reward_contexts", 1) > 1:
+        assert args.club_contexts, "--reward-contexts > 1 requires --club-contexts"
+        _c = pd.read_parquet(args.club_contexts)
+        cmap = {}
+        for ep, g in _c.groupby("episode_index"):
+            g = g.sort_values("t").reset_index(drop=True)
+            k = min(len(g), max(1, args.reward_frames))
+            idx = np.unique(np.linspace(0, len(g) - 1, k).round().astype(int))
+            cmap[int(ep)] = g.iloc[idx].to_dict("records")
+        if args._reward_frames_map is None:
+            args._reward_frames_map = {}
+        clash = set(args._reward_frames_map) & set(cmap)
+        args._reward_frames_map.update({e: r for e, r in cmap.items() if e not in clash})
+        idx_by_instr = {}
+        for instr, g in _c.drop_duplicates("episode_index").groupby("instruction"):
+            idx_by_instr[str(instr)] = [int(e) for e in g.episode_index]
+        args._club_index = idx_by_instr
+        before = len(train_df)
+        train_df = train_df[train_df.instruction.astype(str).isin(idx_by_instr)]
+        print(f"v7e multi-context reward: club {len(cmap)} episodes / {len(idx_by_instr)} "
+              f"instructions (clash-kept-train {len(clash)}); parents {before} -> {len(train_df)}")
     if args.val_traces:
         _t = pd.read_parquet(args.val_traces)
         VAL_TRACES = {(r.episode_index, r.t): str(r.trace) for r in _t.itertuples()}
