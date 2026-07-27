@@ -1934,3 +1934,14 @@ instrument for every later arm -> noise arm first. Amended order at v7b step-100
 gate (if v7b rollout <= ~58.3): v7d = fork step_0140, beta=0.05, REWARD_FRAMES=32
 (scripts/run_arm_v7d.sh, ready; step ~1200s/it, 100 steps ~33h) -> then v7c (lr)
 -> then v8a. Gate criteria unchanged: judge on real rollout > 58.3.
+
+## 2026-07-27 — F-sweep exam SCOPED (reward-rollout correlation vs frames)
+User q: do we have corr(reward, rollout) at F=4/16/32? Answer: F=4 only —
+C4b spearman 0.493, 66/68 signs (l2 addendum table); F=16 was adopted on the
+variance-decomposition MODEL, never re-examined; F=32 unmeasured. Sweep is
+buildable: panel + ground truth all in git (results/overnight/raw: 27 phrases,
+4 t/episode = F4; phrase_success_table; gate_zero_pairs). Original extractor was
+pod-era ad-hoc (lost); reconstruct from sim_contexts_extract.py sibling, extend
+t-grid to 16/32, extract on pod5 idle (small: 27 phrases x ~10 eps), rerun exam
+per F. Deliverable: spearman(F) + signs(F) -> evidence for the v7d gate
+(if corr plateaus by F=16, v7d premise dies cheaply).
