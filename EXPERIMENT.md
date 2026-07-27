@@ -1957,3 +1957,12 @@ per-F metrics at BOTH aggregation levels — (a) in-the-limit (all episodes),
 (b) per-single-context (the training-relevant operating point). Curve (b) vs F
 is the primary v7d gate evidence; (a) tracks whether the reward's ceiling
 itself improves with frames.
+
+## 2026-07-27 — Gate menu addition: v7e (context-averaged reward), from F-sweep chart
+fsweep_model.png reading: F=32 buys +8.5pp single-context resolution (57->65.5,
+flattening curve, floor 75); but the LIMIT (97%) is reached through AVERAGING —
+which frames cannot buy. v7e: score each GRPO candidate on 2 contexts (parent +
+1 same-task context), reward = mean. Same 2x scoring cost as v7d; attacks
+context idiosyncrasy AND frame noise. Gate menu now: v7b (running) -> v7d (F=32)
+vs v7e (2-context) vs v7c (lr) -> v8a. Choice between d/e informed by the
+measured F-sweep (task #7) when it lands.
