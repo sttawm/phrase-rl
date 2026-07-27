@@ -2038,3 +2038,13 @@ Caveats carried: sim a* = pi0's own successful behavior (self-consistent
 estimand, mild successful-layout selection bias) — for predicting SIM rollout
 success this REMOVES the real->sim confound; calibration bucket = 0.5-5pp pairs
 (clean reward should score ~50%). Runs on pod5 idle after the v7e gate.
+
+## 2026-07-27 — Val-8 reference frame for RL (user): provisional chart + rolled leg queued
+Purpose: give RL rollout numbers comparators on THEIR OWN tasks. Provisional
+(banked boards, mixed n 36-180): Orig pooled 47.7 / Oracle 65.1 on the dev-8.
+On the 4-task rval probe subset: Orig 54.8 / Oracle 68.6 — so v7/v7b greedy
+(56-58) sits ~+2 over nominal with ~12pp measured headroom below oracle; the
+RL's stack_cube (35) crushes its nominal (6.9) — RL's clearest per-task win.
+QUEUED: rolled reference leg (Orig + canonical-ERT Adv + Oracle-best, 8 tasks
+x 24 layouts x 12 reps, sealed protocol) on pod5 after the fine-exam scoring;
+Adv phrases to be drawn from the ERT registry per task at leg-build time.
