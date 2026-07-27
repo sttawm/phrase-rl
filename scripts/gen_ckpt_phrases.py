@@ -29,8 +29,8 @@ base = AutoModelForImageTextToText.from_pretrained(
     "Qwen/Qwen3.5-9B", dtype=torch.bfloat16, device_map="cuda")
 model = PeftModel.from_pretrained(base, adapter_dir, is_trainable=False).eval()
 
-ctx = pd.read_parquet("results/phrase_artifacts/contexts_0c_tasks.parquet")
-tr = pd.read_parquet("results/phrase_artifacts/traces_0c_tasks.parquet")
+ctx = pd.read_parquet(os.environ.get("PROBE_CONTEXTS", "results/phrase_artifacts/contexts_0c_tasks.parquet"))
+tr = pd.read_parquet(os.environ.get("PROBE_TRACES", "results/phrase_artifacts/traces_0c_tasks.parquet"))
 tmap = {(r.episode_index, r.t): r.trace for r in tr.itertuples()}
 
 
