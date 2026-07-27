@@ -506,3 +506,139 @@ quartet rescued halfway (+11.8 over its bare 5.8; coke-plate 5.9→30.9, ramekin
 model can partially read traces, and pays for the format shift exactly where it was
 strongest. The v2 synthesis trains the reconstructor *with* Qwen self-traces: nouns from the
 trace, relation from the input, register from the prior.
+
+## The sealed test — thirteen pipelines, one scoreboard (2026-07-23..26)
+
+Everything above risked a quiet sin: every number was measured on scenes whose
+phrase-search evidence we had already read. So we built a sealed benchmark and
+froze it before any pipeline touched it: **12 SIMPLER/WidowX tasks × 24 layouts
+× 12 reps per arm (n=3,456)**, with an **ex-ante vocabulary audit**: a task is
+*OOV* iff any content noun of its nominal instruction has **zero occurrences**
+in the Bridge training corpus (ramekin 0, wheel 0, keyboard 0, pepsi 0 → OOV;
+nut at 60 counts as in-vocab — the split is corpus-*absence*, not rarity;
+7 OOV / 5 in-vocab). Thirteen pipelines ran blind: originals, raw adversarial
+phrasings (ERT), frozen/SFT'd/RL'd Qwen rewriters with and without scene
+descriptions, Gemini flash/pro with and without RULES, a Claude agent with
+corpus grep access, and post-hoc, the adaptive-search oracle.
+
+![Sealed thin scoreboard by vocabulary stratum](results/charts/sealed_thin.png)
+
+The thin scoreboard, split by stratum, is the paper in one figure:
+
+- **Original phrasing 36.1** (48.3 in-vocab / 27.3 OOV) still beats every
+  rewriting pipeline pooled — good nominals are hard to improve *on average*.
+- **Adversarial phrasing costs 9.5pp** (26.6), and a frontier rewriter with
+  reasoning recovers only a third of that (27.8).
+- **Rules recover more than reasoning**: +3.8pp paired at pro tier (31.6 vs
+  27.8), replicating the flash pair (+3.6) almost byte-for-byte — and the
+  mechanism is visible in the strata: **+7.9pp OOV, −2.0 in-vocab**. Rules are
+  a vocabulary *redistribution* toward exactly the tasks where phrasing is
+  broken.
+- **Rules on clean input (row 17) sharpen the deployment story**: pooled it's a
+  wash (34.8 vs 36.1), but OOV gains +2.3 with three corpus-law rescues at
+  +13..+17pp (eggplant-keyboard reaching oracle level), paid for by an in-vocab
+  tax (−6.2). Unconditional rewriting of good input is not safe; **conditional
+  rewriting — rename only when the nominal contains corpus-absent nouns —
+  would have been ~+2.5pp above nominal on this board.** One certified law even
+  inverted by *input context*: +color on keyboard is worth +11 when repairing
+  hostile input and −15 when applied to a clean nominal.
+
+## The executor tournament — the knowledge is the artifact (2026-07-25)
+
+Fix RULES-v3 and vary the executor: Gemini-flash with thinking *off* (31.1),
+Gemini-pro with 16k thinking (31.6), frozen Qwen-9B (31.5), a Claude agent with
+max effort and live corpus grep (31.0). **Spread: 0.6pp.** The agent emitted
+byte-identical phrases to pro on 8 of 12 tasks; its four grep-driven divergences
+netted −0.6pp (a +11.5 win from dropping an unsupported color exactly canceled
+by a −14.2 over-eager rename). A replay probe measured the thinking itself:
+under a 16,384-token budget the rules elicit ~2,900 thinking tokens (5× the
+bare prompt's 570) — and buy ~nothing over no-thinking-at-all at fixed rules.
+Reasoning without rules is equally flat (pro-bare 27.8 ≈ flash-bare 27.5):
+16k tokens of deliberation does not rediscover corpus law. The rules *are* the
+artifact; executor sophistication is a rounding error.
+
+## The oracle — the measured phrasing ceiling (2026-07-25..26)
+
+Adaptive phrase search on the sealed tasks (selection on layouts 0–17, honest
+estimation on virgin 18–23, then a full-grid leg of the frozen winners):
+**oracle 48.2 pooled** — the pre-registered prediction band was 48–53 —
+vs 36.1 for originals and ~39 for even per-task-best-arm cherry-picking.
+The strata read: in-vocab 50.3 / OOV 46.8 — find the right words and hostile-
+vocabulary tasks nearly *catch up*. The winning phrases are mundane: "put coke
+on keyboard" (dropping the word "can": +27pp over any pipeline), "pick up the
+carrot and place it in the white container" (the corpus-absence rename, 61%
+held-out on a task whose nominal scores 22). Nominal-rephrase lotteries never
+find these; adaptive search does, cheaply. Two bonus findings: search confirmed
+*nothing* above existing arms on two tasks (the confirm stage filters, not
+rubber-stamps), and the full-grid leg's built-in determinism cross-check
+revised a doctrine — rollouts reproduce exactly only within a pod; across
+pods/drivers 1–4 episodes per 72 flip (numeric drift on borderline
+trajectories).
+
+## v7, the β fork, and the plateau (2026-07-23..27)
+
+v7 re-ran the v6 recipe with the repaired reward (C4b = 0.25·ensemble +
+0.75·grip, rank-space), 16 reward frames, 50% input-dropout, GRPO. It climbed —
+then plateaued: real-rollout success (all 15 checkpoints backfilled from
+archived adapters, greedy *and* sampled at equal 192-episode budgets) peaks at
+**58.3% around step 120–140** and drifts to ~56; the sampled curve runs 3–7pp
+below greedy throughout (the policy's argmax improves; its distribution stays
+loose); proxy win-rate pins at 10% for 350 steps. The GRPO dynamics panel
+supplied a suspect: **KL collapsed to ~0.04** (abort threshold 1.2) exactly as
+rollout flatlined. v7b forked from the peak with β 0.15→0.05: KL rose 4× to
+~0.16 and win-rate ticked to a program-best 15% — but through step ~75 its
+rollout sits *on* v7's plateau (56.8). The policy moves more; the movement
+doesn't cash out. Which pointed the autopsy at the reward itself.
+
+![v7a vs v7b from the fork](results/charts/v7ab_compare.png)
+
+## The reward autopsy — measure it where training actually lives (2026-07-27)
+
+The bakeoff that crowned C4b graded rewards on **episode-averaged** scores (up
+to ~640 evaluations per phrase). Training never sees that: GRPO scores each
+candidate on **one context**. Bootstrapping the banked exam features into a
+measured (frames × contexts × blend) grid — same CRN draws throughout — broke
+the story open:
+
+![Measured F x C grid across reward blends](results/charts/fc_grid.png)
+
+- **The in-the-limit numbers were knife-edge artifacts.** C4b's famous 66/68
+  (97%) is the sign of the *complete-sample mean*; at any subsample the same
+  pairs reorder constantly. At training's operating point (C=1) C4b resolves
+  even 25pp-rollout-gap pairs at **58.6%**.
+- **Frames barely matter; contexts dominate.** At C=1, accuracy is flat in F
+  (57→58 from F=1→4). Along C it climbs 58→92. At iso-cost, F=1×C=4 beats
+  F=4×C=1 by 8pp. v7's F=16 upgrade — motivated by a variance model — spent 2×
+  step time on the wrong axis.
+- **The blend regime inverts.** At C=1 the *pure learned ensemble* wins (71.5
+  vs C4b's 58.6, +13pp) — low-variance but biased; grip is noisy but unbiased,
+  so with averaging their order flips (C=20: grip 92.4 > C4b 90.9 ≫ ens 74).
+  The bakeoff, evaluating at full averaging, systematically preferred the
+  reward that is *worst* per training decision.
+- **The cost anchor**: one rollout ≈ 8 reward-frame evaluations. v7's own
+  scoring budget (~2 rollouts per candidate) delivered 59% sign accuracy —
+  *less* than one real rollout per candidate would have (62%). At equal
+  compute, the proxy only beats rollouts in its context-averaged regimes.
+
+The theory ties it together: unbiased per-step noise is nearly free (SGD
+averages across steps as well as frames average within one — and fixed per-step
+costs, not statistics, set the optimal F·C ≈ 12–32), while *bias* is fatal at
+any noise level and no aggregation fixes it. The prescription became **v7e**:
+grip-pure reward (the unbiased corner) averaged over **16 same-instruction
+contexts × 4 frames** — 86–89% measured per-decision accuracy, ~3× v7's signal
+per GPU-hour — with the ensemble kept *out of the gradient and in a tripwire*
+(logged per-candidate; grip↑ while ensemble-z↓ = pre-registered hacking alarm).
+A full-Bridge census makes it concrete: 213 instructions have ≥16 episodes
+(~16k scoring contexts, no traces needed — traces only condition generation,
+and 809 already-traced episodes cover the parent side). Zero marginal Gemini.
+
+## Where this stands (2026-07-27)
+
+The sealed test is complete and the phrasing story is quantified end-to-end:
+adversarial phrasing costs 9.5pp; rules recover ~40% of it at any executor;
+the ceiling is 12pp above the best nominal and 17 above the best pipeline.
+The RL arc (v5→v7b) has not beaten its own fork point on real rollouts; the
+measured reward autopsy says the proxy's per-decision signal was the binding
+constraint all along, and v7e (launching at v7b's step-100 gate) is the first
+arm built *from* that measurement. Behind it, pre-registered: v8a — real
+rollouts as the reward, which the cost math now shows was never a luxury.
