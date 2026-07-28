@@ -35,9 +35,9 @@ for ax, (bl, name) in zip(axes, BLENDS):
     fig.colorbar(im, ax=ax, label="sign acc %")
 fig.suptitle(f"Fine-pair sign accuracy ({HALF} half, sim-grounded): 5-10pp gaps, conf ≥ 0.8 — "
              f"{g['buckets']['fine_5-10']} pairs, B={g['B']}", fontsize=11)
-fig.text(0.01, 0.01, "Per-F episode eligibility (needs F scored frames): F≤3 uses all 63 eps; F=5 row is a different task mix "
-         "(keyboard 10 / wheel 11 / cokeplate 7 / ramekin 0) — compare F5 across C, not against F1/F3 rows. "
-         "C=16 caps at available eps for keyboard/wheel (10/11). Calibration bucket honest benchmark ~55-60%. Native half pending.",
+fig.text(0.01, 0.01, "Full-coverage rescore (20,020 rows): every episode carries 6-8 scored frames, so all F rows use the same "
+         "63-episode pools (keyboard 10 / wheel 11 / cokeplate 22 / ramekin 20). C=16 still caps at available eps for keyboard/wheel. "
+         "Calibration bucket honest benchmark ~55-60%. Native half pending.",
          fontsize=7, color="#4a5568")
 fig.tight_layout(rect=[0, 0.05, 1, 0.93])
 fig.savefig(f"results/charts/fine_grid_{HALF}.png", dpi=150, bbox_inches="tight", pad_inches=0.25)

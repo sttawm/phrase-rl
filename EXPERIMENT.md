@@ -2136,3 +2136,13 @@ rollouts (v7f_rollout_curve.jsonl, 8-task pooled greedy+sampled, n=192 each).
 v7e retired at step ~27 (first rollout point: 40.89 greedy / 42.71 sampled, n=384/192
 — indistinguishable from fork reference v7a-140 at 42.19; too early for a verdict,
 absorbed as v7f's baseline lineage).
+
+## 2026-07-28 — correction: fine-grid F=5 row was computed on a partial rescore
+The first F{1,3,5}xC{..16} grid ran on a mid-flight pull of the pod6 rescore
+(12,373 rows): ramekin had zero 5-frame episodes scored yet and the F=5 row was a
+different task mix (charted with a caveat). The scorer finished at 20,020 rows —
+every episode now carries 6-8 frames, all F rows share identical 63-ep pools.
+Superseding F=5 numbers (fine bucket): C=10 c4b 79.4 / grip 79.3 / 50-50 77.7;
+C=16 grip 79.9 / c4b 79.6 — the 10->16 hop stays ~flat on close pairs at every F,
+while all-F coverage confirms saturation at C~8-10. Strengthens the v7f C=10 call.
+Med bucket unchanged in shape (ens-lean leads: 75/25 69.9 at F5C16 vs grip 61.2).
