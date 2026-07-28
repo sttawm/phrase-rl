@@ -12,8 +12,11 @@ import numpy as np
 
 HALF = sys.argv[1] if len(sys.argv) > 1 else "oov"
 g = json.load(open(f"results/analysis/fine_grid_{HALF}.json"))
-F_GRID = [1, 3]
-C_GRID = [1, 2, 4, 8, 10]
+
+# read the grid axes from the json itself so chart tracks whatever was measured
+cells = list(g["grid"])
+F_GRID = sorted({int(k.split("_")[0][1:]) for k in cells})
+C_GRID = sorted({int(k.split("_C")[1]) for k in cells})
 BLENDS = [("ens100", "100% ensemble"), ("c4b", "C4b (25% ens / 75% grip)"), ("grip", "100% grip")]
 
 fig, axes = plt.subplots(1, 3, figsize=(16.5, 3.6))
@@ -31,9 +34,10 @@ for ax, (bl, name) in zip(axes, BLENDS):
     fig.colorbar(im, ax=ax, label="sign acc %")
 fig.suptitle(f"Fine-pair sign accuracy ({HALF} half, sim-grounded): 5-10pp gaps, conf ≥ 0.8 — "
              f"{g['buckets']['fine_5-10']} pairs, B={g['B']}", fontsize=11)
-fig.text(0.01, 0.01, "Calibration bucket (0.5-5pp, honest benchmark ~55-60%): ens ~53-60 (near-optimal), grip ~50-53 (under-resolves). "
-         "Max measured cell F3C10; extension to F5/C16 (v7e's cell) pending top-up + native half.",
-         fontsize=7.5, color="#4a5568")
+fig.text(0.01, 0.01, "Per-F episode eligibility (needs F scored frames): F≤3 uses all 63 eps; F=5 row is a different task mix "
+         "(keyboard 10 / wheel 11 / cokeplate 7 / ramekin 0) — compare F5 across C, not against F1/F3 rows. "
+         "C=16 caps at available eps for keyboard/wheel (10/11). Calibration bucket honest benchmark ~55-60%. Native half pending.",
+         fontsize=7, color="#4a5568")
 fig.tight_layout(rect=[0, 0.05, 1, 0.93])
 fig.savefig(f"results/charts/fine_grid_{HALF}.png", dpi=150, bbox_inches="tight", pad_inches=0.25)
 print(f"chart -> results/charts/fine_grid_{HALF}.png")
