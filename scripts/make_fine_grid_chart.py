@@ -17,9 +17,10 @@ g = json.load(open(f"results/analysis/fine_grid_{HALF}.json"))
 cells = list(g["grid"])
 F_GRID = sorted({int(k.split("_")[0][1:]) for k in cells})
 C_GRID = sorted({int(k.split("_C")[1]) for k in cells})
-BLENDS = [("ens100", "100% ensemble"), ("c4b", "C4b (25% ens / 75% grip)"), ("grip", "100% grip")]
+BLENDS = [("ens100", "100% ensemble"), ("z75g25", "75% ens / 25% grip"), ("z50g50", "50% ens / 50% grip"),
+          ("c4b", "C4b (25% ens / 75% grip)"), ("grip", "100% grip")]
 
-fig, axes = plt.subplots(1, 3, figsize=(16.5, 3.6))
+fig, axes = plt.subplots(1, 5, figsize=(26, 3.7))
 for ax, (bl, name) in zip(axes, BLENDS):
     A = np.array([[g["grid"][f"F{F}_C{C}"][bl]["fine_5-10"] for C in C_GRID] for F in F_GRID])
     im = ax.imshow(A, origin="lower", cmap="viridis", vmin=50, vmax=85, aspect="auto")
