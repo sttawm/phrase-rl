@@ -2146,3 +2146,20 @@ Superseding F=5 numbers (fine bucket): C=10 c4b 79.4 / grip 79.3 / 50-50 77.7;
 C=16 grip 79.9 / c4b 79.6 — the 10->16 hop stays ~flat on close pairs at every F,
 while all-F coverage confirms saturation at C~8-10. Strengthens the v7f C=10 call.
 Med bucket unchanged in shape (ens-lean leads: 75/25 69.9 at F5C16 vs grip 61.2).
+
+## 2026-07-28 — early-repair backfill (pre-registration) + pod7 split pipeline
+User question: did v7a's repair ability (adversarial input -> ~42% rollout) develop
+in the first ~100 steps (where proxy/rollout correlation was 0.94 and the greedy-ERT
+proxy climbed steeply), or gradually? Current repair coverage is a single point
+(ckpt 140 = 41.9 vs raw-Adversarial 34.5).
+Leg: dev8adv-early on pod5 — checkpoints 0000-0100 (every 20), ERT input
+(contexts/traces_probe8_adv), greedy+sampled 192 each, appended to
+v7_dev8adv_backfill.jsonl (charts auto-update). Hypothesis (user): most of the
+repair jump happens by step ~100. Baseline anchor: step-0000 = fork init (SFT
+policy) — may sit BELOW 34.5 if naive rewriting hurts adversarial inputs.
+Infra: pod7 (A6000) render stack live (vulkan manifest repair + libegl1 per
+playbook; INT-ACT 19G + pi0 hf-cache 6.1G shipped from pod5; venv symlink audit
+clean). Split pipeline: scripts/v7_dev8_gen_only.sh (pod5, has .venv-gen +
+adapters) stages phrase parquets in results/phrase_artifacts/dev8q_* via git;
+scripts/v7_dev8_roll_only.sh (pod7) polls git for them and rolls. Late-polish
+checkpoints 0280-0340 -> pod7; early-repair 0000-0100 -> pod5.
