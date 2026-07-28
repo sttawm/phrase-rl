@@ -34,10 +34,16 @@ if os.path.exists("results/analysis/v7f_rollout_curve.jsonl"):
     curve = sorted((json.loads(l) for l in open("results/analysis/v7f_rollout_curve.jsonl")),
                    key=lambda d: d["step"])
 
-try:
-    v7a_best = max(json.loads(l)["pooled"] for l in open("results/analysis/v7_dev8_backfill.jsonl"))
-except Exception:
-    v7a_best = None
+import glob
+
+
+def _best(pattern):
+    vals = [json.loads(l)["pooled"] for f in glob.glob(pattern) for l in open(f)]
+    return max(vals) if vals else None
+
+
+v7a_best = _best("results/analysis/v7_dev8_tagged*.jsonl")  # tagged (fixed) evals
+v7a_best_untagged = _best("results/analysis/v7_dev8_backfill.jsonl")
 
 fig, (a1, a2, a3) = plt.subplots(1, 3, figsize=(17.5, 4.4))
 
@@ -77,8 +83,12 @@ a2.text(0.02, 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5, tran
 a2.text(0.02, 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5, transform=tr)
 if v7a_best is not None:
     a2.axhline(v7a_best, ls=":", color="#6b46c1", lw=1.6)
-    a2.text(0.02, v7a_best + 0.4, f"v7a best checkpoint {v7a_best:.1f}", color="#6b46c1",
+    a2.text(0.02, v7a_best + 0.4, f"v7a best (TAGGED evals so far) {v7a_best:.1f}", color="#6b46c1",
             fontsize=7.5, transform=tr)
+if v7a_best_untagged is not None:
+    a2.axhline(v7a_best_untagged, ls=":", color="#6b46c1", lw=1.0, alpha=0.35)
+    a2.text(0.02, v7a_best_untagged + 0.4, f"v7a best (untagged, pre-fix) {v7a_best_untagged:.1f}",
+            color="#6b46c1", alpha=0.5, fontsize=7, transform=tr)
 if curve:
     cs = [c["step"] for c in curve]
     a2.plot(cs, [c["pooled"] for c in curve], marker="D", ms=7, color="#2b6cb0", lw=2.0,
@@ -89,7 +99,7 @@ if curve:
             label="v7f: SAMPLED (rewriting originals, n=192)")
 # v7e's lone C=16 probe: its step 25 = fork+5 on this axis
 a2.scatter([5], [40.89], marker="X", s=90, color="#a0aec0", zorder=4,
-           label="v7e branch (C=16) @fork+5: 40.9 greedy / 42.7 sampled")
+           label="v7e branch (C=16) @fork+5: 40.9 (untagged probe, pre-fix)")
 a2.set_xlabel("v7f step (= steps past v7e@20 fork)")
 a2.set_ylabel("val-8 rollout success %")
 a2.set_ylim(30, 58)
