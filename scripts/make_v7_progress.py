@@ -79,7 +79,7 @@ except FileNotFoundError:
 try:
     d8a = sorted((json.loads(l) for l in open("results/analysis/v7_dev8adv_backfill.jsonl")), key=lambda r: r["step"])
     a2.plot([r["step"] for r in d8a], [r["pooled"] for r in d8a], marker="s", ms=8,
-            color="#dd6b20", lw=2.0, label="greedy on ERT (FULL val-8, repair)")
+            color="#e53e3e", lw=2.0, label="greedy on ERT (FULL val-8, repair)")
     a2.axhline(34.5, ls="--", color="#a0aec0", lw=1.2)
     a2.text(cs[0], 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5)
 except FileNotFoundError:
