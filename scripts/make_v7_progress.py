@@ -65,11 +65,16 @@ a1.legend(fontsize=8)
 a1.grid(alpha=0.25)
 
 cs = [c["step"] for c in curve]
-a2.plot(cs, [c["pooled"] for c in curve], marker="o", color="#2b6cb0", lw=1.2, alpha=0.55, label="greedy (4-task probe)")
+a2.plot(cs, [c["pooled"] for c in curve], marker="o", color="#2b6cb0", lw=1.2, alpha=0.55,
+        label="4-task probe: greedy (rewriting originals)")
 try:
     d8 = sorted((json.loads(l) for l in open("results/analysis/v7_dev8_backfill.jsonl")), key=lambda r: r["step"])
     a2.plot([r["step"] for r in d8], [r["pooled"] for r in d8], marker="D", ms=7,
-            color="#6b46c1", lw=2.2, label="greedy (FULL val-8)")
+            color="#6b46c1", lw=2.2, label="val-8: GREEDY (rewriting originals)")
+    d8s = [r for r in d8 if r.get("sampled_pooled") is not None]
+    a2.plot([r["step"] for r in d8s], [r["sampled_pooled"] for r in d8s], marker="D", ms=7,
+            markerfacecolor="none", markeredgecolor="#6b46c1", color="#6b46c1", lw=1.4, ls="--",
+            label="val-8: SAMPLED (rewriting originals)")
     a2.axhline(40.6, ls="--", color="#48bb78", lw=1.2)
     a2.text(cs[0], 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5)
     a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
@@ -79,7 +84,7 @@ except FileNotFoundError:
 try:
     d8a = sorted((json.loads(l) for l in open("results/analysis/v7_dev8adv_backfill.jsonl")), key=lambda r: r["step"])
     a2.plot([r["step"] for r in d8a], [r["pooled"] for r in d8a], marker="s", ms=8,
-            color="#e53e3e", lw=2.0, label="greedy on ERT (FULL val-8, repair)")
+            color="#e53e3e", lw=2.0, label="val-8: GREEDY (rewriting ADVERSARIAL)")
     a2.axhline(34.5, ls="--", color="#a0aec0", lw=1.2)
     a2.text(cs[0], 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5)
 except FileNotFoundError:
@@ -87,7 +92,7 @@ except FileNotFoundError:
 sc = [c for c in curve if c.get("sampled_pooled") is not None]
 if sc:
     a2.plot([c["step"] for c in sc], [c["sampled_pooled"] for c in sc],
-            marker="D", ms=4, color="#dd6b20", lw=2.0, label="sampled (mean)")
+            marker="D", ms=4, color="#dd6b20", lw=2.0, label="4-task probe: sampled (rewriting originals)")
 tasks = sorted(curve[0]["per_task"])
 for t, col in zip(tasks, ["#a0aec0", "#48bb78", "#90cdf4", "#9f7aea"]):
     a2.plot(cs, [c["per_task"].get(t) for c in curve], marker=".", ms=3, lw=0.7, alpha=0.5,
