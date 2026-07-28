@@ -93,10 +93,6 @@ sc = [c for c in curve if c.get("sampled_pooled") is not None]
 if sc:
     a2.plot([c["step"] for c in sc], [c["sampled_pooled"] for c in sc],
             marker="D", ms=4, color="#dd6b20", lw=2.0, label="4-task probe: sampled (rewriting originals)")
-tasks = sorted(curve[0]["per_task"])
-for t, col in zip(tasks, ["#a0aec0", "#48bb78", "#90cdf4", "#9f7aea"]):
-    a2.plot(cs, [c["per_task"].get(t) for c in curve], marker=".", ms=3, lw=0.7, alpha=0.5,
-            color=col, label=t.replace("widowx_", ""))
 a2.set_xlabel("checkpoint step")
 a2.set_ylabel("rollout success %")
 a2.set_title("REAL rollouts: 4-task probe curve + FULL val-8 checkpoints vs references")
