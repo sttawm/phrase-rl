@@ -2068,3 +2068,16 @@ Final point confirms the gate: greedy DECLINED over the run (56.8 -> 55.2) and
 the step-75 sampled convergence partially reverted (56.25 -> 51.0; partly
 noise). v7b complete record: 100 steps, 4x policy movement, rollout flat-to-
 down. Beta verdict stands.
+
+## 2026-07-28 — Val-8 reference leg LANDS (n=288/task/arm) + CORRECTION
+Rolled reference (pod6): Oracle 54.7 (58.6 iv / 50.9 oov), Original 40.6
+(53.7 / 27.4), Adversarial 34.5 (41.3 / 27.7). CORRECTS the banked provisional
+(Orig 47.7 / Oracle 65.1 — board estimates were winner/mix biased, regressed
+at full n exactly like the sealed confirm round taught). CORRECTION to the
+prior read: v7 best checkpoints (42.2-43.1 val-8 pooled) sit +1.6..+2.5 ABOVE
+the true Original (40.6), not below the provisional 47.7 — v7 modestly beats
+nominal on val-8, ~12pp below Oracle. Other findings: Adv costs -6.1 pooled but
+~0 on OOV (27.7 vs 27.4 — can't break what's already broken; all Adv damage is
+in-vocab -12.4). Star datum: ramekin Adv 66.7 vs Orig 11.1 — the ERT attack
+accidentally performs the corpus-absence rename ("white ceramic dish") and
+SEXTUPLES the nominal: the rename law confirmed from a hostile direction.
