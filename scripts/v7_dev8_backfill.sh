@@ -6,15 +6,15 @@ set -uo pipefail
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 export VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline
-export PROBE_CONTEXTS=results/phrase_artifacts/contexts_probe8.parquet
-export PROBE_TRACES=results/phrase_artifacts/traces_probe8.parquet
+export PROBE_CONTEXTS=${PROBE_CONTEXTS:-results/phrase_artifacts/contexts_probe8.parquet}
+export PROBE_TRACES=${PROBE_TRACES:-results/phrase_artifacts/traces_probe8.parquet}
 cd /workspace/phrase-rl
 GEN=/workspace/phrase-rl/.venv-gen/bin/python
 VLA=/workspace/INT-ACT/.venv/bin/python
 ROLL=/workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py
 CFG=config/experiment/simpler/pi0_finetune_bridge_ev.yaml
 CKPT=juexzz/INTACT-pi0-finetune-rephrase-bridge
-OUT=results/analysis/v7_dev8_backfill.jsonl
+OUT=results/analysis/${DEV8_OUT:-v7_dev8_backfill.jsonl}
 mark() { echo "[dev8 $(date -u +%H:%M)] $*" | tee -a /workspace/dev8.log; }
 wait_idle() { while pgrep -f "[p]hase0c_rollout" >/dev/null; do sleep 240; done; }
 
@@ -44,16 +44,16 @@ for s in ${STEPS:-0120 0140 0200 0260}; do
   fail=0; wait $gp || fail=1; wait $sp || fail=1
   cd /workspace/phrase-rl
   [ $fail = 1 ] && { mark "ROLL FAIL $s"; continue; }
-  STEP=$step $GEN - <<'PYEOF' || { mark "MERGE FAIL $s"; continue; }
+  STEP=$step DEV8_TAG=${DEV8_TAG:-dev8} $GEN - <<'PYEOF' || { mark "MERGE FAIL $s"; continue; }
 import json, os
 import pandas as pd
 g = pd.read_parquet("data/dev8_g_out.parquet")
 s_ = pd.read_parquet("data/dev8_s_out.parquet")
-rec = {"step": int(os.environ["STEP"]), "probe": "dev8",
+rec = {"step": int(os.environ["STEP"]), "probe": os.environ.get("DEV8_TAG", "dev8"),
        "n": int(len(g)), "pooled": round(float(g.success.mean()*100), 2),
        "per_task": {t: round(float(x.success.mean()*100), 1) for t, x in g.groupby("task")},
        "sampled_n": int(len(s_)), "sampled_pooled": round(float(s_.success.mean()*100), 2)}
-with open("results/analysis/v7_dev8_backfill.jsonl", "a") as f:
+with open("results/analysis/" + os.environ.get("DEV8_OUT", "v7_dev8_backfill.jsonl"), "a") as f:
     f.write(json.dumps(rec) + "\n")
 print("dev8 step", rec["step"], "greedy", rec["pooled"], "sampled", rec["sampled_pooled"])
 PYEOF
