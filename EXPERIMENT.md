@@ -2101,3 +2101,17 @@ ties. Native half (sim-grounded recordings pending on pod5) will separate
 OOV-effect from sim-grounding-effect. v7e reads: C-dominance premise CONFIRMED
 in the fine regime; grip-pure choice partially challenged (blend > grip at
 high C here) — revisit at v7e's first-probe gate with native half in hand.
+
+## 2026-07-28 — ops: pod git repair, checkpoint backlog pushed, v7e sync live
+Root cause found for the recurring pod "could not detach HEAD" wedges: scripts scp'd
+to pods before their local commits landed become untracked-vs-tracked collisions, which
+block `git pull --rebase`, which makes every ckpt-sync loop log PUSH-DEFERRED forever.
+Repair (both pods): backup-if-differs -> rm collision files -> rebase -> chunked push.
+Landed: L40S backlog of 7 commits pushed (v7a step_0320/0340 snapshots, v7b adapters
+20-80, metrics.json now tracking v7e); pod5 deferred result commits pushed after
+union-dedup jsonl conflict resolution. v7b confirmed complete at step_0080 (trained ==
+archived). v7esync session launched on L40S (sed-clone of sync_v7b.sh): v7e step_0000
++ step_0020 archived within minutes of launch. Chart relabeled v7a per user (all
+val-8 backfill points are the beta=0.15 run; v7b/v7e never val-8-evaluated yet).
+Prevention rule reaffirmed: commit+push locally FIRST, pull on pod — never bare scp
+of tracked files.
