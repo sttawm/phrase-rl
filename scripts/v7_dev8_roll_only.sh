@@ -27,6 +27,7 @@ for s in ${STEPS:?set STEPS}; do
   until [ -f "$g" ]; do timeout 90 git pull -q 2>/dev/null; [ -f "$g" ] || sleep 180; done
   wait_idle
   mark "roll $s greedy(192)+sampled(192) [$TAG]"
+  rm -f data/dev8_g_out.parquet data/dev8_s_out.parquet
   cd /workspace/INT-ACT
   $VLA $ROLL --int-act-root /workspace/INT-ACT --config $CFG --ckpt $CKPT \
     --phrases /workspace/phrase-rl/$g --episode-ids $(seq 0 23) --repeats 1 \
