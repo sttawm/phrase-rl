@@ -2062,3 +2062,9 @@ ensemble-z tripwire logged.
 Also: val-8 reference leg assets authored (ph_val8_reference.parquet — orig/
 ERT-adv/oracle-best x 8 tasks; ERT provenance-matched to sealed stage_gemini);
 leg queued on pod6 post-ship.
+
+## 2026-07-28 — v7b closing datum: step 100 = 55.2 greedy / 51.0 sampled
+Final point confirms the gate: greedy DECLINED over the run (56.8 -> 55.2) and
+the step-75 sampled convergence partially reverted (56.25 -> 51.0; partly
+noise). v7b complete record: 100 steps, 4x policy movement, rollout flat-to-
+down. Beta verdict stands.
