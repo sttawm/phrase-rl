@@ -2163,3 +2163,25 @@ clean). Split pipeline: scripts/v7_dev8_gen_only.sh (pod5, has .venv-gen +
 adapters) stages phrase parquets in results/phrase_artifacts/dev8q_* via git;
 scripts/v7_dev8_roll_only.sh (pod7) polls git for them and rolls. Late-polish
 checkpoints 0280-0340 -> pod7; early-repair 0000-0100 -> pod5.
+
+## 2026-07-28 — CORRECTION + finding: repair numbers were contaminated; repair DECLINES with training
+Bug: phase0c_rollout resumes/accumulates on its --out parquet ("resume: N episodes
+already recorded"). The dev8adv runs (pre-cleanup-patch runner) therefore averaged
+stale rows from earlier rolls into their recorded pooled numbers. The tell: n=432/528
+instead of the designed 192. Polish rows are clean (n=192 exact, fresh files).
+Recovery: append order preserves run boundaries -> row-order segmentation, verified
+structurally (each clean slice = exactly 8 phrases x 24 layouts; 260 additionally by
+input-phrase filter; 4 of 260's greedy rewrites were identical to 140's and their
+reused episodes are valid — frozen executor, same phrase+layout).
+Corrected: repair-140 = 39.58 greedy / 41.15 sampled (was 41.9/38.82);
+repair-260 = 34.90 greedy / 36.46 sampled (was 38.64/38.41).
+RETRACTIONS: "repair-140 fully repairs the attack / lands on the polish curve" — at
+140 repair recovers 66% of the polish gap (34.5 -> 39.6 vs polish 42.2); by 260
+repair is GONE (34.9 ~= raw adversarial 34.5) while polish rose to 43.75.
+FINDING (1-sigma-ish per point, but consistent across greedy+sampled and concentrated
+in coke_can_on_plate 45.8->20.8): later v7a training traded repair ability for
+polish. The greedy-ERT proxy (panel 1) stayed flat through this decline — another
+deaf-gradient blind spot. Checkpoint selection must now weigh both conditions;
+the early-repair leg (0-100, tonight) will locate the repair peak.
+Guards landed: out-parquet rm in dev8 runner (SKIP_SAMPLED patch), roll-only script
+patched + pod7 session relaunched before any roll (no pod7 contamination).
