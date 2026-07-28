@@ -25,8 +25,8 @@ gt = {(r.task, r.phrase): (r.gt_success, r.gt_n) for r in pan.itertuples()}
 
 RNG = np.random.default_rng(11)
 B = 300
-F_GRID = [1, 3]
-C_GRID = [1, 2, 4, 8, 10]
+F_GRID = [1, 3, 5]
+C_GRID = [1, 2, 4, 8, 10, 16]
 BLENDS = ("ens100", "z75g25", "z50g50", "c4b", "grip")
 
 states = {}
@@ -63,17 +63,26 @@ for b, prs in buckets.items():
 r01 = lambda x: (np.argsort(np.argsort(x)) / max(len(x) - 1, 1))
 out = {}
 for F in F_GRID:
+    # an episode only counts for this F if it actually has F scored frames —
+    # no silent F-degradation; tasks with zero eligible eps drop to NaN (pairs skipped)
+    elig = {t: [e for e in range(s["n_eps"]) if len(s["t_avail"][e]) >= F]
+            for t, s in states.items()}
+    print(f"F={F} eligible eps: " + ", ".join(
+        f"{t.replace('widowx_', '').replace('_clean', '')}={len(v)}" for t, v in elig.items()))
     for C in C_GRID:
         acc = {bl: {b: [0, 0] for b in buckets} for bl in BLENDS}
         for _ in range(B):
             sc = {}
             for t, s in states.items():
-                epick = RNG.choice(s["n_eps"], size=min(C, s["n_eps"]), replace=False)
+                pool = elig[t]
+                if not pool:
+                    nanv = np.full(len(s["ki"]), np.nan)
+                    sc[t] = {bl: nanv for bl in BLENDS}
+                    continue
+                epick = RNG.choice(pool, size=min(C, len(pool)), replace=False)
                 zs, gs = [], []
                 for e in epick:
-                    av = s["t_avail"][e]
-                    if len(av) == 0: continue
-                    fp = RNG.choice(av, size=min(F, len(av)), replace=False)
+                    fp = RNG.choice(s["t_avail"][e], size=F, replace=False)
                     zs.append(np.nanmean(s["Z"][:, e, :][:, fp], axis=1))
                     gs.append(np.nanmean(s["G"][:, e, :][:, fp], axis=1))
                 z = np.nanmean(np.stack(zs), axis=0); g = np.nanmean(np.stack(gs), axis=0)
