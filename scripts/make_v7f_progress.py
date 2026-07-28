@@ -67,16 +67,18 @@ a1.set_ylabel("proxy reward (grip-pure)")
 a1.set_title("proxy-reward val (n=40 contexts)")
 a1.grid(alpha=0.25)
 
+a2.set_xlim(0, max([c["step"] for c in curve] + [30]) + 5)
+tr = a2.get_yaxis_transform()  # x in axes fraction, y in data units
 a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
 a2.axhline(40.6, ls="--", color="#48bb78", lw=1.2)
 a2.axhline(34.5, ls="--", color="#a0aec0", lw=1.2)
-x0 = 0
-a2.text(x0, 55.1, "Oracle 54.7 (val-8)", color="#822727", fontsize=7.5)
-a2.text(x0, 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5)
-a2.text(x0, 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5)
+a2.text(0.02, 55.1, "Oracle 54.7 (val-8)", color="#822727", fontsize=7.5, transform=tr)
+a2.text(0.02, 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5, transform=tr)
+a2.text(0.02, 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5, transform=tr)
 if v7a_best is not None:
     a2.axhline(v7a_best, ls=":", color="#6b46c1", lw=1.6)
-    a2.text(x0, v7a_best + 0.4, f"v7a best checkpoint {v7a_best:.1f}", color="#6b46c1", fontsize=7.5)
+    a2.text(0.02, v7a_best + 0.4, f"v7a best checkpoint {v7a_best:.1f}", color="#6b46c1",
+            fontsize=7.5, transform=tr)
 if curve:
     cs = [c["step"] for c in curve]
     a2.plot(cs, [c["pooled"] for c in curve], marker="D", ms=7, color="#2b6cb0", lw=2.0,
