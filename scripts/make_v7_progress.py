@@ -13,7 +13,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-log = sys.argv[1] if len(sys.argv) > 1 else "/tmp/v7_train_log.jsonl"
+log = sys.argv[1] if len(sys.argv) > 1 else "results/analysis/v7a_train_log.jsonl"
 vals = []
 for line in open(log):
     try:
@@ -74,6 +74,14 @@ try:
     a2.text(cs[0], 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5)
     a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
     a2.text(cs[0], 55.1, "Oracle 54.7 (val-8)", color="#822727", fontsize=7.5)
+except FileNotFoundError:
+    pass
+try:
+    d8a = sorted((json.loads(l) for l in open("results/analysis/v7_dev8adv_backfill.jsonl")), key=lambda r: r["step"])
+    a2.plot([r["step"] for r in d8a], [r["pooled"] for r in d8a], marker="s", ms=8,
+            color="#dd6b20", lw=2.0, label="greedy on ERT (FULL val-8, repair)")
+    a2.axhline(34.5, ls="--", color="#a0aec0", lw=1.2)
+    a2.text(cs[0], 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5)
 except FileNotFoundError:
     pass
 sc = [c for c in curve if c.get("sampled_pooled") is not None]
