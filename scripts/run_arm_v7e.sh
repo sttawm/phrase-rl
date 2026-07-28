@@ -49,7 +49,7 @@ tmux new-session -d -s train \
      --reward-blend c4b --blend-w 0.0 --reward-contexts ${RCTX:-16} --club-contexts data/contexts_club.parquet \
      --gen-mode sample_single --update-rule grpo --no-gate \
      --gen-temp 1.0 --n-candidates 16 \
-     --score-timeout 1800 \
+     --score-timeout 3600 \
      --beta $BETA --lr 7e-6 --kl-abort 1.2 \
      --contexts-per-step 8 --grad-accum-groups 6 \
      --val-every 20 --save-every 10 --probe-every 25 --probe-samples 4 \
