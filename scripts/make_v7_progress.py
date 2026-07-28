@@ -65,7 +65,17 @@ a1.legend(fontsize=8)
 a1.grid(alpha=0.25)
 
 cs = [c["step"] for c in curve]
-a2.plot(cs, [c["pooled"] for c in curve], marker="o", color="#2b6cb0", lw=2.2, label="greedy (deploy)")
+a2.plot(cs, [c["pooled"] for c in curve], marker="o", color="#2b6cb0", lw=1.2, alpha=0.55, label="greedy (4-task probe)")
+try:
+    d8 = sorted((json.loads(l) for l in open("results/analysis/v7_dev8_backfill.jsonl")), key=lambda r: r["step"])
+    a2.plot([r["step"] for r in d8], [r["pooled"] for r in d8], marker="D", ms=7,
+            color="#6b46c1", lw=2.2, label="greedy (FULL val-8)")
+    a2.axhline(40.6, ls="--", color="#48bb78", lw=1.2)
+    a2.text(cs[0], 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5)
+    a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
+    a2.text(cs[0], 55.1, "Oracle 54.7 (val-8)", color="#822727", fontsize=7.5)
+except FileNotFoundError:
+    pass
 sc = [c for c in curve if c.get("sampled_pooled") is not None]
 if sc:
     a2.plot([c["step"] for c in sc], [c["sampled_pooled"] for c in sc],
@@ -76,7 +86,7 @@ for t, col in zip(tasks, ["#a0aec0", "#48bb78", "#90cdf4", "#9f7aea"]):
             color=col, label=t.replace("widowx_", ""))
 a2.set_xlabel("checkpoint step")
 a2.set_ylabel("rollout success %")
-a2.set_title("REAL rollout val (n=192/pt, greedy + sampled)")
+a2.set_title("REAL rollouts: 4-task probe curve + FULL val-8 checkpoints vs references")
 a2.legend(fontsize=6.5, ncol=2)
 a2.grid(alpha=0.25)
 
