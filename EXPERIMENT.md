@@ -2115,3 +2115,24 @@ archived). v7esync session launched on L40S (sed-clone of sync_v7b.sh): v7e step
 val-8 backfill points are the beta=0.15 run; v7b/v7e never val-8-evaluated yet).
 Prevention rule reaffirmed: commit+push locally FIRST, pull on pod — never bare scp
 of tracked files.
+
+## 2026-07-28 — v7f: C=16 -> C=10 fork of v7e (pre-registration)
+User decision after fine+coarse grid review: fork v7e to reward-contexts=10.
+Evidence: coarse grid (68 gate-zero pairs, uncapped pools) shows C 8->10 is the
+steepest segment on the axis (grip F=4: 82.2->86.8) while 10->16 buys only +2.1pp
+(86.8->88.9); fine grid (5-10pp pairs) shows 10->16 flat (77.0->77.1 c4b) though
+half its tasks cap at 10-11 eps. Theory: C is a variance knob and unbiased per-step
+noise averages out across SGD steps; F*C=40 sits at the top of the optimal 12-32
+band vs v7e's 64. Cost: scoring ~1935s of the 2215s step scales with C -> step
+~26min vs ~37min, +48% steps/GPU-day. F stays 4 (F axis is steep: F4->F2 costs
+5.9pp at C=10). Blend stays grip-pure pending the native-half exam adjudication
+(fine grid shows 50/50 within 0.6pp on fine pairs and better on 10-15pp pairs —
+lever reserved for a later arm if native half confirms).
+Fork point: phase2_v7e/step_0020 (latest v7e snapshot; its 20-step C=16 prefix is
+provenance-noted, benign — same estimator, lower variance). Everything else
+identical to v7e: grip-pure blend-w 0.0, F=4, beta 0.05, lr 7e-6, probe8 probes,
+ensemble-z Goodhart tripwire. Launcher: scripts/run_arm_v7f.sh. Judged on real
+rollouts (v7f_rollout_curve.jsonl, 8-task pooled greedy+sampled, n=192 each).
+v7e retired at step ~27 (first rollout point: 40.89 greedy / 42.71 sampled, n=384/192
+— indistinguishable from fork reference v7a-140 at 42.19; too early for a verdict,
+absorbed as v7f's baseline lineage).
