@@ -27,7 +27,7 @@ RNG = np.random.default_rng(11)
 B = 300
 F_GRID = [1, 3]
 C_GRID = [1, 2, 4, 8, 10]
-BLENDS = ("ens100", "c4b", "grip")
+BLENDS = ("ens100", "z75g25", "z50g50", "c4b", "grip")
 
 states = {}
 for t, sub in feats.groupby("task"):
@@ -78,7 +78,7 @@ for F in F_GRID:
                     gs.append(np.nanmean(s["G"][:, e, :][:, fp], axis=1))
                 z = np.nanmean(np.stack(zs), axis=0); g = np.nanmean(np.stack(gs), axis=0)
                 z01, g01 = r01(z), r01(-g)
-                sc[t] = {"ens100": z01, "c4b": 0.25*z01 + 0.75*g01, "grip": g01}
+                sc[t] = {"ens100": z01, "z75g25": 0.75*z01 + 0.25*g01, "z50g50": 0.5*z01 + 0.5*g01, "c4b": 0.25*z01 + 0.75*g01, "grip": g01}
             for b, prs in buckets.items():
                 for t, bett, wors, gap, conf in prs:
                     s = states[t]
