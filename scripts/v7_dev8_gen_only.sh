@@ -13,7 +13,9 @@ cd /workspace/phrase-rl
 GEN=/workspace/phrase-rl/.venv-gen/bin/python
 TAG=${GTAG:-dev8}
 mark() { echo "[genonly $(date -u +%H:%M)] $*" | tee -a /workspace/dev8gen.log; }
-wait_idle() { while pgrep -f "[p]hase0c_rollout" >/dev/null; do sleep 240; done; }
+# SKIP_WAIT=1: run alongside a live roll (Qwen ~20G + sim ~7G fits 46G; the only
+# tight window is overlap with the resident runner's own gen phase, ~40G, still ok)
+wait_idle() { [ "${SKIP_WAIT:-0}" = 1 ] && return 0; while pgrep -f "[p]hase0c_rollout" >/dev/null; do sleep 240; done; }
 
 for s in ${STEPS:?set STEPS}; do
   g=results/phrase_artifacts/dev8q_g_${TAG}_$s.parquet
