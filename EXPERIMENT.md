@@ -2081,3 +2081,8 @@ nominal on val-8, ~12pp below Oracle. Other findings: Adv costs -6.1 pooled but
 in-vocab -12.4). Star datum: ramekin Adv 66.7 vs Orig 11.1 — the ERT attack
 accidentally performs the corpus-absence rename ("white ceramic dish") and
 SEXTUPLES the nominal: the rename law confirmed from a hostile direction.
+
+## 2026-07-28 — Val-8 checkpoint backfill COMPLETE (4/4)
+v7 on the full val-8 (greedy, n=192-216/pt): step 120: 42.2, 140: 42.2,
+200: 43.1, 260: 43.8. Flat 42-44 band — all +2..+3 over Original (40.6),
+~11 under Oracle (54.7). Best: step 260 (within noise of all four).
