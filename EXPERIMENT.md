@@ -2185,3 +2185,31 @@ deaf-gradient blind spot. Checkpoint selection must now weigh both conditions;
 the early-repair leg (0-100, tonight) will locate the repair peak.
 Guards landed: out-parquet rm in dev8 runner (SKIP_SAMPLED patch), roll-only script
 patched + pod7 session relaunched before any roll (no pod7 contamination).
+
+## 2026-07-28 — BUG (user-caught): eval-time generation omitted tier tags entirely
+--tier-tags training (v6.3+, so v7a/v7b/v7e/v7f) never shows the policy a bare
+instruction: every input is one of "[input: original wording]" / "[input:
+paraphrased]" / "[input: adversarially reworded]" / "[input: withheld] infer the
+task from the context". But BOTH eval-time generators built prompts untagged:
+scripts/gen_ckpt_phrases.py (all dev8 backfills, both conditions, 4-task curve)
+and run_probes in phase2_train (trainer-emitted probes -> rval curves, incl. v7e's
+40.89 point). Every rollout eval of checkpoint-generated phrases has therefore
+probed the policy OUT-OF-DISTRIBUTION. run_val (proxy panel) tagged correctly all
+along — the proxy/rollout divergences get a third possible cause, and the
+repair-decline finding (39.6->34.9) is CONFOUNDED: later checkpoints may be more
+tag-reliant rather than worse at repair. Sealed-test rows unaffected (fixed phrase
+arms, no policy generation; rules/baseline arms use Gemini/Qwen prompts, untagged
+by design).
+Fixes: gen_ckpt_phrases now tags via GEN_TAG (default "[input: original wording]",
+adv evals pass "[input: adversarially reworded]", GEN_TAG="" for pre-tag ckpts) and
+strips model-emitted tag prefixes from outputs; run_probes tags nominal probes when
+tier_tags is on. v7f restarted (step 2, ~50min lost) so its entire probe record is
+tagged-mode. Untagged-mode rows stay in their jsonls as internally-consistent
+untagged measurements; tagged redos write v7_dev8_tagged.jsonl /
+v7_dev8adv_tagged.jsonl. Redo queue: late 0280-0340 (tagged from the start),
+early-repair 0000-0100 (tagged), then re-eval polish 0120-0260 + repair 0140/0260.
+Training-side audit (user request): tier->tag->source mapping verified correct in
+pick_source_and_trace — every return path pairs the label with matching content,
+fallbacks relabel properly (ert->benign->nominal). One footnote: a missing ERT
+trace falls back to the NOMINAL trace for a hostile source (leakage-firewall
+exception, frequency unknown; acceptable, logged here for the record).

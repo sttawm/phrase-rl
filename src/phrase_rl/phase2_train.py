@@ -812,7 +812,12 @@ def run_probes(model, processor, args) -> list[dict]:
     out = []
     model.eval()
     for pr in getattr(args, "_probes", []):
-        msgs = cover_prompt.build_single_phrase_prefix(pr["instruction"], pr["image"], trace=pr["trace"])
+        # probe contexts are nominal instructions: tag to match the training
+        # input distribution (tier_tags policies never saw untagged inputs)
+        p_instr = pr["instruction"]
+        if getattr(args, "tier_tags", False):
+            p_instr = f"[input: original wording] {p_instr}"
+        msgs = cover_prompt.build_single_phrase_prefix(p_instr, pr["image"], trace=pr["trace"])
         inputs = apply_template(processor, msgs, continue_final_message=True).to(model.device)
         with torch.no_grad():
             gen = model.generate(**inputs, do_sample=False, max_new_tokens=48)

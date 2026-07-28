@@ -8,6 +8,7 @@ data/rval_greedy.parquet + data/rval_sampled.parquet (the rval roller's schema).
 """
 import io
 import os
+import re
 import sys
 
 import pandas as pd
@@ -33,15 +34,24 @@ ctx = pd.read_parquet(os.environ.get("PROBE_CONTEXTS", "results/phrase_artifacts
 tr = pd.read_parquet(os.environ.get("PROBE_TRACES", "results/phrase_artifacts/traces_0c_tasks.parquet"))
 tmap = {(r.episode_index, r.t): r.trace for r in tr.itertuples()}
 
+# tier-conditioning tag: v6.3+ policies never saw a bare untagged instruction in
+# training, so eval-time inputs must carry the condition's tag. Override with
+# GEN_TAG="[input: adversarially reworded]" for adversarial-input (repair) evals;
+# GEN_TAG="" for pre-tag (v5/v6.0) checkpoints.
+TAG = os.environ.get("GEN_TAG", "[input: original wording]")
+_TAG_RE = re.compile(r"^\s*(?:\[input:[^\]]*\]\s*)+")
+
 
 def dec(o, plen):
-    return proc.decode(o[plen:], skip_special_tokens=True).strip().split("\n")[0].strip()
+    t = proc.decode(o[plen:], skip_special_tokens=True).strip().split("\n")[0].strip()
+    return _TAG_RE.sub("", t).strip()
 
 
 greedy, sampled = [], []
 for r in ctx.itertuples():
     img = Image.open(io.BytesIO(r.image_png)).convert("RGB")
-    msgs = build_single_phrase_prefix(r.instruction, img, trace=tmap.get((r.episode_index, r.t)))
+    src = f"{TAG} {r.instruction}" if TAG else r.instruction
+    msgs = build_single_phrase_prefix(src, img, trace=tmap.get((r.episode_index, r.t)))
     inp = apply_template(proc, msgs, continue_final_message=True).to(model.device)
     plen = inp["input_ids"].shape[1]
     with torch.no_grad():
