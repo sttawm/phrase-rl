@@ -2086,3 +2086,18 @@ SEXTUPLES the nominal: the rename law confirmed from a hostile direction.
 v7 on the full val-8 (greedy, n=192-216/pt): step 120: 42.2, 140: 42.2,
 200: 43.1, 260: 43.8. Flat 42-44 band — all +2..+3 over Original (40.6),
 ~11 under Oracle (54.7). Best: step 260 (within noise of all four).
+
+## 2026-07-28 — Fine-discrimination grid, OOV half (sim-grounded, 1132 pairs)
+Buckets: fine 5-10pp (120 pairs, conf>=0.8), med 10-15 (578), calib 0.5-5 (434,
+unfiltered). FINDINGS: (1) C-axis dominance HOLDS on fine pairs (ens 57->72
+along C at F=1); frames help more here than on Bridge coarse pairs (F1->F3
++4-6pp). (2) Blend at C=1: ens100 57.3 > c4b 54.4 > grip 54.0 — inversion
+direction holds but margin +3, not +13. At F3C10: c4b 80.2 > grip 76.4 > ens
+74.8 — the BLEND wins high-aggregation on OOV (unlike Bridge-coarse where grip
+won); C4b vindicated on this half. (3) Calibration bucket: grip ~50-53, ens
+~53-60 — NOTE the honest benchmark is ~55-60 (mean ordering-confidence of the
+bucket), not 50: ens is near-optimal there, grip UNDER-resolves resolvable
+ties. Native half (sim-grounded recordings pending on pod5) will separate
+OOV-effect from sim-grounding-effect. v7e reads: C-dominance premise CONFIRMED
+in the fine regime; grip-pure choice partially challenged (blend > grip at
+high C here) — revisit at v7e's first-probe gate with native half in hand.
