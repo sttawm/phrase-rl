@@ -23,7 +23,7 @@ while true; do
   # up to whatever actually exists, so no target can wedge the loop)
   next=$(ls results/checkpoints/archive/ 2>/dev/null | grep -oE "v7f_step_[0-9]+" | grep -oE "[0-9]+$" | sort -n | awk -v t=$((last + STRIDE)) '$1 >= t' | head -1)
   if [ -n "$next" ]; then
-    s=$(printf "%04d" $next)
+    s=$(printf "%04d" $((10#$next)))
     d=/workspace/v7f_adapters/step_$s
     if [ ! -f "$d/adapter_model.safetensors" ]; then
       mkdir -p /tmp/v7fck && rm -rf /tmp/v7fck/*
