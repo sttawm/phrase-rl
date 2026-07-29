@@ -1,0 +1,183 @@
+{
+ "estimator": "F=4 x C<=20 own-club contexts (grip primary)",
+ "caveat": "own-scene estimates: cross-instruction comparison includes scene difficulty",
+ "top15": [
+  {
+   "rank_grip": 1,
+   "instruction": "close drawer of box",
+   "grip": 0.004060691501945257,
+   "z": 0.8372605345677584,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 2,
+   "instruction": "end effector transition from pot or pan to object",
+   "grip": 0.004191964957863092,
+   "z": 1.0708058636635542,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 3,
+   "instruction": "turn faucet front to right",
+   "grip": 0.0043055939488112925,
+   "z": 1.0604188551194966,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 4,
+   "instruction": "end effector reaching carrot",
+   "grip": 0.004397150711156428,
+   "z": 1.2546849894570187,
+   "eff_C": 16
+  },
+  {
+   "rank_grip": 5,
+   "instruction": "open drawer of box",
+   "grip": 0.004545558989048004,
+   "z": 0.6435107875731774,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 6,
+   "instruction": "open book",
+   "grip": 0.004602434486150742,
+   "z": -0.04075230688322336,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 7,
+   "instruction": "end effector reaching pot or pan",
+   "grip": 0.004625907726585865,
+   "z": 0.877075690694619,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 8,
+   "instruction": "close low fridge",
+   "grip": 0.004706906247884035,
+   "z": 1.5486805864144118,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 9,
+   "instruction": "close white1fbox flap",
+   "grip": 0.00471185720525682,
+   "z": 0.7318514360231347,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 10,
+   "instruction": "end effector reaching stuffedrabbit",
+   "grip": 0.004788967035710812,
+   "z": 1.4434493960812689,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 11,
+   "instruction": "close small4fbox flaps",
+   "grip": 0.004968393919989466,
+   "z": 0.49453655576799066,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 12,
+   "instruction": "close cabinet",
+   "grip": 0.00517973811365664,
+   "z": 1.6795951436273753,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 13,
+   "instruction": "close fridge",
+   "grip": 0.005183575954288244,
+   "z": 0.932048150888295,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 14,
+   "instruction": "open small4fbox flaps",
+   "grip": 0.005327320657670498,
+   "z": 0.2838553939131089,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 15,
+   "instruction": "close microwave",
+   "grip": 0.005394384870305658,
+   "z": 1.0189301498001442,
+   "eff_C": 20
+  }
+ ],
+ "bottom10": [
+  {
+   "rank_grip": 204,
+   "instruction": "put spoon into pan",
+   "grip": 0.1445623791369144,
+   "z": 0.38026218513259663,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 205,
+   "instruction": "put pepper in pot or pan",
+   "grip": 0.1482192172697978,
+   "z": 0.7695831405115314,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 206,
+   "instruction": "flip pot upright which is in sink",
+   "grip": 0.15281005767174066,
+   "z": 0.3458375932808849,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 207,
+   "instruction": "pick up pot from sink",
+   "grip": 0.15621305708191358,
+   "z": 0.796465217275545,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 208,
+   "instruction": "put eggplant into pan",
+   "grip": 0.16436433047929314,
+   "z": 0.4034560624553706,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 209,
+   "instruction": "put eggplant in pot or pan",
+   "grip": 0.17113946003955788,
+   "z": 0.48938174413051455,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 210,
+   "instruction": "put pan from stove to sink",
+   "grip": 0.1754424639948411,
+   "z": -0.5102898706216366,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 211,
+   "instruction": "put cup from counter or drying rack into sink",
+   "grip": 0.17599491717119237,
+   "z": 0.15194747941568493,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 212,
+   "instruction": "pick up pot",
+   "grip": 0.1776634267080226,
+   "z": -1.5348104217046057,
+   "eff_C": 20
+  },
+  {
+   "rank_grip": 213,
+   "instruction": "put sweet potato in pot which is in sink",
+   "grip": 0.19285877619986422,
+   "z": 0.47304815272800627,
+   "eff_C": 20
+  }
+ ]
+}
