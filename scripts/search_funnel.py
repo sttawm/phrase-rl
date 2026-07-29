@@ -36,6 +36,8 @@ ipc = Path(args.ipc_dir)
 RNG = np.random.default_rng(23)
 
 cand = pd.read_parquet("results/analysis/search_candidates.parquet")
+# user 2026-07-29: Gemini-only search — the policy-sample arm is dropped
+cand = cand[cand.source.isin(["original", "gemini"])]
 ctx = pd.read_parquet("data/contexts_club.parquet")
 sizes = ctx.groupby("instruction").episode_index.nunique()
 order = [i for i in sizes.sort_values(ascending=False).index if i in set(cand.instruction)]

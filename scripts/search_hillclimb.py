@@ -33,14 +33,13 @@ from PIL import Image
 
 import sys
 sys.path.insert(0, "src")
-from peft import PeftModel
-from transformers import AutoModelForImageTextToText, AutoProcessor
+from google import genai
+from google.genai import types as gtypes
 
-from phrase_rl.cover_prompt import build_single_phrase_prefix
-from phrase_rl.phase2_train import apply_template, score_phrases
+from phrase_rl.gemini_redteam_assets import call_with_retry
+from phrase_rl.phase2_train import score_phrases
 
 ap = argparse.ArgumentParser()
-ap.add_argument("adapter_dir")
 ap.add_argument("--ipc-dir", required=True)
 ap.add_argument("--rounds", type=int, default=2)
 ap.add_argument("--k", type=int, default=8)
@@ -48,34 +47,36 @@ ap.add_argument("--min-gain", type=float, default=0.002)
 ap.add_argument("--out", default="results/analysis/search_hillclimb.jsonl")
 args = ap.parse_args()
 
-TAG = "[input: original wording]"
-_TAG_RE = re.compile(r"^\s*(?:\[input:[^\]]*\]\s*)+")
 sargs = Namespace(k=8, score_seed=0, tau_min=0.0, reward_mode="verifier",
                   k_l2=4, score_timeout=3600, _reward_frames_map=None)
 ipc = Path(args.ipc_dir)
-
-proc = AutoProcessor.from_pretrained("Qwen/Qwen3.5-9B")
-base = AutoModelForImageTextToText.from_pretrained(
-    "Qwen/Qwen3.5-9B", dtype=torch.bfloat16, device_map="cuda")
-model = PeftModel.from_pretrained(base, args.adapter_dir, is_trainable=False).eval()
+client = genai.Client()
 ctx = pd.read_parquet("data/contexts_club.parquet")
 
+VARIANT_PROMPT = """The attached image is a robot arm's camera view. The current best-performing instruction phrasing for this scene is:
 
-def gen_variants(seed_phrase, img, k):
-    msgs = build_single_phrase_prefix(f"{TAG} {seed_phrase}", img, trace=None)
-    inp = apply_template(proc, msgs, continue_final_message=True).to(model.device)
-    plen = inp["input_ids"].shape[1]
-    with torch.no_grad():
-        ss = model.generate(**inp, do_sample=True, temperature=1.0,
-                            num_return_sequences=k + 4, max_new_tokens=48)
-    out, seen = [], {seed_phrase.strip().lower()}
-    for o in ss:
-        p = _TAG_RE.sub("", proc.decode(o[plen:], skip_special_tokens=True)
-                        .strip().split("\n")[0]).strip()
-        if p and len(p.split()) >= 3 and p.lower() not in seen and len(out) < k:
+"{seed}"
+
+Write {k} close VARIATIONS of this phrasing that might work even better for a robot policy trained on kitchen-manipulation demonstrations: keep its winning structure but vary object adjectives, object names (common household words, matching what is visible), and verb choice. Keep each under 15 words, imperative form, same task meaning.
+Output exactly {k} lines, one per line, no numbering, no quotes."""
+
+
+def gen_variants(seed_phrase, img_png, k):
+    part = gtypes.Part.from_bytes(data=bytes(img_png), mime_type="image/png")
+    try:
+        out = call_with_retry(client, gtypes, "gemini-3.5-flash",
+                              [part, VARIANT_PROMPT.format(seed=seed_phrase, k=k)],
+                              temperature=0.9, max_tokens=600)
+    except Exception as e:
+        print(f"  gen error: {type(e).__name__}")
+        return []
+    res, seen = [], {seed_phrase.strip().lower()}
+    for line in out.splitlines():
+        p = line.strip().strip('"').strip("-• ").strip()
+        if p and 3 <= len(p.split()) <= 18 and p.lower() not in seen and len(res) < k:
             seen.add(p.lower())
-            out.append(p)
-    return out
+            res.append(p)
+    return res
 
 
 def grips_for(frames, phrases):
