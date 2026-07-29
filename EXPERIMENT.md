@@ -2299,3 +2299,13 @@ doubled precision. Its repair edge concentrates in coke_can_on_plate (41.7 vs
 21-25 at neighbors) + the matrix's only nonzero keyboard repair (4.2). Deep
 polish 200/260 both 42.71 (+2.1, decay only partial through 260). Deployment
 recommendation: v7a step_0120 is the checkpoint of record.
+
+## 2026-07-29 19:50 — v7f first adversarial point: repair signature appears
+v7f adv step 20 (tagged, n=192): 39.06 — +4.6 over raw-Adversarial (34.5),
+matching v7a's best-ever repair (deep ckpt-120, also 39.06) at fork+20. KEY:
+keyboard repair = 25.0 (v7a: 0.0 across its entire repair matrix save one 4.2)
+— the corpus-absent-rename repair the low-resolution reward could never select
+for. Ramekin preserved at 62.5. Single point, ~1.3sigma pooled; keyboard column
+qualitatively new. Prediction registered: if the high-fidelity reward is doing
+what the measurement program says, the adv curve should climb while v7a's never
+moved. Step-40 rolling.
