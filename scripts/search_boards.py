@@ -50,7 +50,7 @@ if not os.environ.get("GEMINI_API_KEY"):  # tmux/ssh quoting-proof key load, val
         if _line.startswith("export GEMINI_API_KEY="):
             os.environ["GEMINI_API_KEY"] = _line.split("=", 1)[1].strip().strip('"').strip("'")
             break
-client = genai.Client()
+client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 RNG = np.random.default_rng(23)
 
 ctx = pd.read_parquet("data/contexts_club.parquet")
