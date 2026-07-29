@@ -2277,3 +2277,15 @@ lineage) sat at the peak. Note on rep mechanics: sim execution is deterministic
 per (phrase, layout, rep-seed) — rep-2 draws a fresh seedset, so deepening
 genuinely doubles n (and explains both frozen 1-rep vectors and deep-vs-shallow
 value shifts). v7a-best reference line (v7f chart) auto-rose to 45.05.
+
+## 2026-07-29 ~15:10 — reward-guided phrase search over training corpus (design)
+User intent: oracle-search-style exploration (which phrases are good + which
+phrase-CHANGES help), powered by the measured high-fidelity reward instead of
+rollouts. Funnel: (1) candidates = 8 policy samples (v7a-140 fallback; pod5 had
+no extracted v7f adapter — provenance noted) + original, for the 100 biggest-club
+instructions (~900 phrases); (2) screen all at F=1 x C=4 (~65% coarse cell, cuts
+obvious losers, ~1.6h); (3) finals: top-3 + original per instruction at F=4 x
+C=10 (~86-92% band, ~7h overnight); (4) edit analysis: categorize winner-vs-
+original diffs (color adjectives, noun renames, verb changes, length) and rank
+transformations by reward delta — rules-derivation methodology on training data.
+Baseline layer (as-written club ranking at F4xC<=20) finishing separately.
