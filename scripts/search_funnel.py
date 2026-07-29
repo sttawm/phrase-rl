@@ -85,6 +85,7 @@ for ins in order:
            "orig_grip": round(float(orig_g), 5),
            "delta": round(float(orig_g - wg), 5),
            "winner_source": src.get(winner, "original"),
+           "finals_eps": [int(e) for e in fin_eps],
            "ranked": [{"phrase": p, "grip": round(float(g), 5), "source": src.get(p, "original")}
                       for p, g in ranked]}
     with open(args.out, "a") as f:
