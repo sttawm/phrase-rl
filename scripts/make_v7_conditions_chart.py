@@ -44,9 +44,17 @@ if rep_u:
 if pol_t:
     ax.plot([r["step"] for r in pol_t], [r["pooled"] for r in pol_t], marker="D", ms=9,
             color="#6b46c1", lw=2.2, label="v7a rewriting ORIGINALS — TAGGED eval (fixed)")
+    dp = [r for r in pol_t if r.get("n", 192) >= 384]
+    ax.plot([r["step"] for r in dp], [r["pooled"] for r in dp], marker="D", ms=12, ls="none",
+            markerfacecolor="#6b46c1", markeredgecolor="black", markeredgewidth=2, zorder=5)
 if rep_t:
     ax.plot([r["step"] for r in rep_t], [r["pooled"] for r in rep_t], marker="s", ms=9,
             color="#e53e3e", lw=2.2, label="v7a rewriting ADVERSARIAL — TAGGED eval (fixed)")
+    dr = [r for r in rep_t if r.get("n", 192) >= 384]
+    ax.plot([r["step"] for r in dr], [r["pooled"] for r in dr], marker="s", ms=12, ls="none",
+            markerfacecolor="#e53e3e", markeredgecolor="black", markeredgewidth=2, zorder=5)
+ax.plot([], [], marker="o", ls="none", markerfacecolor="#a0aec0", markeredgecolor="black",
+        markeredgewidth=2, ms=10, label="black edge = DEEPENED eval (n=384, ±2.5)")
 
 ax.set_xlabel("v7a checkpoint step (run trained to 340)")
 ax.set_ylabel("val-8 rollout success % (8 tasks × 24 layouts, greedy)")
