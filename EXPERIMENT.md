@@ -2309,3 +2309,12 @@ for. Ramekin preserved at 62.5. Single point, ~1.3sigma pooled; keyboard column
 qualitatively new. Prediction registered: if the high-fidelity reward is doing
 what the measurement program says, the adv curve should climb while v7a's never
 moved. Step-40 rolling.
+
+## 2026-07-29 ~21:20 — v7f adv-40 = 41.67: SURPASSES v7a's all-time repair at fork+40
+v7f adversarial curve: step 20 = 39.06, step 40 = 41.67 (climbing; keyboard
+repair 25.0 replicated at both). 41.67 > v7a's best-ever repair (39.06, deep
+ckpt-120) and nominally above the Original-phrasing reference (40.6). The
+high-resolution-reward-enables-repair hypothesis is confirming by trend: two
+elevated, climbing points with a stable qualitative capability (corpus-absent
+rename) v7a never produced. Polish meanwhile Original-parity (25/50 = 41.2/40.4)
+— the repair-polish gap has nearly closed at fork+40.
