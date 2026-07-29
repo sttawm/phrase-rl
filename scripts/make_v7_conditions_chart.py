@@ -17,7 +17,9 @@ def rows(pattern):
     for f in sorted(glob.glob(pattern)):
         for l in open(f):
             r = json.loads(l)
-            by_step[r["step"]] = r
+            # prefer the deepest (highest-n) measurement per step
+            if r["step"] not in by_step or r.get("n", 0) > by_step[r["step"]].get("n", 0):
+                by_step[r["step"]] = r
     return sorted(by_step.values(), key=lambda r: r["step"])
 
 
