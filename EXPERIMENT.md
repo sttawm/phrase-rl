@@ -2238,3 +2238,15 @@ trades under the flat pooled (plate 8->29, ramekin 46->12 between 20 and late).
    top3 json. 4) Shutdown authorization: pods idle after all work may be stopped
    (podstate backup + sync-liveness verification first); pod5 stays (v7f rval
    host), L40S stays (v7f training).
+
+## 2026-07-29 04:10 — tagged repair 120/140: v7a NEVER learned repair
+Tagged repair-140 = 35.94, bit-equal to the step-0 init; repair-120 = 38.54 (a
+within-noise wiggle). Full curve 0-140: 35.9/36.5/36.5/36.5/35.9/36.5/38.5/35.9
+— a 2.6pp band around 36.2, indistinguishable from init at every point. The
+untagged 39.6@140 was an out-of-distribution artifact. Combined with polish
+(pinned at the Original line): tagged v7a's entire deployable value — a ~+1.5pp
+n.s. offset over raw adversarial input and Original-equivalence on nominal input
+— existed at initialization. The proxy reward's rich learning dynamics (best-of-16
+climb, win-rate, KL) produced no measurable real-rollout movement in-distribution.
+Raises the stakes for v7f: measured-reward training must move REAL tagged rollouts
+where v7a's C=1 reward could not. Repair 200/260 + polish 140-260 redo rolling.
