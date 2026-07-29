@@ -163,6 +163,8 @@ for ins in order:
     winner, wg = franked[0]
     orig_g = dict(franked).get(ins, float("nan"))
     rec = {"instruction": ins, "club_eps": len(eps), "n_scored": len(scored),
+           "all_scored": [{"phrase": p, "screen_grip": round(v, 5)}
+                          for p, v in sorted(scored.items(), key=lambda x: x[1])],
            "rounds": rounds, "screen_eps": [int(e) for e in sc_eps],
            "finals_eps": [int(e) for e in fin_eps],
            "final_board": [{"phrase": p, "grip": round(float(v), 5)} for p, v in franked],
