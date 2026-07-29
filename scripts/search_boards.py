@@ -45,6 +45,11 @@ args = ap.parse_args()
 sargs = Namespace(k=8, score_seed=0, tau_min=0.0, reward_mode="verifier",
                   k_l2=4, score_timeout=3600, _reward_frames_map=None)
 ipc = Path(args.ipc_dir)
+if not os.environ.get("GEMINI_API_KEY"):  # tmux/ssh quoting-proof key load, value never printed
+    for _line in open(os.path.expanduser("~/.bashrc")):
+        if _line.startswith("export GEMINI_API_KEY="):
+            os.environ["GEMINI_API_KEY"] = _line.split("=", 1)[1].strip().strip('"').strip("'")
+            break
 client = genai.Client()
 RNG = np.random.default_rng(23)
 
