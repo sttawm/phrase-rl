@@ -67,14 +67,29 @@ a1.grid(alpha=0.25)
 cs = [c["step"] for c in curve]
 a2.plot(cs, [c["pooled"] for c in curve], marker="o", color="#2b6cb0", lw=1.2, alpha=0.55,
         label="4-task probe: greedy (rewriting originals)")
+import glob
+
+
+def _tagged(pattern):
+    by_step = {}
+    for f in sorted(glob.glob(pattern)):
+        for x in open(f):
+            r = json.loads(x)
+            by_step[r["step"]] = r
+    return sorted(by_step.values(), key=lambda r: r["step"])
+
+
 try:
     d8 = sorted((json.loads(l) for l in open("results/analysis/v7_dev8_backfill.jsonl")), key=lambda r: r["step"])
-    a2.plot([r["step"] for r in d8], [r["pooled"] for r in d8], marker="D", ms=7,
-            color="#6b46c1", lw=2.2, label="val-8: GREEDY (rewriting originals)")
-    d8s = [r for r in d8 if r.get("sampled_pooled") is not None]
-    a2.plot([r["step"] for r in d8s], [r["sampled_pooled"] for r in d8s], marker="D", ms=7,
-            markerfacecolor="none", markeredgecolor="#6b46c1", color="#6b46c1", lw=1.4, ls="--",
-            label="val-8: SAMPLED (rewriting originals)")
+    a2.plot([r["step"] for r in d8], [r["pooled"] for r in d8], marker="o", ms=5, alpha=0.25, ls=":",
+            color="#6b46c1", lw=1.0, label="val-8 greedy, originals (UNTAGGED pre-fix)")
+    d8t = _tagged("results/analysis/v7_dev8_tagged*.jsonl")
+    a2.plot([r["step"] for r in d8t], [r["pooled"] for r in d8t], marker="D", ms=7,
+            color="#6b46c1", lw=2.2, label="val-8: GREEDY, originals (TAGGED, fixed)")
+    d8ts = [r for r in d8t if r.get("sampled_pooled") is not None]
+    a2.plot([r["step"] for r in d8ts], [r["sampled_pooled"] for r in d8ts], marker="D", ms=6,
+            markerfacecolor="none", markeredgecolor="#6b46c1", color="#6b46c1", lw=1.2, ls="--",
+            label="val-8: SAMPLED, originals (TAGGED; 1 draw/task — high variance)")
     a2.axhline(40.6, ls="--", color="#48bb78", lw=1.2)
     a2.text(cs[0], 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5)
     a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
@@ -83,8 +98,11 @@ except FileNotFoundError:
     pass
 try:
     d8a = sorted((json.loads(l) for l in open("results/analysis/v7_dev8adv_backfill.jsonl")), key=lambda r: r["step"])
-    a2.plot([r["step"] for r in d8a], [r["pooled"] for r in d8a], marker="s", ms=8,
-            color="#e53e3e", lw=2.0, label="val-8: GREEDY (rewriting ADVERSARIAL)")
+    a2.plot([r["step"] for r in d8a], [r["pooled"] for r in d8a], marker="s", ms=5, alpha=0.25, ls=":",
+            color="#dd6b20", lw=1.0, label="val-8 greedy, ADVERSARIAL (UNTAGGED pre-fix)")
+    d8at = _tagged("results/analysis/v7_dev8adv_tagged*.jsonl")
+    a2.plot([r["step"] for r in d8at], [r["pooled"] for r in d8at], marker="s", ms=8,
+            color="#e53e3e", lw=2.0, label="val-8: GREEDY, ADVERSARIAL (TAGGED, fixed)")
     a2.axhline(34.5, ls="--", color="#a0aec0", lw=1.2)
     a2.text(cs[0], 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5)
 except FileNotFoundError:
