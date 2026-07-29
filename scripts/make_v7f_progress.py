@@ -130,8 +130,9 @@ a3.set_title("GRPO dynamics (KL abort = 1.2)")
 a3.legend(loc="upper left", fontsize=7)
 a3.grid(alpha=0.25)
 
-fig.suptitle("v7f RL — GRPO (grip-pure reward, F=4, C=10 club contexts, β=0.05, lr=7e-6; "
-             "fork lineage v7a@140 → v7e(C=16)@20 → v7f)", fontsize=11)
+fig.suptitle("v7f RL — GRPO: grip-pure reward, F=4, C=10 same-instruction contexts, β=0.05, lr=7e-6   "
+             "[ancestry: forked from v7e — which ran C=16 — at its step 20; v7e itself forked from v7a@140]",
+             fontsize=10.5)
 fig.tight_layout()
 fig.savefig("results/charts/v7f_progress.png", dpi=140, bbox_inches="tight", pad_inches=0.2)
 print("chart -> results/charts/v7f_progress.png")
