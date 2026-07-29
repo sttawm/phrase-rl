@@ -38,6 +38,8 @@ ap.add_argument("--keep", type=int, default=4)
 ap.add_argument("--max-rounds", type=int, default=4)
 ap.add_argument("--min-gain", type=float, default=0.002)
 ap.add_argument("--n-instructions", type=int, default=100)
+ap.add_argument("--screen-f", type=int, default=1, help="frames/episode in iterative rounds")
+ap.add_argument("--screen-c", type=int, default=4, help="episodes in iterative rounds")
 args = ap.parse_args()
 
 sargs = Namespace(k=8, score_seed=0, tau_min=0.0, reward_mode="verifier",
@@ -99,9 +101,9 @@ for ins in order:
     t0 = time.time()
     sub = ctx[ctx.instruction == ins]
     eps = sorted(sub.episode_index.unique())
-    sc_eps = list(RNG.choice(eps, size=min(4, len(eps)), replace=False))
+    sc_eps = list(RNG.choice(eps, size=min(args.screen_c, len(eps)), replace=False))
     fin_eps = list(RNG.choice(eps, size=min(10, len(eps)), replace=False))
-    sc_frames = sub[sub.episode_index.isin(sc_eps)].groupby("episode_index").head(1).to_dict("records")
+    sc_frames = sub[sub.episode_index.isin(sc_eps)].groupby("episode_index").head(args.screen_f).to_dict("records")
     fin_frames = sub[sub.episode_index.isin(fin_eps)].to_dict("records")
     img = gtypes.Part.from_bytes(data=bytes(sub.iloc[0].image_png), mime_type="image/png")
 
