@@ -62,12 +62,10 @@ try:  # optional round-1 seeds from the (retired) bulk generator; absence is fin
 except Exception:
     pass
 sizes = ctx.groupby("instruction").episode_index.nunique()
-try:  # search where the headroom is: worst as-written grip first (per the 213 ranking)
-    rank = pd.read_parquet("results/analysis/club_phrase_ranking.parquet")
-    gr = dict(zip(rank.instruction, rank.grip))
-    order = sorted(sizes.index, key=lambda i: -gr.get(i, 0.0))[:args.n_instructions]
-except Exception:
-    order = list(sizes.sort_values(ascending=False).index)[:args.n_instructions]
+# user 2026-07-29: random order (seeded shuffle — unbiased sample of the corpus)
+order = list(sizes.index)
+np.random.default_rng(41).shuffle(order)
+order = order[:args.n_instructions]
 
 GEN_PROMPT = """The attached image is a robot arm's camera view (BridgeData kitchen manipulation). We are searching for the instruction phrasing a trained robot policy follows most reliably.
 
