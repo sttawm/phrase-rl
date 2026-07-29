@@ -26,30 +26,34 @@ for s in ${STEPS:?set STEPS}; do
   g=results/phrase_artifacts/dev8q_g_${TAG}_$s.parquet
   until [ -f "$g" ]; do timeout 90 git pull -q 2>/dev/null; [ -f "$g" ] || sleep 180; done
   wait_idle
-  mark "roll $s greedy(192)+sampled(192) [$TAG]"
+  mark "roll $s greedy(${REPEATS:-1}x192)${SKIP_SAMPLED:+ [sampled skipped]} [$TAG]"
   rm -f data/dev8_g_out.parquet data/dev8_s_out.parquet
   cd /workspace/INT-ACT
   $VLA $ROLL --int-act-root /workspace/INT-ACT --config $CFG --ckpt $CKPT \
-    --phrases /workspace/phrase-rl/$g --episode-ids $(seq 0 23) --repeats 1 \
+    --phrases /workspace/phrase-rl/$g --episode-ids $(seq 0 23) --repeats ${REPEATS:-1} \
     --out /workspace/phrase-rl/data/dev8_g_out.parquet > /workspace/dev8_gr_$s.log 2>&1 &
   gp=$!
-  sleep 45
-  $VLA $ROLL --int-act-root /workspace/INT-ACT --config $CFG --ckpt $CKPT \
-    --phrases /workspace/phrase-rl/results/phrase_artifacts/dev8q_s_${TAG}_$s.parquet --episode-ids $(seq 0 23) --repeats 1 \
-    --out /workspace/phrase-rl/data/dev8_s_out.parquet > /workspace/dev8_sr_$s.log 2>&1 &
-  sp=$!
-  fail=0; wait $gp || fail=1; wait $sp || fail=1
+  sp=
+  if [ "${SKIP_SAMPLED:-0}" != 1 ]; then
+    sleep 45
+    $VLA $ROLL --int-act-root /workspace/INT-ACT --config $CFG --ckpt $CKPT \
+      --phrases /workspace/phrase-rl/results/phrase_artifacts/dev8q_s_${TAG}_$s.parquet --episode-ids $(seq 0 23) --repeats ${REPEATS:-1} \
+      --out /workspace/phrase-rl/data/dev8_s_out.parquet > /workspace/dev8_sr_$s.log 2>&1 &
+    sp=$!
+  fi
+  fail=0; wait $gp || fail=1; [ -n "$sp" ] && { wait $sp || fail=1; }
   cd /workspace/phrase-rl
   [ $fail = 1 ] && { mark "ROLL FAIL $s"; continue; }
-  STEP=$step DEV8_TAG=${DEV8_TAG:-$TAG} DEV8_OUT=${DEV8_OUT:-v7_dev8_backfill.jsonl} $GEN - <<'PYEOF' || { mark "MERGE FAIL $s"; continue; }
+  STEP=$step DEV8_TAG=${DEV8_TAG:-$TAG} DEV8_OUT=${DEV8_OUT:-v7_dev8_backfill.jsonl} SKIP_SAMPLED=${SKIP_SAMPLED:-0} $GEN - <<'PYEOF' || { mark "MERGE FAIL $s"; continue; }
 import json, os
 import pandas as pd
 g = pd.read_parquet("data/dev8_g_out.parquet")
-s_ = pd.read_parquet("data/dev8_s_out.parquet")
 rec = {"step": int(os.environ["STEP"]), "probe": os.environ.get("DEV8_TAG", "dev8"),
        "n": int(len(g)), "pooled": round(float(g.success.mean()*100), 2),
-       "per_task": {t: round(float(x.success.mean()*100), 1) for t, x in g.groupby("task")},
-       "sampled_n": int(len(s_)), "sampled_pooled": round(float(s_.success.mean()*100), 2)}
+       "per_task": {t: round(float(x.success.mean()*100), 1) for t, x in g.groupby("task")}}
+if os.environ.get("SKIP_SAMPLED") != "1" and os.path.exists("data/dev8_s_out.parquet"):
+    s_ = pd.read_parquet("data/dev8_s_out.parquet")
+    rec.update({"sampled_n": int(len(s_)), "sampled_pooled": round(float(s_.success.mean()*100), 2)})
 with open("results/analysis/" + os.environ.get("DEV8_OUT", "v7_dev8_backfill.jsonl"), "a") as f:
     f.write(json.dumps(rec) + "\n")
 print("dev8 step", rec["step"], "greedy", rec["pooled"], "sampled", rec["sampled_pooled"])

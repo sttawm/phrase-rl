@@ -2225,3 +2225,16 @@ redo of 120/140/200/260 rolling (chainB). Late-polish leg complete on pod7:
 Polish early (pod6, in flight): 0/20/40/60 = 39.06/40.62/42.71/39.58 — wobbles
 around Original, no significant departure; per-task vectors show real zero-sum
 trades under the flat pooled (plate 8->29, ramekin 46->12 between 20 and late).
+
+## 2026-07-29 — overnight program v2 (user directive: pods 5-8 all night)
+1) Tagged matrix completes (repair-redo pod5, polish-redo pod7, repair-late pod8,
+   native-half pod6). 2) DEEPEN decision checkpoints at 2x reps greedy-only
+   (sampled skipped: its variance is phrase-draw-dominated, episode reps do not
+   reduce it): pod7 polish 0040/0120/0140/0200/0260, pod8 repair 0120-0260 ->
+   *_deep jsonls, n=384/pt (SE 3.6->2.5). 3) HIGH-FIDELITY CLUB RANKING (user:
+   "definitely do this"): all 213 >=16-ep club instructions scored at F=4 x C=20
+   (grip 92.4% / c4b 90.9% coarse cell) on common per-task club contexts (CRN),
+   pod6 score server after native-half; outputs club_phrase_ranking.parquet +
+   top3 json. 4) Shutdown authorization: pods idle after all work may be stopped
+   (podstate backup + sync-liveness verification first); pod5 stays (v7f rval
+   host), L40S stays (v7f training).
