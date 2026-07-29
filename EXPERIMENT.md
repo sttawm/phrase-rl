@@ -2213,3 +2213,15 @@ pick_source_and_trace — every return path pairs the label with matching conten
 fallbacks relabel properly (ert->benign->nominal). One footnote: a missing ERT
 trace falls back to the NOMINAL trace for a hostile source (leakage-firewall
 exception, frequency unknown; acceptable, logged here for the record).
+
+## 2026-07-29 — early-repair curve (tagged): FLAT — no early jump (user hypothesis refuted for 0-100)
+Tagged greedy repair, val-8, n=192/pt: steps 0/20/40/60/80/100 =
+35.94/36.46/36.46/36.46/35.94/36.46 — six points spanning ONE episode (69 vs 70
+of 192). Greedy adversarial-input behavior is static through the first 100 steps
+and its small +1.5-2pp offset over raw-Adversarial (34.5) exists at step 0 (SFT
+init). The only remaining window for genuine repair learning is 100->140; tagged
+redo of 120/140/200/260 rolling (chainB). Late-polish leg complete on pod7:
+280/300/320/340 all exactly 40.62 greedy (frozen behavior, == Original line).
+Polish early (pod6, in flight): 0/20/40/60 = 39.06/40.62/42.71/39.58 — wobbles
+around Original, no significant departure; per-task vectors show real zero-sum
+trades under the flat pooled (plate 8->29, ramekin 46->12 between 20 and late).
