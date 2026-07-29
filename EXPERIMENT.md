@@ -2266,3 +2266,14 @@ med-bucket ensemble advantage does NOT replicate on native contexts; it was
 provenance-specific (sim-grounded a* OOV frames). Verdict: v7f's grip-pure reward
 stands adjudicated on the distribution it trains on; blend lever closed. Combined
 (all) grid computing. Fine-discrimination exam substantively COMPLETE.
+
+## 2026-07-29 ~11:00 — deepened points CONFIRM a genuine mid-run polish peak
+2x-rep deepening (n=384, SE 2.5): polish 40 = 44.53, 120 = 45.05, 140 = 45.05 —
+three consecutive independent ~+4.4pp elevations over Original (40.6), jointly
+strong evidence of a REAL tagged polish peak at checkpoints 40-140 that decays to
+Original-parity by 200. Revises "never left the Original line": v7a earned ~+4pp
+of genuine polish mid-run and lost it with continued training. Fork@140 (v7e/v7f
+lineage) sat at the peak. Note on rep mechanics: sim execution is deterministic
+per (phrase, layout, rep-seed) — rep-2 draws a fresh seedset, so deepening
+genuinely doubles n (and explains both frozen 1-rep vectors and deep-vs-shallow
+value shifts). v7a-best reference line (v7f chart) auto-rose to 45.05.
