@@ -2250,3 +2250,9 @@ n.s. offset over raw adversarial input and Original-equivalence on nominal input
 climb, win-rate, KL) produced no measurable real-rollout movement in-distribution.
 Raises the stakes for v7f: measured-reward training must move REAL tagged rollouts
 where v7a's C=1 reward could not. Repair 200/260 + polish 140-260 redo rolling.
+
+## 2026-07-29 06:05 — tagged repair curve COMPLETE (0-260): never learned, ends below baseline
+Final: 0/20/40/60/80/100/120/140/200/260 = 35.94/36.46/36.46/36.46/35.94/36.46/
+38.54/35.94/34.90/34.38. Flat ~36 through 120, declining to 34.4 by 260 — BELOW
+the raw-Adversarial reference (34.5). v7a never acquired repair ability and late
+training degraded adversarial handling to slightly worse than no rewriting.
