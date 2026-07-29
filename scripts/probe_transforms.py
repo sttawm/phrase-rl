@@ -42,11 +42,10 @@ TRANSFORMS = [
     ("decompose_steps", "Rephrase as two explicit steps joined by 'then' (e.g. 'pick up X, then place it on Y')."),
     ("destination_first", "Reorder so the destination comes first (e.g. 'on the plate, place the carrot')."),
     ("polite_prefix", "Add 'please' at the start; change nothing else."),
-    ("typo_one", "Introduce ONE realistic keyboard typo in a content word; change nothing else."),
     ("minimalize", "Shorten to the fewest words that keep the same meaning."),
     ("elaborate", "Expand into a longer, more formal sentence with the same meaning."),
 ]
-CODE_TRANSFORMS = [("all_caps", lambda s: s.upper())]
+CODE_TRANSFORMS = []  # user 2026-07-29: all-caps and typo probes omitted
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--ipc-dir", required=True)
