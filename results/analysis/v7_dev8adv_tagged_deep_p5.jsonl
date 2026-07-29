@@ -1,0 +1,1 @@
+{"step": 260, "probe": "dev8advdeep", "n": 384, "pooled": 36.72, "per_task": {"widowx_carrot_on_keyboard_clean": 4.2, "widowx_carrot_on_plate": 45.8, "widowx_carrot_on_wheel_clean": 0.0, "widowx_coke_can_on_plate_clean": 25.0, "widowx_coke_can_on_ramekin_clean": 50.0, "widowx_put_eggplant_in_basket": 87.5, "widowx_spoon_on_towel": 54.2, "widowx_stack_cube": 27.1}}

@@ -2289,3 +2289,13 @@ C=10 (~86-92% band, ~7h overnight); (4) edit analysis: categorize winner-vs-
 original diffs (color adjectives, noun renames, verb changes, length) and rank
 transformations by reward delta — rules-derivation methodology on training data.
 Baseline layer (as-written club ranking at F4xC<=20) finishing separately.
+
+## 2026-07-29 16:45 — deep repair-120 CONFIRMS checkpoint-120 as v7a's best (user call)
+Deep (n=384): repair-120 = 39.06 (+4.6 over Adversarial 34.5, ~1.8sigma) — the
+only repair point that STRENGTHENED under deepening (140 regressed to 36.98,
+260 to 36.72 = init band). With deep polish-120 = 45.05 (+4.4, ~1.8sigma),
+checkpoint 120 is the sole checkpoint above reference in BOTH conditions at
+doubled precision. Its repair edge concentrates in coke_can_on_plate (41.7 vs
+21-25 at neighbors) + the matrix's only nonzero keyboard repair (4.2). Deep
+polish 200/260 both 42.71 (+2.1, decay only partial through 260). Deployment
+recommendation: v7a step_0120 is the checkpoint of record.
