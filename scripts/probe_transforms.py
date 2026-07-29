@@ -30,12 +30,23 @@ from phrase_rl.phase2_train import score_phrases
 TRANSFORMS = [
     ("color_adj", "Add a correct color/appearance adjective (from the image) to each object mentioned; change nothing else."),
     ("rename_visual", "Rename each object to what it visually looks like in the image using a common household word; change nothing else."),
-    ("verb_synonym", "Replace the main verb with a natural synonym; change nothing else."),
+    ("verb_synonym", "Replace the main verb with a natural synonym of similar generality; change nothing else."),
+    ("verb_specific", "Replace the main verb with a MORE SPECIFIC motion verb that fits (e.g. put->slide/lower); change nothing else."),
+    ("noun_synonym", "Replace each object noun with a common-word synonym (NOT based on appearance, e.g. cloth->towel); change nothing else."),
     ("drop_articles", "Remove all articles (a/an/the); change nothing else."),
+    ("add_articles", "Add the article 'the' before each bare noun; change nothing else."),
+    ("remove_adjectives", "Remove ALL adjectives/modifiers from the objects; change nothing else."),
+    ("preposition_variant", "Swap each preposition for a close variant (on->onto, in->into, to->towards); change nothing else."),
     ("add_spatial", "Add one short, correct spatial detail visible in the image (e.g. 'on the left'); change nothing else."),
+    ("goal_state", "Rephrase as a desired END STATE instead of an action (e.g. 'the carrot should end up on the plate')."),
+    ("decompose_steps", "Rephrase as two explicit steps joined by 'then' (e.g. 'pick up X, then place it on Y')."),
+    ("destination_first", "Reorder so the destination comes first (e.g. 'on the plate, place the carrot')."),
+    ("polite_prefix", "Add 'please' at the start; change nothing else."),
+    ("typo_one", "Introduce ONE realistic keyboard typo in a content word; change nothing else."),
     ("minimalize", "Shorten to the fewest words that keep the same meaning."),
     ("elaborate", "Expand into a longer, more formal sentence with the same meaning."),
 ]
+CODE_TRANSFORMS = [("all_caps", lambda s: s.upper())]
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--ipc-dir", required=True)
@@ -108,14 +119,18 @@ for ins in order:
         print(f"  short output ({len(lines)}) for {ins[:36]!r}, skipping")
         continue
     variants = lines[:len(TRANSFORMS)]
+    names = [n for n, _ in TRANSFORMS]
+    for cn, fn in CODE_TRANSFORMS:
+        variants.append(fn(ins))
+        names.append(cn)
     g = grips_for(frames, [ins] + variants)
     base = float(g[0])
     rec = {"instruction": ins, "base_grip": round(base, 5), "n_ctx_evals": len(frames),
-           "transforms": [{"name": TRANSFORMS[i][0], "phrase": variants[i],
+           "transforms": [{"name": names[i], "phrase": variants[i],
                            "grip": round(float(g[i + 1]), 5),
                            "delta": round(base - float(g[i + 1]), 5),
                            "unchanged": variants[i].strip().lower() == ins.strip().lower()}
-                          for i in range(len(TRANSFORMS))],
+                          for i in range(len(variants))],
            "sec": round(time.time() - t0, 1)}
     with open(args.out, "a") as f:
         f.write(json.dumps(rec) + "\n")
