@@ -2256,3 +2256,13 @@ Final: 0/20/40/60/80/100/120/140/200/260 = 35.94/36.46/36.46/36.46/35.94/36.46/
 38.54/35.94/34.90/34.38. Flat ~36 through 120, declining to 34.4 by 260 — BELOW
 the raw-Adversarial reference (34.5). v7a never acquired repair ability and late
 training degraded adversarial handling to slightly worse than no rewriting.
+
+## 2026-07-29 06:55 — NATIVE HALF ADJUDICATES: grip-heavy wins both buckets on-distribution
+fine_exam_features_native.parquet (8,220 rows; oracle-best trajectories, 4 ID val
+tasks, 70 eps with >=5 frames). Native fine bucket F=5: C=16 c4b 81.1 / grip 79.8
+>> 50/50 76.5 / 75/25 73.8 / ens 71.0; C=10: c4b 76.0 / grip 75.4. Native MED
+bucket: GRIP LEADS (63.9 at F5C16 vs c4b 62.4, ens-lean <60) — the OOV half's
+med-bucket ensemble advantage does NOT replicate on native contexts; it was
+provenance-specific (sim-grounded a* OOV frames). Verdict: v7f's grip-pure reward
+stands adjudicated on the distribution it trains on; blend lever closed. Combined
+(all) grid computing. Fine-discrimination exam substantively COMPLETE.
