@@ -2616,3 +2616,23 @@ therefore has NO v8 duty after its arm A repair leg + drift anchor: at
 ARMAREP-COMPLETE its exec'd roller gets killed (would race pod6), results
 verified, podstate backup, then pod7 is a shutdown candidate (~12:00 UTC).
 Steady state after arm E: L40S + pod6 ONLY.
+
+## 2026-07-30 23:20 UTC — ARM E LIVE: rules-v4 derived (7-agent workflow), leakage-gated, generated, preflighted, ROLLING on pod8
+Derivation: 3 isolated miners (boards 17 findings / transforms 16 / freeform 10)
+-> draft in v3 protocol form -> 2 adversarial verifiers (6 evidence issues + 7
+regression issues found) -> revision applied. Output leakage sweep: CLEAN
+("pepsi" = v3 brand-table row carried verbatim; "sibling" = plain-English board
+reference). b4_phrasing_rules_v4.md committed (36k chars).
+v4's headline novelties vs v3 (all train-data-cited): REGISTER triage
+(ornate rebuild vs training-style pass-through default, 144/213 unbeatable),
+frozen families (fold/wipe/end-effector/move-to memorized basins), telegraphic
+expansion as the one profitable rewrite target (articles inserted, 20/27
+winners), articulated-object verb repair (24-27% win rates), two-clause
+hard-put exception, strengthened corpus-noun frequency ladder.
+Generation (gemini-pro-latest, temp 0.2, thinking 16k, sealed traces):
+both conditions preflighted clean. NOTABLE DIVERGENCE for the record: v4
+nominal KEEPS ramekin ("white ramekin") and orange juice where v3 renamed
+(bowl/box) — training-conservatism overriding the rename lexicon on short
+inputs; ERT condition still renames (ornate register rebuild). This is the
+live test of prediction 3. Rolls: pod8 rulesv4 (ert leg started 23:18,
+nominal after, ~7h each). Monitor armed.
