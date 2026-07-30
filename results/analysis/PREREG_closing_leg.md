@@ -104,3 +104,19 @@ Dev support: series_fallback_probe.jsonl (val-8 keyboard, v7f-raw vs rules-style
 text, 24x2 each) measures the styling delta directly.
 Prediction: arm D >= arm B pooled on repair; polish safety holds at the frozen
 arm-B selection window (v7f polish 40.4-41.7 >= passthrough 40.6 at steps 20-40).
+
+## Amendment 4 (filed 2026-07-30 ~21:00 UTC, before any arm A/B repair cells observed)
+**Rewriter-seat comparison + census-of-record.**
+1. Arm D (Amendment 3 pipeline) is composable under either rewriter seat:
+   seat A = v7a-120 (arm A per-task cells), seat B = v7f-best (arm B cells).
+   Both routings are produced by the same frozen rule (output census -> KEEP or
+   rules-styled fallback). Seat comparison = secondary endpoint.
+2. Census-of-record for all arm D routing = the Bridge-side noun counts used in
+   sealed_vocab_audit.json coverage (17,297 SFT + 235k bridge annotations), NOT
+   the 2,000 RL-parent census used in exploratory tables (ledgered as
+   provisional). The census-of-record vocabulary is a superset, so recomputation
+   can only move tasks from FALLBACK to KEEP. bridge_census.json + both seats'
+   routing tables will be archived BEFORE any arm D cell is reported.
+3. Primary seat prediction (filed now): seat A >= seat B on the pooled
+   two-condition composite (polish decisively A: 45.05 vs 41.67; repair inside
+   noise: 39.1 vs 40.4; in-vocab repair stratum identical 55.2).

@@ -2439,3 +2439,25 @@ on the black keyboard", 24 layouts x 2 reps each -> series_fallback_probe.jsonl.
 Dropped front passthrough gate is safe at the frozen arm-B window (polish >=
 passthrough at steps 20-40) but couples benign-traffic safety to checkpoint
 choice — noted as the one caveat if later checkpoints are ever deployed.
+
+## 2026-07-30 ~21:00 UTC — SEAT DECISION DATA: v7a-120 vs v7f as the pipeline rewriter (Amendment 4)
+Q (user): seat v7f or v7a in the series pipeline?
+- In-vocab repair stratum is a TIE: v7a-120 = 55.2, v7f-40 = 55.2, v7f-20 = 54.7
+  (frozen Qwen 52.1) — full canonicalization of hostile in-vocab input is NOT
+  v7f-specific; it is base competence + ~3pp RL polish, equal in both runs.
+- Polish decisively v7a-120: 45.05 (replicated at 140) vs v7f best 41.67; series
+  pipeline routes ALL traffic through the rewriter so this carries full weight.
+- Pooled repair inside noise: v7f-40 40.4 vs v7a-120 39.1 (SE ~2.5pp).
+- v7f's one clear unique cell — keyboard 14.6 vs 4.2 — is neutralized by the
+  pipeline: both seats emit canonical "keyboard", census catches it, fallback
+  handles it either way.
+- v7a-120 sealed emissions (both conditions, censused): canonical OOV names kept
+  (keyboard), brand variants (soda/cola can); polish shows two grounding drifts
+  (green->teal cube, coke->soda) — motivates unknown-adjective stripping in
+  rules-v4-lite fallback.
+- CAVEAT ledgered: exploratory routing tables used the 2k-RL-parent census;
+  census-of-record = bridge-side counts (audit coverage source); recomputation
+  pending on-pod (bridge_census.json) before any arm D reporting. Recommendation
+  is census-independent.
+RECOMMENDATION: seat A (v7a-120); v7f held as challenger; sealed table
+adjudicates the seat for free (Amendment 4 secondary endpoint).
