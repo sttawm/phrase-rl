@@ -146,3 +146,18 @@ v7f checkpoints (20-100, stride 20). The step-100 adversarial roll was staged
 before termination and still lands; steps beyond 100 were never durably saved.
 Decision timing: made after adv 20-80 were known (best 40.36 @ step 40) but
 BEFORE the step-100 pair is measured — the selection rule remains mechanical.
+
+## Amendment 7 (filed 2026-07-31 ~00:30 UTC, BEFORE rules-v4 exists — derivation
+## workflow running, no rules text seen, no generation, no rolling)
+**Arm E: rules-v4 (user-directed, 2026-07-31).** A new rules prompt derived by
+isolated agents from ONLY: b4_phrasing_rules_v3.md + the training-data broad
+search (search_boards.jsonl, transform_probe.jsonl, freeform_insights.jsonl,
+club_phrase_ranking.parquet). No sealed data enters the derivation. Same
+executor-side protocol as rows 12/17: gemini-pro-latest, temp 0.2, thinking
+16384, sealed traces; TWO conditions — nominal input (vs rules_pro_nominal_x12
+34.8) and ERT input (vs pairA_pro rules_v3_gemini_pro 31.6); 12 tasks x 24
+layouts x 12 reps each. This is user-directed additional sealed exposure,
+amending the final-exposure clause; phrases preflight-inspected before rolling.
+Predictions (filed now): (1) v4-ERT >= v3-ERT 31.6; (2) v4-nominal >= v3-nominal
+34.8; (3) gains concentrated on OOV tasks (added training-data coverage + the
+strengthened in-corpus-noun rule). Rolls run on pod8 after the Tier-A leg.
