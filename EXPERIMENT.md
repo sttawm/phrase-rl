@@ -2481,3 +2481,24 @@ adjudicates the seat for free (Amendment 4 secondary endpoint).
   Restored from commit 6f5f7ac. Fix: scp now stages to untracked _scp_* files
   (gitignored); chart max-n merges git + staging; _merged tolerant of conflict
   markers. New footgun variant recorded in memory (autostash-clobber).
+
+## 2026-07-30 ~22:00 UTC — USER DIRECTIVE: no fallback-text sealed rolls; sealed-leg status pass (pod8 Tier-A resurrected)
+- **USER DECISION (final): do NOT roll the true fallback texts on sealed.** The
+  sealed set stays sealed; arm D is reported via the conservative composition
+  (raw arm A/B cells for fallback-routed tasks), with the val-8 series probe
+  (14.6 -> 29.2) cited as evidence the composition understates arm D. No
+  further sealed exposure beyond the prereg'd arms.
+- Arm A (v7a-120) sealed status: ALIVE on pod5. Today's roll = data/seal_out.parquet
+  (mtime-verified); ~540/3456 polish eps (~16%) at ~4.3 eps/min -> polish leg
+  ~06:30 UTC, repair leg after (~19:00 UTC Jul 31 full arm A). NOTE: the
+  sealed_out_w0/w1/w2 parquets on pod5 are Jul-26 RELICS of earlier legs —
+  their shard means are NOT arm A results (nearly misread; mtime check saved it).
+  Peek discipline: only the running partial mean (43.1 @ 540 eps) was observed,
+  after all amendments were filed.
+- Tier-A (pod8): found DEAD — the tmux session never survived the pod8 restart
+  (container-layer wipe); no log, no process. Repaired the untracked-collision
+  wedge (7 collisions, backup-diff-rm recipe, pulled to ab480ee), reinstalled
+  tmux, relaunched run_tierA_sibling.sh -> rolling anchors arm (12x24x3) on the
+  sibling ckpt. ~4h/arm. Monitor armed.
+- Pod7: step-0 adversarial roll in progress (started 19:47); then step-0 pol,
+  step-100 adv/pol. v7f trainer at step ~112.
