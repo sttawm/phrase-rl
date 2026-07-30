@@ -161,3 +161,15 @@ amending the final-exposure clause; phrases preflight-inspected before rolling.
 Predictions (filed now): (1) v4-ERT >= v3-ERT 31.6; (2) v4-nominal >= v3-nominal
 34.8; (3) gains concentrated on OOV tasks (added training-data coverage + the
 strengthened in-corpus-noun rule). Rolls run on pod8 after the Tier-A leg.
+
+## Amendment 8 (filed 2026-07-31 ~01:20 UTC)
+1. **v7f step-0-polish and step-100 val-8 rolls DROPPED** (user: v7f no longer of
+   interest; pod7 repurposed). Consequence: arm B selection FINALIZES on the
+   measured set {0,20,40,60,80} -> best 2-rep adversarial = **step 40 (40.36)**.
+   Context datum: the true step-0 baseline measured 39.58 — v7f's adversarial
+   band is flat around its own init; v7e's 20 steps carried the earlier gain.
+2. **Arm A repair leg parallelized to pod7** (identical protocol and phrase
+   parquet; pod5 keeps polish). Cross-pod drift covered by the prereg anchor
+   clause: pod7 rolls a 1-task originals re-anchor (cube_on_plate, 24x3) after
+   the repair leg. Pod5's runner will be stopped after its polish leg to prevent
+   a duplicate repair roll (watcher armed).

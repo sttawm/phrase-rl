@@ -2584,3 +2584,14 @@ freeform "holdout" verified INTERNAL to training data: hypothesis tests ran on
 fresh bridge TRAINING instructions scored by grip proxy (records are reward
 deltas, n~12) — no sealed, no val-8 contact. Added gate: the returned v4 draft
 gets the same sealed-marker sweep before acceptance.
+
+## 2026-07-31 ~01:20 UTC — pod7 repurposed to arm A REPAIR (Amendment 8); v7f val-8 queue closed
+Killed the v7f 0000-polish roll mid-flight (user directive: step-0-pol +
+step-100 pair dropped). Arm B selection final: step 40 (40.36 2-rep adv).
+Pod7 now rolls arm A repair (12x24x12, ~13h, ARMAREP-UP 22:38 pod-clock), then
+a cube_on_plate 24x3 drift re-anchor, then execs the unified v7f/v8 eval
+roller. Pod5 continues polish (~32% at 22:37); watcher armed to intercept
+pod5's runner after polish so repair isn't double-rolled (its polish merge will
+be run manually from seal_out.parquet if the wrapper is killed pre-merge).
+Arm A ETA compressed: both conditions ~12:00 UTC (was ~evening).
+v8 heartbeat: step 1. Rules-v4 workflow: miners + draft done, verifiers running.
