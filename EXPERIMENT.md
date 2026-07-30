@@ -2575,3 +2575,12 @@ only an annotation when --tier-tags was on. Launcher now --input-dropout 0.5
 unused capability, default 0). v8 relaunched from scratch on L40S (~20 min of
 weight-loading lost, no steps trained under the wrong config). All else
 unchanged: cold start, tag-free, beta=0.15, grip-pure C=10 F=4, mix 25/25/50.
+
+## 2026-07-31 ~00:50 UTC — LEAKAGE AUDIT of arm-E derivation evidence (user challenge: no sealed data in rules derivation)
+Sweep of all 4 mining files + v3 for sealed markers (sealed/widowx_/InScene/x12/
+ERT strings/sealed task phrases): ALL CLEAN except "pepsi" x1 in v3 itself =
+the val-8 wrong-brand probe row (coke->pepsi -2.8, n=36), written pre-sealed.
+freeform "holdout" verified INTERNAL to training data: hypothesis tests ran on
+fresh bridge TRAINING instructions scored by grip proxy (records are reward
+deltas, n~12) — no sealed, no val-8 contact. Added gate: the returned v4 draft
+gets the same sealed-marker sweep before acceptance.
