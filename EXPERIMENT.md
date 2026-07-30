@@ -2332,3 +2332,9 @@ rep-1-only comparisons vs multi-rep references (references averaged 12 seedsets)
 v7f's rep-1 rollout points likely UNDERSTATE its level vs references by the same
 mechanism. Deepening verdict updated: it caught a systematic bias, not just
 variance — worth it.
+
+## 2026-07-30 ~02:55 — v7f adv-60 = 42.19: three consecutive climbing repair points
+Curve: 20/40/60 = 39.06/41.67/42.19 (1-rep; 2-rep re-rolls queued). Keyboard
+repair 25.0 at all three (stable capability); cokeplate repair rising (21->37.5).
++7.7 over raw-Adversarial at step 60, above the Original reference. The
+high-resolution-reward-enables-repair prediction is holding as a trend.
