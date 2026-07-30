@@ -2374,3 +2374,14 @@ cleanest statement of the whole project's thesis.
 ADV 2-REP UPDATE: 20/40/60 = 38.28/40.36/38.54 — the rep-1 monotone climb
 softens to an elevated band (+2.4..+4.4 over frozen-Qwen 35.9) with slope within
 noise; steps 80/100 decide the trend. Keyboard repair persists (14.6).
+
+## 2026-07-30 ~19:30 — STRATA DECOMPOSITION: v7f fully repairs hostile input on familiar tasks
+v7f repair (2-rep, tagged), in-vocab stratum: steps 20/40 = 54.7/55.2 vs
+Original-phrasing 53.7 and adversarial pass-through 41.3 — >=100% recovery of
+the adversarial damage on in-corpus tasks, AT or ABOVE original-level. Steps
+60/80: 51.6 (~96% recovery). OOV stratum: repair 21.9-25.5 vs pass-through 27.7
+(slightly negative pooled; task-mixed — keyboard uniquely repaired 14.6-25 vs ~5,
+ramekin's accidental-rename benefit partially undone). The pooled 38-40 band
+was averaging a SOLVED stratum against a neutral one. This is the two-component
+method's core evidence: gate + repairer => canonical-level performance from
+hostile input on familiar tasks.
