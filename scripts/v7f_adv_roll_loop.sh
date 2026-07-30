@@ -27,7 +27,7 @@ while true; do
     rm -f data/dev8_g_out.parquet
     cd /workspace/INT-ACT
     $VLA $ROLL --int-act-root /workspace/INT-ACT --config $CFG --ckpt $CKPT \
-      --phrases /workspace/phrase-rl/$g --episode-ids $(seq 0 23) --repeats 1 \
+      --phrases /workspace/phrase-rl/$g --episode-ids $(seq 0 23) --repeats ${REPEATS:-2} \
       --out /workspace/phrase-rl/data/dev8_g_out.parquet > /workspace/v7fadv_gr_$s.log 2>&1
     rc=$?
     cd /workspace/phrase-rl

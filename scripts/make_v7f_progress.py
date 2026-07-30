@@ -105,6 +105,9 @@ if os.path.exists("results/analysis/v7f_adv_curve.jsonl"):
 # v7e's lone C=16 probe: its step 25 = fork+5 on this axis
 a2.scatter([5], [40.89], marker="X", s=90, color="#a0aec0", zorder=4,
            label="v7e branch (C=16) @fork+5: 40.9 (untagged probe, pre-fix)")
+a2.axvline(101, ls="-.", color="#4a5568", lw=1.0, alpha=0.6)
+a2.text(102, 30.5, "1 epoch ≈ 101 steps (809 club parents / 8 per step)", fontsize=6.5,
+        color="#4a5568", rotation=90, va="bottom")
 a2.set_xlabel("v7f step (= steps past v7e@20 fork)")
 a2.set_ylabel("val-8 rollout success %")
 a2.set_ylim(30, 58)
