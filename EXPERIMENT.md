@@ -2424,3 +2424,18 @@ content nouns over the 2,000 training contexts, verified vs raw word-boundary co
   cascade (verbatim-hit passthrough / v7f / output-census fallback to rules).
   Composition from arm B/C per-task cells; zero new sealed exposure. Not designing
   finer gates off 8 noisy 2-rep cells (~±7pp SE).
+
+## 2026-07-30 ~20:20 UTC — Arm D simplified to USER'S SERIES PIPELINE (Amendment 3); keyboard styling probe launched
+User proposal adopted: route EVERYTHING through v7f; census the OUTPUT; clean ->
+keep; retained OOV noun -> rules applied to v7f's output. Strictly better than
+Amendment 2's branch-to-rules-on-raw-input because the rules lexicon needs
+canonical names to key on and only v7f recovers them from hostile paraphrase
+("black input device" -> "keyboard"). Sealed rules-v3 phrases confirm rules keep
+keyboard/wheel verbatim and rename only analog-having objects (ramekin->"white
+bowl", juice->"box") — the same renames v7f emits on its own — so the fallback's
+only live effect is styling on keyboard-class outputs. Launched val-8 probe
+(pod6 tmux seriesprobe): "Place the carrot on the keyboard." vs "put the carrot
+on the black keyboard", 24 layouts x 2 reps each -> series_fallback_probe.jsonl.
+Dropped front passthrough gate is safe at the frozen arm-B window (polish >=
+passthrough at steps 20-40) but couples benign-traffic safety to checkpoint
+choice — noted as the one caveat if later checkpoints are ever deployed.

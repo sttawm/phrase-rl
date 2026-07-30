@@ -82,3 +82,25 @@ arm C per-task cell). The routing table is computed mechanically from arm B's
 generated texts at generation time (before any arm B rolling) and logged.
 Predictions: (i) D-oracle >= D-deploy (gap = price of text-only gating);
 (ii) D-deploy >= arm B pooled on repair.
+
+## Amendment 3 (filed 2026-07-30 ~20:20 UTC, before arm B generation; supersedes
+## Amendment 2's fallback routing)
+**Arm D final form (user-simplified series pipeline).** Deploy rule:
+  1. Rewrite every incoming instruction with v7f (no front gate).
+  2. Census the output. Clean -> deploy v7f's phrase.
+  3. Retained zero-count noun -> apply the rules rewrite to v7f's OUTPUT (not the
+     raw input) and deploy that.
+Rationale (ledgered audit): the rules lexicon keys on canonical object names;
+hostile paraphrase hides them ("black input device"); v7f recovers canonical
+names ("keyboard"), so series order v7f->rules is the only order in which the
+lexicon is reliably applicable. Rules-v3 keeps keyboard/wheel verbatim and only
+renames analog-having objects (ramekin->bowl, juice->box) — renames v7f already
+emits itself — so step 3 is expected to add only styling on keyboard-class cases.
+Sealed composition (zero new exposure): clean-output tasks -> arm B cells;
+retained-OOV tasks -> arm B cells IF rules(v7f_text) differs only cosmetically
+(case/verb/color-adjective), logged per task at arm B gen time; any MATERIAL
+fallback rewrite is flagged and that cell reported as approximated.
+Dev support: series_fallback_probe.jsonl (val-8 keyboard, v7f-raw vs rules-styled
+text, 24x2 each) measures the styling delta directly.
+Prediction: arm D >= arm B pooled on repair; polish safety holds at the frozen
+arm-B selection window (v7f polish 40.4-41.7 >= passthrough 40.6 at steps 20-40).
