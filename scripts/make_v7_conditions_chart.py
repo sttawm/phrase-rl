@@ -36,6 +36,9 @@ ax.axhline(40.6, ls="--", color="#48bb78", lw=1.4)
 ax.text(0.01, 40.9, "Original phrasing 40.6", color="#2f855a", fontsize=8.5, transform=tr)
 ax.axhline(34.5, ls="--", color="#a0aec0", lw=1.4)
 ax.text(0.01, 34.8, "Adversarial phrasing 34.5", color="#718096", fontsize=8.5, transform=tr)
+ax.axhline(35.94, ls="--", color="#e53e3e", lw=1.4, alpha=0.75)
+ax.text(0.30, 36.2, "FROZEN QWEN rewriting adversarial 35.9 (real rewriter baseline, n=192)",
+        color="#c53030", fontsize=8, transform=tr)
 
 if pol_u:
     ax.plot([r["step"] for r in pol_u], [r["pooled"] for r in pol_u], marker="o", ms=6,
