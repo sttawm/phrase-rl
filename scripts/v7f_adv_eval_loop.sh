@@ -35,7 +35,14 @@ while true; do
     $GEN scripts/gen_ckpt_phrases.py "$d" 1 > /workspace/v7fadv_gen_$s.log 2>&1 || { mark "GEN FAIL $s"; sleep 600; continue; }
     cp data/rval_greedy.parquet results/phrase_artifacts/dev8q_g_v7fadv_$s.parquet
     cp data/rval_sampled.parquet results/phrase_artifacts/dev8q_s_v7fadv_$s.parquet
-    timeout 300 bash -c "git add results/phrase_artifacts/dev8q_*v7fadv*.parquet && git commit -q -m 'v7fadv phrases $s [pod]' && git pull -q --rebase && git push -q" \
+    mark "gen polish $s"
+    GEN_TAG="[input: original wording]" \
+      PROBE_CONTEXTS=results/phrase_artifacts/contexts_probe8.parquet \
+      PROBE_TRACES=results/phrase_artifacts/traces_probe8.parquet \
+      $GEN scripts/gen_ckpt_phrases.py "$d" 1 > /workspace/v7fpol_gen_$s.log 2>&1 || { mark "POL GEN FAIL $s"; }
+    cp data/rval_greedy.parquet results/phrase_artifacts/dev8q_g_v7fpol_$s.parquet 2>/dev/null
+    cp data/rval_sampled.parquet results/phrase_artifacts/dev8q_s_v7fpol_$s.parquet 2>/dev/null
+    timeout 300 bash -c "git add results/phrase_artifacts/dev8q_*v7fadv*.parquet results/phrase_artifacts/dev8q_*v7fpol*.parquet && git commit -q -m 'v7f eval phrases $s [pod]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" \
       && mark "staged+pushed $s" || mark "PUSH-DEFERRED $s"
   else
     sleep 900

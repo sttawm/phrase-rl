@@ -29,10 +29,22 @@ vals = sorted((d for d in recs if d.get("type") == "val"), key=lambda d: d["step
 trec = sorted((d for d in recs if d.get("type") not in ("val", "probe") and d.get("kl") is not None),
               key=lambda d: d["step"])
 
-curve = []
-if os.path.exists("results/analysis/v7f_rollout_curve.jsonl"):
-    curve = sorted((json.loads(l) for l in open("results/analysis/v7f_rollout_curve.jsonl")),
-                   key=lambda d: d["step"])
+def _merged(*files):
+    by_step = {}
+    for f in files:
+        if os.path.exists(f):
+            for l in open(f):
+                l = l.strip()
+                if not l:
+                    continue
+                r = json.loads(l)
+                if r["step"] not in by_step or r.get("n", 0) > by_step[r["step"]].get("n", 0):
+                    by_step[r["step"]] = r
+    return sorted(by_step.values(), key=lambda d: d["step"])
+
+
+# polish: trainer-probe points + unified checkpoint-gen points (same condition/depth)
+curve = _merged("results/analysis/v7f_rollout_curve.jsonl", "results/analysis/v7f_pol_curve.jsonl")
 
 import glob
 
@@ -97,11 +109,10 @@ if curve:
     a2.plot([c["step"] for c in sc], [c["sampled_pooled"] for c in sc], marker="D", ms=7,
             markerfacecolor="none", markeredgecolor="#2b6cb0", color="#2b6cb0", lw=1.3, ls="--",
             label="v7f: SAMPLED (rewriting originals, n=192)")
-if os.path.exists("results/analysis/v7f_adv_curve.jsonl"):
-    adv = sorted((json.loads(l) for l in open("results/analysis/v7f_adv_curve.jsonl")),
-                 key=lambda d: d["step"])
+adv = _merged("results/analysis/v7f_adv_curve.jsonl", "results/analysis/v7f_adv_curve_rep1.jsonl")
+if adv:
     a2.plot([c["step"] for c in adv], [c["pooled"] for c in adv], marker="s", ms=8,
-            color="#e53e3e", lw=2.0, label="v7f: GREEDY (rewriting ADVERSARIAL, n=192)")
+            color="#e53e3e", lw=2.0, label="v7f: GREEDY (rewriting ADVERSARIAL)")
 # v7e's lone C=16 probe: its step 25 = fork+5 on this axis
 a2.scatter([5], [40.89], marker="X", s=90, color="#a0aec0", zorder=4,
            label="v7e branch (C=16) @fork+5: 40.9 (untagged probe, pre-fix)")

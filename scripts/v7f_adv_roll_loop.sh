@@ -17,10 +17,11 @@ mark() { echo "[v7fadv-roll $(date -u +%H:%M)] $*" | tee -a /workspace/v7fadv_ro
 wait_idle() { while pgrep -f "[p]hase0c_rollout" >/dev/null; do sleep 240; done; }
 
 while true; do
-  timeout 120 git pull -q 2>/dev/null
-  for g in $(ls results/phrase_artifacts/dev8q_g_v7fadv_*.parquet 2>/dev/null); do
+  timeout 120 git -c rebase.autoStash=true pull -q 2>/dev/null
+  for g in $(ls results/phrase_artifacts/dev8q_g_v7fadv_*.parquet results/phrase_artifacts/dev8q_g_v7fpol_*.parquet 2>/dev/null); do
     s=$(basename "$g" | sed 's/.*_\([0-9]*\)\.parquet/\1/')
     step=$((10#$s))
+    case "$g" in *v7fpol*) OUT=results/analysis/v7f_pol_curve.jsonl; COND=v7f_pol;; *) OUT=results/analysis/v7f_adv_curve.jsonl; COND=v7f_adv;; esac
     grep -q "\"step\": $step," $OUT 2>/dev/null && continue
     wait_idle
     mark "roll v7fadv $s greedy(192)"
@@ -32,19 +33,19 @@ while true; do
     rc=$?
     cd /workspace/phrase-rl
     [ $rc != 0 ] && { mark "ROLL FAIL $s"; continue; }
-    STEP=$step $MERGE - <<'PYEOF' || { mark "MERGE FAIL $s"; continue; }
+    STEP=$step COND=$COND OUTF=$OUT $MERGE - <<'PYEOF' || { mark "MERGE FAIL $s"; continue; }
 import json, os
 import pandas as pd
 g = pd.read_parquet("data/dev8_g_out.parquet")
-rec = {"step": int(os.environ["STEP"]), "probe": "v7f_adv",
+rec = {"step": int(os.environ["STEP"]), "probe": os.environ["COND"],
        "n": int(len(g)), "pooled": round(float(g.success.mean()*100), 2),
        "per_task": {t: round(float(x.success.mean()*100), 1) for t, x in g.groupby("task")}}
-with open("results/analysis/v7f_adv_curve.jsonl", "a") as f:
+with open(os.environ["OUTF"], "a") as f:
     f.write(json.dumps(rec) + "\n")
-print("v7fadv step", rec["step"], "greedy", rec["pooled"])
+print(os.environ["COND"], "step", rec["step"], "greedy", rec["pooled"])
 PYEOF
-    timeout 300 bash -c "git add $OUT && git commit -q -m 'v7f adv rollout step $step [pod]' && git pull -q --rebase && git push -q" || mark "PUSH-DEFERRED $s"
-    mark "DONE $s"
+    timeout 300 bash -c "git add $OUT && git commit -q -m 'v7f $COND rollout step $step [pod]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" || mark "PUSH-DEFERRED $s"
+    mark "DONE $COND $s"
   done
   sleep 600
 done
