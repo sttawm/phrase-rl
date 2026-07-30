@@ -2563,3 +2563,15 @@ tag-free). Pod7: current roller drains the v7f queue (step-0 pair mid-roll,
 step-100 pair next — still wanted: true fork baseline + arm B selection);
 swaps to scripts/eval_roll_loop.sh (unified v7f+v8 roller) at drain.
 First v8 checkpoint ~step 10 in ~5-6h; first curve points shortly after.
+
+## 2026-07-31 ~00:10 UTC — USER-CAUGHT SPEC MISREAD: v8 dropout is INPUT-SLOT dropout, not trace dropout; relaunched
+"50% dropout of trace" meant the v6.1 mechanism: DROP THE INSTRUCTION SLOT
+("infer the task from the context") so the model relies on the trace, which
+quotes the source phrase. I had implemented the inverse (dropping the trace).
+CORRECTION to my own earlier claim: input-slot dropout does NOT require the
+[withheld] tag — tag-free, the dropped slot is a plain instruction; the tag was
+only an annotation when --tier-tags was on. Launcher now --input-dropout 0.5
+(v7f's rate), no trace dropout (--trace-dropout remains in the trainer as an
+unused capability, default 0). v8 relaunched from scratch on L40S (~20 min of
+weight-loading lost, no steps trained under the wrong config). All else
+unchanged: cold start, tag-free, beta=0.15, grip-pure C=10 F=4, mix 25/25/50.
