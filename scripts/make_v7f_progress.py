@@ -87,7 +87,12 @@ a1.grid(alpha=0.25)
 
 _adv_steps = [c["step"] for c in _merged("results/analysis/v7f_adv_curve.jsonl",
                                          "results/analysis/v7f_adv_curve_rep1.jsonl")]
-a2.set_xlim(0, max([c["step"] for c in curve] + _adv_steps + [30]) + 8)
+a2.set_xlim(-24, max([c["step"] for c in curve] + _adv_steps + [30]) + 8)
+# measured ancestry: v7a-140 (deep, tagged) = v7e's birth = x=-20 on this axis
+a2.scatter([-20], [45.05], marker="D", s=55, facecolor="none", edgecolor="#6b46c1", lw=1.6, zorder=4)
+a2.scatter([-20], [36.98], marker="s", s=55, facecolor="none", edgecolor="#e53e3e", lw=1.6, zorder=4)
+a2.text(-20, 46.2, "v7a-140\n(ancestor)", fontsize=6.5, color="#4a5568", ha="center")
+a2.axvline(0, ls=":", color="#a0aec0", lw=0.8)
 tr = a2.get_yaxis_transform()  # x in axes fraction, y in data units
 a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
 a2.axhline(40.6, ls="--", color="#48bb78", lw=1.2)
