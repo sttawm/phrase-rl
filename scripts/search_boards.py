@@ -38,6 +38,7 @@ ap.add_argument("--keep", type=int, default=4)
 ap.add_argument("--max-rounds", type=int, default=4)
 ap.add_argument("--min-gain", type=float, default=0.002)
 ap.add_argument("--n-instructions", type=int, default=100)
+ap.add_argument("--skip", type=int, default=0, help="skip the first N of the seeded random order (for split across pods)")
 ap.add_argument("--screen-f", type=int, default=1, help="frames/episode in iterative rounds")
 ap.add_argument("--screen-c", type=int, default=4, help="episodes in iterative rounds")
 args = ap.parse_args()
@@ -65,7 +66,7 @@ sizes = ctx.groupby("instruction").episode_index.nunique()
 # user 2026-07-29: random order (seeded shuffle — unbiased sample of the corpus)
 order = list(sizes.index)
 np.random.default_rng(41).shuffle(order)
-order = order[:args.n_instructions]
+order = order[args.skip:args.n_instructions]
 
 GEN_PROMPT = """The attached image is a robot arm's camera view (BridgeData kitchen manipulation). We are searching for the instruction phrasing a trained robot policy follows most reliably.
 
