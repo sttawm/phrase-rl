@@ -18,7 +18,7 @@ wait_idle() { while pgrep -f "[p]hase0c_rollout" >/dev/null; do sleep 240; done;
 
 while true; do
   timeout 120 git -c rebase.autoStash=true pull -q 2>/dev/null
-  for g in $(ls results/phrase_artifacts/dev8q_g_v7fadv_*.parquet results/phrase_artifacts/dev8q_g_v7fpol_*.parquet 2>/dev/null); do
+  for g in $(ls results/phrase_artifacts/dev8q_g_v7fadv_*.parquet results/phrase_artifacts/dev8q_g_v7fpol_*.parquet 2>/dev/null | awk -F_ "{print \$NF, \$0}" | sort -n | cut -d" " -f2); do
     s=$(basename "$g" | sed 's/.*_\([0-9]*\)\.parquet/\1/')
     step=$((10#$s))
     case "$g" in *v7fpol*) OUT=results/analysis/v7f_pol_curve.jsonl; COND=v7f_pol;; *) OUT=results/analysis/v7f_adv_curve.jsonl; COND=v7f_adv;; esac

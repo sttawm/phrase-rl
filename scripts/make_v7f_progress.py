@@ -85,7 +85,9 @@ a1.set_ylabel("proxy reward (grip-pure)")
 a1.set_title("proxy-reward val (n=40 contexts)")
 a1.grid(alpha=0.25)
 
-a2.set_xlim(0, max([c["step"] for c in curve] + [30]) + 5)
+_adv_steps = [c["step"] for c in _merged("results/analysis/v7f_adv_curve.jsonl",
+                                         "results/analysis/v7f_adv_curve_rep1.jsonl")]
+a2.set_xlim(0, max([c["step"] for c in curve] + _adv_steps + [30]) + 8)
 tr = a2.get_yaxis_transform()  # x in axes fraction, y in data units
 a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
 a2.axhline(40.6, ls="--", color="#48bb78", lw=1.2)
