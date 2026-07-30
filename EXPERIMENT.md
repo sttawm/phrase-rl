@@ -2318,3 +2318,17 @@ high-resolution-reward-enables-repair hypothesis is confirming by trend: two
 elevated, climbing points with a stable qualitative capability (corpus-absent
 rename) v7a never produced. Polish meanwhile Original-parity (25/50 = 41.2/40.4)
 — the repair-polish gap has nearly closed at fork+40.
+
+## 2026-07-30 00:20 — pod8 deep late-polish REWRITES the decay story (seedset artifact)
+Deep (2-rep, n=384) polish late: 280/300/320 = 43.23, 340 = 44.27 — vs the
+shallow rep-1 flatline of 40.62. Four independent checkpoints all shifting +~3-5
+with rep-2 = the rep seedsets differ SYSTEMATICALLY in difficulty (CRN reuses the
+same per-(layout,rep) seeds across checkpoints, so rep-1-only rows share a
+harder-than-average draw). REVISED tagged polish story: rises 39->44.5 by step
+40, then holds a +3-4pp plateau over Original through 340 — no mid-run peak, no
+late decay. Checkpoint-120 remains the balanced BOTH-conditions best (its repair
+39.1 stands alone; repair still degrades late). Caveats now attached to all
+rep-1-only comparisons vs multi-rep references (references averaged 12 seedsets);
+v7f's rep-1 rollout points likely UNDERSTATE its level vs references by the same
+mechanism. Deepening verdict updated: it caught a systematic bias, not just
+variance — worth it.
