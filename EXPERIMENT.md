@@ -2346,3 +2346,15 @@ v7a step-0 "the SFT init" was wrong (user caught it). Therefore the tagged
 step-0 values ARE the frozen-Qwen-rewriter baselines: repair 35.94, polish
 39.06 (n=192). Chain of baselines, adversarial condition: pass-through 34.5 <
 frozen-Qwen rewrite 35.94 < v7a-140/fork-init 36.98 < v7f current 42.19.
+
+## 2026-07-30 ~07:10 — freeform loop complete (4 rounds); 2-rep adv re-rolls land
+2-REP ADV (n=384): step 20 = 38.28, 40 = 40.36 (rep-1 read ~1pp high; climb
+shape holds: +2.1 from 20->40; keyboard repair persists at depth, 14.6 vs the
+rep-1 25.0 — real but smaller). vs frozen-Qwen 35.9: +4.4 at step 40, at depth.
+FREEFORM INSIGHT LOOP: holdout testing REFUTED the elaborate hypotheses its own
+early rounds proposed ("precise high-intent verbs" -0.94pp, "rich spatial
+descriptions" -1.2pp) and converged on template conservatism: keep canonical
+nouns, simple truncated directions, avoid elaboration. Independently replicates
+the boards' originals-win pattern ON CLUB (in-corpus) instructions — the
+enhancement rules (renames, adjectives) only pay off out-of-vocab, exactly the
+sealed-test contrast. Transforms grid (running next) will put CIs on this.
