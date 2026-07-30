@@ -101,7 +101,14 @@ def grips_for(frames, phrases):
 
 done = set()
 if os.path.exists(args.out):
-    done = {json.loads(l)["instruction"] for l in open(args.out)}
+    for l in open(args.out):
+        l = l.strip()
+        if not l:
+            continue
+        try:
+            done.add(json.loads(l)["instruction"])
+        except json.JSONDecodeError:
+            pass  # truncated partial line from a mid-write kill — redo that instruction
     print(f"resume: {len(done)} instructions complete")
 
 for ins in order:
