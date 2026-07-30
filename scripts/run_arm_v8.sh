@@ -4,8 +4,10 @@
 #   * NO TAGS: the arm-D gate externalizes regime detection, so the rewriter
 #     never sees tier tags (v7a/v7f tag-era prompts are retired)
 #   * tier mix nominal/benign/ert = 0.25/0.25/0.50 (v7a's proven mix)
-#   * --trace-dropout 0.5: half the prompts carry no scene trace (deploy may not
-#     have one); NO input-slot dropout (that mechanism required the withheld tag)
+#   * --input-dropout 0.5 (v6.1 slot dropout, TAG-FREE): half the prompts replace
+#     the instruction slot with "infer the task from the context" — the model must
+#     read the task from the trace (which quotes the source phrase). No tag involved;
+#     the [withheld] tag was only an annotation when --tier-tags was on.
 #   * grip-pure reward (blend-w 0.0), C=10 same-instruction club contexts, F=4
 #   * beta = 0.15 (v7f's polish drift at beta=0.05 fired the Goodhart trigger:
 #     41.7 -> 38.0 by step 80, IV-concentrated)
@@ -45,7 +47,7 @@ tmux new-session -d -s train \
      --ckpt-dir results/checkpoints/phase2_v8 \
      --reward-mode verifier --reward-frames ${REWARD_FRAMES:-4} \
      --source-mix 0.25,0.25,0.5 \
-     --trace-dropout 0.5 \
+     --input-dropout 0.5 \
      --reward-blend c4b --blend-w 0.0 --reward-contexts ${RCTX:-10} --club-contexts data/contexts_club.parquet \
      --gen-mode sample_single --update-rule grpo --no-gate \
      --gen-temp 1.0 --n-candidates 16 \
@@ -60,4 +62,4 @@ tmux new-session -d -s train \
    2>&1 | tee -a results/checkpoints/phase2_v8/train.log; \
    echo \"trainer exited rc=\$?\"; sleep infinity'"
 
-echo "V8 LAUNCHED (cold start, tag-free, trace-dropout 0.5, beta=$BETA, C=${RCTX:-10} F=${REWARD_FRAMES:-4})"
+echo "V8 LAUNCHED (cold start, tag-free, input-dropout 0.5, beta=$BETA, C=${RCTX:-10} F=${REWARD_FRAMES:-4})"

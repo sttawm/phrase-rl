@@ -403,8 +403,7 @@ def process_context(model, processor, gate, row, args, min_survivors: int, plan=
         TAGS = {"nominal": "[input: original wording]", "benign": "[input: paraphrased]",
                 "ert": "[input: adversarially reworded]"}
         source = f"[input: withheld] {source}" if dropped else f"{TAGS[tier]} {source}"
-    # v8 trace dropout: train the rewriter to work with AND without scene context
-    # (deployment may lack a trace). Drops the whole scene block; no tag signal.
+    # trace dropout (unused by v8 — kept as a capability): omit the scene block.
     if getattr(args, "trace_dropout", 0.0) > 0 and np.random.random() < args.trace_dropout:
         trace = None
     res["trace"] = trace
