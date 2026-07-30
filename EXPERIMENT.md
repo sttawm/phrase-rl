@@ -2338,3 +2338,11 @@ Curve: 20/40/60 = 39.06/41.67/42.19 (1-rep; 2-rep re-rolls queued). Keyboard
 repair 25.0 at all three (stable capability); cokeplate repair rising (21->37.5).
 +7.7 over raw-Adversarial at step 60, above the Original reference. The
 high-resolution-reward-enables-repair prediction is holding as a trend.
+
+## 2026-07-30 ~03:40 — CORRECTION: v7a initialized from BASE QWEN, not SFT
+run_arm_v7.sh has no --init-adapter: v7a cold-started (fresh zero-init LoRA =
+exactly base/frozen Qwen at step 0). Earlier ledger/chart language calling the
+v7a step-0 "the SFT init" was wrong (user caught it). Therefore the tagged
+step-0 values ARE the frozen-Qwen-rewriter baselines: repair 35.94, polish
+39.06 (n=192). Chain of baselines, adversarial condition: pass-through 34.5 <
+frozen-Qwen rewrite 35.94 < v7a-140/fork-init 36.98 < v7f current 42.19.
