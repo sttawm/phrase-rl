@@ -2461,3 +2461,23 @@ Q (user): seat v7f or v7a in the series pipeline?
   is census-independent.
 RECOMMENDATION: seat A (v7a-120); v7f held as challenger; sealed table
 adjudicates the seat for free (Amendment 4 secondary endpoint).
+
+## 2026-07-30 ~21:15 UTC — SERIES PROBE RESULT: fallback styling is LOAD-BEARING (+14.6pp); pol-80 clobber repaired
+- **series_fallback_probe (val-8 keyboard, 24x2 each)**: v7f raw output "Place the
+  carrot on the keyboard." = 14.6 (exact reproduction of the curve cell — CRN
+  determinism check passes); rules-styled "put the carrot on the black keyboard"
+  = **29.2**. The Amendment-3 expectation that the fallback adds "only styling"
+  is refuted in the useful direction: the styling DOUBLES success on the
+  retained-OOV case (plausible mechanism: "black" gives the executor a visual
+  anchor for a language-OOV object). Paired n=48/cell — suggestive, not final.
+- CONSEQUENCE for sealed arm D: approximating fallback cells by arm A/B raw cells
+  (Amendment 3 clause) is now known-CONSERVATIVE (understates arm D). Honest
+  options: report conservative composition, or roll true fallback texts on the
+  retained-OOV sealed tasks (~2-4 tasks x 24 x 12 per seat/condition = small NEW
+  sealed exposure; requires explicit user sign-off under the discipline clause).
+- **pol-80 clobber post-mortem**: refresh script scp'd pod curve copies OVER
+  git-tracked files; a stale copy rode the pull autostash and my blanket
+  `git add -A` amendment commit deleted the measured pol-80 row from origin.
+  Restored from commit 6f5f7ac. Fix: scp now stages to untracked _scp_* files
+  (gitignored); chart max-n merges git + staging; _merged tolerant of conflict
+  markers. New footgun variant recorded in memory (autostash-clobber).

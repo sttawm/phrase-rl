@@ -37,14 +37,20 @@ def _merged(*files):
                 l = l.strip()
                 if not l:
                     continue
-                r = json.loads(l)
+                try:
+                    r = json.loads(l)
+                except json.JSONDecodeError:  # conflict markers in pod copies
+                    continue
                 if r["step"] not in by_step or r.get("n", 0) > by_step[r["step"]].get("n", 0):
                     by_step[r["step"]] = r
     return sorted(by_step.values(), key=lambda d: d["step"])
 
 
 # polish: trainer-probe points + unified checkpoint-gen points (same condition/depth)
-curve = _merged("results/analysis/v7f_rollout_curve.jsonl", "results/analysis/v7f_pol_curve.jsonl")
+# _scp_* files are untracked pod staging copies (see refresh_v7f_chart.sh)
+curve = _merged("results/analysis/v7f_rollout_curve.jsonl", "results/analysis/v7f_pol_curve.jsonl",
+                "results/analysis/_scp_v7f_pol_curve.jsonl",
+                "results/analysis/_scp_v7f_pol_curve_p6.jsonl")
 
 import glob
 
@@ -85,8 +91,9 @@ a1.set_ylabel("proxy reward (grip-pure)")
 a1.set_title("proxy-reward val (n=40 contexts)")
 a1.grid(alpha=0.25)
 
-_adv_steps = [c["step"] for c in _merged("results/analysis/v7f_adv_curve.jsonl",
-                                         "results/analysis/v7f_adv_curve_rep1.jsonl")]
+_ADV_FILES = ("results/analysis/v7f_adv_curve.jsonl", "results/analysis/v7f_adv_curve_rep1.jsonl",
+              "results/analysis/_scp_v7f_adv_curve.jsonl")
+_adv_steps = [c["step"] for c in _merged(*_ADV_FILES)]
 a2.set_xlim(-24, max([c["step"] for c in curve] + _adv_steps + [30]) + 8)
 # measured ancestry: v7a-140 (deep, tagged) = v7e's birth = x=-20 on this axis
 a2.scatter([-20], [45.05], marker="D", s=55, facecolor="none", edgecolor="#6b46c1", lw=1.6, zorder=4)
@@ -122,7 +129,7 @@ if curve:
     a2.plot([c["step"] for c in sc], [c["sampled_pooled"] for c in sc], marker="D", ms=7,
             markerfacecolor="none", markeredgecolor="#2b6cb0", color="#2b6cb0", lw=1.3, ls="--",
             label="v7f: SAMPLED (rewriting originals, n=192)")
-adv = _merged("results/analysis/v7f_adv_curve.jsonl", "results/analysis/v7f_adv_curve_rep1.jsonl")
+adv = _merged(*_ADV_FILES)
 if adv:
     a2.plot([c["step"] for c in adv], [c["pooled"] for c in adv], marker="s", ms=8,
             color="#e53e3e", lw=2.0, label="v7f: GREEDY (rewriting ADVERSARIAL)")
