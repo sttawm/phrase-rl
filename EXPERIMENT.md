@@ -2603,3 +2603,8 @@ that drifted ~2.5h ahead of reality; true times were 2026-07-30 ~20:30-22:45
 UTC. Filing ORDER is unaffected and git commit timestamps are authoritative.
 Also: the derive-rules-v4 workflow died when the user's machine slept (local
 agents); resumed 22:50 UTC from cache (miners + draft cached; verifiers rerun).
+
+## 2026-07-30 23:05 UTC — Tier-A CANCELLED (Amendment 9); pod8 idle pending arm E
+Killed tierA + rulesv4 waiter sessions on pod8 (waiter would have tripped its
+missing-phrases retry and exited; it gets relaunched after v4 phrases are
+staged). No sibling data ever produced. Partial out-parquet removed.

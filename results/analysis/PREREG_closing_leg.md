@@ -173,3 +173,13 @@ strengthened in-corpus-noun rule). Rolls run on pod8 after the Tier-A leg.
    clause: pod7 rolls a 1-task originals re-anchor (cube_on_plate, 24x3) after
    the repair leg. Pod5's runner will be stopped after its polish leg to prevent
    a duplicate repair roll (watcher armed).
+
+## Amendment 9 (filed 2026-07-30 ~23:05 UTC — verified clock)
+**Tier-A sibling leg SUSPENDED by user before any arm completed.** Zero sibling
+rows were produced or observed (anchors arm killed mid-roll, no results file).
+Rationale (user): the rules were derived on the primary executor; rolling them
+on the sibling conflates rule quality with derivation-target mismatch and is
+not in line with the current goal. The leg may return later in its fair form —
+rules/oracle re-derived natively on the sibling (the oracle re-derivation
+trigger clause already anticipated this). Pod8 freed; it will run the arm E
+(rules-v4) sealed rolls once phrases are generated and preflighted.
