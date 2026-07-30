@@ -1,0 +1,163 @@
+{
+ "meta": {
+  "frozen": "2026-07-30T23:05Z",
+  "seat": "v7a-120 (arm A)",
+  "census": "bridge census-of-record per Amendment 4: parents-hit OR audit-nonzero OR nut-clause; audit-zero and unverifiable words -> fallback",
+  "fallback_cells": {
+   "polish": "rules_pro_nominal_x12",
+   "repair": "pairA_pro_x12:rules_v3_gemini_pro"
+  }
+ },
+ "routing": {
+  "polish": {
+   "widowx_carrot_on_ramekin_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "ramekin!"
+    ],
+    "phrase": "pick up the orange carrot and place it in the white ramekin"
+   },
+   "widowx_carrot_on_sponge_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Place the carrot on the sponge."
+   },
+   "widowx_coke_can_on_keyboard_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "keyboard!",
+     "soda?"
+    ],
+    "phrase": "pick up the red soda can and place it on the black keyboard"
+   },
+   "widowx_coke_can_on_wheel_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "wheel!"
+    ],
+    "phrase": "Place the red can in the center of the wheel."
+   },
+   "widowx_eggplant_on_keyboard_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "keyboard!"
+    ],
+    "phrase": "Pick up the purple eggplant and place it on the black keyboard."
+   },
+   "widowx_eggplant_on_sponge_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Pick up the purple eggplant and place it on the yellow and green sponge."
+   },
+   "widowx_cube_on_plate_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Place the green cube on the plate."
+   },
+   "widowx_nut_on_plate_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Place the grey nut on the yellow plate."
+   },
+   "widowx_nut_on_wheel_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Place the grey nut into the center hole of the black tire."
+   },
+   "widowx_orange_juice_on_plate_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "juice!"
+    ],
+    "phrase": "Place the orange juice box on the yellow plate."
+   },
+   "widowx_pepsi_on_plate_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "pepsi!"
+    ],
+    "phrase": "pick up the blue Pepsi can and place it on the yellow plate"
+   },
+   "widowx_small_plate_on_green_cube_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "teal?"
+    ],
+    "phrase": "pick up the yellow dish and place it on the teal cube"
+   }
+  },
+  "repair": {
+   "widowx_carrot_on_ramekin_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Pick up the carrot and place it in the white bowl."
+   },
+   "widowx_carrot_on_sponge_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Place the orange carrot on top of the green and yellow sponge."
+   },
+   "widowx_coke_can_on_keyboard_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "keyboard!",
+     "soda?"
+    ],
+    "phrase": "Pick up the red soda can and place it on the black keyboard."
+   },
+   "widowx_coke_can_on_wheel_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Put the red can into the middle of the black tire."
+   },
+   "widowx_eggplant_on_keyboard_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "keyboard!"
+    ],
+    "phrase": "Pick up the purple eggplant and place it on the black keyboard."
+   },
+   "widowx_eggplant_on_sponge_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Pick up the purple eggplant and place it on the yellow and green sponge."
+   },
+   "widowx_cube_on_plate_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "teal?"
+    ],
+    "phrase": "Pick up the teal cube and place it on the yellow plate."
+   },
+   "widowx_nut_on_plate_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Pick up the grey nut and place it on the yellow plate."
+   },
+   "widowx_nut_on_wheel_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Pick up the grey nut and put it in the middle of the black tire."
+   },
+   "widowx_orange_juice_on_plate_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "juice!"
+    ],
+    "phrase": "Place the orange juice box on the yellow plate."
+   },
+   "widowx_pepsi_on_plate_clean": {
+    "route": "KEEP",
+    "oov_flags": [],
+    "phrase": "Pick up the blue can and place it on the yellow plate."
+   },
+   "widowx_small_plate_on_green_cube_clean": {
+    "route": "FALLBACK",
+    "oov_flags": [
+     "teal?"
+    ],
+    "phrase": "Pick up the yellow dish and place it on top of the teal block."
+   }
+  }
+ }
+}

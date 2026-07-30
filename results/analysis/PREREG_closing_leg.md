@@ -120,3 +120,21 @@ arm-B selection window (v7f polish 40.4-41.7 >= passthrough 40.6 at steps 20-40)
 3. Primary seat prediction (filed now): seat A >= seat B on the pooled
    two-condition composite (polish decisively A: 45.05 vs 41.67; repair inside
    noise: 39.1 vs 40.4; in-vocab repair stratum identical 55.2).
+
+## Amendment 5 (filed 2026-07-30 ~23:05 UTC; arm A mid-roll unobserved, all
+## fallback cells long-rolled but not re-read for this filing)
+**Headline arm D composition = user's branch spec (2026-07-30): rephrase with
+v7a-120; if the OUTPUT retains a zero-count noun, the task scores as the
+rules-with-Gemini arm instead.** Fallback cells are the EXISTING prereg arms —
+polish: rules_pro_nominal_x12; repair: pairA_pro_x12 arm rules_v3_gemini_pro
+(the frozen rules-v3 protocol executed by gemini-pro on nominal/ERT input
+respectively). No new generation, no new sealed rolling beyond arm A.
+Routing table FROZEN in results/analysis/armD_routing_seatA.json:
+polish 5 KEEP / 7 FALLBACK; repair 7 KEEP / 5 FALLBACK (census-of-record;
+unverifiable words conservatively treated zero-count: soda, teal).
+Amendment 3's series semantics (rules applied to the rewriter's output) is
+retained as the DEPLOY recommendation only (val-8 keyboard probe 14.6->29.2);
+it is not sealed-scored (user directive: no fallback-text rolls).
+Seat-B (v7f) routing will be frozen by the same procedure at arm B gen time.
+Known gate blind spot (ledgered): census cannot detect brand-DROPPING
+(v7a's repair emission for pepsi task says "blue can" — gates KEEP).

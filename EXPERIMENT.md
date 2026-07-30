@@ -2521,3 +2521,22 @@ OOV 27.4; adv passthrough IV 41.3 / OOV 27.7; oracle IV 58.6 / OOV 50.9.
 - Caveats: 4 tasks/stratum (SE ~3.5-5pp/point), rep-1 rows carry ~-3pp seedset
   bias (marked on chart), val-8 stratum labels are audit-confirmed (every OOV
   task contains a zero-count noun per bridge census).
+
+## 2026-07-30 ~23:05 UTC — CHECK-ME VERDICT: user's sealed evaluation plan is fully measured already (Amendment 5, frozen routing)
+User proposal: sealed-evaluate v7a-120 + "rephrase; if output remains OOV,
+re-route to rules with Gemini". CHECKS OUT, with a correction to MY earlier
+framing: rules-v3 is NOT mechanical code — it is a frozen rewrite protocol
+(b4_phrasing_rules_v3.md, noun ladder + brand table + corpus-vocab appendix)
+EXECUTED BY gemini-pro (temp 0.2, thinking 16k). "Rules with Gemini" was the
+correct name. Discovery: BOTH fallback legs were already rolled in the
+scoreboard era — rules on ERT = pairA_pro_x12 arm rules_v3_gemini_pro (31.6
+pooled, 2026-07-25); rules on nominal = rules_pro_nominal_x12 (34.8,
+2026-07-26). So the entire arm D seat-A evaluation = arm A (rolling, lands
+~Jul 31 eve) + existing cells. ZERO new sealed exposure of any kind.
+Frozen routing (armD_routing_seatA.json): polish 5 KEEP/7 FALLBACK, repair
+7 KEEP/5 FALLBACK. Fallback synergies visible in the phrases themselves:
+coke_on_keyboard fallback restores the brand v7a genericized ("soda can" ->
+"put the coke can on the black keyboard"; brand->generic is a certified
+-47.2 error in rules-v3's own measurement table) and adds the color anchor
+(+11.1 cert). Gate blind spot ledgered: brand-dropping is census-invisible
+(pepsi repair emission "blue can" gates KEEP).
