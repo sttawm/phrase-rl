@@ -2540,3 +2540,26 @@ coke_on_keyboard fallback restores the brand v7a genericized ("soda can" ->
 -47.2 error in rules-v3's own measurement table) and adds the color anchor
 (+11.1 cert). Gate blind spot ledgered: brand-dropping is census-invisible
 (pepsi repair emission "blue can" gates KEEP).
+
+## 2026-07-30 ~23:50 UTC — v7f KILLED (step 114); v8 LAUNCHED (tag-free, cold start, beta=0.15)
+USER SPEC: C=10 x F=4, grip-pure reward, NO TAGS, tier mix ert/original/benign
+50/25/25 (= v7a's proven 0.25,0.25,0.5 nom/benign/ert), 50% TRACE dropout,
+beta=0.15, cold start from frozen base Qwen, checkpoint evals every 10 steps.
+Design notes (assessment):
+- Tag-free is the arm-D-consistent training: the census gate externalizes
+  regime detection, so v8 is the pure repairer the method deploys. Removes the
+  input-slot dropout mechanism (needed the [withheld] tag) — replaced by NEW
+  --trace-dropout 0.5 (phase2_train.py), which needs no tag signal and trains
+  trace-optional rewriting (deploy may lack a scene trace).
+- beta=0.15 responds to the fired Goodhart trigger (v7f polish 41.7->38.0 by
+  step 80 at beta=0.05, drift IV-concentrated 56.8->50.5).
+- Eval stride 10 both conditions, TAG-FREE generation (GEN_TAG="").
+Execution: v7f final archive verified (newest-archived == newest-durable =
+step 100; 101-114 forfeited, ledgered; Amendment 6 fixes arm B selection to
+archived 20-100, step-100 pair still lands). L40S: train/score/v7fsync killed,
+v8 launched via scripts/run_arm_v8.sh (cold start verified: fresh base-weight
+load, no resume/init), v8sync archiver up. Pod6: v7fadvgen -> v8gen (stride 10,
+tag-free). Pod7: current roller drains the v7f queue (step-0 pair mid-roll,
+step-100 pair next — still wanted: true fork baseline + arm B selection);
+swaps to scripts/eval_roll_loop.sh (unified v7f+v8 roller) at drain.
+First v8 checkpoint ~step 10 in ~5-6h; first curve points shortly after.

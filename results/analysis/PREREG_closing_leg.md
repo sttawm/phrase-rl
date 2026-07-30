@@ -138,3 +138,11 @@ it is not sealed-scored (user directive: no fallback-text rolls).
 Seat-B (v7f) routing will be frozen by the same procedure at arm B gen time.
 Known gate blind spot (ledgered): census cannot detect brand-DROPPING
 (v7a's repair emission for pepsi task says "blue can" — gates KEEP).
+
+## Amendment 6 (filed 2026-07-30 ~23:50 UTC)
+**v7f terminated at step 114 (user decision; GPU handed to v8).** Arm B
+selection rule amended: best 2-rep adversarial val-8 point among the ARCHIVED
+v7f checkpoints (20-100, stride 20). The step-100 adversarial roll was staged
+before termination and still lands; steps beyond 100 were never durably saved.
+Decision timing: made after adv 20-80 were known (best 40.36 @ step 40) but
+BEFORE the step-100 pair is measured — the selection rule remains mechanical.
