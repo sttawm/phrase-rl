@@ -2502,3 +2502,22 @@ adjudicates the seat for free (Amendment 4 secondary endpoint).
   sibling ckpt. ~4h/arm. Monitor armed.
 - Pod7: step-0 adversarial roll in progress (started 19:47); then step-0 pol,
   step-100 adv/pol. v7f trainer at step ~112.
+
+## 2026-07-30 ~22:30 UTC — FULL IV/OOV STRATA DECOMPOSITION of every tagged checkpoint eval (user Q: "is the value in-vocab?")
+Chart: results/charts/v7_strata.png. References (12-rep): originals IV 53.7 /
+OOV 27.4; adv passthrough IV 41.3 / OOV 27.7; oracle IV 58.6 / OOV 50.9.
+- REPAIR: gains are ENTIRELY in-vocab. IV: 52.1 (frozen) -> 55.2 (v7a-120 ==
+  v7f-40). OOV: NO checkpoint of EITHER model ever beats passthrough 27.7 —
+  best-ever OOV repair 25.5 (v7f 40-80); most points 19-23. RL repair = in-vocab
+  canonicalization, full stop.
+- POLISH: frozen Qwen is OOV-TILTED (OOV 34.3 > passthrough 27.4, but DAMAGES
+  IV: 43.7 vs 53.7). RL REDISTRIBUTES value to IV: v7a-120/140 IV = 58.9 —
+  above in-vocab originals (+5.2) and matching oracle IV (58.6) — while OOV
+  drifts to 28-31 (still > passthrough, < frozen's 34.3). v7f polish drift is
+  IV-concentrated (56.8 -> 50.5); its OOV never matches v7a's.
+- Remaining oracle headroom is ~ALL OOV: oracle OOV 50.9 vs best model OOV 31.2
+  (v7a polish) / 25.5 (repair). The OOV stratum is untouched by both RL runs —
+  exactly the territory delegated to the rules fallback in the arm D pipeline.
+- Caveats: 4 tasks/stratum (SE ~3.5-5pp/point), rep-1 rows carry ~-3pp seedset
+  bias (marked on chart), val-8 stratum labels are audit-confirmed (every OOV
+  task contains a zero-count noun per bridge census).
