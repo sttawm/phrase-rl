@@ -2595,3 +2595,11 @@ pod5's runner after polish so repair isn't double-rolled (its polish merge will
 be run manually from seal_out.parquet if the wrapper is killed pre-merge).
 Arm A ETA compressed: both conditions ~12:00 UTC (was ~evening).
 v8 heartbeat: step 1. Rules-v4 workflow: miners + draft done, verifiers running.
+
+## 2026-07-30 22:55 UTC (verified against pod clocks) — TIMESTAMP ERRATUM
+Ledger/amendment entries stamped "~23:05 UTC" through "2026-07-31 ~01:20 UTC"
+(Amendments 5-8 and adjacent entries) were written with assumed clock times
+that drifted ~2.5h ahead of reality; true times were 2026-07-30 ~20:30-22:45
+UTC. Filing ORDER is unaffected and git commit timestamps are authoritative.
+Also: the derive-rules-v4 workflow died when the user's machine slept (local
+agents); resumed 22:50 UTC from cache (miners + draft cached; verifiers rerun).
