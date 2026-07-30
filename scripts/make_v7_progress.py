@@ -74,8 +74,13 @@ def _tagged(pattern):
     by_step = {}
     for f in sorted(glob.glob(pattern)):
         for x in open(f):
+            x = x.strip()
+            if not x:
+                continue
             r = json.loads(x)
-            by_step[r["step"]] = r
+            # prefer the deepest (highest-n) measurement per step
+            if r["step"] not in by_step or r.get("n", 0) > by_step[r["step"]].get("n", 0):
+                by_step[r["step"]] = r
     return sorted(by_step.values(), key=lambda r: r["step"])
 
 

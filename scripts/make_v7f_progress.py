@@ -90,9 +90,9 @@ tr = a2.get_yaxis_transform()  # x in axes fraction, y in data units
 a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
 a2.axhline(40.6, ls="--", color="#48bb78", lw=1.2)
 a2.axhline(34.5, ls="--", color="#a0aec0", lw=1.2)
-a2.axhline(36.98, ls=":", color="#e53e3e", lw=1.3, alpha=0.7)
-a2.text(0.02, 37.3, "fork-init repair 37.0 (v7a-140 rewriting adversarial — the fair rewriter baseline)",
-        color="#c53030", alpha=0.8, fontsize=7, transform=tr)
+a2.axhline(35.94, ls=":", color="#718096", lw=1.4)
+a2.text(0.02, 36.15, "FROZEN QWEN rewriting adversarial 35.9 (the real rewriter baseline)",
+        color="#4a5568", fontsize=7, transform=tr)
 a2.text(0.02, 55.1, "Oracle 54.7 (val-8)", color="#822727", fontsize=7.5, transform=tr)
 a2.text(0.02, 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5, transform=tr)
 a2.text(0.02, 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5, transform=tr)
@@ -116,18 +116,19 @@ adv = _merged("results/analysis/v7f_adv_curve.jsonl", "results/analysis/v7f_adv_
 if adv:
     a2.plot([c["step"] for c in adv], [c["pooled"] for c in adv], marker="s", ms=8,
             color="#e53e3e", lw=2.0, label="v7f: GREEDY (rewriting ADVERSARIAL)")
-# v7e's lone C=16 probe: its step 25 = fork+5 on this axis
-a2.scatter([5], [40.89], marker="X", s=90, color="#a0aec0", zorder=4,
-           label="v7e branch (C=16) @fork+5: 40.9 (untagged probe, pre-fix)")
+# v7e's lone C=16 probe: its step 25 = fork+5 on this axis (label in footnote)
+a2.scatter([5], [40.89], marker="X", s=90, color="#a0aec0", zorder=4)
 a2.axvline(101, ls="-.", color="#4a5568", lw=1.0, alpha=0.6)
 a2.text(102, 30.5, "1 epoch ≈ 101 steps (809 club parents / 8 per step)", fontsize=6.5,
         color="#4a5568", rotation=90, va="bottom")
 a2.set_xlabel("v7f step (= steps past v7e@20 fork)")
 a2.set_ylabel("val-8 rollout success %")
 a2.set_ylim(30, 58)
-a2.set_title("REAL rollouts: v7f curve vs references")
-a2.legend(fontsize=7, loc="lower right")
+a2.set_title("REAL rollouts: v7f curves vs references")
+a2.legend(fontsize=6.5, loc="upper center", bbox_to_anchor=(0.5, -0.13), ncol=2, frameon=False)
 a2.grid(alpha=0.25)
+fig.text(0.35, 0.005, "gray X = v7e branch (C=16) @fork+5, untagged pre-fix probe (40.9)",
+         fontsize=6.5, color="#718096")
 
 if trec:
     ts = [d["step"] for d in trec]

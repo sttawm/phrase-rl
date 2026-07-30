@@ -61,6 +61,9 @@ ax.plot([], [], marker="o", ls="none", markerfacecolor="#a0aec0", markeredgecolo
 ax.axvline(250, ls="-.", color="#4a5568", lw=1.0, alpha=0.6)
 ax.text(252, 31, "1 epoch (250 steps = 2,000 parent contexts / 8 per step)", fontsize=7,
         color="#4a5568", rotation=90, va="bottom")
+ax.annotate("step 0 = FROZEN QWEN\n(zero-init LoRA)", xy=(0, 39.06), xytext=(8, 33),
+            fontsize=7, color="#4a5568",
+            arrowprops=dict(arrowstyle="->", color="#4a5568", lw=0.8))
 ax.set_xlabel("v7a checkpoint step (run trained to 340 ≈ 1.36 epochs)")
 ax.set_ylabel("val-8 rollout success % (8 tasks × 24 layouts, greedy)")
 ax.set_ylim(30, 58)
