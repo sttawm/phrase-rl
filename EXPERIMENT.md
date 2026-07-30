@@ -2608,3 +2608,11 @@ agents); resumed 22:50 UTC from cache (miners + draft cached; verifiers rerun).
 Killed tierA + rulesv4 waiter sessions on pod8 (waiter would have tripped its
 missing-phrases retry and exited; it gets relaunched after v4 phrases are
 staged). No sibling data ever produced. Partial out-parquet removed.
+
+## 2026-07-30 23:20 UTC — pod6 consolidated to all-in-one v8 eval worker (user fleet optimization)
+v8_gen_roll_loop.sh on pod6 now does gen (30min) + both condition rolls (~3.6h)
+sequentially per checkpoint — fits the ~6h stride-10 cadence with slack. Pod7
+therefore has NO v8 duty after its arm A repair leg + drift anchor: at
+ARMAREP-COMPLETE its exec'd roller gets killed (would race pod6), results
+verified, podstate backup, then pod7 is a shutdown candidate (~12:00 UTC).
+Steady state after arm E: L40S + pod6 ONLY.
