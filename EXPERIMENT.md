@@ -2358,3 +2358,19 @@ nouns, simple truncated directions, avoid elaboration. Independently replicates
 the boards' originals-win pattern ON CLUB (in-corpus) instructions — the
 enhancement rules (renames, adjectives) only pay off out-of-vocab, exactly the
 sealed-test contrast. Transforms grid (running next) will put CIs on this.
+
+## 2026-07-30 ~09:05 — TRANSFORM RULES TABLE (49 instr x 16 single-change probes)
+On IN-CORPUS (club) instructions, essentially every transform hurts or is
+neutral. Neutral: preposition variants (+0.000 n.s.), polite "please" prefix
+(-0.0005 n.s. — politeness is free). Significantly harmful: rename_visual
+(-0.025**, the WORST), elaborate (-0.015**), destination_first (-0.013**),
+add_spatial (-0.008**), verb_synonym (-0.005**), color_adj (-0.007*).
+THE MASTER RULE, now quantified from three independent methods (boards, freeform
+holdout, transform grid) and matching the sealed 2x2: phrasing interventions are
+CONDITIONAL ON CORPUS MEMBERSHIP — in-vocab, the canonical template is the
+optimum (touch nothing); out-of-vocab, visual renames are the biggest win
+(+42% rel sealed OOV). rename_visual being worst in-corpus and best OOV is the
+cleanest statement of the whole project's thesis.
+ADV 2-REP UPDATE: 20/40/60 = 38.28/40.36/38.54 — the rep-1 monotone climb
+softens to an elevated band (+2.4..+4.4 over frozen-Qwen 35.9) with slope within
+noise; steps 80/100 decide the trend. Keyboard repair persists (14.6).
