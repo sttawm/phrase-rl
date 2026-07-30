@@ -90,6 +90,9 @@ tr = a2.get_yaxis_transform()  # x in axes fraction, y in data units
 a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
 a2.axhline(40.6, ls="--", color="#48bb78", lw=1.2)
 a2.axhline(34.5, ls="--", color="#a0aec0", lw=1.2)
+a2.axhline(36.98, ls=":", color="#e53e3e", lw=1.3, alpha=0.7)
+a2.text(0.02, 37.3, "fork-init repair 37.0 (v7a-140 rewriting adversarial — the fair rewriter baseline)",
+        color="#c53030", alpha=0.8, fontsize=7, transform=tr)
 a2.text(0.02, 55.1, "Oracle 54.7 (val-8)", color="#822727", fontsize=7.5, transform=tr)
 a2.text(0.02, 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5, transform=tr)
 a2.text(0.02, 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5, transform=tr)
