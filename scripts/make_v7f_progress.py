@@ -91,8 +91,11 @@ a2.axhline(54.7, ls="--", color="#822727", lw=1.2)
 a2.axhline(40.6, ls="--", color="#48bb78", lw=1.2)
 a2.axhline(34.5, ls="--", color="#a0aec0", lw=1.2)
 a2.axhline(35.94, ls=":", color="#718096", lw=1.4)
-a2.text(0.02, 36.15, "FROZEN QWEN rewriting adversarial 35.9 (the real rewriter baseline)",
+a2.text(0.02, 36.15, "FROZEN QWEN rewriting adversarial 35.9 (real rewriter baseline)",
         color="#4a5568", fontsize=7, transform=tr)
+a2.axhline(39.06, ls=":", color="#553c9a", lw=1.4, alpha=0.7)
+a2.text(0.02, 39.27, "FROZEN QWEN rewriting originals 39.1 (n=192, rep-1)",
+        color="#553c9a", alpha=0.85, fontsize=7, transform=tr)
 a2.text(0.02, 55.1, "Oracle 54.7 (val-8)", color="#822727", fontsize=7.5, transform=tr)
 a2.text(0.02, 41.0, "Original 40.6 (val-8)", color="#2f855a", fontsize=7.5, transform=tr)
 a2.text(0.02, 34.9, "Adversarial 34.5 (val-8)", color="#718096", fontsize=7.5, transform=tr)
