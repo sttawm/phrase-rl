@@ -2402,3 +2402,25 @@ hostile input on familiar tasks.
   frozen before any arm B/C repair results are seen. This formalizes the user's
   proposal (v7f as in-distribution canonicalizer + rules for OOV) as a testable
   sealed endpoint. Prediction: arm D > max(arm B, arm C) on repair pooled.
+
+## 2026-07-30 ~20:00 UTC — USER-CAUGHT ROUTER HOLE: input-side gate misroutes hostile renames; output-gated cascade (PREREG Amendment 2)
+User: "Shouldn't renaming of an in-corpus noun to an out-of-corpus noun route to v7f?"
+Correct — and yesterday's routing bullet had it backwards. Audit (census = zero-count
+content nouns over the 2,000 training contexts, verified vs raw word-boundary counts):
+- ALL 8 val-8 hostile inputs contain zero-count nouns ("root vegetable", "eating
+  utensil", "nightshade", "input device"...) — incl. all 4 in-vocab tasks. An
+  input-side gate is stratum-blind under adversarial input and would send the
+  rename-attack cases (v7f's proven best stratum) to the rules path.
+- v7f OUTPUT re-gates perfectly: census-clean on all 4 in-vocab tasks at every
+  step 20/40/60/80/100 ("root vegetable"->"carrot" etc.). On true-OOV objects it
+  self-renames to visual analogs (ramekin->"white bowl", wheel->"tire", coke->"red
+  can") EXCEPT keyboard, which it keeps verbatim (no corpus analog).
+- Per-task repair cells (passthrough x12 vs v7f 2-rep): IV big wins — carrot/plate
+  15.6->50.0, stack 16.0->37.5(s40), eggplant 83.3->91.7; spoon 50.3->41.7 the one
+  IV loss. OOV mixed: keyboard 4.5->14.6 (+), wheel floor (1.7->0), coke/plate
+  37.8->31.2 (-), ramekin 66.7->56.2 (-) — conservatism law again: rewrite pays
+  only where passthrough fails; both negative cells had competent passthrough.
+- Design consequence: gate the OUTPUT, not the input -> Amendment 2 arm D-deploy
+  cascade (verbatim-hit passthrough / v7f / output-census fallback to rules).
+  Composition from arm B/C per-task cells; zero new sealed exposure. Not designing
+  finer gates off 8 noisy 2-rep cells (~±7pp SE).

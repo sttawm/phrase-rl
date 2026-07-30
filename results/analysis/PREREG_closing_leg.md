@@ -66,3 +66,19 @@ Arm D pooled (repair condition) = concatenation of those already-planned cells;
 no new rolls, routing table frozen NOW, before arm B/C repair results are seen.
 Prediction: arm D repair > max(arm B repair, arm C repair) pooled — the router
 beats both of its components.
+
+## Amendment 2 (filed 2026-07-30 ~20:00 UTC, before arm B generation or rolling)
+**Arm D-deploy (output-gated cascade) — deployable variant, still zero new exposure.**
+Motivating audit (val-8, ledgered): every hostile val-8 input — including all four
+in-vocab-task inputs — contains zero-count nouns, so an INPUT-side census gate
+cannot separate "hostile rename of familiar object" from "truly novel object";
+it would misroute exactly the cases v7f repairs best. v7f's own OUTPUT re-gates
+cleanly: census-clean on all in-vocab tasks at every step 20-100, retains the
+OOV noun ("keyboard") when no true corpus name exists.
+Frozen rule: normalized-verbatim corpus hit -> passthrough; else v7f rewrite;
+re-run the same zero-count census on the OUTPUT: clean -> deploy v7f phrase
+(score = arm B per-task cell); retained zero-count noun -> rules path (score =
+arm C per-task cell). The routing table is computed mechanically from arm B's
+generated texts at generation time (before any arm B rolling) and logged.
+Predictions: (i) D-oracle >= D-deploy (gap = price of text-only gating);
+(ii) D-deploy >= arm B pooled on repair.
