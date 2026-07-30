@@ -2385,3 +2385,20 @@ ramekin's accidental-rename benefit partially undone). The pooled 38-40 band
 was averaging a SOLVED stratum against a neutral one. This is the two-component
 method's core evidence: gate + repairer => canonical-level performance from
 hostile input on familiar tasks.
+
+## 2026-07-30 ~19:30 UTC — pol-80 recovered (38.02); Goodhart trigger half-armed; PREREG Amendment 1 (composed router, zero new exposure)
+- **v7f polish step 80 = 38.02** (n=384, 2-rep). The roll completed on pod6's polcatch
+  session but its inline merge crashed before writing; the episode parquet was still
+  in data/dev8_g_out.parquet (384 rows, 8 phrases — verified) and the point was
+  recovered without re-rolling. Polish trend now 41.67 -> 40.36 -> 38.80 -> 38.02
+  (steps 20/40/60/80): monotone drift down, consistent with grip-proxy Goodharting.
+- **Trigger status**: the pre-agreed fork condition was "pol-80 AND pol-100 both
+  <= 38.5 while proxy climbs". pol-80 fired (38.02). Awaiting pol-100 (gen queued,
+  trainer at step ~109). If it also lands <= 38.5 -> fork from polish-peak (step 20)
+  with tier-conditional edit-cost.
+- **PREREG Amendment 1 filed**: arm D = composed router (in-vocab -> arm B v7f cells,
+  OOV -> arm C rules cells, gate = existing zero-count noun audit). Analysis-only:
+  pooled from already-planned per-task cells, no new sealed rolls, routing table
+  frozen before any arm B/C repair results are seen. This formalizes the user's
+  proposal (v7f as in-distribution canonicalizer + rules for OOV) as a testable
+  sealed endpoint. Prediction: arm D > max(arm B, arm C) on repair pooled.

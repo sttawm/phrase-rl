@@ -50,3 +50,19 @@ augmentation; does the rename premium grow; do transferred oracle phrases hold u
 This is intended as the final sealed exposure for the current program. All design
 choices above derive from train/dev evidence; nothing may be revised after first
 roll except by documented amendment. Pre-commit: report whatever lands.
+
+## Amendment 1 (filed 2026-07-30 19:2x UTC, before any arm B sealed rolling)
+**Arm D (composed router) — analysis-only, zero additional sealed exposure.**
+Motivated by the val-8 strata result (v7f fully repairs hostile input on in-vocab
+tasks; neutral-negative OOV) + the rules OOV premium: route by the existing
+zero-count noun gate (sealed_vocab_audit.json, computed ex-ante from the 2,000
+training contexts):
+  - in-vocab tasks (5): CarrotOnSponge, EggplantOnSponge, GreenCubeOnPlate,
+    NutOnPlate, SmallPlateOnGreenCube -> arm B (v7f) per-task cells
+  - OOV tasks (7): CarrotOnRamekin, CokeCanOnKeyboard, CokeCanOnWheel,
+    EggplantOnKeyboard, NutOnWheel, OrangeJuiceOnPlate, PepsiCanOnPlate
+    -> arm C (rules path) per-task cells
+Arm D pooled (repair condition) = concatenation of those already-planned cells;
+no new rolls, routing table frozen NOW, before arm B/C repair results are seen.
+Prediction: arm D repair > max(arm B repair, arm C repair) pooled — the router
+beats both of its components.
