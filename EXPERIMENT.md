@@ -2735,3 +2735,13 @@ OOV 30.7 are the two best non-oracle OOV cells ever measured (passthrough OOV
 27.3/23.7; v3 29.6/26.8), while rules_v4_nominal in-vocab (46.0) actually sits
 BELOW originals in-vocab (48.3) — the arm wins the pooled table on the OOV
 side, exactly as prediction 3 filed. All three arm E predictions now confirmed.
+
+## 2026-07-31 14:15 UTC — ARM F ROLLING: frozen Qwen + rules-v4, both conditions (pods 5+7)
+Generation preflighted (frozen Qwen, gemini traces, rules-v4 prompt via the
+same sft17k_rules_gen path as the v3-era rows). Preflight note (ledgered as
+qualitative arm-F evidence): Qwen follows the protocol imperfectly where
+gemini-pro was exact — emits "teal block" (violates the basic-shade rule AND
+cube>block family override) and "black tire" (violates wheel>tire), spells
+"coca-cola can" (non-corpus brand form). Well-formed throughout -> rolled
+as generated. ERT leg pod5, nominal leg pod7 (started 14:11, ~10-14h each).
+Amendment 10 predictions pending. Pod8 has nothing queued (shutdown blessed).
