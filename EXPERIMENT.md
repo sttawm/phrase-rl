@@ -2636,3 +2636,14 @@ nominal KEEPS ramekin ("white ramekin") and orange juice where v3 renamed
 inputs; ERT condition still renames (ornate register rebuild). This is the
 live test of prediction 3. Rolls: pod8 rulesv4 (ert leg started 23:18,
 nominal after, ~7h each). Monitor armed.
+
+## 2026-07-31 00:00 UTC — arm E nominal leg moved to pod6 (user: everything done by morning)
+Pod6's v8 worker paused (no checkpoint existed yet; first v8 eval pair will
+queue and drain tomorrow afternoon — accepted tradeoff). Pod6 rolls
+rules_v4_nominal 12x24x12 now (started 00:00), then a cube_on_plate 24x3
+drift re-anchor (pod6 is new to sealed rolling), then execs back to the v8
+worker. Pod8 keeps the ERT leg; AT ITS DONE-ert EVENT (~08:40) its runner
+gets killed so its own nominal iteration never double-rolls.
+By-morning schedule (UTC): armE-ert ~08:40 (pod8), armA-polish ~09:30 (pod5),
+armE-nominal ~10:30-13:00 (pod6), armA-repair ~12:30 (pod7) -> arm D
+composition immediately after; three pods shutdown-ready by early afternoon.
