@@ -2671,3 +2671,22 @@ composition immediately after; three pods shutdown-ready by early afternoon.
   pod5 untracked-collision wedge repaired (identical files rm'd, 2 commits
   rescued). Pod8 ERT landed early (07:35), duplicate nominal killed at ~07:40.
   Pods 5 + 8: 0 unpushed, payloads archived, podstate verified -> SHUTDOWN-READY.
+
+## 2026-07-31 09:45 UTC — ARM E COMPLETE: rules_v4_nominal 37.18 BEATS ORIGINALS (36.1) — first sealed arm to clear no-rewrite; pod6 drift anchor validates
+- **rules_v4_nominal = 37.18** (12x24x12): +2.4 over rules-v3 nominal (34.78,
+  PREREG PREDICTION 2 MET), +1.1 over originals 36.1 — the first rewrite arm
+  ever to beat the no-rewrite baseline on sealed, and above the old arm-C
+  composite prediction (36.8). Combined with rules_v4_ert 33.30 (+1.7 over v3),
+  rules-v4 sweeps both conditions vs v3: the training-data-mined conservatism
+  + register triage + corpus-noun ladder GENERALIZED to sealed.
+- Prediction 3 (gains concentrated OOV) checkable per-task later; the nominal
+  divergences (kept ramekin/juice) land inside a winning arm.
+- **Cross-pod drift: EXCLUDED.** Pod6 re-anchor cube_on_plate originals 68.06
+  (n=72) vs pod-era reference 68.4 (n=576) — delta 0.3pp. Pod7's anchor comes
+  with the repair leg.
+- Ops: pod6 rebase-wedge (timeout-killed mid-rebase) repaired; a
+  conflict-marker version of sealed_rules_v4.jsonl had reached origin —
+  union-resolved and pushed clean (all rows preserved). v8 worker already
+  rolling v8_adv step 20 (first v8 eval!). Arm E's frozen-routing arm D uses
+  v3 cells per Amendment 5 — a v4-fallback composition variant would be a
+  separate clearly-labeled post-hoc analysis, not the prereg arm D.
