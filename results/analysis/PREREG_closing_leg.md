@@ -217,3 +217,20 @@ add value over bare Claude); (2) H > gemini_pro_bare 27.78 (bare Claude
 already writes canonical short imperatives — visible in the phrases: no
 wrappers, brands kept); (3) H's misses concentrate where mined knowledge is
 required (family overrides "cube" vs emitted "block", missing color anchors).
+
+## Amendment 13 (filed 2026-07-31 ~17:30 UTC, before the train-only rules exist —
+## derivation workflow running, no protocol text seen)
+**Arm I: rules-vT (TRAIN-ONLY derivation), both conditions (user-directed).**
+Purpose: the apples-to-apples partner for the RL arms — both see ONLY training
+data. Derivation: isolated multi-agent workflow restricted to the four mining
+artifacts (search_boards, transform_probe, freeform_insights,
+club_phrase_ranking) + a scrubbed standalone corpus-vocabulary file; NO rules-v3,
+NO val-8 evidence; a dedicated isolation auditor hunts imported knowledge.
+Execution: gemini-pro-latest, temp 0.2, thinking 16k, sealed gemini traces
+(provenance-matched to arms E/rows 12-17, isolating the RULES delta).
+12x24x12 per condition, legs appended to the pod5/pod7 chains before self-stop.
+Predictions: (1) vT <= rules-v4 on both conditions (v4 additionally holds val-8
+certified knowledge); (2) THE HEADLINE TEST: vT vs v7a-120 (31.97 nominal /
+30.12 ERT) — identical data exposure, mining vs RL; prediction vT >= v7a-120
+on nominal (conservatism transfers through rules more cheaply than through
+weights); (3) OOV-concentration signature replicates.
