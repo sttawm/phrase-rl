@@ -120,28 +120,47 @@ def main() -> None:
         ceiling = sum(best) / len(best)
         print(f"confirmed oracle ceiling (held-out, {len(conf)}-task mean): {ceiling:.1f}")
 
-    fig, ax = plt.subplots(figsize=(11, 0.52 * len(sb) + 2.2))
-    y = range(len(sb))
-    h = 0.26
-    ax.barh([i + h for i in y], sb.pooled, h, color="#2b6cb0", label="pooled (12 tasks)")
-    ax.barh(y, sb.in_vocab, h, color="#63b3ed", label=f"in-vocab ({len(iv)})")
-    ax.barh([i - h for i in y], sb.oov, h, color="#f6ad55", label=f"OOV ({len(oov)})")
-    for i, r in sb.iterrows():
-        ax.text(r.pooled + 0.4, i + h, f"{r.pooled:.1f}", va="center", fontsize=8)
-    ax.set_yticks(list(y))
-    ax.set_yticklabels([NAME.get(a, a) for a in sb.arm], fontsize=9)
-    if ceiling is not None:
-        ax.axvline(ceiling, ls="--", color="#822727", lw=1.4)
-        ax.text(ceiling + 0.3, len(sb) - 0.5,
-                f"confirmed oracle ceiling {ceiling:.1f}\n(held-out, {len(conf)}-task mean)",
-                color="#822727", fontsize=8, va="top")
-    ax.set_xlabel("success rate % (24 layouts × 12 reps per task)")
-    ax.set_title("Sealed test scoreboard — task-mean success by pipeline")
-    ax.legend(loc="lower right", fontsize=8)
-    ax.grid(axis="x", alpha=0.25)
-    fig.tight_layout()
-    fig.savefig("results/charts/sealed_scoreboard.png", dpi=140, bbox_inches="tight", pad_inches=0.25)
-    print("chart -> results/charts/sealed_scoreboard.png")
+    refs = {r.arm: r.pooled for _, r in sb.iterrows()
+            if r.arm in ("originals", "passthrough", "oracle_confirmed")}
+
+    def render(frame, path, title):
+        fig, ax = plt.subplots(figsize=(11, 0.52 * len(frame) + 2.6))
+        y = range(len(frame))
+        h = 0.26
+        ax.barh([i + h for i in y], frame.pooled, h, color="#2b6cb0", label="pooled (12 tasks)")
+        ax.barh(y, frame.in_vocab, h, color="#63b3ed", label=f"in-vocab ({len(iv)})")
+        ax.barh([i - h for i in y], frame.oov, h, color="#f6ad55", label=f"OOV ({len(oov)})")
+        for i, r in frame.iterrows():
+            ax.text(r.pooled + 0.4, i + h, f"{r.pooled:.1f}", va="center", fontsize=8)
+        ax.set_yticks(list(y))
+        ax.set_yticklabels([NAME.get(a, a) for a in frame.arm], fontsize=9)
+        for val, lbl, col in [(refs.get("passthrough"), "adversarial phrasing (no rewrite)", "#718096"),
+                              (refs.get("originals"), "original phrasing (no rewrite)", "#2f855a"),
+                              (refs.get("oracle_confirmed"), "oracle*", "#822727")]:
+            if val is None:
+                continue
+            ax.axvline(val, ls="--", color=col, lw=1.4)
+            ax.text(val + 0.25, len(frame) - 0.35, f"{lbl}\n{val:.1f}", color=col, fontsize=7.5, va="top")
+        ax.set_xlabel("success rate % (24 layouts × 12 reps per task)   "
+                      "*oracle phrases selected adaptively on layouts 0-17")
+        ax.set_title(title)
+        ax.legend(loc="lower right", fontsize=8)
+        ax.grid(axis="x", alpha=0.25)
+        ax.set_xlim(0, max(52, refs.get("oracle_confirmed", 50) + 4))
+        fig.tight_layout()
+        fig.savefig(path, dpi=140, bbox_inches="tight", pad_inches=0.25)
+        print(f"chart -> {path}")
+
+    REF_ARMS = {"originals", "passthrough", "oracle_confirmed"}
+    is_nominal = sb.arm.map(lambda a: NAME.get(a, "").startswith("original phrasing"))
+    nom = sb[is_nominal & ~sb.arm.isin(REF_ARMS)].reset_index(drop=True)
+    adv = sb[~is_nominal & ~sb.arm.isin(REF_ARMS)].reset_index(drop=True)
+    render(nom, "results/charts/sealed_scoreboard_original.png",
+           "Sealed scoreboard — ORIGINAL-input arms (rewriting good instructions)")
+    render(adv, "results/charts/sealed_scoreboard_adversarial.png",
+           "Sealed scoreboard — ADVERSARIAL-input arms (repairing hostile instructions)")
+    render(sb, "results/charts/sealed_scoreboard.png",
+           "Sealed test scoreboard — task-mean success by pipeline (all arms)")
 
 
 if __name__ == "__main__":
