@@ -234,3 +234,20 @@ certified knowledge); (2) THE HEADLINE TEST: vT vs v7a-120 (31.97 nominal /
 30.12 ERT) — identical data exposure, mining vs RL; prediction vT >= v7a-120
 on nominal (conservatism transfers through rules more cheaply than through
 weights); (3) OOV-concentration signature replicates.
+
+## Amendment 13 — OUTCOME (resolved without rolling, 2026-07-31 ~18:30 UTC)
+**Arm I resolved BY IDENTITY: the train-only protocol's verdict is pass-through
+on all 24 sealed inputs.** vT-nominal phrases are byte-identical to the anchors
+originals (verified) -> by CRN determinism its cells ARE anchors_x12: pooled
+**36.08**. vT-ERT differs from the passthrough arm only in case/final-period ->
+~26.6 (exact roll available on request; not spent).
+Predictions: (1) vT <= v4: CONFIRMED (36.08 < 37.18 nominal; ~26.6 < 33.30 ERT).
+(2) vT >= v7a-120 on nominal: CONFIRMED BY IDENTITY (36.08 > 31.97) — mining
+training data taught "do nothing," which beats RL's rewriting on good inputs.
+ERT side: vT ~26.6 << v7a-120 30.12 — RL extracted repair value that mining
+could not, WITH THE LEDGERED CAVEAT that exposure was not identical there: the
+RL tier mix included CoVer ERT rewordings of parents; the mining program never
+posed the repair problem. The clean decomposition for the writeup:
+mining's edge = knowing when not to rewrite; RL's edge = repair learned from
+adversarial-tier exposure; rules-v4 = both (val-8 evidence supplies repair).
+No pod time spent; pod 5/7 chains unchanged (F -> G (-> H) -> self-stop).
