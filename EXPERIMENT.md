@@ -2709,3 +2709,11 @@ composition immediately after; three pods shutdown-ready by early afternoon.
 - Full table (sealed, pooled %): originals 36.1 | v7a-120 polish 31.97 /
   repair 30.12 | rules-v3 nominal 34.78 / ERT 31.6 | rules-v4 nominal 37.18 /
   ERT 33.30 | armD polish 35.18 / repair 28.33 | oracle 54.7-era ref.
+
+## 2026-07-31 12:55 UTC — sealed program CLOSED operationally: pod7 anchor 68.06 == pod6 68.06 (CRN determinism, 0.0pp cross-pod delta); pods 5/7/8 all shutdown-ready
+Pod7 drift anchor n=144 (its anchors filter matched 2 phrase-rows; pooled
+identical to pod6's 72-ep cell — same seeds, same outcomes: the strongest
+possible no-drift evidence). Pod7 handoff roller killed before any duplicate
+v8 roll; 0 unpushed; podstate rebuilt. Fleet steady state reached: L40S
+(v8 training, step ~32) + pod6 (v8 eval worker, rolling step-20 adv now).
+Task #15 closed. Sealed table final as ledgered at 12:40.
