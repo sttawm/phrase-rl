@@ -2717,3 +2717,14 @@ possible no-drift evidence). Pod7 handoff roller killed before any duplicate
 v8 roll; 0 unpushed; podstate rebuilt. Fleet steady state reached: L40S
 (v8 training, step ~32) + pod6 (v8 eval worker, rolling step-20 adv now).
 Task #15 closed. Sealed table final as ledgered at 12:40.
+
+## 2026-07-31 13:30 UTC — DATA BLEMISH: archived "polish x12" payload was actually 160 post-kill repair episodes
+Pod5's wrapper rm'd seal_out.parquet at the top of its repair iteration; the
+interceptor killed the roll ~160 episodes in; my post-kill archive therefore
+captured those 160 repair rows, not the 3,456 polish rows (which were merged
+into sealed_v7a120.jsonl BEFORE the rm — aggregates intact, per-task intact).
+File renamed to v7a120_repair_partial160_pod5.parquet. Episode-level polish
+raws are not materialized but are EXACTLY regenerable (CRN determinism) by
+re-rolling ph_sealed_v7a120_polish.parquet if ever needed. Also surfaced:
+anchors_x12 contains the ERT-VERBATIM passthrough baseline = 26.59 — the
+repair condition's do-nothing floor (every repair arm clears it).
