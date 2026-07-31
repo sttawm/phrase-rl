@@ -41,8 +41,12 @@ NAME = {
     "rules_v4_nominal": "original phrasing + Gemini scene description ⇒ Gemini-pro + RULES-v4 (train-mined)",
     "sealed_repair": "adversarial phrasing + Gemini scene description ⇒ v7a-120 RL rewriter",
     "v7a120_polish": "original phrasing + Gemini scene description ⇒ v7a-120 RL rewriter",
-    "armD_seatA_polish": "original phrasing ⇒ census router (v7a-120 → rules-v3)",
-    "armD_seatA_repair": "adversarial phrasing ⇒ census router (v7a-120 → rules-v3)",
+    "armD_seatA_polish": "original phrasing + Gemini scene description ⇒ census router (v7a-120 → rules-v3)",
+    "armD_seatA_repair": "adversarial phrasing + Gemini scene description ⇒ census router (v7a-120 → rules-v3)",
+    "rules_v4_qwen_ert": "adversarial phrasing + Gemini scene description ⇒ frozen Qwen + RULES-v4",
+    "rules_v4_qwen_nominal": "original phrasing + Gemini scene description ⇒ frozen Qwen + RULES-v4",
+    "rules_v4_claude_ert": "adversarial phrasing + Gemini scene description ⇒ Claude Fable + RULES-v4",
+    "rules_v4_claude_nominal": "original phrasing + Gemini scene description ⇒ Claude Fable + RULES-v4",
 }
 
 # arms whose full x12 payload is not on disk (aggregates live in jsonl ledgers);
