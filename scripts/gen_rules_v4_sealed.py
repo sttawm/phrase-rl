@@ -22,7 +22,7 @@ assert condition in ("nominal", "ert")
 from google import genai
 from google.genai import types
 
-RULES = open("results/analysis/b4_phrasing_rules_v4.md").read()
+RULES = open(os.environ.get("RULES_PATH", "results/analysis/b4_phrasing_rules_v4.md")).read()
 ga = pd.read_parquet("results/sealed/sealed_assets_gemini.parquet")
 client = genai.Client()
 
@@ -52,12 +52,12 @@ for r in ga.itertuples():
             time.sleep(15 * (attempt + 1))
     else:
         raise SystemExit(f"generation failed for {r.task}")
-    rows.append({"task": r.task, "arm": f"rules_v4_{condition}", "phrase": p,
+    rows.append({"task": r.task, "arm": f"{os.environ.get('ARM_PREFIX', 'rules_v4')}_{condition}", "phrase": p,
                  "instruction": str(src)})
     print(f"PREFLIGHT [{r.task}] ({condition})")
     print(f"  input : {str(src)[:100]}")
     print(f"  phrase: {p!r}", flush=True)
 
-out = f"results/sealed/ph_sealed_rules_v4_{condition}.parquet"
+out = f"results/sealed/ph_sealed_{os.environ.get('ARM_PREFIX', 'rules_v4')}_{condition}.parquet"
 pd.DataFrame(rows).to_parquet(out, index=False)
 print(f"wrote {len(rows)} -> {out}")
