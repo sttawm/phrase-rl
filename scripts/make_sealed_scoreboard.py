@@ -120,44 +120,36 @@ def main() -> None:
         ceiling = sum(best) / len(best)
         print(f"confirmed oracle ceiling (held-out, {len(conf)}-task mean): {ceiling:.1f}")
 
-    refs = {r.arm: r.pooled for _, r in sb.iterrows()
-            if r.arm in ("originals", "passthrough", "oracle_confirmed")}
+    REF_ARMS = {"originals", "passthrough", "oracle_confirmed"}
 
     def render(frame, path, title):
+        frame = pd.concat([frame[~frame.arm.isin(REF_ARMS)],
+                           sb[sb.arm.isin(REF_ARMS)]]).sort_values("pooled").reset_index(drop=True)
         fig, ax = plt.subplots(figsize=(11, 0.52 * len(frame) + 2.6))
         y = range(len(frame))
         h = 0.26
-        ax.barh([i + h for i in y], frame.pooled, h, color="#2b6cb0", label="pooled (12 tasks)")
-        ax.barh(y, frame.in_vocab, h, color="#63b3ed", label=f"in-vocab ({len(iv)})")
-        ax.barh([i - h for i in y], frame.oov, h, color="#f6ad55", label=f"OOV ({len(oov)})")
+        ax.barh([i + h for i in y], frame.pooled, h, color="#a3bffa", label="pooled (12 tasks)")
+        ax.barh(y, frame.in_vocab, h, color="#b2f5ea", label=f"in-vocab ({len(iv)})")
+        ax.barh([i - h for i in y], frame.oov, h, color="#fed7aa", label=f"OOV ({len(oov)})")
         for i, r in frame.iterrows():
-            ax.text(r.pooled + 0.4, i + h, f"{r.pooled:.1f}", va="center", fontsize=8)
+            ax.text(r.pooled + 0.4, i + h, f"{r.pooled:.1f}", va="center", fontsize=8,
+                    fontweight="bold" if r.arm in REF_ARMS else "normal")
         ax.set_yticks(list(y))
-        ax.set_yticklabels([NAME.get(a, a) for a in frame.arm], fontsize=9)
-        orc = sb[sb.arm == "oracle_confirmed"]
-        o_iv = float(orc.in_vocab.iloc[0]) if len(orc) else None
-        o_oov = float(orc.oov.iloc[0]) if len(orc) else None
-        for val, lbl, col, ls in [
-                (refs.get("passthrough"), "adversarial phrasing (no rewrite)", "#718096", "--"),
-                (refs.get("originals"), "original phrasing (no rewrite)", "#2f855a", "--"),
-                (o_oov, "oracle OOV*", "#c05621", ":"),
-                (refs.get("oracle_confirmed"), "oracle pooled*", "#822727", "--"),
-                (o_iv, "oracle in-vocab*", "#2b6cb0", ":")]:
-            if val is None:
-                continue
-            ax.axvline(val, ls=ls, color=col, lw=1.4)
-            ax.text(val + 0.25, len(frame) - 0.35, f"{lbl}\n{val:.1f}", color=col, fontsize=7.5, va="top")
+        labels = [("★ " if a in REF_ARMS else "") + NAME.get(a, a) for a in frame.arm]
+        ax.set_yticklabels(labels, fontsize=9)
+        for i, a in enumerate(frame.arm):
+            if a in REF_ARMS:
+                ax.axhspan(i - 0.42, i + 0.42, color="#000000", alpha=0.05, zorder=0)
         ax.set_xlabel("success rate % (24 layouts × 12 reps per task)   "
-                      "*oracle phrases selected adaptively on layouts 0-17")
+                      "★ = reference run   *oracle phrases selected adaptively on layouts 0-17")
         ax.set_title(title)
         ax.legend(loc="lower right", fontsize=8)
         ax.grid(axis="x", alpha=0.25)
-        ax.set_xlim(0, max(52, refs.get("oracle_confirmed", 50) + 4))
+        ax.set_xlim(0, 55)
         fig.tight_layout()
         fig.savefig(path, dpi=140, bbox_inches="tight", pad_inches=0.25)
         print(f"chart -> {path}")
 
-    REF_ARMS = {"originals", "passthrough", "oracle_confirmed"}
     is_nominal = sb.arm.map(lambda a: NAME.get(a, "").startswith("original phrasing"))
     nom = sb[is_nominal & ~sb.arm.isin(REF_ARMS)].reset_index(drop=True)
     adv = sb[~is_nominal & ~sb.arm.isin(REF_ARMS)].reset_index(drop=True)
