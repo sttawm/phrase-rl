@@ -2690,3 +2690,22 @@ composition immediately after; three pods shutdown-ready by early afternoon.
   rolling v8_adv step 20 (first v8 eval!). Arm E's frozen-routing arm D uses
   v3 cells per Amendment 5 — a v4-fallback composition variant would be a
   separate clearly-labeled post-hoc analysis, not the prereg arm D.
+
+## 2026-07-31 12:40 UTC — CLOSING TABLE COMPLETE: arm A repair 30.12; arm D repair composition FAILS its prediction (28.33 < both components); rules-v4 alone is the best sealed method on BOTH conditions
+- ARM A REPAIR (v7a-120 rewriting sealed ERT, 12x24x12): 30.12 pooled.
+- ARM D REPAIR (composed, frozen routing): **28.33 — BELOW arm A alone (30.12)
+  AND rules alone (31.57). Amendment-1/5 prediction REFUTED on repair** (it held
+  on polish: 35.18 > 31.97/34.78). Anatomy of the failure — the census gate made
+  systematically wrong repair calls: KEPT v7a's weak census-clean phrases
+  (coke_wheel "tire" 6.2 vs rules 33.7; pepsi brand-dropped "blue can" 19.1 vs
+  37.5 — the ledgered gate blind spot realized), and felled back AWAY from
+  v7a's strong cells (orange_juice armA 31.9 -> rules 16.7; ramekin held KEEP
+  correctly at 46.2). Output-census routing is not a reliable quality signal.
+- **HEADLINE OF THE SEALED PROGRAM: rules-v4 + Gemini alone is the best method
+  on both conditions** — ERT 33.30 (> armA-repair 30.12, > armD 28.33, > v3
+  31.6) and nominal 37.18 (> originals 36.1 > armD-polish 35.18 > v3 34.78 >
+  armA-polish 31.97). The mined-rules arm beat every learned-rewriter
+  configuration on the sealed set. Per prereg discipline: reported as landed.
+- Full table (sealed, pooled %): originals 36.1 | v7a-120 polish 31.97 /
+  repair 30.12 | rules-v3 nominal 34.78 / ERT 31.6 | rules-v4 nominal 37.18 /
+  ERT 33.30 | armD polish 35.18 / repair 28.33 | oracle 54.7-era ref.
