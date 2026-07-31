@@ -134,12 +134,18 @@ def main() -> None:
             ax.text(r.pooled + 0.4, i + h, f"{r.pooled:.1f}", va="center", fontsize=8)
         ax.set_yticks(list(y))
         ax.set_yticklabels([NAME.get(a, a) for a in frame.arm], fontsize=9)
-        for val, lbl, col in [(refs.get("passthrough"), "adversarial phrasing (no rewrite)", "#718096"),
-                              (refs.get("originals"), "original phrasing (no rewrite)", "#2f855a"),
-                              (refs.get("oracle_confirmed"), "oracle*", "#822727")]:
+        orc = sb[sb.arm == "oracle_confirmed"]
+        o_iv = float(orc.in_vocab.iloc[0]) if len(orc) else None
+        o_oov = float(orc.oov.iloc[0]) if len(orc) else None
+        for val, lbl, col, ls in [
+                (refs.get("passthrough"), "adversarial phrasing (no rewrite)", "#718096", "--"),
+                (refs.get("originals"), "original phrasing (no rewrite)", "#2f855a", "--"),
+                (o_oov, "oracle OOV*", "#c05621", ":"),
+                (refs.get("oracle_confirmed"), "oracle pooled*", "#822727", "--"),
+                (o_iv, "oracle in-vocab*", "#2b6cb0", ":")]:
             if val is None:
                 continue
-            ax.axvline(val, ls="--", color=col, lw=1.4)
+            ax.axvline(val, ls=ls, color=col, lw=1.4)
             ax.text(val + 0.25, len(frame) - 0.35, f"{lbl}\n{val:.1f}", color=col, fontsize=7.5, va="top")
         ax.set_xlabel("success rate % (24 layouts × 12 reps per task)   "
                       "*oracle phrases selected adaptively on layouts 0-17")
