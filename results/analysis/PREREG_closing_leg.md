@@ -183,3 +183,14 @@ not in line with the current goal. The leg may return later in its fair form —
 rules/oracle re-derived natively on the sibling (the oracle re-derivation
 trigger clause already anticipated this). Pod8 freed; it will run the arm E
 (rules-v4) sealed rolls once phrases are generated and preflighted.
+
+## Amendment 10 (filed 2026-07-31 ~14:30 UTC, before any arm F generation)
+**Arm F: frozen Qwen + rules-v4, both conditions (user-directed).** The no-API
+deployment test: the rules-v4 protocol executed by the FROZEN local Qwen
+(same sft17k_rules_gen path as the v3-era rules_v3_gemini_trace row, only
+--rules-path changed to b4_phrasing_rules_v4.md; nominal condition = same tool
+fed a nominal-in-the-input-slot assets copy). Gemini traces, greedy, 12x24x12
+per condition. Predictions: (1) F-ERT >= rules_v3_gemini_trace 31.48;
+(2) the OOV-concentration signature replicates; (3) F <= the gemini-pro arm E
+on both conditions (executor-strength ordering). Rolls: pod5 (ERT) + pod7
+(nominal); pod8 retires with nothing queued.
