@@ -38,32 +38,45 @@ tr = [json.loads(l) for l in open("results/analysis/v8_train_log.jsonl")
       if '"kl"' in l]
 tr = [d for d in tr if d.get("kl") is not None]
 
-fig, (a1, a2) = plt.subplots(1, 2, figsize=(13.5, 4.6))
+IV = {"widowx_carrot_on_plate", "widowx_spoon_on_towel", "widowx_stack_cube",
+      "widowx_put_eggplant_in_basket"}
+
+
+def strata(r):
+    pt = r["per_task"]
+    iv = [v for t, v in pt.items() if t in IV]
+    oo = [v for t, v in pt.items() if t not in IV]
+    return sum(iv) / len(iv), sum(oo) / len(oo)
+
+
+fig, (a1, a1b, a2) = plt.subplots(1, 3, figsize=(18.5, 4.6))
 
 xmax = max([r["step"] for r in adv + pol] + [40]) + 8
-a1.set_xlim(-2, xmax)
-trx = a1.get_yaxis_transform()
-for val, lbl, col, ls in [
-        (40.58, "Original phrasing 40.6 (no rewrite, val-8)", "#2f855a", "--"),
-        (34.51, "Adversarial phrasing 34.5 (no rewrite)", "#718096", "--"),
-        (39.06, "FROZEN QWEN rewriting originals 39.1", "#553c9a", ":"),
-        (35.94, "FROZEN QWEN rewriting adversarial 35.9", "#c53030", ":"),
-        (45.05, "v7a-120 polish best (val-8, 2-rep)", "#6b46c1", "-."),
-]:
-    a1.axhline(val, ls=ls, color=col, lw=1.2, alpha=0.8)
-    a1.text(0.02, val + 0.25, lbl, color=col, fontsize=6.8, transform=trx)
-if pol:
-    a1.plot([r["step"] for r in pol], [r["pooled"] for r in pol], marker="D", ms=7,
-            color="#2b6cb0", lw=2, label="v8 rewriting ORIGINALS (tag-free, n=384)")
-if adv:
-    a1.plot([r["step"] for r in adv], [r["pooled"] for r in adv], marker="s", ms=7,
-            color="#e53e3e", lw=2, label="v8 rewriting ADVERSARIAL (tag-free, n=384)")
-a1.set_ylim(30, 48)
-a1.set_xlabel("v8 step (cold start from base Qwen)")
-a1.set_ylabel("val-8 rollout success %")
-a1.set_title("REAL rollouts: v8 vs references")
-a1.legend(fontsize=7.5, loc="lower right")
-a1.grid(alpha=0.25)
+for ax, rows_, title, refs in [
+        (a1, pol, "POLISH (rewriting originals)",
+         [(53.7, "originals IV 53.7", "#2f855a", "--"), (27.4, "originals OOV 27.4", "#2f855a", ":"),
+          (58.6, "oracle IV", "#822727", "--"), (50.9, "oracle OOV", "#822727", ":")]),
+        (a1b, adv, "REPAIR (rewriting adversarial)",
+         [(41.3, "passthrough IV 41.3", "#718096", "--"), (27.7, "passthrough OOV 27.7", "#718096", ":"),
+          (58.6, "oracle IV", "#822727", "--"), (50.9, "oracle OOV", "#822727", ":")])]:
+    ax.set_xlim(-2, xmax)
+    trx = ax.get_yaxis_transform()
+    for val, lbl, col, ls in refs:
+        ax.axhline(val, ls=ls, color=col, lw=1.1, alpha=0.75)
+        ax.text(0.02, val + 0.35, lbl, color=col, fontsize=6.5, transform=trx)
+    if rows_:
+        xs = [r["step"] for r in rows_]
+        ivs, oos = zip(*[strata(r) for r in rows_])
+        ax.plot(xs, [r["pooled"] for r in rows_], marker="o", ms=4, color="#a0aec0",
+                lw=1.0, ls="-", alpha=0.8, label="pooled")
+        ax.plot(xs, ivs, marker="D", ms=6, color="#2b6cb0", lw=2, label="IN-VOCAB (4 tasks)")
+        ax.plot(xs, oos, marker="s", ms=6, color="#dd6b20", lw=2, ls="--", label="OUT-OF-VOCAB (4 tasks)")
+    ax.set_ylim(15, 62)
+    ax.set_xlabel("v8 step")
+    ax.set_title(title, fontsize=10)
+    ax.legend(fontsize=7, loc="lower right")
+    ax.grid(alpha=0.25)
+a1.set_ylabel("val-8 rollout success % (stratum mean)")
 
 if tr:
     ts = [d["step"] for d in tr]
