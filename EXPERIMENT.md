@@ -2760,3 +2760,26 @@ failure aborts the stop and leaves the pod for rescue. Pod8 self-stop issued
 now (verified clean). End state: L40S (v8 train) + pod6 (v8 evals) only.
 Landing order: armF legs ~00:00-04:00 UTC, armG legs ~10:00-14:00 UTC Aug 1,
 then pods stop themselves.
+
+## 2026-08-01 ~00:15 UTC — DESIGN PANEL: reasoning-then-rephrase GRPO (hypothetical; 4-agent workflow, no implementation)
+Verdict (panel + critique, all claims file-cited): full reasoning-RL from cold
+is dominated. Four measured blockers: (1) executor tournament at fixed rules —
+thinking tiers span 0.6pp (pro+16k-think 31.6 ~ Qwen 31.5 ~ flash-no-think
+31.1) with thinking_token_probe.json PROVING ~3k think tokens/case were spent;
+(2) bare pair 27.8 vs 27.5 — 16k thinking does not rediscover the corpus law;
+(3) the model's own reasoning prior is the measured weak link (self-trace
+-7.3pp sealed); (4) CRITIQUE HEADLINE: the grip proxy is BLIND to reasoning
+quality — step-0 inline-CoT vs gemini-trace pools score identically on the
+proxy (rho .955/.962, oracle 32.2 both) while differing ~7pp at rollout; GRPO
+cannot teach what the reward cannot see. Yield ranking: #1 distill-then-RL
+(SFT on gemini-pro rules-v4 outputs/traces, then phrase-only GRPO); #2
+rules-in-context + GRPO execution-fidelity (panel more skeptical than the
+session's intuition: frozen +0.5pp prior, proxy doesn't measure fidelity);
+#3 masked frozen-think 100-step diagnostic (~0pp expected); #4 full
+reasoning-RL only as #1's continuation. Mechanics-if-built preserved in the
+workflow output (two-segment sampling with forced "1. ", Dr.GRPO constant
+normalizer vs 25x length dilution, segment-split KL beta_phrase .15 /
+beta_think ~0-.05, think budget 256, degeneracy tripwires; gen 70s->~400s).
+BONUS FINDING: an 86-step inline-reasoning RL pilot sits BANKED and UNEVALUATED
+(results/checkpoints/phase2_inline_pilot, EXPERIMENT.md:45) — 2 checkpoint
+evals through the tag-free path would answer this question with data.
