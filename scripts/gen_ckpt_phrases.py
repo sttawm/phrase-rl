@@ -28,7 +28,10 @@ n_samples = int(sys.argv[2]) if len(sys.argv) > 2 else 2
 proc = AutoProcessor.from_pretrained("Qwen/Qwen3.5-9B")
 base = AutoModelForImageTextToText.from_pretrained(
     "Qwen/Qwen3.5-9B", dtype=torch.bfloat16, device_map="cuda")
-model = PeftModel.from_pretrained(base, adapter_dir, is_trainable=False).eval()
+if adapter_dir == "BASE":  # v8 step-0: frozen base Qwen, no adapter
+    model = base.eval()
+else:
+    model = PeftModel.from_pretrained(base, adapter_dir, is_trainable=False).eval()
 
 ctx = pd.read_parquet(os.environ.get("PROBE_CONTEXTS", "results/phrase_artifacts/contexts_0c_tasks.parquet"))
 tr = pd.read_parquet(os.environ.get("PROBE_TRACES", "results/phrase_artifacts/traces_0c_tasks.parquet"))
