@@ -37,7 +37,20 @@ NAME = {
     "rules_v3_claude_agent": "adversarial phrasing + Gemini scene description ⇒ Claude agent + RULES + corpus",
     "rules_pro_nominal": "original phrasing + Gemini scene description ⇒ Gemini-pro + RULES (with reasoning)",
     "oracle_confirmed": "oracle phrase (adaptive search) ⇒ π0  *selected on layouts 0-17",
+    "rules_v4_ert": "adversarial phrasing + Gemini scene description ⇒ Gemini-pro + RULES-v4 (train-mined)",
+    "rules_v4_nominal": "original phrasing + Gemini scene description ⇒ Gemini-pro + RULES-v4 (train-mined)",
+    "sealed_repair": "adversarial phrasing + Gemini scene description ⇒ v7a-120 RL rewriter",
+    "v7a120_polish": "original phrasing + Gemini scene description ⇒ v7a-120 RL rewriter",
+    "armD_seatA_polish": "original phrasing ⇒ census router (v7a-120 → rules-v3)",
+    "armD_seatA_repair": "adversarial phrasing ⇒ census router (v7a-120 → rules-v3)",
 }
+
+# arms whose full x12 payload is not on disk (aggregates live in jsonl ledgers);
+# per_task dicts are equal-weight per task, matching the parquet path's task-mean
+JSONL_ARMS = [
+    ("results/analysis/sealed_v7a120.jsonl", {"v7a120_polish"}),
+    ("results/analysis/armD_composed.jsonl", {"armD_seatA_polish", "armD_seatA_repair"}),
+]
 
 ENV_OVERRIDE = {  # audit env names that don't mechanically map to task names
     "PutGreenCubeOnPlate": "widowx_cube_on_plate_clean",
@@ -58,7 +71,8 @@ def main() -> None:
     audit = json.load(open("results/analysis/sealed_vocab_audit.json"))
     stratum = {env_to_task(e["env"]): e["stratum"] for e in audit}
 
-    frames = [pd.read_parquet(f) for f in sorted(glob.glob("results/sealed/*_x12.parquet"))]
+    frames = [pd.read_parquet(f) for f in sorted(glob.glob("results/sealed/*_x12.parquet"))
+              if "val8_reference" not in f]  # val-8 assets live in the same dir but are not sealed tasks
     d = pd.concat(frames, ignore_index=True)
     tasks = sorted(d.task.unique())
     missing = [t for t in tasks if t not in stratum]
@@ -78,6 +92,21 @@ def main() -> None:
             "in_vocab": per_task[iv].mean(),
             "oov": per_task[oov].mean(),
         })
+    seen_jsonl = set()
+    for path, wanted in JSONL_ARMS:
+        try:
+            lines = list(open(path))
+        except FileNotFoundError:
+            continue
+        for l in lines:
+            r = json.loads(l)
+            if r.get("arm") not in wanted or r["arm"] in seen_jsonl or "per_task" not in r:
+                continue
+            seen_jsonl.add(r["arm"])
+            pt = pd.Series(r["per_task"])
+            rows.append({"arm": r["arm"], "pooled": pt.mean(),
+                         "in_vocab": pt[[t for t in pt.index if t in iv]].mean(),
+                         "oov": pt[[t for t in pt.index if t in oov]].mean()})
     sb = pd.DataFrame(rows).sort_values("pooled").reset_index(drop=True)
     for _, r in sb.iterrows():
         print(f"{r.arm:26s} pooled {r.pooled:4.1f}  in-vocab {r.in_vocab:4.1f}  OOV {r.oov:4.1f}")
