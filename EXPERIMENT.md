@@ -2728,3 +2728,10 @@ raws are not materialized but are EXACTLY regenerable (CRN determinism) by
 re-rolling ph_sealed_v7a120_polish.parquet if ever needed. Also surfaced:
 anchors_x12 contains the ERT-VERBATIM passthrough baseline = 26.59 — the
 repair condition's do-nothing floor (every repair arm clears it).
+
+## 2026-07-31 13:50 UTC — scoreboard refresh confirms PREDICTION 3: rules-v4 gains are OOV-concentrated
+Strata from the refreshed scoreboard: rules_v4_nominal OOV 30.9 and rules_v4_ert
+OOV 30.7 are the two best non-oracle OOV cells ever measured (passthrough OOV
+27.3/23.7; v3 29.6/26.8), while rules_v4_nominal in-vocab (46.0) actually sits
+BELOW originals in-vocab (48.3) — the arm wins the pooled table on the OOV
+side, exactly as prediction 3 filed. All three arm E predictions now confirmed.
