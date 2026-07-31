@@ -2647,3 +2647,27 @@ gets killed so its own nominal iteration never double-rolls.
 By-morning schedule (UTC): armE-ert ~08:40 (pod8), armA-polish ~09:30 (pod5),
 armE-nominal ~10:30-13:00 (pod6), armA-repair ~12:30 (pod7) -> arm D
 composition immediately after; three pods shutdown-ready by early afternoon.
+
+## 2026-07-31 07:50 UTC — FIRST SEALED LANDINGS: arm A polish 31.97 (below originals — val-8 edge did NOT transfer); arm E ERT 33.30 (> v3 31.6, prediction 1 MET); arm D polish composed 35.18
+- ARM A POLISH (v7a-120 rewriting sealed originals, 12x24x12): pooled 31.97 vs
+  originals 36.1 (-4.1). The val-8 polish advantage (+4.5 over originals there,
+  IV stratum at oracle ceiling) INVERTED on sealed. Per-task: huge wins
+  cube_on_plate 84.0, eggplant_sponge 79.9; catastrophic cells nut_wheel 3.1,
+  small_plate 1.0, coke_wheel 6.9. Prereg prediction 2 as written (>= v6_rl
+  30.1, >= sft_v2 24.6) technically MET but the honest headline is the
+  originals gap. Payload archived (v7a120_polish_x12).
+- ARM E ERT (rules-v4 + gemini-pro on sealed ERT): pooled 33.30 vs rules-v3
+  31.6 (+1.7, ~1.5 SE) — PREREG PREDICTION 1 MET. Notable cells: eggplant_
+  keyboard 42.7, coke_wheel 33.7, pepsi 37.5.
+- ARM D POLISH (composed, frozen routing): 35.18 — beats BOTH components
+  (arm A 31.97, rules 34.78) but still below originals 36.1. Router wins:
+  pepsi->rules +21.9, coke_wheel->rules +21.2, cube_on_plate KEEP +20.5 (vs
+  rules 63.5), eggplant_keyboard->rules +9.7. Router losses: ramekin routed to
+  rules 27.8 while arm A's kept-alien "white ramekin" phrase scored 47.9
+  (-20.1 — the census gate sent the task to the weaker cell; kept-alien+color
+  strikes again, echoing the val-8 keyboard lesson). Amendment-1 prediction
+  (arm D > max components) holds on polish by +0.4 (inside noise) vs rules.
+- Ops: pod5 polish interceptor fired correctly (repair double-roll killed <8min);
+  pod5 untracked-collision wedge repaired (identical files rm'd, 2 commits
+  rescued). Pod8 ERT landed early (07:35), duplicate nominal killed at ~07:40.
+  Pods 5 + 8: 0 unpushed, payloads archived, podstate verified -> SHUTDOWN-READY.
