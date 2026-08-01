@@ -2849,3 +2849,17 @@ Executor ladder on IDENTICAL v4 text (ERT): Claude 34.26 >= gemini-pro 33.30
 recovers 7.7pp of the ERT gap over passthrough 26.59 — the deepest repair on
 record. Pod5 chain proceeding: arm H (bare Claude) rolling since 16:03, then
 self-stop. Arm G nominal ~1h out on pod7.
+
+## 2026-08-01 18:30 UTC — ARM G COMPLETE: Claude + rules-v4 = 37.73 nominal / 34.26 ERT — best arm on BOTH conditions; pod7 retired
+Full executor ladder on identical v4 text:
+  Claude Fable   37.73 / 34.26   (best both columns; nominal beats originals +1.65)
+  Gemini-Pro     37.18 / 33.30
+  frozen Qwen    27.81 / 30.06
+Claude~Gemini within ~1 SE on both conditions; the cliff is executor fidelity,
+not which strong model. Amendment-11 predictions 1+3 confirmed; OOV-signature
+(p2) checked at scoreboard refresh. Ops: pod7's push wedge (append-append
+rebase + stale arm-F rebase state) resolved by reset-to-origin + recompute-
+from-raw (armG_out.parquet); nominal row recomputed, x12 archived, 0 unpushed;
+pod7 STOPPED (verified-clean manual stop after its runner correctly aborted
+self-stop on push failure — the safety gate worked as designed). Remaining:
+arm H on pod5 (~05:00 UTC), then pod5 self-stops; L40S+pod6 on v8.
