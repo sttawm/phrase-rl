@@ -54,6 +54,8 @@ NAME = {
 JSONL_ARMS = [
     ("results/analysis/sealed_v7a120.jsonl", {"v7a120_polish"}),
     ("results/analysis/armD_composed.jsonl", {"armD_seatA_polish", "armD_seatA_repair"}),
+    ("results/analysis/sealed_rules_v4_qwen.jsonl", {"rules_v4_qwen_nominal", "rules_v4_qwen_ert"}),
+    ("results/analysis/sealed_rules_v4_claude.jsonl", {"rules_v4_claude_nominal", "rules_v4_claude_ert"}),
 ]
 
 ENV_OVERRIDE = {  # audit env names that don't mechanically map to task names
@@ -104,7 +106,8 @@ def main() -> None:
             continue
         for l in lines:
             r = json.loads(l)
-            if r.get("arm") not in wanted or r["arm"] in seen_jsonl or "per_task" not in r:
+            have = {row["arm"] for row in rows}
+            if r.get("arm") not in wanted or r["arm"] in seen_jsonl or r["arm"] in have or "per_task" not in r:
                 continue
             seen_jsonl.add(r["arm"])
             pt = pd.Series(r["per_task"])
