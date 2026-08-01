@@ -278,3 +278,24 @@ rules) + the full sealed trace + ERT instruction. Notable v1->v2 diffs from
 trace conditioning: "green block"->"green cube" (x2), pepsi gains "yellow";
 coke_on_wheel regressed to "red can in the tire" (brand-drop + double family
 violation) — bare-Claude's untutored noun choices remain the predicted misses.
+
+## Amendment 15 (filed 2026-08-02 ~00:30 UTC)
+1. SCOPE CUT (user): the three bare-nominal cells and the human-phrasing
+   sampled arm are DROPPED — the originals reference is adopted as the human
+   baseline for the nominal condition. The generated-but-never-rolled
+   gemini_pro_bare_nominal phrases are discarded.
+2. Remaining Amendment-14 cells: Qwen+v3-nominal and Claude+v3-nominal only.
+3. NEW CELLS (user-directed): Qwen + rules with ACTUAL reasoning —
+   enable_thinking=TRUE for the frozen 9B executing rules-v4, both conditions
+   (12x24x12). Motivation: the executor-fidelity story predicts thinking helps
+   the UNFAITHFUL executor where it demonstrably did nothing for the faithful
+   one (gemini tournament 0.6pp spread). Predictions: (1) Qwen+v4+think beats
+   no-think Qwen+v4 on both conditions (30.06 ERT / 27.81 nominal); (2) it
+   remains below the strong executors; (3) if it fails to beat no-think, the
+   9B's unfaithfulness is a capacity problem, not a deliberation problem.
+4. PROVENANCE CAVEAT ledgered for the "so high" frozen-Qwen bare-adv bar
+   (30.96): that row was generated under the CoVer prompt (image + trace +
+   CoVer's structured rephrase scaffold — build_sealed_arm_phrases mode
+   'frozen'), NOT the minimal bare template the API bare rows used. The bare
+   column is not protocol-identical across models; the Qwen bar is
+   scaffold-assisted and multimodal. Chart footnote to be added.

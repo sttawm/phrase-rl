@@ -1,78 +1,91 @@
 #!/usr/bin/env python3
-"""Sealed ladders, one chart per condition, vertical grouped bars.
-
-Left group: references (oracle / original / adversarial passthrough).
-Then one 3-bar cluster per model: train+rollout rules (v4), rollout rules (v3),
-no rules (bare). Missing cells render as dashed hatched placeholders.
-Pooled sealed values (12 tasks x 24 x 12)."""
+"""Sealed ladders, one chart per condition, vertical bars, each treatment shown
+as a pooled / in-vocab / OOV triplet. References (oracle / original /
+adversarial passthrough) lead; then one cluster per model. Nominal chart has no
+bare slots (user: originals ARE the human baseline). Strata values from the
+sealed per-task tables (audit stratification; 5 in-vocab / 7 OOV tasks)."""
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-REFS = [("oracle*", 48.23, "#e2b8b8"), ("original", 36.08, "#b8d8c8"),
-        ("adversarial\n(pass through)", 26.59, "#cbd5e0")]
-
-ROLE = [("train+rollout rules (v4)", "#a3bffa"), ("rollout rules (v3)", "#b2f5ea"),
-        ("no rules (bare)", "#fed7aa")]
+# (pooled, in_vocab, oov)
+REFS = [("oracle*", (48.2, 50.3, 46.8)), ("original", (36.1, 48.3, 27.3)),
+        ("adversarial\n(pass through)", (26.6, 30.6, 23.7))]
 
 DATA = {
     "adversarial": {
-        "Frozen Qwen": [30.06, 31.48, 30.96],
-        "Gemini-Pro": [33.30, 31.57, 27.78],
-        "Claude Fable": [34.26, 30.99, None],  # bare rolling (arm H)
+        "roles": ["train+rollout rules (v4)", "rollout rules (v3)", "no rules (bare)"],
+        "models": {
+            "Frozen Qwen": [(30.1, 35.3, 26.3), (31.5, 35.7, 28.5), (31.0, 42.1, 23.0)],
+            "Gemini-Pro": [(33.3, 37.0, 30.7), (31.6, 38.2, 26.8), (27.8, 40.2, 18.9)],
+            "Claude Fable": [(34.3, 40.6, 29.7), (31.0, 35.3, 27.9), None],
+        },
+        "pending": {("Claude Fable", 2): "rolling"},
     },
     "nominal": {
-        "Frozen Qwen": [27.81, None, None],
-        "Gemini-Pro": [37.18, 34.78, None],
-        "Claude Fable": [37.73, None, None],
+        "roles": ["train+rollout rules (v4)", "rollout rules (v3)"],
+        "models": {
+            "Frozen Qwen": [(27.8, 34.9, 22.7), None],
+            "Gemini-Pro": [(37.2, 46.0, 30.9), (34.8, 42.1, 29.6)],
+            "Claude Fable": [(37.7, 47.6, 30.7), None],
+        },
+        "pending": {},
     },
 }
-PENDING_NOTE = {("adversarial", "Claude Fable", 2): "rolling"}
+STRATA = [("pooled", "#a3bffa"), ("in-vocab (5)", "#b2f5ea"), ("OOV (7)", "#fed7aa")]
+W = 0.27
 
-for cond, models in DATA.items():
-    fig, ax = plt.subplots(figsize=(12.5, 4.8))
+for cond, spec in DATA.items():
+    fig, ax = plt.subplots(figsize=(13.5, 5.0))
     x = 0.0
     ticks, ticklabels = [], []
-    for name, val, col in REFS:
-        ax.bar(x, val, 0.8, color=col, edgecolor="#4a5568", lw=0.8)
-        ax.text(x, val + 0.6, f"{val:.1f}", ha="center", fontsize=9, fontweight="bold")
+    def triplet(x0, vals, ref=False):
+        for j, ((sname, col), v) in enumerate(zip(STRATA, vals if isinstance(vals, tuple) else [])):
+            pass
+    for name, vals in REFS:
+        for j, ((sname, col), v) in enumerate(zip(STRATA, vals)):
+            ax.bar(x + (j - 1) * W, v, W, color=col,
+                   edgecolor="#4a5568", lw=0.7)
+            ax.text(x + (j - 1) * W, v + 0.4, f"{v:.0f}", ha="center", fontsize=7)
+        ax.axvspan(x - 0.55, x + 0.55, color="#000000", alpha=0.04, zorder=0)
         ticks.append(x)
         ticklabels.append("★ " + name)
-        x += 1.0
-    x += 0.9  # gap after references
-    first = True
-    for model, vals in models.items():
-        cx = []
-        for i, ((role, col), val) in enumerate(zip(ROLE, vals)):
-            if val is None:
-                ax.bar(x, 50, 0.8, color="none", edgecolor="#a0aec0", ls="--", lw=1.0,
-                       hatch="//", alpha=0.30)
-                note = PENDING_NOTE.get((cond, model, i), "not yet run")
-                ax.text(x, 25.2, note, ha="center", va="bottom", fontsize=7.5,
+        x += 1.35
+    x += 0.55
+    for model, cells in spec["models"].items():
+        cxs = []
+        for i, cell in enumerate(cells):
+            if cell is None:
+                ax.bar(x, 52, 3 * W, color="none", edgecolor="#a0aec0", ls="--",
+                       lw=1.0, hatch="//", alpha=0.30)
+                note = spec["pending"].get((model, i), "not yet run")
+                ax.text(x, 17.5, note, ha="center", va="bottom", fontsize=7.5,
                         color="#718096", style="italic", rotation=90)
             else:
-                ax.bar(x, val, 0.8, color=col, edgecolor="none",
-                       label=role if first else None)
-                ax.text(x, val + 0.6, f"{val:.1f}", ha="center", fontsize=9)
-            cx.append(x)
-            x += 1.0
-        first = False
-        ticks.append(sum(cx) / len(cx))
-        ticklabels.append(model)
-        x += 0.9  # gap between clusters
-    # legend needs all three roles even if first cluster had a placeholder
-    handles = [plt.Rectangle((0, 0), 1, 1, color=c) for _, c in ROLE]
-    ax.legend(handles, [r for r, _ in ROLE], fontsize=8.5, loc="upper right")
+                for j, ((sname, col), v) in enumerate(zip(STRATA, cell)):
+                    ax.bar(x + (j - 1) * W, v, W, color=col)
+                    ax.text(x + (j - 1) * W, v + 0.4, f"{v:.0f}", ha="center", fontsize=7)
+            role = spec["roles"][i]
+            ax.text(x, 15.4, role.replace(" rules", "\nrules"), ha="center", va="top",
+                    fontsize=7.2, color="#4a5568")
+            cxs.append(x)
+            x += 1.35
+        ticks.append(sum(cxs) / len(cxs))
+        ticklabels.append("\n\n" + model)
+        x += 0.7
+    handles = [plt.Rectangle((0, 0), 1, 1, color=c) for _, c in STRATA]
+    ax.legend(handles, [s for s, _ in STRATA], fontsize=8.5, loc="upper right")
     ax.set_xticks(ticks)
     ax.set_xticklabels(ticklabels, fontsize=9.5)
-    ax.set_ylabel("sealed success % (12 tasks × 24 × 12) — y-axis starts at 24")
-    ax.set_ylim(24, 52)
+    ax.tick_params(axis="x", length=0)
+    ax.set_ylabel("sealed success % — y-axis starts at 15")
+    ax.set_ylim(15, 54)
     ax.grid(axis="y", alpha=0.25)
     title_cond = ("ADVERSARIAL input (repair)" if cond == "adversarial"
-                  else "ORIGINAL input (polish)")
-    ax.set_title(f"Sealed ladder — {title_cond}    "
-                 "(★ reference | *oracle phrases selected on layouts 0-17)", fontsize=10.5)
+                  else "ORIGINAL input (polish) — originals reference = the human phrasing")
+    ax.set_title(f"Sealed ladder — {title_cond}    (★ reference | *oracle selected on layouts 0-17)",
+                 fontsize=10.5)
     fig.tight_layout()
     out = f"results/charts/sealed_ladder_{cond}.png"
     fig.savefig(out, dpi=140, bbox_inches="tight", pad_inches=0.25)
