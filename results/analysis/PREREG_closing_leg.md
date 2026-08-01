@@ -299,3 +299,14 @@ violation) — bare-Claude's untutored noun choices remain the predicted misses.
    'frozen'), NOT the minimal bare template the API bare rows used. The bare
    column is not protocol-identical across models; the Qwen bar is
    scaffold-assisted and multimodal. Chart footnote to be added.
+
+## Amendment 16 (filed 2026-08-02 ~01:00 UTC)
+**Provenance-fair re-run of frozen-Qwen bare-adversarial (user-directed).**
+The existing frozen_gemini_trace row (30.96) was CoVer-prompt generated (image
++ structured rephrase scaffold) and is NOT protocol-parallel to the other bare
+rows. New cell: qwen_bare_ert — unified bare template (rules-v4 skeleton minus
+rules), text + full Gemini trace only, greedy, enable_thinking=False,
+12x24x12. The CoVer-prompt row is retained in the appendix scoreboard under
+its existing label; the ladder's Qwen bare slot switches to the fair row.
+Prediction: qwen_bare_ert < 30.96 (the scaffold was load-bearing), plausibly
+near gemini_pro_bare 27.78.
