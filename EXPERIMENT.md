@@ -2841,3 +2841,11 @@ identical protocol text. Amendment-10 predictions: (1) REFUTED, (3) CONFIRMED
 (F << E). Claude arms (G) now adjudicate whether a strong-but-different
 executor tracks gemini (prediction G ~ E) — both legs rolling (03:15 / 04:44).
 Conflict-marker residue union-resolved from sealed_rules_v4_qwen.jsonl.
+
+## 2026-08-01 16:10 UTC — ARM G ERT: Claude Fable + rules-v4 = 34.26 — best adversarial arm ever measured
+Executor ladder on IDENTICAL v4 text (ERT): Claude 34.26 >= gemini-pro 33.30
+(+0.96, ~1 SE) >> frozen Qwen 30.06. Amendment-11 predictions 1 (>= claude-v3
+30.99) and 3 (tracks E; fidelity binds, not scale) CONFIRMED. Claude+v4 also
+recovers 7.7pp of the ERT gap over passthrough 26.59 — the deepest repair on
+record. Pod5 chain proceeding: arm H (bare Claude) rolling since 16:03, then
+self-stop. Arm G nominal ~1h out on pod7.
