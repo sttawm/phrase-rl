@@ -266,3 +266,15 @@ nominal < Qwen+v4-nominal is NOT predicted — v3's simpler protocol may hurt th
 weak executor less than v4 did (open question, no direction filed).
 A sixth OPTIONAL arm (human-phrasing simulation, sampled K=4 x 24 x 3, user's
 prompt) awaits user scope decision; not generated yet.
+
+## Amendment 12 — ADDENDUM (2026-08-01 ~23:30 UTC): arm H regenerated as v2
+User-caught conditioning gap: v1's isolated agent received one-line scene
+summaries instead of the FULL Gemini traces every other arm gets. v1's roll
+was killed at ~90% WITHOUT any success statistic ever being computed or read
+(no merge occurred) — discipline clean. v2: 12 independent isolated agents
+(zero rules exposure, one per task — matching the per-call structure of the
+API arms), each receiving the unified bare template (rules-v4 skeleton minus
+rules) + the full sealed trace + ERT instruction. Notable v1->v2 diffs from
+trace conditioning: "green block"->"green cube" (x2), pepsi gains "yellow";
+coke_on_wheel regressed to "red can in the tire" (brand-drop + double family
+violation) — bare-Claude's untutored noun choices remain the predicted misses.
