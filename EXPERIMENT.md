@@ -2794,3 +2794,27 @@ protocol-matched anchor from birth. Step-20's 38.54 was transient. The
 "RL trains rephrasing" claim on the adversarial side is now refuted in TWO
 independent forks; polish anchor (rolling, ~02:15 UTC) adjudicates the rest.
 Reward-side corroboration: win-rate ~3%, greedy proxy reward ~flat.
+
+## 2026-08-01 03:30 UTC — BOTH ANCHORS IN: v8 is flat-to-negative on BOTH conditions; arm F ERT refutes its prediction (30.06)
+- **v8 polish step-0 (base Qwen, tag-free, 2-rep) = 44.79** — ABOVE every v8
+  checkpoint (41.93/44.01/41.67/42.71). Combined with adv step-0 = 37.76
+  (7/8 phrases identical at step 50): v8 has improved NOTHING over its init;
+  polish sits 0.8-3.1pp BELOW it. The earlier "44.01 above all baselines" read
+  was an anchor artifact (tagged rep-1 references) — the user's insistence on
+  true step-0 anchors was decisive a second time. Note in itself: tag-free
+  base Qwen POLISH = 44.79 > passthrough originals 40.6 (+4.2) — the frozen
+  model with a Gemini trace is already a strong polisher on val-8.
+- Complete RL arc for the writeup: beta=0.05 (v7a) moves behavior but overfits
+  val-8 (sealed inversion) and Goodharts (v7f); beta=0.15 (v8) pins KL~0.002
+  and moves nothing (win-rate ~3%, proxy flat, outputs byte-frozen). The grip
+  proxy is blind to what matters (panel finding) — with a strong KL anchor
+  there is no usable gradient left. THE RULES ARE THE ARTIFACT.
+- **ARM F ERT = 30.06** (frozen Qwen + rules-v4 on adversarial): REFUTES
+  Amendment-10 prediction 1 (>= v3-twin 31.48); also below no-rules 30.96.
+  The richer v4 protocol HURT the weak executor (-1.4 vs v3 rules) — protocol
+  value inverts under unfaithful execution; the preflighted violations were
+  the mechanism. Executor-fidelity is a first-class variable.
+- RECOMMENDATION for the user (not executed): stop v8 training — 60 steps of
+  measured no-movement at pinned KL; continuing spends GPU on a refuted
+  configuration. Arm G (Claude+rules ERT) rolling on pod5 since 03:15;
+  arm F nominal finishing on pod7.
