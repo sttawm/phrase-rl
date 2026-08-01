@@ -2818,3 +2818,15 @@ Reward-side corroboration: win-rate ~3%, greedy proxy reward ~flat.
   measured no-movement at pinned KL; continuing spends GPU on a refuted
   configuration. Arm G (Claude+rules ERT) rolling on pod5 since 03:15;
   arm F nominal finishing on pod7.
+
+## 2026-08-01 ~04:10 UTC — CORRECTION (user-caught): v7a ran at beta=0.15, not 0.05
+run_arm_v7.sh line 56: --beta 0.15. The 0.05 settings were the v7b/c sweep
+forks (which concluded "beta not the bottleneck"). The 03:30 entry's RL arc is
+therefore WRONG about beta being the moved/flat separator. Corrected analysis:
+the separator is the REWARD — v7a (moved) trained on the c4b blend w=0.25
+(verifier-logit component, F=16, C=1); every grip-pure C-club run (v7f tagged
+beta=.05; v8 untagged beta=.15) is flat. Tags are exonerated by v7f's tagged
+flatness. Grip-pure proxy ranks originals above the whole candidate pool
+(orig +0.617 vs best16 -0.22) and is quality-blind — no trainable signal.
+Discriminating experiment specified (not run): v8b = v8 config + blend reward.
+USER DECISION: v8 continues training as-is for now.
