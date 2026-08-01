@@ -251,3 +251,18 @@ posed the repair problem. The clean decomposition for the writeup:
 mining's edge = knowing when not to rewrite; RL's edge = repair learned from
 adversarial-tier exposure; rules-v4 = both (val-8 evidence supplies repair).
 No pod time spent; pod 5/7 chains unchanged (F -> G (-> H) -> self-stop).
+
+## Amendment 14 (filed 2026-08-01 ~21:40 UTC, before generation of any cell)
+**Five ladder-completion cells (user-directed): bare-nominal x3 (Qwen, Gemini-
+Pro, Claude) + rules-v3-nominal x2 (Qwen, Claude).** Protocols matched to their
+column families: GREEDY single phrase per task (ladder comparability), succeed-
+framing bare prompt identical in intent to the bare-adv rows; v3 cells use the
+frozen b4_phrasing_rules_v3.md verbatim. Claude generations via fresh isolated
+agents (bare = zero rules exposure). 12x24x12 each. Predictions: (1) all three
+bare-nominal cells land BELOW originals 36.08 (untutored strong models damage
+good instructions — the conservatism law at model level); (2) Claude+v3-nominal
+~ gemini+v3-nominal 34.78 (fidelity parity of strong executors); (3) Qwen+v3-
+nominal < Qwen+v4-nominal is NOT predicted — v3's simpler protocol may hurt the
+weak executor less than v4 did (open question, no direction filed).
+A sixth OPTIONAL arm (human-phrasing simulation, sampled K=4 x 24 x 3, user's
+prompt) awaits user scope decision; not generated yet.
