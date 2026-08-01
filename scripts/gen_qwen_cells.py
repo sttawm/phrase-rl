@@ -86,6 +86,9 @@ for arm, cond, rules, think in CELLS:
                                max_new_tokens=14336 if think else 64)
         dec = proc.decode(g[0][inp["input_ids"].shape[1]:], skip_special_tokens=True)
         if think:
+            print(f"RAW-HEAD [{arm}] {r.task}: {dec[:300]!r}", flush=True)
+            print(f"RAW-TAIL: {dec[-200:]!r}", flush=True)
+        if think:
             if "</think>" in dec:
                 dec = dec.split("</think>")[-1]          # reasoned, closed: take the answer
             elif dec.lstrip().startswith("<think>"):
