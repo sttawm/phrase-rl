@@ -2783,3 +2783,14 @@ beta_think ~0-.05, think budget 256, degeneracy tripwires; gen 70s->~400s).
 BONUS FINDING: an 86-step inline-reasoning RL pilot sits BANKED and UNEVALUATED
 (results/checkpoints/phase2_inline_pilot, EXPERIMENT.md:45) — 2 checkpoint
 evals through the tag-free path would answer this question with data.
+
+## 2026-08-01 01:10 UTC — v8 ADVERSARIAL STEP-0 ANCHOR: 37.76 == steps 30/40/50; greedy outputs 7/8 IDENTICAL to base Qwen
+The tag-free base-Qwen anchor (n=384, 2-rep) lands at exactly the checkpoint
+band value. Phrase-level check: v8-50's greedy adversarial rewrites are
+byte-identical to base Qwen's on 7/8 tasks (sole diff: carrot_on_wheel drops
+the pick-up clause). CONCLUSION: v8 has produced no adversarial-side greedy
+behavior change beyond one clause edit — the v7f pattern, now measured with a
+protocol-matched anchor from birth. Step-20's 38.54 was transient. The
+"RL trains rephrasing" claim on the adversarial side is now refuted in TWO
+independent forks; polish anchor (rolling, ~02:15 UTC) adjudicates the rest.
+Reward-side corroboration: win-rate ~3%, greedy proxy reward ~flat.
