@@ -50,6 +50,19 @@ Incoming instruction: {src}
 
 Reply with ONLY the rewritten instruction."""
 
+THINK_WRAP = """{rules}
+
+---
+
+Apply the rules above.
+
+Trace:
+{trace}
+
+Incoming instruction: {src}
+
+Think through the rules step by step first. When you are done reasoning, output exactly one line that starts with "FINAL: " followed by the rewritten instruction, and stop."""
+
 V3 = open("results/analysis/b4_phrasing_rules_v3.md").read()
 V4 = open("results/analysis/b4_phrasing_rules_v4.md").read()
 ga = pd.read_parquet("results/sealed/sealed_assets_gemini.parquet")
@@ -75,6 +88,8 @@ for arm, cond, rules, think in CELLS:
         src = str(r.nominal if cond == "nominal" else r.ert_instruction)
         if rules is None:
             prompt = BARE.format(trace=r.trace, src=src)
+        elif think:
+            prompt = THINK_WRAP.format(rules=rules, trace=r.trace, src=src)
         else:
             prompt = RULES_WRAP.format(rules=rules, trace=r.trace, src=src)
         msgs = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
@@ -82,19 +97,20 @@ for arm, cond, rules, think in CELLS:
                                         enable_thinking=think)
         inp = proc(text=[text], return_tensors="pt").to(model.device)
         with torch.no_grad():
-            g = model.generate(**inp, do_sample=False,
-                               max_new_tokens=14336 if think else 64)
+            gen_kw = dict(do_sample=False, max_new_tokens=10240 if think else 64)
+            if think:
+                gen_kw["repetition_penalty"] = 1.1
+            g = model.generate(**inp, **gen_kw)
         dec = proc.decode(g[0][inp["input_ids"].shape[1]:], skip_special_tokens=True)
         if think:
-            print(f"RAW-HEAD [{arm}] {r.task}: {dec[:300]!r}", flush=True)
-            print(f"RAW-TAIL: {dec[-200:]!r}", flush=True)
-        if think:
-            if "</think>" in dec:
-                dec = dec.split("</think>")[-1]          # reasoned, closed: take the answer
-            elif dec.lstrip().startswith("<think>"):
-                print(f"PARSE-FAIL(truncated think) [{arm}] {r.task} — len {len(dec)}", flush=True)
-                dec = ""                                  # true truncation -> loud fallback
-            # else: model answered plainly without think markup — dec IS the answer
+            print(f"RAW-TAIL [{arm}] {r.task}: {dec[-150:]!r}", flush=True)
+            if "FINAL:" in dec:
+                dec = dec.rsplit("FINAL:", 1)[-1]
+            elif "</think>" in dec:
+                dec = dec.split("</think>")[-1]
+            else:
+                print(f"PARSE-FAIL(no FINAL marker) [{arm}] {r.task}", flush=True)
+                dec = ""
         p = dec.strip().strip('"').split("\n")[0].strip()
         p = re.sub(r"^\s*(?:\[input:[^\]]*\]\s*)+", "", p).strip()
         if not p or len(p.split()) < 3:
