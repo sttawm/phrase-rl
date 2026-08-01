@@ -2830,3 +2830,14 @@ flatness. Grip-pure proxy ranks originals above the whole candidate pool
 (orig +0.617 vs best16 -0.22) and is quality-blind — no trainable signal.
 Discriminating experiment specified (not run): v8b = v8 config + blend reward.
 USER DECISION: v8 continues training as-is for now.
+
+## 2026-08-01 04:55 UTC — ARM F COMPLETE: frozen Qwen + rules-v4 = 27.81 nominal / 30.06 ERT — the executor-fidelity result, brutal edition
+Nominal 27.81: -8.3 vs originals (36.08), -9.4 vs the SAME RULES under
+gemini-pro (37.18). On good inputs the weak executor's unfaithful rewriting is
+actively destructive — license-to-rewrite without capacity-to-comply is worse
+than no rules on both conditions (ERT 30.06 < no-rules 30.96). Full v4 ladder:
+gemini-pro 37.18/33.30 >> frozen Qwen 27.81/30.06 — ~9pp executor swing on
+identical protocol text. Amendment-10 predictions: (1) REFUTED, (3) CONFIRMED
+(F << E). Claude arms (G) now adjudicate whether a strong-but-different
+executor tracks gemini (prediction G ~ E) — both legs rolling (03:15 / 04:44).
+Conflict-marker residue union-resolved from sealed_rules_v4_qwen.jsonl.
