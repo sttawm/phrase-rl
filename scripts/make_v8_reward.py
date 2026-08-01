@@ -45,7 +45,18 @@ if tr:
     ts = [d["step"] for d in tr]
     for tier, col in [("nominal", "#2f855a"), ("benign", "#2b6cb0"), ("ert", "#e53e3e")]:
         ys = [d.get("grip_by_tier", {}).get(tier) for d in tr]
-        a2.plot(ts, ys, color=col, lw=1.2, label=f"{tier} tier")
+        a2.plot(ts, ys, color=col, lw=1.0, alpha=0.6, label=f"{tier} tier")
+    W = {"ert": 0.5, "nominal": 0.25, "benign": 0.25}
+    wavg = []
+    for d in tr:
+        g = d.get("grip_by_tier", {})
+        wavg.append(sum(W[t] * g[t] for t in W) if all(t in g for t in W) else None)
+    a2.plot(ts, wavg, color="#1a202c", lw=2.2,
+            label="TIER-WEIGHTED MEAN (0.5 ert / 0.25 nom / 0.25 benign)")
+    w = [v for v in wavg if v is not None]
+    if len(w) >= 10:
+        early, late = sum(w[:5]) / 5, sum(w[-5:]) / 5
+        a2.set_title(f"per-step candidate grip error by tier — weighted mean {early:.3f} -> {late:.3f}")
 a2.set_xlabel("v8 step")
 a2.set_ylabel("candidate grip error (lower = better)")
 a2.set_title("per-step candidate grip error by input tier")
