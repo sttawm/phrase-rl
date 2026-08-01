@@ -57,20 +57,23 @@ def panel(ax, refs, bars, title):
     ax.grid(axis="x", alpha=0.25)
 
 
+FOOT = ("★ reference   |   v3 = Rules+rollout (rollout-derived)   |   "
+        "v4 = Rules-train+rollout (train-mined + rollout)   |   *oracle selected on layouts 0-17")
 for key, (label, data) in MODELS.items():
-    fig, (a1, a2) = plt.subplots(1, 2, figsize=(13.5, 3.6))
     adv_bars = [(n, v) for n, v in data["adv"]]
     for i, (n, v) in enumerate(adv_bars):
         if (key, "adv", n) in PENDING and v is None:
             adv_bars[i] = (n + f"  ({PENDING[(key, 'adv', n)]})", None)
-    panel(a1, [("oracle*", REF["oracle"]), ("original", REF["original"]),
-               ("adversarial (pass through)", REF["adversarial (pass through)"])],
-          adv_bars, "ADVERSARIAL input (repair)")
-    panel(a2, [("oracle*", REF["oracle"]), ("original", REF["original"])],
-          data["nom"], "ORIGINAL input (polish)")
-    fig.suptitle(f"{label} — sealed ladder    (★ reference | v3 = rollout-derived rules | "
-                 "v4 = train-mined + rollout rules | *oracle selected on layouts 0-17)", fontsize=10.5)
-    fig.tight_layout()
-    out = f"results/charts/model_ladder_{key}.png"
-    fig.savefig(out, dpi=140, bbox_inches="tight", pad_inches=0.25)
-    print("chart ->", out)
+    for cond, refs, bars, cname in [
+            ("adversarial", [("oracle*", REF["oracle"]), ("original", REF["original"]),
+                             ("adversarial (pass through)", REF["adversarial (pass through)"])],
+             adv_bars, "ADVERSARIAL input (repair)"),
+            ("original", [("oracle*", REF["oracle"]), ("original", REF["original"])],
+             data["nom"], "ORIGINAL input (polish)")]:
+        fig, ax = plt.subplots(figsize=(9.5, 3.4))
+        panel(ax, refs, bars, f"{label} — {cname}")
+        fig.text(0.02, 0.005, FOOT, fontsize=6.6, color="#4a5568")
+        fig.tight_layout()
+        out = f"results/charts/model_ladder_{key}_{cond}.png"
+        fig.savefig(out, dpi=140, bbox_inches="tight", pad_inches=0.28)
+        print("chart ->", out)
