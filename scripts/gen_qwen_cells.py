@@ -83,10 +83,14 @@ for arm, cond, rules, think in CELLS:
         inp = proc(text=[text], return_tensors="pt").to(model.device)
         with torch.no_grad():
             g = model.generate(**inp, do_sample=False,
-                               max_new_tokens=4096 if think else 64)
+                               max_new_tokens=14336 if think else 64)
         dec = proc.decode(g[0][inp["input_ids"].shape[1]:], skip_special_tokens=True)
-        if think and "</think>" in dec:
+        closed = (not think) or ("</think>" in dec)
+        if think and closed:
             dec = dec.split("</think>")[-1]
+        if think and not closed:
+            print(f"PARSE-FAIL(no </think>) [{arm}] {r.task} — len {len(dec)}", flush=True)
+            dec = ""  # force fallback, loudly
         p = dec.strip().strip('"').split("\n")[0].strip()
         p = re.sub(r"^\s*(?:\[input:[^\]]*\]\s*)+", "", p).strip()
         if not p or len(p.split()) < 3:
