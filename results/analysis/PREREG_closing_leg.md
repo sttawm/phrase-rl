@@ -310,3 +310,13 @@ rules), text + full Gemini trace only, greedy, enable_thinking=False,
 its existing label; the ladder's Qwen bare slot switches to the fair row.
 Prediction: qwen_bare_ert < 30.96 (the scaffold was load-bearing), plausibly
 near gemini_pro_bare 27.78.
+
+## Amendment 15 — protocol note (2026-08-02): Qwen think-cell termination
+The 9B's greedy open-form reasoning does not terminate (verified: looping
+deliberation truncated at 14k tokens with no answer). The think cells therefore
+use an explicit termination contract appended to the prompt ("output exactly
+one line starting with 'FINAL: '...") plus repetition_penalty=1.1, budget
+10240. This adaptation applies ONLY to the two Qwen-think cells and is part of
+their arm definition (a weak executor requires termination scaffolding to
+reason at all — itself a fidelity datum). Parse: last FINAL: line; no marker =
+loud fallback, ledgered per task.
