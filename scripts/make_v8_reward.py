@@ -59,7 +59,6 @@ if tr:
         a2.set_title(f"per-step candidate grip error by tier — weighted mean {early:.3f} -> {late:.3f}")
 a2.set_xlabel("v8 step")
 a2.set_ylabel("candidate grip error (lower = better)")
-a2.set_title("per-step candidate grip error by input tier")
 a2.legend(fontsize=8)
 a2.grid(alpha=0.25)
 
