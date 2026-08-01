@@ -49,7 +49,7 @@ for cond, models in DATA.items():
                 ax.bar(x, 50, 0.8, color="none", edgecolor="#a0aec0", ls="--", lw=1.0,
                        hatch="//", alpha=0.30)
                 note = PENDING_NOTE.get((cond, model, i), "not yet run")
-                ax.text(x, 2.5, note, ha="center", va="bottom", fontsize=7.5,
+                ax.text(x, 25.2, note, ha="center", va="bottom", fontsize=7.5,
                         color="#718096", style="italic", rotation=90)
             else:
                 ax.bar(x, val, 0.8, color=col, edgecolor="none",
@@ -66,8 +66,8 @@ for cond, models in DATA.items():
     ax.legend(handles, [r for r, _ in ROLE], fontsize=8.5, loc="upper right")
     ax.set_xticks(ticks)
     ax.set_xticklabels(ticklabels, fontsize=9.5)
-    ax.set_ylabel("sealed success % (12 tasks × 24 × 12)")
-    ax.set_ylim(0, 55)
+    ax.set_ylabel("sealed success % (12 tasks × 24 × 12) — y-axis starts at 24")
+    ax.set_ylim(24, 52)
     ax.grid(axis="y", alpha=0.25)
     title_cond = ("ADVERSARIAL input (repair)" if cond == "adversarial"
                   else "ORIGINAL input (polish)")
