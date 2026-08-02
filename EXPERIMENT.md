@@ -2928,3 +2928,14 @@ budget per parent ~constant. Replay + 16 contexts + tag-free + beta .15
 unchanged. 60k-EPISODE EXPANSION explicitly gated: traces exist ONLY for the
 2,000 parents; the named next data project is scene-cluster trace generation
 (+club/chunk-stats prep) before any parent beyond the 2k can be used.
+
+## 2026-08-02 ~15:20 UTC — USER DECISION: Qwen reasoning tested at rules-v4 ONLY (no bare+think control)
+The Qwen row mixes decoding modes by design: bare (no think), v3 (no think),
+v4 (no think), v4+think (the new pair). INTERPRETATION CAVEAT for the writeup:
+a positive v4+think delta is consistent with BOTH "deliberation improves
+protocol fidelity" (the hypothesis) and "deliberation improves Qwen's
+rewriting generally"; the disambiguating bare+think control was offered and
+declined as unnecessary. Report the v4+think delta as suggestive of the
+fidelity mechanism, not as isolating it. Termination scaffolding (FINAL:
+marker + repetition_penalty, Amendment 15 note) remains part of the cell's arm
+definition — the 9B cannot terminate open-form reasoning unaided.
