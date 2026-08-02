@@ -320,3 +320,17 @@ one line starting with 'FINAL: '...") plus repetition_penalty=1.1, budget
 their arm definition (a weak executor requires termination scaffolding to
 reason at all — itself a fidelity datum). Parse: last FINAL: line; no marker =
 loud fallback, ledgered per task.
+
+## Amendment 17 (filed 2026-08-02, before v7a-340 generation)
+**Arm: v7a step-0340 (final checkpoint), both conditions, TAGGED generation**
+(user-directed) — identical protocol to arm A (gen_sealed_arm.py: tier tags as
+trained, sealed gemini traces, greedy, tag-stripped outputs, preflight), 12x24x12
+per condition. Rationale: 340 is maximally trained and its val-8 tagged numbers
+(polish 44.3 / repair 36.7 deep) beat frozen Qwen on both conditions.
+Predictions: (1) primary question is TRANSFER — arm A (step 120) inverted its
+val-8 polish edge on sealed (31.97 < 36.08); no direction filed for 340 vs 120
+(the val-8 late plateau was flat, seedset-caveated); (2) strata signature:
+IV-concentrated like every RL arm; (3) repair within ~1.5pp of arm A repair
+(30.12) — the repair curve was flat 120->340 on val-8.
+Legs appended behind the existing pod queues (pod5: repair; pod8: polish),
+generation on pod5 after the think-cell gen completes.
