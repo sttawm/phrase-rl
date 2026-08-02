@@ -17,18 +17,18 @@ DATA = {
     "adversarial": {
         "roles": ["train+rollout rules (v4)", "rollout rules (v3)", "no rules (bare)"],
         "models": {
-            "Frozen Qwen": [(30.1, 35.3, 26.3), (31.5, 35.7, 28.5), (31.0, 42.1, 23.0)],
+            "Frozen Qwen": [(30.1, 35.3, 26.3), (31.5, 35.7, 28.5), (24.2, 31.2, 19.2)],
             "Gemini-Pro": [(33.3, 37.0, 30.7), (31.6, 38.2, 26.8), (27.8, 40.2, 18.9)],
-            "Claude Fable": [(34.3, 40.6, 29.7), (31.0, 35.3, 27.9), None],
+            "Claude Fable": [(34.3, 40.6, 29.7), (31.0, 35.3, 27.9), (29.1, 43.5, 18.9)],
         },
-        "pending": {("Claude Fable", 2): "rolling"},
+        "pending": {},
     },
     "nominal": {
         "roles": ["train+rollout rules (v4)", "rollout rules (v3)"],
         "models": {
             "Frozen Qwen": [(27.8, 34.9, 22.7), None],
             "Gemini-Pro": [(37.2, 46.0, 30.9), (34.8, 42.1, 29.6)],
-            "Claude Fable": [(37.7, 47.6, 30.7), None],
+            "Claude Fable": [(37.7, 47.6, 30.7), (34.7, 41.9, 29.6)],
         },
         "pending": {},
     },
@@ -86,6 +86,10 @@ for cond, spec in DATA.items():
                   else "ORIGINAL input (polish) — originals reference = the human phrasing")
     ax.set_title(f"Sealed ladder — {title_cond}    (★ reference | *oracle selected on layouts 0-17)",
                  fontsize=10.5)
+    if cond == "adversarial":
+        fig.text(0.01, 0.005, "all bare cells use the unified bare template (rules skeleton minus rules) "
+                 "+ full Gemini trace; the legacy CoVer-scaffolded Qwen bare row (31.0) is retained only "
+                 "in the appendix scoreboard", fontsize=6.6, color="#4a5568")
     fig.tight_layout()
     out = f"results/charts/sealed_ladder_{cond}.png"
     fig.savefig(out, dpi=140, bbox_inches="tight", pad_inches=0.25)
