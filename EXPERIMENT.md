@@ -2900,3 +2900,20 @@ ledgered). Expected ~88 min/step, 32 effective groups (~2.4x throughput,
 conditions). Open hypothesis this run also probes: if v9 moves where v8
 didn't, throughput/diversity mattered; if flat, the club-corpus explanation
 strengthens further.
+
+## 2026-08-02 ~04:15 UTC — CONFOUND TRIANGLE ledgered; user's tag-theory adopted as v9's operative hypothesis; pod7 on the v7a-340 legs
+Verified from v8's boot log: "parents 2000 -> 809" — the C=10 club reward
+filter subsets training parents to 809 rows / 213 instructions for v7f/v8/v9
+(v7a trained on all 2000 / 1361 instructions). So v7a-vs-v8 changed BOTH
+corpus-subset and tags (beta equal); v7a-vs-v7f changed corpus and beta;
+v7f-vs-v8 changed tags and beta — no pair isolates one variable. USER THEORY
+(operative for v9): the point of v8 was removing tags, and tag-free training
+plausibly needs LONGER to learn regime inference without tags; v9's replay
+(2.4x effective updates) is the accelerated test. If v9 bends, tag-free was
+slow-but-real; if flat, the corpus-narrowing suspect strengthens (future
+single-variable probes: mixed-corpus tag-free via C-fallback reward, or
+club+tags at beta .15).
+Ops: pod7 restored (new addr; tmux+libvulkan reinstalled, restore.sh patched)
+and queued on BOTH v7a-340 legs (waits for phrases from the pod5 gen chain;
+pod5/pod8 stage-2 waiters will grep-skip when pod7 lands them first).
+v9 chart = v8 chart (continuation fork at step 113, purple/orange v9 strata).
