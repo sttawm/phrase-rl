@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# v9 — v8 fork + REPLAY (user spec 2026-08-02): 16 contexts/step, group-level
+# v9 — v8 fork + REPLAY + ADAPTIVE CxF (user 2026-08-02): ALL 2000 parents (no
+# club filter); per-parent C = available same-instruction contexts (<=10),
+# frames scaled to hold C*F ~= 40 (cap 16/ctx). 16 contexts/step, group-level
 # replay buffer (16 replayed groups/update, window 50, clip 0.2, max reuse 6),
 # warm-forked from v8@latest (~step 113). Reward UNCHANGED (grip-pure C=10 F=4 —
 # user: the reward passed the CxF=40 discrimination exam; corpus is the open
@@ -52,6 +54,7 @@ tmux new-session -d -s train \
      --reward-mode verifier --reward-frames ${REWARD_FRAMES:-4} \
      --source-mix 0.25,0.25,0.5 \
      --input-dropout 0.5 \
+     --adaptive-contexts \
      --replay-groups 16 --replay-window 50 --replay-clip 0.2 --replay-max-reuse 6 \
      --reward-blend c4b --blend-w 0.0 --reward-contexts ${RCTX:-10} --club-contexts data/contexts_club.parquet \
      --gen-mode sample_single --update-rule grpo --no-gate \

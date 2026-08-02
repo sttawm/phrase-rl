@@ -500,15 +500,32 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
     NC = getattr(args, "reward_contexts", 1)
     if club and NC > 1:
         fmap = args._reward_frames_map or {}
+        adaptive = getattr(args, "adaptive_contexts", False)
+        base_F = max(1, getattr(args, "reward_frames", 1))
+        target = NC * base_F  # e.g. 10*4 = 40 reward evaluations per parent
         for row, res in pairs:
             plist = [res["instruction"]] + res["survivors"]
             pool = [e for e in club.get(str(row["instruction"]), [])
                     if e != int(row["episode_index"]) and e in fmap]
             pick = (list(np.random.choice(pool, size=min(NC - 1, len(pool)), replace=False))
                     if pool else [])
-            for e in pick:
-                contexts.append((dict(fmap[int(e)][0]), plist))
-            n_extra.append(len(pick))
+            k = 0
+            if adaptive:
+                n_ctx = 1 + len(pick)
+                per_ctx = int(np.clip(round(target / n_ctx), base_F, 16))
+                pep = int(row["episode_index"])
+                for fr in (fmap.get(pep, [])[1:per_ctx]):  # parent extra frames (row itself = frame 0)
+                    contexts.append((dict(fr), plist))
+                    k += 1
+                for e in pick:
+                    for fr in fmap[int(e)][:per_ctx]:
+                        contexts.append((dict(fr), plist))
+                        k += 1
+            else:
+                for e in pick:
+                    contexts.append((dict(fmap[int(e)][0]), plist))
+                    k += 1
+            n_extra.append(k)
     all_losses = score_phrases(ipc_dir, job_id, contexts, args)
     all_grips = getattr(score_phrases, "last_grips", [None] * len(all_losses))
     off = len(pairs)
@@ -1361,6 +1378,8 @@ def main():
                     help="v6.3: prepend input-regime tags to the prompt's instruction slot (original wording | paraphrased | adversarially reworded | withheld)")
     ap.add_argument("--input-dropout", type=float, default=0.0,
                     help="v6.1: prob the prompt's instruction SLOT is a placeholder (trace-only grounding); gate/reward keep the true instruction")
+    ap.add_argument("--adaptive-contexts", action="store_true",
+                    help="v9: keep ALL parents (no club filter); per-parent C = as many same-instruction club contexts as exist (<= reward-contexts), frames scaled so C*F ~= reward-contexts*reward-frames (cap 16/ctx)")
     ap.add_argument("--replay-groups", type=int, default=0,
                     help="v9: replayed groups mixed into each update (0 = off)")
     ap.add_argument("--replay-window", type=int, default=50,
@@ -1510,9 +1529,15 @@ def main():
             idx_by_instr[str(instr)] = [int(e) for e in g.episode_index]
         args._club_index = idx_by_instr
         before = len(train_df)
-        train_df = train_df[train_df.instruction.astype(str).isin(idx_by_instr)]
-        print(f"v7e multi-context reward: club {len(cmap)} episodes / {len(idx_by_instr)} "
-              f"instructions (clash-kept-train {len(clash)}); parents {before} -> {len(train_df)}")
+        if getattr(args, "adaptive_contexts", False):
+            in_club = train_df.instruction.astype(str).isin(idx_by_instr).sum()
+            print(f"v9 ADAPTIVE multi-context reward: club {len(cmap)} episodes / "
+                  f"{len(idx_by_instr)} instructions; parents KEPT at {before} "
+                  f"({in_club} club-covered, {before - in_club} sparse -> frame-compensated)")
+        else:
+            train_df = train_df[train_df.instruction.astype(str).isin(idx_by_instr)]
+            print(f"v7e multi-context reward: club {len(cmap)} episodes / {len(idx_by_instr)} "
+                  f"instructions (clash-kept-train {len(clash)}); parents {before} -> {len(train_df)}")
     if args.val_traces:
         _t = pd.read_parquet(args.val_traces)
         VAL_TRACES = {(r.episode_index, r.t): str(r.trace) for r in _t.itertuples()}
