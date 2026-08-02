@@ -16,7 +16,7 @@ VLA=/workspace/INT-ACT/.venv/bin/python
 ROLL=/workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py
 CFG=config/experiment/simpler/pi0_finetune_bridge_ev.yaml
 CKPT=juexzz/INTACT-pi0-finetune-rephrase-bridge
-STRIDE=${STRIDE:-10}
+STRIDE=${STRIDE:-7}
 mark() { echo "[v9work $(date -u +%H:%M)] $*" | tee -a /workspace/v9work.log; }
 
 roll_one() { # $1 staged parquet, $2 OUT jsonl, $3 COND label, $4 step
