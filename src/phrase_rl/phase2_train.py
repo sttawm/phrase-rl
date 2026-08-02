@@ -673,6 +673,73 @@ def phrase_logprob_and_kl_batched(model, chunk, beta, pad_id):
     return outs
 
 
+class ReplayBuffer:
+    """v9 group-level replay (Amendment/EXPERIMENT 2026-08-02). Stores whole
+    scored groups (context + candidates + deterministic rewards + the mean
+    logprobs each candidate had when fresh). Rewards never go stale (frozen
+    executor, CRN); only the sampling distribution ages — handled by the
+    clipped surrogate in apply_update. Persisted with latest/ for resume."""
+
+    def __init__(self, window_steps=50, max_reuse=6):
+        self.groups = []
+        self.window = window_steps
+        self.max_reuse = max_reuse
+
+    def push(self, res, step):
+        import io as _io
+        buf = _io.BytesIO()
+        res["img"].save(buf, format="PNG")
+        self.groups.append({
+            "instruction": res["instruction"], "source": res.get("source"),
+            "trace": res.get("trace"), "tier": res.get("source_tier"),
+            "png": buf.getvalue(), "rewards": [float(x) for x in res["rewards"]],
+            "survivors": list(res["survivors"]),
+            "cand_logps": dict(res.get("cand_logps", {})),
+            "step": int(step), "reuse": 0})
+
+    def prune(self, now_step):
+        self.groups = [g for g in self.groups
+                       if now_step - g["step"] <= self.window and g["reuse"] < self.max_reuse]
+
+    def sample(self, n, exclude_instructions, now_step, rng):
+        import io as _io
+
+        import numpy as _np
+        from PIL import Image as _Image
+        self.prune(now_step)
+        pool = [g for g in self.groups
+                if g["instruction"] not in exclude_instructions and g["cand_logps"]]
+        rng.shuffle(pool)
+        out = []
+        for g in pool[:n]:
+            g["reuse"] += 1
+            out.append({
+                "ok": True, "instruction": g["instruction"], "source": g["source"],
+                "trace": g["trace"], "source_tier": g["tier"],
+                "img": _Image.open(_io.BytesIO(g["png"])).convert("RGB"),
+                "rewards": _np.array(g["rewards"], dtype=_np.float64),
+                "survivors": list(g["survivors"]),
+                "_replay_old_lp": dict(g["cand_logps"]),
+                "n_parsed": 0, "n_unique": 0, "n_judged": 0, "n_survivors": len(g["survivors"]),
+                "n_rename": 0, "n_judge_fail": 0, "reason": "replay",
+            })
+        return out
+
+    def save(self, d):
+        torch.save({"groups": self.groups, "window": self.window,
+                    "max_reuse": self.max_reuse}, str(d / "replay.pt"))
+
+    @classmethod
+    def load(cls, path, window, max_reuse):
+        rb = cls(window, max_reuse)
+        try:
+            blob = torch.load(str(path), map_location="cpu", weights_only=False)
+            rb.groups = blob.get("groups", [])
+        except Exception:
+            pass
+        return rb
+
+
 def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_step=True) -> dict:
     """Advantages -> positive-only candidate losses -> one AdamW step.
 
@@ -712,7 +779,8 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
             tok = tokenize_phrase(processor, prefix_msgs, prefix_ids, cand)
             if tok is None:  # phrase adds no tokens; cannot contribute
                 continue
-            items.append((id(res), *tok, float(a)))
+            old_lp = res.get("_replay_old_lp", {}).get(cand)
+            items.append((id(res), *tok, float(a), cand, old_lp, res))
 
     # n_pos = contributing candidates = the objective divisor (mean over positives)
     stats = {"n_pos": len(items), "update_loss": None, "kl": None,
@@ -733,17 +801,17 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
         _groups.setdefault(it[0], []).append(it)
     chunks = []
     for _ci, _its in _groups.items():
-        _its = sorted(_its, key=lambda x: x[3])  # by n_new: length-bucketed chunks -> minimal padding
+        _its = sorted(_its, key=lambda x: x[3])  # by n_new: length-bucketed chunks -> minimal padding (index 3 = n_new)
         for _lo in range(0, len(_its), args.accum):
             chunks.append(_its[_lo:_lo + args.accum])
     for chunk in chunks:
         gloss = None
-        chunk = [it[1:] for it in chunk]  # drop ctx ordinal -> (inputs, start, n_new, a)
+        chunk = [it[1:] for it in chunk]  # drop ctx ordinal -> (inputs, start, n_new, a, cand, old_lp, res)
         outs = None
         _t0 = time.time()
         if use_batched:
             try:
-                outs = phrase_logprob_and_kl_batched(model, chunk, args.beta, pad_id)
+                outs = phrase_logprob_and_kl_batched(model, [it[:4] for it in chunk], args.beta, pad_id)
             except Exception as e:  # NEVER kill training on a batching bug — fall back
                 print(f"[batched-update] EXCEPTION ({type(e).__name__}: {e}) — permanent sequential fallback", flush=True)
                 _BATCH_PARITY["use_batched"] = False
@@ -752,7 +820,7 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
         if outs is not None and not _BATCH_PARITY["checked"]:  # one-time parity vs sequential
             _BATCH_PARITY["checked"] = True
             ok = True
-            for (inputs, start_, n_new, a), (mlp_b, kl_b) in zip(chunk, outs):
+            for (inputs, start_, n_new, a, _c, _o, _r), (mlp_b, kl_b) in zip(chunk, outs):
                 mlp_s, kl_s = phrase_logprob_and_kl(model, inputs, start_, n_new, args.beta)
                 if abs(float(mlp_b) - float(mlp_s)) > 2e-2 or abs(float(kl_b) - float(kl_s)) > 2e-2:
                     ok = False
@@ -765,18 +833,29 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
                 _BATCH_PARITY["use_batched"] = False
                 use_batched = False
                 outs = None
-        if outs is not None:
-            for (inputs, start_, n_new, a), (mean_logp, kl) in zip(chunk, outs):
+        def _cand_loss(mean_logp, kl, a, cand, old_lp, res):
+            if old_lp is None:  # fresh, on-policy: original objective
                 li = -(a * mean_logp) + args.beta * kl
+                res.setdefault("cand_logps", {})[cand] = float(mean_logp.detach())
+            else:  # replayed: PPO-clipped surrogate on the mean-logp ratio
+                eps = getattr(args, "replay_clip", 0.2)
+                ratio = torch.exp(mean_logp - float(old_lp))
+                li = -torch.min(ratio * a, torch.clamp(ratio, 1 - eps, 1 + eps) * a) \
+                     + args.beta * kl
+            return li
+
+        if outs is not None:
+            for (inputs, start_, n_new, a, cand, old_lp, res), (mean_logp, kl) in zip(chunk, outs):
+                li = _cand_loss(mean_logp, kl, a, cand, old_lp, res)
                 gloss = li if gloss is None else gloss + li
                 loss_sum += float(li.detach())
                 kl_sum += float(kl.detach())
                 logp_sum += float(mean_logp.detach())
                 n_done += 1
         else:
-            for inputs, start_, n_new, a in chunk:
+            for inputs, start_, n_new, a, cand, old_lp, res in chunk:
                 mean_logp, kl = phrase_logprob_and_kl(model, inputs, start_, n_new, args.beta)
-                li = -(a * mean_logp) + args.beta * kl
+                li = _cand_loss(mean_logp, kl, a, cand, old_lp, res)
                 gloss = li if gloss is None else gloss + li
                 loss_sum += float(li.detach())
                 kl_sum += float(kl.detach())
@@ -981,6 +1060,8 @@ def save_latest(model, optimizer, state, args, ckpt_dir: Path):
             d / "rng.pt",
         )
         (d / "trainer_state.json").write_text(json.dumps(state, indent=2))
+        if getattr(args, "_replay", None) is not None:
+            args._replay.save(d)
 
     _save_dir_atomic(ckpt_dir / "latest", write)
     print(f"[ckpt] latest saved at step {state['step']}", flush=True)
@@ -1035,6 +1116,14 @@ def build_model(args, ckpt_dir: Path):
 
     latest = ckpt_dir / "latest"
     resumed = args.resume and (latest / "adapter_config.json").exists()
+    if getattr(args, "replay_groups", 0):
+        _rp = latest / "replay.pt"
+        args._replay = (ReplayBuffer.load(_rp, args.replay_window, args.replay_max_reuse)
+                        if (resumed and _rp.exists())
+                        else ReplayBuffer(args.replay_window, args.replay_max_reuse))
+        print(f"[replay] buffer active: {len(args._replay.groups)} groups loaded", flush=True)
+    else:
+        args._replay = None
     if resumed:
         model = PeftModel.from_pretrained(base, str(latest), is_trainable=True)
         print(f"resumed adapter from {latest}")
@@ -1179,8 +1268,17 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
         _score_sec = time.time() - _score_t0
 
         _upd_t0 = time.time()
-        upd = apply_update(model, processor, optimizer, trainable, ctx_results, args,
+        _replayed = []
+        if getattr(args, "replay_groups", 0) and getattr(args, "_replay", None) is not None:
+            _rng = __import__("random").Random(1000 + step)
+            _replayed = args._replay.sample(
+                args.replay_groups, {r["instruction"] for r in ctx_results}, step, _rng)
+        upd = apply_update(model, processor, optimizer, trainable, ctx_results + _replayed, args,
                            do_step=((step + 1) % max(1, args.grad_accum_groups) == 0))
+        if getattr(args, "replay_groups", 0) and getattr(args, "_replay", None) is not None:
+            for _res in ctx_results:
+                if _res["ok"] and _res.get("cand_logps"):
+                    args._replay.push(_res, step)
         _upd_sec = time.time() - _upd_t0
         if upd["n_pos"]:
             state["counters"]["updates"] += 1
@@ -1189,6 +1287,7 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
         _rec["judge_sec"] = round(sum(r.get("judge_sec", 0) for r in ctx_results), 1)
         _rec["score_sec"] = round(_score_sec, 1)
         _rec["update_sec"] = round(_upd_sec, 1)
+        _rec["replayed_groups"] = len(_replayed)
         log_jsonl(log_path, _rec)
         if args.kl_abort and _rec.get("kl"):
             _klh = getattr(args, "_kl_hist", [])
@@ -1262,6 +1361,14 @@ def main():
                     help="v6.3: prepend input-regime tags to the prompt's instruction slot (original wording | paraphrased | adversarially reworded | withheld)")
     ap.add_argument("--input-dropout", type=float, default=0.0,
                     help="v6.1: prob the prompt's instruction SLOT is a placeholder (trace-only grounding); gate/reward keep the true instruction")
+    ap.add_argument("--replay-groups", type=int, default=0,
+                    help="v9: replayed groups mixed into each update (0 = off)")
+    ap.add_argument("--replay-window", type=int, default=50,
+                    help="v9: replay eligibility window in steps")
+    ap.add_argument("--replay-clip", type=float, default=0.2,
+                    help="v9: PPO clip epsilon on the replayed mean-logp ratio")
+    ap.add_argument("--replay-max-reuse", type=int, default=6,
+                    help="v9: max times one group may be replayed")
     ap.add_argument("--trace-dropout", type=float, default=0.0,
                     help="v8: prob the scene trace is omitted from the prompt entirely (no tag signal; trains trace-optional rewriting)")
     ap.add_argument("--source-mix", default=None,
