@@ -2863,3 +2863,22 @@ from-raw (armG_out.parquet); nominal row recomputed, x12 archived, 0 unpushed;
 pod7 STOPPED (verified-clean manual stop after its runner correctly aborted
 self-stop on push failure — the safety gate worked as designed). Remaining:
 arm H on pod5 (~05:00 UTC), then pod5 self-stops; L40S+pod6 on v8.
+
+## 2026-08-02 ~02:30 UTC — SECOND CORRECTION to moved-vs-flat (user-driven): the REWARD is exonerated; the CORPUS is the prime suspect
+User: the grip reward passed the fine-discrimination exam (~ensemble at CxF=40).
+Decisive check: v7a's proxy vals have the SAME structure as v8's — orig ~0.62
+above the whole candidate pool, greedy -1.72 -> -1.0, win 2.5-10% — identical
+telemetry, yet v7a's rollouts moved (+15pp polish IV) where v7f/v8 are flat.
+So neither beta (first correction) nor reward form separates them. Remaining
+candidates, now ranked: (1) TRAINING CORPUS — v7a sampled parents from the
+full 2,000 mixed set (1,361 unique instructions); v7f/v8 train on the 809
+CLUB parents, the most-canonical least-improvable instruction population (the
+conservatism law says precisely these have nothing to teach a canonicalizer);
+(2) tags (secondary; v7f had tags and was still flat -> weak). Testable later
+by a club-vs-mixed parent A/B at fixed reward.
+COVERAGE MEASUREMENT (user request): the 2,000 traces span 2,000 UNIQUE
+episodes in ~1,809 visual scene-clusters (dhash hamming<=6; mean 1.1 eps/
+cluster, max 7) — i.e. our sample has ~no scene sharing, covering ~3.3% of the
+60k episodes directly. CAVEAT: the 2k sample was drawn to be diverse, so this
+UNDERSTATES the 60k's true scene-clustering; the real cluster count needs the
+60k initial frames (first output of any future corpus-prep job).
