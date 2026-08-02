@@ -334,3 +334,11 @@ IV-concentrated like every RL arm; (3) repair within ~1.5pp of arm A repair
 (30.12) — the repair curve was flat 120->340 on val-8.
 Legs appended behind the existing pod queues (pod5: repair; pod8: polish),
 generation on pod5 after the think-cell gen completes.
+
+## Amendment 18 (filed 2026-08-02 ~15:40 UTC, mid-roll)
+**Qwen v4+think NOMINAL cell dropped (user).** Only the ERT think cell is
+rolled (39% complete at filing), reported as an exploratory novelty rather
+than a paired comparison: with no nominal counterpart and no bare+think
+control (Amendment-15 note), it speaks to whether deliberation moves the weak
+executor's repair number at all, nothing more. Phrases for the nominal cell
+remain archived unrolled.
