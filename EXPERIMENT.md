@@ -2917,3 +2917,14 @@ Ops: pod7 restored (new addr; tmux+libvulkan reinstalled, restore.sh patched)
 and queued on BOTH v7a-340 legs (waits for phrases from the pod5 gen chain;
 pod5/pod8 stage-2 waiters will grep-skip when pod7 lands them first).
 v9 chart = v8 chart (continuation fork at step 113, purple/orange v9 strata).
+
+## 2026-08-02 ~05:00 UTC — v9 REDEFINED + relaunched: adaptive CxF over ALL 2,000 parents (user-caught oversight)
+User caught that v7f/v8/v9 silently trained on 809/2000 parents (the C=10 club
+filter). v9 rebuilt (~1 step discarded): --adaptive-contexts keeps ALL 2,000
+parents; per parent, C = available same-instruction club contexts (<=10) and
+frames scale to hold C*F ~= 40 (cap 16/context) — sparse parents run e.g.
+C=1xF=16 (v7a's original geometry) while club parents keep C=10xF=4. Reward
+budget per parent ~constant. Replay + 16 contexts + tag-free + beta .15
+unchanged. 60k-EPISODE EXPANSION explicitly gated: traces exist ONLY for the
+2,000 parents; the named next data project is scene-cluster trace generation
+(+club/chunk-stats prep) before any parent beyond the 2k can be used.
