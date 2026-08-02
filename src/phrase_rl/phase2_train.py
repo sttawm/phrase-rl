@@ -1351,7 +1351,10 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
                 save_adapter(model, ckpt_dir / "best_val", {"val": val})
             save_latest(model, optimizer, state, args, ckpt_dir)
             update_metrics_json(metrics_path, state, val)
-        elif (step + 1) % args.save_every == 0:
+        elif (step + 1) % max(1, getattr(args, "save_latest_every", 1)) == 0:
+            # 2026-08-02: latest/ now writes EVERY step by default (LoRA-only,
+            # ~10-20s vs a ~50min step) so a restart costs <=1 step. The
+            # step-stamped snapshot cadence still follows --save-every.
             save_latest(model, optimizer, state, args, ckpt_dir)
     pbar.close()
     return True
@@ -1382,6 +1385,8 @@ def main():
                     help="v6.3: prepend input-regime tags to the prompt's instruction slot (original wording | paraphrased | adversarially reworded | withheld)")
     ap.add_argument("--input-dropout", type=float, default=0.0,
                     help="v6.1: prob the prompt's instruction SLOT is a placeholder (trace-only grounding); gate/reward keep the true instruction")
+    ap.add_argument("--save-latest-every", type=int, default=1,
+                    help="write latest/ every N steps (default 1: a restart loses at most one step)")
     ap.add_argument("--adaptive-contexts", action="store_true",
                     help="v9: keep ALL parents (no club filter); per-parent C = as many same-instruction club contexts as exist (<= reward-contexts), frames scaled so C*F ~= reward-contexts*reward-frames (cap 16/ctx)")
     ap.add_argument("--replay-groups", type=int, default=0,
