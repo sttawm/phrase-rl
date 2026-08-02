@@ -502,7 +502,9 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
         fmap = args._reward_frames_map or {}
         adaptive = getattr(args, "adaptive_contexts", False)
         base_F = max(1, getattr(args, "reward_frames", 1))
-        target = NC * base_F  # e.g. 10*4 = 40 reward evaluations per parent
+        # legacy per-parent eval budget: parent frame (the row) + (NC-1) club singles.
+        # NOTE the row itself is one eval; extras below top it up to `target` total.
+        target = 1 + (NC - 1)  # = NC evals/parent, the true legacy cost shape
         for row, res in pairs:
             plist = [res["instruction"]] + res["survivors"]
             pool = [e for e in club.get(str(row["instruction"]), [])
@@ -511,14 +513,16 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
                     if pool else [])
             k = 0
             if adaptive:
-                n_ctx = 1 + len(pick)
-                per_ctx = int(np.clip(round(target / n_ctx), base_F, 16))
-                pep = int(row["episode_index"])
-                for fr in (fmap.get(pep, [])[1:per_ctx]):  # parent extra frames (row itself = frame 0)
-                    contexts.append((dict(fr), plist))
-                    k += 1
+                # club contexts at 1 frame each (legacy); missing contexts are
+                # compensated with EXTRA PARENT FRAMES up to the same total budget
                 for e in pick:
-                    for fr in fmap[int(e)][:per_ctx]:
+                    contexts.append((dict(fmap[int(e)][0]), plist))
+                    k += 1
+                deficit = (NC - 1) - len(pick)
+                if deficit > 0:
+                    pep = int(row["episode_index"])
+                    extra = fmap.get(pep, [])[1:1 + min(deficit, 15)]
+                    for fr in extra:
                         contexts.append((dict(fr), plist))
                         k += 1
             else:
