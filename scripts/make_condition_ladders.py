@@ -15,22 +15,22 @@ REFS = [("oracle*", (48.2, 50.3, 46.8)), ("original", (36.1, 48.3, 27.3)),
 
 DATA = {
     "adversarial": {
-        "roles": ["train+rollout rules (v4)", "rollout rules (v3)", "no rules (bare)"],
+        "roles": ["train+rollout rules (v4)", "v4 + REASONING", "rollout rules (v3)", "no rules (bare)"],
         "models": {
-            "Frozen Qwen": [(30.1, 35.3, 26.3), (31.5, 35.7, 28.5), (24.2, 31.2, 19.2)],
-            "Gemini-Pro": [(33.3, 37.0, 30.7), (31.6, 38.2, 26.8), (27.8, 40.2, 18.9)],
-            "Claude Fable": [(34.3, 40.6, 29.7), (31.0, 35.3, 27.9), (29.1, 43.5, 18.9)],
+            "Frozen Qwen": [(30.1, 35.3, 26.3), None, (31.5, 35.7, 28.5), (24.2, 31.2, 19.2)],
+            "Gemini-Pro": [(33.3, 37.0, 30.7), "N/A", (31.6, 38.2, 26.8), (27.8, 40.2, 18.9)],
+            "Claude Fable": [(34.3, 40.6, 29.7), "N/A", (31.0, 35.3, 27.9), (29.1, 43.5, 18.9)],
         },
-        "pending": {},
+        "pending": {("Frozen Qwen", 1): "rolling"},
     },
     "nominal": {
-        "roles": ["train+rollout rules (v4)", "rollout rules (v3)"],
+        "roles": ["train+rollout rules (v4)", "v4 + REASONING", "rollout rules (v3)"],
         "models": {
-            "Frozen Qwen": [(27.8, 34.9, 22.7), None],
-            "Gemini-Pro": [(37.2, 46.0, 30.9), (34.8, 42.1, 29.6)],
-            "Claude Fable": [(37.7, 47.6, 30.7), (34.7, 41.9, 29.6)],
+            "Frozen Qwen": [(27.8, 34.9, 22.7), None, None],
+            "Gemini-Pro": [(37.2, 46.0, 30.9), "N/A", (34.8, 42.1, 29.6)],
+            "Claude Fable": [(37.7, 47.6, 30.7), "N/A", (34.7, 41.9, 29.6)],
         },
-        "pending": {},
+        "pending": {("Frozen Qwen", 1): "queued"},
     },
 }
 STRATA = [("pooled", "#a3bffa"), ("in-vocab (5)", "#b2f5ea"), ("OOV (7)", "#fed7aa")]
@@ -56,7 +56,10 @@ for cond, spec in DATA.items():
     for model, cells in spec["models"].items():
         cxs = []
         for i, cell in enumerate(cells):
-            if cell is None:
+            if cell == "N/A":
+                ax.text(x, 16.0, "reasoning native\n(see v4 bar)", ha="center", va="bottom",
+                        fontsize=6.6, color="#a0aec0", style="italic", rotation=90)
+            elif cell is None:
                 ax.bar(x, 52, 3 * W, color="none", edgecolor="#a0aec0", ls="--",
                        lw=1.0, hatch="//", alpha=0.30)
                 note = spec["pending"].get((model, i), "not yet run")
