@@ -2939,3 +2939,25 @@ declined as unnecessary. Report the v4+think delta as suggestive of the
 fidelity mechanism, not as isolating it. Termination scaffolding (FINAL:
 marker + repetition_penalty, Amendment 15 note) remains part of the cell's arm
 definition — the 9B cannot terminate open-form reasoning unaided.
+
+## 2026-08-02 21:05 UTC — FLEET-WIDE OUTAGE: all five machines down (account-level, suspected billing)
+Raw TCP probes (bypassing ssh) to every pod's port: connection refused on
+pod5/pod6/pod7/L40S, timeout on pod8, while GitHub and runpod.io respond
+normally from the same host — i.e. the ports are not listening, not a local
+network fault. Five machines across regions/providers going dark together =
+account-level event (credits/billing most likely).
+Last push 18:39 UTC (v9 step_0014 adapter). SAFE IN GIT: v9 through step 14,
+all landed sealed cells (claude_bare 29.14, qwen_bare_ert 24.19,
+rules_v3_claude_nominal 34.69, plus arms A/E/F/G).
+INTERRUPTED (progress lost, data intact on /workspace which survives a stop):
+qwen_v4_think_ert ~57%+, rules_v3_qwen_nominal ~52%+, v7a340_polish ~34%+;
+v7a340_repair never started.
+RESTART RECIPE (when pods return): (1) bash /workspace/.podstate/restore.sh on
+each (now installs tmux+libvulkan1+libegl1 and the ICD manifest); (2) rm -f
+data/cellq_out.parquet data/armH2_out.parquet on each pod BEFORE relaunching —
+the rollout script APPENDS to an existing --out parquet (n != 3456 is the
+contamination tell); (3) relaunch the three interrupted legs + v7a340_repair
+via scripts/roll_cell_queue.sh; (4) restart v9 from step 14 (the per-step
+latest/ save, committed 0caefc0, deploys on this restart -> future
+interruptions cost <=1 step); (5) re-arm watchers.
+Pod-dependent monitors stopped to avoid hourly noise; will re-arm at restart.
