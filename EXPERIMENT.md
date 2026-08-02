@@ -2882,3 +2882,21 @@ cluster, max 7) — i.e. our sample has ~no scene sharing, covering ~3.3% of the
 60k episodes directly. CAVEAT: the 2k sample was drawn to be diverse, so this
 UNDERSTATES the 60k's true scene-clustering; the real cluster count needs the
 60k initial frames (first output of any future corpus-prep job).
+
+## 2026-08-02 ~03:30 UTC — v9 LAUNCHED: v8 fork + group-level replay + 16 contexts (user-directed)
+Implementation (phase2_train.py): ReplayBuffer stores whole scored groups
+(context + candidates + deterministic rewards + fresh-time mean logprobs);
+per update, 16 replayed groups mix with 16 fresh; replayed candidates train
+under a PPO-clipped surrogate on the mean-logp ratio (eps 0.2); window 50
+steps, max reuse 6, never replaying a parent present in the fresh batch;
+buffer persists in latest/ (resumable). Fresh contexts doubled 8->16 (across-
+context variance halved — user's choice over 32 rephrases, correct at equal
+cost). Reward UNCHANGED (grip-pure C=10 F=4): user cites the CxF=40
+discrimination exam; the v7a-val-structure check exonerated reward form.
+Warm fork from v8@latest (~step 113 weights; v8 frozen — curves through
+adv-110/pol-100; the in-flight pol-110 roll was lost in the worker handoff,
+ledgered). Expected ~88 min/step, 32 effective groups (~2.4x throughput,
+2x corpus coverage rate). Eval: pod6 v9worker (stride 10, tag-free, both
+conditions). Open hypothesis this run also probes: if v9 moves where v8
+didn't, throughput/diversity mattered; if flat, the club-corpus explanation
+strengthens further.
