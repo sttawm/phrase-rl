@@ -34,9 +34,17 @@ def rows(*files):
 
 adv = rows("results/analysis/v8_adv_curve.jsonl")
 pol = rows("results/analysis/v8_pol_curve.jsonl")
+V9OFF = 113  # v9 forked from v8@latest (step ~113); plotted as continuation
+adv9 = rows("results/analysis/v9_adv_curve.jsonl")
+pol9 = rows("results/analysis/v9_pol_curve.jsonl")
 tr = [json.loads(l) for l in open("results/analysis/v8_train_log.jsonl")
       if '"kl"' in l]
 tr = [d for d in tr if d.get("kl") is not None]
+try:
+    tr9 = [json.loads(l) for l in open("results/analysis/v9_train_log.jsonl") if '"kl"' in l]
+    tr += [{**d, "step": V9OFF + d["step"]} for d in tr9 if d.get("kl") is not None]
+except FileNotFoundError:
+    pass
 
 IV = {"widowx_carrot_on_plate", "widowx_spoon_on_towel", "widowx_stack_cube",
       "widowx_put_eggplant_in_basket"}
@@ -51,7 +59,7 @@ def strata(r):
 
 fig, (a1, a1b, a2) = plt.subplots(1, 3, figsize=(18.5, 4.6))
 
-xmax = max([r["step"] for r in adv + pol] + [40]) + 8
+xmax = max([r["step"] for r in adv + pol] + [V9OFF + r["step"] for r in adv9 + pol9] + [40]) + 8
 for ax, rows_, title, refs in [
         (a1, pol, "POLISH (rewriting originals)",
          [(53.7, "originals IV 53.7", "#2f855a", "--"), (27.4, "originals OOV 27.4", "#2f855a", ":"),
@@ -71,6 +79,14 @@ for ax, rows_, title, refs in [
                 lw=1.0, ls="-", alpha=0.8, label="pooled")
         ax.plot(xs, ivs, marker="D", ms=6, color="#2b6cb0", lw=2, label="IN-VOCAB (4 tasks)")
         ax.plot(xs, oos, marker="s", ms=6, color="#dd6b20", lw=2, ls="--", label="OUT-OF-VOCAB (4 tasks)")
+    r9 = adv9 if title.startswith("REPAIR") else pol9
+    if r9:
+        xs9 = [V9OFF + r["step"] for r in r9]
+        iv9, oo9 = zip(*[strata(r) for r in r9])
+        ax.plot(xs9, iv9, marker="D", ms=6, color="#6b46c1", lw=2, label="v9 IN-VOCAB (replay fork)")
+        ax.plot(xs9, oo9, marker="s", ms=6, color="#c05621", lw=2, ls="--", label="v9 OOV")
+        ax.plot(xs9, [r["pooled"] for r in r9], marker="o", ms=4, color="#718096", lw=1.0, alpha=0.8)
+    ax.axvline(V9OFF, ls=":", color="#6b46c1", lw=1.0, alpha=0.7)
     ax.set_ylim(15, 62)
     ax.set_xlabel("v8 step")
     ax.set_title(title, fontsize=10)
@@ -95,7 +111,7 @@ a2.set_title("GRPO dynamics (beta=0.15, KL abort 1.2)")
 a2.legend(loc="upper left", fontsize=8)
 a2.grid(alpha=0.25)
 
-fig.suptitle("v8 RL — tag-free, cold start, input-dropout 0.5, grip-pure C=10 F=4, beta=0.15   "
+fig.suptitle("v8 -> v9 RL — tag-free, grip-pure C=10 F=4, beta=0.15; v9 = replay fork @113 (16 ctx + 16 replayed, clip 0.2)   "
              "[sealed bars to beat: rules-v4 nominal 37.18 / ERT 33.30]", fontsize=10)
 fig.tight_layout()
 fig.savefig("results/charts/v8_progress.png", dpi=140, bbox_inches="tight", pad_inches=0.2)
