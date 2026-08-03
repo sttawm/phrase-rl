@@ -3099,3 +3099,15 @@ between eval points is correspondingly larger; watch the val-8 curves for
 v7f-style polish drift, beta is the lever if it appears. grads.pt becomes
 vestigial under accum 1 (never mid-window state; file simply not written).
 Cutover mechanics unchanged: same watcher, same step-17 zero-loss boundary.
+
+## 2026-08-03 ~18:40 UTC — v9b@18 EXECUTED: zero-loss boundary cutover, verified live
+Watcher fired on "latest saved at step 18" (= step-17 optimizer flush under the
+old accum-6 build -> no in-flight gradient existed to lose). Verification per
+the process-discipline: "resumed at step 18" printed; --grad-accum-groups 1 on
+the LIVE cmdline; [replay] buffer active: 286 groups loaded; tqdm 18/1000 in
+flight; grads.pt absent (expected at a boundary); GPU 100%. v9b regime from
+step 18: one 512-candidate optimizer update per step (~6x accum-6 iteration
+rate), deficit-removal active (expect step time ~50 -> ~30min; first timed
+step will confirm), np/py RNG + grads persistence live (restarts now lossless
+and stream-exact). KL telemetry break annotated at 18 (per-step kl now
+reflects a full update every step). Chart marker for v8_progress: v9b@18.
