@@ -49,7 +49,10 @@ while true; do
   timeout 120 git -c rebase.autoStash=true pull -q 2>/dev/null
   last=$(ls results/phrase_artifacts/dev9q_g_v9adv_*.parquet 2>/dev/null | sed 's/.*_0*\([0-9]*\)\.parquet/\1/' | sort -n | tail -1)
   last=${last:-0}
-  next=$(ls results/checkpoints/archive/ 2>/dev/null | grep -oE "v9_step_[0-9]+" | grep -oE "[0-9]+$" | sort -n | awk -v t=$((last + STRIDE)) '$1 >= t' | head -1)
+  # eligibility = next unrolled STRIDE-multiple (absolute), NOT last+STRIDE:
+  # with last=10 (stride-10 era) the old test demanded >=17 and silently
+  # skipped the archived step 14 (caught 2026-08-03)
+  next=$(ls results/checkpoints/archive/ 2>/dev/null | grep -oE "v9_step_[0-9]+" | grep -oE "[0-9]+$" | sort -n | awk -v t=$last -v s=$STRIDE '$1 > t && $1 % s == 0' | head -1)
   if [ -n "$next" ]; then
     s=$(printf "%04d" $((10#$next)))
     d=/workspace/v9_adapters/step_$s
