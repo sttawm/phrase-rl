@@ -3085,3 +3085,17 @@ telemetry. Ledger the executed cutover + KL-telemetry break annotation as
 v9b@18 when it fires. NOTE for curve reading: per-step KL after v9b reflects
 2-step windows (was 6) — per-update drift comparable only after x3 scaling;
 the v8_progress chart's KL panel needs a v9b marker at 18.
+
+## 2026-08-03 ~17:50 UTC — v9b AMENDED: accum 1 (user: "I am comfortable moving our accum to 1 ... I really want to speed up training")
+One optimizer update per step: 512-candidate updates at every ~50min step
+(~30min once the deficit removal lands) = ~6x the policy-iteration rate of the
+accum-6 regime, ~2x the accum-2 plan. Update batch halves vs the calibrated
+~1,024 — noisier updates, accepted for speed; lr 7e-6 / beta 0.15 / KL-abort
+1.2 unchanged (abort is an absolute drift ceiling; still valid). Monitoring
+note: logged per-step kl now reflects a full update every step (absolute
+divergence will climb ~6x faster per step than v9-accum-6 telemetry — annotate
+the chart at 18); eval stride 7 now samples every 7 UPDATES (was ~1.2) — drift
+between eval points is correspondingly larger; watch the val-8 curves for
+v7f-style polish drift, beta is the lever if it appears. grads.pt becomes
+vestigial under accum 1 (never mid-window state; file simply not written).
+Cutover mechanics unchanged: same watcher, same step-17 zero-loss boundary.

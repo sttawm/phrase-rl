@@ -61,7 +61,7 @@ tmux new-session -d -s train \
      --gen-temp 1.0 --n-candidates 16 \
      --score-timeout 3600 \
      --beta $BETA --lr 7e-6 --kl-abort 1.2 \
-     --contexts-per-step 16 --grad-accum-groups 2 \
+     --contexts-per-step 16 --grad-accum-groups 1 \
      --val-every 21 --save-every 7 --probe-every 1000 --probe-samples 4 \
      --traces results/phrase_artifacts/cover35_teacher_train.parquet \
      --probe-contexts results/phrase_artifacts/contexts_probe8.parquet \
