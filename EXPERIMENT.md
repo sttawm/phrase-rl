@@ -2961,3 +2961,14 @@ via scripts/roll_cell_queue.sh; (4) restart v9 from step 14 (the per-step
 latest/ save, committed 0caefc0, deploys on this restart -> future
 interruptions cost <=1 step); (5) re-arm watchers.
 Pod-dependent monitors stopped to avoid hourly noise; will re-arm at restart.
+
+## 2026-08-03 ~00:40 UTC — FLEET RECOVERY (pods 5/6/8 back; pod7 + L40S migrating)
+Restored on all three: podstate, tmux, libvulkan1/libegl1, ICD manifest to
+/usr/share/vulkan/icd.d (the loader-path variant), repo synced, and — per the
+outage recipe — ALL stale out-parquets deleted before relaunch (cellq_out,
+armH2_out, armF_out, armG_out, dev8_g_out) so no roll appends onto interrupted
+data. Queues: pod5 = qwen_v4_think_ert (restarted from 0); pod8 = v3_qwen_
+nominal -> v7a340_polish -> v7a340_repair (pod7's legs reassigned since pod7 is
+still migrating); pod6 = v9 eval worker (stride 7). v9 training resumes when
+the L40S returns — from step 14 (the last synced adapter), and that restart
+deploys the per-step latest/ save so future interruptions cost <=1 step.
