@@ -3064,3 +3064,24 @@ candidates (v8-vs-v9 per-step KL comparisons carry a composition caveat);
 objective = mean over contributing candidates / grad_accum_groups (documented
 deviation); two same-instruction replayed groups may co-occur (different
 contexts; fresh-vs-replay collisions are excluded).
+
+## 2026-08-03 ~17:30 UTC — v9b DECISION (user-approved): accum 6 -> 2 at the step-17 boundary restart
+Context: user challenged the 6-step accumulation window ("gradients on stale
+parameters?"). Resolution ledgered for the paper: the window is NOT stale-
+gradient async (policy frozen across the window; gradients computed at and
+applied to the same theta; = standard GRPO rollout-batch assembly, mu=1 —
+nonstandard only in that the sim-reward delivers the batch in ~50min
+installments). The REAL miscalibration: accum 6 was sized for v8's 128-cand
+steps (~768/update); v9's 512-cand steps made it ~3,072/update at one update
+per ~5h. v9b = accum 2: ~1,024 cands/update (calibrated scale preserved -> lr
+7e-6, beta 0.15, KL-abort unchanged) at 3x policy-iteration cadence.
+CUTOVER PLAN (user: "do the restart at the boundary as planned"): automated
+watcher restarts the trainer the moment "latest saved at step 18" appears
+(post-step-17 optimizer flush -> zero gradient loss; fallback trigger step 24).
+The same cutover deploys the full audit package: grads.pt + np/py RNG persist
+(lossless restarts), empty-boundary flush, no-op deficit removal (expect step
+time ~50 -> ~30min; reward values PROVABLY unchanged), blend_fallbacks
+telemetry. Ledger the executed cutover + KL-telemetry break annotation as
+v9b@18 when it fires. NOTE for curve reading: per-step KL after v9b reflects
+2-step windows (was 6) — per-update drift comparable only after x3 scaling;
+the v8_progress chart's KL panel needs a v9b marker at 18.
