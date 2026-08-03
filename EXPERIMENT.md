@@ -2972,3 +2972,21 @@ nominal -> v7a340_polish -> v7a340_repair (pod7's legs reassigned since pod7 is
 still migrating); pod6 = v9 eval worker (stride 7). v9 training resumes when
 the L40S returns — from step 14 (the last synced adapter), and that restart
 deploys the per-step latest/ save so future interruptions cost <=1 step.
+
+## 2026-08-03 ~14:10 UTC — TWO CELLS LANDED: v7a-340 polish 31.19 (transfer failure replicates); qwen+think ERT 19.56 INVALID (parser leakage)
+- **v7a340_polish = 31.19** (IV 44.4 / OOV 21.7) vs arm A (v7a-120) 31.97 and
+  originals 36.08. Amendment-17 primary question ANSWERED: 220 extra RL steps
+  changed sealed polish by -0.8 (noise). The val-8 -> sealed inversion is a
+  property of the RL policy family, not of an unlucky checkpoint: v7a's val-8
+  polish rose 44.3 -> ... while sealed sat ~31-32 at BOTH checkpoints. Strata
+  match arm A's shape (IV-heavy, OOV floor).
+- **rules_v4_qwen_think_ert = 19.56 — DO NOT REPORT AS A RESULT.** Preflight
+  audit of the rolled phrases: 5/12 are PROMPT FRAGMENTS, not instructions
+  ("' followed by\".", "followed by the rewritten instruction. No commentary
+  after.", "'\". (From final instruction)."). The FINAL-marker parser
+  (Amendment 15 note) split on the marker's own restatement inside the model's
+  deliberation, and the >=3-word fallback guard passed the garbage. The cell
+  measures a parsing bug, not deliberation. Correct reading of the underlying
+  question: UNRESOLVED. The 7 well-formed rows are also mixed (2 are verbatim
+  ERT passthrough — the model reasoned and then declined to rewrite).
+  Not charted; ledgered as void with cause.
