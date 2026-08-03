@@ -92,6 +92,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import random
 import torch
 from PIL import Image
 from tqdm import tqdm
@@ -500,11 +501,10 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
     NC = getattr(args, "reward_contexts", 1)
     if club and NC > 1:
         fmap = args._reward_frames_map or {}
-        adaptive = getattr(args, "adaptive_contexts", False)
-        base_F = max(1, getattr(args, "reward_frames", 1))
-        # legacy per-parent eval budget: parent frame (the row) + (NC-1) club singles.
-        # NOTE the row itself is one eval; extras below top it up to `target` total.
-        target = 1 + (NC - 1)  # = NC evals/parent, the true legacy cost shape
+        # per-parent eval shape: the parent row + up to (NC-1) club contexts,
+        # each re-expanded server-side to its full frame set (see NB below).
+        # --adaptive-contexts changes the TRAIN-DF side only (all parents kept,
+        # per-parent club fan-out as available); the scoring fan-out is shared.
         for row, res in pairs:
             plist = [res["instruction"]] + res["survivors"]
             pool = [e for e in club.get(str(row["instruction"]), [])
@@ -512,23 +512,18 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
             pick = (list(np.random.choice(pool, size=min(NC - 1, len(pool)), replace=False))
                     if pool else [])
             k = 0
-            if adaptive:
-                # club contexts at 1 frame each (legacy); missing contexts are
-                # compensated with EXTRA PARENT FRAMES up to the same total budget
-                for e in pick:
-                    contexts.append((dict(fmap[int(e)][0]), plist))
-                    k += 1
-                deficit = (NC - 1) - len(pick)
-                if deficit > 0:
-                    pep = int(row["episode_index"])
-                    extra = fmap.get(pep, [])[1:1 + min(deficit, 15)]
-                    for fr in extra:
-                        contexts.append((dict(fr), plist))
-                        k += 1
-            else:
-                for e in pick:
-                    contexts.append((dict(fmap[int(e)][0]), plist))
-                    k += 1
+            # NB (2026-08-03 review): score_phrases re-expands EVERY context row
+            # by episode_index against the frames map, so each club context is
+            # scored at its full frame set (F=4) — not the single frame passed
+            # here. True since v7e; the CxF=40 exam validated this actual reward.
+            # The former adaptive "deficit -> extra parent frames" compensation
+            # was a provable no-op under that expansion (extra rows re-expanded
+            # to the parent's SAME frames; duplicates cancel in the mean) while
+            # still paying ~4 frame-evals per row — removed. Sparse parents
+            # score on the parent context alone (v7a's C=1 F=4 shape).
+            for e in pick:
+                contexts.append((dict(fmap[int(e)][0]), plist))
+                k += 1
             n_extra.append(k)
     all_losses = score_phrases(ipc_dir, job_id, contexts, args)
     all_grips = getattr(score_phrases, "last_grips", [None] * len(all_losses))
@@ -545,6 +540,10 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
                    n_reward_contexts=1 + k,
                    z_parent=(-all_losses[i].mean(axis=1))[1:])
         if getattr(args, "reward_blend", "") == "c4b" and grips is not None:
+            # 2026-08-03 review: any NaN grip flips the WHOLE group to pure
+            # logit rank inside blend_rewards — flag it so silent reward-regime
+            # swaps are visible in the step record (blend_fallbacks counter)
+            res["blend_fallback"] = bool(np.isnan(np.asarray(grips, dtype=np.float64)).any())
             blended = blend_rewards(rewards, grips, w=getattr(args, "blend_w", 0.25))
             res.update(r_orig_blend=float(blended[0]), rewards=blended[1:])
         else:
@@ -807,6 +806,16 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
     stats = {"n_pos": len(items), "update_loss": None, "kl": None,
              "logprob": None, "grad_norm": None}
     if not items:
+        # 2026-08-03 review: an all-failed step at an accumulation BOUNDARY must
+        # still flush the window — the old early return skipped both step() and
+        # zero_grad(), leaking the accumulated grads into the next window
+        # (double-size, late update).
+        if do_step:
+            if any(p.grad is not None for p in trainable):
+                gn = torch.nn.utils.clip_grad_norm_(trainable, args.clip)
+                optimizer.step()
+                stats["grad_norm"] = float(gn)
+            optimizer.zero_grad(set_to_none=True)
         return stats
 
     model.train()
@@ -1077,9 +1086,21 @@ def save_latest(model, optimizer, state, args, ckpt_dir: Path):
         torch.save(optimizer.state_dict(), d / "optimizer.pt")
         torch.save(
             {"torch": torch.get_rng_state(),
-             "cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else []},
+             "cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
+             # 2026-08-03 review: np (tier draws, dropout coins, club picks) and
+             # python-random streams now persist too — resume is stream-exact
+             "numpy": np.random.get_state(),
+             "python": random.getstate()},
             d / "rng.pt",
         )
+        # 2026-08-03 review: with --grad-accum-groups N the optimizer steps every
+        # Nth training step; in-flight p.grad buffers are real state. Persisting
+        # them makes a mid-window restart lossless (previously the partial window
+        # — up to N-1 steps of gradient — was silently dropped on resume).
+        _tps = [p for p in model.parameters() if p.requires_grad]
+        _gr = {i: p.grad.detach().cpu() for i, p in enumerate(_tps) if p.grad is not None}
+        if _gr:
+            torch.save(_gr, d / "grads.pt")
         (d / "trainer_state.json").write_text(json.dumps(state, indent=2))
         if getattr(args, "_replay", None) is not None:
             args._replay.save(d)
@@ -1231,6 +1252,7 @@ def step_record(step: int, t0: float, ctx_results: list, upd: dict, args) -> dic
         "tier_counts": {t: sum(r.get("source_tier") == t for r in ctx_results)
                         for t in ("nominal", "benign", "ert")},
         "input_dropout_rate": float(np.mean([bool(r.get("input_dropped")) for r in ctx_results])) if ctx_results else None,
+        "blend_fallbacks": sum(bool(r.get("blend_fallback")) for r in ok),
         "cand_loss_by_tier": {t: float(np.mean([-_rlog(r).mean() for r in ok
                                                 if r.get("source_tier") == t] or [np.nan]))
                               for t in ("nominal", "benign", "ert")},
@@ -1606,10 +1628,23 @@ def main():
             torch.set_rng_state(rng["torch"])
             if torch.cuda.is_available() and len(rng["cuda"]):
                 torch.cuda.set_rng_state_all(rng["cuda"])
+            if "numpy" in rng:
+                np.random.set_state(rng["numpy"])
+            if "python" in rng:
+                random.setstate(rng["python"])
+        grads_path = latest / "grads.pt"
+        if grads_path.exists():
+            _gsd = torch.load(grads_path, map_location="cpu", weights_only=False)
+            _tps = [p for p in model.parameters() if p.requires_grad]
+            for _i, _g in _gsd.items():
+                _tps[int(_i)].grad = _g.to(_tps[int(_i)].device)
+            print(f"restored {len(_gsd)} in-flight accum-window grads (mid-window resume)")
         dedupe_train_log(ckpt_dir / "train_log.jsonl", state["step"])
         print(f"resumed at step {state['step']} (best_val_mean={state['best_val_mean']})")
     else:
         torch.manual_seed(args.seed)
+        np.random.seed(args.seed)
+        random.seed(args.seed)
 
     if args.judge_backend == "qwen":
         def _local_judge(prompt_text: str) -> str:

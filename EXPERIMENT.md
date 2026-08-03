@@ -3018,3 +3018,49 @@ worker liveness, 3-strike flake tolerance).
 LESSON (now memory): relaunch verification = pgrep + log mtime + one progress
 line, never tmux session existence. Session-exists-but-empty is the signature
 of a dangling-venv relaunch.
+
+## 2026-08-03 ~16:40 UTC — GRPO IMPLEMENTATION AUDIT (user-requested): solo pass + blind second reviewer, reconciled
+VERDICT: no math-corrupting bug in the live v9 path. Verified correct: group-
+standardized advantages (zero-variance-safe); signed full-group GRPO; PPO-clip
+replay surrogate (textbook form both advantage signs; old_lp = true behavior-
+policy logp, captured pre-optimizer-step); gen/update/replay prompt parity
+EXACT (source mutated before storage; PNG roundtrip lossless); lora_dropout=0.0
+live-verified (train/eval forward parity -> clean ratios); reward<->survivor
+alignment through the club fan-out offset walk; logprob/KL indexing in both
+single and left-pad batched paths (+ runtime parity check); replay buffer
+prune/exclude/persist; atomic checkpoint swaps; torch+CUDA RNG restored on
+resume; deterministic context schedule fast-forward.
+FINDINGS (all fixes committed THIS entry, inert until next unavoidable restart):
+1. Mid-window restart dropped in-flight accum grads (optimizer steps every 6th
+   step; p.grad never checkpointed): each restart lost up to 5 steps' gradient
+   — "restart costs <=1 step" was overclaimed (v9's 2 restarts each hit this).
+   FIX: latest/ now persists grads.pt (~58MB bf16) + restores on resume.
+2. numpy + python-random streams were neither seeded nor persisted (tier
+   draws, dropout coins, club picks): restarts re-randomized them — unbiased
+   but not stream-exact. FIX: rng.pt now carries both; fresh boots seed all 3.
+3. All-failed step at an accum boundary returned before step()/zero_grad(),
+   leaking a whole window into the next (double-size late update). Near-zero
+   v9 exposure (needs 16/16 context failures + empty replay). FIX: boundary
+   flush in the empty-items path.
+4. DOC CORRECTION (since v7e): score_phrases re-expands EVERY context row by
+   episode_index, so club contexts score at F=4, not the "club singles" the
+   ledger claimed — C=10 was really 10 contexts x 4 frames = 40 frame-evals.
+   The CxF=40 exam validated this ACTUAL reward (deployed = validated; within-
+   group comparability never broken). v9's sparse-parent "deficit -> extra
+   parent frames" compensation was a provable NO-OP under that expansion
+   (duplicate rows re-expand to the parent's same frames; duplicates cancel in
+   the mean) while paying ~4 frame-evals/row. FIX: dead compensation removed
+   (CRN-safe: server draws are fixed per (k,seed,tau) config, not row-position)
+   -> sparse parents score parent-only (v7a's C=1 F=4 shape, honest
+   n_reward_contexts); frees ~36 wasted frame-evals per sparse-parent context
+   AFTER next restart (should cut v9 step time noticeably).
+5. blend_rewards: ANY NaN grip silently flips the whole group to pure logit
+   rank. v9 (verifier mode) emits real grips — low risk — but the swap was
+   invisible. FIX: blend_fallbacks counter in the step record.
+Design notes (correct as-built, now ledgered): replay ratio is exp(delta token-
+MEAN logp) — per-token geometric-mean ratio, so clip 0.2 is intentionally
+tighter than a sequence-ratio clip; logged kl averages fresh+replayed
+candidates (v8-vs-v9 per-step KL comparisons carry a composition caveat);
+objective = mean over contributing candidates / grad_accum_groups (documented
+deviation); two same-instruction replayed groups may co-occur (different
+contexts; fresh-vs-replay collisions are excluded).
