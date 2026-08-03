@@ -2990,3 +2990,31 @@ deploys the per-step latest/ save so future interruptions cost <=1 step.
   question: UNRESOLVED. The 7 well-formed rows are also mixed (2 are verbatim
   ERT passthrough — the model reasoned and then declined to rewrite).
   Not charted; ledgered as void with cause.
+
+## 2026-08-03 ~15:40 UTC — POST-RECOVERY AUDIT: v9 was dead ~35h (empty tmux shells); fleet re-verified process-by-process
+Discoveries on the 15:00 pass (24h since last sweep):
+- L40S: the 00:40 recovery relaunch created tmux sessions whose commands died
+  instantly — the migration wiped /root, dangling .venv/.venv-gen symlinks
+  ("bash: line 1 ... No such file or directory" appended to train.log). My
+  "V9 LAUNCHED" check verified sessions, not processes; v9 sat dead ~35h.
+  The pre-death run had completed step 16 but latest/ held step 14 (per-step
+  latest, 0caefc0, was NOT active in that boot) -> steps 15-16 retrain (~1.7h).
+- pod6: v9 eval worker was the pre-cadence-change instance (stride 10) — rolled
+  step 10 then idled forever; step 14 (7-cadence) never matched stride 10.
+- pod8: rules_v3_qwen_nominal ROLL FAIL at 08:37 after 7.9h (~92%, silent
+  host-level kill #2 on this pod); queue advanced through a fast-failed/killed
+  polish attempt to v7a340_repair, rolling clean since 09:40 (rm-per-attempt in
+  roll_cell_queue.sh line 20 rules out append contamination; n=2220@15:13
+  matches fresh rate exactly).
+Actions: L40S venvs rebuilt (rebuild_both_venvs.sh, both import-verified); v9
+resumed from latest/ step 14 with replay.pt intact, GPU 84%; per-step latest
+NOW live (future deaths cost <=1 step); v9sync mirror recreated (pack+push per
+new snapshot, idempotent via manifest). pod6 worker restarted on pulled
+stride-7 script. rules_v3_qwen_nominal re-tasked to pod5 (fresh roll 15:01,
+pod8 has now silently killed two long rolls). pod7: ALL-CELLS-DONE, unpushed=0,
+data/ parquets pulled to results/pod_payloads/pod7_data_payload_20260803.tgz
+-> STOP-READY. Consolidated watcher armed (repair/v3nom landings + v9 + pod6
+worker liveness, 3-strike flake tolerance).
+LESSON (now memory): relaunch verification = pgrep + log mtime + one progress
+line, never tmux session existence. Session-exists-but-empty is the signature
+of a dangling-venv relaunch.
