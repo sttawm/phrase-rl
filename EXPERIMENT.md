@@ -3118,3 +3118,14 @@ trace, knowledge-free prompt), roll layouts 0-11 x 1 rep on BOTH pi0 variants
 (rephrase-augmented + plain finetune) queued overnight on pod5 behind v3nom.
 Layout subset RECORDED (0-11); episode_id per row enables the subset-variance
 check before committing to layouts 12-23. See PREREG Amendment 19.
+
+## 2026-08-04 ~04:40 UTC — LADDER COMPLETE: rules_v3_qwen_nominal 32.23 (IV 34.9/OOV 30.3); robustness queue rolling
+Final unfilled cell landed (pod5 DONE-UNPUSHED wedge -> recomputed from raw x12
+locally, the standing recovery). Executor-fidelity pattern REPLICATES on the
+nominal side: Qwen v3-nominal 32.23 >> Qwen v4-nominal 27.81 (+4.4 — richer
+protocol hurts the weak executor in BOTH conditions), and both sit below
+originals 36.08 (corpus conservatism: with a weak executor, rewriting originals
+is net harm). Strata signature extreme: IV 34.9 vs originals-IV 48.3 (-13.4
+damage where the corpus already wins) against OOV 30.3 vs 27.3 (+3.0). Both
+condition-ladder charts + scoreboard refreshed — every planned cell now filled.
+Rephrase-robustness queue opened on schedule: pi0rephrase rolling since 04:25.

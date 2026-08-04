@@ -26,7 +26,7 @@ DATA = {
     "nominal": {
         "roles": ["train+rollout rules (v4)", "rollout rules (v3)"],
         "models": {
-            "Frozen Qwen": [(27.8, 34.9, 22.7), None],
+            "Frozen Qwen": [(27.8, 34.9, 22.7), (32.2, 34.9, 30.3)],
             "Gemini-Pro": [(37.2, 46.0, 30.9), (34.8, 42.1, 29.6)],
             "Claude Fable": [(37.7, 47.6, 30.7), (34.7, 41.9, 29.6)],
         },
