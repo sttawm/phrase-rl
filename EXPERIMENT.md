@@ -3160,3 +3160,11 @@ use case. Arm 2 (pi0base) rolling since 13:25 -> lands ~22:30 (pace 4.4/min);
 predictions (b) (larger gap for pi0base) and (c) (spread >> executor gap) then.
 
 ## 2026-08-04 ~15:10 UTC — v9 verdict FINAL: pol 44.27 x6 identical (steps 10-42); adv trendless (36.5-40.1 band)
+
+## 2026-08-04 ~17:30 UTC — USER DECISION: v9 CONTINUES (long-horizon test)
+User: "It may begin to move. Forty steps is still a tiny amount." The 10-42
+freeze verdict stands as a description of steps <=42 only; the run now tests
+the tag-free-needs-longer theory at ~50 steps/day (29min/step, one 512-cand
+update each). Movement alarm to be added at next watcher re-arm: fire if any
+new pol point != 44.27 or adv exits [35, 41] — so first sign of movement pings
+immediately. v10-bare stays designed-and-shelved pending user call.
