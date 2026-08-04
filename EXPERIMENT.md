@@ -3202,3 +3202,15 @@ Pipeline otherwise inherits v9c economics (8 fresh + 8 replay, accum 1,
 ~18min/step); COLD start from base Qwen (fresh LoRA — warm-forking v9 would
 carry the old prompt's conditioning). Launch, anchors, and amendment on user
 go; v9c continues meanwhile.
+
+## 2026-08-05 ~00:30 UTC — v9 FIRST GREEDY FLIP at step 49: one preposition
+After six byte-frozen evals (pol 44.27, steps 10-42), step 49 (still 16+16,
+512-cand era; ~31 accum-1 updates) flips ONE token in ONE task's greedy
+phrase: "in" -> "into" (eggplant/dish-rack), IV 57.3 -> 54.2, pooled 42.71.
+7/8 phrases byte-identical; adv wobbles in-band (37.76). Read: the mode is
+still pinned; enough probability mass has shifted to cross the argmax boundary
+on the single closest-contested token — the first molecule of drift, in the
+HARMFUL direction (grip reward plausibly indifferent to in/into). Not the
+unfreeze. v9c's 256-cand updates (from 58) double per-update noise -> expect
+more boundary flips. Movement alarm re-armed with baseline advanced to 49
+(fires on the NEXT change, point-over-point).
