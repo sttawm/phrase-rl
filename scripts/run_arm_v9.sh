@@ -55,13 +55,13 @@ tmux new-session -d -s train \
      --source-mix 0.25,0.25,0.5 \
      --input-dropout 0.5 \
      --adaptive-contexts \
-     --replay-groups 16 --replay-window 50 --replay-clip 0.2 --replay-max-reuse 6 \
+     --replay-groups 8 --replay-window 50 --replay-clip 0.2 --replay-max-reuse 6 \
      --reward-blend c4b --blend-w 0.0 --reward-contexts ${RCTX:-10} --club-contexts data/contexts_club.parquet \
      --gen-mode sample_single --update-rule grpo --no-gate \
      --gen-temp 1.0 --n-candidates 16 \
      --score-timeout 3600 \
      --beta $BETA --lr 7e-6 --kl-abort 1.2 \
-     --contexts-per-step 16 --grad-accum-groups 1 \
+     --contexts-per-step 8 --grad-accum-groups 1 \
      --val-every 21 --save-every 7 --probe-every 1000 --probe-samples 4 \
      --traces results/phrase_artifacts/cover35_teacher_train.parquet \
      --probe-contexts results/phrase_artifacts/contexts_probe8.parquet \
