@@ -3168,3 +3168,16 @@ the tag-free-needs-longer theory at ~50 steps/day (29min/step, one 512-cand
 update each). Movement alarm to be added at next watcher re-arm: fire if any
 new pol point != 44.27 or adv exits [35, 41] — so first sign of movement pings
 immediately. v10-bare stays designed-and-shelved pending user call.
+
+## 2026-08-04 ~19:55 UTC — v9c@58 VERIFIED + Amendment 20 launched
+v9c (8 fresh + 8 replay, 256-cand updates): first restart at step 57 silently
+kept the OLD 16/16 config — the in-script `git pull || true` swallowed a failed
+pull against the degraded GitHub link and relaunched from the stale script.
+LESSON (pattern update): deploy-at-restart requires verifying the ON-DISK
+script BEFORE arming the restarter, and the LIVE cmdline after — a push is not
+a deploy. Redeployed at the step-58 boundary; live flags verified 8/8.
+Projected ~18min/step, ~80 updates/day. Telemetry break marker: v9c@58 (256-
+cand kl/grip composition).
+Amendment 20 in flight: 192 rules-v4 Gemini rewrites of the natural rephrases
+generating on pod5 (greedy, family wrap); roll gated behind pi0base -> arm
+rephrase16_rulesv4_gemini overnight. Registered prediction: pooled >= 32.
