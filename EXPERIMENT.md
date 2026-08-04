@@ -3129,3 +3129,15 @@ is net harm). Strata signature extreme: IV 34.9 vs originals-IV 48.3 (-13.4
 damage where the corpus already wins) against OOV 30.3 vs 27.3 (+3.0). Both
 condition-ladder charts + scoreboard refreshed — every planned cell now filled.
 Rephrase-robustness queue opened on schedule: pi0rephrase rolling since 04:25.
+
+## 2026-08-04 ~08:45 UTC — v9 VERDICT (early, via v9b cadence): greedy behavior FROZEN through step 35
+POL 44.27 with byte-identical strata at steps 10/14/21/28/35; ADV frozen at
+36.46 since 28 (drift band 36.5-40.1, anchor 37.8). The span covers replay
+(16 groups/update), the accum 6->1 cutover, ~17 single-step 512-candidate
+updates, and all-2000-parent coverage. Same conclusion as v8, now replicated
+under 4x batch, 10x update cadence, replay, and the full corpus: tag-free GRPO
+at beta=0.15 sharpens the sampling distribution around a mode it never
+displaces. Program implication: the scaffold few-shots anchor the mode (see
+the 08-03 prompt audit); the user's bare-template v10 design — no few-shots,
+step-0 = the sealed qwen_bare_ert cell 24.19 exactly — is the indicated next
+run. Step-42 point (~14:30 UTC) is the formality; v10 decision is the user's.
