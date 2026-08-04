@@ -3141,3 +3141,20 @@ displaces. Program implication: the scaffold few-shots anchor the mode (see
 the 08-03 prompt audit); the user's bare-template v10 design — no few-shots,
 step-0 = the sealed qwen_bare_ert cell 24.19 exactly — is the indicated next
 run. Step-42 point (~14:30 UTC) is the formality; v10 decision is the user's.
+
+## 2026-08-04 ~13:50 UTC — REPHRASE-ROBUSTNESS ARM 1 (pi0rephrase): 26.30 — natural human variation is AS DAMAGING as adversarial rewording
+Layout-matched (0-11) baselines from anchors raw: originals 34.38, ERT
+passthrough 26.85. The K=16 natural-rephrase distribution scores 26.30 —
+REGISTERED PREDICTION (a) REFUTED: natural variation does NOT sit between
+canonical and adversarial; it lands AT the adversarial floor (-8.1 vs
+originals). Per-rephrase distribution (24 eps each): median 16.7%, quartiles
+0 -> 41.7, >25% of phrasings at literally ZERO while others hit 83-100 —
+extreme phrase sensitivity inside plainly-natural wording ("Move the carrot to
+the ramekin." = 0/24 on a task whose nominal scores ~28). Oddities: question
+forms OUTSCORE statements (35.2 vs 25.9, n=9); "Drop the eggplant..." variants
+thrive (91.7). Task split: cube_on_plate 72.4 / eggplant_on_sponge 78.1 robust;
+plate_on_cube 0.5, coke_on_wheel 1.0 shattered. Program implication: the
+rules/rewrite pipeline now has a NATURAL-variation deployment story, not just
+an adversarial one — repairing ordinary human phrasing back toward 34 is the
+use case. Arm 2 (pi0base) rolling since 13:25 -> lands ~22:30 (pace 4.4/min);
+predictions (b) (larger gap for pi0base) and (c) (spread >> executor gap) then.
