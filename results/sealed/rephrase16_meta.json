@@ -1,0 +1,223 @@
+{
+ "model": "gemini-pro-latest",
+ "temperature": 1.0,
+ "k": 16,
+ "calls": [
+  {
+   "task": "widowx_carrot_on_ramekin_clean",
+   "call": 0,
+   "parsed": 8,
+   "fresh": 8
+  },
+  {
+   "task": "widowx_carrot_on_ramekin_clean",
+   "call": 1,
+   "parsed": 8,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_carrot_on_ramekin_clean",
+   "call": 2,
+   "parsed": 8,
+   "fresh": 8
+  },
+  {
+   "task": "widowx_carrot_on_sponge_clean",
+   "call": 0,
+   "parsed": 8,
+   "fresh": 8
+  },
+  {
+   "task": "widowx_carrot_on_sponge_clean",
+   "call": 1,
+   "parsed": 7,
+   "fresh": 6
+  },
+  {
+   "task": "widowx_carrot_on_sponge_clean",
+   "call": 2,
+   "parsed": 8,
+   "fresh": 5
+  },
+  {
+   "task": "widowx_coke_can_on_keyboard_clean",
+   "call": 0,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_coke_can_on_keyboard_clean",
+   "call": 1,
+   "parsed": 7,
+   "fresh": 6
+  },
+  {
+   "task": "widowx_coke_can_on_keyboard_clean",
+   "call": 2,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_coke_can_on_wheel_clean",
+   "call": 0,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_coke_can_on_wheel_clean",
+   "call": 1,
+   "parsed": 7,
+   "fresh": 6
+  },
+  {
+   "task": "widowx_coke_can_on_wheel_clean",
+   "call": 2,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_eggplant_on_keyboard_clean",
+   "call": 0,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_eggplant_on_keyboard_clean",
+   "call": 1,
+   "parsed": 8,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_eggplant_on_keyboard_clean",
+   "call": 2,
+   "parsed": 7,
+   "fresh": 5
+  },
+  {
+   "task": "widowx_eggplant_on_sponge_clean",
+   "call": 0,
+   "parsed": 8,
+   "fresh": 8
+  },
+  {
+   "task": "widowx_eggplant_on_sponge_clean",
+   "call": 1,
+   "parsed": 7,
+   "fresh": 5
+  },
+  {
+   "task": "widowx_eggplant_on_sponge_clean",
+   "call": 2,
+   "parsed": 7,
+   "fresh": 6
+  },
+  {
+   "task": "widowx_cube_on_plate_clean",
+   "call": 0,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_cube_on_plate_clean",
+   "call": 1,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_cube_on_plate_clean",
+   "call": 2,
+   "parsed": 7,
+   "fresh": 5
+  },
+  {
+   "task": "widowx_nut_on_plate_clean",
+   "call": 0,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_nut_on_plate_clean",
+   "call": 1,
+   "parsed": 7,
+   "fresh": 4
+  },
+  {
+   "task": "widowx_nut_on_plate_clean",
+   "call": 2,
+   "parsed": 7,
+   "fresh": 6
+  },
+  {
+   "task": "widowx_nut_on_wheel_clean",
+   "call": 0,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_nut_on_wheel_clean",
+   "call": 1,
+   "parsed": 8,
+   "fresh": 8
+  },
+  {
+   "task": "widowx_nut_on_wheel_clean",
+   "call": 2,
+   "parsed": 8,
+   "fresh": 5
+  },
+  {
+   "task": "widowx_orange_juice_on_plate_clean",
+   "call": 0,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_orange_juice_on_plate_clean",
+   "call": 1,
+   "parsed": 7,
+   "fresh": 6
+  },
+  {
+   "task": "widowx_orange_juice_on_plate_clean",
+   "call": 2,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_pepsi_on_plate_clean",
+   "call": 0,
+   "parsed": 7,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_pepsi_on_plate_clean",
+   "call": 1,
+   "parsed": 7,
+   "fresh": 6
+  },
+  {
+   "task": "widowx_pepsi_on_plate_clean",
+   "call": 2,
+   "parsed": 8,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_small_plate_on_green_cube_clean",
+   "call": 0,
+   "parsed": 8,
+   "fresh": 8
+  },
+  {
+   "task": "widowx_small_plate_on_green_cube_clean",
+   "call": 1,
+   "parsed": 8,
+   "fresh": 7
+  },
+  {
+   "task": "widowx_small_plate_on_green_cube_clean",
+   "call": 2,
+   "parsed": 8,
+   "fresh": 8
+  }
+ ]
+}
