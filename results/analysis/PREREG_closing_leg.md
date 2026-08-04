@@ -342,3 +342,34 @@ than a paired comparison: with no nominal counterpart and no bare+think
 control (Amendment-15 note), it speaks to whether deliberation moves the weak
 executor's repair number at all, nothing more. Phrases for the nominal cell
 remain archived unrolled.
+
+## Amendment 19 (2026-08-03 ~23:20 UTC) — Rephrase-robustness eval (user-designed)
+NEW SEALED EXPOSURE, approved by user in-session. Measures executor robustness
+to NATURAL human phrasing variation (complement to the adversarial ERT axis),
+plus the effect of rephrase fine-tuning on that robustness.
+GENERATION: K=16 rephrases per sealed nominal; gemini-pro-latest (provenance-
+matched), temperature 1.0, 2 sampled calls x 8 (+<=2 top-ups after casefold
+dedupe); sealed frame ATTACHED, NO trace (trace carries canonical corpus vocab
+= excluded knowledge); prompt = CoVer architecture with ALL rules-like content
+removed (no simplicity/adverb/color/vocab-diversity instructions, no few-shot
+examples), register target = "how real people actually talk"; no case/
+punctuation normalization (formatting sensitivity counts as robustness).
+Full prompt frozen in scripts/gen_rephrase_robustness.py. All 192 lines
+preflight-printed and posted to the user before rolls begin (rolls gated
+behind the v3nom queue => hours of veto window).
+ROLL: LAYOUTS 0-11 ONLY (first 12 of 24; RECORDED here and asserted in the
+merge; remaining 12 reserved for a later leg — subset-variance analysis on the
+per-episode records decides if they are needed). 1 rep. 12x16x12 = 2,304
+eps/arm, ~5.7h each. Executors: (1) juexzz/INTACT-pi0-finetune-rephrase-bridge
+(the study's standard frozen executor) -> arm rephrase16_pi0rephrase;
+(2) juexzz/INTACT-pi0-finetune-bridge (NO rephrase augmentation; first
+appearance) -> arm rephrase16_pi0base. Same INT-ACT ev config, --ckpt swap
+only. Overnight queue on pod5 gated on v3nom completion
+(scripts/roll_rephrase_robustness.sh). Rules-method arms on this rephrase set:
+deferred to a follow-up amendment once the two executor baselines land.
+PREDICTIONS (registered before results): (a) pi0rephrase pooled DROPS vs its
+nominal-only sealed 36.08 but stays well above its ERT passthrough 26.59 —
+natural variation sits between canonical and adversarial; (b) pi0base shows a
+LARGER robustness gap (rephrase-augmentation is exactly training for this);
+(c) per-rephrase spread within a task exceeds the pooled gap between
+executors — phrasing variance dominates model variance.

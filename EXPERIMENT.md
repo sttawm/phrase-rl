@@ -3111,3 +3111,10 @@ rate), deficit-removal active (expect step time ~50 -> ~30min; first timed
 step will confirm), np/py RNG + grads persistence live (restarts now lossless
 and stream-exact). KL telemetry break annotated at 18 (per-step kl now
 reflects a full update every step). Chart marker for v8_progress: v9b@18.
+
+## 2026-08-03 ~23:20 UTC — Amendment 19 registered: rephrase-robustness eval; generation launching on pod5
+K=16 natural rephrases/sealed task (gemini-pro-latest 2x8 temp 1.0, image, no
+trace, knowledge-free prompt), roll layouts 0-11 x 1 rep on BOTH pi0 variants
+(rephrase-augmented + plain finetune) queued overnight on pod5 behind v3nom.
+Layout subset RECORDED (0-11); episode_id per row enables the subset-variance
+check before committing to layouts 12-23. See PREREG Amendment 19.
