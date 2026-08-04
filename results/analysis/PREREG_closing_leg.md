@@ -373,3 +373,16 @@ natural variation sits between canonical and adversarial; (b) pi0base shows a
 LARGER robustness gap (rephrase-augmentation is exactly training for this);
 (c) per-rephrase spread within a task exceeds the pooled gap between
 executors — phrasing variance dominates model variance.
+
+## Amendment 20 (2026-08-04 ~19:40 UTC) — Rules-v4 repair of the natural-rephrase distribution (user: "gemini + RULES as a rephrase")
+Each of the 192 Amendment-19 rephrases is rewritten by gemini-pro-latest +
+b4_phrasing_rules_v4.md (the deployment-best doc; v3 available as follow-up if
+wanted), SAME family wrap as the sealed ladder (rules + sealed trace + incoming
+instruction, text-only, greedy). NOTE: the per-task sealed trace's phrase-
+mapping sections decompose the ERT wording, not the rephrase — identical
+convention to the ladder's nominal legs. Roll: layouts 0-11 x 1 rep, executor
+juexzz/INTACT-pi0-finetune-rephrase-bridge -> arm rephrase16_rulesv4_gemini,
+gated behind the pi0base roll. PREDICTION (registered): rules recover most of
+the natural-variation damage — pooled >= 32 (>=70% of the 26.30 -> 34.38 gap
+closed); rationale: natural inputs are easier to canonicalize than ERT, where
+the same pipeline reached 33.30 from a 26.85 floor.
