@@ -3158,3 +3158,5 @@ rules/rewrite pipeline now has a NATURAL-variation deployment story, not just
 an adversarial one — repairing ordinary human phrasing back toward 34 is the
 use case. Arm 2 (pi0base) rolling since 13:25 -> lands ~22:30 (pace 4.4/min);
 predictions (b) (larger gap for pi0base) and (c) (spread >> executor gap) then.
+
+## 2026-08-04 ~15:10 UTC — v9 verdict FINAL: pol 44.27 x6 identical (steps 10-42); adv trendless (36.5-40.1 band)
