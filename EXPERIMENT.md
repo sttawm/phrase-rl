@@ -3181,3 +3181,24 @@ cand kl/grip composition).
 Amendment 20 in flight: 192 rules-v4 Gemini rewrites of the natural rephrases
 generating on pod5 (greedy, family wrap); roll gated behind pi0base -> arm
 rephrase16_rulesv4_gemini overnight. Registered prediction: pooled >= 32.
+
+## 2026-08-04 ~20:30 UTC — v10 SPEC (user design, not launched): RL on CoVer-minus-rules
+The de-ruled CoVer scaffold (persona + image + trace + format contract kept;
+ALL phrasing guidelines AND the four few-shot examples removed; text frozen in
+this session, to be committed as cover_prompt variant on build) becomes the
+TRAINING prompt for the next RL run. Properties:
+(1) Minimal delta from the v8/v9 lineage — the ONLY change is removed
+knowledge/anchoring, so if v10 moves where v9 froze, the few-shot/rules
+anchoring hypothesis is confirmed CAUSALLY; if v10 also freezes, the anchor is
+deeper than the prompt (base-model corpus conservatism).
+(2) The frozen-baseline re-eval the user proposed the same evening IS the
+run's step-0: frozen Qwen through cover-minus-rules, rolled on sealed as
+pre-registered anchors (both conditions) BEFORE training — the baseline cell
+and the RL anchor are the same artifact.
+(3) Higher-entropy step-0 output (no few-shot register anchor) = more
+explorable within-group ranking signal for GRPO — the mechanism by which
+removal could unfreeze training.
+Pipeline otherwise inherits v9c economics (8 fresh + 8 replay, accum 1,
+~18min/step); COLD start from base Qwen (fresh LoRA — warm-forking v9 would
+carry the old prompt's conditioning). Launch, anchors, and amendment on user
+go; v9c continues meanwhile.
