@@ -1,0 +1,220 @@
+Amendment 19 preflight — 192 rephrases (K=16 x 12 sealed tasks)
+gemini-pro-latest, temp 1.0, 2x8+topup, image attached, no trace
+Roll: layouts 0-11 x 1 rep, executors pi0rephrase + pi0base
+
+== widowx_carrot_on_ramekin_clean  (nominal: 'put carrot on ramekin')
+    0. Place the carrot in the ramekin.
+    1. Put the carrot into the small white bowl.
+    2. Drop the carrot in the white dish.
+    3. Set the carrot inside the ramekin.
+    4. Move the carrot into the white bowl.
+    5. Can you put the carrot in the ramekin?
+    6. Place the carrot into the white dish.
+    7. Put the carrot on the ramekin.
+    8. Put the carrot in the ramekin.
+    9. Place the carrot into the white bowl.
+   10. Drop the carrot into the ramekin.
+   11. Set the carrot in the small white dish.
+   12. Move the carrot to the ramekin.
+   13. Put the carrot inside the white bowl.
+   14. Transfer the carrot to the white dish.
+   15. Place the carrot inside the ramekin.
+
+== widowx_carrot_on_sponge_clean  (nominal: 'put carrot on sponge')
+    0. Put the carrot on top of the sponge.
+    1. Place the carrot onto the sponge.
+    2. Move the carrot onto the green and yellow sponge.
+    3. Set the carrot on the sponge.
+    4. Pick up the carrot and put it on top of the sponge.
+    5. Lay the carrot on the sponge.
+    6. Drop the carrot onto the sponge.
+    7. Take the carrot and set it on the sponge.
+    8. Move the carrot onto the sponge.
+    9. Set the carrot down on the sponge.
+   10. Pick up the carrot and put it on the sponge.
+   11. Put the orange carrot on the green sponge.
+   12. Rest the carrot on the sponge.
+   13. Transfer the carrot to the top of the sponge.
+   14. Move the carrot over to the sponge and set it down.
+   15. Set the carrot on the green sponge.
+
+== widowx_coke_can_on_keyboard_clean  (nominal: 'put coke can on keyboard')
+    0. Move the soda can onto the black keyboard.
+    1. Set the Coca-Cola can on the keyboard.
+    2. Put the red can on top of the computer keyboard.
+    3. Grab the Coke and set it down on the keyboard.
+    4. Relocate the soda can to the keyboard.
+    5. Please put the beverage can on the keyboard.
+    6. Move the Coke can over to the black keyboard.
+    7. Set the red can down on the keyboard.
+    8. Put the Coca-Cola can on the computer keyboard.
+    9. Take the Coke can and place it on the keyboard.
+   10. Drop the soda can onto the keyboard.
+   11. Transfer the red Coke can to the keyboard.
+   12. Put the Coke over on the keyboard.
+   13. Move the red soda can onto the keyboard.
+   14. Set the Coca-Cola can down on the black keyboard.
+   15. Grab the coke and put it on the keyboard.
+
+== widowx_coke_can_on_wheel_clean  (nominal: 'put coke can on wheel')
+    0. Set the can of Coke on top of the wheel.
+    1. Move the red soda can onto the wheel.
+    2. Put the Coke on the tire.
+    3. Drop the Coke can onto the wheel.
+    4. Rest the soda can on the black wheel.
+    5. Pick up the Coke can and place it on the wheel.
+    6. Stack the Coke can on the wheel.
+    7. Set the red soda can on top of the tire.
+    8. Move the Coca-Cola can onto the black wheel.
+    9. Put the red can on the wheel.
+   10. Stack the soda can on top of the tire.
+   11. Rest the Coke can on the tire.
+   12. Put the Coke can on top of the wheel.
+   13. Set the soda can on the tire.
+   14. Move the red can onto the black wheel.
+   15. Put the can of Coke on the wheel.
+
+== widowx_cube_on_plate_clean  (nominal: 'put green cube on plate')
+    0. Move the green block onto the yellow plate.
+    1. Put the little green cube on the plate.
+    2. Set the green block on the plate.
+    3. Drop the green cube onto the plate.
+    4. Can you put the green cube on the plate?
+    5. Take the green cube and put it on the plate.
+    6. Transfer the green block to the plate.
+    7. Move the green block onto the plate.
+    8. Set the green cube on the plate.
+    9. Pick up the green block and put it on the plate.
+   10. Place the small green cube onto the dish.
+   11. Drop the green block onto the plate.
+   12. Transfer the green cube to the plate.
+   13. Put the green block on the dish.
+   14. Move the green block to the plate.
+   15. Put the little green block on the plate.
+
+== widowx_eggplant_on_keyboard_clean  (nominal: 'put eggplant on keyboard')
+    0. Set the eggplant down on top of the keyboard.
+    1. Move the purple eggplant onto the keyboard.
+    2. Can you put the eggplant on the keyboard?
+    3. Drop the eggplant onto the black keyboard.
+    4. Please place the eggplant over on the keyboard.
+    5. Take the eggplant and set it on the keyboard.
+    6. Transfer the eggplant to the keyboard.
+    7. Place the eggplant on the keyboard.
+    8. Put the eggplant onto the keyboard.
+    9. Set the eggplant down on the keyboard.
+   10. Drop the eggplant on top of the keyboard.
+   11. Move the eggplant to the keyboard.
+   12. Rest the eggplant on the keyboard.
+   13. Leave the eggplant on the keyboard.
+   14. Place the eggplant on top of the keyboard.
+   15. Move the purple eggplant onto the black keyboard.
+
+== widowx_eggplant_on_sponge_clean  (nominal: 'put eggplant on sponge')
+    0. Place the eggplant on top of the sponge.
+    1. Put the eggplant onto the green and yellow sponge.
+    2. Set the little eggplant down on the sponge.
+    3. Move the purple eggplant onto the sponge.
+    4. Drop the eggplant onto the sponge.
+    5. Rest the eggplant on top of the sponge.
+    6. Could you put the eggplant on the sponge?
+    7. Please place the eggplant on the sponge.
+    8. Set the eggplant on top of the sponge.
+    9. Move the eggplant onto the sponge.
+   10. Put the purple eggplant on the green sponge.
+   11. Can you put the eggplant on the sponge?
+   12. Position the eggplant on the sponge.
+   13. Move the eggplant to the sponge.
+   14. Put the purple eggplant onto the sponge.
+   15. Drop the eggplant on the sponge.
+
+== widowx_nut_on_plate_clean  (nominal: 'put nut on plate')
+    0. Move the nut onto the yellow plate.
+    1. Set the nut down on the plate.
+    2. Put the hex nut on the plate.
+    3. Drop the nut onto the plate.
+    4. Transfer the nut to the plate.
+    5. Place the metal nut onto the plate.
+    6. Take the nut and put it on the plate.
+    7. Move the metal nut to the yellow plate.
+    8. Put the hex nut onto the small plate.
+    9. Grab the nut and place it on the plate.
+   10. Put the nut onto the yellow dish.
+   11. Move the dark nut over to the plate.
+   12. Put the nut onto the plate.
+   13. Drop the nut onto the yellow plate.
+   14. Pick up the nut and put it on the plate.
+   15. Transfer the nut onto the plate.
+
+== widowx_nut_on_wheel_clean  (nominal: 'put nut on wheel')
+    0. Put the nut onto the tire.
+    1. Set the nut on top of the wheel.
+    2. Move the nut to the wheel.
+    3. Grab the nut and place it on the wheel.
+    4. Drop the nut onto the wheel.
+    5. Position the nut on the tire.
+    6. Take the nut and put it on top of the wheel.
+    7. Place the nut on the wheel.
+    8. Set the nut down on the tire.
+    9. Put the hex nut onto the wheel.
+   10. Move the nut over to the wheel.
+   11. Drop the nut on top of the tire.
+   12. Position the nut onto the wheel.
+   13. Transfer the small nut to the wheel.
+   14. Grab the nut and place it on the tire.
+   15. Place the nut onto the wheel.
+
+== widowx_orange_juice_on_plate_clean  (nominal: 'put orange juice on plate')
+    0. Move the juice box onto the yellow plate.
+    1. Set the orange juice carton on the plate.
+    2. Put the orange juice box on the dish.
+    3. Transfer the orange juice to the plate.
+    4. Can you put the orange juice on the yellow plate?
+    5. Grab the orange juice and set it on the plate.
+    6. Put the juice carton onto the plate.
+    7. Move the orange juice to the plate.
+    8. Put the juice box on the yellow plate.
+    9. Take the orange juice and set it on the plate.
+   10. Drop the orange juice onto the plate.
+   11. Transfer the carton of orange juice to the plate.
+   12. Position the orange juice on top of the plate.
+   13. Put the juice box on the yellow plate
+   14. Set the carton of orange juice on the plate
+   15. Move the orange juice onto the plate
+
+== widowx_pepsi_on_plate_clean  (nominal: 'put pepsi can on plate')
+    0. Set the Pepsi can on the plate.
+    1. Move the Pepsi can onto the plate.
+    2. Put the can of Pepsi on the plate.
+    3. Drop the Pepsi can onto the plate.
+    4. Place the Pepsi onto the plate.
+    5. Put the Pepsi on the plate.
+    6. Move the can of Pepsi to the plate.
+    7. Put the blue soda can onto the plate.
+    8. Move the Pepsi can over to the plate.
+    9. Set the can of Pepsi on the plate.
+   10. Can you move the Pepsi can onto the plate?
+   11. Please set the blue can on the plate.
+   12. Put the Pepsi can on top of the plate.
+   13. Place the Pepsi can on the plate.
+   14. Move the blue can onto the plate.
+   15. Set the Pepsi down on the plate.
+
+== widowx_small_plate_on_green_cube_clean  (nominal: 'put small plate on green cube')
+    0. Put the small plate on top of the green cube.
+    1. Place the little plate onto the green block.
+    2. Set the small plate on the green cube.
+    3. Move the small plate onto the green block.
+    4. Stack the small plate on top of the green cube.
+    5. Put the little dish on the green block.
+    6. Could you place the small plate on the green cube?
+    7. Grab the small plate and set it on the green cube.
+    8. Place the small plate on top of the green cube.
+    9. Set the little plate onto the green block.
+   10. Move the small plate so it rests on the green cube.
+   11. Grab the small plate and put it on the green block.
+   12. Could you put the little plate on the green cube?
+   13. Put the small plate onto the green block.
+   14. Place the little round plate on top of the green cube.
+   15. Place the small plate on the green cube.
+
