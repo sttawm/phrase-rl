@@ -408,3 +408,25 @@ rules anchoring caused the freeze; if v10 also freezes, the anchor is the base
 model's own corpus conservatism. Secondary: v10step0 cells land BELOW the
 unified-bare cells (24.19 ERT) — prompt B strips the deployment-objective
 sentence and the plain-name pointer those cells had.
+
+## Amendment 22 (2026-08-05 ~07:10 UTC) — Prompt-B three-model arms (user, pre-goodnight)
+Five new arms, all layouts/protocols as established:
+(1-3) rr16_promptB_{qwen,gemini,claude}: each model rewrites the 192 natural
+rephrases under PROMPT B (text+trace, no rules, single line, greedy);
+layouts 0-11 x 1 rep on the standard executor -> rephrase_robustness.jsonl.
+NOTE user wrote "same 11 layouts"; the established subset is layouts 0-11
+(twelve) — carried forward unchanged.
+(4-5) promptB_{gemini,claude}_ert: sealed ERT condition under PROMPT B, FULL
+sealed protocol -> sealed_ladder_cells.jsonl. (Qwen's sealed prompt-B cells
+are the v10step0 anchors, already queued — polish AND repair.)
+GENERATION: Gemini via API (gemini-pro-latest, temp 0, gen date stamped);
+Claude via 12 isolated per-task agents (arm-G/H protocol; stateless per-input
+instruction; 204 outputs collected); Qwen locally on pod5 (greedy). All phrase
+sets committed pre-roll. QUEUE: pod5 sessions rrules -> v10anchor -> pbq
+(prompt-B queue); ETA chain ~Aug 7 midday if serial (rebalance if another pod
+comes up). PREDICTIONS (registered): (a) rr16 prompt-B arms land near the
+natural-rephrase floor (26-28) for all three models — no knowledge to apply,
+so executor-fidelity spread compresses; (b) sealed prompt-B ERT for Claude/
+Gemini lands BELOW their unified-bare cells (29.14/27.78) — prompt B removes
+the deployment-objective sentence and the plain-name trace pointer those cells
+had (same mechanism as the v10step0-below-24.19 prediction).

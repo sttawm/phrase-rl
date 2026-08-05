@@ -3221,3 +3221,12 @@ resume line), --prompt-family bare / --reward-contexts 5 / 8+8 accum 1 on the
 cmdline, score server up, pod6 v10 worker up (stride 14, PROMPT_FAMILY=bare).
 v9 final latest archived (v9_final_step87, 367M). Anchor queue armed on pod5
 behind the rules-rephrase arm. See PREREG Amendment 21.
+
+## 2026-08-05 ~07:10 UTC — overnight build: Amendment 22 armed; v10 cadence 10/20; eval-rep 1
+Pod5 session chain: rrules (rolling) -> v10anchor -> pbq (5 prompt-B arms).
+Gemini prompt-B generation running now (API, alongside the roll). Claude
+phrases assembled from 12 isolated agents (204 outputs, committed). v10:
+cadence restart to save-every 10 / val-every 20 armed at boundary; pod6 worker
+stride 10 x REPEATS=1 (denser, lighter points — fits the ~105-min checkpoint
+interval with slack). Tomorrow per user: OpenVLA / Steerable Policies / pi0.5
+generalization planning.
