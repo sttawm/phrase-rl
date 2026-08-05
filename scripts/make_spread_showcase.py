@@ -19,6 +19,9 @@ C = {"oracle": "#b2f5ea", "original": "#a3bffa", "natural": "#fed7aa", "adversar
 
 # task -> (stratum, [natural phrases to include])
 PICKS = {
+    "widowx_cube_on_plate_clean": ("in-vocab", ["Move the green block onto the yellow plate.", "Can you put the green cube on the plate?"]),
+    "widowx_carrot_on_ramekin_clean": ("out-of-vocabulary", ["Transfer the carrot to the white dish.", "Move the carrot to the ramekin."]),
+    "widowx_eggplant_on_keyboard_clean": ("out-of-vocabulary", ["Rest the eggplant on the keyboard.", "Place the eggplant on top of the keyboard."]),
     "widowx_nut_on_plate_clean": ("in-vocab", ["Drop the nut onto the plate.", "Grab the nut and place it on the plate."]),
     "widowx_carrot_on_sponge_clean": ("in-vocab", ["Move the carrot onto the sponge.", "Transfer the carrot to the top of the sponge."]),
     "widowx_coke_can_on_keyboard_clean": ("out-of-vocabulary", ["Set the Coca-Cola can on the keyboard.", "Move the red soda can onto the keyboard."]),
@@ -39,14 +42,16 @@ for task, (stratum, nat_picks) in PICKS.items():
 
     fig, ax = plt.subplots(figsize=(9.8, 4.2))
     ys = range(len(rows))[::-1]
+    XMAX = max(v for _, v, _ in rows) + 18
     for y, (phrase, val, cat) in zip(ys, rows):
         ax.barh(y, val, 0.62, color=C[cat], edgecolor="#4a5568", lw=0.7)
-        label = f'"{phrase}"'
-        ax.text(0.8, y, label, va="center", fontsize=9, color="#1a202c")
-        ax.text(val + 1.0, y, f"{val:.0f}%", va="center", fontsize=10, fontweight="bold")
+        ax.text(0.8, y, f'"{phrase}"', va="center", fontsize=9, color="#1a202c")
+        # percentage in a fixed right-hand column so it can never touch the phrase
+        ax.text(XMAX - 1.0, y, f"{val:.0f}%", va="center", ha="right",
+                fontsize=10, fontweight="bold")
     ax.set_yticks(list(ys))
     ax.set_yticklabels([cat for _, _, cat in rows], fontsize=8.5, color="#4a5568")
-    ax.set_xlim(0, max(v for _, v, _ in rows) + 12)
+    ax.set_xlim(0, XMAX)
     ax.set_xlabel("rollout success % (layouts 0-11; oracle/original/adversarial 144 eps, naturals 24)")
     ax.grid(axis="x", alpha=0.25)
     short = task[7:-6]
