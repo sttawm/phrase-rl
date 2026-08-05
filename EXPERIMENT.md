@@ -3230,3 +3230,17 @@ cadence restart to save-every 10 / val-every 20 armed at boundary; pod6 worker
 stride 10 x REPEATS=1 (denser, lighter points — fits the ~105-min checkpoint
 interval with slack). Tomorrow per user: OpenVLA / Steerable Policies / pi0.5
 generalization planning.
+
+## 2026-08-05 ~11:10 UTC — v10 WEDGE at step 40 (post-val): clean-sweep relaunch, zero loss
+Trainer went silent 51 min after step-40's snapshot: process alive (217
+threads) sleeping in a poll loop, GPU memory fallen to the score server's 12GB
+alone, zero IPC requests, score server idle-heartbeating (119 jobs done, 0
+failed). Best theory: remnant-process race on the shared IPC dir from the
+cadence restart (a stolen done.json starves the waiter forever); CUDA-context
+oddity not excluded. All theories share one remediation: killed both sessions
++ processes (bracket patterns), cleared IPC, relaunched run_arm_v10.sh —
+resume from latest step 40, saved at the boundary => ZERO training lost.
+Also relearned: pgrep -f from an ssh one-liner matches the probe's OWN wrapper
+(two forensic rounds wasted on my own reflection) — the [b]racket discipline
+applies to pgrep, not just pkill. Watcher staleness alarm judged CORRECT and
+kept at 35 min (val@40 took 14.4 min — inside threshold).
