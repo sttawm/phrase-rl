@@ -45,6 +45,32 @@ PYEOF
   mark "DONE $3 $4"
 }
 
+claim() { # $1 tag  -> 0 if claimed by us
+  local f=results/analysis/v10claims/$1.claim
+  mkdir -p results/analysis/v10claims
+  [ -f "$f" ] && return 1
+  echo "${POD:-consumer}" > "$f"
+  timeout 200 bash -c "git add $f && git commit -q -m 'claim $1 [${POD:-c}]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" 2>/dev/null || true
+  grep -q "${POD:-consumer}" "$f" 2>/dev/null
+}
+
+if [ -n "${ROLL_ONLY:-}" ]; then
+  while true; do
+    timeout 120 git -c rebase.autoStash=true pull -q 2>/dev/null
+    did=0
+    for f in results/phrase_artifacts/dev10q_g_v10adv_*.parquet results/phrase_artifacts/dev10q_g_v10pol_*.parquet; do
+      [ -f "$f" ] || continue
+      s=$(echo "$f" | sed 's/.*_0*\([0-9][0-9]*\)\.parquet/\1/')
+      case "$f" in *v10adv*) cond=v10_adv; out=results/analysis/v10_adv_curve.jsonl;; *) cond=v10_pol; out=results/analysis/v10_pol_curve.jsonl;; esac
+      grep -q "\"step\": $s," "$out" 2>/dev/null && continue
+      claim "${cond}_$s" || continue
+      mark "consumer roll $cond $s"
+      roll_one "$f" "$out" "$cond" "$s" && did=1
+    done
+    [ $did = 0 ] && sleep 600
+  done
+fi
+
 while true; do
   timeout 120 git -c rebase.autoStash=true pull -q 2>/dev/null
   last=$(ls results/phrase_artifacts/dev10q_g_v10adv_*.parquet 2>/dev/null | sed 's/.*_0*\([0-9]*\)\.parquet/\1/' | sort -n | tail -1)
@@ -79,8 +105,10 @@ while true; do
     timeout 300 bash -c "git add results/phrase_artifacts/dev10q_*v10adv*.parquet results/phrase_artifacts/dev10q_*v10pol*.parquet && git commit -q -m 'v9 eval phrases $s [pod6]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" \
       && mark "staged+pushed $s" || mark "PUSH-DEFERRED gen $s"
     step=$((10#$s))
-    roll_one results/phrase_artifacts/dev10q_g_v10adv_$s.parquet results/analysis/v10_adv_curve.jsonl v10_adv $step
-    roll_one results/phrase_artifacts/dev10q_g_v10pol_$s.parquet results/analysis/v10_pol_curve.jsonl v10_pol $step
+    if [ -z "${SKIP_ROLL:-}" ]; then
+      roll_one results/phrase_artifacts/dev10q_g_v10adv_$s.parquet results/analysis/v10_adv_curve.jsonl v10_adv $step
+      roll_one results/phrase_artifacts/dev10q_g_v10pol_$s.parquet results/analysis/v10_pol_curve.jsonl v10_pol $step
+    fi
   else
     sleep 600
   fi
