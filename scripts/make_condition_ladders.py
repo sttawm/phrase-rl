@@ -33,8 +33,19 @@ DATA = {
         "pending": {("Gemini-Pro", 2): "not planned", ("Claude Fable", 2): "not planned"},
     },
 }
-STRATA = [("pooled", "#a3bffa"), ("in-vocab (5)", "#b2f5ea"), ("OOV (7)", "#fed7aa")]
-W = 0.27
+C_POOL, C_IV, C_OOV = "#a3bffa", "#b2f5ea", "#fed7aa"
+
+
+def triplet_bars(ax, x, vals, ref=False):
+    """pi0_conditions style: pooled wide/solid in front; strata thin,
+    translucent, behind, peeking out either side."""
+    pool, iv, oov = vals
+    ax.bar(x - 0.20, iv, 0.36, color=C_IV, alpha=0.55, zorder=1, edgecolor="none")
+    ax.bar(x + 0.20, oov, 0.36, color=C_OOV, alpha=0.55, zorder=1, edgecolor="none")
+    ax.text(x - 0.33, iv + 0.4, f"{iv:.0f}", ha="center", fontsize=6.4, color="#4a5568", zorder=3)
+    ax.text(x + 0.33, oov + 0.4, f"{oov:.0f}", ha="center", fontsize=6.4, color="#4a5568", zorder=3)
+    ax.bar(x, pool, 0.42, color=C_POOL, zorder=2, edgecolor="#4a5568", lw=0.9)
+    ax.text(x, pool + 0.5, f"{pool:.1f}", ha="center", fontsize=8.5, fontweight="bold", zorder=3)
 
 for cond, spec in DATA.items():
     fig, ax = plt.subplots(figsize=(13.5, 5.0))
@@ -44,10 +55,7 @@ for cond, spec in DATA.items():
         for j, ((sname, col), v) in enumerate(zip(STRATA, vals if isinstance(vals, tuple) else [])):
             pass
     for name, vals in REFS:
-        for j, ((sname, col), v) in enumerate(zip(STRATA, vals)):
-            ax.bar(x + (j - 1) * W, v, W, color=col,
-                   edgecolor="#4a5568", lw=0.7)
-            ax.text(x + (j - 1) * W, v + 0.4, f"{v:.0f}", ha="center", fontsize=7)
+        triplet_bars(ax, x, vals, ref=True)
         ax.axvspan(x - 0.55, x + 0.55, color="#000000", alpha=0.04, zorder=0)
         ticks.append(x)
         ticklabels.append("★ " + name)
@@ -57,15 +65,13 @@ for cond, spec in DATA.items():
         cxs = []
         for i, cell in enumerate(cells):
             if cell is None:
-                ax.bar(x, 52, 3 * W, color="none", edgecolor="#a0aec0", ls="--",
+                ax.bar(x, 52, 0.76, color="none", edgecolor="#a0aec0", ls="--",
                        lw=1.0, hatch="//", alpha=0.30)
                 note = spec["pending"].get((model, i), "not yet run")
                 ax.text(x, 17.5, note, ha="center", va="bottom", fontsize=7.5,
                         color="#718096", style="italic", rotation=90)
             else:
-                for j, ((sname, col), v) in enumerate(zip(STRATA, cell)):
-                    ax.bar(x + (j - 1) * W, v, W, color=col)
-                    ax.text(x + (j - 1) * W, v + 0.4, f"{v:.0f}", ha="center", fontsize=7)
+                triplet_bars(ax, x, cell)
             role = spec["roles"][i]
             ax.text(x, 15.4, role.replace(" rules", "\nrules"), ha="center", va="top",
                     fontsize=7.2, color="#4a5568")
@@ -74,8 +80,11 @@ for cond, spec in DATA.items():
         ticks.append(sum(cxs) / len(cxs))
         ticklabels.append("\n\n" + model)
         x += 0.7
-    handles = [plt.Rectangle((0, 0), 1, 1, color=c) for _, c in STRATA]
-    ax.legend(handles, [s for s, _ in STRATA], fontsize=8.5, loc="upper right")
+    handles = [plt.Rectangle((0, 0), 1, 1, color=C_POOL),
+               plt.Rectangle((0, 0), 1, 1, color=C_IV, alpha=0.55),
+               plt.Rectangle((0, 0), 1, 1, color=C_OOV, alpha=0.55)]
+    ax.legend(handles, ["pooled (5 + 7)", "in-vocab (5)", "out-of-vocabulary (7)"],
+              fontsize=8.5, loc="upper right")
     ax.set_xticks(ticks)
     ax.set_xticklabels(ticklabels, fontsize=9.5)
     ax.tick_params(axis="x", length=0)
