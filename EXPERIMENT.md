@@ -3259,3 +3259,19 @@ staged/pushed). Mirror also now prunes local v10 step dirs to the 3 newest
 after successful pack+push — growth capped. v10 relaunched, resuming step 40
 (boundary save => zero training lost across the entire incident).
 TODO next pass: same quota audit on pods 5/6 before they hit the wall.
+
+## 2026-08-05 ~20:40 UTC — v10 FIRST MOVEMENT: greedy val proxy improves monotonically
+val@20/40/60/80 greedy: -1.071 -> -0.904 -> -0.728 -> -0.723 (+0.35, monotone;
+v9 comparable span: +0.06 non-monotone). Grip weighted 0.1239 -> 0.1173.
+Sample-mean noisy/flat. EARLY + PROXY-ONLY, but the first monotone greedy
+improvement of the RL program — consistent with the anchoring hypothesis
+(prompt B removed the few-shot mode anchor). Rollout confirmation pending
+pod6 backlog drain (checkpoints 10-90).
+PIPELINE INCIDENTS (all fixed): pod6 v10 worker crash-looped 14h (tmux
+relaunch lost cwd -> relative path; fixed with absolute path — pattern now:
+ALWAYS absolute paths in tmux session commands); L40S mirror stopped pushing
+at step 30 (rebase-merge wedge from the GitHub-flaky window; snapshots 40-90
+were all PACKED before the local prune — nothing lost; backlog pushing);
+fleet smoke round-1 failed on the GATED google/paligemma-3b-pt-224 config
+(new pods lack the pre-outage cached copy + tokens; fixed by shipping pod5's
+25MB cache fleet-wide — added to the pod bring-up recipe).
