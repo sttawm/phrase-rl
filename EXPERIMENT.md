@@ -3244,3 +3244,18 @@ Also relearned: pgrep -f from an ssh one-liner matches the probe's OWN wrapper
 (two forensic rounds wasted on my own reflection) — the [b]racket discipline
 applies to pgrep, not just pkill. Watcher staleness alarm judged CORRECT and
 kept at 35 min (val@40 took 14.4 min — inside threshold).
+
+## 2026-08-05 ~12:45 UTC — ROOT CAUSE of the v10 wedge chain: /workspace DISK QUOTA EXCEEDED on the L40S
+The step-40 "wedge" and every silent relaunch death traced to OSError 122
+(disk quota) — the trainer crashed writing its log, and tee could not append
+the traceback to train.log, hence the perfect silence. Foreground launch
+exposed it instantly (lesson: when a tmux-piped process dies mute, run it
+foreground before theorizing). PRUNE (~42GB, everything origin-redundant):
+phase2_v7/v7b/v7e/v7f/v7_record + phase2_v8 + phase2_v9 local snapshot dirs
+(all archived as {v7*,v8,v9}_step_* + v9_final_step87) and all non-v10 archive
+parts from the WORKING TREE only (git objects + origin keep them; mirror
+patched to `git add` ONLY its own new v10 files so tree deletions can never be
+staged/pushed). Mirror also now prunes local v10 step dirs to the 3 newest
+after successful pack+push — growth capped. v10 relaunched, resuming step 40
+(boundary save => zero training lost across the entire incident).
+TODO next pass: same quota audit on pods 5/6 before they hit the wall.
