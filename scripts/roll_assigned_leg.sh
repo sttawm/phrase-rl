@@ -12,7 +12,11 @@ mark() { echo "[$POD $(date -u +%H:%M)] $*" | tee -a /workspace/leg.log; }
 OUT_SL=results/analysis/sealed_ladder_cells.jsonl
 OUT_RR=results/analysis/rephrase_robustness.jsonl
 
-if [ "$MODE" = sealed ]; then OUT=$OUT_SL; EPS="$(seq 0 23)"; REPS=12; N=3456; else OUT=$OUT_RR; EPS="0 1 2 3 4 5 6 7 8 9 10 11"; REPS=1; N=2304; fi
+CKPT="${CKPT:-juexzz/INTACT-pi0-finetune-rephrase-bridge}"
+LAYSET="${LAYSET:-first}"
+if [ "$MODE" = sealed ]; then OUT=$OUT_SL; EPS="$(seq 0 23)"; REPS=12; N=3456
+elif [ "$LAYSET" = second ]; then OUT=$OUT_RR; EPS="$(seq 12 23)"; REPS=1; N=2304
+else OUT=$OUT_RR; EPS="$(seq 0 11)"; REPS=1; N=2304; fi
 grep -q "\"arm\": \"$ARM\"" $OUT 2>/dev/null && { mark "skip $ARM (merged)"; exit 0; }
 
 tries=0
@@ -30,7 +34,7 @@ pd.read_parquet('$PHRASES').head(1).to_parquet('data/smoke_phrases.parquet', ind
 cd /workspace/INT-ACT
 /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
   --int-act-root /workspace/INT-ACT --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
-  --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge --phrases /workspace/phrase-rl/data/smoke_phrases.parquet \
+  --ckpt "$CKPT" --phrases /workspace/phrase-rl/data/smoke_phrases.parquet \
   --episode-ids 0 --repeats 1 \
   --out /workspace/phrase-rl/data/smoke_out.parquet > /workspace/smoke.log 2>&1 \
   || { grep -iqE "ExtensionNotPresent|llvmpipe|vulkan" /workspace/smoke.log && mark "SMOKE FAIL RENDERER $ARM" || mark "SMOKE FAIL $ARM"; exit 1; }
@@ -40,12 +44,12 @@ rm -f data/leg_out.parquet
 cd /workspace/INT-ACT
 /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
   --int-act-root /workspace/INT-ACT --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
-  --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge --phrases /workspace/phrase-rl/$PHRASES \
+  --ckpt "$CKPT" --phrases /workspace/phrase-rl/$PHRASES \
   --episode-ids $EPS --repeats $REPS \
   --out /workspace/phrase-rl/data/leg_out.parquet > /workspace/leg_roll.log 2>&1 \
   || { mark "ROLL FAIL $ARM"; exit 1; }
 cd /workspace/phrase-rl
-ARMN=$ARM MODEN=$MODE NN=$N /workspace/INT-ACT/.venv/bin/python - <<'PYEOF' || { mark "MERGE FAIL $ARM"; exit 1; }
+ARMN=$ARM MODEN=$MODE NN=$N LAYSETN=$LAYSET /workspace/INT-ACT/.venv/bin/python - <<'PYEOF' || { mark "MERGE FAIL $ARM"; exit 1; }
 import json
 import os
 
@@ -58,7 +62,10 @@ rec = {"arm": os.environ["ARMN"], "n": n,
        "pooled": round(float(g.success.mean() * 100), 2),
        "per_task": {t: round(float(x.success.mean() * 100), 1) for t, x in g.groupby("task")}}
 if os.environ["MODEN"] == "rr":
-    rec["layouts"] = sorted(int(e) for e in g.episode_id.unique())
+    lays = sorted(int(e) for e in g.episode_id.unique())
+    exp = list(range(12, 24)) if os.environ.get("LAYSETN") == "second" else list(range(12))
+    assert lays == exp, f"layout set {lays} != {exp}"
+    rec["layouts"] = lays
     rec["reps"] = 1
     per = g.groupby(["task", "phrase"]).success.mean().mul(100).round(2)
     rec["per_rephrase"] = {f"{t}|{p}": float(v) for (t, p), v in per.items()}
