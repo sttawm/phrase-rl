@@ -3214,3 +3214,10 @@ HARMFUL direction (grip reward plausibly indifferent to in/into). Not the
 unfreeze. v9c's 256-cand updates (from 58) double per-update noise -> expect
 more boundary flips. Movement alarm re-armed with baseline advanced to 49
 (fires on the NEXT change, point-over-point).
+
+## 2026-08-05 ~05:40 UTC — v9 CLOSED (step 87) / v10 LIVE (prompt B, cold start, C=5)
+v10 verified on the live process: cold start (fresh LoRA, replay 0 groups, no
+resume line), --prompt-family bare / --reward-contexts 5 / 8+8 accum 1 on the
+cmdline, score server up, pod6 v10 worker up (stride 14, PROMPT_FAMILY=bare).
+v9 final latest archived (v9_final_step87, 367M). Anchor queue armed on pod5
+behind the rules-rephrase arm. See PREREG Amendment 21.

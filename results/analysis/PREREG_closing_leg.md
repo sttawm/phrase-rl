@@ -386,3 +386,25 @@ gated behind the pi0base roll. PREDICTION (registered): rules recover most of
 the natural-variation damage — pooled >= 32 (>=70% of the 26.30 -> 34.38 gap
 closed); rationale: natural inputs are easier to canonicalize than ERT, where
 the same pipeline reached 33.30 from a 26.85 floor.
+
+## Amendment 21 (2026-08-05 ~05:40 UTC) — v10 LAUNCHED: RL on prompt B (CoVer-minus-rules, no image, single-line)
+User: "ready to restart RL using the basic prompt (prompt B) for a fairer
+comparison to our baselines." v9 STOPPED at step 87 (final latest archived:
+v9_final_step87; verdict: frozen through 42, single in->into flip at 49).
+v10: COLD start from base Qwen, --prompt-family bare (prompt text frozen in
+cover_prompt.PROMPT_B_*; routed at ALL build sites: generation, update prefix,
+probes, val, pod6 worker via PROMPT_FAMILY env). SCORING HALVED per the
+fine-pair exam (user-cited: 73 @ C10xF4 -> 69-70 @ C5xF4 vs 65 @ F-halved):
+--reward-contexts 5, F=4 kept, grip-pure kept (ensemble +1pp not worth
+reopening a validated definition). Economics: 8 fresh + 8 replay, accum 1,
+256-cand updates, projected ~10-11 min/step (~135 updates/day). Eval: pod6
+stride 14 both conditions, tag-free prompt-B generation.
+STEP-0 ANCHORS (pre-registered, = the prompt-B bare-baseline row): frozen BASE
+Qwen under prompt B, greedy, both conditions, FULL sealed protocol; queued on
+pod5 behind the rules-rephrase arm (scripts/{gen,roll}_v10_anchors.{py,sh}) ->
+arms v10step0_polish / v10step0_repair. PREDICTION (registered): the causal
+anchoring test — if v10's greedy/val curves move where v8/v9 froze, few-shot/
+rules anchoring caused the freeze; if v10 also freezes, the anchor is the base
+model's own corpus conservatism. Secondary: v10step0 cells land BELOW the
+unified-bare cells (24.19 ERT) — prompt B strips the deployment-objective
+sentence and the plain-name pointer those cells had.
