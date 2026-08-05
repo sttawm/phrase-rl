@@ -24,13 +24,13 @@ DATA = {
         "pending": {},
     },
     "nominal": {
-        "roles": ["train+rollout rules (v4)", "rollout rules (v3)"],
+        "roles": ["train+rollout rules (v4)", "rollout rules (v3)", "no rules (prompt B)"],
         "models": {
-            "Frozen Qwen": [(27.8, 34.9, 22.7), (32.2, 34.9, 30.3)],
-            "Gemini-Pro": [(37.2, 46.0, 30.9), (34.8, 42.1, 29.6)],
-            "Claude Fable": [(37.7, 47.6, 30.7), (34.7, 41.9, 29.6)],
+            "Frozen Qwen": [(27.8, 34.9, 22.7), (32.2, 34.9, 30.3), (29.8, 40.7, 22.0)],
+            "Gemini-Pro": [(37.2, 46.0, 30.9), (34.8, 42.1, 29.6), None],
+            "Claude Fable": [(37.7, 47.6, 30.7), (34.7, 41.9, 29.6), None],
         },
-        "pending": {},
+        "pending": {("Gemini-Pro", 2): "not planned", ("Claude Fable", 2): "not planned"},
     },
 }
 STRATA = [("pooled", "#a3bffa"), ("in-vocab (5)", "#b2f5ea"), ("OOV (7)", "#fed7aa")]
