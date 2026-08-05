@@ -49,6 +49,9 @@ cd /workspace/INT-ACT
   --out /workspace/phrase-rl/data/leg_out.parquet > /workspace/leg_roll.log 2>&1 \
   || { mark "ROLL FAIL $ARM"; exit 1; }
 cd /workspace/phrase-rl
+# post-roll recheck: another pod may have merged this arm while we rolled
+timeout 200 git -c rebase.autoStash=true pull -q --rebase 2>/dev/null
+grep -q "\"arm\": \"$ARM\"" $OUT 2>/dev/null && { mark "skip-merge $ARM (landed elsewhere mid-roll)"; exit 0; }
 ARMN=$ARM MODEN=$MODE NN=$N LAYSETN=$LAYSET /workspace/INT-ACT/.venv/bin/python - <<'PYEOF' || { mark "MERGE FAIL $ARM"; exit 1; }
 import json
 import os
