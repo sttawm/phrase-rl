@@ -13,7 +13,7 @@
 #   * v9c step economics: 8 fresh + 8 replay, accum 1 (one 256-cand update per
 #     step); text-only prompts -> projected ~10-11 min/step
 #   * tag-free, input-dropout 0.5, beta 0.15, lr 7e-6, KL-abort 1.2
-#   * save-every 7, val-every 21; per-step latest/ + grads/rng persistence
+#   * save-every 10, val-every 20 (user 2026-08-05: ~10-step evals with slack at the ~11min step); per-step latest/ + grads/rng persistence
 set -euxo pipefail
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
@@ -56,7 +56,7 @@ tmux new-session -d -s train \
      --score-timeout 3600 \
      --beta $BETA --lr 7e-6 --kl-abort 1.2 \
      --contexts-per-step 8 --grad-accum-groups 1 \
-     --val-every 21 --save-every 7 --probe-every 1000 --probe-samples 4 \
+     --val-every 20 --save-every 10 --probe-every 1000 --probe-samples 4 \
      --traces results/phrase_artifacts/cover35_teacher_train.parquet \
      --probe-contexts results/phrase_artifacts/contexts_probe8.parquet \
      --probe-traces results/phrase_artifacts/traces_probe8.parquet \
