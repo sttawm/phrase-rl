@@ -430,3 +430,18 @@ so executor-fidelity spread compresses; (b) sealed prompt-B ERT for Claude/
 Gemini lands BELOW their unified-bare cells (29.14/27.78) — prompt B removes
 the deployment-objective sentence and the plain-name trace pointer those cells
 had (same mechanism as the v10step0-below-24.19 prediction).
+
+## Amendment 23 (2026-08-05 ~15:10 UTC) — rules-v4 x {Claude, Qwen} on the natural-rephrase set
+Completes the per-model rules-value triangle (user): for each rephraser M in
+{Gemini done 34.33, Claude, Qwen}: no-rephraser 26.30 vs prompt-B-bare M vs
+rules-v4 M; the per-model delta (rules-v4 minus prompt-B) measures the rules
+content's value. WRAP: identical to Amendment 20 / the ladder (rules doc +
+trace + incoming instruction) for comparability with the landed Gemini arm —
+NOTED: each delta therefore spans the two prompt families (rules wrap vs
+prompt-B skeleton), same as the Gemini pair. Generation: Claude = 12 isolated
+per-task agents (stateless per input, 16 rephrases each; sealed-ERT rules
+cells already exist in the ladder); Qwen = local greedy on pod5. Rolls:
+layouts 0-11 x 1 rep -> arms rephrase16_rulesv4_{claude,qwen}. PREDICTION:
+executor-fidelity ordering holds on the natural set — Claude's rules arm >=
+Gemini's 34.33 - 1; Qwen's rules arm lands BELOW its own prompt-B bare arm
+(richer protocol hurts the weak executor, third replication).
