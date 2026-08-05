@@ -445,3 +445,12 @@ layouts 0-11 x 1 rep -> arms rephrase16_rulesv4_{claude,qwen}. PREDICTION:
 executor-fidelity ordering holds on the natural set — Claude's rules arm >=
 Gemini's 34.33 - 1; Qwen's rules arm lands BELOW its own prompt-B bare arm
 (richer protocol hurts the weak executor, third replication).
+
+## Amendment 24 (2026-08-05 ~19:50 UTC) — layouts 12-23 for the natural-rephrase executor pair
+Completes Amendment 19's reserved second half: rephrase16 phrases x layouts
+12-23 x 1 rep on BOTH executors -> arms rephrase16_pi0rephrase_lay12,
+rephrase16_pi0base_lay12 (2,304 eps each). Enables the registered subset-
+variance analysis (do 12 layouts suffice?). PREDICTION: each second-half
+pooled lands within +/-2.5 of its first half (26.30 / 25.00) — layout-half
+exchangeability. Scheduled on e8/e9 ahead of their Qwen legs (which wait on
+phrase generation anyway) — zero added wall-clock for the fleet.
