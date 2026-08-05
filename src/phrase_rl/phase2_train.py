@@ -367,6 +367,14 @@ def pick_source_and_trace(args, row, instruction, nominal_trace, forced=None):
     return instruction, nominal_trace, "nominal"
 
 
+def build_prefix(args, instruction, image, trace):
+    """Route to the prompt family (v10: --prompt-family bare = prompt B,
+    text-only, no image; default cover = the CoVer scaffold)."""
+    if getattr(args, "prompt_family", "cover") == "bare":
+        return cover_prompt.build_single_phrase_prefix_bare(instruction, trace=trace)
+    return cover_prompt.build_single_phrase_prefix(instruction=instruction, image=image, trace=trace)
+
+
 def process_context(model, processor, gate, row, args, min_survivors: int, plan=None) -> dict:
     """Generate + gate for one context; shared by train steps and val.
 
@@ -418,8 +426,7 @@ def process_context(model, processor, gate, row, args, min_survivors: int, plan=
         # Arm B: TRUE SAMPLING from the deployment/update prompt (p_single, source-
         # augmented input) — on-policy GRPO estimator; NO dedupe (duplicates are
         # legitimate samples), no list parsing.
-        msgs = cover_prompt.build_single_phrase_prefix(
-            instruction=source, image=img, trace=trace)
+        msgs = build_prefix(args, source, img, trace)
         inputs = apply_template(processor, msgs, continue_final_message=True).to(model.device)
         with torch.no_grad():
             out = model.generate(
@@ -792,8 +799,8 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
             if not grpo and a <= 0:
                 continue  # RAFT-style: imitate positives only. GRPO: signed advantages, full group.
             if prefix_msgs is None:  # build (and tokenize) the prefix once per context
-                prefix_msgs = cover_prompt.build_single_phrase_prefix(
-                    instruction=res.get("source", res["instruction"]), image=res["img"], trace=res.get("trace"))
+                prefix_msgs = build_prefix(args, res.get("source", res["instruction"]),
+                                           res["img"], res.get("trace"))
                 prefix_ids = apply_template(
                     processor, prefix_msgs, continue_final_message=True)["input_ids"][0]
             tok = tokenize_phrase(processor, prefix_msgs, prefix_ids, cand)
@@ -929,7 +936,7 @@ def run_probes(model, processor, args) -> list[dict]:
         p_instr = pr["instruction"]
         if getattr(args, "tier_tags", False):
             p_instr = f"[input: original wording] {p_instr}"
-        msgs = cover_prompt.build_single_phrase_prefix(p_instr, pr["image"], trace=pr["trace"])
+        msgs = build_prefix(args, p_instr, pr["image"], pr["trace"])
         inputs = apply_template(processor, msgs, continue_final_message=True).to(model.device)
         with torch.no_grad():
             gen = model.generate(**inputs, do_sample=False, max_new_tokens=48)
@@ -989,8 +996,7 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
                 gin = raw_instr
                 if getattr(args, "tier_tags", False):
                     gin = f"[input: original wording] {gin}"
-                gm = cover_prompt.build_single_phrase_prefix(
-                    gin, res["img"], trace=res["trace"])
+                gm = build_prefix(args, gin, res["img"], res["trace"])
                 ginp = apply_template(processor, gm, continue_final_message=True).to(model.device)
                 with torch.no_grad():
                     gout = model.generate(**ginp, do_sample=False, max_new_tokens=48)
@@ -1008,7 +1014,7 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
                 gpe = ei
                 try:
                     ein = f"[input: adversarially reworded] {ei}" if getattr(args, "tier_tags", False) else ei
-                    gme = cover_prompt.build_single_phrase_prefix(ein, res["img"], trace=res["trace"])
+                    gme = build_prefix(args, ein, res["img"], res["trace"])
                     ginp = apply_template(processor, gme, continue_final_message=True).to(model.device)
                     with torch.no_grad():
                         gout = model.generate(**ginp, do_sample=False, max_new_tokens=48)
@@ -1419,6 +1425,9 @@ def main():
                     help="v9: PPO clip epsilon on the replayed mean-logp ratio")
     ap.add_argument("--replay-max-reuse", type=int, default=6,
                     help="v9: max times one group may be replayed")
+    ap.add_argument("--prompt-family", choices=["cover", "bare"], default="cover",
+                    help="v10: 'bare' = prompt B (CoVer skeleton, all rules/few-shots removed, "
+                         "NO image, single-line contract); default 'cover' = the CoVer scaffold")
     ap.add_argument("--trace-dropout", type=float, default=0.0,
                     help="v8: prob the scene trace is omitted from the prompt entirely (no tag signal; trains trace-optional rewriting)")
     ap.add_argument("--source-mix", default=None,

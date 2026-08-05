@@ -340,3 +340,48 @@ def extract_trace(text: str) -> str | None:
         trace = text[: m.start()].strip()
         return trace or None
     return None
+
+
+# ---------------------------------------------------------------- prompt B (v10)
+
+PROMPT_B_SYSTEM = """You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A user-provided instruction describing a manipulation goal, which may involve single or multi-step actions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Reword the instruction into an alternative that preserves the original intent.
+
+Guidelines:
+- Ensure the reworded instruction is semantically equivalent to the original."""
+
+PROMPT_B_USER = """Scene analysis (provided):
+{trace}
+
+Given the original instruction: "{src}", generate a reworded instruction that conveys the same objective.
+
+Guidelines for rephrasing:
+1. Ensure the rephrase maintains the same core meaning and task objective.
+2. A scene analysis is provided above — use it as your understanding of the scene.
+
+Original Instruction:
+{src}
+
+Reply with ONLY the reworded instruction: one line, no numbering, no commentary."""
+
+
+def build_single_phrase_prefix_bare(instruction: str, trace: str | None = None) -> list:
+    """Prompt B (v10, user-designed 2026-08-04): CoVer's skeleton with ALL
+    rules-like content and the few-shot examples removed, NO image (the Gemini
+    trace is the only scene channel), single-line output contract. Ends with an
+    EMPTY assistant turn so the identical continue_final_message /
+    _append_phrase / tokenize_phrase machinery applies (the candidate continues
+    from a clean assistant turn instead of CoVer's "1. " pre-seed)."""
+    return [
+        {"role": "system", "content": [{"type": "text", "text": PROMPT_B_SYSTEM}]},
+        {"role": "user", "content": [{"type": "text",
+                                      "text": PROMPT_B_USER.format(trace=(trace or "(none provided)"), src=instruction)}]},
+        {"role": "assistant", "content": ""},
+    ]

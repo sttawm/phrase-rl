@@ -19,7 +19,13 @@ sys.path.insert(0, "src")
 from peft import PeftModel
 from transformers import AutoModelForImageTextToText, AutoProcessor
 
-from phrase_rl.cover_prompt import build_single_phrase_prefix
+import os as _os
+
+from phrase_rl.cover_prompt import build_single_phrase_prefix, build_single_phrase_prefix_bare
+
+if _os.environ.get("PROMPT_FAMILY", "cover") == "bare":
+    def build_single_phrase_prefix(src, img, trace=None):  # v10 prompt-B routing
+        return build_single_phrase_prefix_bare(src, trace=trace)
 from phrase_rl.phase2_train import apply_template
 
 adapter_dir = sys.argv[1]
