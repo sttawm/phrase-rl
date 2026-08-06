@@ -20,24 +20,27 @@ C_GRID = sorted({int(k.split("_C")[1]) for k in cells})
 BLENDS = [("ens100", "100% ensemble"), ("z75g25", "75% ens / 25% grip"), ("z50g50", "50% ens / 50% grip"),
           ("c4b", "C4b (25% ens / 75% grip)"), ("grip", "100% grip")]
 
-fig, axes = plt.subplots(1, 5, figsize=(26, 3.7))
-for ax, (bl, name) in zip(axes, BLENDS):
-    A = np.array([[g["grid"][f"F{F}_C{C}"][bl]["fine_5-10"] for C in C_GRID] for F in F_GRID])
-    im = ax.imshow(A, origin="lower", cmap="viridis", vmin=50, vmax=85, aspect="auto")
-    for fi in range(len(F_GRID)):
-        for ci in range(len(C_GRID)):
-            ax.text(ci, fi, f"{A[fi, ci]:.0f}", ha="center", va="center",
-                    color="white", fontsize=11, fontweight="bold")
-    ax.set_xticks(range(len(C_GRID))); ax.set_xticklabels(C_GRID)
-    ax.set_yticks(range(len(F_GRID))); ax.set_yticklabels(F_GRID)
-    ax.set_xlabel("contexts C"); ax.set_ylabel("frames F / episode")
-    ax.set_title(f"{name}")
-    fig.colorbar(im, ax=ax, label="sign acc %")
-fig.suptitle(f"Fine-pair sign accuracy ({HALF} half, sim-grounded): 5-10pp gaps, conf ≥ 0.8 — "
-             f"{g['buckets']['fine_5-10']} pairs, B={g['B']}", fontsize=11)
-fig.text(0.01, 0.01, "Full-coverage rescore (20,020 rows): every episode carries 6-8 scored frames, so all F rows use the same "
-         "63-episode pools (keyboard 10 / wheel 11 / cokeplate 22 / ramekin 20). C=16 still caps at available eps for keyboard/wheel. "
-         "Calibration bucket honest benchmark ~55-60%. Native half pending.",
+STRATA = [("far_15+", "coarse pairs (>=15pp gaps)"), ("fine_5-10", "fine pairs (5-10pp gaps)")]
+fig, axes = plt.subplots(2, 5, figsize=(24, 7.6))
+for ri, (bucket, bname) in enumerate(STRATA):
+    for ax, (bl, name) in zip(axes[ri], BLENDS):
+        A = np.array([[g["grid"][f"F{F}_C{C}"][bl].get(bucket, np.nan) for C in C_GRID] for F in F_GRID])
+        im = ax.imshow(A, origin="lower", cmap="viridis", vmin=50, vmax=92, aspect="auto")
+        for fi in range(len(F_GRID)):
+            for ci in range(len(C_GRID)):
+                if not np.isnan(A[fi, ci]):
+                    ax.text(ci, fi, f"{A[fi, ci]:.0f}", ha="center", va="center",
+                            color="white", fontsize=9.5, fontweight="bold")
+        ax.set_xticks(range(len(C_GRID))); ax.set_xticklabels(C_GRID, fontsize=8)
+        ax.set_yticks(range(len(F_GRID))); ax.set_yticklabels(F_GRID, fontsize=8)
+        if ri == 1: ax.set_xlabel("contexts C", fontsize=9)
+        if ax is axes[ri][0]: ax.set_ylabel(f"{bname}\nframes F / episode", fontsize=9)
+        if ri == 0: ax.set_title(name, fontsize=10)
+    fig.colorbar(im, ax=list(axes[ri]), label="sign acc %", shrink=0.9)
+fig.suptitle(f"Reward-design pairwise sign accuracy ({HALF} half, sim-grounded), by sampling budget — "
+             f"coarse n={g['buckets'].get('far_15+', '?')}, fine n={g['buckets']['fine_5-10']}, B={g['B']}", fontsize=12)
+fig.text(0.01, 0.01, "Grip excels on fine discrimination at high budgets; the learned ensemble leads on coarse OOV pairs (grip is blind to gross OOV failures). "
+         "C caps at available episodes per task. Ordering-confidence >= 0.8 buckets.",
          fontsize=7, color="#4a5568")
 fig.tight_layout(rect=[0, 0.05, 1, 0.93])
 fig.savefig(f"results/charts/fine_grid_{HALF}.png", dpi=150, bbox_inches="tight", pad_inches=0.25)

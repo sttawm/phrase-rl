@@ -25,8 +25,8 @@ gt = {(r.task, r.phrase): (r.gt_success, r.gt_n) for r in pan.itertuples()}
 
 RNG = np.random.default_rng(11)
 B = 300
-F_GRID = [1, 3, 5]
-C_GRID = [1, 2, 4, 8, 10, 16]
+F_GRID = [1, 3, 4, 5]
+C_GRID = [1, 2, 4, 8, 10, 16, 20]
 BLENDS = ("ens100", "z75g25", "z50g50", "c4b", "grip")
 
 states = {}
@@ -46,7 +46,7 @@ for t, sub in feats.groupby("task"):
     states[t] = dict(Z=Z, G=G, ki=ki, n_eps=len(eps), t_avail=t_avail)
 
 # pairs with ordering confidence, bucketed by gap
-buckets = {"calib_0.5-5": [], "fine_5-10": [], "med_10-15": []}
+buckets = {"calib_0.5-5": [], "fine_5-10": [], "med_10-15": [], "far_15+": []}
 for t, s in states.items():
     ph = [(p, *gt[(t, p)]) for p in s["ki"] if (t, p) in gt]
     for (p1, s1, n1), (p2, s2, n2) in itertools.combinations(ph, 2):
@@ -57,6 +57,7 @@ for t, s in states.items():
         if 0.5 <= gap < 5: buckets["calib_0.5-5"].append(rec)
         elif 5 <= gap < 10 and conf >= 0.8: buckets["fine_5-10"].append(rec)
         elif 10 <= gap < 15 and conf >= 0.8: buckets["med_10-15"].append(rec)
+        elif gap >= 15 and conf >= 0.8: buckets["far_15+"].append(rec)
 for b, prs in buckets.items():
     print(f"{b}: {len(prs)} pairs")
 
@@ -100,7 +101,7 @@ for F in F_GRID:
                             for bl, d in acc.items()}
         line = f"F={F} C={C}: "
         for bl in BLENDS:
-            line += f"{bl}[fine {out[f'F{F}_C{C}'][bl]['fine_5-10']} med {out[f'F{F}_C{C}'][bl]['med_10-15']} calib {out[f'F{F}_C{C}'][bl]['calib_0.5-5']}]  "
+            line += f"{bl}[far {out[f'F{F}_C{C}'][bl].get('far_15+','-')} med {out[f'F{F}_C{C}'][bl]['med_10-15']} fine {out[f'F{F}_C{C}'][bl]['fine_5-10']} calib {out[f'F{F}_C{C}'][bl]['calib_0.5-5']}]  "
         print(line)
 json.dump({"half": HALF, "B": B, "buckets": {b: len(p) for b, p in buckets.items()},
            "grid": out}, open(f"results/analysis/fine_grid_{HALF}.json", "w"), indent=1)
