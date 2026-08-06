@@ -34,12 +34,29 @@ for ax, A, Fs, Cs, title in [
     ax.set_ylabel("frames per episode $F$", fontsize=10)
     ax.set_title(title, fontsize=10.5)
 
-# level-set contours: the grids read as a scalar field of agreement
-for ax, A, Fs, Cs in [(axes[0], COARSE, CF, CC), (axes[1], FINE, FF, FC)]:
-    X, Y = np.meshgrid(range(len(Cs)), range(len(Fs)))
-    cs = ax.contour(X, Y, A, levels=[65, 75, 85], colors="white",
-                    linewidths=1.3, linestyles=":")
-    ax.clabel(cs, fmt="%d", fontsize=8.5, colors="white")
+# iso-budget level sets: dotted curves of constant total queries F x C
+def axis_pos(vals, x):
+    """map a data value to fractional index position on a categorical axis"""
+    for i in range(len(vals) - 1):
+        if vals[i] <= x <= vals[i + 1]:
+            return i + (x - vals[i]) / (vals[i + 1] - vals[i])
+    return None
+
+for ax, Fs, Cs in [(axes[0], CF, CC), (axes[1], FF, FC)]:
+    for bi, B in enumerate([8, 20, 40, 80]):
+        pts = []
+        for f in np.linspace(Fs[0], Fs[-1], 200):
+            c = B / f
+            if Cs[0] <= c <= Cs[-1]:
+                xi, yi = axis_pos(Cs, c), axis_pos(Fs, f)
+                if xi is not None and yi is not None:
+                    pts.append((xi, yi))
+        if len(pts) > 5:
+            xs, ys = zip(*pts)
+            ax.plot(xs, ys, ls=":", color="white", lw=1.5, alpha=0.9, zorder=3)
+            ax.annotate(f"$F{{\\times}}C{{=}}{B}$", (xs[-1], ys[-1]),
+                        textcoords="offset points", xytext=(-6, 10 + 12 * (bi % 2)), fontsize=8,
+                        ha="right", color="white", zorder=4)
 
 cb = fig.colorbar(im, ax=axes, shrink=0.9, pad=0.015)
 cb.set_label("agreement with simulator (%)", fontsize=10)
