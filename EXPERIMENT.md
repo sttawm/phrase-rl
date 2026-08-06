@@ -3372,3 +3372,11 @@ Treatment halves are FLAT (34.33/33.51) while the no-rewriter baseline jumped
 UNIFORM-24 CORRECTION: Gemini rules = 33.92; repair fraction (33.92-28.45)/
 (36.08-28.45) = 72%, not 99%. All repair-fraction claims recompute on
 uniform-24 in the morning synthesis. Ladder cell converted (dagger off).
+
+## 2026-08-06 ~07:50 UTC — TEMPLATE x APPLIER MATRIX COMPLETE + first automated retirement (e2)
+promptB_gemini_ert = 27.78, EXACTLY its unified-bare value. Template effect by
+model: Qwen +5.4, Gemini +/-0.0, Claude -1.2 — monotone in capability (the
+skeleton scaffolds the weak model; the deployment-objective sentence informed
+the strong one; the middle model indifferent). e2 retired by the automated
+routine (its 1 unpushed commit = the already-recovered merge, correctly left
+per the duplicate guard; podStop EXITED; unreachability verified).
