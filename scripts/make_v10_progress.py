@@ -51,7 +51,7 @@ a2.set_xlim(0, 230)
 a2.set_ylim(20, 50)
 a2.set_xlabel("v10 step")
 a2.set_ylabel("val-8 rollout success (%)")
-a2.set_title("GROUND TRUTH: val-8 rollouts (192 eps/cell) — landing all evening\n3/26 cells so far; steps 10-90 tonight, 190-220 after", fontsize=9)
+a2.set_title(f"GROUND TRUTH: val-8 rollouts (192 eps/cell) — {len(cells)}/26 landed, rest tonight\nadv>pol at every step so far (repair-shaped gains)", fontsize=9)
 a2.legend(fontsize=8, loc="lower right")
 a2.grid(alpha=0.25)
 
