@@ -30,39 +30,55 @@ roll_one() { # $1 staged parquet, $2 OUT jsonl, $3 COND label, $4 step
   rc=$?
   cd /workspace/phrase-rl
   [ $rc != 0 ] && { mark "ROLL FAIL $3 $4"; return 1; }
-  STEP=$4 COND=$3 OUTF=$2 $VLA - <<'PYEOF' || { mark "MERGE FAIL $3 $4"; return 1; }
+  # cell file = one unique path per (cond, step): concurrent consumers can
+  # never collide on it, unlike the shared curve jsonl (which wedged the
+  # fleet on 08-06: N pods appending -> rebase conflicts -> push dead)
+  mkdir -p results/analysis/v10cells
+  STEP=$4 COND=$3 OUTF=$2 CELLF=results/analysis/v10cells/${3}_${4}.json \
+      $VLA - <<'PYEOF' || { mark "MERGE FAIL $3 $4"; return 1; }
 import json, os
 import pandas as pd
 g = pd.read_parquet("data/dev9_g_out.parquet")
 rec = {"step": int(os.environ["STEP"]), "probe": os.environ["COND"],
        "n": int(len(g)), "pooled": round(float(g.success.mean()*100), 2),
        "per_task": {t: round(float(x.success.mean()*100), 1) for t, x in g.groupby("task")}}
-with open(os.environ["OUTF"], "a") as f:
+with open(os.environ["CELLF"], "w") as f:
+    json.dump(rec, f)
+with open(os.environ["OUTF"], "a") as f:  # local convenience copy only, never pushed
     f.write(json.dumps(rec) + "\n")
 print(os.environ["COND"], "step", rec["step"], "greedy", rec["pooled"])
 PYEOF
-  timeout 300 bash -c "git add $2 && git commit -q -m 'v9 eval $3 step $4 [pod6]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" || mark "PUSH-DEFERRED $3 $4"
-  mark "DONE $3 $4"
+  for i in 1 2 3; do
+    timeout 300 bash -c "git add results/analysis/v10cells/${3}_${4}.json && git commit -q -m 'v10 cell $3 $4 [${POD:-c}]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" && { mark "DONE $3 $4"; return 0; }
+    git rebase --abort 2>/dev/null; sleep $((30 * i))
+  done
+  mark "PUSH-DEFERRED $3 $4"
 }
 
-claim() { # $1 tag  -> 0 if claimed by us
+claim() { # $1 tag  -> 0 iff OUR claim commit reached origin (push-arbitrated)
   local f=results/analysis/v10claims/$1.claim
   mkdir -p results/analysis/v10claims
   [ -f "$f" ] && return 1
   echo "${POD:-consumer}" > "$f"
-  timeout 200 bash -c "git add $f && git commit -q -m 'claim $1 [${POD:-c}]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" 2>/dev/null || true
-  grep -q "${POD:-consumer}" "$f" 2>/dev/null
+  if timeout 200 bash -c "git add $f && git commit -q -m 'claim $1 [${POD:-c}]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" 2>/dev/null \
+     && grep -q "${POD:-consumer}" "$f" 2>/dev/null; then
+    return 0
+  fi
+  # any failure (incl. lost race -> rebase conflict): abort + hard reset so the
+  # repo can NEVER be left wedged; the claim simply goes to whoever pushed first
+  git rebase --abort 2>/dev/null; git reset --hard origin/main -q 2>/dev/null
+  return 1
 }
 
 if [ -n "${ROLL_ONLY:-}" ]; then
   while true; do
     timeout 120 git -c rebase.autoStash=true pull -q 2>/dev/null
     did=0
-    for f in results/phrase_artifacts/dev10q_g_v10adv_*.parquet results/phrase_artifacts/dev10q_g_v10pol_*.parquet; do
+    for f in $(ls results/phrase_artifacts/dev10q_g_v10adv_*.parquet results/phrase_artifacts/dev10q_g_v10pol_*.parquet 2>/dev/null | shuf); do
       [ -f "$f" ] || continue
       s=$(echo "$f" | sed 's/.*_0*\([0-9][0-9]*\)\.parquet/\1/')
       case "$f" in *v10adv*) cond=v10_adv; out=results/analysis/v10_adv_curve.jsonl;; *) cond=v10_pol; out=results/analysis/v10_pol_curve.jsonl;; esac
-      grep -q "\"step\": $s," "$out" 2>/dev/null && continue
+      [ -f "results/analysis/v10cells/${cond}_${s}.json" ] && continue
       claim "${cond}_$s" || continue
       mark "consumer roll $cond $s"
       roll_one "$f" "$out" "$cond" "$s" && did=1
