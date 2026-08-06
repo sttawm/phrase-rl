@@ -19,7 +19,7 @@
   <!-- rephraser -->
   <rect x="42" y="215" width="176" height="56" rx="9" fill="#d6bcfa" stroke="#4a5568" stroke-width="1.4"/>
   <text x="130" y="238" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">rephraser</text>
-  <text x="130" y="257" font-size="11.5" text-anchor="middle" fill="#4a5568">(policy — Qwen 9B)</text>
+  <text x="130" y="257" font-size="11.5" text-anchor="middle" fill="#4a5568">VLM</text>
 
   <!-- fan-out phrases -->
   <path d="M 218 231 C 268 210, 300 196, 336 191" fill="none" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
@@ -35,7 +35,7 @@
   <!-- VLA -->
   <rect x="545" y="215" width="120" height="56" rx="9" fill="#a3bffa" stroke="#4a5568" stroke-width="1.4"/>
   <text x="605" y="238" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">VLA</text>
-  <text x="605" y="257" font-size="11.5" text-anchor="middle" fill="#4a5568">executor (π₀)</text>
+  <text x="605" y="257" font-size="11.5" text-anchor="middle" fill="#4a5568">executor</text>
 
   <!-- rank/evaluate label -->
   <rect x="700" y="228" width="150" height="32" rx="6" fill="none" stroke="#4a5568" stroke-width="1.3"/>
@@ -82,13 +82,13 @@
   <line x1="660" y1="517" x2="270" y2="560" stroke="#4a5568" stroke-width="1.6" marker-end="url(#arr)"/>
   <rect x="96" y="536" width="170" height="56" rx="9" fill="#d6bcfa" stroke="#4a5568" stroke-width="1.4"/>
   <text x="181" y="560" font-size="14.5" font-weight="bold" text-anchor="middle" fill="#2d3748">phrasing rules</text>
-  <text x="181" y="579" font-size="11.5" text-anchor="middle" fill="#4a5568">(vN+1)</text>
+  <text x="181" y="579" font-size="11.5" text-anchor="middle" fill="#4a5568">(updated)</text>
 
   <!-- previous rules arc into LLM -->
   <path d="M 240 536 C 380 430, 560 430, 690 484" fill="none" stroke="#4a5568" stroke-width="1.3" marker-end="url(#arr)"/>
   <circle cx="560" cy="446" r="11" fill="white" stroke="#4a5568" stroke-width="1.3"/>
   <text x="560" y="451" font-size="13" text-anchor="middle" fill="#2d3748">⊕</text>
-  <text x="440" y="424" font-size="11.5" fill="#4a5568">with previous phrasing rules (vN)</text>
+  <text x="440" y="424" font-size="11.5" fill="#4a5568">with previous phrasing rules</text>
 
   <!-- iterate loop back to rephraser -->
   <path d="M 96 560 C 40 520, 36 380, 88 275" fill="none" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arr)"/>
