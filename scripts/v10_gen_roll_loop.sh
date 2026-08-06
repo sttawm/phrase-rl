@@ -118,8 +118,12 @@ while true; do
       $GEN scripts/gen_ckpt_phrases.py "$d" 1 > /workspace/v10pol_gen_$s.log 2>&1 || { mark "POL GEN FAIL $s"; }
     cp data/rval_greedy.parquet results/phrase_artifacts/dev10q_g_v10pol_$s.parquet 2>/dev/null
     cp data/rval_sampled.parquet results/phrase_artifacts/dev10q_s_v10pol_$s.parquet 2>/dev/null
-    timeout 300 bash -c "git add results/phrase_artifacts/dev10q_*v10adv*.parquet results/phrase_artifacts/dev10q_*v10pol*.parquet && git commit -q -m 'v9 eval phrases $s [pod6]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" \
-      && mark "staged+pushed $s" || mark "PUSH-DEFERRED gen $s"
+    pushed=0
+    for i in 1 2 3 4; do
+      timeout 300 bash -c "git add results/phrase_artifacts/dev10q_*v10adv*.parquet results/phrase_artifacts/dev10q_*v10pol*.parquet && git commit -q -m 'v10 eval phrases $s [pod6]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" && { pushed=1; break; }
+      git rebase --abort 2>/dev/null; sleep $((30 * i))
+    done
+    [ $pushed = 1 ] && mark "staged+pushed $s" || mark "PUSH-DEFERRED gen $s"
     step=$((10#$s))
     if [ -z "${SKIP_ROLL:-}" ]; then
       roll_one results/phrase_artifacts/dev10q_g_v10adv_$s.parquet results/analysis/v10_adv_curve.jsonl v10_adv $step
