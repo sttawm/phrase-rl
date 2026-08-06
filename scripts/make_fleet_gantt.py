@@ -9,7 +9,7 @@ from matplotlib.patches import Patch
 
 C = {"sealed": "#a3bffa", "rr": "#fed7aa", "gen": "#b2f5ea",
      "train": "#d6bcfa", "worker": "#c6f6d5", "setup": "#e2e8f0"}
-NOW = 26.0  # 02:00 UTC Aug 6
+NOW = 25.6  # 01:36 UTC Aug 6
 
 ROWS = [
     ("L40S",    [("v10 RL training (prompt B; step ~135)", 4.0, 34.0, "train")]),
@@ -35,7 +35,7 @@ for i, (pod, bars) in enumerate(ROWS):
         if e - s > 1.6:
             ax.text((s + e) / 2, y, label, ha="center", va="center", fontsize=7.4, color="#2d3748")
 ax.axvline(NOW, color="#e53e3e", lw=1.4, ls="--")
-ax.text(NOW + 0.1, len(ROWS) - 0.35, "now 02:00", color="#e53e3e", fontsize=8)
+ax.text(NOW + 0.1, len(ROWS) - 0.35, "now 01:36", color="#e53e3e", fontsize=8)
 ax.set_yticks(range(len(ROWS)))
 ax.set_yticklabels([p for p, _ in reversed(ROWS)], fontsize=9.5)
 ticks = list(range(4, 33, 2))
