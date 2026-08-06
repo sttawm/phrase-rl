@@ -3321,3 +3321,16 @@ rewrites achieve half Gemini's success), the finding sharpens: the document's
 worth is not in the words; it is in the applier's execution of them on the
 input register at hand. rules_interaction chart gains the bare-baseline panel
 in the morning synthesis.
+
+## 2026-08-06 ~03:50 UTC — Claude rules-arm PROTOCOL AUDIT (user-requested): PASSED
+Strict arm-G-style regeneration (isolated single-task agents) of 2 tasks x 16
+inputs vs the batch-of-4 arm: 26/32 byte-identical (15/16, 11/16). ALL
+differences are borderline rule-interpretations with NO conservatism bias —
+the batch arm applied MORE canonicalization than strict where they differ
+(added the 2.1(i) "black" keyboard anchor on 4 inputs; one put/move frame
+choice). Both agents' narrations show deep rules engagement (cert citations,
+1.2a brand restoration, family overrides, register triage). VERDICT: the
++1.13 Claude rules delta is genuine — Claude's rules application on naturals
+is intrinsically light-touch relative to Gemini's; not a generation artifact.
+Side-note: ~19% surface variation across independent Claude runs = the noise
+floor for agent-based generation.
