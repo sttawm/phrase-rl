@@ -1,0 +1,96 @@
+<svg viewBox="0 0 1180 660" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a5568"/>
+    </marker>
+    <marker id="arrd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a0aec0"/>
+    </marker>
+  </defs>
+  <rect width="1180" height="660" fill="white"/>
+  <text x="30" y="42" font-size="21" font-weight="bold" fill="#2d3748">Training flow — phrase search &amp; rules distillation loop</text>
+
+  <!-- original instructions -->
+  <rect x="30" y="120" width="200" height="52" rx="9" fill="#e2e8f0" stroke="#4a5568" stroke-width="1.2"/>
+  <text x="130" y="141" font-size="13.5" text-anchor="middle" fill="#2d3748">original / training</text>
+  <text x="130" y="159" font-size="13.5" text-anchor="middle" fill="#2d3748">instructions</text>
+  <line x1="130" y1="172" x2="130" y2="212" stroke="#4a5568" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <!-- rephraser -->
+  <rect x="42" y="215" width="176" height="56" rx="9" fill="#d6bcfa" stroke="#4a5568" stroke-width="1.4"/>
+  <text x="130" y="238" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">rephraser</text>
+  <text x="130" y="257" font-size="11.5" text-anchor="middle" fill="#4a5568">(policy — Qwen 9B)</text>
+
+  <!-- fan-out phrases -->
+  <path d="M 218 231 C 268 210, 300 196, 336 191" fill="none" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
+  <path d="M 218 255 C 268 276, 300 290, 336 295" fill="none" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="340" y="176" width="118" height="30" rx="15" fill="white" stroke="#a0aec0" stroke-width="1.2"/>
+  <text x="399" y="196" font-size="12.5" text-anchor="middle" fill="#2d3748">rephrase 1</text>
+  <text x="399" y="246" font-size="16" text-anchor="middle" fill="#a0aec0">⋮</text>
+  <rect x="340" y="280" width="118" height="30" rx="15" fill="white" stroke="#a0aec0" stroke-width="1.2"/>
+  <text x="399" y="300" font-size="12.5" text-anchor="middle" fill="#2d3748">rephrase N</text>
+  <path d="M 458 191 C 500 198, 520 218, 540 233" fill="none" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
+  <path d="M 458 295 C 500 288, 520 268, 540 253" fill="none" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
+
+  <!-- VLA -->
+  <rect x="545" y="215" width="120" height="56" rx="9" fill="#a3bffa" stroke="#4a5568" stroke-width="1.4"/>
+  <text x="605" y="238" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">VLA</text>
+  <text x="605" y="257" font-size="11.5" text-anchor="middle" fill="#4a5568">executor (π₀)</text>
+
+  <!-- rank/evaluate label -->
+  <rect x="700" y="228" width="150" height="32" rx="6" fill="none" stroke="#4a5568" stroke-width="1.3"/>
+  <text x="775" y="249" font-size="13" font-weight="bold" text-anchor="middle" fill="#2d3748">RANK / EVALUATE</text>
+
+  <!-- sim scoring branch -->
+  <path d="M 665 226 C 690 190, 700 165, 715 148" fill="none" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="718" y="102" width="212" height="52" rx="9" fill="#b2f5ea" stroke="#4a5568" stroke-width="1.3"/>
+  <text x="824" y="123" font-size="13" text-anchor="middle" fill="#2d3748">score with simulation</text>
+  <text x="824" y="141" font-size="13" text-anchor="middle" fill="#2d3748">success-rate</text>
+  <rect x="742" y="76" width="112" height="22" rx="11" fill="white" stroke="#4a5568" stroke-width="1"/>
+  <text x="798" y="91" font-size="11" text-anchor="middle" fill="#4a5568">in simulation</text>
+
+  <!-- proxy scoring branch -->
+  <path d="M 665 260 C 690 296, 700 321, 715 338" fill="none" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="718" y="332" width="212" height="52" rx="9" fill="#fed7aa" stroke="#4a5568" stroke-width="1.3"/>
+  <text x="824" y="353" font-size="13" text-anchor="middle" fill="#2d3748">score with</text>
+  <text x="824" y="371" font-size="13" text-anchor="middle" fill="#2d3748">success-rate proxy</text>
+  <path d="M 824 384 L 824 404" stroke="#a0aec0" stroke-width="1.1" stroke-dasharray="3,3"/>
+  <rect x="706" y="406" width="236" height="40" rx="18" fill="none" stroke="#a0aec0" stroke-width="1.1" stroke-dasharray="4,3"/>
+  <text x="824" y="423" font-size="11" text-anchor="middle" fill="#4a5568">for real-world:</text>
+  <text x="824" y="438" font-size="11" text-anchor="middle" fill="#4a5568">ground-truth trajectories</text>
+
+  <!-- scored phrases -->
+  <path d="M 930 128 C 990 140, 1020 175, 1040 213" fill="none" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
+  <path d="M 930 358 C 990 346, 1020 311, 1040 273" fill="none" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="1002" y="216" width="148" height="54" rx="9" fill="#c6f6d5" stroke="#4a5568" stroke-width="1.4"/>
+  <text x="1076" y="239" font-size="14.5" font-weight="bold" text-anchor="middle" fill="#2d3748">scored</text>
+  <text x="1076" y="258" font-size="14.5" font-weight="bold" text-anchor="middle" fill="#2d3748">phrases</text>
+
+  <!-- scored phrases -> LLM (many examples) -->
+  <path d="M 1076 270 C 1076 400, 1000 480, 880 505" fill="none" stroke="#4a5568" stroke-width="1.4"/>
+  <line x1="880" y1="505" x2="800" y2="505" stroke="#4a5568" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="872" y1="521" x2="800" y2="521" stroke="#a0aec0" stroke-width="1.2" marker-end="url(#arrd)"/>
+  <line x1="864" y1="537" x2="800" y2="537" stroke="#a0aec0" stroke-width="1.2" marker-end="url(#arrd)"/>
+  <text x="940" y="548" font-size="11" fill="#4a5568" text-anchor="middle">many (phrase, score) examples</text>
+
+  <!-- LLM -->
+  <rect x="660" y="486" width="136" height="62" rx="9" fill="#a3bffa" stroke="#4a5568" stroke-width="1.4"/>
+  <text x="728" y="512" font-size="16" font-weight="bold" text-anchor="middle" fill="#2d3748">LLM</text>
+  <text x="728" y="532" font-size="11.5" text-anchor="middle" fill="#4a5568">rules distiller</text>
+
+  <!-- LLM -> phrasing rules -->
+  <line x1="660" y1="517" x2="270" y2="560" stroke="#4a5568" stroke-width="1.6" marker-end="url(#arr)"/>
+  <rect x="96" y="536" width="170" height="56" rx="9" fill="#d6bcfa" stroke="#4a5568" stroke-width="1.4"/>
+  <text x="181" y="560" font-size="14.5" font-weight="bold" text-anchor="middle" fill="#2d3748">phrasing rules</text>
+  <text x="181" y="579" font-size="11.5" text-anchor="middle" fill="#4a5568">(vN+1)</text>
+
+  <!-- previous rules arc into LLM -->
+  <path d="M 240 536 C 380 430, 560 430, 690 484" fill="none" stroke="#4a5568" stroke-width="1.3" marker-end="url(#arr)"/>
+  <circle cx="560" cy="446" r="11" fill="white" stroke="#4a5568" stroke-width="1.3"/>
+  <text x="560" y="451" font-size="13" text-anchor="middle" fill="#2d3748">⊕</text>
+  <text x="440" y="424" font-size="11.5" fill="#4a5568">with previous phrasing rules (vN)</text>
+
+  <!-- iterate loop back to rephraser -->
+  <path d="M 96 560 C 40 520, 36 380, 88 275" fill="none" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arr)"/>
+  <text x="30" y="420" font-size="12" fill="#4a5568" transform="rotate(-77 42 420)">iterate</text>
+</svg>
