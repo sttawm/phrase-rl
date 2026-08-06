@@ -5,7 +5,7 @@ cd /workspace/phrase-rl
 while :; do
   timeout 120 git pull -q 2>/dev/null
   n=$(ls results/analysis/v10cells/*.json 2>/dev/null | wc -l)
-  if [ "$n" -ge 26 ] && ! pgrep -f "[p]hase0c_rollout" >/dev/null 2>&1; then
+  if [ "$n" -ge 31 ] && ! pgrep -f "[p]hase0c_rollout" >/dev/null 2>&1; then
     tmux kill-session -t consumer 2>/dev/null
     echo "[legwait $(date +%H:%M)] cells=$n -> leg mode" >> /workspace/leg.log
     exec bash scripts/claim_and_run_leg.sh
