@@ -15,11 +15,11 @@ REFS = [("oracle*", (48.2, 50.3, 46.8)), ("original", (36.1, 48.3, 27.3)),
 
 DATA = {
     "adversarial": {
-        "roles": ["train+rollout rules (v4)", "rollout rules (v3)", "no rules (bare)"],
+        "roles": ["train+rollout rules (v4)", "rollout rules (v3)", "no rules (prompt B)"],
         "models": {
-            "Frozen Qwen": [(30.1, 35.3, 26.3), (31.5, 35.7, 28.5), (24.2, 31.2, 19.2)],
-            "Gemini-Pro": [(33.3, 37.0, 30.7), (31.6, 38.2, 26.8), (27.8, 40.2, 18.9)],
-            "Claude Fable": [(34.3, 40.6, 29.7), (31.0, 35.3, 27.9), (29.1, 43.5, 18.9)],
+            "Frozen Qwen": [(30.1, 35.3, 26.3), (31.5, 35.7, 28.5), (29.6, 40.5, 21.9)],
+            "Gemini-Pro": [(33.3, 37.0, 30.7), (31.6, 38.2, 26.8), (27.8, 33.1, 24.0)],
+            "Claude Fable": [(34.3, 40.6, 29.7), (31.0, 35.3, 27.9), (28.0, 36.5, 21.9)],
         },
         "pending": {},
     },
@@ -96,9 +96,9 @@ for cond, spec in DATA.items():
     ax.set_title(f"Sealed ladder — {title_cond}    (★ reference | *oracle selected on layouts 0-17)",
                  fontsize=10.5)
     if cond == "adversarial":
-        fig.text(0.01, 0.005, "all bare cells use the unified bare template (rules skeleton minus rules) "
-                 "+ full Gemini trace; the legacy CoVer-scaffolded Qwen bare row (31.0) is retained only "
-                 "in the appendix scoreboard", fontsize=6.6, color="#4a5568")
+        fig.text(0.01, 0.005, "bare cells on BOTH panels now use prompt B (CoVer scaffold minus rules/few-shots, Gemini trace, no image) "
+                 "= the v10 RL prompt; legacy unified-bare ERT cells: Qwen 24.2 / Gemini 27.8 / Claude 29.1 "
+                 "(template effect promptB−unified = +5.4 / ±0.0 / −1.2, monotone in applier capability)", fontsize=6.6, color="#4a5568")
     fig.tight_layout()
     out = f"results/charts/sealed_ladder_{cond}.png"
     fig.savefig(out, dpi=140, bbox_inches="tight", pad_inches=0.25)
