@@ -9,7 +9,7 @@ from matplotlib.patches import Patch
 
 C = {"sealed": "#a3bffa", "rr": "#fed7aa", "gen": "#b2f5ea",
      "train": "#d6bcfa", "worker": "#c6f6d5", "setup": "#e2e8f0"}
-NOW = 25.6  # 01:36 UTC Aug 6
+NOW = 27.1  # 03:06 UTC Aug 6
 
 ROWS = [
     ("L40S",    [("v10 RL training (prompt B; step ~135)", 4.0, 34.0, "train")]),
@@ -18,13 +18,13 @@ ROWS = [
     ("Eval 1",  [("v10step0_repair (sealed)", 19.45, 29.3, "sealed")]),
     ("Eval 2",  [("promptB_gemini_ert (sealed)", 20.95, 30.8, "sealed")]),
     ("Eval 3",  [("promptB_claude_ert (sealed)", 19.45, 29.3, "sealed")]),
-    ("Eval 4",  [("rr16_promptB_gemini", 20.95, 27.0, "rr"), ("promptB_gem_lay12 (chained)", 27.05, 33.1, "rr")]),
+    ("Eval 4",  [("promptB_gemini DONE 28.9", 20.95, 26.2, "rr"), ("promptB_gem_lay12", 26.3, 32.3, "rr")]),
     ("Eval 5",  [("rr16_promptB_claude", 22.1, 28.0, "rr"), ("promptB_cla_lay12 (chained)", 28.05, 34.1, "rr")]),
     ("Eval 6",  [("v10 checkpoint GEN (rolls -> consumers)", 4.0, 34.0, "worker")]),
     ("Eval 7",  [("rulesv4_claude DONE 30.4", 19.45, 24.55, "rr"), ("consumer", 24.6, 25.7, "worker"),
                  ("rulesv4_gemini_lay12", 25.75, 31.8, "rr")]),
     ("Eval 8",  [("pi0reph_lay12 DONE 30.6", 19.45, 24.85, "rr"), ("rulesv4_claude_lay12", 25.75, 31.8, "rr")]),
-    ("Eval 9",  [("pi0base_lay12 DONE 22.6", 19.45, 24.8, "rr"), ("rr16_rulesv4_qwen", 24.85, 30.9, "rr")]),
+    ("Eval 9",  [("pi0base_lay12 DONE 22.6", 19.45, 24.8, "rr"), ("cancelled/consumer", 24.85, 26.0, "worker")]),
 ]
 
 fig, ax = plt.subplots(figsize=(13.5, 6.2))
@@ -35,7 +35,7 @@ for i, (pod, bars) in enumerate(ROWS):
         if e - s > 1.6:
             ax.text((s + e) / 2, y, label, ha="center", va="center", fontsize=7.4, color="#2d3748")
 ax.axvline(NOW, color="#e53e3e", lw=1.4, ls="--")
-ax.text(NOW + 0.1, len(ROWS) - 0.35, "now 01:36", color="#e53e3e", fontsize=8)
+ax.text(NOW + 0.1, len(ROWS) - 0.35, "now 03:06", color="#e53e3e", fontsize=8)
 ax.set_yticks(range(len(ROWS)))
 ax.set_yticklabels([p for p, _ in reversed(ROWS)], fontsize=9.5)
 ticks = list(range(4, 33, 2))

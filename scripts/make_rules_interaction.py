@@ -35,9 +35,9 @@ a.grid(axis="y", alpha=0.25)
 
 # B: broken-tail mechanism (the 50 natural phrasings scoring 0 before rules)
 groups = ["phrasings materially\nrewritten (of 50)", "success AFTER a\nmaterial rewrite (%)",
-          "case/punct-only rate,\nall 192 inputs (%)"]
-gvals = [40, 18.7, 44]
-cvals = [36, 9.2, 57]
+          "case/punct-only rate,\nall 192 inputs (%)", "RULES DELTA on naturals\n(rules - bare, pp)"]
+gvals = [40, 18.7, 44, 5.4]
+cvals = [36, 9.2, 57, 1.1]
 xg = range(len(groups))
 for i, (gv, cv) in enumerate(zip(gvals, cvals)):
     b.bar(i - 0.18, gv, 0.34, color=C_GEM, edgecolor="#4a5568", lw=0.7)
@@ -47,7 +47,7 @@ for i, (gv, cv) in enumerate(zip(gvals, cvals)):
 b.set_xticks(list(xg))
 b.set_xticklabels(groups, fontsize=8.3)
 b.set_ylim(0, 66)
-b.set_title("Mechanism on the broken tail: both models rewrite —\nGemini's rewrites work twice as well", fontsize=10.5)
+b.set_title("Mechanism + net worth: identical bare instincts (28.9 vs 29.3) —\nthe document is worth 5x more through Gemini", fontsize=10)
 b.legend(handles=[plt.Rectangle((0, 0), 1, 1, color=C_GEM),
                   plt.Rectangle((0, 0), 1, 1, color=C_CLAUDE)],
          labels=["Gemini-Pro", "Claude Fable"], fontsize=8.5)
