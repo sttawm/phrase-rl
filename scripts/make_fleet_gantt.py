@@ -12,19 +12,19 @@ C = {"sealed": "#a3bffa", "rr": "#fed7aa", "gen": "#b2f5ea",
 NOW = 27.1  # 03:06 UTC Aug 6
 
 ROWS = [
-    ("L40S",    [("v10 RL training (prompt B; step ~135)", 4.0, 34.0, "train")]),
-    ("old Pod5",[("polish DONE 29.8", 7.65, 20.85, "sealed"), ("gens", 20.9, 22.15, "gen"),
-                 ("rr16_promptB_qwen", 22.2, 28.3, "rr")]),
-    ("Eval 1",  [("v10step0_repair (sealed)", 19.45, 29.3, "sealed")]),
-    ("Eval 2",  [("promptB_gemini_ert (sealed)", 20.95, 30.8, "sealed")]),
-    ("Eval 3",  [("promptB_claude_ert (sealed)", 19.45, 29.3, "sealed")]),
-    ("Eval 4",  [("promptB_gemini DONE 28.9", 20.95, 26.2, "rr"), ("promptB_gem_lay12", 26.3, 32.3, "rr")]),
-    ("Eval 5",  [("rr16_promptB_claude", 22.1, 28.0, "rr"), ("promptB_cla_lay12 (chained)", 28.05, 34.1, "rr")]),
-    ("Eval 6",  [("v10 checkpoint GEN (rolls -> consumers)", 4.0, 34.0, "worker")]),
-    ("Eval 7",  [("rulesv4_claude DONE 30.4", 19.45, 24.55, "rr"), ("consumer", 24.6, 25.7, "worker"),
-                 ("rulesv4_gemini_lay12", 25.75, 31.8, "rr")]),
-    ("Eval 8",  [("pi0reph_lay12 DONE 30.6", 19.45, 24.85, "rr"), ("rulesv4_claude_lay12", 25.75, 31.8, "rr")]),
-    ("Eval 9",  [("pi0base_lay12 DONE 22.6", 19.45, 24.8, "rr"), ("cancelled/consumer", 24.85, 26.0, "worker")]),
+    ("L40S",    [("v10 RL training — step ~180, healthy", 4.0, 44.0, "train")]),
+    ("old Pod5",[("gens+0-11 leg STUCK on zombie gate 16h", 22.2, 38.2, "setup"),
+                 ("qwen 0-11 + lay12 (restarted)", 38.3, 50.0, "rr")]),
+    ("Eval 1",  [("leg done 03:13; idle (MISSED) ", 27.2, 38.1, "setup"), ("STOPPED 14:10", 38.15, 39.3, "gen")]),
+    ("Eval 2",  [("promptB_gemini_ert DONE 27.78", 20.95, 31.6, "sealed"), ("STOPPED 07:50", 31.7, 32.9, "gen")]),
+    ("Eval 3",  [("promptB_claude_ert DONE 27.98", 19.45, 28.2, "sealed"), ("consumer (fed 14:10)", 28.3, 44.0, "worker")]),
+    ("Eval 4",  [("promptB_gem_lay12 rolled 2304 — merging", 26.3, 38.4, "rr"), ("then consumer", 38.5, 44.0, "worker")]),
+    ("Eval 5",  [("promptB_cla_lay12 rolled 2304 — merging", 26.5, 38.4, "rr"), ("then consumer", 38.5, 44.0, "worker")]),
+    ("Eval 6",  [("v10 gen worker — 36 files freed 14:08", 4.0, 44.0, "worker")]),
+    ("Eval 7",  [("rulesv4_gem_lay12 DONE 33.51", 19.45, 28.8, "rr"), ("consumer (fed 14:10)", 28.9, 44.0, "worker")]),
+    ("Eval 8",  [("rulesv4_cla_lay12 DONE 31.94", 19.45, 31.2, "rr"), ("qwen rules 0-11 rolled — merging", 31.3, 38.4, "rr"),
+                 ("qwen lay12 next", 38.5, 44.5, "rr")]),
+    ("Eval 9",  [("STOPPED 03:20 (capability test)", 27.3, 28.5, "gen")]),
 ]
 
 fig, ax = plt.subplots(figsize=(13.5, 6.2))
