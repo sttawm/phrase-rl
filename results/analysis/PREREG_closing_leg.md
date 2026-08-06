@@ -454,3 +454,13 @@ variance analysis (do 12 layouts suffice?). PREDICTION: each second-half
 pooled lands within +/-2.5 of its first half (26.30 / 25.00) — layout-half
 exchangeability. Scheduled on e8/e9 ahead of their Qwen legs (which wait on
 phrase generation anyway) — zero added wall-clock for the fleet.
+
+## Amendment 25 (2026-08-06 ~01:45 UTC) — layouts 12-23 for the Claude/Gemini natural-treatment arms
+Completes symmetric full-layout coverage (with A24's executor baselines) for:
+rr16_rulesv4_{gemini,claude}_lay12 and rr16_promptB_{gemini,claude}_lay12 —
+same phrases, layouts 12-23 x 1 rep, standard executor. PREDICTION (given the
+executor-dependent layout effect: pi0rephrase no-rewriter half-delta +4.3):
+each treatment arm's second half lands ABOVE its first half by +2 to +6.
+Assignment: e7/e8 immediately (consumer duty resumes after), e4/e5 as chained
+follow-ons. Qwen-arm halves NOT included (user named Claude+Gemini) — one
+word adds them.
