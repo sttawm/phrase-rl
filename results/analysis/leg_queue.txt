@@ -1,2 +1,6 @@
 rr16_promptB_gemini_lay12|results/sealed/ph_rr16_promptB_gemini.parquet|rr|second
 rr16_promptB_claude_lay12|results/sealed/ph_rr16_promptB_claude.parquet|rr|second
+rr16_rulesv4_qwen|results/sealed/ph_rr16_rulesv4_qwen.parquet|rr|first
+rr16_rulesv4_qwen_lay12|results/sealed/ph_rr16_rulesv4_qwen.parquet|rr|second
+rr16_promptB_qwen|results/sealed/ph_rr16_promptB_qwen.parquet|rr|first
+rr16_promptB_qwen_lay12|results/sealed/ph_rr16_promptB_qwen.parquet|rr|second
