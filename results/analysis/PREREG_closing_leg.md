@@ -464,3 +464,8 @@ each treatment arm's second half lands ABOVE its first half by +2 to +6.
 Assignment: e7/e8 immediately (consumer duty resumes after), e4/e5 as chained
 follow-ons. Qwen-arm halves NOT included (user named Claude+Gemini) — one
 word adds them.
+
+## Amendment 25 addendum (2026-08-06 ~02:00 UTC) — Qwen-arm halves added for uniform-24 coverage
+rr16_promptB_qwen_lay12 + rr16_rulesv4_qwen_lay12 (chained on pod5/e9 after
+their current legs). On completion the natural ladder converts to a uniform
+24-layout basis (refs A/E recomputed from the existing sealed anchors).
