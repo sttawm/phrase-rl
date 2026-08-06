@@ -22,5 +22,8 @@ while :; do
     fi
     git rebase --abort 2>/dev/null; git reset --hard -q origin/main
   done < results/analysis/leg_queue.txt
-  [ -z "$got" ] && { echo "[legs $(date +%H:%M)] queue empty for ${POD:-x}" >> /workspace/leg.log; exit 0; }
+  if [ -z "$got" ]; then
+    echo "[legs $(date +%H:%M)] queue empty for ${POD:-x} -> cell consumer" >> /workspace/leg.log
+    exec env POD="${POD:-x}" ROLL_ONLY=1 REPEATS=1 bash scripts/v10_gen_roll_loop.sh
+  fi
 done
