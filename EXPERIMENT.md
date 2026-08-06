@@ -3345,3 +3345,15 @@ pair complete and input-insensitive: polish 29.8 / repair 29.63. Template-
 architecture effects join applier effects in the "knowledge-free choices that
 move points" ledger; adversarial-ladder prompt-B bare cell + chart notes to
 the morning synthesis.
+
+## 2026-08-06 ~03:35 UTC — NIGHT PROTOCOL (user goodnight directive)
+(1) AUTO-SHUTDOWN LIVE (capability verified on Eval 9 at 03:20: quiesce ->
+claim-release -> podStop mutation -> unreachability check; key local-only):
+pods stop as their queues empty, holding pod6-gen + up to 3 consumers until
+the checkpoint backlog drains, then taper. Duplicate-commit guard: never
+rescue commits whose content is already on origin. (2) RL: v10 at step 145,
+~9 min/step, per-step latest + 10-step snapshots; watcher staleness alarm
+armed. (3) Trapped-gens fix: pod6 generated ALL 36 checkpoint phrase files
+(steps 10-90) but its wedged repo held them; on-pod unbounded repair running
+(repofix marker) -> consumers unblock on push. L40S bigpush still grinding
+(11 commits; archives already shipped pod-side so nothing blocks on it).
