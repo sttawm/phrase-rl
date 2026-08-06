@@ -3380,3 +3380,10 @@ skeleton scaffolds the weak model; the deployment-objective sentence informed
 the strong one; the middle model indifferent). e2 retired by the automated
 routine (its 1 unpushed commit = the already-recovered merge, correctly left
 per the duplicate guard; podStop EXITED; unreachability verified).
+
+## 2026-08-06 ~08:00 UTC — Claude rules uniform-24 = 31.18: repair fractions finalize at 72% (Gemini) vs 36% (Claude)
+Claude's halves 30.43/31.94 (mildly up, unlike Gemini's mildly down — both
+far from the baseline's +4.3). Uniform-24 repair fractions: Gemini 72%,
+Claude 36% — the 2:1 executor-application gap SURVIVES full coverage; the
+half-layout protocol had exaggerated it (99% vs 51%) but not invented it.
+Ladder cell converted. e8 -> chained Qwen legs (end-of-line).
