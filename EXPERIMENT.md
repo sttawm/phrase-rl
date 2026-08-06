@@ -3357,3 +3357,11 @@ armed. (3) Trapped-gens fix: pod6 generated ALL 36 checkpoint phrase files
 (steps 10-90) but its wedged repo held them; on-pod unbounded repair running
 (repofix marker) -> consumers unblock on push. L40S bigpush still grinding
 (11 commits; archives already shipped pod-side so nothing blocks on it).
+
+## 2026-08-06 ~04:35 UTC — promptB_claude_ert 27.98: the template effect FLIPS SIGN by applier
+Claude -1.2 under prompt B (29.14 -> 27.98) where Qwen gained +5.4. Reading:
+the unified template's deployment-objective sentence was exploitable BY CLAUDE
+(it told the strong model what the rewrite is FOR); prompt B withholds it.
+Qwen gains from the CoVer skeleton's structure instead. Third leg (Gemini,
+e2, ~06:45) completes the template x applier matrix. e3 -> consumer (pool was
+empty; first auto-shutdown falls to the next freed pod after saturation).
