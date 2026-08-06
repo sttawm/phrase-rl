@@ -469,3 +469,10 @@ word adds them.
 rr16_promptB_qwen_lay12 + rr16_rulesv4_qwen_lay12 (chained on pod5/e9 after
 their current legs). On completion the natural ladder converts to a uniform
 24-layout basis (refs A/E recomputed from the existing sealed anchors).
+
+## Amendment 25 second addendum (2026-08-06 ~02:15 UTC) — Qwen natural arms OMITTED (user)
+rr16_rulesv4_qwen (25% rolled) killed; both Qwen lay12 chains cancelled.
+Exception: rr16_promptB_qwen (0-11) was ~75% done on pod5 — allowed to finish
+(marginal cost ~1.5h; lands in the results table, not the ladder). e9 + pod5
+-> checkpoint-eval consumers. Natural ladder drops the Qwen cluster; uniform-
+24 conversion proceeds for Claude/Gemini + baselines only.
