@@ -3311,3 +3311,13 @@ Prompt-B bare Gemini already recovers a third of the natural damage (26.30 ->
 28.91 on 0-11); the rules doc adds +5.4 more (-> 34.33). Contrast Claude:
 rules 30.43 (promptB cell lands ~04:00 for its delta). Interim reading: for
 Gemini the rules CONTENT carries most of the repair; bare instinct is modest.
+
+## 2026-08-06 ~02:55 UTC — rr16_promptB_claude 29.30: rules-content value is APPLIER-DOMINATED
+Both rules-vs-bare pairs complete (naturals, 0-11): bare instincts nearly
+IDENTICAL (Gemini 28.91, Claude 29.30) but rules-v4 adds +5.42 via Gemini vs
++1.13 via Claude — ~5x spread in the VALUE OF THE SAME DOCUMENT by who
+applies it. Combined with the broken-tail mechanism (Claude's material
+rewrites achieve half Gemini's success), the finding sharpens: the document's
+worth is not in the words; it is in the applier's execution of them on the
+input register at hand. rules_interaction chart gains the bare-baseline panel
+in the morning synthesis.

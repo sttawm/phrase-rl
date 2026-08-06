@@ -21,12 +21,11 @@ ROLES = ["rules-v4", "no rules (prompt B)"]
 MODELS = {
     "Frozen Qwen":  [None, None],
     "Gemini-Pro":   [(34.33, 40.4, 30.0, True), (28.91, 39.9, 21.1, True)],
-    "Claude Fable": [(30.43, 38.8, 24.4, True), None],
+    "Claude Fable": [(30.43, 38.8, 24.4, True), (29.30, 40.9, 21.0, True)],
 }
 PENDING = {
     ("Frozen Qwen", 0): "queued (end of line)",
     ("Frozen Qwen", 1): "0-11 finishing; rest queued",
-    ("Claude Fable", 1): "rolling — ETA ~04:00",
 }
 
 
