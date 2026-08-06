@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 
 C_POOL, C_IV, C_OOV = "#a3bffa", "#b2f5ea", "#fed7aa"
 
-REFS = [("original\n(canonical)", (34.38, 44.6, 27.1)),
-        ("natural\n(no rewriter)", (26.30, 38.6, 17.5)),
-        ("natural, ALL 24\nlayouts (no rewriter)", (28.45, 41.5, 19.2)),
-        ("natural, NON-augmented\n$\\pi_0$ (24 layouts)", (23.78, 35.6, 15.4)),
-        ("adversarial ERT\n(no rewriter)", (26.85, 31.5, 23.5))]
+REFS = [("A", "original (canonical phrasing)", (34.38, 44.6, 27.1)),
+        ("B", "natural rephrases, no rewriter (layouts 0-11)", (26.30, 38.6, 17.5)),
+        ("C", "natural, no rewriter — ALL 24 layouts", (28.45, 41.5, 19.2)),
+        ("D", "natural on NON-augmented $\\pi_0$ (24 layouts)", (23.78, 35.6, 15.4)),
+        ("E", "adversarial ERT, no rewriter", (26.85, 31.5, 23.5))]
 
 ROLES = ["rules-v4", "no rules (prompt B)"]
 MODELS = {
@@ -44,12 +44,15 @@ def triplet_bars(ax, x, vals):
 fig, ax = plt.subplots(figsize=(13.8, 5.0))
 x = 0.0
 ticks, labels = [], []
-for name, vals in REFS:
+for letter, _desc, vals in REFS:
     triplet_bars(ax, x, vals)
     ax.axvspan(x - 0.55, x + 0.55, color="#000000", alpha=0.04, zorder=0)
     ticks.append(x)
-    labels.append("★ " + name)
+    labels.append("★ " + letter)
     x += 1.35
+key = "\n".join(f"{l} — {d}" for l, d, _ in REFS)
+ax.text(0.012, 0.975, key, transform=ax.transAxes, fontsize=7.6, va="top",
+        bbox=dict(boxstyle="round,pad=0.45", fc="#f7fafc", ec="#cbd5e0", alpha=0.95), zorder=5)
 x += 0.55
 for model, cells in MODELS.items():
     cxs = []
