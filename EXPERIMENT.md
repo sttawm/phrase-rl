@@ -3365,3 +3365,10 @@ the unified template's deployment-objective sentence was exploitable BY CLAUDE
 Qwen gains from the CoVer skeleton's structure instead. Third leg (Gemini,
 e2, ~06:45) completes the template x applier matrix. e3 -> consumer (pool was
 empty; first auto-shutdown falls to the next freed pod after saturation).
+
+## 2026-08-06 ~04:55 UTC — rulesv4_gemini_lay12 33.51: A25 prediction REFUTED; "99% repair" was a half-layout artifact
+Treatment halves are FLAT (34.33/33.51) while the no-rewriter baseline jumped
++4.3 — repaired phrases do not inherit the executor's layout-half sensitivity.
+UNIFORM-24 CORRECTION: Gemini rules = 33.92; repair fraction (33.92-28.45)/
+(36.08-28.45) = 72%, not 99%. All repair-fraction claims recompute on
+uniform-24 in the morning synthesis. Ladder cell converted (dagger off).
