@@ -482,3 +482,22 @@ Chains: pod5 = promptB_qwen_lay12 after its current 0-11 leg (~04:15 start);
 e8 = rulesv4_qwen 0-11 re-roll + its lay12, after e8's current Claude-half leg
 (~07:45 start, lands ~20:00). Consumers resume after each chain. Ladder shows
 the Qwen cluster as queued placeholders; converts as cells land.
+
+## Amendment 26 (2026-08-06, pre-registered before sealed exposure)
+
+**Sealed validation of the val-nominated v10 checkpoint.** Nomination rule,
+fixed before any sealed roll: the checkpoint with the best val-8 adversarial
+cell (= step 60, 45.31 on the dev probe). Two new sealed arms, standard
+protocol (12 tasks x 24 layouts x 12 reps, n=3456 each):
+
+- `v10step60_repair` — step-60 greedy rewrites of the sealed ERT instructions
+  (prompt B, text-only). Compared against the step-0 anchor 29.63.
+- `v10step60_polish` — step-60 greedy rewrites of the sealed nominals.
+  Compared against the step-0 anchor 29.8.
+
+**Predictions.** Repair: sealed gain positive but shrunk relative to the
+val-8 +6.8 (winner's-curse correction); point prediction +2.5 to +5.5
+(sealed repair 32-35). Polish: no change (29.8 +/- 2.5), consistent with the
+flat val polish curve. Phrases preflight-printed to pod6:/workspace/step60_gen.log
+before any roll; paper reports sealed numbers only, with the nomination rule
+disclosed.
