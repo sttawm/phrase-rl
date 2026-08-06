@@ -14,7 +14,9 @@ rows = [json.loads(l) for l in open(LOG)]
 vals = sorted((r for r in rows if r.get("type") == "val"), key=lambda r: r["step"])
 tr = sorted((r for r in rows if r.get("kl") is not None), key=lambda r: r["step"])
 
-fig, (a1, a2) = plt.subplots(1, 2, figsize=(13.5, 4.6), gridspec_kw={"width_ratios": [1.3, 1]})
+import glob
+cells = [json.load(open(f)) for f in glob.glob("results/analysis/v10cells/*.json")]
+fig, (a1, a2) = plt.subplots(1, 2, figsize=(13.5, 4.6), gridspec_kw={"width_ratios": [1.1, 1]})
 
 s = [v["step"] for v in vals]
 a1.axhline(vals[0]["mean_orig_reward"], ls=":", color="#718096", lw=1.2)
@@ -35,14 +37,25 @@ a1.set_title("v10 (prompt B, cold start) — greedy proxy val: +0.41 net, platea
 a1.legend(fontsize=8, loc="lower right")
 a1.grid(alpha=0.25)
 
-ts = [d["step"] for d in tr]
-a2.plot(ts, [d["kl"] for d in tr], color="#805ad5", lw=1.2)
+a2.axhspan(35, 41, color="#e2725b", alpha=0.13)
+a2.text(2, 35.5, "v9 adversarial band (whole run)", fontsize=7, color="#c05621")
+a2.axhline(44.27, ls="--", color="#718096", lw=1.1)
+a2.text(2, 44.7, "v9 polish greedy (frozen 44.27)", fontsize=7, color="#718096")
+for cond, color, lbl in [("v10_adv", "#c53030", "adversarial repair"), ("v10_pol", "#2b6cb0", "polish (nominal)")]:
+    pts = sorted([(c["step"], c["pooled"]) for c in cells if c["probe"] == cond])
+    if pts:
+        a2.plot([p[0] for p in pts], [p[1] for p in pts], "o-", color=color, ms=7, lw=1.6, label=f"{lbl} ({len(pts)} pts)")
+        for x, y in pts:
+            a2.annotate(f"{y:.1f}", (x, y), textcoords="offset points", xytext=(0, 8), fontsize=7.5, ha="center", color=color)
+a2.set_xlim(0, 230)
+a2.set_ylim(20, 50)
 a2.set_xlabel("v10 step")
-a2.set_ylabel("KL(policy || ref)", color="#805ad5")
-a2.set_title("KL — one 256-cand update/step", fontsize=9.5)
+a2.set_ylabel("val-8 rollout success (%)")
+a2.set_title("GROUND TRUTH: val-8 rollouts (192 eps/cell) — landing all evening\n3/26 cells so far; steps 10-90 tonight, 190-220 after", fontsize=9)
+a2.legend(fontsize=8, loc="lower right")
 a2.grid(alpha=0.25)
 
-fig.suptitle("v10 RL progress — step %d; sealed anchors: polish 29.8 / repair 29.63 (rollout val-8 curve landing today)"
+fig.suptitle("v10 RL progress — step %d; first ground-truth cells: adv 43.8@30, 41.2@40 | pol 37.5@60 (val-8 probe; sealed anchors 29.8/29.63)"
              % tr[-1]["step"], fontsize=10)
 fig.tight_layout()
 fig.savefig("results/charts/v10_progress.png", dpi=140, bbox_inches="tight", pad_inches=0.2)
