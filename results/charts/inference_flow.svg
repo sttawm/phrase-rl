@@ -15,17 +15,13 @@
   <!-- task instruction -->
   <rect x="112" y="40" width="200" height="52" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.4" filter="url(#soft)"/>
   <text x="212" y="72" font-size="16" text-anchor="middle" fill="#334155">task instruction</text>
-  <line x1="212" y1="92" x2="212" y2="132" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
+  <line x1="212" y1="92" x2="212" y2="144" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
 
-  <!-- rephraser: container with VLM + phrasing rules as child boxes -->
-  <rect x="86" y="136" width="252" height="104" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.7" filter="url(#soft)"/>
-  <text x="212" y="164" font-size="20" font-weight="bold" text-anchor="middle" fill="#312e81">rephraser</text>
-  <rect x="102" y="178" width="76" height="44" rx="9" fill="white" stroke="#a78bfa" stroke-width="1.3"/>
-  <text x="140" y="206" font-size="14" text-anchor="middle" fill="#6d28d9">VLM</text>
-  <rect x="188" y="178" width="136" height="44" rx="9" fill="white" stroke="#a78bfa" stroke-width="1.3"/>
-  <text x="256" y="200" font-size="13.5" text-anchor="middle" fill="#6d28d9">phrasing</text>
-  <text x="256" y="216" font-size="13.5" text-anchor="middle" fill="#6d28d9">rules</text>
-  <line x1="212" y1="240" x2="212" y2="282" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- rephraser (method-agnostic) -->
+  <rect x="110" y="148" width="204" height="72" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.7" filter="url(#soft)"/>
+  <text x="212" y="180" font-size="20" font-weight="bold" text-anchor="middle" fill="#312e81">rephraser</text>
+  <text x="212" y="204" font-size="14" text-anchor="middle" fill="#6d28d9">VLM</text>
+  <line x1="212" y1="220" x2="212" y2="282" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
 
   <!-- VLA -->
   <rect x="156" y="286" width="112" height="64" rx="11" fill="#ebf4ff" stroke="#2b6cb0" stroke-width="1.6" filter="url(#soft)"/>
