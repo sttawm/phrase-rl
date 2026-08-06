@@ -3275,3 +3275,10 @@ were all PACKED before the local prune — nothing lost; backlog pushing);
 fleet smoke round-1 failed on the GATED google/paligemma-3b-pt-224 config
 (new pods lack the pre-outage cached copy + tokens; fixed by shipping pod5's
 25MB cache fleet-wide — added to the pod bring-up recipe).
+
+## 2026-08-06 ~00:30 UTC — rr16_rulesv4_claude 30.43 (IV 38.8/OOV 24.4): A23 prediction REFUTED
+Claude+rules-v4 repairs natural damage HALF-way (26.30 -> 30.43, 48% of gap)
+vs Gemini's 99% (34.33) — inverting the sealed-adversarial ordering (Claude
+34.26 > Gemini 33.30). Executor-rules interaction is INPUT-DISTRIBUTION-
+dependent, not a fixed ranking. Rewrite-texture diff queued for the morning
+synthesis. e7 -> consumer duty (auto).
