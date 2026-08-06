@@ -74,10 +74,10 @@ if [ -n "${ROLL_ONLY:-}" ]; then
   while true; do
     timeout 120 git -c rebase.autoStash=true pull -q 2>/dev/null
     did=0
-    for f in $(ls results/phrase_artifacts/dev10q_g_v10adv_*.parquet results/phrase_artifacts/dev10q_g_v10pol_*.parquet results/phrase_artifacts/dev10q_g_v10ref_*.parquet 2>/dev/null | shuf); do
+    for f in $(ls results/phrase_artifacts/dev10q_g_v10adv_*.parquet results/phrase_artifacts/dev10q_g_v10pol_*.parquet 2>/dev/null | shuf); do
       [ -f "$f" ] || continue
       s=$(echo "$f" | sed 's/.*_0*\([0-9][0-9]*\)\.parquet/\1/')
-      case "$f" in *v10ref*) cond=v10_ref; out=results/analysis/v10_ref_curve.jsonl;; *v10adv*) cond=v10_adv; out=results/analysis/v10_adv_curve.jsonl;; *) cond=v10_pol; out=results/analysis/v10_pol_curve.jsonl;; esac
+      case "$f" in *v10adv*) cond=v10_adv; out=results/analysis/v10_adv_curve.jsonl;; *) cond=v10_pol; out=results/analysis/v10_pol_curve.jsonl;; esac
       [ -f "results/analysis/v10cells/${cond}_${s}.json" ] && continue
       claim "${cond}_$s" || continue
       mark "consumer roll $cond $s"

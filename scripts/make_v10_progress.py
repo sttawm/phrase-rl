@@ -41,12 +41,6 @@ a2.axhspan(35, 41, color="#e2725b", alpha=0.13)
 a2.text(2, 35.5, "v9 adversarial band (whole run)", fontsize=7, color="#c05621")
 a2.axhline(44.27, ls="--", color="#718096", lw=1.1)
 a2.text(2, 44.7, "v9 polish greedy (frozen 44.27)", fontsize=7, color="#718096")
-REF_NAMES = {901: ("Gemini+rules", "#805ad5"), 902: ("Claude Fable+rules", "#d69e2e"), 903: ("Qwen+rules", "#38a169")}
-for c in cells:
-    if c["probe"] == "v10_ref" and c["step"] in REF_NAMES:
-        nm, col = REF_NAMES[c["step"]]
-        a2.axhline(c["pooled"], ls="-.", color=col, lw=1.1, alpha=0.8)
-        a2.text(228, c["pooled"], f'{nm} {c["pooled"]:.1f}', fontsize=6.5, color=col, va="center", ha="left")
 for cond, color, lbl in [("v10_adv", "#c53030", "adversarial repair"), ("v10_pol", "#2b6cb0", "polish (nominal)")]:
     pts = sorted([(c["step"], c["pooled"]) for c in cells if c["probe"] == cond])
     if pts:
@@ -58,7 +52,7 @@ a2.set_ylim(20, 50)
 a2.set_xlabel("v10 step")
 a2.set_ylabel("val-8 rollout success (%)")
 n_curve = len([c for c in cells if c["probe"] != "v10_ref"])
-a2.set_title(f"GROUND TRUTH: val-8 rollouts (192 eps/cell) — {n_curve}/28 curve cells (+3 rules refs)\nadv>pol at every step so far (repair-shaped gains)", fontsize=9)
+a2.set_title(f"GROUND TRUTH: val-8 rollouts (192 eps/cell) — {n_curve}/28 cells (incl. step-0 base)\nadv>pol at every step so far (repair-shaped gains)", fontsize=9)
 a2.legend(fontsize=8, loc="lower right")
 a2.grid(alpha=0.25)
 
