@@ -14,6 +14,7 @@ C_POOL, C_IV, C_OOV = "#a3bffa", "#b2f5ea", "#fed7aa"
 REFS = [("original\n(canonical)", (34.38, 44.6, 27.1)),
         ("natural\n(no rewriter)", (26.30, 38.6, 17.5)),
         ("natural, ALL 24\nlayouts (no rewriter)", (28.45, 41.5, 19.2)),
+        ("natural, NON-augmented\n$\\pi_0$ (24 layouts)", (23.78, 35.6, 15.4)),
         ("adversarial ERT\n(no rewriter)", (26.85, 31.5, 23.5))]
 
 ROLES = ["rules-v4", "no rules (prompt B)"]
@@ -40,7 +41,7 @@ def triplet_bars(ax, x, vals):
     ax.text(x, pool + 0.7, f"{pool:.1f}", ha="center", fontsize=8.8, fontweight="bold", zorder=3)
 
 
-fig, ax = plt.subplots(figsize=(12.5, 5.0))
+fig, ax = plt.subplots(figsize=(13.8, 5.0))
 x = 0.0
 ticks, labels = [], []
 for name, vals in REFS:
@@ -79,9 +80,11 @@ ax.set_ylabel("success % on natural rephrases (layouts 0-11)")
 ax.set_ylim(0, 46)
 ax.grid(axis="y", alpha=0.25)
 ax.set_title("Natural-rephrase ladder — rewriter treatments over K=16 human rephrasings "
-             "(executor: rephrase-augmented $\\pi_0$)\ntreatments: layouts 0-11. Full-coverage baselines: "
-             "aug 28.45 (halves 26.3/30.6) vs NON-aug 23.78 (25.0/22.6) — augmentation gap 4.7 at 24 layouts",
-             fontsize=9.2)
+             "(executor: rephrase-augmented $\\pi_0$ unless noted)", fontsize=10.5, pad=12)
+fig.text(0.01, 0.005,
+         "treatment arms: layouts 0-11, 1 rep (their reference = the 0-11 natural column). 24-layout halves: "
+         "augmented 26.3 / 30.6, non-augmented 25.0 / 22.6 — augmentation gap 4.7 at full coverage. Refs: 12 reps except naturals.",
+         fontsize=6.8, color="#4a5568")
 fig.tight_layout()
 fig.savefig("results/charts/natural_ladder.png", dpi=140, bbox_inches="tight", pad_inches=0.25)
 print("chart -> results/charts/natural_ladder.png")
