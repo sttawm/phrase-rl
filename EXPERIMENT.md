@@ -3296,3 +3296,12 @@ morning synthesis; pi0base second half (~01:30) gets the same treatment.
 (3) The 12-layout subsets are NOT sufficient for absolute robustness numbers;
 they are sufficient for treatment comparisons. e8 -> consumer duty; its
 duplicate leg2 killed (pod5 owns that arm).
+
+## 2026-08-06 ~01:25 UTC — rephrase16_pi0base_lay12 = 22.57 (first half 25.0)
+pi0base's second half is 2.4 LOWER — WITHIN the A24 band and OPPOSITE in sign
+to pi0rephrase's +4.3. So the layout-half effect is NOT a global "easier
+half": it is executor-dependent. Full-coverage naturals: pi0rephrase 28.45 vs
+pi0base 23.79 — the augmentation gap WIDENS to 4.7 on 24 layouts (was 1.3 on
+0-11); prediction (b) partially rehabilitated: rephrase augmentation does buy
+natural-phrasing robustness, visible only with full layout coverage. Morning
+synthesis owns the full re-read.
