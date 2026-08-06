@@ -476,3 +476,9 @@ Exception: rr16_promptB_qwen (0-11) was ~75% done on pod5 — allowed to finish
 (marginal cost ~1.5h; lands in the results table, not the ladder). e9 + pod5
 -> checkpoint-eval consumers. Natural ladder drops the Qwen cluster; uniform-
 24 conversion proceeds for Claude/Gemini + baselines only.
+
+## Amendment 25 third addendum (2026-08-06 ~02:35 UTC) — Qwen natural arms REINSTATED at end-of-queue (user: "do Qwen. But only at the very end")
+Chains: pod5 = promptB_qwen_lay12 after its current 0-11 leg (~04:15 start);
+e8 = rulesv4_qwen 0-11 re-roll + its lay12, after e8's current Claude-half leg
+(~07:45 start, lands ~20:00). Consumers resume after each chain. Ladder shows
+the Qwen cluster as queued placeholders; converts as cells land.
