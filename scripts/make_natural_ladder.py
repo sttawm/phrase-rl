@@ -20,13 +20,12 @@ ROLES = ["rules-v4", "no rules (prompt B)"]
 # cell = (pooled, IV, OOV, is_partial_0_11) or None (pending)
 MODELS = {
     "Frozen Qwen":  [None, None],
-    "Gemini-Pro":   [(34.33, 40.4, 30.0, True), None],
+    "Gemini-Pro":   [(34.33, 40.4, 30.0, True), (28.91, 39.9, 21.1, True)],
     "Claude Fable": [(30.43, 38.8, 24.4, True), None],
 }
 PENDING = {
     ("Frozen Qwen", 0): "queued (end of line)",
     ("Frozen Qwen", 1): "0-11 finishing; rest queued",
-    ("Gemini-Pro", 1): "rolling — ETA ~03:00",
     ("Claude Fable", 1): "rolling — ETA ~04:00",
 }
 

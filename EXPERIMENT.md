@@ -3305,3 +3305,9 @@ pi0base 23.79 — the augmentation gap WIDENS to 4.7 on 24 layouts (was 1.3 on
 0-11); prediction (b) partially rehabilitated: rephrase augmentation does buy
 natural-phrasing robustness, visible only with full layout coverage. Morning
 synthesis owns the full re-read.
+
+## 2026-08-06 ~02:45 UTC — rr16_promptB_gemini 28.91 (IV 39.9/OOV 21.1): Gemini's rules delta on naturals = +5.4
+Prompt-B bare Gemini already recovers a third of the natural damage (26.30 ->
+28.91 on 0-11); the rules doc adds +5.4 more (-> 34.33). Contrast Claude:
+rules 30.43 (promptB cell lands ~04:00 for its delta). Interim reading: for
+Gemini the rules CONTENT carries most of the repair; bare instinct is modest.
