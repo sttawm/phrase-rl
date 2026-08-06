@@ -3334,3 +3334,14 @@ choice). Both agents' narrations show deep rules engagement (cert citations,
 is intrinsically light-touch relative to Gemini's; not a generation artifact.
 Side-note: ~19% surface variation across independent Claude runs = the noise
 floor for agent-based generation.
+
+## 2026-08-06 ~04:15 UTC — v10step0_repair 29.63: A21 secondary prediction REFUTED — prompt ARCHITECTURE is worth +5.4
+Predicted below unified-bare 24.19 (prompt B strips the deployment sentence +
+plain-name pointer); landed 29.63 — the CoVer skeleton (persona + structure)
+adds +5.4 for the SAME model, condition, and zero knowledge content. The
+unified-bare cell's below-passthrough shock was partly TEMPLATE-specific:
+under prompt B, bare Qwen repairs +3.0 over passthrough. v10 sealed anchor
+pair complete and input-insensitive: polish 29.8 / repair 29.63. Template-
+architecture effects join applier effects in the "knowledge-free choices that
+move points" ledger; adversarial-ladder prompt-B bare cell + chart notes to
+the morning synthesis.
