@@ -52,7 +52,7 @@ a2.set_ylim(20, 50)
 a2.set_xlabel("v10 step")
 a2.set_ylabel("val-8 rollout success (%)")
 n_curve = len([c for c in cells if c["probe"] != "v10_ref"])
-a2.set_title(f"GROUND TRUTH: val-8 rollouts (192 eps/cell) — {n_curve}/28 cells (incl. step-0 base)\nadv>pol at every step so far (repair-shaped gains)", fontsize=9)
+a2.set_title(f"GROUND TRUTH ({n_curve}/28 cells): adv base 38.5 -> peak 45.3 @60 -> ~39-43 late (inverted U)\npolish never leaves its step-0 band (37-39.6) — repair-only gains, partly eroded", fontsize=9)
 a2.legend(fontsize=8, loc="lower right")
 a2.grid(alpha=0.25)
 
