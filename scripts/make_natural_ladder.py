@@ -13,6 +13,7 @@ C_POOL, C_IV, C_OOV = "#a3bffa", "#b2f5ea", "#fed7aa"
 
 REFS = [("original\n(canonical)", (34.38, 44.6, 27.1)),
         ("natural\n(no rewriter)", (26.30, 38.6, 17.5)),
+        ("natural, ALL 24\nlayouts (no rewriter)", (28.45, 41.5, 19.2)),
         ("adversarial ERT\n(no rewriter)", (26.85, 31.5, 23.5))]
 
 ROLES = ["rules-v4", "no rules (prompt B)"]
@@ -78,8 +79,9 @@ ax.set_ylabel("success % on natural rephrases (layouts 0-11)")
 ax.set_ylim(0, 46)
 ax.grid(axis="y", alpha=0.25)
 ax.set_title("Natural-rephrase ladder — rewriter treatments over K=16 human rephrasings "
-             "(executor: rephrase-augmented $\\pi_0$)\nrefs 12 reps; treatment arms 1 rep; "
-             "non-augmented $\\pi_0$ on the same naturals: 25.0 (38.6 / 15.3)", fontsize=9.5)
+             "(executor: rephrase-augmented $\\pi_0$)\ntreatments: layouts 0-11. Full-coverage baselines: "
+             "aug 28.45 (halves 26.3/30.6) vs NON-aug 23.78 (25.0/22.6) — augmentation gap 4.7 at 24 layouts",
+             fontsize=9.2)
 fig.tight_layout()
 fig.savefig("results/charts/natural_ladder.png", dpi=140, bbox_inches="tight", pad_inches=0.25)
 print("chart -> results/charts/natural_ladder.png")
