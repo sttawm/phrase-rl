@@ -10,7 +10,7 @@
   <rect width="1060" height="520" fill="white"/>
 
   <!-- bands -->
-  <rect x="10" y="10" width="588" height="250" rx="14" fill="#f5f3ff" opacity="0.55"/>
+  <rect x="10" y="10" width="588" height="272" rx="14" fill="#f5f3ff" opacity="0.55"/>
   <text x="26" y="34" font-size="13" letter-spacing="2.5" fill="#8b5cf6" font-weight="bold">GENERATE</text>
   <rect x="606" y="10" width="444" height="336" rx="14" fill="#f0f9ff" opacity="0.6"/>
   <text x="1034" y="336" font-size="13" letter-spacing="2.5" fill="#0ea5e9" font-weight="bold" text-anchor="end">EVALUATE</text>
