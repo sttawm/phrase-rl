@@ -20,7 +20,7 @@ ROLES = ["rules-v4", "no rules (prompt B)"]
 # cell = (pooled, IV, OOV, is_partial_0_11) or None (pending)
 MODELS = {
     "Frozen Qwen":  [None, None],
-    "Gemini-Pro":   [(33.92, 42.0, 28.2, False), (28.91, 39.9, 21.1, True)],
+    "Gemini-Pro":   [(33.92, 42.0, 28.2, False), (31.15, 43.6, 22.2, False)],
     "Claude Fable": [(31.18, 40.9, 24.3, False), (29.30, 40.9, 21.0, True)],
 }
 PENDING = {
