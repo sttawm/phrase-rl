@@ -9,24 +9,22 @@ from matplotlib.patches import Patch
 
 C = {"sealed": "#a3bffa", "rr": "#fed7aa", "gen": "#b2f5ea",
      "train": "#d6bcfa", "worker": "#c6f6d5", "setup": "#e2e8f0"}
-NOW = 23.45  # 23:27 UTC
+NOW = 26.0  # 02:00 UTC Aug 6
 
 ROWS = [
-    ("L40S",    [("v10 RL training (prompt B, ~9 min/step; step ~119)", 4.0, 32.0, "train")]),
-    ("old Pod5",[("v10step0_polish DONE 20:50 (29.8)", 7.65, 20.85, "sealed"),
-                 ("Qwen gens DONE+pushed", 20.9, 22.15, "gen"),
-                 ("rr16_promptB_qwen (taken from e8)", 22.2, 28.3, "rr")]),
-    ("Eval 1",  [("setup+smoke", 17.6, 19.4, "setup"), ("v10step0_repair (sealed)", 19.45, 29.3, "sealed")]),
-    ("Eval 2",  [("setup+unblock", 17.6, 20.9, "setup"), ("promptB_gemini_ert (sealed)", 20.95, 30.8, "sealed")]),
-    ("Eval 3",  [("setup+smoke", 17.6, 19.4, "setup"), ("promptB_claude_ert (sealed)", 19.45, 29.3, "sealed")]),
-    ("Eval 4",  [("setup+unblock", 17.6, 20.9, "setup"), ("rr16_promptB_gemini", 20.95, 27.0, "rr")]),
-    ("Eval 5",  [("setup + stalled dl + retry", 17.6, 21.8, "setup"), ("rr16_promptB_claude (restarted)", 22.1, 28.0, "rr")]),
-    ("Eval 6",  [("v10 checkpoint evals — draining 10-90 backlog overnight", 4.0, 32.0, "worker")]),
-    ("Eval 7",  [("setup+smoke", 17.6, 19.4, "setup"), ("rr16_rulesv4_claude 79%", 19.45, 24.3, "rr")]),
-    ("Eval 8",  [("setup", 17.6, 19.4, "setup"), ("rephrase16_pi0rephrase_lay12", 19.45, 25.5, "rr"),
-                 ("(leg moved to old Pod5)", 25.5, 26.2, "setup")]),
-    ("Eval 9",  [("setup", 17.6, 19.4, "setup"), ("rephrase16_pi0base_lay12", 19.45, 25.5, "rr"),
-                 ("rr16_rulesv4_qwen", 25.5, 31.5, "rr")]),
+    ("L40S",    [("v10 RL training (prompt B; step ~135)", 4.0, 34.0, "train")]),
+    ("old Pod5",[("polish DONE 29.8", 7.65, 20.85, "sealed"), ("gens", 20.9, 22.15, "gen"),
+                 ("rr16_promptB_qwen", 22.2, 28.3, "rr")]),
+    ("Eval 1",  [("v10step0_repair (sealed)", 19.45, 29.3, "sealed")]),
+    ("Eval 2",  [("promptB_gemini_ert (sealed)", 20.95, 30.8, "sealed")]),
+    ("Eval 3",  [("promptB_claude_ert (sealed)", 19.45, 29.3, "sealed")]),
+    ("Eval 4",  [("rr16_promptB_gemini", 20.95, 27.0, "rr"), ("promptB_gem_lay12 (chained)", 27.05, 33.1, "rr")]),
+    ("Eval 5",  [("rr16_promptB_claude", 22.1, 28.0, "rr"), ("promptB_cla_lay12 (chained)", 28.05, 34.1, "rr")]),
+    ("Eval 6",  [("v10 checkpoint GEN (rolls -> consumers)", 4.0, 34.0, "worker")]),
+    ("Eval 7",  [("rulesv4_claude DONE 30.4", 19.45, 24.55, "rr"), ("consumer", 24.6, 25.7, "worker"),
+                 ("rulesv4_gemini_lay12", 25.75, 31.8, "rr")]),
+    ("Eval 8",  [("pi0reph_lay12 DONE 30.6", 19.45, 24.85, "rr"), ("rulesv4_claude_lay12", 25.75, 31.8, "rr")]),
+    ("Eval 9",  [("pi0base_lay12 DONE 22.6", 19.45, 24.8, "rr"), ("rr16_rulesv4_qwen", 24.85, 30.9, "rr")]),
 ]
 
 fig, ax = plt.subplots(figsize=(13.5, 6.2))
@@ -37,7 +35,7 @@ for i, (pod, bars) in enumerate(ROWS):
         if e - s > 1.6:
             ax.text((s + e) / 2, y, label, ha="center", va="center", fontsize=7.4, color="#2d3748")
 ax.axvline(NOW, color="#e53e3e", lw=1.4, ls="--")
-ax.text(NOW + 0.1, len(ROWS) - 0.35, "now 23:27", color="#e53e3e", fontsize=8)
+ax.text(NOW + 0.1, len(ROWS) - 0.35, "now 02:00", color="#e53e3e", fontsize=8)
 ax.set_yticks(range(len(ROWS)))
 ax.set_yticklabels([p for p, _ in reversed(ROWS)], fontsize=9.5)
 ticks = list(range(4, 33, 2))
