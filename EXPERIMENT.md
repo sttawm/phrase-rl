@@ -3282,3 +3282,17 @@ vs Gemini's 99% (34.33) — inverting the sealed-adversarial ordering (Claude
 34.26 > Gemini 33.30). Executor-rules interaction is INPUT-DISTRIBUTION-
 dependent, not a fixed ranking. Rewrite-texture diff queued for the morning
 synthesis. e7 -> consumer duty (auto).
+
+## 2026-08-06 ~01:05 UTC — rephrase16_pi0rephrase_lay12 = 30.6: A24 exchangeability REFUTED (+4.3 vs first half)
+Layouts 12-23 are systematically EASIER for natural rephrases than 0-11.
+Consequences, ledgered before the remaining halves land:
+(1) WITHIN-half arm comparisons (all treatment arms share layouts 0-11) remain
+valid — orderings and deltas stand. (2) ABSOLUTE damage estimates shift with
+full coverage: natural-24 = (26.30+30.6)/2 = 28.45 vs ERT-24 26.59 — natural
+sits ~1.9 ABOVE adversarial on full layouts, softening the "natural equals
+adversarial" equality to "natural costs ~3/4 of adversarial damage" (7.6 vs
+9.5 points below originals-24 36.08). Headline framing to be revised in the
+morning synthesis; pi0base second half (~01:30) gets the same treatment.
+(3) The 12-layout subsets are NOT sufficient for absolute robustness numbers;
+they are sufficient for treatment comparisons. e8 -> consumer duty; its
+duplicate leg2 killed (pod5 owns that arm).
