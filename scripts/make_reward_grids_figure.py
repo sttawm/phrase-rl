@@ -20,8 +20,8 @@ FINE = np.array([[fg[f"F{f}_C{c}"]["grip"]["fine_5-10"] for c in FC] for f in FF
 fig, axes = plt.subplots(1, 2, figsize=(12.6, 4.2))
 
 for ax, A, Fs, Cs, title in [
-    (axes[0], COARSE, CF, CC, "coarse spreads"),
-    (axes[1], FINE, FF, FC, "fine spreads"),
+    (axes[0], COARSE, CF, CC, "native-pair exam (n=68, median gap 27pp)"),
+    (axes[1], FINE, FF, FC, "stratified exam, 5-10pp stratum (n=148)"),
 ]:
     im = ax.imshow(A, origin="lower", cmap="viridis", vmin=50, vmax=93, aspect="auto")
     for fi in range(len(Fs)):

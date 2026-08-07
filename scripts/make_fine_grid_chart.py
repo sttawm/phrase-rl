@@ -20,7 +20,7 @@ C_GRID = sorted({int(k.split("_C")[1]) for k in cells})
 BLENDS = [("ens100", "100% ensemble"), ("z75g25", "75% ens / 25% grip"), ("z50g50", "50% ens / 50% grip"),
           ("c4b", "C4b (25% ens / 75% grip)"), ("grip", "100% grip")]
 
-STRATA = [("far_15+", "coarse pairs (>=15pp gaps)"), ("fine_5-10", "fine pairs (5-10pp gaps)")]
+STRATA = [("far_15+", "large-gap stratum (>=15pp, 77% OOV)"), ("fine_5-10", "fine pairs (5-10pp gaps)")]
 fig, axes = plt.subplots(2, 5, figsize=(24, 7.6))
 for ri, (bucket, bname) in enumerate(STRATA):
     for ax, (bl, name) in zip(axes[ri], BLENDS):

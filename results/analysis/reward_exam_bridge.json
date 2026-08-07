@@ -1,0 +1,27 @@
+{
+ "A_native_gate_zero": {
+  "acc": 92.2,
+  "n": 68,
+  "median_gap": 27.1
+ },
+ "B_native_gap15plus": {
+  "acc": 95.1,
+  "n": 59
+ },
+ "C_finebank_far15_native_only": {
+  "acc": 77.4,
+  "n": 334
+ },
+ "D_finebank_far15_all": {
+  "acc": 68.1,
+  "n": 1470
+ },
+ "E_D_minus_cokeplate": {
+  "acc": 80.1,
+  "n": 1086
+ },
+ "F_D_bothplausible": {
+  "acc": 61.8,
+  "n": 1217
+ }
+}
