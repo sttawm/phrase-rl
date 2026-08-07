@@ -1,0 +1,27 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a robotic arm holding a small, red toy sushi roll in its gripper over a white tabletop. On the table, there is a yellow circular plate, a wooden spatula, a red bell pepper toy, and an orange carrot toy.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to place the red toy sushi piece, which it is currently holding, onto the yellow plate on the table.
+
+Original: sushi as many as possible potential replacements: red sushi, red toy sushi, red roll, red sushi piece, food item, red food piece
+Original: plate as many as possible potential replacements: yellow plate, yellow dish, yellow circular plate, yellow saucer
+Original: put as many as possible potential replacements: place, set, move, deposit, drop, transfer, lay, release
+Original: None as many as possible potential replacements: None
+
+Original Instruction:
+put sushi on plate
+
+Incoming instruction: put sushi on plate
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

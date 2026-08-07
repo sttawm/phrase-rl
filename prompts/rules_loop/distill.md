@@ -10,6 +10,9 @@ message alone:
       What the policy's training instructions look like: vocabulary,
       grammatical shape, register, notable absences.
 
+You have a shell as well as file reading. The evidence table is large; aggregate
+it rather than skimming it.
+
   {{evidence_file}}
       Every phrase measured so far, with its estimated success rate, grouped by
       task. This is the full spread, not a summary — read enough of it to see
@@ -17,9 +20,17 @@ message alone:
       real-rollout number it is marked; those are more reliable than estimates.
 
   {{eval_file}}
-      How the PREVIOUS rulebook actually performed: per-rule adherence, the
-      measured single-edit effect of each individual rule, and an auditor's
-      notes. Absent on the first iteration.
+      How the rulebook you are revising actually performed: per-rule adherence,
+      the measured single-edit effect of each individual rule, and an auditor's
+      notes. A .json twin sits beside it if you want to compute over it. Absent
+      on the first iteration.
+
+  {{history_file}}
+      Every rulebook tried in this pass so far, what each scored on both
+      validation sets, and each one's per-rule deltas. Use it to see which
+      changes gained ground and which lost it. If an earlier rulebook scored
+      better than a later one, that regression is evidence: find what the later
+      one changed and do not repeat it.
 
 PREVIOUS RULEBOOK (verbatim; empty on the first iteration):
 {{prev_rules}}

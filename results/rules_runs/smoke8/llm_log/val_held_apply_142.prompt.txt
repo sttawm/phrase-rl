@@ -1,0 +1,26 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image shows a toy kitchen setup with a grey sink basin. Inside the sink, there is a light blue bowl and a yellow plate. Inside the blue bowl, a small grey toy spoon is visible. To the left of the sink, there is a toy stovetop and a toy apple slice.
+The instruction means that the robot should grasp the grey toy spoon from inside the blue bowl (which is in the sink) and remove it.
+
+Original: spoon as many as possible potential replacements: utensil, plastic spoon, grey spoon, toy spoon, grey utensil
+Original: bowl as many as possible potential replacements: blue bowl, blue dish, blue container, dish
+Original: sink as many as possible potential replacements: basin, washbasin, grey sink, sink basin
+Original: take out as many as possible potential replacements: remove, retrieve, lift out, pick up, extract, pull out, grab, get, move out
+Original: Adjectives as many as possible potential replacements: grey, blue, plastic, toy, small
+Original: Adverbs as many as possible potential replacements: none
+
+Original Instruction:
+take spoon out of bowl sink
+
+Incoming instruction: pick up the spoon from the blue bowl in the sink
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

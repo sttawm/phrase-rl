@@ -1,0 +1,69 @@
+You are writing a rulebook for rewriting task instructions given to a robot
+policy. The rulebook will be handed to another language model, which must apply
+it to instructions it has never seen. Your goal is a rulebook that, when applied,
+raises the policy's measured success rate.
+
+You have working files. Read them before you answer — do not rely on this
+message alone:
+
+  /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke8/corpus_stats.md
+      What the policy's training instructions look like: vocabulary,
+      grammatical shape, register, notable absences.
+
+You have a shell as well as file reading. The evidence table is large; aggregate
+it rather than skimming it.
+
+  /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke8/pass_gemini/iter_02/evidence.csv
+      Every phrase measured so far, with its estimated success rate, grouped by
+      task. This is the full spread, not a summary — read enough of it to see
+      within-task variation, not just the extremes. Where a phrase has a
+      real-rollout number it is marked; those are more reliable than estimates.
+
+  /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke8/pass_gemini/iter_00/rules_eval.md
+      How the rulebook you are revising actually performed: per-rule adherence,
+      the measured single-edit effect of each individual rule, and an auditor's
+      notes. A .json twin sits beside it if you want to compute over it. Absent
+      on the first iteration.
+
+  /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke8/pass_gemini/history.md
+      Every rulebook tried in this pass so far, what each scored on both
+      validation sets, and each one's per-rule deltas. Use it to see which
+      changes gained ground and which lost it. If an earlier rulebook scored
+      better than a later one, that regression is evidence: find what the later
+      one changed and do not repeat it.
+
+PREVIOUS RULEBOOK (verbatim; empty on the first iteration):
+===RULES===
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+===RATIONALE===
+1. dry-run stub; numbered here on purpose so the
+   RULES/RATIONALE split is exercised by the smoke test.
+
+
+NOTE: the rulebook you produced at iteration 1 scored WORSE on validation than the one at iteration 0 (0.5595 vs 0.5595). The rulebook shown above is iteration 0's -- the best so far. The attempt that regressed is in your conversation history; treat it as evidence about what does not work.
+
+Guidance:
+- A rule earns its place by evidence. If /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke8/pass_gemini/iter_00/rules_eval.md shows a rule had no
+  measurable effect, or a negative one, remove it or replace it.
+- If a rule is being poorly adhered to, the fix may be to state it more simply
+  rather than to drop it. Poor adherence and poor performance are different
+  failures and have different remedies.
+- Where new evidence contradicts a rule you previously wrote, decide which wins
+  and say so explicitly in the rationale.
+- Prefer stability: a rulebook that changes wholesale every iteration cannot
+  converge. Change what the evidence says to change.
+- Rules must be executable by a model reading them cold, with no access to this
+  evidence and no examples beyond what you write into the rule itself.
+
+Reply in EXACTLY this format, with these two delimiter lines present verbatim
+and nothing before the first one:
+
+===RULES===
+1. <one rule, imperative, self-contained>
+2. <one rule>
+(as many as the evidence supports)
+===RATIONALE===
+<free prose: what changed, what you kept and why, which conflicts you resolved
+and on what evidence. Numbered lines are fine here.>

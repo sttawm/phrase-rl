@@ -139,7 +139,10 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
             # the agent reads its working files itself, Claude-Code style, instead
             # of us pasting summaries into the prompt
             cmd += ["--add-dir", str(add_dir),
-                    "--allowedTools", "Read", "Grep", "Glob"]
+                    # Bash included deliberately: the evidence table is ~1400 rows,
+                    # far past what is reliable to eyeball. With a shell the agent
+                    # can group, filter and correlate it the way we would.
+                    "--allowedTools", "Read", "Grep", "Glob", "Bash"]
         if session:
             marker = run.dir / f".session_{session}"
             if marker.exists():
@@ -363,28 +366,36 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag, only_rule=
 
 
 def write_evidence_file(run, bank, tasks, path):
-    """The full spread per task, not extremes: the distiller needs to see the
-    shape of within-task variation to tell a real effect from a tail."""
-    lines = ["# Measured phrases",
-             "",
-             "Estimated success rate per phrase (0-1), grouped by task, sorted",
-             "worst to best. `[rollout]` marks phrases with a real measured",
-             "success rate rather than an estimate; trust those more.",
-             ""]
-    sub = bank[bank.task.isin(tasks)]
-    for task, g in sub.groupby("task"):
-        g = g.sort_values("proxy")
-        lines.append(f"## {task}   ({len(g)} phrases, "
-                     f"est. {g.proxy.min():.2f}-{g.proxy.max():.2f})")
-        for r in g.itertuples():
-            tag = f"  [rollout {r.gt_success:.0f}%]" if pd.notna(r.gt_success) else ""
-            lines.append(f"  {r.proxy:.3f}  {r.phrase!r}{tag}")
-        lines.append("")
-    Path(path).write_text("\n".join(lines))
+    """The full spread per task as CSV. CSV over JSON deliberately: this table
+    runs to thousands of rows, where JSON's repeated keys triple the tokens and
+    make it harder to grep; and the agent has a shell, so a table it can sort and
+    group beats a structure it must parse by eye. A short README sits beside it."""
+    sub = bank[bank.task.isin(tasks)].copy()
+    sub = sub.sort_values(["task", "proxy"])
+    cols = ["task", "phrase", "proxy", "gt_success", "source"]
+    sub[[c for c in cols if c in sub.columns]].to_csv(path, index=False)
+    Path(str(path) + ".README.md").write_text(
+        "# evidence.csv\n\n"
+        f"{len(sub)} measured phrases across {sub.task.nunique()} tasks, sorted by\n"
+        "task then estimated success.\n\n"
+        "Columns:\n"
+        "  task       the instruction/task the phrase was measured on\n"
+        "  phrase     the exact wording measured\n"
+        "  proxy      estimated success rate, 0-1 (a calibrated estimate)\n"
+        "  gt_success real measured success rate, 0-100, blank if never rolled.\n"
+        "             Where present, trust this over `proxy`.\n"
+        "  source     where the measurement came from\n\n"
+        "You have a shell. Group, sort and aggregate this rather than reading it\n"
+        "row by row -- the within-task SPREAD is the signal, not the extremes.\n")
     return len(sub)
 
 
 def write_eval_file(run, path, rules, per_rule, pairs, base_mean, rules_mean):
+    # machine-readable twin: small and structured, so JSON is the right shape here
+    jwrite(Path(str(path).replace(".md", ".json")),
+           {"whole_rulebook": {"with_rules": rules_mean, "unrephrased": base_mean,
+                               "delta": rules_mean - base_mean},
+            "per_rule": per_rule, "samples": pairs})
     lines = ["# Previous rulebook: measured performance", "",
              f"Whole rulebook applied: estimated success {rules_mean:.3f} vs "
              f"{base_mean:.3f} for the unrephrased instruction "
@@ -549,6 +560,50 @@ def plot_progress(run, pdir, rephraser):
     plt.close(fig)
 
 
+def write_history_file(run, pdir, path):
+    """Every rulebook this pass has tried, with what it scored and what its rules
+    measured. This is how a regression becomes usable evidence: the distiller can
+    see WHICH rulebook lost ground and by how much, next to the rules each one
+    contained -- not just that the last attempt was worse."""
+    rows = []
+    for sf in sorted(pdir.glob("iter_*/scores.json")):
+        it = int(sf.parent.name.split("_")[1])
+        sc = jread(sf)
+        rec = {"iter": it, **{k: sc.get(k) for k in ("train", "val_held", "val8", "val_avg")},
+               "delta": sc.get("delta", {})}
+        ej = sf.parent / "rules_eval.json"
+        if ej.exists():
+            e = jread(ej)
+            rec["n_rules"] = len(e.get("per_rule", {}))
+            rec["per_rule_delta"] = {k: round(v["delta_proxy"], 4)
+                                     for k, v in (e.get("per_rule") or {}).items()}
+        rf = pdir / f"rules_{it:02d}.md"
+        if rf.exists():
+            rec["rules_file"] = str(rf)
+        rows.append(rec)
+    best = max(rows, key=lambda r: r.get("val_avg") or -1e9) if rows else None
+    lines = ["# What every rulebook in this pass has scored", ""]
+    if rows:
+        lines += ["| iter | val_held | val8 | val_avg | vs best | rules | rulebook |",
+                  "|------|----------|------|---------|---------|-------|----------|"]
+        for r in rows:
+            mark = "  BEST" if best and r["iter"] == best["iter"] else \
+                f"{(r.get('val_avg') or 0) - (best.get('val_avg') or 0):+.4f}"
+            lines.append(f"| {r['iter']} | {r.get('val_held', float('nan')):.4f} | "
+                         f"{r.get('val8', float('nan')):.4f} | "
+                         f"{r.get('val_avg', float('nan')):.4f} | {mark} | "
+                         f"{r.get('n_rules', '?')} | {Path(r.get('rules_file', '-')).name} |")
+        lines += ["", "Per-rule single-edit deltas by iteration "
+                      "(rule numbering is per-rulebook and does NOT carry across "
+                      "iterations -- match rules by their text, in the rulebook files):", ""]
+        for r in rows:
+            if r.get("per_rule_delta"):
+                lines.append(f"- iter {r['iter']}: " +
+                             ", ".join(f"{k}={v:+.4f}" for k, v in r["per_rule_delta"].items()))
+    Path(path).write_text("\n".join(lines) + "\n")
+    return len(rows)
+
+
 # --- main loop ---------------------------------------------------------------
 def main():
     ap = argparse.ArgumentParser()
@@ -609,8 +664,12 @@ def main():
             b = json.loads(line)
             support[b["instruction"]] = max(support.get(b["instruction"], 0),
                                             int(b.get("club_eps", 0)))
+    # only tasks we hold a scene description for: traces are expensive and we are
+    # reusing the existing bank rather than generating more (187 of the 213)
+    have_trace = set(load_traces())
     tasks = sorted(t for t in bank.task.unique() if t not in VAL8_TASKS
-                   and support.get(t, 0) >= cfg["min_eps_per_task"])
+                   and support.get(t, 0) >= cfg["min_eps_per_task"]
+                   and (t in have_trace or run.dry))
     dropped = bank.task.nunique() - len(tasks) - len(VAL8_TASKS)
     print(f"[{run.id}] task support floor >={cfg['min_eps_per_task']} eps: "
           f"{len(tasks)} training tasks admitted, {dropped} dropped (recorded in splits.json)")
@@ -657,7 +716,7 @@ def main():
                 rules = rp.read_text()
             else:
                 bank = pd.read_parquet(run.dir / "bank.parquet")
-                ev_file = itdir / "evidence.md"
+                ev_file = itdir / "evidence.csv"
                 n_ev = write_evidence_file(run, bank, train_tasks, ev_file)
                 src_iter = st["best_iter"] if (cfg.get("rollback_on_regress", True)
                                                and st["since_best"] > 0
@@ -686,9 +745,11 @@ def main():
                                 f"iteration {st['best_iter']}'s -- the best so far. The "
                                 f"attempt that regressed is in your conversation history; "
                                 f"treat it as evidence about what does not work.")
+                hist_file = pdir / "history.md"
+                write_history_file(run, pdir, hist_file)
                 dp = prompt_from("distill.md", prev_rules=base_rules + note,
                                  corpus_file=corpus_file, evidence_file=ev_file,
-                                 eval_file=prev_eval)
+                                 eval_file=prev_eval, history_file=hist_file)
                 print(f"    distilling over {n_ev} measured phrases "
                       f"({len(train_tasks)} tasks) ...")
                 rules = call_llm(run, cfg["distiller"], dp, f"{rephraser}_distill",
