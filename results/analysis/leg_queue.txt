@@ -1,2 +1,2 @@
-rr16_rulesv3_gemini|results/sealed/ph_rr16_rulesv3_gemini.parquet|rr|first
-rr16_rulesv3_gemini_lay12|results/sealed/ph_rr16_rulesv3_gemini.parquet|rr|second
+rr16_rulesv3_claude|results/sealed/ph_rr16_rulesv3_claude.parquet|rr|first
+rr16_rulesv3_claude_lay12|results/sealed/ph_rr16_rulesv3_claude.parquet|rr|second

@@ -55,11 +55,20 @@ echo = int((m.str.lower().str.strip() == s.str.lower().str.strip()).sum())
 
 print(f"rows {len(df)} | tasks {df.task.nunique()} | per task {len(df) // df.task.nunique()}")
 print(f"empty {n_empty} | echo-input {echo} | words mean {w.mean():.1f} max {w.max()}")
-q = qw.set_index(["task", "k"]).phrase
-print(f"identical to the qwen v3 arm: {100 * (m == q).mean():.1f}%")
+def overlap(other, label):
+    """align on the shared (task, k) index -- v4 arms may cover a different set"""
+    o = other.set_index(["task", "k"]).phrase
+    j = m.to_frame("a").join(o.rename("b"), how="inner")
+    if not len(j):
+        print(f"identical to {label}: (no shared rows)")
+        return
+    same = (j.a.str.strip() == j.b.str.strip()).mean()
+    print(f"identical to {label}: {100 * same:.1f}%  -> {100 * (1 - same):.1f}% differ "
+          f"(n={len(j)})")
+
+overlap(qw, "the qwen v3 arm")
 if v4 is not None:
-    print(f"identical to the claude v4 arm: {100 * (m == v4.set_index(['task', 'k']).phrase).mean():.1f}%"
-          f"  -> {100 * (1 - (m == v4.set_index(['task', 'k']).phrase).mean()):.1f}% differ")
+    overlap(v4, "the claude v4 arm")
 
 if fail:
     print("\nPREFLIGHT FAILED:")
