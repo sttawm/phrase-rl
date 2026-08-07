@@ -529,3 +529,10 @@ v11: GRPO on NATURAL rephrases only. Design deltas vs v10:
   natural-input val condition (primary) and pol/adv secondaries; n=384 at
   every 20th step; stop rule: no new natural-val peak in 60 steps.
 - Sealed exposure: NONE at launch; nomination + sealed arms by later amendment.
+
+### A27 update (2026-08-07, pre-launch)
+
+- Rules constant renamed cover_prompt.MINI_RULES -> QWEN_MINI_RULES (mechanical).
+- Input mix REVISED by user before launch: 25% original / 50% natural / 25%
+  adversarial (--source-mix 0.25,0.5,0.25), replacing naturals-only. ERT tier
+  reuses the v10 hostile sources + ERT-derived traces (leakage firewall).

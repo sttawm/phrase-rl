@@ -46,7 +46,7 @@ tmux new-session -d -s train \
      --ckpt-dir results/checkpoints/phase2_v11 \
      --prompt-family bplus \
      --reward-mode verifier --reward-frames ${REWARD_FRAMES:-4} \
-     --source-mix 0,1,0 \
+     --source-mix 0.25,0.5,0.25 \
      --input-dropout 0.5 \
      --adaptive-contexts \
      --replay-groups 8 --replay-window 50 --replay-clip 0.2 --replay-max-reuse 6 \

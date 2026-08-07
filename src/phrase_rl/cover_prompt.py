@@ -386,7 +386,7 @@ def build_single_phrase_prefix_bare(instruction: str, trace: str | None = None) 
         {"role": "assistant", "content": ""},
     ]
 
-MINI_RULES = """Rewriting rules (derived from measured robot-policy behavior; apply in order):
+QWEN_MINI_RULES = """Rewriting rules (derived from measured robot-policy behavior; apply in order):
 1. Default: if the instruction is already a short, plain command with common object names, return it UNCHANGED. Most inputs need no edit.
 2. Object names are sacred. Use the scene analysis to identify each object, then name it with its plain common word (the one a kitchen dataset would use). Never swap a correct common name for a synonym (keep cube, basket, plate, wheel as-is).
 3. If an object is described instead of named, or named with a rare/specialist word, replace the description with the common word for what it looks like, and add one basic color word before it (e.g. "the white bowl").
@@ -397,7 +397,7 @@ MINI_RULES = """Rewriting rules (derived from measured robot-policy behavior; ap
 8. If the instruction offers choices or hedges ("X or Y", "which is..."), commit to the single object the scene shows.
 9. Output one short imperative sentence, ideally "put/place/set the X on/in the Y", under 12 words, with articles ("the") kept, never mentioning the robot, arm, or gripper."""
 
-PROMPT_BPLUS_SYSTEM = PROMPT_B_SYSTEM + "\n\n" + MINI_RULES
+PROMPT_BPLUS_SYSTEM = PROMPT_B_SYSTEM + "\n\n" + QWEN_MINI_RULES
 
 
 def build_single_phrase_prefix_bplus(instruction: str, trace: str | None = None) -> list:
