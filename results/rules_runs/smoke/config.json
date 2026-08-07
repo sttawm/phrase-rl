@@ -1,0 +1,27 @@
+{
+ "run_id": "smoke",
+ "created": "2026-08-07 14:27",
+ "seed": 7,
+ "patience": 2,
+ "max_iters": 3,
+ "sample_n": 24,
+ "single_edit_n": 8,
+ "contexts_per_task": 5,
+ "rephrasers": [
+  "gemini"
+ ],
+ "distiller": "claude",
+ "judge": "claude",
+ "proxy": {
+  "C": 8.123,
+  "bz": 0.4445,
+  "bg": 11.3193
+ },
+ "prompt_hashes": {
+  "apply.md": "136e32e359ed",
+  "apply_single.md": "8711065ae783",
+  "distill.md": "7cf26f7cf337",
+  "judge.md": "daa18f607df3",
+  "plan.md": "62303f473b79"
+ }
+}

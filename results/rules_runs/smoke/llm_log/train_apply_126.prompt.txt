@@ -1,0 +1,9 @@
+[dry-run:claude] f64c3788eeaa
+
+---
+
+Apply the rules above.
+
+Incoming instruction: put the small spatula into the blue bowl
+
+Reply with ONLY the rewritten instruction.

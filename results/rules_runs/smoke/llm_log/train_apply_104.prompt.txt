@@ -1,0 +1,9 @@
+[dry-run:claude] f64c3788eeaa
+
+---
+
+Apply the rules above.
+
+Incoming instruction: touch the orange carrot on the right stove grate
+
+Reply with ONLY the rewritten instruction.

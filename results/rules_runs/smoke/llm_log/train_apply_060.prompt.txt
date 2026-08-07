@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: slide the orange rag to the left
+
+Reply with ONLY the rewritten instruction.

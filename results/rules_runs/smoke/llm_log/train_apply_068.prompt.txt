@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: pick up the green squash and put it in the pot
+
+Reply with ONLY the rewritten instruction.

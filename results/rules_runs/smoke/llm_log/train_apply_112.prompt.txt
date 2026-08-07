@@ -1,0 +1,9 @@
+[dry-run:claude] f64c3788eeaa
+
+---
+
+Apply the rules above.
+
+Incoming instruction: move the pot of fake food to the sink
+
+Reply with ONLY the rewritten instruction.

@@ -1,0 +1,9 @@
+[dry-run:claude] f53efc44d5a9
+
+---
+
+Apply the rules above.
+
+Incoming instruction: place the blue block on the top edge of the cloth
+
+Reply with ONLY the rewritten instruction.

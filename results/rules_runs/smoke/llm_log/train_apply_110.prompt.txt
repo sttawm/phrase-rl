@@ -1,0 +1,9 @@
+[dry-run:claude] f64c3788eeaa
+
+---
+
+Apply the rules above.
+
+Incoming instruction: pick up the violet hex key
+
+Reply with ONLY the rewritten instruction.

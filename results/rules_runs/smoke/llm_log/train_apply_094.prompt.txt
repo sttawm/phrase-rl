@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: fold the blue cloth down diagonally to the bottom right
+
+Reply with ONLY the rewritten instruction.

@@ -1,0 +1,9 @@
+[dry-run:claude] f64c3788eeaa
+
+---
+
+Apply the rules above.
+
+Incoming instruction: pick up blue pen and put into drawer
+
+Reply with ONLY the rewritten instruction.
