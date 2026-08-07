@@ -18,8 +18,8 @@
 # a val split of ~8 tasks x 24 layouts of rollouts is +-3.5pp, larger than the
 # effects we are chasing.
 #
-# NOTE ON VAL8: round 1 early-stops on it, round 2 trains on it. Report BOTH val8
-# numbers -- the round-1 rules (proxy-distilled, val8 seen only through early
+# NOTE ON VAL8: round 1 early-stops on it (jointly with the held-out training
+# tasks), round 2 trains on it. Report BOTH val8 numbers -- the round-1 rules (proxy-distilled, val8 seen only through early
 # stopping) and the round-2 rules (distilled against val8 rollouts). The gap
 # between them is exactly what real rollout data bought, which is worth knowing.
 # Neither is clean held-out by the end: the sealed set certifies the final rules.
@@ -41,10 +41,18 @@ def generate_phrases(task):
 
 # only pay for phrases the bank does not already cover
 task_phrases = [generate_phrases(task) for task in tasks if not covered(scored_bank, task)]
-train_split, val_split = split(task_phrases + scored_bank)   # round 1: val_split IS val8
+
+# TWO validation sets in round 1, answering different questions:
+#   val_held -- held-out tasks from the training pool: does a rule generalize
+#               in-distribution, to tasks the distiller never saw?
+#   val8     -- the sim val tasks, the only split with real rollout ground truth
+# Report both, and their average. Early-stop on the average so neither one's
+# noise alone can end the run.
+train_split, val_held = split(task_phrases + scored_bank)
 
 train_split_eval = random_sample(train_split, n=SAMPLE_N)
-val_split_eval = val_split
+val_held_eval = val_held
+val8_eval = val8
 
 # all scoring is CRN-seeded: the same (task, layout, rep) draws the same policy
 # noise for every phrase, so phrase contrasts are not swamped by decode variance
@@ -92,16 +100,18 @@ for rephraser in [qwen, claude, gemini]:
    scores_train += evaluated_phrases
    scored_bank += evaluated_phrases        # shared across passes
 
-   # Eval on validation data
-   val_score, _, _ = eval(rephraser, rules, val_split_eval)
-   val_scores.append((rules, val_score))
+   # Eval on both validation sets
+   val_held_score, _, _ = eval(rephraser, rules, val_held_eval)
+   val8_score, _, _ = eval(rephraser, rules, val8_eval)
+   val_score = mean(val_held_score, val8_score)
+   val_scores.append((rules, val_held_score, val8_score, val_score))
 
    if val_score > best_val:
      best_val, best_rules, since_best = val_score, rules, 0
    else:
      since_best += 1
 
-   plot(train_score, val_score)
+   plot(train_score, val_held_score, val8_score)
 
    # keeps the phrase bank from collapsing onto whatever the current rules emit:
    # the distiller proposes probes into regions it has little evidence about
