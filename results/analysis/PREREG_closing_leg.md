@@ -511,3 +511,21 @@ Rationale: the completed 31-cell val curve reads as ambiguous between
 rather than validate a possibly-noise-nominated checkpoint, the run RESUMES
 from step ~256 with continued stride-10 checkpoint evaluation. A future
 sealed validation will re-nominate on the extended curve.
+
+## Amendment 27 (2026-08-07 ~04:30) — v11 LAUNCH PLAN (pre-registered before generation)
+
+v11: GRPO on NATURAL rephrases only. Design deltas vs v10:
+- Prompt family "bplus" = prompt B + a data-shrunk mini-rules digest (9 rules,
+  authored from rules-v4 + its derivation data; frozen in cover_prompt.MINI_RULES).
+- Input tier: naturals ONLY (--source-mix 0,1,0), input-dropout 0.5 retained.
+  Training naturals: trace-conditioned, knowledge-free prompt, authored by
+  CLAUDE (K=3) + QWEN (K=3) per unique training instruction (1,361) —
+  generator-disjoint from the frozen eval naturals (gemini-pro, image-cond).
+  Training naturals are trace-conditioned (the policy's own observability);
+  eval naturals image-conditioned (strictly harder). Preflight: side-by-side
+  register stats (length, attribute rate) before training.
+- Reward: c4b (0.25 ensemble + 0.75 grip rank), C=5, F=4.
+- Cold start from base Qwen. Eval: stride-10 checkpoint cells, both new
+  natural-input val condition (primary) and pol/adv secondaries; n=384 at
+  every 20th step; stop rule: no new natural-val peak in 60 steps.
+- Sealed exposure: NONE at launch; nomination + sealed arms by later amendment.

@@ -385,3 +385,27 @@ def build_single_phrase_prefix_bare(instruction: str, trace: str | None = None) 
                                       "text": PROMPT_B_USER.format(trace=(trace or "(none provided)"), src=instruction)}]},
         {"role": "assistant", "content": ""},
     ]
+
+MINI_RULES = """Rewriting rules (derived from measured robot-policy behavior; apply in order):
+1. Default: if the instruction is already a short, plain command with common object names, return it UNCHANGED. Most inputs need no edit.
+2. Object names are sacred. Use the scene analysis to identify each object, then name it with its plain common word (the one a kitchen dataset would use). Never swap a correct common name for a synonym (keep cube, basket, plate, wheel as-is).
+3. If an object is described instead of named, or named with a rare/specialist word, replace the description with the common word for what it looks like, and add one basic color word before it (e.g. "the white bowl").
+4. Keep brand names exactly (a coke can stays "coke can" — never "soda can").
+5. Never use category words: object, thing, item, container, vegetable, utensil. Never name a part for the whole (say "keyboard", not "keys").
+6. Keep any adjectives the instruction already has; do not add new ones except rule 3's color. Reduce fancy colors to basic words (teal-green -> green).
+7. Remove manner and precision words you would otherwise carry over: exactly, centered, carefully, gently, neatly, in the middle.
+8. If the instruction offers choices or hedges ("X or Y", "which is..."), commit to the single object the scene shows.
+9. Output one short imperative sentence, ideally "put/place/set the X on/in the Y", under 12 words, with articles ("the") kept, never mentioning the robot, arm, or gripper."""
+
+PROMPT_BPLUS_SYSTEM = PROMPT_B_SYSTEM + "\n\n" + MINI_RULES
+
+
+def build_single_phrase_prefix_bplus(instruction: str, trace: str | None = None) -> list:
+    """Prompt B+ (v11, 2026-08-07): prompt B with the data-shrunk mini rules
+    appended to the system block; user block identical to prompt B."""
+    return [
+        {"role": "system", "content": [{"type": "text", "text": PROMPT_BPLUS_SYSTEM}]},
+        {"role": "user", "content": [{"type": "text",
+                                      "text": PROMPT_B_USER.format(trace=(trace or "(none provided)"), src=instruction)}]},
+        {"role": "assistant", "content": [{"type": "text", "text": ""}]},
+    ]

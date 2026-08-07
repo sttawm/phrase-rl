@@ -370,8 +370,11 @@ def pick_source_and_trace(args, row, instruction, nominal_trace, forced=None):
 def build_prefix(args, instruction, image, trace):
     """Route to the prompt family (v10: --prompt-family bare = prompt B,
     text-only, no image; default cover = the CoVer scaffold)."""
-    if getattr(args, "prompt_family", "cover") == "bare":
+    fam = getattr(args, "prompt_family", "cover")
+    if fam == "bare":
         return cover_prompt.build_single_phrase_prefix_bare(instruction, trace=trace)
+    if fam == "bplus":
+        return cover_prompt.build_single_phrase_prefix_bplus(instruction, trace=trace)
     return cover_prompt.build_single_phrase_prefix(instruction=instruction, image=image, trace=trace)
 
 
@@ -1425,7 +1428,7 @@ def main():
                     help="v9: PPO clip epsilon on the replayed mean-logp ratio")
     ap.add_argument("--replay-max-reuse", type=int, default=6,
                     help="v9: max times one group may be replayed")
-    ap.add_argument("--prompt-family", choices=["cover", "bare"], default="cover",
+    ap.add_argument("--prompt-family", choices=["cover", "bare", "bplus"], default="cover",
                     help="v10: 'bare' = prompt B (CoVer skeleton, all rules/few-shots removed, "
                          "NO image, single-line contract); default 'cover' = the CoVer scaffold")
     ap.add_argument("--trace-dropout", type=float, default=0.0,
