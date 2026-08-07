@@ -3,6 +3,10 @@
 # archived v11 checkpoint and roll them on the NATURAL-input val probe (primary
 # metric). One pod does both roles — no claims, no fan-out.
 #   STRIDE=10 bash scripts/v11_eval_loop.sh
+set -uo pipefail
+eval "$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc || true)"
+export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
+export VLA_DATA_DIR=/workspace/vla_data VLA_LOG_DIR=/workspace/vla_log WANDB_MODE=offline
 cd /workspace/phrase-rl
 GEN=/workspace/phrase-rl/.venv-gen/bin/python
 VLA=/workspace/INT-ACT/.venv/bin/python
