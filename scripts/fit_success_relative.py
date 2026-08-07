@@ -40,11 +40,20 @@ def norm_minmax(s):
     lo, hi = s.min(), s.max()
     return (s - lo) / (hi - lo) if hi > lo else s * 0 + 0.5
 
+def norm_zeromax(s):
+    """0 as the floor: a phrase can always fail, so the only meaningful anchor is
+    the task's best phrase. One anchor per task instead of two, and no dependence
+    on the noisiest observation (the worst phrase)."""
+    hi = s.max()
+    return s / hi if hi > 0 else s * 0
+
+
 def norm_p10p90(s):
     lo, hi = s.quantile(0.10), s.quantile(0.90)
     return ((s - lo) / (hi - lo)).clip(0, 1) if hi > lo else s * 0 + 0.5
 
 X["rel_minmax"] = X.groupby("task").gt_success.transform(norm_minmax)
+X["rel_zeromax"] = X.groupby("task").gt_success.transform(norm_zeromax)
 X["rel_p1090"] = X.groupby("task").gt_success.transform(norm_p10p90)
 # within-task normalizations of the PREDICTORS (so one global slope is meaningful)
 X["zr"] = X.groupby("task").z.rank(pct=True)
@@ -82,7 +91,13 @@ def fit(name, target, cols):
     p = 1 / (1 + np.exp(-np.clip(D @ b, -30, 30)))
     r2 = 1 - ((y - p) ** 2).sum() / ((y - y.mean()) ** 2).sum()
     # convert error back to absolute pp using each task's own span
-    span = X.groupby("task").gt_success.transform(lambda s: s.max() - s.min()).values
+    if target == "rel_zeromax":
+        span = X.groupby("task").gt_success.transform("max").values
+    elif target == "rel_p1090":
+        span = X.groupby("task").gt_success.transform(
+            lambda s: s.quantile(0.90) - s.quantile(0.10)).values
+    else:
+        span = X.groupby("task").gt_success.transform(lambda s: s.max() - s.min()).values
     mae_pp = np.abs((y - p) * span).mean()
     print(f"--- {name}")
     for c, v in zip(["intercept"] + cols, b):
@@ -94,7 +109,7 @@ def fit(name, target, cols):
 
 print()
 res = {}
-for tgt in ("rel_minmax", "rel_p1090"):
+for tgt in ("rel_minmax", "rel_zeromax", "rel_p1090"):
     for cols, nm in [(["c4b"], "c4b rank"), (["zr", "gr_"], "z-rank + grip-rank"),
                      (["zs", "gs"], "z-score + grip-score")]:
         b, r2 = fit(f"{tgt}  ~  {nm}", tgt, cols)
