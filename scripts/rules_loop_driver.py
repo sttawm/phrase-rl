@@ -374,9 +374,12 @@ def main():
     ap.add_argument("--contexts-per-task", type=int, default=16,
                     help="C cap: episodes per task")
     ap.add_argument("--frames-per-episode", type=int, default=4,
-                    help="F floor (the proxy calibration's F). When a task has "
-                         "fewer episodes than the C cap, F rises to spend the "
-                         "budget: F = clamp(budget/C, this, 16)")
+                    help="F floor. Measured: F saturates at 4-5 (F=4->5 buys "
+                         "0-1pp at C>=16), so 4 is the operating point, not a "
+                         "compromise. The club table holds exactly 4 frames per "
+                         "episode, so all 213 search tasks score at F=4 C=16. "
+                         "F only rises above this for C-starved multit16 tasks: "
+                         "F = clamp(budget/C, this, 16)")
     ap.add_argument("--min-eps-per-task", type=int, default=8,
                     help="training-task support floor (same episode-count criterion as the search)")
     ap.add_argument("--seed", type=int, default=7)
