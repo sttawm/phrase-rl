@@ -1,40 +1,79 @@
 {
- "bands": {
-  "0-5 (ties)": {
-   "raw": 51.8,
-   "balanced": 53.4,
-   "pairs": 962
-  },
-  "5-10": {
-   "raw": 58.8,
-   "balanced": 62.2,
-   "pairs": 1071
-  },
-  "10-15": {
-   "raw": 62.1,
-   "balanced": 69.3,
-   "pairs": 822
-  },
-  "15-25": {
-   "raw": 63.7,
-   "balanced": 73.3,
-   "pairs": 787
-  },
-  "25+": {
-   "raw": 73.1,
-   "balanced": 85.3,
-   "pairs": 683
-  }
+ "raw|0-5 (ties)": {
+  "ens100": 55.1,
+  "z75g25": 55.4,
+  "z50g50": 54.3,
+  "c4b": 52.5,
+  "grip": 51.8
  },
- "unconditional": 61.0,
- "tasks_all_bands": [
-  "widowx_carrot_on_keyboard_clean",
-  "widowx_carrot_on_plate",
-  "widowx_carrot_on_wheel_clean",
-  "widowx_coke_can_on_plate_clean",
-  "widowx_coke_can_on_ramekin_clean",
-  "widowx_put_eggplant_in_basket",
-  "widowx_spoon_on_towel",
-  "widowx_stack_cube"
- ]
+ "raw|5-10": {
+  "ens100": 61.8,
+  "z75g25": 62.7,
+  "z50g50": 61.5,
+  "c4b": 59.7,
+  "grip": 58.8
+ },
+ "raw|10-15": {
+  "ens100": 64.9,
+  "z75g25": 66.7,
+  "z50g50": 65.8,
+  "c4b": 63.3,
+  "grip": 62.1
+ },
+ "raw|15-25": {
+  "ens100": 70.1,
+  "z75g25": 70.9,
+  "z50g50": 67.9,
+  "c4b": 65.6,
+  "grip": 63.7
+ },
+ "raw|25+": {
+  "ens100": 87.2,
+  "z75g25": 88.6,
+  "z50g50": 83.6,
+  "c4b": 76.8,
+  "grip": 73.1
+ },
+ "balanced|0-5 (ties)": {
+  "ens100": 54.1,
+  "z75g25": 54.7,
+  "z50g50": 54.6,
+  "c4b": 53.8,
+  "grip": 53.4
+ },
+ "balanced|5-10": {
+  "ens100": 61.3,
+  "z75g25": 62.7,
+  "z50g50": 63.0,
+  "c4b": 62.7,
+  "grip": 62.2
+ },
+ "balanced|10-15": {
+  "ens100": 60.6,
+  "z75g25": 63.4,
+  "z50g50": 66.3,
+  "c4b": 68.4,
+  "grip": 69.3
+ },
+ "balanced|15-25": {
+  "ens100": 69.6,
+  "z75g25": 72.7,
+  "z50g50": 74.3,
+  "c4b": 74.6,
+  "grip": 73.3
+ },
+ "balanced|25+": {
+  "ens100": 77.5,
+  "z75g25": 81.6,
+  "z50g50": 85.5,
+  "c4b": 85.6,
+  "grip": 85.3
+ },
+ "unconditional": {
+  "ens100": 66.4,
+  "z75g25": 67.4,
+  "z50g50": 65.4,
+  "c4b": 62.6,
+  "grip": 61.0
+ }
 }

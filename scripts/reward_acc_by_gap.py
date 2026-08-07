@@ -37,12 +37,14 @@ for t, sub in feats.groupby("task"):
     eps = sorted(sub.episode_index.unique())
     ts = sorted(sub.t.unique())
     G = np.full((len(keys), len(eps), len(ts)), np.nan)
+    Z = np.full_like(G, np.nan)
     ki = {k: i for i, k in enumerate(keys)}
     ei = {e: i for i, e in enumerate(eps)}
     ti = {x: i for i, x in enumerate(ts)}
     for r in sub.itertuples():
         G[ki[r.phrase], ei[r.episode_index], ti[r.t]] = r.grip_row
-    states[t] = dict(G=G, ki=ki, n_eps=len(eps),
+        Z[ki[r.phrase], ei[r.episode_index], ti[r.t]] = r.z_row
+    states[t] = dict(G=G, Z=Z, ki=ki, n_eps=len(eps),
                      t_avail={ei[e]: np.where(~np.isnan(G[:, ei[e], :]).all(axis=0))[0] for e in eps})
 
 # all pairs with their gap, no filtering
@@ -53,47 +55,69 @@ for t, s in states.items():
         better, worse = (p1, p2) if s1 > s2 else (p2, p1)
         allpairs[t].append((better, worse, abs(s1 - s2)))
 
+BLENDS = ("ens100", "z75g25", "z50g50", "c4b", "grip")
 rng = np.random.default_rng(11)
-hits = {t: {b[0]: [0, 0] for b in BANDS} for t in states}
-uncond = [0, 0]
+hits = {bl: {t: {b[0]: [0, 0] for b in BANDS} for t in states} for bl in BLENDS}
+uncond = {bl: [0, 0] for bl in BLENDS}
 for _ in range(B):
     for t, s in states.items():
         elig = [e for e in range(s["n_eps"]) if len(s["t_avail"][e]) >= 1]
         epick = rng.choice(elig, size=min(C, len(elig)), replace=False)
-        gsel = []
+        gsel, zsel = [], []
         for e in epick:
             fp = rng.choice(s["t_avail"][e], size=min(F, len(s["t_avail"][e])), replace=False)
             gsel.append(np.nanmean(s["G"][:, e, :][:, fp], axis=1))
+            zsel.append(np.nanmean(s["Z"][:, e, :][:, fp], axis=1))
         g = np.nanmean(np.stack(gsel), axis=0)
-        sc = np.argsort(np.argsort(-g)) / max(len(g) - 1, 1)  # rank01, lower grip err = better
-        for better, worse, gap in allpairs[t]:
-            sb, sw = sc[s["ki"][better]], sc[s["ki"][worse]]
-            if np.isnan(sb) or np.isnan(sw):
-                continue
-            ok = int(sb > sw)
-            uncond[0] += ok
-            uncond[1] += 1
-            for name, lo, hi in BANDS:
-                if lo <= gap < hi:
-                    hits[t][name][0] += ok
-                    hits[t][name][1] += 1
+        z = np.nanmean(np.stack(zsel), axis=0)
+        r01 = lambda x: np.argsort(np.argsort(x)) / max(len(x) - 1, 1)
+        g01, z01 = r01(-g), r01(z)
+        SC = {"ens100": z01, "z75g25": 0.75 * z01 + 0.25 * g01,
+              "z50g50": 0.5 * z01 + 0.5 * g01,
+              "c4b": 0.25 * z01 + 0.75 * g01, "grip": g01}
+        for bl in BLENDS:
+            sc = SC[bl]
+            for better, worse, gap in allpairs[t]:
+                sb, sw = sc[s["ki"][better]], sc[s["ki"][worse]]
+                if np.isnan(sb) or np.isnan(sw):
+                    continue
+                ok = int(sb > sw)
+                uncond[bl][0] += ok
+                uncond[bl][1] += 1
+                for name, lo, hi in BANDS:
+                    if lo <= gap < hi:
+                        hits[bl][t][name][0] += ok
+                        hits[bl][t][name][1] += 1
 
-present = [t for t in states if all(hits[t][b[0]][1] > 0 for b in BANDS)]
-print(f"grip-only F={F} C={C}; {len(states)} tasks, {len(present)} have pairs in every band\n")
-print(f"{'gap band':<12} {'raw %':>7} {'balanced %':>11} {'pairs':>7}")
-rows = {}
-for name, lo, hi in BANDS:
-    hh = sum(hits[t][name][0] for t in states)
-    nn = sum(hits[t][name][1] for t in states)
-    per = [100 * hits[t][name][0] / hits[t][name][1] for t in present]
-    raw = 100 * hh / nn if nn else float("nan")
-    bal = float(np.mean(per)) if per else float("nan")
-    rows[name] = dict(raw=round(raw, 1), balanced=round(bal, 1), pairs=nn // B)
-    print(f"{name:<12} {raw:7.1f} {bal:11.1f} {nn // B:7d}")
+present = [t for t in states if all(hits["grip"][t][b[0]][1] > 0 for b in BANDS)]
+out = {}
+for mode in ("raw", "balanced"):
+    print(f"\n=== {mode.upper()} — F={F} C={C}, {len(states)} tasks"
+          + ("" if mode == "raw" else f", macro-avg over {len(present)} tasks") + " ===")
+    print(f"{'gap band':<12} " + "".join(f"{b:>9}" for b in BLENDS) + f"{'pairs':>8}")
+    for name, lo, hi in BANDS:
+        cells = []
+        for bl in BLENDS:
+            if mode == "raw":
+                hh = sum(hits[bl][t][name][0] for t in states)
+                nn = sum(hits[bl][t][name][1] for t in states)
+                cells.append(100 * hh / nn if nn else float("nan"))
+            else:
+                cells.append(float(np.mean([100 * hits[bl][t][name][0] / hits[bl][t][name][1]
+                                            for t in present])))
+        nn = sum(hits["grip"][t][name][1] for t in states) // B
+        out[f"{mode}|{name}"] = {bl: round(c, 1) for bl, c in zip(BLENDS, cells)}
+        print(f"{name:<12} " + "".join(f"{c:9.1f}" for c in cells) + f"{nn:8d}")
 
-u = 100 * uncond[0] / uncond[1]
-print(f"\nUNCONDITIONAL (every pair, no gap/confidence filter): {u:.1f}%  "
-      f"over {uncond[1] // B} pairs")
-json.dump({"bands": rows, "unconditional": round(u, 1),
-           "tasks_all_bands": present}, open("results/analysis/reward_acc_by_gap.json", "w"), indent=1)
+print("\nUNCONDITIONAL (every pair, no filter): " +
+      "  ".join(f"{bl} {100 * uncond[bl][0] / uncond[bl][1]:.1f}" for bl in BLENDS))
+out["unconditional"] = {bl: round(100 * uncond[bl][0] / uncond[bl][1], 1) for bl in BLENDS}
+
+print("\nper-task pair counts and grip accuracy (why raw != balanced):")
+for t in sorted(states, key=lambda t: -sum(hits["grip"][t][b[0]][1] for b in BANDS)):
+    n = sum(hits["grip"][t][b[0]][1] for b in BANDS) // B
+    h = sum(hits["grip"][t][b[0]][0] for b in BANDS)
+    d = sum(hits["grip"][t][b[0]][1] for b in BANDS)
+    print(f"  {t.replace('widowx_', '')[:30]:32s} pairs={n:5d}  grip acc={100 * h / d:5.1f}")
+json.dump(out, open("results/analysis/reward_acc_by_gap.json", "w"), indent=1)
 print("-> results/analysis/reward_acc_by_gap.json")
