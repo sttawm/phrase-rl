@@ -1,0 +1,32 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+This is a controlled single-edit experiment. Apply ONLY the rule below. Leave
+every other aspect of the instruction exactly as it is, even if another rule in
+the rulebook would also apply.
+
+RULE TO APPLY: Keep the original wording unless a rule below applies.
+
+Scene description:
+<Description of the image>
+A robotic gripper holds a yellow toy scrub brush inside a light blue toy sink. Inside the sink basin, next to the gripper, sits a small silver metal cooking pot.
+
+<Meaning of the instruction in the context of the image>
+The robot needs to place the yellow brush it is holding into the silver metal pot that is sitting in the sink.
+
+Original: brush as many as possible potential replacements: yellow brush, yellow scrub brush, yellow cleaning brush, yellow cleaning tool, brush toy
+Original: pot or pan as many as possible potential replacements: silver pot, metal pot, cooking pot, silver pan, metal cookware, silver container, metal pan
+Original: put as many as possible potential replacements: place, drop, set, move, deposit, insert, lower, release, transfer
+Original: None as many as possible potential replacements: None
+
+Original Instruction:
+put brush into pot or pan
+
+Incoming instruction: drop the brush inside the silver pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If this particular rule does not apply to this instruction, reply with
+the instruction unchanged.

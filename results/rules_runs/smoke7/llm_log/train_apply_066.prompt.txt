@@ -1,0 +1,32 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+**Description of the image:**  
+The image shows the inside of an open dishwasher rack filled with various types of drinkware. There are several white ceramic mugs, a single green mug, a dark blue mug, and multiple clear glass tumblers arranged in the rack. A robotic gripper is visible in the upper-left corner, positioned near the cups.
+
+**Meaning of the instruction in the context of the image:**  
+The instruction "pick up any cup" means the robot should select and lift any of the available drinkware from the dishwasher rack, which includes the white mugs, the green mug, the dark blue mug, or any of the transparent glass cups.
+
+* **Original Nouns:** cup  
+  * **Potential replacements:** mug, glass, tumbler, drinkware, ceramic cup, glassware
+* **Original Verbs:** pick up  
+  * **Potential replacements:** grab, grasp, lift, take, retrieve, raise
+* **Original Adjectives:** any  
+  * **Potential replacements:** a, one, one of the, any single, clear, white, green, blue, ceramic, glass
+* **Original Adverbs:** (None)
+
+---
+
+**Original Instruction:**  
+pick up any cup
+
+Incoming instruction: pick up any cup from the rack
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

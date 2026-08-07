@@ -1,0 +1,28 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen playset from an overhead perspective. A robotic arm with a black gripper is holding a small, circular silver metal lid over a grey toy stove. The stove has multiple black burner coils. On one burner, there is a yellow-orange segmented vegetable (like a toy pumpkin or pepper). Nearby, there is a green plate holding an orange carrot-shaped toy, a purple onion on another burner, a silver pot, a red pepper, a green cabbage, and a green bitter gourd. In the adjacent sink, there are stainless steel pots, a lid, and a yellow bell pepper.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to place the silver metal lid it is holding onto the stove surface, specifically targeting one of the empty black burner coils or the general stovetop area.
+
+Original: lid as many as possible potential replacements: silver lid, metal lid, pot lid, silver cover, metallic cover, circular lid, pot cover
+Original: stove as many as possible potential replacements: stovetop, burner, stove burner, toy stove, black burner coil, cooking range, heating element
+Original: put as many as possible potential replacements: place, set, lower, position, deposit, lay, drop, leave
+Original: Adjectives as many as possible potential replacements: silver, metal, metallic, circular, black, toy
+Original: Adverbs as many as possible potential replacements: None
+
+Original Instruction:
+put lid on stove
+
+Incoming instruction: put the lid onto the stove pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

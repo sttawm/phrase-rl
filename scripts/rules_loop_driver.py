@@ -214,6 +214,7 @@ class Run:
             "rephrasers": args.rephrasers.split(","),
             "distiller": "claude", "judge": "claude",
             "max_probes": args.max_probes,
+            "rollback_on_regress": not args.no_rollback,
             "proxy": PROXY,
             "prompt_hashes": {p.name: hashlib.sha1(p.read_bytes()).hexdigest()[:12]
                               for p in sorted(PROMPTS.glob("*.md"))},
@@ -572,6 +573,9 @@ def main():
     ap.add_argument("--min-eps-per-task", type=int, default=8,
                     help="training-task support floor (same episode-count criterion as the search)")
     ap.add_argument("--max-probes", type=int, default=20)
+    ap.add_argument("--no-rollback", action="store_true",
+                    help="keep revising the latest rulebook even after a "
+                         "validation regression (default: revise the best)")
     ap.add_argument("--seed", type=int, default=7)
     args = ap.parse_args()
 
@@ -639,6 +643,7 @@ def main():
         state_p = pdir / "state.json"
         st = jread(state_p) if state_p.exists() else {
             "iter": 0, "best_val": -1e9, "best_iter": -1, "since_best": 0,
+            "last_val": -1e9,
             "rules": "1. Rewrite the instruction as a short plain imperative.\n"}
         while st["since_best"] < cfg["patience"] and st["iter"] < cfg["max_iters"]:
             it = st["iter"]
@@ -654,11 +659,34 @@ def main():
                 bank = pd.read_parquet(run.dir / "bank.parquet")
                 ev_file = itdir / "evidence.md"
                 n_ev = write_evidence_file(run, bank, train_tasks, ev_file)
-                prev_eval = pdir / f"iter_{it - 1:02d}" / "rules_eval.md"
+                src_iter = st["best_iter"] if (cfg.get("rollback_on_regress", True)
+                                               and st["since_best"] > 0
+                                               and st["best_iter"] >= 0) else it - 1
+                prev_eval = pdir / f"iter_{src_iter:02d}" / "rules_eval.md"
                 if not prev_eval.exists():
                     prev_eval = itdir / "no_previous_eval.md"
                     prev_eval.write_text("(first iteration -- no previous rulebook was measured)")
-                dp = prompt_from("distill.md", prev_rules=st["rules"],
+                # Roll back on regression: revise the BEST rulebook so far, not
+                # whatever the last iteration produced. Without this a single bad
+                # iteration becomes the base for every later one and the search
+                # random-walks away from its own best point. The session history
+                # still contains the regressing attempt, and the note below tells
+                # the distiller explicitly what happened -- so the information is
+                # kept while the starting point is not corrupted.
+                base_rules, note = st["rules"], ""
+                if cfg.get("rollback_on_regress", True) and st["best_iter"] >= 0 \
+                        and st["since_best"] > 0:
+                    bf = pdir / f"iter_{st['best_iter']:02d}" / "rules.md"
+                    if bf.exists():
+                        base_rules = bf.read_text()
+                        note = (f"\n\nNOTE: the rulebook you produced at iteration "
+                                f"{it - 1} scored WORSE on validation than the one at "
+                                f"iteration {st['best_iter']} ({st['last_val']:.4f} vs "
+                                f"{st['best_val']:.4f}). The rulebook shown above is "
+                                f"iteration {st['best_iter']}'s -- the best so far. The "
+                                f"attempt that regressed is in your conversation history; "
+                                f"treat it as evidence about what does not work.")
+                dp = prompt_from("distill.md", prev_rules=base_rules + note,
                                  corpus_file=corpus_file, evidence_file=ev_file,
                                  eval_file=prev_eval)
                 print(f"    distilling over {n_ev} measured phrases "
@@ -667,6 +695,7 @@ def main():
                                  session=run.session, add_dir=run.dir, effort="high",
                                  timeout=1800)
                 rp.write_text(rules)
+            (pdir / f"rules_{it:02d}.md").write_text(rules)   # flat, browsable history
             cur = run.dir / "current_rules.md"
             cur.write_text(rules)
             if not run.dry and "qwen" in cfg["rephrasers"]:
@@ -695,6 +724,7 @@ def main():
                   f"val_held {deltas['val_held']:+.3f} val8 {deltas['val8']:+.3f}")
 
             # 4. early-stopping bookkeeping
+            st["last_val"] = val
             if val > st["best_val"]:
                 st.update(best_val=val, best_iter=it, since_best=0)
             else:
