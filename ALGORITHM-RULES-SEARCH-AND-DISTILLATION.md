@@ -18,9 +18,11 @@
 # a val split of ~8 tasks x 24 layouts of rollouts is +-3.5pp, larger than the
 # effects we are chasing.
 #
-# NOTE ON VAL8: round 1 early-stops on it, round 2 trains on it. Either way val8
-# is consumed as an evaluation instrument -- after this, only the sealed set can
-# report a number.
+# NOTE ON VAL8: round 1 early-stops on it, round 2 trains on it. Report BOTH val8
+# numbers -- the round-1 rules (proxy-distilled, val8 seen only through early
+# stopping) and the round-2 rules (distilled against val8 rollouts). The gap
+# between them is exactly what real rollout data bought, which is worth knowing.
+# Neither is clean held-out by the end: the sealed set certifies the final rules.
 
 corpus_summary = vlm.make_corpus_summary_files()
 
