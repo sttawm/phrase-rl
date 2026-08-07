@@ -71,7 +71,10 @@ for r in ctx.itertuples():
     with torch.no_grad():
         g = model.generate(**inp, do_sample=False, max_new_tokens=48)
     gp = dec(g[0], plen)
-    greedy.append({"task": r.task, "arm": "v7_greedy", "phrase": gp, "instruction": r.instruction})
+    row = {"task": r.task, "arm": "v7_greedy", "phrase": gp, "instruction": r.instruction}
+    if hasattr(r, "episode_id"):
+        row["episode_id"] = int(r.episode_id)
+    greedy.append(row)
     with torch.no_grad():
         ss = model.generate(**inp, do_sample=True, temperature=1.0,
                             num_return_sequences=max(4, n_samples), max_new_tokens=48)
@@ -81,7 +84,10 @@ for r in ctx.itertuples():
         if sp and sp not in seen:
             seen.append(sp)
     for sp in seen[:n_samples]:
-        sampled.append({"task": r.task, "arm": "v7_sampled", "phrase": sp, "instruction": r.instruction})
+        srow = {"task": r.task, "arm": "v7_sampled", "phrase": sp, "instruction": r.instruction}
+        if hasattr(r, "episode_id"):
+            srow["episode_id"] = int(r.episode_id)
+        sampled.append(srow)
 
 os.makedirs("data", exist_ok=True)
 pd.DataFrame(greedy).to_parquet("data/rval_greedy.parquet", index=False)
