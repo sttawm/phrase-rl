@@ -8,6 +8,9 @@
 #
 # In the end, the two sets of rules can be combined.
 #
+# This whole thing runs once per rephraser model (Qwen, Claude, Gemini),
+# sharing one scored-phrase bank -- see the three-passes note below.
+#
 # COST: scoring is the proxy (sampled context/frame points) throughout the loop.
 # Real VLA rollouts are spent only at round boundaries, on a few iterations, to
 # confirm what the proxy selected. The proxy is cheap enough to score thousands
@@ -19,8 +22,14 @@
 # is consumed as an evaluation instrument -- after this, only the sealed set can
 # report a number.
 
-rules = get_initial_no_rules_prompt()
 corpus_summary = vlm.make_corpus_summary_files()
+
+# Seed from everything already measured: the exam panels, the search boards, the
+# robustness arms, every checkpoint cell. A phrase's score is a property of
+# (phrase, task, VLA) -- it does not depend on which model wrote the phrase or
+# which rules produced it -- so all of it is admissible evidence for distillation.
+# Only sealed-set phrases are excluded.
+scored_bank = load_scored_phrases(exclude=SEALED)
 
 def generate_phrases(task):
   upper_bound = vlm.do_oracle_search()
@@ -28,8 +37,9 @@ def generate_phrases(task):
   in_between = vlm.generate_naturals(n=7)
   return upper_bound + lower_bound + in_between
 
-task_phrases = [generate_phrases(task) for task in tasks]
-train_split, val_split = split(task_phrases)   # round 1: val_split IS val8
+# only pay for phrases the bank does not already cover
+task_phrases = [generate_phrases(task) for task in tasks if not covered(scored_bank, task)]
+train_split, val_split = split(task_phrases + scored_bank)   # round 1: val_split IS val8
 
 train_split_eval = random_sample(train_split, n=SAMPLE_N)
 val_split_eval = val_split
@@ -39,50 +49,65 @@ val_split_eval = val_split
 scores_train = score(train_split)
 scores_val = score(val_split)
 
-val_scores = []
-rules_eval_summary = None
+# THREE PASSES, one per rephraser: Qwen, Claude, Gemini. The scored bank is
+# SHARED and grows monotonically across passes -- each pass adds its rephraser's
+# outputs, so later passes inherit the earlier ones' exploration. The RULES are
+# not shared: rule-following capacity differs enough that Qwen could not execute
+# the v2 rules at all, so each model gets rules tailored to it.
+# Run the strongest applier last, so it distills against the fullest bank.
+rules_per_model = {}
+for rephraser in [qwen, claude, gemini]:
+ rules = get_initial_no_rules_prompt()
 
-# early stopping on best val, with patience -- a plain divergence test would fire
-# on a single noisy iteration. We keep the best-val rules, not the last ones.
-best_val, best_rules, since_best = -inf, None, 0
+ val_scores = []
+ rules_eval_summary = None
 
-while since_best < PATIENCE:
-  # distill_rules must reconcile conflicts between prev_rules and what the data
-  # now shows -- it has prev_rules, the corpus summary, every scored phrase, and
-  # per-rule evidence from the last round. It decides which side of a conflict
-  # wins, and emits the reasoning plus any follow-up experiments as suggestions.
-  rules = llm.distill_rules(prev_rules=rules, corpus_summary, scores_train, rules_eval_summary)
+ # early stopping on best val, with patience -- a plain divergence test would fire
+ # on a single noisy iteration. We keep the best-val rules, not the last ones.
+ best_val, best_rules, since_best = -inf, None, 0
 
-  # Eval on training data.
-  #
-  # Each rule is applied INDIVIDUALLY as well as all-together, against the same
-  # base phrase, so a rule's effect is a paired single-edit contrast rather than
-  # an attribution guess over phrases where several rules fired at once.
-  #
-  # Returns:
-  #   - rephraser_score: the success rate of the vla, or the proxy's estimate
-  #   - evaluated_phrases: the vla's success-rate (or proxy) for the rephraser's generated phrases
-  #   - rules_eval_summary:
-  #     - per_rule_adherence: summary of each rule's adherence
-  #     - per_rule_perf: single-edit effect of each rule (rule-only phrase vs base)
-  #     - suggestions: suggestions for further phrase experiments to perform
-  train_score, evaluated_phrases, rules_eval_summary = eval(rules, train_split_eval)
-  scores_train += evaluated_phrases
+ while since_best < PATIENCE:
+   # distill_rules must reconcile conflicts between prev_rules and what the data
+   # now shows -- it has prev_rules, the corpus summary, every scored phrase, and
+   # per-rule evidence from the last round. It decides which side of a conflict
+   # wins, and emits the reasoning plus any follow-up experiments as suggestions.
+   rules = llm.distill_rules(prev_rules=rules, corpus_summary, scores_train, rules_eval_summary)
 
-  # Eval on validation data
-  val_score, _, _ = eval(rules, val_split_eval)
-  val_scores.append((rules, val_score))
+   # Eval on training data.
+   #
+   # Each rule is applied INDIVIDUALLY as well as all-together, against the same
+   # base phrase, so a rule's effect is a paired single-edit contrast rather than
+   # an attribution guess over phrases where several rules fired at once.
+   #
+   # Returns:
+   #   - rephraser_score: the success rate of the vla, or the proxy's estimate
+   #   - evaluated_phrases: the vla's success-rate (or proxy) for the rephraser's generated phrases
+   #   - rules_eval_summary:
+   #     - per_rule_adherence: summary of each rule's adherence
+   #     - per_rule_perf: single-edit effect of each rule (rule-only phrase vs base)
+   #     - suggestions: suggestions for further phrase experiments to perform
+   train_score, evaluated_phrases, rules_eval_summary = eval(rephraser, rules, train_split_eval)
+   scores_train += evaluated_phrases
+   scored_bank += evaluated_phrases        # shared across passes
 
-  if val_score > best_val:
-    best_val, best_rules, since_best = val_score, rules, 0
-  else:
-    since_best += 1
+   # Eval on validation data
+   val_score, _, _ = eval(rephraser, rules, val_split_eval)
+   val_scores.append((rules, val_score))
 
-  plot(train_score, val_score)
+   if val_score > best_val:
+     best_val, best_rules, since_best = val_score, rules, 0
+   else:
+     since_best += 1
 
-  # keeps the phrase bank from collapsing onto whatever the current rules emit:
-  # the distiller proposes probes into regions it has little evidence about
-  new_phrases = llm.plan_new_phrases(rules_eval_summary.suggestions)
-  scores_train += score(new_phrases)
+   plot(train_score, val_score)
 
-return best_rules
+   # keeps the phrase bank from collapsing onto whatever the current rules emit:
+   # the distiller proposes probes into regions it has little evidence about
+   new_phrases = llm.plan_new_phrases(rules_eval_summary.suggestions)
+   scores_train += score(new_phrases)
+   scored_bank += score(new_phrases)
+
+ rules_per_model[rephraser] = best_rules
+
+# combine at the end: per-model rules plus whatever is common to all three
+final_rules = combine(rules_per_model)
