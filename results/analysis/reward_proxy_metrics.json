@@ -1,0 +1,38 @@
+{
+ "grip only (rank)": {
+  "spearman": 0.4204698696231999,
+  "pearson": 0.4386822801040505,
+  "top1_gain_pp": -1.9214716805508192,
+  "pct_of_oracle": -9.979841869346211
+ },
+ "ensemble only (rank)": {
+  "spearman": 0.40615879610880123,
+  "pearson": 0.3991865783221439,
+  "top1_gain_pp": 3.991028319449181,
+  "pct_of_oracle": 20.72881527599072
+ },
+ "c4b (0.25 z + 0.75 g, ranks)": {
+  "spearman": 0.44177877373516555,
+  "pearson": 0.47808677458935933,
+  "top1_gain_pp": 1.90352831944918,
+  "pct_of_oracle": 9.886646685565204
+ },
+ "grip only (standardized)": {
+  "spearman": 0.4204698696231999,
+  "pearson": 0.5234013777415822,
+  "top1_gain_pp": -1.9214716805508192,
+  "pct_of_oracle": -9.979841869346211
+ },
+ "c4b (standardized channels)": {
+  "spearman": 0.4448049683469546,
+  "pearson": 0.5492037722791147,
+  "top1_gain_pp": 0.16602831944918073,
+  "pct_of_oracle": 0.8623267210793008
+ },
+ "CALIBRATED success-rate": {
+  "spearman": 0.45310750884614115,
+  "pearson": 0.5487062559119699,
+  "top1_gain_pp": 1.2035283194491808,
+  "pct_of_oracle": 6.250949433685992
+ }
+}
