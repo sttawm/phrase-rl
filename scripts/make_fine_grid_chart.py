@@ -36,12 +36,13 @@ for ri, (bucket, bname) in enumerate(STRATA):
         if ri == 1: ax.set_xlabel("contexts C", fontsize=9)
         if ax is axes[ri][0]: ax.set_ylabel(f"{bname}\nframes F / episode", fontsize=9)
         if ri == 0: ax.set_title(name, fontsize=10)
-    fig.colorbar(im, ax=list(axes[ri]), label="sign acc %", shrink=0.9)
 fig.suptitle(f"Reward-design pairwise sign accuracy ({HALF} half, sim-grounded), by sampling budget — "
              f"coarse n={g['buckets'].get('far_15+', '?')}, fine n={g['buckets']['fine_5-10']}, B={g['B']}", fontsize=12)
 fig.text(0.01, 0.01, "Grip excels on fine discrimination at high budgets; the learned ensemble leads on coarse OOV pairs (grip is blind to gross OOV failures). "
          "C caps at available episodes per task. Ordering-confidence >= 0.8 buckets.",
          fontsize=7, color="#4a5568")
-fig.tight_layout(rect=[0, 0.05, 1, 0.93])
+fig.tight_layout(rect=[0, 0.05, 0.945, 0.93])
+cb = fig.colorbar(im, ax=axes.ravel().tolist(), fraction=0.016, pad=0.012)
+cb.set_label("agreement with simulator (%)", fontsize=10)
 fig.savefig(f"results/charts/fine_grid_{HALF}.png", dpi=150, bbox_inches="tight", pad_inches=0.25)
 print(f"chart -> results/charts/fine_grid_{HALF}.png")
