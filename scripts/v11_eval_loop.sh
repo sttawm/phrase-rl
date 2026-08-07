@@ -18,6 +18,56 @@ mark() { echo "[v11eval $(date -u +%H:%M)] $*" >> /workspace/v11eval.log; }
 
 mkdir -p results/analysis/v11cells /workspace/v11_adapters
 
+# --- baselines on the SAME probe/protocol, produced once before checkpoint cells:
+#   nat_0000  = frozen base Qwen + prompt B+ (RL step 0)
+#   nat_pass  = the natural inputs rolled with NO rephraser (passthrough)
+roll_and_cell() { # $1 phrases parquet (repo-relative), $2 cell name
+  rm -f data/dev11_g_out.parquet
+  cd /workspace/INT-ACT
+  $VLA $ROLL --int-act-root /workspace/INT-ACT --config $CFG --ckpt $CKPT \
+    --phrases /workspace/phrase-rl/$1 --episode-ids $(seq 0 23) --repeats 1 \
+    --out /workspace/phrase-rl/data/dev11_g_out.parquet > /workspace/v11roll_$2.log 2>&1
+  rc=$?; cd /workspace/phrase-rl
+  [ $rc != 0 ] && { mark "ROLL FAIL $2"; return 1; }
+  STEP=$2 CELLF=results/analysis/v11cells/$2.json $VLA - <<'PYEOF'
+import json, os
+import pandas as pd
+g = pd.read_parquet("data/dev11_g_out.parquet")
+rec = {"step": os.environ["STEP"], "probe": "v11_nat",
+       "n": int(len(g)), "pooled": round(float(g.success.mean() * 100), 2),
+       "per_task": {t: round(float(x.success.mean() * 100), 1) for t, x in g.groupby("task")}}
+json.dump(rec, open(os.environ["CELLF"], "w"))
+print(os.environ["STEP"], "pooled", rec["pooled"])
+PYEOF
+  for i in 1 2 3; do
+    timeout 300 bash -c "git add results/analysis/v11cells/$2.json && git commit -q -m 'v11 baseline cell $2 [e4]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" && { mark "DONE $2"; return 0; }
+    git rebase --abort 2>/dev/null; sleep 30
+  done
+}
+
+if [ ! -f results/analysis/v11cells/nat_pass.json ]; then
+  mark "baseline: passthrough (no rephraser)"
+  $GEN - <<'PYEOF'
+import pandas as pd
+c = pd.read_parquet("results/phrase_artifacts/contexts_probe8_nat.parquet")
+pd.DataFrame({"task": c.task, "arm": "passthrough", "phrase": c.instruction,
+              "instruction": c.instruction}).to_parquet(
+    "results/phrase_artifacts/dev11q_g_nat_pass.parquet", index=False)
+PYEOF
+  roll_and_cell results/phrase_artifacts/dev11q_g_nat_pass.parquet nat_pass
+fi
+
+if [ ! -f results/analysis/v11cells/nat_0000.json ]; then
+  mark "baseline: BASE qwen + prompt B+ (step 0)"
+  GEN_TAG="" PROMPT_FAMILY=bplus \
+    PROBE_CONTEXTS=results/phrase_artifacts/contexts_probe8_nat.parquet \
+    PROBE_TRACES=results/phrase_artifacts/traces_probe8.parquet \
+    $GEN scripts/gen_ckpt_phrases.py BASE 1 > /workspace/v11gen_base.log 2>&1 \
+    && cp data/rval_greedy.parquet results/phrase_artifacts/dev11q_g_nat_0000.parquet \
+    && roll_and_cell results/phrase_artifacts/dev11q_g_nat_0000.parquet nat_0000 \
+    || mark "BASE GEN FAIL"
+fi
+
 while true; do
   timeout 240 git -c rebase.autoStash=true pull -q --rebase 2>/dev/null \
     || { git rebase --abort 2>/dev/null; git reset --hard -q origin/main; }
