@@ -536,3 +536,34 @@ v11: GRPO on NATURAL rephrases only. Design deltas vs v10:
 - Input mix REVISED by user before launch: 25% original / 50% natural / 25%
   adversarial (--source-mix 0.25,0.5,0.25), replacing naturals-only. ERT tier
   reuses the v10 hostile sources + ERT-derived traces (leakage firewall).
+
+## Amendment 28 — rules-v3 on natural rephrases (3 appliers)
+
+**Registered 2026-08-07, before any A28 rollout.** User-requested comparison:
+does rules **v3** (derived from simulation + certification evidence, BEFORE the
+Jul-30 training-corpus overlay made v4 conservative/pass-through-first) beat
+rules v4 on NATURAL rephrases, where v4's benefit collapsed to +0.4..+2.8?
+
+- **Inputs**: the frozen sealed natural set `ph_sealed_rephrase16.parquet`
+  (12 sealed tasks x 16 Gemini naturals) — identical to the v4 arms already
+  measured. No new sealed content is generated; only a different rules doc is
+  applied to the same inputs.
+- **Appliers**: Qwen3.5-9B (frozen), Gemini-pro-latest, Claude — mirroring the
+  existing v4/prompt-B ladders exactly.
+- **Protocol**: rr legs, 24 layouts uniform (two halves, 2,304 eps each),
+  greedy, CRN seeds identical to all other rr arms.
+- **Wrap**: `{rules_v3}\n\n---\n\nApply the rules above.\n\nTrace:\n{trace}\n\n
+  Incoming instruction: {src}\n\nReply with ONLY the rewritten instruction.`
+  — byte-identical to the v4 wrap except the rules file.
+
+**Qwen arm preflight (passed, 2026-08-07 17:0x):** 192/192 rows, 0 empty,
+0 echo-input, mean 8.4 words (v4: 8.1, max 12); **57.3% of cells differ from the
+v4 output**, so the arms are genuinely distinguishable.
+
+**Predictions (registered before rolling):** v3 is more interventionist
+(rebuild-first), which helped on broken/adversarial inputs but is the behaviour
+the v4 overlay walked back after 14/14 freeform hypotheses were refuted on the
+training corpus. On *naturals* — which are already fluent — we predict v3
+performs **at or slightly below v4** (-3 to +1pp vs v4's 29.41 for Qwen), i.e.
+the pass-through default is load-bearing. A clear v3 > v4 result would
+invalidate the v4 overlay's central conclusion and must be reported as such.
