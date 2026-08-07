@@ -1,0 +1,9 @@
+[dry-run:claude] f53efc44d5a9
+
+---
+
+Apply the rules above.
+
+Incoming instruction: close the flaps of the large cardboard box
+
+Reply with ONLY the rewritten instruction.

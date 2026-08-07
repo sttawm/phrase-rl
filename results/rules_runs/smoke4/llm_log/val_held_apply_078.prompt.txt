@@ -1,0 +1,9 @@
+[dry-run:claude] 9356d38bb79b
+
+---
+
+Apply the rules above.
+
+Incoming instruction: slide the white drawer with the red front closed
+
+Reply with ONLY the rewritten instruction.

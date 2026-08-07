@@ -1,0 +1,9 @@
+[dry-run:claude] b02f7717e904
+
+---
+
+Apply the rules above.
+
+Incoming instruction: place the metal pan on the stove burner and put the blue berry in the pan
+
+Reply with ONLY the rewritten instruction.

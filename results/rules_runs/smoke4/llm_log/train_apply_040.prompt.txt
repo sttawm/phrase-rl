@@ -1,0 +1,9 @@
+[dry-run:claude] f53efc44d5a9
+
+---
+
+Apply the rules above.
+
+Incoming instruction: move the blue pen to the top left plastic drawer
+
+Reply with ONLY the rewritten instruction.

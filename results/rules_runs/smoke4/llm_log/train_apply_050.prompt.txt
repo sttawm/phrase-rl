@@ -1,0 +1,9 @@
+[dry-run:claude] 9356d38bb79b
+
+---
+
+Apply the rules above.
+
+Incoming instruction: pull open the handle of the white oven
+
+Reply with ONLY the rewritten instruction.

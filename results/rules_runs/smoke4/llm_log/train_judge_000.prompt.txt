@@ -1,0 +1,42 @@
+You are auditing whether rewrites follow a rule set.
+
+RULES
+[dry-run:claude] f53efc44d5a9
+
+REWRITES (base -> rewrite)
+[put stuffedduck in pan] 'place yellow duck in pot' -> '[dry-run:gemini] 9274df9c890d'
+[turn lever vertical to front] 'pull the silver handle forward' -> '[dry-run:gemini] 55acefd74eae'
+[pick up pan from stove] 'pick up the small silver pot from the stove' -> '[dry-run:gemini] a2bfdb2b3242'
+[put pot in sink] 'move the pot of fake food to the sink' -> '[dry-run:gemini] f80a65c57afa'
+[put blueberries on plate sink] 'place blue grapes on the yellow plate in the sink' -> '[dry-run:gemini] 989445d66d31'
+[fold the cloth from bottom right to top left] 'diagonally fold the green towel from bottom right to top left' -> '[dry-run:gemini] e5bcb71d40e1'
+[move the silver pot to the upper right of table] 'slide the grey stuffed animal to the upper right' -> '[dry-run:gemini] 118f416b22c8'
+[fold the cloth from top to bottom] 'fold the blue cloth by pulling the top down' -> '[dry-run:gemini] d4f6fff5750a'
+[put detergent in sink] 'place the white bottle in the sink' -> '[dry-run:gemini] a472b50c44bd'
+[pick up any cup] 'pick up any cup from the rack' -> '[dry-run:gemini] ec00841dd99d'
+[wipe pot with sponge] 'use the sponge to wipe the pot' -> '[dry-run:gemini] 87740d3f769d'
+[unfold the cloth from bottom to top] 'flatten the orange rag from bottom to top' -> '[dry-run:gemini] 80acb6b0ef90'
+[put clothes in laundry machine] 'place the clothes into the open laundry machine' -> '[dry-run:gemini] ef9bd31ed7bb'
+[put carrot in pot or pan] 'put carrot in pot' -> '[dry-run:gemini] 64e791dd0ce0'
+[end effector reaching salmon] 'bring gripper close to the salmon' -> '[dry-run:gemini] 9a5717168923'
+[put cup from anywhere into sink] 'put the blue plastic cup in the sink' -> '[dry-run:gemini] 05665787910e'
+[put brush into pot or pan] 'drop the brush inside the silver pot' -> '[dry-run:gemini] 852f33d465bb'
+[put carrot on plate] 'place carrot onto the green plate' -> '[dry-run:gemini] 9caab835edfa'
+[put bowl on plate] 'place the bowl onto the plate' -> '[dry-run:gemini] 2b937db8a6fd'
+[pick up glue and put into drawer] 'put the red tube of glue in the top left organizer' -> '[dry-run:gemini] d8c2458da0be'
+[pick up blue pen and put into drawer] 'move the blue pen to the top left plastic drawer' -> '[dry-run:gemini] 78c55a272eeb'
+[pick up scissors and put into drawer] 'pick up scissors and place in drawer' -> '[dry-run:gemini] eaa60ef7e6e7'
+[put pepper in pot or pan] 'place the pepper in the pot' -> '[dry-run:gemini] adea19780bf5'
+[move light switch to the right] 'toggle the switch right' -> '[dry-run:gemini] 1935615426ab'
+
+For each numbered rule, estimate adherence (how often the rewrites obey it) and
+flag any rule that is being ignored or misapplied. Then propose phrase
+experiments that would sharpen the evidence — regions of phrasing space the
+current data does not cover.
+
+Reply with EXACTLY this format:
+ADHERENCE
+1. <rule 1: adherence estimate + one-line note>
+...
+SUGGESTIONS
+<one suggested experiment per line>

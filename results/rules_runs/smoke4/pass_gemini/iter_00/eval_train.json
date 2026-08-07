@@ -1,0 +1,11 @@
+{
+ "score": 0.5486397354265625,
+ "base": 0.5930633698441763,
+ "delta": -0.044423634417613767,
+ "n": 24,
+ "summary": {
+  "per_rule_perf": {},
+  "judge": "[dry-run:claude] 365a5392396d",
+  "suggestions": ""
+ }
+}

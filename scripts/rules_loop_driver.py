@@ -300,6 +300,17 @@ def parse_rules(rules_text):
     return [m.group(1).strip() for m in re.finditer(r"^\s*\d+\.\s+(.+)$", rules_text, re.M)]
 
 
+def baseline_proxy(run, cfg, bases, tag):
+    """Mean proxy of the UNREPHRASED base phrases -- scored once per split and
+    cached, since the bases are fixed for the whole run."""
+    cache = run.dir / f"baseline_{tag}.json"
+    if cache.exists():
+        return jread(cache)["mean"]
+    sc = score_phrases(run, cfg, bases[["task", "phrase"]], f"baseline_{tag}")
+    jwrite(cache, {"mean": float(sc.proxy.mean()), "n": int(len(sc))})
+    return float(sc.proxy.mean())
+
+
 def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False):
     """Returns (mean proxy score of rewrites, scored df, rules_eval_summary)."""
     art = itdir / f"eval_{tag}.json"
@@ -333,7 +344,9 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
                    "suggestions": judgement.split("SUGGESTIONS")[-1].strip()
                    if "SUGGESTIONS" in judgement else ""}
     scored.to_parquet(scored_art, index=False)
-    jwrite(art, {"score": score, "summary": summary})
+    base_mean = baseline_proxy(run, cfg, bases, tag)
+    jwrite(art, {"score": score, "base": base_mean, "delta": score - base_mean,
+                 "n": int(len(scored)), "summary": summary})
     return score, scored, summary
 
 
@@ -346,12 +359,21 @@ def plot_progress(run, pdir, rephraser):
         return
     rows = [jread(p) for p in its]
     xs = list(range(len(rows)))
-    fig, ax = plt.subplots(figsize=(7, 4))
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12, 4))
     for key, col in [("train", "#a0aec0"), ("val_held", "#2b6cb0"),
                      ("val8", "#805ad5"), ("val_avg", "#0d9488")]:
         ax.plot(xs, [r[key] for r in rows], "o-", color=col,
                 lw=2.4 if key == "val_avg" else 1.4, label=key)
-    ax.set_xlabel("iteration"); ax.set_ylabel("mean proxy success")
+    # the decision-relevant view: improvement over the unrephrased instruction
+    for key, col in [("train", "#a0aec0"), ("val_held", "#2b6cb0"), ("val8", "#805ad5")]:
+        ys = [r.get("delta", {}).get(key) for r in rows]
+        if all(y is not None for y in ys):
+            ax2.plot(xs, ys, "o-", color=col, lw=1.6, label=key)
+    ax2.axhline(0, ls="--", color="#718096", lw=1)
+    ax2.set_xlabel("iteration"); ax2.set_ylabel("proxy gain over unrephrased")
+    ax2.set_title("do the rules beat saying nothing?", fontsize=10)
+    ax2.legend(fontsize=8); ax2.grid(alpha=0.25)
+    ax.set_xlabel("iteration"); ax.set_ylabel("mean proxy success (estimated rate)")
     ax.set_title(f"{run.id} / {rephraser} -- early stop on val_avg")
     ax.legend(fontsize=8); ax.grid(alpha=0.25)
     fig.tight_layout()
@@ -472,7 +494,9 @@ def main():
             (run.dir / "current_rules.md").write_text(rules)
 
             # 2. eval on train sample (with per-rule single edits)
-            tb = bases_for(train_tasks, cfg["sample_n"], seed=cfg["seed"] + it)
+            # fixed across iterations (seed 0) so the train curve is a comparable
+            # series -- new evidence enters through probes, not through resampling
+            tb = bases_for(train_tasks, cfg["sample_n"], seed=0)
             train_score, ev_train, summary = eval_rules(
                 run, cfg, itdir, rephraser, rules, tb, "train", single_edit=True)
             bank = bank_add(run, ev_train.assign(source=f"loop_{rephraser}", iter_added=it))
@@ -483,7 +507,11 @@ def main():
             v8, _, _ = eval_rules(run, cfg, itdir, rephraser, rules,
                                   bases_for(VAL8_TASKS, cfg["sample_n"], seed=2), "val8")
             val = (vh + v8) / 2
-            print(f"    train={train_score:.3f} val_held={vh:.3f} val8={v8:.3f} avg={val:.3f}")
+            deltas = {k: jread(itdir / f"eval_{k}.json").get("delta")
+                      for k in ("train", "val_held", "val8")}
+            print(f"    train={train_score:.3f} val_held={vh:.3f} val8={v8:.3f} avg={val:.3f}"
+                  f"   | delta vs unrephrased: train {deltas['train']:+.3f} "
+                  f"val_held {deltas['val_held']:+.3f} val8 {deltas['val8']:+.3f}")
 
             # 4. early-stopping bookkeeping
             if val > st["best_val"]:
@@ -494,7 +522,8 @@ def main():
             st["iter"] = it + 1
             jwrite(state_p, st)
             jwrite(itdir / "scores.json", {"train": train_score, "val_held": vh,
-                                           "val8": v8, "val_avg": val})
+                                           "val8": v8, "val_avg": val,
+                                           "delta": deltas})
             plot_progress(run, pdir, rephraser)
 
             # 5. probe phrases the bank lacks

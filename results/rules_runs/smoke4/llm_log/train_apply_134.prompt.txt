@@ -1,0 +1,9 @@
+[dry-run:claude] b02f7717e904
+
+---
+
+Apply the rules above.
+
+Incoming instruction: fold the white cloth in half up
+
+Reply with ONLY the rewritten instruction.

@@ -1,0 +1,9 @@
+[dry-run:claude] b02f7717e904
+
+---
+
+Apply the rules above.
+
+Incoming instruction: grab the oven handle and open it
+
+Reply with ONLY the rewritten instruction.

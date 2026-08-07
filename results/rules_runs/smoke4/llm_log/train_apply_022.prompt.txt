@@ -1,0 +1,9 @@
+[dry-run:claude] f53efc44d5a9
+
+---
+
+Apply the rules above.
+
+Incoming instruction: flatten the orange rag from bottom to top
+
+Reply with ONLY the rewritten instruction.

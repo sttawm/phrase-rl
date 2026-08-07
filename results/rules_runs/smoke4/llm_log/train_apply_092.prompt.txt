@@ -1,0 +1,9 @@
+[dry-run:claude] 9356d38bb79b
+
+---
+
+Apply the rules above.
+
+Incoming instruction: rotate the metal faucet to the right
+
+Reply with ONLY the rewritten instruction.

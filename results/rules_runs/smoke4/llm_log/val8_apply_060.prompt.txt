@@ -1,0 +1,9 @@
+[dry-run:claude] 9356d38bb79b
+
+---
+
+Apply the rules above.
+
+Incoming instruction: set the carrot on the black tire
+
+Reply with ONLY the rewritten instruction.

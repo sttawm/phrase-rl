@@ -1,0 +1,9 @@
+[dry-run:claude] 9356d38bb79b
+
+---
+
+Apply the rules above.
+
+Incoming instruction: put the coke can on plate
+
+Reply with ONLY the rewritten instruction.

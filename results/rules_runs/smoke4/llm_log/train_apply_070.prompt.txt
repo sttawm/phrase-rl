@@ -1,0 +1,9 @@
+[dry-run:claude] 9356d38bb79b
+
+---
+
+Apply the rules above.
+
+Incoming instruction: fold the cloth from the bottom to the top
+
+Reply with ONLY the rewritten instruction.

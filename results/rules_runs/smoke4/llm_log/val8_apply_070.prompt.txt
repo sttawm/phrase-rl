@@ -1,0 +1,9 @@
+[dry-run:claude] 9356d38bb79b
+
+---
+
+Apply the rules above.
+
+Incoming instruction: put the orange carrot on top of the plate
+
+Reply with ONLY the rewritten instruction.

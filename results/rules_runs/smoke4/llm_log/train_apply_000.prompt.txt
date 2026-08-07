@@ -1,0 +1,9 @@
+[dry-run:claude] f53efc44d5a9
+
+---
+
+Apply the rules above.
+
+Incoming instruction: place yellow duck in pot
+
+Reply with ONLY the rewritten instruction.

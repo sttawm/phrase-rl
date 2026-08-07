@@ -1,0 +1,9 @@
+[dry-run:claude] 9356d38bb79b
+
+---
+
+Apply the rules above.
+
+Incoming instruction: move pear to the green plate
+
+Reply with ONLY the rewritten instruction.

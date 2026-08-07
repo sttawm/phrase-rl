@@ -1,0 +1,9 @@
+[dry-run:claude] b02f7717e904
+
+---
+
+Apply the rules above.
+
+Incoming instruction: stand up the spice bottle
+
+Reply with ONLY the rewritten instruction.

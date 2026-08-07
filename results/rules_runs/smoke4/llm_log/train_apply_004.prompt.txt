@@ -1,0 +1,9 @@
+[dry-run:claude] f53efc44d5a9
+
+---
+
+Apply the rules above.
+
+Incoming instruction: pick up the small silver pot from the stove
+
+Reply with ONLY the rewritten instruction.
