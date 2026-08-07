@@ -1,6 +1,7 @@
 # This should be run in two rounds
-# Initially, it should be run on the training data, using a mix of simulation tasks
-# and training tasks as the val split.
+# Initially, it should be run on the training data (a mix of simulation tasks and
+# training tasks). ROUND 1 VALIDATES ON VAL8: val8 is where we hold real rollout
+# ground truth, so it is the only split that can confirm what the proxy selected.
 #
 # Once those rules are generated, it can be run a few times on the val8 split,
 # without a validation split.
@@ -14,8 +15,9 @@
 # a val split of ~8 tasks x 24 layouts of rollouts is +-3.5pp, larger than the
 # effects we are chasing.
 #
-# NOTE ON ROUND 2: running on val8 without a validation split consumes val8 as an
-# evaluation instrument. After round 2, only the sealed set can report a number.
+# NOTE ON VAL8: round 1 early-stops on it, round 2 trains on it. Either way val8
+# is consumed as an evaluation instrument -- after this, only the sealed set can
+# report a number.
 
 rules = get_initial_no_rules_prompt()
 corpus_summary = vlm.make_corpus_summary_files()
@@ -27,7 +29,7 @@ def generate_phrases(task):
   return upper_bound + lower_bound + in_between
 
 task_phrases = [generate_phrases(task) for task in tasks]
-train_split, val_split = split(task_phrases)
+train_split, val_split = split(task_phrases)   # round 1: val_split IS val8
 
 train_split_eval = random_sample(train_split, n=SAMPLE_N)
 val_split_eval = val_split
@@ -38,10 +40,13 @@ scores_train = score(train_split)
 scores_val = score(val_split)
 
 val_scores = []
-train_score = val_score = None
-
 rules_eval_summary = None
-while not diverged(train_score, val_score):
+
+# early stopping on best val, with patience -- a plain divergence test would fire
+# on a single noisy iteration. We keep the best-val rules, not the last ones.
+best_val, best_rules, since_best = -inf, None, 0
+
+while since_best < PATIENCE:
   # distill_rules must reconcile conflicts between prev_rules and what the data
   # now shows -- it has prev_rules, the corpus summary, every scored phrase, and
   # per-rule evidence from the last round. It decides which side of a conflict
@@ -68,9 +73,16 @@ while not diverged(train_score, val_score):
   val_score, _, _ = eval(rules, val_split_eval)
   val_scores.append((rules, val_score))
 
+  if val_score > best_val:
+    best_val, best_rules, since_best = val_score, rules, 0
+  else:
+    since_best += 1
+
   plot(train_score, val_score)
 
   # keeps the phrase bank from collapsing onto whatever the current rules emit:
   # the distiller proposes probes into regions it has little evidence about
   new_phrases = llm.plan_new_phrases(rules_eval_summary.suggestions)
   scores_train += score(new_phrases)
+
+return best_rules
