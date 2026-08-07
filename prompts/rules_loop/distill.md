@@ -1,30 +1,49 @@
-You are distilling instruction-phrasing rules for a frozen pi0 robot policy
-(Bridge corpus: short plain kitchen-tabletop imperatives). The rules will be
-executed by {{rephraser}} — tailor their number and complexity to what that
-model can reliably follow.
+You are writing a rulebook for rewriting task instructions given to a robot
+policy. The rulebook will be handed to another language model, which must apply
+it to instructions it has never seen. Your goal is a rulebook that, when applied,
+raises the policy's measured success rate.
 
-PREVIOUS RULES
+You have working files. Read them before you answer — do not rely on this
+message alone:
+
+  {{corpus_file}}
+      What the policy's training instructions look like: vocabulary,
+      grammatical shape, register, notable absences.
+
+  {{evidence_file}}
+      Every phrase measured so far, with its estimated success rate, grouped by
+      task. This is the full spread, not a summary — read enough of it to see
+      within-task variation, not just the extremes. Where a phrase has a
+      real-rollout number it is marked; those are more reliable than estimates.
+
+  {{eval_file}}
+      How the PREVIOUS rulebook actually performed: per-rule adherence, the
+      measured single-edit effect of each individual rule, and an auditor's
+      notes. Absent on the first iteration.
+
+PREVIOUS RULEBOOK (verbatim; empty on the first iteration):
 {{prev_rules}}
 
-CORPUS SUMMARY
-{{corpus_summary}}
+Guidance:
+- A rule earns its place by evidence. If {{eval_file}} shows a rule had no
+  measurable effect, or a negative one, remove it or replace it.
+- If a rule is being poorly adhered to, the fix may be to state it more simply
+  rather than to drop it. Poor adherence and poor performance are different
+  failures and have different remedies.
+- Where new evidence contradicts a rule you previously wrote, decide which wins
+  and say so explicitly in the rationale.
+- Prefer stability: a rulebook that changes wholesale every iteration cannot
+  converge. Change what the evidence says to change.
+- Rules must be executable by a model reading them cold, with no access to this
+  evidence and no examples beyond what you write into the rule itself.
 
-EVIDENCE — proxy-scored phrases, worst 3 and best 3 per task (proxy = calibrated
-estimated success rate; gt = real rollout success where measured):
-{{evidence}}
+Reply in EXACTLY this format, with these two delimiter lines present verbatim
+and nothing before the first one:
 
-LAST ITERATION'S PER-RULE EVALUATION (single-edit deltas + judge notes; empty on
-the first iteration):
-{{eval_summary}}
-
-Where the evidence conflicts with a previous rule, decide which wins and say why
-in one line. Prefer keeping a rule stable unless the evidence against it is
-clear — rules that flip every iteration never converge.
-
-Reply with EXACTLY this format:
-RULES
-1. <rule>
-2. <rule>
-...
-RATIONALE
-<one line per changed/kept-despite-conflict rule>
+===RULES===
+1. <one rule, imperative, self-contained>
+2. <one rule>
+(as many as the evidence supports)
+===RATIONALE===
+<free prose: what changed, what you kept and why, which conflicts you resolved
+and on what evidence. Numbered lines are fine here.>

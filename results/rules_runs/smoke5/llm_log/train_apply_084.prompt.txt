@@ -1,0 +1,25 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image depicts a blue toy kitchen playset. On the left side of the stovetop counter, there is a small, round, light-green toy pear. On the right side, resting inside the sink basin, is a bright yellow plate. A black robot gripper is positioned near the top left of the playset, and other toy food items like a yellow banana, an orange carrot, and red bottles are also scattered on the counter.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to pick up the light-green toy pear from the left side of the play kitchen counter and place it onto the yellow toy plate located in the sink on the right side.
+
+Original: pear as many as possible potential replacements: green pear, light-green pear, green fruit, green toy pear, lime-green pear, green object
+Original: plate as many as possible potential replacements: yellow plate, yellow dish, circular yellow dish, plate in the sink, yellow toy plate
+Original: put as many as possible potential replacements: place, move, transfer, set, relocate, deposit, shift, position, transport, drop, pick up and place
+Original: None
+
+Original Instruction:
+put pear on plate
+
+Incoming instruction: move pear to the green plate
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

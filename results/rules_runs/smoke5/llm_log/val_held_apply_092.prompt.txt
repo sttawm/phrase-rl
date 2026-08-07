@@ -1,0 +1,22 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a wooden toy kitchen play set. In the upper section, there is a grey toy microwave with its door currently closed. A black robotic arm gripper is positioned directly in front of the microwave door handle. Below the microwave is a play stove countertop containing a cardboard box, which holds a bright orange toy carrot and a yellow plate.
+
+<Meaning of the instruction in the context of the image>
+The instruction "open microwave" means the robotic gripper needs to grasp the handle of the grey toy microwave door and pull it forward to swing the door open, revealing the inside of the microwave.
+
+Original: microwave as many as possible potential replacements: toy microwave, grey microwave, microwave oven, microwave door, appliance door, grey toy microwave
+Original: open as many as possible potential replacements: pull open, swing open, unlatch, pull, grasp and open
+Original: None as many as possible potential replacements: grey, closed, toy
+Original: None
+
+Incoming instruction: open up the microwave
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

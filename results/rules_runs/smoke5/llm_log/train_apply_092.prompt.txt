@@ -1,0 +1,24 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a top-down view of a play kitchen setup. There is a small white sink with a silver faucet/tap, next to a stove top with burners. A silver pot, an orange toy carrot, and a small blue cup are visible on the counter. A robotic gripper is positioned near the silver faucet, ready to manipulate it.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to rotate or push the silver faucet handle or spout towards the right side.
+
+Original: faucet as many as possible potential replacements: tap, silver tap, faucet handle, spout, metallic faucet, silver fixture, lever, water tap
+Original: turn as many as possible potential replacements: rotate, twist, push, swing, nudge, shift, pivot, move
+Original: right as many as possible potential replacements: to the right, to the right side, to the right-hand side, rightward
+
+Original Instruction:
+turn faucet right
+
+Incoming instruction: rotate the metal faucet to the right
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

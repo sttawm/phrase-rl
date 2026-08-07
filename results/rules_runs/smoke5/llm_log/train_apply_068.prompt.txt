@@ -1,0 +1,19 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image shows a grey toy kitchen countertop featuring a small sink, a faucet, and four stove burners. The faucet has a silver lever (handle) on its right side, which is currently in an upright, near-vertical position.
+The instruction "lever vertical to front" means to move, pull, or rotate the silver faucet handle from its upright vertical position forward, so that it points towards the front of the sink.
+
+Original: lever, front as many as possible potential replacements: faucet handle, silver handle, tap lever, switch, faucet lever, metallic handle, front position, forward
+Original: (implied verbs) as many as possible potential replacements: pull, rotate, turn, push, shift, adjust, move, bring, change
+Original: vertical as many as possible potential replacements: upright, standing, vertical
+Original: (none)
+
+Incoming instruction: lever vertical to front
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

@@ -1,0 +1,13 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+(no scene description available)
+
+Incoming instruction: drop the carrot on the keyboard
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

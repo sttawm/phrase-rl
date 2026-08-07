@@ -1,0 +1,27 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image shows a black robot gripper positioned directly above a small, light blue toy bowl. The bowl is sitting on a silver toy stove top. In the background, there is a toy kitchen setup containing a drawer with utensils, a silver pot with a green plate, and other colorful play food items.
+
+The instruction "lift bowl" means the robot arm should grasp the light blue toy bowl currently resting on the stove and raise it off the surface.
+
+Original: bowl
+as many as possible potential replacements: light blue bowl, blue bowl, blue dish, light blue dish, blue plastic bowl, blue basin, blue container
+
+Original: lift
+as many as possible potential replacements: pick up, raise, elevate, take up, hoist, hold up, grasp and raise, grab and lift
+
+Original: (none in original)
+as many as possible potential replacements: light blue, blue, plastic, small
+
+Original: (none in original)
+as many as possible potential replacements: (none)
+
+Incoming instruction: pick up light blue bowl
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

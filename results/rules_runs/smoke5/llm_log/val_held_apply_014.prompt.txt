@@ -1,0 +1,31 @@
+[dry-run:claude] 1d0349745c9b
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen play set. On the white countertop, there is a black stovetop on the left and a grey sink on the right. Inside the grey sink, there is an orange pot with grey handles and a small, dark red beet. A potato is resting on the counter just in front of the sink. A robotic gripper is positioned over the beet inside the sink.
+
+<Meaning of the instruction in the context of the image>
+The instruction "put beet in pot sink" means to pick up the dark red beet from the bottom of the grey sink and place it inside the orange toy pot that is also sitting in the sink.
+
+Original: <Nouns> beet, pot, sink
+Potential replacements: red beet, purple vegetable, beet root, orange pot, toy pot, cooking pot, orange container, grey sink, basin, sink basin
+
+Original: <Verbs> put
+Potential replacements: place, drop, move, transfer, deposit, set, insert, lower
+
+Original: <Adjectives> none
+Potential replacements: red, dark red, purple, orange, grey, toy
+
+Original: <Adverbs> none
+
+Original Instruction:
+put beet in pot sink
+
+Incoming instruction: put the purple beet in the red pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

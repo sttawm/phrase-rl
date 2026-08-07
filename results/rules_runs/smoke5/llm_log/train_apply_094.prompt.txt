@@ -1,0 +1,23 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen sink setup. A black robotic gripper holds a small silver metal pot directly above a yellow drying rack. Inside the yellow drying rack sits a blue plastic cup. In the adjacent blue sink basin, there is a white soap bottle and a yellow toy brush. 
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to pick up the blue plastic cup located in the yellow rack and place it inside the silver metal pot held by the gripper.
+
+Original: cup as many as possible potential replacements: blue cup, blue plastic cup, blue mug, drinking cup, blue plastic mug
+Original: pot or pan as many as possible potential replacements: silver pot, metal pot, metallic pan, cooking pot, silver pan, stainless-steel pot
+Original: put as many as possible potential replacements: place, set, drop, transfer, move, deposit, insert, position
+Original: into as many as possible potential replacements: inside, in
+Original: None as many as possible potential replacements: None
+
+Incoming instruction: put the blue cup into the silver pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

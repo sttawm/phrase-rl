@@ -1,0 +1,25 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a black robotic gripper holding a small, silver metal pot with two handles above a light blue toy sink basin. To the left of the sink, there is a yellow plastic drying rack containing a green toy bitter gourd. In the background, other toy kitchen utensils, such as red cups, a silver lid, and a yellow ladle, are visible.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to move the silver metal pot (or pan) currently held by the gripper over the blue sink and place it into the yellow drying rack situated on the left side of the sink.
+
+Original: pot or pan as many as possible potential replacements: silver pot, metal pan, silver saucepan, silver cookware, metal pot, silver dish
+Original: sink as many as possible potential replacements: blue sink, blue basin, toy sink, sink area
+Original: drying rack as many as possible potential replacements: yellow drying rack, yellow basket, yellow dish rack, yellow drainer, yellow dish organizer, yellow plastic rack
+Original: put as many as possible potential replacements: move, place, transfer, set, deposit, relocate, lower, drop
+Original: from as many as possible potential replacements: out of, from above, away from
+Original: drying as many as possible potential replacements: yellow, plastic
+Original: Adverbs: None
+
+Incoming instruction: transfer the silver pot from the sink into the yellow drying basket
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

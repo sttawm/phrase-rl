@@ -1,0 +1,28 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen play set. Inside the white sink, there is a clear glass jar with a red label. On the white counter ledge behind the sink, next to the grey faucet, sits a small red cap. A robotic gripper is visible in the foreground, ready to interact with the environment.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to pick up the small red cap located on the counter near the faucet and place it onto the open clear glass jar sitting inside the sink.
+
+Original: cap, container
+Potential replacements: red cap, red lid, red cover, lid, top, glass jar, clear jar, transparent container, jar in the sink, glass bottle
+
+Original: put
+Potential replacements: place, set, cover, position, fit, transfer, move, cap, attach
+
+Original: None
+Potential replacements: red, clear, transparent, glass, small
+
+Original: None
+
+Incoming instruction: put red cap on the container in the sink
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

@@ -1,0 +1,25 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows the top rack of a dishwasher filled with various drinkware. There are two distinct types of cups: white ceramic mugs (some tall and one small round cup) and several clear, transparent glass cups of different sizes and shapes arranged throughout the wire rack.
+
+<Meaning of the instruction in the context of the image>
+The instruction "pick up glass cup" means the robot should identify and select one of the clear, transparent glass drinking vessels from the dishwasher rack, distinguishing them from the opaque white ceramic mugs.
+
+Original: glass cup as many as possible potential replacements: clear cup, transparent glass, drinking glass, glass tumbler, clear glassware, glass vessel, transparent cup, see-through glass
+Original: pick up as many as possible potential replacements: lift, grab, grasp, take, retrieve, remove, hold, pull out
+Original: glass (adjective-like noun adjunct) as many as possible potential replacements: clear, transparent, see-through, crystalline
+Original: up (adverbial particle) as many as possible potential replacements: none (avoid adverbs in final output)
+
+Original Instruction:
+pick up glass cup
+
+Incoming instruction: take the clear glass out of the dishwasher
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

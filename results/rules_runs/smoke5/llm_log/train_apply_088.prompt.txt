@@ -1,0 +1,25 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image displays a toy kitchen set featuring a grey sink basin, a faucet, and a stovetop with various toy food items and cookware. A robotic arm with a black gripper is holding a tall silver metal pot right next to the sink.
+
+In the context of the image, the instruction means that the robotic gripper should move the silver metal pot it is holding and place it inside the grey toy sink basin.
+
+Original: pot as many as possible potential replacements: silver pot, metal pot, cooking pot, saucepan, silver container, metal cookware, metal vessel, tall pot
+Original: sink as many as possible potential replacements: sink basin, washbasin, grey sink, kitchen sink, basin
+Original: put as many as possible potential replacements: place, move, set, lower, deposit, transfer, position, drop
+Original: in as many as possible potential replacements: into, inside
+Original: [Adjectives] as many as possible potential replacements: silver, grey, metal, metallic, tall, empty
+Original: [Adverbs] as many as possible potential replacements: None
+
+Original Instruction:
+put pot in sink
+
+Incoming instruction: move the pot of fake food to the sink
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

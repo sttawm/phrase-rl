@@ -1,0 +1,25 @@
+[dry-run:claude] 1d0349745c9b
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen set containing a sink, faucet, stove burners, and various play food items. A robot gripper is holding an orange toy carrot above the counter. Inside the sink basin, there is a light green toy plate, a silver metal lid, and some red play food items. Other items like a yellow pepper, a green cabbage, a yellow corn, and a red sponge/block are scattered on the counter.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to move the orange carrot (currently held by the gripper or on the counter) and place it onto the light green plate located inside the sink.
+
+Original: carrot as many as possible potential replacements: orange carrot, orange vegetable, orange veggie, orange toy carrot, vegetable
+Original: plate as many as possible potential replacements: green plate, light green plate, lime green plate, green dish, green saucer, round green dish
+Original: put as many as possible potential replacements: place, set, move, transfer, lay, drop, deposit, position, release
+Original: Adjectives: orange, green, light green, lime green, toy
+
+Original Instruction:
+put carrot on plate
+
+Incoming instruction: place carrot onto the green plate
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

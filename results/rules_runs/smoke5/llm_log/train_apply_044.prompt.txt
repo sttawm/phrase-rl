@@ -1,0 +1,22 @@
+[dry-run:claude] 1d0349745c9b
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen set with a stove, a sink, and various plastic food items. A robotic gripper is holding a red toy pepper above a small silver toy cooking pot located on the stove burner. Other items, such as a purple eggplant, an orange carrot tip, a yellow toy accessory, and a green plate, are scattered across the kitchen counter.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to place the red pepper it is holding into the silver toy cooking pot on the stove burner.
+
+Original: pepper, pot, pan as many as possible potential replacements: red pepper, red chili, toy pepper, red vegetable, plastic pepper, silver pot, toy pot, metal pan, cooking pot, silver cookware, container
+Original: put as many as possible potential replacements: place, drop, deposit, set, transfer, lower, release, insert, move
+Original: [none in original] as many as possible potential replacements: red, silver, plastic, metal, toy
+Original: [none]
+
+Incoming instruction: place the pepper in the pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

@@ -1,0 +1,25 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+A black robotic arm gripper is holding the silver handle of a white toy oven door. The toy kitchen unit is white with silver knobs and silver stove burners on top.
+
+<Meaning of the instruction in the context of the image>
+The robot needs to pull the silver handle to open the white door of the toy oven.
+
+Original: oven as many as possible potential replacements: oven door, toy oven, white oven, stove door, appliance door, toy stove
+Original: open as many as possible potential replacements: pull open, swing open, pull, unlatch, draw open
+Original: None as many as possible potential replacements: white, silver, toy, plastic
+Original: None
+
+Original Instruction:
+open oven
+
+Incoming instruction: pull open the handle of the white oven
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

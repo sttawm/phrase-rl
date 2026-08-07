@@ -1,0 +1,30 @@
+[dry-run:claude] 1d0349745c9b
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+**Description of the image:**
+The image shows a wooden desk surface with several items on it. There is a toy chocolate bar and a toy slice of pie next to a light-colored wooden box structure. This structure consists of a housing and a wooden drawer that is currently pulled out (open), revealing a blue and green object inside. In the background, there is a toy microwave, a red and green tin can, and a yellow tin can.
+
+**Meaning of the instruction in the context of the image:**
+The instruction "Close the drawer" means the robot should push the open wooden drawer compartment back into its light wooden housing/box structure until it is shut.
+
+**Original: Nouns**
+- drawer: wooden drawer, slide-out compartment, wooden box, open container, tray, wooden compartment, drawer unit
+- box: wooden housing, wooden casing, cabinet, box structure
+
+**Original: Verbs**
+- Close: push, push shut, slide in, slide closed, shut, push back, insert, return
+
+**Original: Adjectives**
+- [None in original, but inferred from image]: wooden, light-wood, open, light-brown, slide-out
+
+**Original: Adverbs**
+- [None]
+
+Incoming instruction: close the toy drawer
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

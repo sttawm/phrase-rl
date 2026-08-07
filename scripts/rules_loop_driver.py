@@ -27,6 +27,7 @@ Real round 1:
         --rephrasers qwen,claude,gemini --patience 3
 """
 import argparse
+import concurrent.futures as cf
 import hashlib
 import json
 import os
@@ -34,6 +35,7 @@ import re
 import subprocess
 import sys
 import time
+import uuid
 from pathlib import Path
 
 import numpy as np
@@ -41,6 +43,7 @@ import pandas as pd
 
 REPO = Path(__file__).resolve().parent.parent
 PROMPTS = REPO / "prompts" / "rules_loop"
+APPLY_WORKERS = int(os.environ.get("RULES_APPLY_WORKERS", "8"))
 
 # --- frozen constants -------------------------------------------------------
 SEALED_STEMS = [
@@ -108,7 +111,16 @@ def _log_llm(run, tag, prompt, response):
     (d / f"{tag}_{n:03d}.response.txt").write_text(response)
 
 
-def call_llm(run, backend, prompt, tag, timeout=600):
+REASONING_ROLES = ("distill", "judge", "plan", "corpus")
+
+
+def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
+             effort="high"):
+    """session: a uuid to pin/resume a conversation. Reasoning roles (distill,
+    judge, plan) share ONE session per pass so the distiller can refer back to
+    everything it has already seen and concluded. Apply calls pass session=None
+    deliberately -- they must not see each other's phrases (cross-contamination),
+    and being stateless is what lets them run in parallel."""
     if run.dry:
         response = f"[dry-run:{backend}] " + hashlib.sha1(prompt.encode()).hexdigest()[:12]
         if tag.startswith("distill"):
@@ -117,12 +129,21 @@ def call_llm(run, backend, prompt, tag, timeout=600):
         _log_llm(run, tag, prompt, response)
         return response
     if backend == "claude":
-        env = dict(os.environ)
-        if tag.split("_")[-1].rstrip("0123456789") in ("distill", "judge", "plan"):
-            env["MAX_THINKING_TOKENS"] = "16000"  # high effort where judgment lives
-        r = subprocess.run(["claude", "-p", prompt, "--output-format", "text",
-                            "--model", "claude-fable-5"],
-                           capture_output=True, text=True, timeout=timeout, env=env)
+        cmd = ["claude", "-p", prompt, "--output-format", "text",
+               "--model", "claude-fable-5", "--effort", effort]
+        if add_dir:
+            # the agent reads its working files itself, Claude-Code style, instead
+            # of us pasting summaries into the prompt
+            cmd += ["--add-dir", str(add_dir),
+                    "--allowedTools", "Read", "Grep", "Glob"]
+        if session:
+            marker = run.dir / f".session_{session}"
+            if marker.exists():
+                cmd += ["--resume", session]
+            else:
+                cmd += ["--session-id", session]
+                marker.write_text(session)
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
         if r.returncode != 0:
             raise RuntimeError(f"claude CLI failed: {r.stderr[:300]}")
         response = r.stdout.strip()
@@ -141,6 +162,22 @@ def call_llm(run, backend, prompt, tag, timeout=600):
     return response
 
 
+_TRACES = {}
+
+
+def load_traces():
+    """Scene descriptions, keyed by instruction. Expensive to generate, so they
+    are loaded once from the teacher bank and reused for every rule application."""
+    global _TRACES
+    if _TRACES:
+        return _TRACES
+    f = REPO / "results/phrase_artifacts/cover35_teacher_train.parquet"
+    if f.exists():
+        t = pd.read_parquet(f, columns=["instruction", "trace"]).drop_duplicates("instruction")
+        _TRACES = dict(zip(t.instruction, t.trace))
+    return _TRACES
+
+
 def prompt_from(name, **kw):
     t = (PROMPTS / name).read_text()
     for k, v in kw.items():
@@ -154,6 +191,7 @@ class Run:
         self.id = run_id
         self.dry = dry
         self.dir = REPO / "results" / "rules_runs" / run_id
+        self.session = None
         (self.dir / "jobs").mkdir(parents=True, exist_ok=True)
         self.cfg_path = self.dir / "config.json"
 
@@ -171,6 +209,7 @@ class Run:
             "distiller_model": "claude-fable-5", "apply_model": "claude-fable-5",
             "rephrasers": args.rephrasers.split(","),
             "distiller": "claude", "judge": "claude",
+            "max_probes": args.max_probes,
             "proxy": PROXY,
             "prompt_hashes": {p.name: hashlib.sha1(p.read_bytes()).hexdigest()[:12]
                               for p in sorted(PROMPTS.glob("*.md"))},
@@ -286,18 +325,103 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag, only_rule=
             "rules_file": str((run.dir / "current_rules.md").relative_to(REPO)),
             "only_rule": only_rule}, tag)
     tmpl = "apply_single.md" if only_rule else "apply.md"
-    rows = []
+    traces = load_traces()
+    jobs = []
     for r in bases.itertuples():
-        p = prompt_from(tmpl, rules=rules, phrase=r.phrase, task=r.task,
-                        only_rule=only_rule or "")
-        rows.append({"task": r.task, "phrase": r.phrase,
-                     "rewrite": call_llm(run, rephraser, p, f"{tag}_apply").split("\n")[0].strip()})
+        jobs.append((r.task, r.phrase, prompt_from(
+            tmpl, rules=rules, phrase=r.phrase, task=r.task,
+            trace=traces.get(r.task, traces.get(r.phrase, "(no scene description available)")),
+            only_rule=only_rule or "")))
+    rows = [None] * len(jobs)
+
+    def one(i):
+        task, phrase, p = jobs[i]
+        out = call_llm(run, rephraser, p, f"{tag}_apply", session=None, effort="medium")
+        return i, {"task": task, "phrase": phrase, "rewrite": out.split("\n")[0].strip()}
+
+    # stateless -> safe to run concurrently; this is the loop's dominant cost
+    with cf.ThreadPoolExecutor(max_workers=1 if run.dry else APPLY_WORKERS) as ex:
+        for i, rec in ex.map(one, range(len(jobs))):
+            rows[i] = rec
     return pd.DataFrame(rows)
 
 
+def write_evidence_file(run, bank, tasks, path):
+    """The full spread per task, not extremes: the distiller needs to see the
+    shape of within-task variation to tell a real effect from a tail."""
+    lines = ["# Measured phrases",
+             "",
+             "Estimated success rate per phrase (0-1), grouped by task, sorted",
+             "worst to best. `[rollout]` marks phrases with a real measured",
+             "success rate rather than an estimate; trust those more.",
+             ""]
+    sub = bank[bank.task.isin(tasks)]
+    for task, g in sub.groupby("task"):
+        g = g.sort_values("proxy")
+        lines.append(f"## {task}   ({len(g)} phrases, "
+                     f"est. {g.proxy.min():.2f}-{g.proxy.max():.2f})")
+        for r in g.itertuples():
+            tag = f"  [rollout {r.gt_success:.0f}%]" if pd.notna(r.gt_success) else ""
+            lines.append(f"  {r.proxy:.3f}  {r.phrase!r}{tag}")
+        lines.append("")
+    Path(path).write_text("\n".join(lines))
+    return len(sub)
+
+
+def write_eval_file(run, path, rules, per_rule, pairs, base_mean, rules_mean):
+    lines = ["# Previous rulebook: measured performance", "",
+             f"Whole rulebook applied: estimated success {rules_mean:.3f} vs "
+             f"{base_mean:.3f} for the unrephrased instruction "
+             f"({rules_mean - base_mean:+.3f}).", "",
+             "## Per-rule single-edit effects", "",
+             "Each rule applied ALONE to the same base instructions, so the",
+             "delta below is attributable to that rule and not to the rest of",
+             "the rulebook.", ""]
+    for k, v in (per_rule or {}).items():
+        lines.append(f"### {k}")
+        lines.append(f"text: {v['text']}")
+        lines.append(f"delta vs base: {v['delta_proxy']:+.4f}   (n={v['n']} instructions)")
+        lines.append("")
+    lines += ["## Sample rewrites from the whole rulebook", ""]
+    for p in pairs:
+        lines.append(f"  [{p['task']}]")
+        lines.append(f"    in : {p['base']!r}")
+        lines.append(f"    out: {p['rewrite']!r}")
+    Path(path).write_text("\n".join(lines))
+
+
+def ensure_corpus_file(run, cfg):
+    """Written once per run by an agent that reads the corpus inputs itself."""
+    out = run.dir / "corpus_stats.md"
+    if out.exists():
+        return out
+    inputs = REPO / "results/analysis/b4_rules_inputs"
+    if run.dry or not inputs.exists():
+        out.write_text("# Corpus statistics\n\n(dry-run placeholder)\n")
+        return out
+    p = prompt_from("corpus.md", inputs_dir=inputs, out_file=out)
+    call_llm(run, "claude", p, "corpus", add_dir=REPO, effort="high", timeout=1800)
+    if not out.exists():
+        out.write_text("# Corpus statistics\n\n(agent did not write a file)\n")
+    return out
+
+
 # --- rule parsing / evaluation ----------------------------------------------
+def section(text, name):
+    """Text between ===NAME=== and the next ===...=== delimiter (or the end)."""
+    m = re.search(rf"^===\s*{re.escape(name)}\s*===\s*$(.*?)(?=^===|\Z)", text,
+                  re.M | re.S)
+    return m.group(1).strip() if m else ""
+
+
 def parse_rules(rules_text):
-    return [m.group(1).strip() for m in re.finditer(r"^\s*\d+\.\s+(.+)$", rules_text, re.M)]
+    """Numbered rules from the RULES section ONLY -- the RATIONALE section also
+    contains numbered lines, and counting those would invent phantom rules and
+    corrupt every single-edit measurement."""
+    body = section(rules_text, "RULES")
+    if not body:  # tolerate a model that omitted the delimiters
+        body = rules_text.split("===RATIONALE===")[0]
+    return [m.group(1).strip() for m in re.finditer(r"^\s*\d+\.\s+(.+)$", body, re.M)]
 
 
 def baseline_proxy(run, cfg, bases, tag):
@@ -336,13 +460,18 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
                 "delta_proxy": float(rs.proxy.mean() - base_scored.proxy.mean()),
                 "n": int(len(rs)),
             }
-        judge_p = prompt_from("judge.md", rules=rules,
-                              pairs="\n".join(f"[{r.task}] {r.phrase!r} -> {r.rewrite!r}"
-                                              for r in rewrites.head(40).itertuples()))
-        judgement = call_llm(run, cfg["judge"], judge_p, f"{tag}_judge")
+        eval_file = itdir / "rules_eval.md"
+        write_eval_file(run, eval_file, rules, per_rule,
+                        [{"task": r.task, "base": r.phrase, "rewrite": r.rewrite}
+                         for r in rewrites.head(40).itertuples()],
+                        float(base_scored.proxy.mean()), score)
+        judge_p = prompt_from("judge.md", rules=rules, eval_file=eval_file)
+        judgement = call_llm(run, cfg["judge"], judge_p, f"{tag}_judge",
+                             session=run.session, add_dir=run.dir, effort="high")
+        (itdir / "judge.md").write_text(judgement)
         summary = {"per_rule_perf": per_rule, "judge": judgement,
-                   "suggestions": judgement.split("SUGGESTIONS")[-1].strip()
-                   if "SUGGESTIONS" in judgement else ""}
+                   "rule_notes": section(judgement, "RULE NOTES"),
+                   "suggestions": section(judgement, "SUGGESTIONS")}
     scored.to_parquet(scored_art, index=False)
     base_mean = baseline_proxy(run, cfg, bases, tag)
     jwrite(art, {"score": score, "base": base_mean, "delta": score - base_mean,
@@ -404,6 +533,7 @@ def main():
                          "F = clamp(budget/C, this, 16)")
     ap.add_argument("--min-eps-per-task", type=int, default=8,
                     help="training-task support floor (same episode-count criterion as the search)")
+    ap.add_argument("--max-probes", type=int, default=20)
     ap.add_argument("--seed", type=int, default=7)
     args = ap.parse_args()
 
@@ -454,12 +584,15 @@ def main():
         d = bank[bank.task.isin(task_list)][["task", "phrase"]]
         return d.sample(min(n, len(d)), random_state=seed) if n else d
 
-    corpus_summary = "(see results/analysis/b4_rules_inputs/ -- corpus stats, contrast pairs, case studies)"
+    corpus_file = ensure_corpus_file(run, cfg)
     rules_per_model = {}
 
     for rephraser in cfg["rephrasers"]:
         pdir = run.dir / f"pass_{rephraser}"
         pdir.mkdir(exist_ok=True)
+        # one conversation per pass: the distiller/judge/planner see their own
+        # full history -- every prior rulebook, rationale, and audit
+        run.session = str(uuid.UUID(hashlib.sha1(f"{run.id}:{rephraser}".encode()).hexdigest()[:32]))
         state_p = pdir / "state.json"
         st = jread(state_p) if state_p.exists() else {
             "iter": 0, "best_val": -1e9, "best_iter": -1, "since_best": 0,
@@ -476,20 +609,20 @@ def main():
                 rules = rp.read_text()
             else:
                 bank = pd.read_parquet(run.dir / "bank.parquet")
-                by = bank.sort_values("proxy")
-                evidence = pd.concat([by.groupby("task").head(3),
-                                      by.groupby("task").tail(3)]).drop_duplicates(["task", "phrase"])
-                ev_txt = "\n".join(f"[{r.task}] {r.proxy:.2f}  {r.phrase!r}" +
-                                   (f"  (gt={r.gt_success:.0f}%)" if pd.notna(r.gt_success) else "")
-                                   for r in evidence.itertuples())
-                prev_summary = ""
-                prev = pdir / f"iter_{it - 1:02d}" / "eval_train.json"
-                if prev.exists():
-                    prev_summary = json.dumps(jread(prev).get("summary"), indent=1)[:4000]
-                dp = prompt_from("distill.md", rephraser=rephraser, prev_rules=st["rules"],
-                                 corpus_summary=corpus_summary, evidence=ev_txt,
-                                 eval_summary=prev_summary)
-                rules = call_llm(run, cfg["distiller"], dp, f"{rephraser}_distill")
+                ev_file = itdir / "evidence.md"
+                n_ev = write_evidence_file(run, bank, train_tasks, ev_file)
+                prev_eval = pdir / f"iter_{it - 1:02d}" / "rules_eval.md"
+                if not prev_eval.exists():
+                    prev_eval = itdir / "no_previous_eval.md"
+                    prev_eval.write_text("(first iteration -- no previous rulebook was measured)")
+                dp = prompt_from("distill.md", prev_rules=st["rules"],
+                                 corpus_file=corpus_file, evidence_file=ev_file,
+                                 eval_file=prev_eval)
+                print(f"    distilling over {n_ev} measured phrases "
+                      f"({len(train_tasks)} tasks) ...")
+                rules = call_llm(run, cfg["distiller"], dp, f"{rephraser}_distill",
+                                 session=run.session, add_dir=run.dir, effort="high",
+                                 timeout=1800)
                 rp.write_text(rules)
             (run.dir / "current_rules.md").write_text(rules)
 
@@ -529,8 +662,11 @@ def main():
             # 5. probe phrases the bank lacks
             if summary and summary.get("suggestions"):
                 pp = prompt_from("plan.md", suggestions=summary["suggestions"],
-                                 tasks=", ".join(train_tasks[:40]))
-                planned = call_llm(run, cfg["distiller"], pp, f"{rephraser}_plan")
+                                 evidence_file=itdir / "evidence.md",
+                                 max_probes=cfg.get("max_probes", 20),
+                                 tasks="\n".join(train_tasks[:40]))
+                planned = call_llm(run, cfg["distiller"], pp, f"{rephraser}_plan",
+                                   session=run.session, add_dir=run.dir, effort="high")
                 new = [{"task": m.group(1), "phrase": m.group(2).strip()}
                        for m in re.finditer(r"^\s*\[([^\]]+)\]\s+(.+)$", planned, re.M)]
                 if new:

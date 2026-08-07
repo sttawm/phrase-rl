@@ -1,0 +1,23 @@
+[dry-run:claude] 1d0349745c9b
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image shows a light blue toy kitchen sink assembly. It features a grey faucet, a yellow dish rack containing colorful utensils (pink, blue, and yellow), a blue cup, a green toy vegetable, and a striped round toy inside the basin. A robotic arm is positioned above the sink.
+
+The instruction means the robot needs to grasp the grey toy faucet (which is currently pointing forward) and rotate or pivot it to the right side.
+
+Original: faucet as many as possible potential replacements: tap, spout, water fixture, toy faucet, grey tap, nozzle
+Original: turn as many as possible potential replacements: rotate, swing, twist, pivot, shift, move, direct
+Original: front, right as many as possible potential replacements: forward-facing, right side, rightward, right direction
+Original: none
+
+Original Instruction:
+turn faucet front to right
+
+Incoming instruction: turn the faucet switch to the right
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

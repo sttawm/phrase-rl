@@ -1,0 +1,25 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a robotic arm positioned over an orange, hexagonal-shaped cloth laid flat on a white table. The cloth has dark tape markers on its top, left, right, and bottom edges. The robotic gripper is currently hovering near the top edge of the orange cloth, which has a black tape marker on it.
+
+<Meaning of the instruction in the context of the image>
+The instruction directs the robot to pick up a blue object (referred to as a "blue figure") and place it precisely on the upper border (the top edge, marked with black tape) of the orange fabric.
+
+Original: "blue figure", "top edge", "cloth" as many as possible potential replacements: "blue toy", "blue figurine", "blue object", "blue character", "blue shape", "blue plastic piece", "upper border", "top margin", "upper side", "far edge", "top boundary", "orange fabric", "orange towel", "orange textile", "orange sheet"
+Original: "put" as many as possible potential replacements: "place", "set", "move", "position", "lay", "drop", "transfer", "leave"
+Original: "blue", "top" as many as possible potential replacements: "upper", "far", "superior"
+Original: None as many as possible potential replacements: None
+
+Original Instruction:
+put the blue figure on the top edge of the cloth
+
+Incoming instruction: put the blue block on the top section of the cloth
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

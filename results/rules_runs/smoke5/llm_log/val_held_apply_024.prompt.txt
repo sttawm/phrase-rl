@@ -1,0 +1,23 @@
+[dry-run:claude] 1d0349745c9b
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image displays a light blue microfiber cloth folded on top of a black toy stove burner next to a grey toy sink. 
+
+The instruction "unfold the cloth from top to bottom" means the robot should grasp the upper edge or layer of the light blue cloth and pull or spread it downwards to open and flatten it across the stovetop.
+
+Original: cloth, top, bottom as many as possible potential replacements: light blue cloth, blue towel, blue rag, fabric, textile, upper edge, top fold, lower side, bottom edge, front of the stove
+Original: unfold as many as possible potential replacements: spread, open, stretch, pull down, lay out, flatten, expand, open up
+Original: (None in the original instruction, but inferred from image) as many as possible potential replacements: light blue, blue, folded
+Original: (None)
+
+Original Instruction:
+unfold the cloth from top to bottom
+
+Incoming instruction: unfold the blue cloth from top down
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

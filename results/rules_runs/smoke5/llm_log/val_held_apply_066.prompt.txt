@@ -1,0 +1,26 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+**Description of the image:**
+A robotic arm is grasping a small orange cup, hovering over a light blue plate located on a play kitchen stove. To the left sits a yellow bell pepper, and on the burner behind is a toy potato. A gray toy sink is visible on the right side of the counter.
+
+**Meaning of the instruction in the context of the image:**
+The robotic arm needs to place the orange cup it is currently holding onto the light blue plate on the stove top.
+
+**Original: cup** as many as possible potential replacements: orange cup, red cup, orange mug, plastic cup, red mug, cup
+**Original: plate** as many as possible potential replacements: light blue plate, blue plate, blue saucer, light blue dish, blue dish, plate
+**Original: put** as many as possible potential replacements: place, set, deposit, position, lower, leave, sit, stack, move
+**Original: on** as many as possible potential replacements: onto, on top of
+**Original: Adverbs** as many as possible potential replacements: None
+
+**Original Instruction:**
+put cup on plate
+
+Incoming instruction: put the pink cup on the plate
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

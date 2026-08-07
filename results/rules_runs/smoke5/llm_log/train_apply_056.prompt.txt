@@ -1,0 +1,25 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen setup. Inside the grey sink, there is a blue bowl, an orange carrot, a yellow bell pepper, a yellow banana, a purple striped onion, and a small green lime. On the counter next to the sink, there is a green circular plate, a red sauce bottle, a white soap bottle, a yellow corn toy, and an orange carrot toy. A robotic gripper is holding a small green toy broccoli over the counter.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to place the green toy broccoli it is holding into the blue plastic bowl located inside the toy sink.
+
+Original: broccoli as many as possible potential replacements: green broccoli, green vegetable, green toy broccoli, green plastic broccoli, toy broccoli, green food toy
+Original: bowl as many as possible potential replacements: blue bowl, blue plastic bowl, blue dish, blue container, bowl in the sink
+Original: put as many as possible potential replacements: place, drop, move, deposit, set, transfer, release, lower
+Original: None as many as possible potential replacements: None
+
+Original Instruction:
+put broccoli in bowl
+
+Incoming instruction: place the green broccoli in the blue bowl
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

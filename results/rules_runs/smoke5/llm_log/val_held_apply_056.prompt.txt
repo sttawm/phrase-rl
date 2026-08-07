@@ -1,0 +1,23 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen set with a grey stove. On the left burner sits a small silver colander (strainer), and on the right burner is a lime green plate holding a yellow toy pepper. A robotic gripper (end effector) is currently positioned over the yellow pepper on the green plate.
+
+<Meaning of the instruction in the context of the image>
+The instruction "end effector transition from object to object" means that the robot gripper should move from its current position at the yellow pepper/green plate to the other object on the stove, which is the silver colander.
+
+Original: end effector as many as possible potential replacements: gripper, robot hand, robotic claw, arm, gripper head, claw
+Original: object as many as possible potential replacements: yellow pepper, yellow toy, green plate, silver colander, metal strainer, item, dish
+Original: transition as many as possible potential replacements: move, shift, transfer, relocate, switch, travel, navigate, go
+Original: Adjectives as many as possible potential replacements: yellow, green, silver, metal, robotic
+Original: Adverbs as many as possible potential replacements: None
+
+Incoming instruction: end effector transition of red object to pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

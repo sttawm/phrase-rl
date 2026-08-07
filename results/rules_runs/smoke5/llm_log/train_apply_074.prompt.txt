@@ -1,0 +1,23 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+**Description of the image**
+The image shows a toy kitchen play set with a robotic arm gripper positioned inside a silver sink. The gripper is grasping a yellow toy corn piece. On the counter to the right of the sink, there is a light blue bowl, a white squeeze bottle, a red sauce bottle, a toy carrot, and a toy banana. A green toy cabbage sits on a stove burner in the background.
+
+**Meaning of the instruction in the context of the image**
+The instruction "put corn into bowl" means the robot should pick up the yellow toy corn from the sink and place it inside the light blue bowl on the right side of the counter.
+
+**Original: corn** potential replacements: yellow corn, toy corn, plastic corn, yellow vegetable, corn cob, corn on the cob
+**Original: bowl** potential replacements: blue bowl, light blue bowl, blue dish, blue container, light blue dish, blue cup
+**Original: put** potential replacements: place, move, transfer, set, deposit, drop, relocate, pick up and place, grab and place
+**Original: into** potential replacements: inside, in, to
+**Original: Adverbs**: None
+
+Incoming instruction: put the corn in the bowl
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

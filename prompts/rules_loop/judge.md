@@ -1,19 +1,36 @@
-You are auditing whether rewrites follow a rule set.
+You are auditing a rulebook against the rewrites it produced and against the
+measured effect of each of its rules.
 
-RULES
+Read the working file before answering:
+
+  {{eval_file}}
+      For each numbered rule: its text, the measured change in estimated success
+      when that rule alone was applied (a controlled single-edit contrast), and
+      the number of instructions it was measured on. Followed by a sample of
+      base -> rewrite pairs produced when the whole rulebook was applied.
+
+RULEBOOK UNDER AUDIT:
 {{rules}}
 
-REWRITES (base -> rewrite)
-{{pairs}}
+For every numbered rule, report two DIFFERENT things and do not conflate them:
+  - adherence: how reliably the rewrites actually obeyed the rule (did the
+    applier do what it was told?)
+  - performance: what the measured single-edit numbers say the rule did to
+    success when it WAS obeyed (was being told to do it a good idea?)
+A rule can have high adherence and poor performance, or the reverse; those imply
+opposite fixes, so state both even when one is obvious.
 
-For each numbered rule, estimate adherence (how often the rewrites obey it) and
-flag any rule that is being ignored or misapplied. Then propose phrase
-experiments that would sharpen the evidence — regions of phrasing space the
-current data does not cover.
+Only after every rule has been covered, propose experiments: phrasings whose
+effect the current evidence cannot settle, and which would discriminate between
+competing explanations of what you have seen.
 
-Reply with EXACTLY this format:
-ADHERENCE
-1. <rule 1: adherence estimate + one-line note>
-...
-SUGGESTIONS
-<one suggested experiment per line>
+Reply in EXACTLY this format, with these delimiter lines verbatim:
+
+===RULE NOTES===
+1. adherence: <estimate + evidence> | performance: <what the measured delta
+   says, citing the number> | verdict: <keep / simplify / drop / needs more data>
+2. ...
+(one block per rule, all rules covered)
+===SUGGESTIONS===
+<one experiment per line, each stating the phrasing to test and what its outcome
+would tell us>

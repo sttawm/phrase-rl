@@ -1,0 +1,25 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a wooden surface or cutting board containing various toy food items (two yellow corns, a green bitter melon, an orange, a gray shaker, a red plate, and a can of beans) next to a rectangular white cardboard box. A robotic gripper is positioned directly above a black tape/mark on the top flap of this white box, ready to interact with it.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to grasp and lift or flip open the top cardboard flap of the white box (referred to as "white1fbox").
+
+Original: <Nouns> as many as possible potential replacements: flap, lid, cover, cardboard flap, box flap, package top, container lid
+Original: <Verbs> as many as possible potential replacements: open, lift, pull up, raise, flip, fold back, unfold, pry open
+Original: <Adjectives> as many as possible potential replacements: white, cardboard, rectangular, top, paper
+Original: <Adverbs> as many as possible potential replacements: None
+
+Original Instruction:
+open white1fbox flap
+
+Incoming instruction: lift up the white box lid
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

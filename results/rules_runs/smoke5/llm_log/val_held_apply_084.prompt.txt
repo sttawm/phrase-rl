@@ -1,0 +1,21 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image shows a robotic arm with its gripper holding a light blue bowl. This blue bowl is resting on top of a round, beige wooden plate (or saucer) on a wooden tabletop. In the background, there is a yellow toy corn, a toy chicken, and a small bottle with a green cap.
+
+In the context of the image, the instruction means that the robot needs to grasp the light blue bowl and lift it up to separate it from the beige wooden plate underneath it.
+
+Original: bowl potential replacements: blue bowl, light blue bowl, blue dish, blue container, blue basin
+Original: plate potential replacements: beige plate, tan plate, round saucer, wooden plate, tan coaster, dish
+Original: take off potential replacements: lift, remove, pick up, move off, separate, raise, retrieve, clear
+Original: Adjectives potential replacements: light blue, blue, beige, tan, round, wooden
+Original: Adverbs potential replacements: None
+
+Incoming instruction: take the blue bowl off the yellow coaster
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

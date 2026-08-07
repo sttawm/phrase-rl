@@ -1,0 +1,28 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+**Description of the image**
+The image shows a wooden cabinet on a white tabletop. The cabinet features an open drawer with a red front face and a black wire handle. Inside the open drawer, a blue cloth is visible. A black robotic gripper is positioned right next to the drawer's handle. In the foreground, several other objects are scattered on the table, including a yellow toy pepper, a green toy cucumber, a pink plush toy, and a yellow plush duck.
+
+**Meaning of the instruction in the context of the image**
+The instruction "close the drawer" means the robot should use its gripper to push the red-faced drawer (either by pushing the front panel or using the black handle) back into the wooden cabinet until it is completely shut.
+
+**Original: <Nouns>** drawer
+**as many as possible potential replacements:** red drawer, red compartment, sliding drawer, wooden drawer, drawer with the red front, drawer containing the blue cloth, black handle
+
+**Original: <Verbs>** close
+**as many as possible potential replacements:** push, shut, slide, push in, slide shut, push closed
+
+**Original: <Adjectives>** none
+**as many as possible potential replacements:** red, wooden, open, black, blue
+
+**Original: <Adverbs>** none
+
+Incoming instruction: slide the white drawer with the red front closed
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

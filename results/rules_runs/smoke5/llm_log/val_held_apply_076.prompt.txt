@@ -1,0 +1,27 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a robotic gripper positioned directly above a light blue bowl. The blue bowl is resting on a small, light yellow plate (or saucer). This setup is located inside a wooden tray with cardboard borders (a cardboard fence). A red strawberry is visible on the left, and a red mug is on the right.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to lift or remove the light blue bowl from the yellow saucer/plate within the area enclosed by the cardboard fence.
+
+Original: bowl as many as possible potential replacements: blue bowl, light blue bowl, blue dish, blue container, blue cup
+Original: plate as many as possible potential replacements: yellow plate, beige saucer, yellow saucer, small plate, yellow dish
+Original: cardboard fence as many as possible potential replacements: cardboard tray, fenced area, cardboard enclosure, cardboard-bordered tray, wooden tray
+Original: take...off as many as possible potential replacements: lift, remove, pick up, separate, retrieve, extract, raise, move off
+Original: Adjectives as many as possible potential replacements: blue, light blue, yellow, beige, light yellow, cardboard
+Original: Adverbs as many as possible potential replacements: None
+
+Original Instruction:
+take bowl off plate cardboard fence
+
+Incoming instruction: lift the blue bowl off the green saucer
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

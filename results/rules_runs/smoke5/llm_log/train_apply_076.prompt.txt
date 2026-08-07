@@ -1,0 +1,26 @@
+[dry-run:claude] 39d00b00cfd0
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a robotic arm gripper grasping an orange microfiber cloth on a wooden table. In the background, there is a brown cardboard box, a green plastic block, and a small blue object. The orange cloth is spread out on the table, and the gripper is holding it near its upper-left section.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to fold the orange cloth by grasping its top-right corner or section and folding it over towards the bottom-left corner or section.
+
+Original: cloth as many as possible potential replacements: orange cloth, fabric, orange towel, orange rag, microfiber cloth, textile
+Original: fold as many as possible potential replacements: fold over, crease, bend, bring, drape, pull, double over, tuck
+Original: top right as many as possible potential replacements: upper-right corner, top-right edge, upper right section, top right part
+Original: bottom left as many as possible potential replacements: lower-left corner, bottom-left edge, lower left section, bottom left part
+Original: none
+
+Original Instruction:
+fold the cloth from top right to bottom left
+
+Incoming instruction: diagonal fold the blue cloth from top right to bottom left
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.
