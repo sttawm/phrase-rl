@@ -19,13 +19,11 @@ REFS = [("A", "original (canonical) — 24 layouts, 12 reps", (36.08, 48.3, 27.3
 ROLES = ["rules-v4", "no rules (prompt B)"]
 # cell = (pooled, IV, OOV, is_partial_0_11) or None (pending)
 MODELS = {
-    "Frozen Qwen":  [(29.41, 35.2, 25.3, False), (27.52, 37.8, 20.1, True)],
+    "Frozen Qwen":  [(29.41, 35.2, 25.3, False), (28.32, 39.1, 20.6, False)],
     "Gemini-Pro":   [(33.92, 42.0, 28.2, False), (31.15, 43.6, 22.2, False)],
     "Claude Fable": [(31.18, 40.9, 24.3, False), (30.75, 43.3, 21.8, False)],
 }
-PENDING = {
-    ("Frozen Qwen", 1): "lay 12-23 landing ~07:30",
-}
+PENDING = {}
 
 
 def triplet_bars(ax, x, pool, iv, oov, dagger=False):
