@@ -1,0 +1,22 @@
+{
+ "4": {
+  "rank01 blend (current)": 0.3977523078585847,
+  "group-standardized linear": 0.4231249479580192,
+  "group-standardized sigmoid": 0.42454843592023905
+ },
+ "8": {
+  "rank01 blend (current)": 0.4473393956592043,
+  "group-standardized linear": 0.491540851826376,
+  "group-standardized sigmoid": 0.4936710164899032
+ },
+ "16": {
+  "rank01 blend (current)": 0.4660733357089579,
+  "group-standardized linear": 0.5292380912774639,
+  "group-standardized sigmoid": 0.5315998136529271
+ },
+ "32": {
+  "rank01 blend (current)": 0.26083075439288905,
+  "group-standardized linear": 0.4886267609650109,
+  "group-standardized sigmoid": 0.48532237547854556
+ }
+}
