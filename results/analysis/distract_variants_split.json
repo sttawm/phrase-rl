@@ -1,0 +1,61 @@
+{
+ "sealed": [
+  {
+   "task": "coke_can_on_keyboard_distract",
+   "base": "coke_can_on_keyboard",
+   "instruction": "put coke can on keyboard"
+  },
+  {
+   "task": "orange_juice_on_plate_distract",
+   "base": "orange_juice_on_plate",
+   "instruction": "put orange juice on plate"
+  },
+  {
+   "task": "orange_juice_on_plate_lang_common_distract",
+   "base": "orange_juice_on_plate",
+   "instruction": "put the juice squeezed from orange on the plate"
+  },
+  {
+   "task": "orange_juice_on_plate_lang_common_distractv2",
+   "base": "orange_juice_on_plate",
+   "instruction": "put the drink rich in vitamin C on the plate"
+  }
+ ],
+ "val": [
+  {
+   "task": "carrot_on_keyboard_distract",
+   "base": "carrot_on_keyboard",
+   "instruction": "put carrot on keyboard"
+  },
+  {
+   "task": "carrot_on_plate_distract",
+   "base": "carrot_on_plate",
+   "instruction": "put carrot on plate"
+  },
+  {
+   "task": "carrot_on_plate_lang_common_distract",
+   "base": "carrot_on_plate",
+   "instruction": "put rabbit's favorite vegetable on the plate"
+  },
+  {
+   "task": "coke_can_on_plate_distract",
+   "base": "coke_can_on_plate",
+   "instruction": "put coke can on plate"
+  },
+  {
+   "task": "coke_can_on_plate_lang_common_distract",
+   "base": "coke_can_on_plate",
+   "instruction": "put the object that one needs the most when they are thirsty on plate"
+  },
+  {
+   "task": "spoon_on_towel_distract",
+   "base": "spoon_on_towel",
+   "instruction": "put the spoon on the towel"
+  },
+  {
+   "task": "spoon_on_towel_lang_common_distract",
+   "base": "spoon_on_towel",
+   "instruction": "put the kitchenware for eating soup on the towel"
+  }
+ ]
+}
