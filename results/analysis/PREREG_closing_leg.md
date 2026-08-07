@@ -501,3 +501,13 @@ val-8 +6.8 (winner's-curse correction); point prediction +2.5 to +5.5
 flat val polish curve. Phrases preflight-printed to pod6:/workspace/step60_gen.log
 before any roll; paper reports sealed numbers only, with the nomination rule
 disclosed.
+
+## Amendment 26 — CANCELLED (2026-08-07 ~03:50, before any sealed exposure completed)
+
+User decision: both v10step60 sealed arms killed mid-roll (repair ~750/3456,
+polish ~600/3456; partial rolls discarded unmerged, no sealed rows written).
+Rationale: the completed 31-cell val curve reads as ambiguous between
+"peak-at-60 then erosion" and "noisy band with late recovery (220 = 42.7)";
+rather than validate a possibly-noise-nominated checkpoint, the run RESUMES
+from step ~256 with continued stride-10 checkpoint evaluation. A future
+sealed validation will re-nominate on the extended curve.
