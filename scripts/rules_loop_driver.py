@@ -659,7 +659,11 @@ def main():
         st = jread(state_p) if state_p.exists() else {
             "iter": 0, "best_val": -1e9, "best_iter": -1, "since_best": 0,
             "last_val": -1e9,
-            "rules": "1. Rewrite the instruction as a short plain imperative.\n"}
+            "rules": ("===RULES===\n"
+                      "1. Rewrite the instruction as a short, plain imperative that "
+                      "keeps the same objects and goal.\n"
+                      "===RATIONALE===\nno-rules baseline: the scaffold alone, measured "
+                      "as iteration 0 so every distilled rulebook has an anchor to beat.\n")}
         while st["since_best"] < cfg["patience"] and st["iter"] < cfg["max_iters"]:
             it = st["iter"]
             itdir = pdir / f"iter_{it:02d}"
@@ -670,6 +674,10 @@ def main():
             rp = itdir / "rules.md"
             if rp.exists():
                 rules = rp.read_text()
+            elif it == 0:
+                # iteration 0 measures the no-rules prompt itself -- no distillation
+                rules = st["rules"]
+                rp.write_text(rules)
             else:
                 bank = pd.read_parquet(run.dir / "bank.parquet")
                 ev_file = itdir / "evidence.csv"

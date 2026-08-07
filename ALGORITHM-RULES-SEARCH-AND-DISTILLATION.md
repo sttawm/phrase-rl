@@ -27,30 +27,40 @@ base_pool             = snapshot(scored_bank)      # frozen: see (1)
 train_split, val_held = split(base_pool)           # by task
 train_eval            = random_sample(train_split, n=SAMPLE_N, seed=FIXED)
 
+# the unrephrased instructions, scored ONCE -- bases are frozen, so these never
+# change; every iteration's deltas are read against them
+base_mean = {split: mean(score(eval_set)) for split, eval_set in
+             [("train", train_eval), ("val_held", val_held), ("val8", val8)]}
+
 rules_per_model = {}
 for rephraser in [qwen, claude, gemini]:           # shared bank, per-model rules: see (2)
   session    = new_conversation()                  # distiller + judge + planner: see (3)
   rules      = initial_no_rules_prompt()
-  best       = None        # (rules, val, eval, audit) -- high-water mark
-  last       = None        # (rules, val, eval, audit) -- what we just tried
+  best       = None        # (rules, val, rules_eval_summary) -- high-water mark
+  last       = None        # (rules, val, rules_eval_summary) -- what we just tried
   since_best = 0
 
-  while since_best < PATIENCE:
+  for it in count():
+    if since_best >= PATIENCE: break
 
-    rules = session.distill_rules(                 # see (4) for the two-argument split
-        prev_rules    = best.rules if best else rules,
-        last_attempt  = last,
-        corpus_file   = corpus_file,
-        evidence_file = write_evidence(scored_bank, train_split))
+    if it > 0:                                     # iteration 0 MEASURES the
+      rules = session.distill_rules(               # no-rules prompt itself: see (9)
+          prev_rules         = best.rules,         # see (4) for the two-argument split
+          last_attempt       = last,               # rules + val + rules_eval_summary
+          corpus_file        = corpus_file,
+          evidence_file      = write_evidence(scored_bank, train_split))
 
     # apply the whole rulebook, and each rule alone: see (5)
     rewrites    = rephraser.apply(rules, train_eval, traces)
-    base_mean   = mean(score(train_eval))          # the unrephrased instructions
     train_score = mean(score(rewrites))
-    per_rule    = {r: mean(score(rephraser.apply_only(r, sample, traces))) - base_mean
-                   for r in parse_rules(rules)}
-    eval        = write_eval(rules, per_rule, rewrites, base_mean, train_score)
-    audit       = session.judge(rules, eval)       # adherence AND performance: see (6)
+    per_rule_perf = {r: mean(score(rephraser.apply_only(r, sample, traces)))
+                        - base_mean["train"]
+                     for r in parse_rules(rules)}
+    audit = session.judge(rules, per_rule_perf, rewrites)   # see (6)
+    rules_eval_summary = {                         # the user-facing object, as in v0:
+        "per_rule_adherence": audit.adherence,     #   did the applier obey each rule?
+        "per_rule_perf":      per_rule_perf,       #   measured single-edit delta each
+        "suggestions":        audit.suggestions}   #   experiments to run next
     scored_bank += rewrites
 
     val_held_score = mean(score(rephraser.apply(rules, val_held, traces)))
@@ -58,13 +68,14 @@ for rephraser in [qwen, claude, gemini]:           # shared bank, per-model rule
     val            = mean(val_held_score, val8_score)     # see (7)
     plot(train_score, val_held_score, val8_score, vs=base_mean)
 
-    last = (rules, val, eval, audit)
+    last = (rules, val, rules_eval_summary)
     if best is None or val > best.val:
       best, since_best = last, 0
     else:
       since_best += 1
 
-    scored_bank += score(session.plan_new_phrases(audit.suggestions, train_split))  # see (8)
+    scored_bank += score(session.plan_new_phrases(
+        rules_eval_summary.suggestions, train_split))     # see (8)
 
   rules_per_model[rephraser] = best.rules
 
@@ -96,7 +107,9 @@ stateless — phrases must not contaminate each other, and statelessness is what
 lets applies run in parallel.
 
 **(4) `prev_rules` and `last_attempt` are different things, and both are needed.**
-This is the entire regression mechanism.
+This is the entire regression mechanism. (`last_attempt` bundles the v0 notation's
+`rules_eval_summary` with the rulebook that produced it and its validation score —
+same object, plus provenance.)
 
 | | |
 |---|---|
@@ -138,6 +151,14 @@ Both are reported; the average drives early stopping so neither one's noise alon
 can end a run. Everything is also charted as a delta against `base_mean` — "did
 the rules beat saying nothing" is the decision-relevant view, since the absolute
 level drifts with sample difficulty.
+
+**(9) Iteration 0 measures the no-rules prompt.**
+The scaffold prompt is evaluated before any distillation, so the curve has an
+anchor, `last_attempt` starts with real numbers instead of nothing, and — because
+`best` starts there — early stopping returns the no-rules prompt if no distilled
+rulebook ever beats it. (This anchor is the rephraser *with an empty rulebook*;
+`base_mean` is the *unrephrased* instruction. Both are meaningful and they
+differ — the v11 run measured that gap at several points.)
 
 **(8) Probes keep the bank from collapsing.**
 Left alone, the bank fills with whatever region the current rules produce, and the
