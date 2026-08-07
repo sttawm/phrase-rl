@@ -1,0 +1,63 @@
+{
+ "train": [
+  "pick up pan from stove",
+  "sweep into pile",
+  "put sushi on plate",
+  "take broccoli out of pan",
+  "put cup from anywhere into sink",
+  "put knife on cutting board",
+  "close the drawer",
+  "put pear in bowl",
+  "open microwave",
+  "close microwave",
+  "open the drawer",
+  "lever vertical to front",
+  "turn lever vertical to front",
+  "open fridge",
+  "unfold the cloth from top right to bottom left",
+  "take carrot off plate",
+  "end effector reaching pot or pan",
+  "put broccoli in pot",
+  "put corn in pan which is on stove"
+ ],
+ "val_held": [
+  "flip pot upright in sink",
+  "put carrot on plate",
+  "put lid on pot or pan"
+ ],
+ "val8": [
+  "widowx_spoon_on_towel",
+  "widowx_carrot_on_plate",
+  "widowx_stack_cube",
+  "widowx_put_eggplant_in_basket",
+  "widowx_carrot_on_keyboard_clean",
+  "widowx_carrot_on_wheel_clean",
+  "widowx_coke_can_on_ramekin_clean",
+  "widowx_coke_can_on_plate_clean"
+ ],
+ "support_floor": 8,
+ "support": {
+  "pick up pan from stove": 8,
+  "sweep into pile": 37,
+  "put sushi on plate": 9,
+  "take broccoli out of pan": 12,
+  "put cup from anywhere into sink": 10,
+  "put knife on cutting board": 9,
+  "close the drawer": 24,
+  "put pear in bowl": 17,
+  "open microwave": 17,
+  "close microwave": 16,
+  "open the drawer": 27,
+  "lever vertical to front": 9,
+  "turn lever vertical to front": 20,
+  "open fridge": 12,
+  "unfold the cloth from top right to bottom left": 8,
+  "take carrot off plate": 14,
+  "end effector reaching pot or pan": 8,
+  "put broccoli in pot": 12,
+  "put corn in pan which is on stove": 8,
+  "flip pot upright in sink": 12,
+  "put carrot on plate": 24,
+  "put lid on pot or pan": 16
+ }
+}

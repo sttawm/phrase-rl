@@ -1,0 +1,9 @@
+[dry-run:claude] f53efc44d5a9
+
+---
+
+Apply the rules above.
+
+Incoming instruction: pick up the pear and put it in the bowl
+
+Reply with ONLY the rewritten instruction.

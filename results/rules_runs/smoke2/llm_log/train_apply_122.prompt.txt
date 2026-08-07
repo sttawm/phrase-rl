@@ -1,0 +1,9 @@
+[dry-run:claude] 441524a60cda
+
+---
+
+Apply the rules above.
+
+Incoming instruction: shut the white microwave
+
+Reply with ONLY the rewritten instruction.

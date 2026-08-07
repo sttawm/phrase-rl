@@ -1,0 +1,9 @@
+[dry-run:claude] 441524a60cda
+
+---
+
+Apply the rules above.
+
+Incoming instruction: place the lid on top of the pot
+
+Reply with ONLY the rewritten instruction.

@@ -43,13 +43,22 @@ if spec["kind"] == "score":
                        pd.read_parquet(REPO / "data/contexts_val_multit16.parquet")],
                       ignore_index=True)
     rng = np.random.default_rng(spec["seed"])
+    F = int(spec.get("frames_per_episode", 4))
+    VAL8_STEMS = ["spoon_on_towel", "carrot_on_plate", "stack_cube", "eggplant_in_basket",
+                  "carrot_on_keyboard", "carrot_on_wheel", "coke_can_on_ramekin", "coke_can_on_plate"]
+
     ipc = Path("/workspace/ipc")
     args = types.SimpleNamespace(k=8, score_seed=spec["seed"], tau_min=0.0,
                                  reward_mode="flow", k_l2=0.5, score_timeout=1800)
     out = []
+    bkey = "task" if "task" in banks.columns else "instruction"
     for task, grp in payload.groupby("task"):
-        sub = banks[banks.task == task] if "task" in banks.columns else \
-            banks[banks.instruction == task]
+        sub = banks[banks[bkey] == task]
+        # val8 tasks: pool episodes across all instructions of the same stem
+        if len(sub) == 0 or (spec.get("pool_val8_stems") and any(s in str(task) for s in VAL8_STEMS)):
+            stem = next((s for s in VAL8_STEMS if s in str(task)), None)
+            if stem is not None:
+                sub = banks[banks[bkey].astype(str).str.contains(stem, regex=False)]
         if len(sub) == 0:
             for r in grp.itertuples():
                 out.append({"task": task, "phrase": r.phrase,
@@ -57,7 +66,14 @@ if spec["kind"] == "score":
             continue
         eps = sorted(sub.episode_index.unique())
         pick = rng.choice(eps, size=min(spec["contexts_per_task"], len(eps)), replace=False)
-        ctx_rows = [sub[sub.episode_index == e].iloc[0] for e in sorted(pick)]
+        # F frames per picked episode, deterministic (first F by t) -- each
+        # (episode, frame) row is its own context; the mean over all rows below
+        # therefore averages F x C forward passes, matching the exam estimator
+        ctx_rows = []
+        for e in sorted(pick):
+            ep_rows = sub[sub.episode_index == e].sort_values("t") if "t" in sub.columns \
+                else sub[sub.episode_index == e]
+            ctx_rows.extend([r for _, r in ep_rows.head(F).iterrows()])
         phrases = list(grp.phrase)
         contexts = [(row, phrases) for row in ctx_rows]
         losses = score_phrases(ipc, f"rl_{jid}_{abs(hash(task)) % 99999}", contexts, args)
@@ -66,7 +82,8 @@ if spec["kind"] == "score":
         zs = np.nanmean([l[:, 0] for l in losses], axis=0)
         gs = np.nanmean([l[:, -1] for l in losses], axis=0)
         for p, z, g in zip(phrases, zs, gs):
-            out.append({"task": task, "phrase": p, "z": float(z), "grip": float(g)})
+            out.append({"task": task, "phrase": p, "z": float(z), "grip": float(g),
+                        "n_ctx": len(ctx_rows)})
     res = pd.DataFrame(out)
     res["proxy"] = proxy_success(res.z, res.grip, spec["proxy"])
     res.to_parquet(result_path, index=False)

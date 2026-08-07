@@ -117,8 +117,12 @@ def call_llm(run, backend, prompt, tag, timeout=600):
         _log_llm(run, tag, prompt, response)
         return response
     if backend == "claude":
-        r = subprocess.run(["claude", "-p", prompt, "--output-format", "text"],
-                           capture_output=True, text=True, timeout=timeout)
+        env = dict(os.environ)
+        if tag.split("_")[-1].rstrip("0123456789") in ("distill", "judge", "plan"):
+            env["MAX_THINKING_TOKENS"] = "16000"  # high effort where judgment lives
+        r = subprocess.run(["claude", "-p", prompt, "--output-format", "text",
+                            "--model", "claude-fable-5"],
+                           capture_output=True, text=True, timeout=timeout, env=env)
         if r.returncode != 0:
             raise RuntimeError(f"claude CLI failed: {r.stderr[:300]}")
         response = r.stdout.strip()
@@ -161,6 +165,9 @@ class Run:
             "seed": args.seed, "patience": args.patience, "max_iters": args.max_iters,
             "sample_n": args.sample_n, "single_edit_n": args.single_edit_n,
             "contexts_per_task": args.contexts_per_task,
+            "frames_per_episode": args.frames_per_episode,
+            "min_eps_per_task": args.min_eps_per_task,
+            "distiller_model": "claude-fable-5", "apply_model": "claude-fable-5",
             "rephrasers": args.rephrasers.split(","),
             "distiller": "claude", "judge": "claude",
             "proxy": PROXY,
@@ -262,7 +269,9 @@ def score_phrases(run, cfg, df, tag):
     cfg['contexts_per_task'] contexts per task with seed cfg['seed'] -- same
     contexts for every phrase, all run."""
     out = run_job(run, "score", df[["task", "phrase"]].drop_duplicates(), {
-        "contexts_per_task": cfg["contexts_per_task"], "seed": cfg["seed"],
+        "contexts_per_task": cfg["contexts_per_task"],
+        "frames_per_episode": cfg["frames_per_episode"],
+        "pool_val8_stems": True, "seed": cfg["seed"],
         "proxy": PROXY}, tag)
     return df.drop(columns=[c for c in ("z", "grip", "proxy") if c in df], errors="ignore") \
              .merge(out[["task", "phrase", "z", "grip", "proxy"]], on=["task", "phrase"], how="left")
@@ -326,6 +335,28 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
     return score, scored, summary
 
 
+def plot_progress(run, pdir, rephraser):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    its = sorted(pdir.glob("iter_*/scores.json"))
+    if not its:
+        return
+    rows = [jread(p) for p in its]
+    xs = list(range(len(rows)))
+    fig, ax = plt.subplots(figsize=(7, 4))
+    for key, col in [("train", "#a0aec0"), ("val_held", "#2b6cb0"),
+                     ("val8", "#805ad5"), ("val_avg", "#0d9488")]:
+        ax.plot(xs, [r[key] for r in rows], "o-", color=col,
+                lw=2.4 if key == "val_avg" else 1.4, label=key)
+    ax.set_xlabel("iteration"); ax.set_ylabel("mean proxy success")
+    ax.set_title(f"{run.id} / {rephraser} -- early stop on val_avg")
+    ax.legend(fontsize=8); ax.grid(alpha=0.25)
+    fig.tight_layout()
+    fig.savefig(pdir / "progress.png", dpi=130)
+    plt.close(fig)
+
+
 # --- main loop ---------------------------------------------------------------
 def main():
     ap = argparse.ArgumentParser()
@@ -336,7 +367,12 @@ def main():
     ap.add_argument("--max-iters", type=int, default=12)
     ap.add_argument("--sample-n", type=int, default=24)
     ap.add_argument("--single-edit-n", type=int, default=8)
-    ap.add_argument("--contexts-per-task", type=int, default=5)
+    ap.add_argument("--contexts-per-task", type=int, default=16,
+                    help="C: episodes per task (uses all available if fewer)")
+    ap.add_argument("--frames-per-episode", type=int, default=4,
+                    help="F: fixed at 4 -- the proxy calibration was fit at F=4")
+    ap.add_argument("--min-eps-per-task", type=int, default=8,
+                    help="training-task support floor (same episode-count criterion as the search)")
     ap.add_argument("--seed", type=int, default=7)
     args = ap.parse_args()
 
@@ -348,12 +384,30 @@ def main():
           f"({int(bank.gt_success.notna().sum())} with real-rollout gt)")
 
     # splits: by task. val8 fixed; val_held = held-out non-val8 tasks.
-    tasks = sorted(t for t in bank.task.unique() if t not in VAL8_TASKS)
+    # Training tasks are FILTERED BY EPISODE SUPPORT in the context bank (the
+    # same criterion the phrase search used): scoring accuracy comes from C, so
+    # a task the proxy cannot score at C>=min_eps is not admitted. val8 tasks
+    # pool episodes across instructions of the same task stem (worker-side).
+    support = {}
+    cb = REPO / "data" / "contexts_train_multit16.parquet"
+    if cb.exists():
+        import pyarrow.parquet as pq
+        names = pq.ParquetFile(cb).schema_arrow.names
+        key = "task" if "task" in names else "instruction"
+        d = pd.read_parquet(cb, columns=[key, "episode_index"])
+        support = d.groupby(key).episode_index.nunique().to_dict()
+    tasks = sorted(t for t in bank.task.unique() if t not in VAL8_TASKS
+                   and support.get(t, 0) >= cfg["min_eps_per_task"])
+    dropped = bank.task.nunique() - len(tasks) - len(VAL8_TASKS)
+    print(f"[{run.id}] task support floor >={cfg['min_eps_per_task']} eps: "
+          f"{len(tasks)} training tasks admitted, {dropped} dropped (recorded in splits.json)")
     rng.shuffle(tasks)
     n_held = max(2, len(tasks) // 6)
     val_held_tasks, train_tasks = tasks[:n_held], tasks[n_held:]
     jwrite(run.dir / "splits.json", {"train": train_tasks, "val_held": val_held_tasks,
-                                     "val8": VAL8_TASKS})
+                                     "val8": VAL8_TASKS,
+                                     "support_floor": cfg["min_eps_per_task"],
+                                     "support": {t: int(support.get(t, 0)) for t in train_tasks + val_held_tasks}})
 
     def bases_for(task_list, n=None, seed=0):
         d = bank[bank.task.isin(task_list)][["task", "phrase"]]
@@ -422,6 +476,7 @@ def main():
             jwrite(state_p, st)
             jwrite(itdir / "scores.json", {"train": train_score, "val_held": vh,
                                            "val8": v8, "val_avg": val})
+            plot_progress(run, pdir, rephraser)
 
             # 5. probe phrases the bank lacks
             if summary and summary.get("suggestions"):

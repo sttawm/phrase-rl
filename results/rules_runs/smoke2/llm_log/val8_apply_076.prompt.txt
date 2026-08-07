@@ -1,0 +1,9 @@
+[dry-run:claude] 34c45a1531bc
+
+---
+
+Apply the rules above.
+
+Incoming instruction: pick up the carrot and place it on the wheel
+
+Reply with ONLY the rewritten instruction.

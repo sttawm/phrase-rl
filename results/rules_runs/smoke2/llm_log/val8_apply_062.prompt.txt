@@ -1,0 +1,9 @@
+[dry-run:claude] 34c45a1531bc
+
+---
+
+Apply the rules above.
+
+Incoming instruction: lay the orange carrot on the green plate
+
+Reply with ONLY the rewritten instruction.

@@ -1,0 +1,9 @@
+[dry-run:claude] 441524a60cda
+
+---
+
+Apply the rules above.
+
+Incoming instruction: put the green cube on top of the yellow block
+
+Reply with ONLY the rewritten instruction.

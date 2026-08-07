@@ -1,0 +1,9 @@
+[dry-run:claude] 34c45a1531bc
+
+---
+
+Apply the rules above.
+
+Incoming instruction: put cup from anywhere into sink
+
+Reply with ONLY the rewritten instruction.

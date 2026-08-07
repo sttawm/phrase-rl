@@ -1,0 +1,9 @@
+[dry-run:claude] 441524a60cda
+
+---
+
+Apply the rules above.
+
+Incoming instruction: unfold the cloth from top right to bottom left
+
+Reply with ONLY the rewritten instruction.
