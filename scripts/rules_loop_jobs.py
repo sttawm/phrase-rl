@@ -39,8 +39,10 @@ def proxy_success(z, grip, P):
 if spec["kind"] == "score":
     from phrase_rl.phase2_train import score_phrases
 
-    banks = pd.concat([pd.read_parquet(REPO / "data/contexts_train_multit16.parquet"),
-                       pd.read_parquet(REPO / "data/contexts_val_multit16.parquet")],
+    bank_files = [REPO / "data/contexts_train_multit16.parquet",
+                  REPO / "data/contexts_val_multit16.parquet",
+                  REPO / "data/contexts_club.parquet"]  # the search's 213-instruction table
+    banks = pd.concat([pd.read_parquet(f) for f in bank_files if f.exists()],
                       ignore_index=True)
     rng = np.random.default_rng(spec["seed"])
     F = int(spec.get("frames_per_episode", 4))
@@ -65,7 +67,12 @@ if spec["kind"] == "score":
                             "z": np.nan, "grip": np.nan})
             continue
         eps = sorted(sub.episode_index.unique())
-        pick = rng.choice(eps, size=min(spec["contexts_per_task"], len(eps)), replace=False)
+        C = min(int(spec.get("contexts_per_task", 16)), len(eps))
+        # C-limited tasks spend the budget on frames instead: F = budget/C,
+        # floored at the calibration F, capped by the 16 frames the bank holds
+        budget = int(spec.get("score_budget", 64))
+        F = int(np.clip(round(budget / max(C, 1)), F, 16))
+        pick = rng.choice(eps, size=C, replace=False)
         # F frames per picked episode, deterministic (first F by t) -- each
         # (episode, frame) row is its own context; the mean over all rows below
         # therefore averages F x C forward passes, matching the exam estimator

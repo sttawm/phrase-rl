@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: put the pink toy pig in the cooking pot
+
+Reply with ONLY the rewritten instruction.

@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: put the lid onto the stove pot
+
+Reply with ONLY the rewritten instruction.

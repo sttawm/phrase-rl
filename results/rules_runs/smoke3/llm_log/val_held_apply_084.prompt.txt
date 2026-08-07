@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: take the blue bowl off the yellow coaster
+
+Reply with ONLY the rewritten instruction.

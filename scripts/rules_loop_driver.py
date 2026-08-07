@@ -164,6 +164,7 @@ class Run:
             "run_id": self.id, "created": time.strftime("%Y-%m-%d %H:%M"),
             "seed": args.seed, "patience": args.patience, "max_iters": args.max_iters,
             "sample_n": args.sample_n, "single_edit_n": args.single_edit_n,
+            "score_budget": args.score_budget,
             "contexts_per_task": args.contexts_per_task,
             "frames_per_episode": args.frames_per_episode,
             "min_eps_per_task": args.min_eps_per_task,
@@ -269,6 +270,7 @@ def score_phrases(run, cfg, df, tag):
     cfg['contexts_per_task'] contexts per task with seed cfg['seed'] -- same
     contexts for every phrase, all run."""
     out = run_job(run, "score", df[["task", "phrase"]].drop_duplicates(), {
+        "score_budget": cfg.get("score_budget", 64),
         "contexts_per_task": cfg["contexts_per_task"],
         "frames_per_episode": cfg["frames_per_episode"],
         "pool_val8_stems": True, "seed": cfg["seed"],
@@ -367,10 +369,14 @@ def main():
     ap.add_argument("--max-iters", type=int, default=12)
     ap.add_argument("--sample-n", type=int, default=24)
     ap.add_argument("--single-edit-n", type=int, default=8)
+    ap.add_argument("--score-budget", type=int, default=64,
+                    help="target F*C forward passes per phrase per task")
     ap.add_argument("--contexts-per-task", type=int, default=16,
-                    help="C: episodes per task (uses all available if fewer)")
+                    help="C cap: episodes per task")
     ap.add_argument("--frames-per-episode", type=int, default=4,
-                    help="F: fixed at 4 -- the proxy calibration was fit at F=4")
+                    help="F floor (the proxy calibration's F). When a task has "
+                         "fewer episodes than the C cap, F rises to spend the "
+                         "budget: F = clamp(budget/C, this, 16)")
     ap.add_argument("--min-eps-per-task", type=int, default=8,
                     help="training-task support floor (same episode-count criterion as the search)")
     ap.add_argument("--seed", type=int, default=7)
@@ -396,6 +402,16 @@ def main():
         key = "task" if "task" in names else "instruction"
         d = pd.read_parquet(cb, columns=[key, "episode_index"])
         support = d.groupby(key).episode_index.nunique().to_dict()
+    # the search's club table (data/contexts_club.parquet, pod-side) covers every
+    # full-Bridge instruction with >=20 episodes -- the 213. Its per-instruction
+    # counts are recorded in search_boards.jsonl, so support can include them
+    # without the 1.4G payload being present locally.
+    boards = REPO / "results/analysis/search_boards.jsonl"
+    if boards.exists():
+        for line in boards.open():
+            b = json.loads(line)
+            support[b["instruction"]] = max(support.get(b["instruction"], 0),
+                                            int(b.get("club_eps", 0)))
     tasks = sorted(t for t in bank.task.unique() if t not in VAL8_TASKS
                    and support.get(t, 0) >= cfg["min_eps_per_task"])
     dropped = bank.task.nunique() - len(tasks) - len(VAL8_TASKS)

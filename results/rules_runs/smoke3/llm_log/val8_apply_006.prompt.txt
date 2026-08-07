@@ -1,0 +1,9 @@
+[dry-run:claude] f53efc44d5a9
+
+---
+
+Apply the rules above.
+
+Incoming instruction: lay the coke on the plate
+
+Reply with ONLY the rewritten instruction.

@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: fold the bottom right tape of the green cloth to the top left tape
+
+Reply with ONLY the rewritten instruction.

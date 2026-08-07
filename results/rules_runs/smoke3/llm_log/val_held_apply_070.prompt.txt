@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: move drying rack out of sink
+
+Reply with ONLY the rewritten instruction.

@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: grab the purple eggplant and move it to the back right of the desk
+
+Reply with ONLY the rewritten instruction.

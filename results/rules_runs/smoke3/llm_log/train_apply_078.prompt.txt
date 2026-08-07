@@ -1,0 +1,9 @@
+[dry-run:claude] 440078f50936
+
+---
+
+Apply the rules above.
+
+Incoming instruction: place the small yellow cup from the drying rack into the sink
+
+Reply with ONLY the rewritten instruction.
