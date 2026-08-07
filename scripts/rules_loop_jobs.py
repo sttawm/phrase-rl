@@ -1,21 +1,28 @@
 #!/usr/bin/env python3
 """Pod-side executor for rules-loop jobs (run by rules_loop_worker.sh).
 
-  score  : proxy-score (task, phrase) rows — pi0 features at C CRN contexts per
-           task via the phase2 score-server IPC protocol. Emits z, grip, proxy.
+  score  : proxy-score (task, phrase) rows. Extracts the SAME two channels the
+           proxy was calibrated on (scripts/fit_simple_success_reward.py):
+             z    = -mean over CRN draws of the flow loss   (higher = better)
+             grip = the server's gripper-error sidecar      (lower  = better)
+           Both are consumed exactly as scripts/fine_exam_score.py does: the
+           (P, K) array score_phrases returns is K LOSS DRAWS per phrase -- it
+           contains no verifier column and no grip column -- and grip arrives
+           out-of-band on score_phrases.last_grips.
   apply  : Qwen3.5-9B applies a rules file to each incoming phrase.
 
 Usage (from /workspace/phrase-rl on a pod):
   .venv-gen/bin/python scripts/rules_loop_jobs.py <spec.json>
 
 The score kind requires a running score server (the worker boots one). Context
-banks: data/contexts_train_multit16.parquet + data/contexts_val_multit16.parquet.
-CRN: contexts per task are chosen by seeded draw from the spec's seed, so every
-phrase in the run is scored against the same contexts.
+banks: contexts_train_multit16 + contexts_val_multit16 + contexts_club (the
+search's 213-instruction table). CRN: contexts per task are a seeded draw, so
+every phrase in a run faces identical contexts.
 """
 import json
 import sys
 import types
+import uuid
 from pathlib import Path
 
 import numpy as np
@@ -30,6 +37,13 @@ jdir = Path(sys.argv[1]).parent
 payload = pd.read_parquet(jdir / f"{jid}.payload.parquet")
 result_path = jdir / f"{jid}.result.parquet"
 
+# val8 tasks are keyed by simulator task name; the context banks key training
+# rows by instruction. Pool a val8 task's episodes across bank rows whose key
+# contains the task stem, or it resolves to nothing and every row comes back NaN.
+VAL8_STEMS = ["spoon_on_towel", "carrot_on_plate", "stack_cube", "eggplant_in_basket",
+              "carrot_on_keyboard", "carrot_on_wheel", "coke_can_on_ramekin",
+              "coke_can_on_plate"]
+
 
 def proxy_success(z, grip, P):
     x = P["C"] + P["bz"] * np.asarray(z) + P["bg"] * (-np.asarray(grip))
@@ -41,59 +55,71 @@ if spec["kind"] == "score":
 
     bank_files = [REPO / "data/contexts_train_multit16.parquet",
                   REPO / "data/contexts_val_multit16.parquet",
-                  REPO / "data/contexts_club.parquet"]  # the search's 213-instruction table
+                  REPO / "data/contexts_club.parquet"]
     banks = pd.concat([pd.read_parquet(f) for f in bank_files if f.exists()],
                       ignore_index=True)
-    rng = np.random.default_rng(spec["seed"])
-    F = int(spec.get("frames_per_episode", 4))
-    VAL8_STEMS = ["spoon_on_towel", "carrot_on_plate", "stack_cube", "eggplant_in_basket",
-                  "carrot_on_keyboard", "carrot_on_wheel", "coke_can_on_ramekin", "coke_can_on_plate"]
-
-    ipc = Path("/workspace/ipc")
-    args = types.SimpleNamespace(k=8, score_seed=spec["seed"], tau_min=0.0,
-                                 reward_mode="flow", k_l2=0.5, score_timeout=1800)
-    out = []
     bkey = "task" if "task" in banks.columns else "instruction"
+    banks["_key"] = banks[bkey].astype(str)
+
+    rng = np.random.default_rng(spec["seed"])
+    F0 = int(spec.get("frames_per_episode", 4))
+    budget = int(spec.get("score_budget", 64))
+    ipc = Path("/workspace/ipc")
+    # reward_mode="flow": the (P, K) return is K CRN loss draws per phrase, which
+    # is what the calibration averaged. k/k_l2 match fine_exam_score's config.
+    args = types.SimpleNamespace(k=8, score_seed=int(spec["seed"]), tau_min=0.0,
+                                 reward_mode="flow", k_l2=0.5, score_timeout=1800)
+
+    out = []
     for task, grp in payload.groupby("task"):
-        sub = banks[banks[bkey] == task]
-        # val8 tasks: pool episodes across all instructions of the same stem
-        if len(sub) == 0 or (spec.get("pool_val8_stems") and any(s in str(task) for s in VAL8_STEMS)):
-            stem = next((s for s in VAL8_STEMS if s in str(task)), None)
-            if stem is not None:
-                sub = banks[banks[bkey].astype(str).str.contains(stem, regex=False)]
+        key = str(task)
+        sub = banks[banks._key == key]
         if len(sub) == 0:
-            for r in grp.itertuples():
-                out.append({"task": task, "phrase": r.phrase,
-                            "z": np.nan, "grip": np.nan})
+            stem = next((s for s in VAL8_STEMS if s in key), None)
+            if stem is not None:
+                sub = banks[banks._key.str.contains(stem, regex=False)]
+        phrases = list(dict.fromkeys(grp.phrase.astype(str)))
+        if len(sub) == 0:
+            for p in phrases:
+                out.append({"task": task, "phrase": p, "z": np.nan, "grip": np.nan,
+                            "n_ctx": 0, "F": 0, "C": 0})
+            print(f"[warn] no contexts for {key!r} -- {len(phrases)} phrases NaN", flush=True)
             continue
+
         eps = sorted(sub.episode_index.unique())
         C = min(int(spec.get("contexts_per_task", 16)), len(eps))
-        # C-limited tasks spend the budget on frames instead: F = budget/C,
-        # floored at the calibration F, capped by the 16 frames the bank holds
-        budget = int(spec.get("score_budget", 64))
-        F = int(np.clip(round(budget / max(C, 1)), F, 16))
+        # C-limited tasks spend the budget on frames instead
+        F = int(np.clip(round(budget / max(C, 1)), F0, 16))
         pick = rng.choice(eps, size=C, replace=False)
-        # F frames per picked episode, deterministic (first F by t) -- each
-        # (episode, frame) row is its own context; the mean over all rows below
-        # therefore averages F x C forward passes, matching the exam estimator
         ctx_rows = []
         for e in sorted(pick):
-            ep_rows = sub[sub.episode_index == e].sort_values("t") if "t" in sub.columns \
-                else sub[sub.episode_index == e]
-            ctx_rows.extend([r for _, r in ep_rows.head(F).iterrows()])
-        phrases = list(grp.phrase)
-        contexts = [(row, phrases) for row in ctx_rows]
-        losses = score_phrases(ipc, f"rl_{jid}_{abs(hash(task)) % 99999}", contexts, args)
-        # losses: one (P, K) array per context; K columns = [logit..., grip...]-style
-        # server output. Mean over contexts -> per-phrase channels.
-        zs = np.nanmean([l[:, 0] for l in losses], axis=0)
-        gs = np.nanmean([l[:, -1] for l in losses], axis=0)
-        for p, z, g in zip(phrases, zs, gs):
+            ep = sub[sub.episode_index == e]
+            ep = ep.sort_values("t") if "t" in ep.columns else ep
+            ctx_rows.extend(r for _, r in ep.head(F).iterrows())
+
+        zs, gs = [], []
+        CHUNK = 8  # frame-contexts per scoring job, matching fine_exam_score
+        for i in range(0, len(ctx_rows), CHUNK):
+            batch = ctx_rows[i:i + CHUNK]
+            contexts = [(fr, phrases) for fr in batch]
+            losses = score_phrases(ipc, f"rl_{jid}_{uuid.uuid4().hex[:8]}", contexts, args)
+            grips = getattr(score_phrases, "last_grips", [None] * len(losses))
+            for L, G in zip(losses, grips):
+                zs.append(-np.asarray(L, dtype=np.float64).mean(axis=1))
+                gs.append(np.asarray(G, dtype=np.float64) if G is not None
+                          else np.full(len(phrases), np.nan))
+        z_mean = np.nanmean(np.stack(zs), axis=0)
+        g_mean = np.nanmean(np.stack(gs), axis=0)
+        for p, z, g in zip(phrases, z_mean, g_mean):
             out.append({"task": task, "phrase": p, "z": float(z), "grip": float(g),
-                        "n_ctx": len(ctx_rows)})
+                        "n_ctx": len(ctx_rows), "F": F, "C": C})
+        print(f"{key}: {len(phrases)} phrases x F={F} C={C} "
+              f"({len(ctx_rows)} frame-contexts)", flush=True)
+
     res = pd.DataFrame(out)
     res["proxy"] = proxy_success(res.z, res.grip, spec["proxy"])
     res.to_parquet(result_path, index=False)
+    print(f"scored {len(res)} rows ({int(res.z.isna().sum())} NaN)")
 
 elif spec["kind"] == "apply":
     import torch
@@ -101,21 +127,30 @@ elif spec["kind"] == "apply":
 
     rules = (REPO / spec["rules_file"]).read_text()
     only = spec.get("only_rule")
+    tmpl_name = "apply_single.md" if only else "apply.md"
+    tmpl = (REPO / "prompts/rules_loop" / tmpl_name).read_text().replace("{{rules}}", rules)
     if only:
-        tmpl = (REPO / "prompts/rules_loop/apply_single.md").read_text()
         tmpl = tmpl.replace("{{only_rule}}", only)
-    else:
-        tmpl = (REPO / "prompts/rules_loop/apply.md").read_text()
-    tmpl = tmpl.replace("{{rules}}", rules)
+
+    # scene descriptions are expensive to generate: load once, reuse per phrase
+    traces = {}
+    tf = REPO / "results/phrase_artifacts/cover35_teacher_train.parquet"
+    if tf.exists():
+        t = pd.read_parquet(tf, columns=["instruction", "trace"]).drop_duplicates("instruction")
+        traces = dict(zip(t.instruction.astype(str), t.trace.astype(str)))
 
     tok = AutoTokenizer.from_pretrained("Qwen/Qwen3.5-9B")
     model = AutoModelForCausalLM.from_pretrained(
         "Qwen/Qwen3.5-9B", torch_dtype=torch.bfloat16, device_map="cuda")
     rows = []
     for r in payload.itertuples():
-        prompt = tmpl.replace("{{phrase}}", r.phrase).replace("{{task}}", str(r.task))
-        msgs = [{"role": "user", "content": prompt}]
-        inp = tok.apply_chat_template(msgs, add_generation_prompt=True,
+        trace = traces.get(str(r.task), traces.get(str(r.phrase),
+                                                   "(no scene description available)"))
+        prompt = (tmpl.replace("{{trace}}", trace)
+                      .replace("{{phrase}}", str(r.phrase))
+                      .replace("{{task}}", str(r.task)))
+        inp = tok.apply_chat_template([{"role": "user", "content": prompt}],
+                                      add_generation_prompt=True,
                                       return_tensors="pt").to(model.device)
         with torch.no_grad():
             g = model.generate(inp, do_sample=False, max_new_tokens=48)
@@ -123,6 +158,7 @@ elif spec["kind"] == "apply":
         rows.append({"task": r.task, "phrase": r.phrase,
                      "rewrite": text.strip().split("\n")[0].strip()})
     pd.DataFrame(rows).to_parquet(result_path, index=False)
+    print(f"applied to {len(rows)} phrases")
 
 else:
     raise SystemExit(f"unknown job kind {spec['kind']}")

@@ -123,9 +123,13 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
     and being stateless is what lets them run in parallel."""
     if run.dry:
         response = f"[dry-run:{backend}] " + hashlib.sha1(prompt.encode()).hexdigest()[:12]
-        if tag.startswith("distill"):
-            response = ("RULES\n1. Keep the original wording unless a rule below applies.\n"
-                        "2. Use common household nouns.\n3. Keep existing color adjectives.\n")
+        if tag.endswith("distill") or "distill" in tag:
+            response = ("===RULES===\n"
+                        "1. Keep the original wording unless a rule below applies.\n"
+                        "2. Use common household nouns.\n"
+                        "3. Keep existing color adjectives.\n"
+                        "===RATIONALE===\n1. dry-run stub; numbered here on purpose so the\n"
+                        "   RULES/RATIONALE split is exercised by the smoke test.\n")
         _log_llm(run, tag, prompt, response)
         return response
     if backend == "claude":
@@ -271,8 +275,15 @@ def bank_add(run, df):
 # --- pod jobs (score / apply) ----------------------------------------------
 def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=7200):
     """Submit a job through git; block until the worker commits the result.
-    Resume-safe: if the result already exists, return it without resubmitting."""
-    jid = f"{tag}_{hashlib.sha1(pd.util.hash_pandas_object(payload).values.tobytes()).hexdigest()[:10]}"
+    Resume-safe: if the result already exists, return it without resubmitting.
+
+    The id hashes the payload AND the spec (which carries the rules file's
+    CONTENT hash). Hashing the payload alone made every apply job collide across
+    iterations -- val bases never change, so iteration 5 would silently replay
+    iteration 0's rewrites."""
+    key = pd.util.hash_pandas_object(payload).values.tobytes() + \
+        json.dumps(spec, sort_keys=True, default=str).encode()
+    jid = f"{tag}_{hashlib.sha1(key).hexdigest()[:10]}"
     jdir = run.dir / "jobs"
     result = jdir / f"{jid}.result.parquet"
     if result.exists():
@@ -321,10 +332,14 @@ def score_phrases(run, cfg, df, tag):
 def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag, only_rule=None):
     """bases: [task, phrase(base instruction)] -> adds rewrite column."""
     if rephraser == "qwen" and not run.dry:
+        # rules travel as a file for the pod, but their hash goes in the spec so
+        # the job id changes when the rulebook does
         return run_job(run, "apply", bases[["task", "phrase"]], {
             "rules_file": str((run.dir / "current_rules.md").relative_to(REPO)),
+            "rules_sha": hashlib.sha1(rules.encode()).hexdigest()[:12],
             "only_rule": only_rule}, tag)
     tmpl = "apply_single.md" if only_rule else "apply.md"
+    rules = rules_only(rules)
     traces = load_traces()
     jobs = []
     for r in bases.itertuples():
@@ -414,20 +429,42 @@ def section(text, name):
     return m.group(1).strip() if m else ""
 
 
-def parse_rules(rules_text):
-    """Numbered rules from the RULES section ONLY -- the RATIONALE section also
-    contains numbered lines, and counting those would invent phantom rules and
-    corrupt every single-edit measurement."""
+def rules_only(rules_text):
+    """The rulebook with the RATIONALE stripped. The rationale is written for us,
+    not for the applier -- shipping it would waste context and, worse, feed the
+    applier commentary about rules it is supposed to follow literally."""
     body = section(rules_text, "RULES")
-    if not body:  # tolerate a model that omitted the delimiters
-        body = rules_text.split("===RATIONALE===")[0]
-    return [m.group(1).strip() for m in re.finditer(r"^\s*\d+\.\s+(.+)$", body, re.M)]
+    if body:
+        return body
+    return rules_text.split("===RATIONALE===")[0].strip()
+
+
+def parse_rules(rules_text):
+    """Numbered rules from the RULES section ONLY. The RATIONALE section also
+    contains numbered lines; counting those would invent phantom rules and
+    corrupt every single-edit measurement, so a missing RULES delimiter is a
+    hard failure rather than a silent fallback over the whole text."""
+    body = section(rules_text, "RULES")
+    if not body:
+        head = rules_text.split("===RATIONALE===")[0].strip()
+        if head == rules_text.strip():
+            raise ValueError("distilled rules have no ===RULES=== section and no "
+                             "===RATIONALE=== delimiter -- refusing to guess which "
+                             "numbered lines are rules")
+        body = head
+    out = []
+    for m in re.finditer(r"^[ \t]*\d+[.)][ \t]+(.*(?:\n(?![ \t]*\d+[.)]|===)[ \t]+\S.*)*)",
+                         body, re.M):
+        out.append(" ".join(m.group(1).split()))
+    return out
 
 
 def baseline_proxy(run, cfg, bases, tag):
     """Mean proxy of the UNREPHRASED base phrases -- scored once per split and
     cached, since the bases are fixed for the whole run."""
-    cache = run.dir / f"baseline_{tag}.json"
+    bh = hashlib.sha1(pd.util.hash_pandas_object(
+        bases[["task", "phrase"]]).values.tobytes()).hexdigest()[:8]
+    cache = run.dir / f"baseline_{tag}_{bh}.json"
     if cache.exists():
         return jread(cache)["mean"]
     sc = score_phrases(run, cfg, bases[["task", "phrase"]], f"baseline_{tag}")
@@ -453,7 +490,8 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
         per_rule = {}
         for k, rtext in enumerate(rule_list, 1):
             rw = apply_rules(run, cfg, rephraser, rules, sample, f"{tag}_r{k}", only_rule=rtext)
-            rs = score_phrases(run, cfg, rw.rename(columns={"rewrite": "phrase"})[["task", "phrase"]],
+            rs = score_phrases(run, cfg,
+                               rw[["task", "rewrite"]].rename(columns={"rewrite": "phrase"}),
                                f"{tag}_r{k}sc")
             per_rule[f"rule_{k}"] = {
                 "text": rtext,
@@ -465,7 +503,7 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
                         [{"task": r.task, "base": r.phrase, "rewrite": r.rewrite}
                          for r in rewrites.head(40).itertuples()],
                         float(base_scored.proxy.mean()), score)
-        judge_p = prompt_from("judge.md", rules=rules, eval_file=eval_file)
+        judge_p = prompt_from("judge.md", rules=rules_only(rules), eval_file=eval_file)
         judgement = call_llm(run, cfg["judge"], judge_p, f"{tag}_judge",
                              session=run.session, add_dir=run.dir, effort="high")
         (itdir / "judge.md").write_text(judgement)
@@ -580,8 +618,13 @@ def main():
                                      "support_floor": cfg["min_eps_per_task"],
                                      "support": {t: int(support.get(t, 0)) for t in train_tasks + val_held_tasks}})
 
+    # frozen at run start: bank grows every iteration with the loop's OWN rewrites,
+    # and sampling from the live bank would make iteration N's bases be iteration
+    # N-1's outputs -- the comparison would drift instead of holding still
+    base_pool = bank[["task", "phrase"]].copy()
+
     def bases_for(task_list, n=None, seed=0):
-        d = bank[bank.task.isin(task_list)][["task", "phrase"]]
+        d = base_pool[base_pool.task.isin(task_list)]
         return d.sample(min(n, len(d)), random_state=seed) if n else d
 
     corpus_file = ensure_corpus_file(run, cfg)
@@ -624,7 +667,12 @@ def main():
                                  session=run.session, add_dir=run.dir, effort="high",
                                  timeout=1800)
                 rp.write_text(rules)
-            (run.dir / "current_rules.md").write_text(rules)
+            cur = run.dir / "current_rules.md"
+            cur.write_text(rules)
+            if not run.dry and "qwen" in cfg["rephrasers"]:
+                # the pod reads this file; it must exist on origin before any
+                # apply job referencing it is submitted
+                gitsync([cur], f"rules-loop {run.id}/{rephraser} iter {it} rulebook")
 
             # 2. eval on train sample (with per-rule single edits)
             # fixed across iterations (seed 0) so the train curve is a comparable
