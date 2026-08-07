@@ -16,8 +16,7 @@ v11v = sorted((r for r in v11 if r.get("type") == "val"), key=lambda r: r["step"
 v11k = sorted((r for r in v11 if r.get("kl") is not None), key=lambda r: r["step"])
 v10 = [json.loads(l) for l in open("results/analysis/v10_telemetry/train_log.jsonl")]
 v10v = sorted((r for r in v10 if r.get("type") == "val"), key=lambda r: r["step"])
-cells = sorted((json.load(open(f)) for f in glob.glob("results/analysis/v11cells/*.json")),
-               key=lambda c: c["step"])
+cells = [json.load(open(f)) for f in glob.glob("results/analysis/v11cells/*.json")]
 
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(13.6, 4.5))
 
