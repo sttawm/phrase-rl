@@ -72,12 +72,27 @@ while true; do
   timeout 240 git -c rebase.autoStash=true pull -q --rebase 2>/dev/null \
     || { git rebase --abort 2>/dev/null; git reset --hard -q origin/main; }
 
-  # next archived stride-multiple step with no cell yet
-  last=$(ls results/analysis/v11cells/nat24_*.json 2>/dev/null | sed 's/.*nat24_0*\([0-9][0-9]*\)\.json/\1/' | sort -n | tail -1)
-  last=${last:-0}
-  next=$(ls results/checkpoints/archive/ 2>/dev/null | grep -oE "v11_step_[0-9]+" | grep -oE "[0-9]+$" \
-         | sort -n -u | awk -v t=$last -v s=$STRIDE '$1 > t && $1 % s == 0' | head -1)
-  if [ -z "$next" ]; then mark "idle (last cell=$last, no new archive)"; sleep 600; continue; fi
+  # OLDEST archived stride-multiple step that has neither a cell nor a live claim.
+  # Oldest-first backfills the pre-nat24 checkpoints so the whole curve is on one
+  # metric; the claim files let several pods share the queue without duplicating.
+  mkdir -p results/analysis/v11claims
+  next=""
+  for cand in $(ls results/checkpoints/archive/ 2>/dev/null | grep -oE "v11_step_[0-9]+" \
+                | grep -oE "[0-9]+$" | sort -n -u | awk -v s=$STRIDE '$1 % s == 0'); do
+    cs=$(printf "%04d" $((10#$cand)))
+    [ -f "results/analysis/v11cells/nat24_$cs.json" ] && continue
+    [ -f "results/analysis/v11claims/$cs.claim" ] && continue
+    echo "${POD:-e4}" > "results/analysis/v11claims/$cs.claim"
+    if git add "results/analysis/v11claims/$cs.claim" \
+       && git commit -q -m "claim v11 nat24 cell $cs [${POD:-e4}]" \
+       && timeout 200 git -c rebase.autoStash=true pull -q --rebase \
+       && timeout 200 git push -q \
+       && grep -q "${POD:-e4}" "results/analysis/v11claims/$cs.claim" 2>/dev/null; then
+      next=$cand; break
+    fi
+    git rebase --abort 2>/dev/null; git reset --hard -q origin/main
+  done
+  if [ -z "$next" ]; then mark "idle (nothing unclaimed)"; sleep 600; continue; fi
   s=$(printf "%04d" $((10#$next)))
 
   d=/workspace/v11_adapters/step_$s
@@ -121,7 +136,7 @@ print("v11_nat step", rec["step"], "pooled", rec["pooled"])
 PYEOF
 
   for i in 1 2 3; do
-    timeout 300 bash -c "git add results/analysis/v11cells/nat24_$s.json results/phrase_artifacts/dev11q_g_nat24_$s.parquet && git commit -q -m 'v11 nat24 cell $s [e4]' && git -c rebase.autoStash=true pull -q --rebase && git push -q" \
+    timeout 300 bash -c "git add results/analysis/v11cells/nat24_$s.json results/phrase_artifacts/dev11q_g_nat24_$s.parquet && git commit -q -m "v11 nat24 cell $s [${POD:-e4}]" && git -c rebase.autoStash=true pull -q --rebase && git push -q" \
       && { mark "DONE nat $s"; break; }
     git rebase --abort 2>/dev/null; sleep $((30 * i))
   done
