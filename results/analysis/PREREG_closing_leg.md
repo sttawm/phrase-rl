@@ -567,3 +567,11 @@ training corpus. On *naturals* — which are already fluent — we predict v3
 performs **at or slightly below v4** (-3 to +1pp vs v4's 29.41 for Qwen), i.e.
 the pass-through default is load-bearing. A clear v3 > v4 result would
 invalidate the v4 overlay's central conclusion and must be reported as such.
+
+**Gemini arm preflight (passed, 2026-08-07):** 192/192 rows, 0 empty, 0
+echo-input, mean 6.9 words (max 9); **71.4% of cells differ from the v4 Gemini
+output**. Note the recovery: the first generation hung on an untimed API call at
+150/192; completed rewrites were recovered verbatim from the run log and only
+the missing 42 regenerated (`gen_rr16_rulesv3_gemini_resume.py`, 90s per-call
+timeout). Recovered and regenerated cells are byte-identical in provenance —
+same model, same wrap, temperature 0.
