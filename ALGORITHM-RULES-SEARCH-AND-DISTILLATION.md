@@ -1,7 +1,8 @@
 # This should be run in two rounds
 # Initially, it should be run on the training data (a mix of simulation tasks and
-# training tasks). ROUND 1 VALIDATES ON VAL8: val8 is where we hold real rollout
-# ground truth, so it is the only split that can confirm what the proxy selected.
+# training tasks). ROUND 1 VALIDATES ON TWO SETS: held-out training tasks
+# (in-distribution generalization) and val8 (the only split with real rollout
+# ground truth, so the only one that can confirm what the proxy selected).
 #
 # Once those rules are generated, it can be run a few times on the val8 split,
 # without a validation split.
@@ -19,7 +20,8 @@
 # effects we are chasing.
 #
 # NOTE ON VAL8: round 1 early-stops on it (jointly with the held-out training
-# tasks), round 2 trains on it. Report BOTH val8 numbers -- the round-1 rules (proxy-distilled, val8 seen only through early
+# tasks), round 2 trains on it. Report BOTH val8 numbers -- the round-1 rules
+# (proxy-distilled, val8 seen only through early
 # stopping) and the round-2 rules (distilled against val8 rollouts). The gap
 # between them is exactly what real rollout data bought, which is worth knowing.
 # Neither is clean held-out by the end: the sealed set certifies the final rules.
@@ -57,7 +59,8 @@ val8_eval = val8
 # all scoring is CRN-seeded: the same (task, layout, rep) draws the same policy
 # noise for every phrase, so phrase contrasts are not swamped by decode variance
 scores_train = score(train_split)
-scores_val = score(val_split)
+scores_val_held = score(val_held)
+scores_val8 = score(val8)
 
 # THREE PASSES, one per rephraser: Qwen, Claude, Gemini. The scored bank is
 # SHARED and grows monotonically across passes -- each pass adds its rephraser's
