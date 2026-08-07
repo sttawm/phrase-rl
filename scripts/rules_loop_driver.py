@@ -560,50 +560,6 @@ def plot_progress(run, pdir, rephraser):
     plt.close(fig)
 
 
-def write_history_file(run, pdir, path):
-    """Every rulebook this pass has tried, with what it scored and what its rules
-    measured. This is how a regression becomes usable evidence: the distiller can
-    see WHICH rulebook lost ground and by how much, next to the rules each one
-    contained -- not just that the last attempt was worse."""
-    rows = []
-    for sf in sorted(pdir.glob("iter_*/scores.json")):
-        it = int(sf.parent.name.split("_")[1])
-        sc = jread(sf)
-        rec = {"iter": it, **{k: sc.get(k) for k in ("train", "val_held", "val8", "val_avg")},
-               "delta": sc.get("delta", {})}
-        ej = sf.parent / "rules_eval.json"
-        if ej.exists():
-            e = jread(ej)
-            rec["n_rules"] = len(e.get("per_rule", {}))
-            rec["per_rule_delta"] = {k: round(v["delta_proxy"], 4)
-                                     for k, v in (e.get("per_rule") or {}).items()}
-        rf = pdir / f"rules_{it:02d}.md"
-        if rf.exists():
-            rec["rules_file"] = str(rf)
-        rows.append(rec)
-    best = max(rows, key=lambda r: r.get("val_avg") or -1e9) if rows else None
-    lines = ["# What every rulebook in this pass has scored", ""]
-    if rows:
-        lines += ["| iter | val_held | val8 | val_avg | vs best | rules | rulebook |",
-                  "|------|----------|------|---------|---------|-------|----------|"]
-        for r in rows:
-            mark = "  BEST" if best and r["iter"] == best["iter"] else \
-                f"{(r.get('val_avg') or 0) - (best.get('val_avg') or 0):+.4f}"
-            lines.append(f"| {r['iter']} | {r.get('val_held', float('nan')):.4f} | "
-                         f"{r.get('val8', float('nan')):.4f} | "
-                         f"{r.get('val_avg', float('nan')):.4f} | {mark} | "
-                         f"{r.get('n_rules', '?')} | {Path(r.get('rules_file', '-')).name} |")
-        lines += ["", "Per-rule single-edit deltas by iteration "
-                      "(rule numbering is per-rulebook and does NOT carry across "
-                      "iterations -- match rules by their text, in the rulebook files):", ""]
-        for r in rows:
-            if r.get("per_rule_delta"):
-                lines.append(f"- iter {r['iter']}: " +
-                             ", ".join(f"{k}={v:+.4f}" for k, v in r["per_rule_delta"].items()))
-    Path(path).write_text("\n".join(lines) + "\n")
-    return len(rows)
-
-
 # --- main loop ---------------------------------------------------------------
 def main():
     ap = argparse.ArgumentParser()
@@ -718,10 +674,7 @@ def main():
                 bank = pd.read_parquet(run.dir / "bank.parquet")
                 ev_file = itdir / "evidence.csv"
                 n_ev = write_evidence_file(run, bank, train_tasks, ev_file)
-                src_iter = st["best_iter"] if (cfg.get("rollback_on_regress", True)
-                                               and st["since_best"] > 0
-                                               and st["best_iter"] >= 0) else it - 1
-                prev_eval = pdir / f"iter_{src_iter:02d}" / "rules_eval.md"
+                prev_eval = pdir / f"iter_{it - 1:02d}" / "rules_eval.md"
                 if not prev_eval.exists():
                     prev_eval = itdir / "no_previous_eval.md"
                     prev_eval.write_text("(first iteration -- no previous rulebook was measured)")
@@ -738,18 +691,19 @@ def main():
                     bf = pdir / f"iter_{st['best_iter']:02d}" / "rules.md"
                     if bf.exists():
                         base_rules = bf.read_text()
-                        note = (f"\n\nNOTE: the rulebook you produced at iteration "
-                                f"{it - 1} scored WORSE on validation than the one at "
-                                f"iteration {st['best_iter']} ({st['last_val']:.4f} vs "
-                                f"{st['best_val']:.4f}). The rulebook shown above is "
-                                f"iteration {st['best_iter']}'s -- the best so far. The "
-                                f"attempt that regressed is in your conversation history; "
-                                f"treat it as evidence about what does not work.")
-                hist_file = pdir / "history.md"
-                write_history_file(run, pdir, hist_file)
+                        note = (f"\n\nNOTE ON THE LAST ATTEMPT: the rulebook you wrote at "
+                                f"iteration {it - 1} scored {st['last_val']:.4f} on "
+                                f"validation -- WORSE than iteration {st['best_iter']}'s "
+                                f"{st['best_val']:.4f}. The rulebook printed above is "
+                                f"iteration {st['best_iter']}'s, the best so far, and is "
+                                f"what you should build from. The measurements you are "
+                                f"given alongside it describe the attempt that REGRESSED, "
+                                f"not this rulebook -- read them for what to avoid. Your "
+                                f"conversation history has both rulebooks in full; diff "
+                                f"them and identify which change cost the ground.")
                 dp = prompt_from("distill.md", prev_rules=base_rules + note,
                                  corpus_file=corpus_file, evidence_file=ev_file,
-                                 eval_file=prev_eval, history_file=hist_file)
+                                 eval_file=prev_eval)
                 print(f"    distilling over {n_ev} measured phrases "
                       f"({len(train_tasks)} tasks) ...")
                 rules = call_llm(run, cfg["distiller"], dp, f"{rephraser}_distill",

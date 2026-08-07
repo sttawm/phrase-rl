@@ -20,17 +20,15 @@ it rather than skimming it.
       real-rollout number it is marked; those are more reliable than estimates.
 
   {{eval_file}}
-      How the rulebook you are revising actually performed: per-rule adherence,
-      the measured single-edit effect of each individual rule, and an auditor's
+      How the LAST rulebook tried actually performed: per-rule adherence, the
+      measured single-edit effect of each individual rule, and an auditor's
       notes. A .json twin sits beside it if you want to compute over it. Absent
       on the first iteration.
 
-  {{history_file}}
-      Every rulebook tried in this pass so far, what each scored on both
-      validation sets, and each one's per-rule deltas. Use it to see which
-      changes gained ground and which lost it. If an earlier rulebook scored
-      better than a later one, that regression is evidence: find what the later
-      one changed and do not repeat it.
+      Note carefully: after a regression this describes a DIFFERENT rulebook than
+      the one printed below -- it describes the attempt that lost ground, while
+      the rulebook below is the best one so far. That pairing is deliberate: build
+      from what works, informed by what just failed.
 
 PREVIOUS RULEBOOK (verbatim; empty on the first iteration):
 {{prev_rules}}
