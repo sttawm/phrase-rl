@@ -23,6 +23,22 @@ esac
 LOG=/workspace/bank_${TASK_KIND}_${SHARD}.log
 mark() { echo "[bank $(date -u +%H:%M)] $*" | tee -a "$LOG"; }
 
+# Pods disagree on which venv exists: e1/e6 have no .venv at all, only .venv-gen
+# and the INT-ACT one. Hardcoding an interpreter fails hours into a job, so pick
+# one that can actually import the package. INT-ACT's venv is preferred -- it is
+# the runtime already proven to drive pi0.
+pick_python() {
+  local want="$1"
+  for v in /workspace/INT-ACT/.venv .venv-gen .venv; do
+    [ -x "$v/bin/python" ] || continue
+    if PYTHONPATH=/workspace/phrase-rl/src "$v/bin/python" -c "import $want" >/dev/null 2>&1; then
+      echo "$v/bin/python"; return 0
+    fi
+  done
+  return 1
+}
+
+
 # a repack in flight holds the index lock; pulling under it corrupts nothing but
 # fails loudly and repeatedly, so just wait it out
 for _ in $(seq 1 240); do pgrep -f "[g]it gc|[g]it repack" >/dev/null || break; sleep 30; done
@@ -35,11 +51,16 @@ if [ "$TASK_KIND" = train ] && [ ! -f data/contexts_club.parquet ]; then
   exit 1
 fi
 
+SRV_PY=$(pick_python phrase_rl.phase2_score_server) \
+  || { mark "FATAL: no venv on this pod can import phrase_rl.phase2_score_server"; exit 1; }
+SCORE_PY=$(pick_python pandas) || SCORE_PY="$SRV_PY"
+mark "server python: $SRV_PY"
+
 if ! pgrep -f "[p]hase2_score_server.*$IPC_DIR" >/dev/null 2>&1; then
   tmux kill-session -t bankscore 2>/dev/null
   mkdir -p "$IPC_DIR"
   tmux new-session -d -s bankscore \
-    "cd /workspace/phrase-rl && .venv/bin/python -m phrase_rl.phase2_score_server \
+    "cd /workspace/phrase-rl && PYTHONPATH=/workspace/phrase-rl/src $SRV_PY -m phrase_rl.phase2_score_server \
        --ipc-dir \"$IPC_DIR\" \
        --stats-contexts results/phrase_artifacts/chunk_stats.parquet \
        --verifier-ensemble results/checkpoints/verifier_reward_ensemble_4f.json \
@@ -54,7 +75,7 @@ if ! pgrep -f "[p]hase2_score_server.*$IPC_DIR" >/dev/null 2>&1; then
 fi
 mark "score server up; scoring $TASK_KIND shard $SHARD/$OF"
 
-IPC_DIR="$IPC_DIR" .venv-gen/bin/python scripts/score_bank.py \
+IPC_DIR="$IPC_DIR" PYTHONPATH=/workspace/phrase-rl/src $SCORE_PY scripts/score_bank.py \
   --task-kind "$TASK_KIND" --shard "$SHARD" --of "$OF" --ipc "$IPC_DIR" 2>&1 | tee -a "$LOG"
 rc=${PIPESTATUS[0]}
 

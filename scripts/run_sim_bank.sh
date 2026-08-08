@@ -18,6 +18,22 @@ cd /workspace/phrase-rl
 EPS="${EPS:-40}"
 mark() { echo "[simbank $(date -u +%H:%M)] $*"; }
 
+# Pods disagree on which venv exists: e1/e6 have no .venv at all, only .venv-gen
+# and the INT-ACT one. Hardcoding an interpreter fails hours into a job, so pick
+# one that can actually import the package. INT-ACT's venv is preferred -- it is
+# the runtime already proven to drive pi0.
+pick_python() {
+  local want="$1"
+  for v in /workspace/INT-ACT/.venv .venv-gen .venv; do
+    [ -x "$v/bin/python" ] || continue
+    if PYTHONPATH=/workspace/phrase-rl/src "$v/bin/python" -c "import $want" >/dev/null 2>&1; then
+      echo "$v/bin/python"; return 0
+    fi
+  done
+  return 1
+}
+
+
 # never fight the leg that is already using the GPU
 while pgrep -f "[p]hase0c_rollout" >/dev/null; do mark "waiting for the running leg"; sleep 300; done
 for _ in $(seq 1 240); do pgrep -f "[g]it gc|[g]it repack" >/dev/null || break; sleep 30; done
@@ -71,9 +87,11 @@ rc=$?
 cd /workspace/phrase-rl
 mark "rollout rc=$rc"
 
-.venv/bin/python -m phrase_rl.sim_contexts_extract --record-dir data/sim_traj_val8 \
+EXT_PY=$(pick_python phrase_rl.sim_contexts_extract) \
+  || { mark "FATAL: no venv can import phrase_rl.sim_contexts_extract"; exit 1; }
+PYTHONPATH=/workspace/phrase-rl/src $EXT_PY -m phrase_rl.sim_contexts_extract --record-dir data/sim_traj_val8 \
   --out data/contexts_sim_val8.parquet --per-episode 4 || { mark "FATAL extract"; exit 1; }
-.venv/bin/python - <<'PY'
+$EXT_PY - <<'PY'
 import pandas as pd
 d = pd.read_parquet("data/contexts_sim_val8.parquet")
 k = "task" if "task" in d.columns else "instruction"
