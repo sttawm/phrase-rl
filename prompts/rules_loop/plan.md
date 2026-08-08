@@ -5,7 +5,8 @@ phrases that are already in the bank:
 
   {{evidence_file}}
 
-PROPOSED EXPERIMENTS:
+PROPOSED EXPERIMENTS (from the rulebook audit; may be empty, in which case
+propose nothing and reply with no lines):
 {{suggestions}}
 
 Write phrases only for these tasks (use the task name verbatim):

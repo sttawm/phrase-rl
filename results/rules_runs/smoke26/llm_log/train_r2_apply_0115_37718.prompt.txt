@@ -1,0 +1,43 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+===RULES===
+1. Use common household nouns.
+
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a black robotic gripper positioned over the bottom-right corner of a yellow cloth spread on a white table. The corners of the yellow cloth have black tape markers on them.
+
+<Meaning of the instruction in the context of the image>
+The instruction directs the robot to grasp the bottom-right corner of the yellow cloth (marked with black tape) and fold it over towards the top-left corner, performing a diagonal fold.
+
+Original: cloth as many as possible potential replacements: fabric, rag, towel, napkin, textile, sheet
+Original: fold as many as possible potential replacements: pull, bring, move, crease, flip, double over, grasp and place, drag
+Original: bottom right, top left as many as possible potential replacements: lower-right corner, upper-left corner, lower-right side, upper-left side, bottom-right corner, top-left corner
+Original: none as many as possible potential replacements: none
+
+Incoming instruction: diagonally fold the green towel from bottom right to top left
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

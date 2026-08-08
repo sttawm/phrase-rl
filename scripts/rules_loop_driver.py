@@ -1066,7 +1066,7 @@ def main():
             plot_progress(run, pdir, rephraser)
 
             # 5. probe phrases the bank lacks
-            if summary and summary.get("suggestions"):
+            if summary and (summary.get("suggestions") or "").strip():
                 if not ev_file.exists():   # iteration 0 does not distil
                     write_evidence_file(run, pd.read_parquet(run.dir / "bank.parquet"),
                                         train_tasks, ev_file)
