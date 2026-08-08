@@ -60,8 +60,12 @@ mark "server python: $SRV_PY"
 if ! pgrep -f "[p]hase2_score_server.*$IPC_DIR" >/dev/null 2>&1; then
   tmux kill-session -t bankscore 2>/dev/null
   mkdir -p "$IPC_DIR"
+  # tmux runs the command under a fresh sh that never sources ~/.bashrc, so the
+  # server starts without HF_TOKEN and dies on the gated paligemma repo. Source
+  # it INSIDE the session rather than passing it on the command line, where it
+  # would be visible to every ps on the box.
   tmux new-session -d -s bankscore \
-    "cd /workspace/phrase-rl && PYTHONPATH=/workspace/phrase-rl/src $SRV_PY -m phrase_rl.phase2_score_server \
+    "cd /workspace/phrase-rl && eval \"\$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc)\" && export HF_HOME=\"\${HF_HOME:-/workspace/hf_cache}\" && PYTHONPATH=/workspace/phrase-rl/src $SRV_PY -m phrase_rl.phase2_score_server \
        --ipc-dir \"$IPC_DIR\" \
        --stats-contexts results/phrase_artifacts/chunk_stats.parquet \
        --verifier-ensemble results/checkpoints/verifier_reward_ensemble_4f.json \
