@@ -745,51 +745,77 @@ def write_eval_file(run, path, rules, per_rule, pairs, base_mean, rules_mean):
     Path(path).write_text("\n".join(lines))
 
 
+def build_vocabulary(src_dir, floor=5):
+    """Count the corpus deterministically. This used to be asked of an agent, but
+    a word count is not a judgement -- code gets it exactly right, reproducibly,
+    and without inlining 17k instructions into a prompt (which read-timed out).
+    The agent is left the part that IS judgement: shape, register, what is
+    conspicuously absent."""
+    import collections
+    txt = [f for f in sorted(src_dir.iterdir()) if f.suffix == ".txt"]
+    if not txt:
+        return None, 0, {}
+    lines = [l.strip() for f in txt for l in f.read_text(errors="replace").splitlines()
+             if l.strip()]
+    toks = collections.Counter(w for l in lines for w in re.findall(r"[a-z']+", l.lower()))
+    above = {w: c for w, c in toks.items() if c >= floor}
+    common = sorted(((w, c) for w, c in above.items() if c >= 50), key=lambda x: -x[1])
+    present = sorted(w for w, c in above.items() if c < 50)
+    body = (
+        f"# Corpus vocabulary — exact membership test\n\n"
+        f"{len(lines)} instructions, {len(toks)} distinct tokens, {len(above)} above a\n"
+        f"floor of {floor} occurrences (rarer words excluded as noise). Tokenised as\n"
+        f"lowercase runs of letters and apostrophes.\n\n"
+        f"A word is corpus-present if and only if it appears below. Presence licenses a\n"
+        f"token; it never makes a token good — frequency is not outcome.\n\n"
+        f"**Common (n>=50):** " + ", ".join(f"{w} {c}" for w, c in common) + "\n\n"
+        f"**Present (n={floor}-49):** " + ", ".join(present) + "\n")
+    return body, len(lines), {"distinct": len(toks), "above_floor": len(above),
+                              "common": len(common), "present": len(present)}
+
+
 def ensure_corpus_file(run, cfg):
-    """Written once per run by an agent that reads the corpus inputs itself."""
+    """Deterministic vocabulary table + an agent-written qualitative section."""
     out = run.dir / "corpus_stats.md"
     if out.exists():
         return out
-    inputs = REPO / "results/analysis/b4_rules_inputs"
-    if run.dry or not inputs.exists():
-        out.write_text("# Corpus statistics\n\n(dry-run placeholder)\n")
+    src_dir = REPO / "results/analysis/b4_rules_inputs"
+    if run.dry or not src_dir.exists():
+        out.write_text("# Corpus vocabulary\n\n(dry-run placeholder)\n")
         return out
+
+    # stage only corpus material; anything naming rules or their outcomes is out
     staged = run.dir / "corpus_inputs"
     staged.mkdir(exist_ok=True)
     copied = []
-    for f in sorted(inputs.iterdir()):
-        # exclude anything carrying earlier rules or their outcomes
+    for f in sorted(src_dir.iterdir()):
         if f.is_file() and not any(x in f.name.lower() for x in ("rules", "readme")):
             (staged / f.name).write_bytes(f.read_bytes())
             copied.append(f.name)
     jwrite(run.dir / "corpus_inputs_manifest.json",
            {"copied": copied,
-            "excluded": [f.name for f in sorted(inputs.iterdir()) if f.name not in copied]})
-    print(f"[{run.id}] corpus inputs staged: {len(copied)} files")
-    # .txt/.csv inputs are not covered by the default stage filter
-    run.agent_dir.mkdir(parents=True, exist_ok=True)
-    (run.agent_dir / "corpus_inputs").mkdir(exist_ok=True)
-    for f in staged.iterdir():
-        (run.agent_dir / "corpus_inputs" / f.name).write_bytes(f.read_bytes())
-    backend = cfg.get("distiller", "claude")
-    if backend == "claude":
-        p = prompt_from("corpus.md", inputs_dir="corpus_inputs", out_file=out.name)
-        call_llm(run, backend, p, "corpus", add_dir=run.agent_dir,
-                 effort="high", timeout=1800)
-    else:
-        # an API backend cannot write files: inline the corpus and take the reply
-        # as the artifact
-        text = "\n\n".join(
-            f"### {f.name}\n```\n{f.read_text(errors='replace')[:200_000]}\n```"
-            for f in sorted(staged.iterdir()) if f.suffix in (".txt", ".csv", ".md"))
-        p = (prompt_from("corpus.md", inputs_dir="(inlined below)", out_file=out.name)
-             .replace("Reply with a one-line confirmation and the two tier sizes "
-                      "once the file is written.",
-                      "Reply with the FILE CONTENTS themselves and nothing else.")
-             + "\n\n## Corpus files\n\n" + text)
-        out.write_text(call_llm(run, backend, p, "corpus", effort="high", timeout=1800))
-    if not out.exists():
-        out.write_text("# Corpus statistics\n\n(agent did not write a file)\n")
+            "excluded": [f.name for f in sorted(src_dir.iterdir()) if f.name not in copied]})
+
+    vocab, n_instr, stats = build_vocabulary(staged)
+    if vocab is None:
+        out.write_text("# Corpus vocabulary\n\n(no instruction list found)\n")
+        return out
+    print(f"[{run.id}] vocabulary computed: {n_instr} instructions, "
+          f"{stats['common']} common + {stats['present']} present "
+          f"({stats['distinct']} distinct before the floor)")
+
+    # the agent adds only what requires judgement, over a SAMPLE, not the corpus
+    sample = "\n".join((staged / copied[0]).read_text(errors="replace").splitlines()[:400])
+    p = prompt_from("corpus.md", vocab_summary=vocab[:6000],
+                    n_instructions=n_instr, sample=sample)
+    try:
+        qual = call_llm(run, cfg.get("distiller", "claude"), p, "corpus",
+                        effort="high", timeout=900)
+    except Exception as e:
+        print(f"[{run.id}] corpus commentary failed ({type(e).__name__}); "
+              f"vocabulary table still written")
+        qual = "(commentary unavailable)"
+    out.write_text(vocab + "\n---\n\n" + qual + "\n")
     return out
 
 
