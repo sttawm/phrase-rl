@@ -46,6 +46,8 @@ ap.add_argument("--contexts", type=int, default=16)   # C
 ap.add_argument("--frames", type=int, default=4)      # F, the calibration's value
 ap.add_argument("--budget", type=int, default=64)     # F*C target
 ap.add_argument("--seed", type=int, default=7)
+ap.add_argument("--call-rows", type=int, default=64,
+                help="frames sent per IPC call for the phrase in hand")
 ap.add_argument("--ipc", default=os.environ.get("IPC_DIR", "/workspace/ipc_rules"))
 args = ap.parse_args()
 
@@ -109,23 +111,29 @@ for ti, (task, grp) in enumerate(todo.groupby("task"), 1):
         ep = ep.sort_values("t") if "t" in ep.columns else ep
         ctx_rows.extend(r for _, r in ep.head(F).iterrows())
 
-    zs, gs = [], []
-    for i in range(0, len(ctx_rows), 8):
-        batch = ctx_rows[i:i + 8]
-        losses = score_phrases(ipc, f"bank_{uuid.uuid4().hex[:8]}",
-                               [(fr, phrases) for fr in batch], sargs)
-        grips = getattr(score_phrases, "last_grips", [None] * len(losses))
-        for L, G in zip(losses, grips):
-            zs.append(-np.asarray(L, dtype=np.float64).mean(axis=1))
-            gs.append(np.asarray(G, dtype=np.float64) if G is not None
-                      else np.full(len(phrases), np.nan))
-    zm, gm = np.nanmean(np.stack(zs), axis=0), np.nanmean(np.stack(gs), axis=0)
-    for p, z, g in zip(phrases, zm, gm):
-        rows.append({"task": task, "phrase": p, "z": float(z), "grip": float(g),
+    # DEPTH-FIRST: one phrase is carried to completion over all F*C frames and
+    # flushed before the next begins. The server bills one forward pass per
+    # (frame, phrase) row either way, so this costs the same total compute and
+    # keeps the per-call batch the same size (F*C rows) -- but an interruption
+    # now loses at most one phrase instead of a whole task's partial work.
+    for pi, phr in enumerate(phrases, 1):
+        zs, gs = [], []
+        for i in range(0, len(ctx_rows), args.call_rows):
+            batch = ctx_rows[i:i + args.call_rows]
+            losses = score_phrases(ipc, f"bank_{uuid.uuid4().hex[:8]}",
+                                   [(fr, [phr]) for fr in batch], sargs)
+            grips = getattr(score_phrases, "last_grips", [None] * len(losses))
+            for L, G in zip(losses, grips):
+                zs.append(-np.asarray(L, dtype=np.float64).mean())
+                gs.append(float(np.asarray(G, dtype=np.float64).ravel()[0])
+                          if G is not None else np.nan)
+        rows.append({"task": task, "phrase": phr,
+                     "z": float(np.nanmean(zs)), "grip": float(np.nanmean(gs)),
                      "n_ctx": len(ctx_rows)})
-    pd.DataFrame(rows).to_parquet(out_path, index=False)   # flush per task
-    print(f"[{ti}/{len(mine)}] {str(task)[:44]!r}: {len(phrases)} phrases "
-          f"F={F} C={C} -> {len(rows)} rows total", flush=True)
+        pd.DataFrame(rows).to_parquet(out_path, index=False)   # flush per PHRASE
+        if pi % 5 == 0 or pi == len(phrases):
+            print(f"[{ti}/{len(mine)}] {str(task)[:40]!r}: {pi}/{len(phrases)} "
+                  f"phrases F={F} C={C} -> {len(rows)} rows total", flush=True)
 
 pd.DataFrame(rows).to_parquet(out_path, index=False)
 print(f"BANK-SCORING-DONE [{args.task_kind}] shard {args.shard}: "
