@@ -151,10 +151,9 @@ elif spec["kind"] == "apply":
     elif "===RATIONALE===" in rules:
         rules = rules.split("===RATIONALE===", 1)[0]
     only = spec.get("only_rule")
-    tmpl_name = "apply_single.md" if only else "apply.md"
-    tmpl = (REPO / "prompts/rules_loop" / tmpl_name).read_text().replace("{{rules}}", rules)
-    if only:
-        tmpl = tmpl.replace("{{only_rule}}", only)
+    if only:   # single-edit: a one-rule rulebook, so the contrast is clean
+        rules = f"===RULES===\n1. {only}\n"
+    tmpl = (REPO / "prompts/rules_loop/apply.md").read_text().replace("{{rules}}", rules)
 
     # scene descriptions are expensive to generate: load once, reuse per phrase
     traces = {}

@@ -515,15 +515,17 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag, only_rule=
             "rules_file": str((run.dir / "current_rules.md").relative_to(REPO)),
             "rules_sha": hashlib.sha1(rules.encode()).hexdigest()[:12],
             "only_rule": only_rule}, tag)
-    tmpl = "apply_single.md" if only_rule else "apply.md"
-    rules = rules_only(rules)
+    # Single-edit: the applier sees a ONE-RULE rulebook, not the whole book with
+    # an instruction to ignore the others. Showing rules it is told not to apply
+    # contaminates the very contrast the measurement exists to isolate.
+    rules = f"===RULES===\n1. {only_rule}\n" if only_rule else rules_only(rules)
     traces = load_traces()
     jobs = []
     for r in bases.itertuples():
         jobs.append((r.task, r.phrase, prompt_from(
-            tmpl, rules=rules, phrase=r.phrase, task=r.task,
-            trace=traces.get(r.task, traces.get(r.phrase, "(no scene description available)")),
-            only_rule=only_rule or "")))
+            "apply.md", rules=rules, phrase=r.phrase,
+            trace=traces.get(r.task, traces.get(r.phrase,
+                                                "(no scene description available)")))))
     rows = [None] * len(jobs)
 
     def one(i):

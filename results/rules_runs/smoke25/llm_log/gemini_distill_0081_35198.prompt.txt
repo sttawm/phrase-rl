@@ -1,0 +1,74 @@
+You are writing a rulebook for rewriting task instructions given to a robot
+policy. The rulebook will be handed to another language model, which must apply
+it to instructions it has never seen. Your goal is a rulebook that, when applied,
+raises the policy's measured success rate.
+
+You have working files. Read them before you answer — do not rely on this
+message alone:
+
+  /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke25/corpus_stats.md
+      What the policy's training instructions look like: vocabulary,
+      grammatical shape, register, notable absences.
+
+You have a shell as well as file reading. The evidence table is large; aggregate
+it rather than skimming it.
+
+  /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke25/pass_gemini/iter_01/evidence.csv
+      Every phrase measured so far, with its estimated success rate, grouped by
+      task. This is the full spread, not a summary — read enough of it to see
+      within-task variation, not just the extremes. Where a phrase has a
+      real-rollout number it is marked; those are more reliable than estimates.
+
+  /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke25/pass_gemini/iter_00/rules_eval.md
+      How the BEST rulebook performed: per-rule adherence, the measured
+      single-edit effect of each individual rule, and an auditor's notes. A .json
+      twin sits beside it if you want to compute over it. Absent on the first
+      iteration.
+
+  /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke25/pass_gemini/iter_01/no_eval.md
+      How the REGRESSED rulebook performed, in the same format -- present only
+      when the last attempt scored worse than the best. Absent otherwise.
+
+BEST RULEBOOK SO FAR (verbatim; empty on the first iteration). This is what you
+are revising -- build from it:
+===RULES===
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+===RATIONALE===
+no-rules baseline: the scaffold alone, measured as iteration 0 so every distilled rulebook has an anchor to beat.
+
+
+(no regression: the last attempt was the best so far)
+
+Guidance:
+- A rule earns its place by evidence. If /Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke25/pass_gemini/iter_00/rules_eval.md shows a rule had no
+  measurable effect, or a negative one, remove it or replace it.
+- When a regressed rulebook is shown, diff it against the best one and identify
+  which specific change cost the ground. Their two eval files let you compare the
+  same rules measured under both -- a rule present in both whose delta moved is
+  more informative than one that only appears in the loser. Do not simply revert;
+  say what you learned and why your new change is not the same mistake.
+- If a rule is being poorly adhered to, the fix may be to state it more simply
+  rather than to drop it. Poor adherence and poor performance are different
+  failures and have different remedies.
+- Where new evidence contradicts a rule you previously wrote, decide which wins
+  and say so explicitly in the rationale.
+- Prefer stability: a rulebook that changes wholesale every iteration cannot
+  converge. Change what the evidence says to change.
+- **Reproduce every rule you are keeping word for word.** A rule's identity is
+  its wording: keep it identical and its existing measurements carry over;
+  reword it at all -- even cosmetically -- and it becomes a rule with no
+  evidence behind it, which must be measured again from scratch. Reword only
+  when you mean to change what the rule instructs.
+- Rules must be executable by a model reading them cold, with no access to this
+  evidence and no examples beyond what you write into the rule itself.
+
+Reply in EXACTLY this format, with these two delimiter lines present verbatim
+and nothing before the first one:
+
+===RULES===
+1. <one rule, imperative, self-contained>
+2. <one rule>
+(as many as the evidence supports)
+===RATIONALE===
+<free prose: what changed, what you kept and why, which conflicts you resolved
+and on what evidence. Numbered lines are fine here.>
