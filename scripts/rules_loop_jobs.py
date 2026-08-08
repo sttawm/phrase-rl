@@ -2,13 +2,12 @@
 """Pod-side executor for rules-loop jobs (run by rules_loop_worker.sh).
 
   score  : proxy-score (task, phrase) rows. Extracts the SAME two channels the
-           proxy was calibrated on (scripts/fit_simple_success_reward.py):
-             z    = -mean over CRN draws of the flow loss   (higher = better)
-             grip = the server's gripper-error sidecar      (lower  = better)
-           Both are consumed exactly as scripts/fine_exam_score.py does: the
-           (P, K) array score_phrases returns is K LOSS DRAWS per phrase -- it
-           contains no verifier column and no grip column -- and grip arrives
-           out-of-band on score_phrases.last_grips.
+           proxy was calibrated on (scripts/fit_simple_success_reward.py), in
+           reward_mode="verifier" -- the ONLY mode in which the score server
+           computes grip at all:
+             z    = -mean over ensemble members of the returned array
+             grip = the server's gripper-error sidecar, score_phrases.last_grips
+           Consumed exactly as scripts/fine_exam_score.py does.
   apply  : Qwen3.5-9B applies a rules file to each incoming phrase.
 
 Usage (from /workspace/phrase-rl on a pod):
@@ -20,6 +19,7 @@ search's 213-instruction table). CRN: contexts per task are a seeded draw, so
 every phrase in a run faces identical contexts.
 """
 import json
+import os
 import sys
 import types
 import uuid
@@ -37,12 +37,20 @@ jdir = Path(sys.argv[1]).parent
 payload = pd.read_parquet(jdir / f"{jid}.payload.parquet")
 result_path = jdir / f"{jid}.result.parquet"
 
-# val8 tasks are keyed by simulator task name; the context banks key training
-# rows by instruction. Pool a val8 task's episodes across bank rows whose key
-# contains the task stem, or it resolves to nothing and every row comes back NaN.
-VAL8_STEMS = ["spoon_on_towel", "carrot_on_plate", "stack_cube", "eggplant_in_basket",
-              "carrot_on_keyboard", "carrot_on_wheel", "coke_can_on_ramekin",
-              "coke_can_on_plate"]
+# val8 tasks are simulator names ("widowx_coke_can_on_ramekin_clean"); the context
+# banks key on natural-language instructions ("put the coke can on the ramekin").
+# A substring test between the two can never match, so map each stem to a word
+# pattern over the instruction text instead.
+VAL8_PATTERNS = {
+    "spoon_on_towel":      r"spoon.*(towel|cloth)",
+    "carrot_on_plate":     r"carrot.*plate",
+    "stack_cube":          r"(cube|block).*(cube|block)",
+    "eggplant_in_basket":  r"eggplant.*(basket|rack)",
+    "carrot_on_keyboard":  r"carrot.*keyboard",
+    "carrot_on_wheel":     r"carrot.*wheel",
+    "coke_can_on_ramekin": r"coke.*(ramekin|bowl)",
+    "coke_can_on_plate":   r"coke.*plate",
+}
 
 
 def proxy_success(z, grip, P):
@@ -64,20 +72,29 @@ if spec["kind"] == "score":
     rng = np.random.default_rng(spec["seed"])
     F0 = int(spec.get("frames_per_episode", 4))
     budget = int(spec.get("score_budget", 64))
-    ipc = Path("/workspace/ipc")
-    # reward_mode="flow": the (P, K) return is K CRN loss draws per phrase, which
-    # is what the calibration averaged. k/k_l2 match fine_exam_score's config.
+    ipc = Path(os.environ.get("IPC_DIR", "/workspace/ipc_rules"))
+    # reward_mode MUST be "verifier": phase2_score_server only computes grip in
+    # that branch (server lines 114-165) and writes NaN for every phrase in flow
+    # or l2 mode. In verifier mode the returned (P, n_members) array is NEGATED
+    # calibrated member logits, so z = -mean(L) recovers the logit -- exactly what
+    # scripts/fine_exam_score.py does, and what the proxy was calibrated on.
+    # The server must be started with --verifier-ensemble and --stats-contexts.
     args = types.SimpleNamespace(k=8, score_seed=int(spec["seed"]), tau_min=0.0,
-                                 reward_mode="flow", k_l2=0.5, score_timeout=1800)
+                                 reward_mode="verifier", k_l2=4, score_timeout=3600,
+                                 _reward_frames_map=None)
 
     out = []
     for task, grp in payload.groupby("task"):
         key = str(task)
         sub = banks[banks._key == key]
-        if len(sub) == 0:
-            stem = next((s for s in VAL8_STEMS if s in key), None)
-            if stem is not None:
-                sub = banks[banks._key.str.contains(stem, regex=False)]
+        if len(sub) == 0 and spec.get("pool_val8_stems"):
+            pat = next((p for s, p in VAL8_PATTERNS.items() if s in key), None)
+            if pat:
+                sub = banks[banks._key.str.lower().str.contains(pat, regex=True, na=False)]
+                if len(sub):
+                    print(f"[val8] {key} -> /{pat}/ matched "
+                          f"{sub._key.nunique()} instructions, "
+                          f"{sub.episode_index.nunique()} episodes", flush=True)
         phrases = list(dict.fromkeys(grp.phrase.astype(str)))
         if len(sub) == 0:
             for p in phrases:
@@ -126,6 +143,13 @@ elif spec["kind"] == "apply":
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
     rules = (REPO / spec["rules_file"]).read_text()
+    # strip the rationale: it is written for us, not for the applier, and feeding
+    # a model commentary about rules it must follow literally is a live hazard
+    if "===RULES===" in rules:
+        body = rules.split("===RULES===", 1)[1]
+        rules = "===RULES===" + body.split("===RATIONALE===", 1)[0]
+    elif "===RATIONALE===" in rules:
+        rules = rules.split("===RATIONALE===", 1)[0]
     only = spec.get("only_rule")
     tmpl_name = "apply_single.md" if only else "apply.md"
     tmpl = (REPO / "prompts/rules_loop" / tmpl_name).read_text().replace("{{rules}}", rules)

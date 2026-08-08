@@ -1,0 +1,29 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+This is a controlled single-edit experiment. Apply ONLY the rule below. Leave
+every other aspect of the instruction exactly as it is, even if another rule in
+the rulebook would also apply.
+
+RULE TO APPLY: Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+Scene description:
+An open red metal toolbox drawer contains various tools, including red wire strippers, yellow-handled shears, and a tap wrench set. A robotic gripper is positioned above the drawer, and another drawer is partially open below.
+The instruction asks the robot to grasp the yellow-handled shears (referred to as "scissors") and place them into a drawer (such as the lower open drawer of the red toolbox).
+
+Original: scissors as many as possible potential replacements: yellow shears, yellow-handled cutters, yellow scissors, yellow snips, cutting tool with yellow handles
+Original: drawer as many as possible potential replacements: red drawer, tool drawer, cabinet drawer, lower compartment, bottom drawer
+Original: pick up as many as possible potential replacements: grab, grasp, lift, retrieve, take, collect
+Original: put into as many as possible potential replacements: place inside, deposit in, transfer to, drop into, set in
+Original: Adjectives as many as possible potential replacements: yellow, red, lower, open, bottom
+Original: Adverbs: None
+
+Original Instruction:
+pick up scissors and put into drawer
+
+Incoming instruction: pick up scissors and place in drawer
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If this particular rule does not apply to this instruction, reply with
+the instruction unchanged.

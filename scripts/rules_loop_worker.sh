@@ -15,19 +15,30 @@ RUN_ID="${RUN_ID:?set RUN_ID}"
 JOBS="results/rules_runs/$RUN_ID/jobs"
 mark() { echo "[rlworker $(date -u +%H:%M)] $*" >> /workspace/rules_worker.log; }
 
-IPC_DIR="${IPC_DIR:-/workspace/ipc}"
+IPC_DIR="${IPC_DIR:-/workspace/ipc_rules}"
 case "$IPC_DIR" in
   ""|"/"|"/workspace"|"/root"|"/tmp"|*..*) echo "unsafe IPC_DIR=$IPC_DIR" >&2; exit 1;;
 esac
 
 ensure_score_server() {
-  tmux has-session -t score 2>/dev/null && return 0
+  # liveness by PROCESS, not by tmux session: a dead server inside a live session
+  # is the failure mode that looks healthiest
+  if pgrep -f "[p]hase2_score_server.*$IPC_DIR" >/dev/null 2>&1; then return 0; fi
+  tmux kill-session -t rlscore 2>/dev/null
   mkdir -p "$IPC_DIR"
-  tmux new-session -d -s score \
+  # verifier mode needs the ensemble + stats contexts, or every grip comes back NaN
+  tmux new-session -d -s rlscore \
     "cd /workspace/phrase-rl && .venv/bin/python -m phrase_rl.phase2_score_server \
-       --ipc-dir \"$IPC_DIR\" > /workspace/rl_score_server.log 2>&1"
-  mark "booted score server"
-  sleep 30
+       --ipc-dir \"$IPC_DIR\" \
+       --stats-contexts results/phrase_artifacts/chunk_stats.parquet \
+       --verifier-ensemble results/checkpoints/verifier_reward_ensemble_4f.json \
+       > /workspace/rl_score_server.log 2>&1"
+  mark "booted score server (verifier, ipc=$IPC_DIR)"
+  for _ in $(seq 1 40); do
+    sleep 15
+    pgrep -f "[p]hase2_score_server.*$IPC_DIR" >/dev/null 2>&1 && return 0
+  done
+  mark "score server FAILED to start"; return 1
 }
 
 mark "worker up for run $RUN_ID"
@@ -39,17 +50,22 @@ while true; do
     [ -e "$specf" ] || continue
     jid=$(basename "$specf" .spec.json)
     [ -f "$JOBS/$jid.result.parquet" ] && continue
-    [ -f "$JOBS/$jid.failed.txt" ] && continue
+
     kind=$(grep -o '"kind": *"[a-z]*"' "$specf" | grep -o '[a-z]*"$' | tr -d '"')
     [ "$kind" = "score" ] && ensure_score_server
     mark "running $jid ($kind)"
-    if .venv-gen/bin/python scripts/rules_loop_jobs.py "$specf" \
+    att=$(ls "$JOBS/$jid".attempt-* 2>/dev/null | wc -l | tr -d " ")
+    if [ "$att" -ge 3 ]; then mark "giving up on $jid after $att attempts"; continue; fi
+    touch "$JOBS/$jid.attempt-$((att + 1))"
+    if IPC_DIR="$IPC_DIR" .venv-gen/bin/python scripts/rules_loop_jobs.py "$specf" \
          > "/workspace/rljob_$jid.log" 2>&1; then
       git add "$JOBS/$jid.result.parquet"
+      rm -f "$JOBS/$jid.failed.txt"
     else
+      # retryable marker: a transient scoring timeout must not poison the job id
       tail -c 2000 "/workspace/rljob_$jid.log" > "$JOBS/$jid.failed.txt"
-      git add "$JOBS/$jid.failed.txt"
-      mark "FAILED $jid"
+      git add "$JOBS/$jid.failed.txt" "$JOBS/$jid.attempt-$((att + 1))"
+      mark "FAILED $jid (attempt $((att + 1))/3)"
     fi
     git commit -q -m "rules-loop result $jid"
     for i in 1 2 3; do

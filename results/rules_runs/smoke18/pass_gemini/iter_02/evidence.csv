@@ -1,0 +1,1431 @@
+task,phrase,kind,base_kind,proxy,n_ctx,gt_success,source
+Fold the cloth from bottom left to top right,fold the blue cloth diagonally towards the top right,search,,0.9630851604713486,80,,search_boards
+Fold the cloth from bottom left to top right,fold the blue cloth diagonally from bottom-left to top-right,search,,0.9841054499552185,80,,search_boards
+Fold the cloth from bottom left to top right,fold the blue cloth from bottom left corner to top right,search,,0.9878637057514416,80,,search_boards
+Fold the cloth from bottom left to top right,Fold the cloth from bottom left to top right,original,,0.9915753001803732,80,,search_boards
+Fold the cloth from bottom left to top right,fold the bottom left of the blue towel up to the top right,search,,0.9946897095686147,80,,search_boards
+close brown1fbox flap,close the lid of the cardboard box,search,,0.986707912779375,80,,search_boards
+close brown1fbox flap,close the box lid,search,,0.9907924218206858,80,,search_boards
+close brown1fbox flap,close the left lid of the box,search,,0.9928422072491674,80,,search_boards
+close brown1fbox flap,close the left lid of the brown box,search,,0.9929134456800632,80,,search_boards
+close brown1fbox flap,close brown1fbox flap,original,,0.9944725593108239,80,,search_boards
+close brown1fbox flap,shut the lid on the brown box,search,,0.9946609332989123,80,,search_boards
+close brown1fbox flap,close the brown box lid,search,,0.9946741416251652,80,,search_boards
+close fridge,shut the fridge door,search,,0.9946144470605152,80,,search_boards
+close fridge,shut the white fridge,search,,0.9946192954791901,80,,search_boards
+close fridge,close fridge,original,,0.9946909052262158,80,,search_boards
+close fridge,close the white fridge,search,,0.9946944905926007,80,,search_boards
+close fridge,shut the fridge,search,,0.9946968794987682,80,,search_boards
+close fridge,close the fridge,search,,0.9946974765581167,80,,search_boards
+close fridge,shut the white cabinet door,search,,0.9947171420510585,80,,search_boards
+close low fridge,close the white door,search,,0.9947105949606904,80,,search_boards
+close low fridge,close the lower white door,search,,0.9947159522708456,80,,search_boards
+close low fridge,close the white cupboard door,search,,0.9947207097930898,80,,search_boards
+close low fridge,shut the white door,search,,0.9947284316810358,80,,search_boards
+close low fridge,close low fridge,original,,0.9947296186662157,80,,search_boards
+close low fridge,close the cabinet below the dispenser,search,,0.9947804083089717,80,,search_boards
+close low fridge,shut the lower cabinet door,search,,0.9947821712249449,80,,search_boards
+close low fridge,shut the white cupboard door,search,,0.9947862823924906,80,,search_boards
+close microwave,close microwave,original,,0.9946621354009686,80,,search_boards
+close microwave,shut the white microwave,search,,0.9946789365904878,80,,search_boards
+close microwave,shut the wooden microwave,search,,0.994682529996387,80,,search_boards
+close microwave,push the white microwave shut,search,,0.994687915580003,80,,search_boards
+close microwave,push the wooden microwave shut,search,,0.9946909052262158,80,,search_boards
+close microwave,shut the white microwave door,search,,0.9947898036856386,80,,search_boards
+close microwave,shut the microwave door,search,,0.9947903903377794,80,,search_boards
+close microwave,close the wooden microwave,search,,0.9947933226129879,80,,search_boards
+close microwave,shut the microwave,search,,0.9947962532463731,80,,search_boards
+close oven,close oven,original,,0.9946621354009686,80,,search_boards
+close oven,push the open oven door until it is shut,search,,0.9946807335952533,80,,search_boards
+close oven,push the open oven door shut,search,,0.9946831286626592,80,,search_boards
+close oven,push the oven door back to close it,search,,0.9946992673350172,80,,search_boards
+close oven,push the oven door to shut it,search,,0.9947016541018223,80,,search_boards
+close oven,close the open oven door,search,,0.9947491655828399,80,,search_boards
+close oven,shut the open oven door,search,,0.9947491655828399,80,,search_boards
+close oven,close the oven door completely,search,,0.9947515300004548,80,,search_boards
+close oven,push the oven door to close it,search,,0.9947574364120991,80,,search_boards
+close small4fbox flaps,close the small box on the stove,search,,0.991823138310276,80,,search_boards
+close small4fbox flaps,shut the small box,search,,0.9943606953690192,80,,search_boards
+close small4fbox flaps,close the small box,search,,0.994363233721101,80,,search_boards
+close small4fbox flaps,fold the flaps of the box closed,search,,0.9946567238208757,80,,search_boards
+close small4fbox flaps,shut the flaps of the small cardboard box,search,,0.9946627363510415,80,,search_boards
+close small4fbox flaps,close small4fbox flaps,original,,0.9947260569128762,80,,search_boards
+close small4fbox flaps,close the box flaps on the stove,search,,0.994759797125031,80,,search_boards
+close white1fbox flap,close flap of the white box,search,,0.9946567238208757,80,,search_boards
+close white1fbox flap,close the flap on the white box,search,,0.9946645387975296,80,,search_boards
+close white1fbox flap,close white1fbox flap,original,,0.994675340769259,80,,search_boards
+close white1fbox flap,close white box's flap,search,,0.9946843257940896,80,,search_boards
+close white1fbox flap,close white box flap,search,,0.9947456169696386,80,,search_boards
+close white1fbox flap,fold down the white box flap,search,,0.9947462085707921,80,,search_boards
+end effector reaching banana,aim the claw at the toy banana,search,,0.9786214715727951,80,,search_boards
+end effector reaching banana,navigate to the toy banana,search,,0.9814906332009936,80,,search_boards
+end effector reaching banana,aim the hand at the toy banana,search,,0.9831430378539654,80,,search_boards
+end effector reaching banana,reach toward the yellow banana,search,,0.9913229373629417,80,,search_boards
+end effector reaching banana,end effector reaching banana,original,,0.9941063435502321,80,,search_boards
+end effector reaching banana,grab the yellow banana on the stove,search,,0.994832457059795,80,,search_boards
+end effector reaching banana,reach toward the toy banana,search,,0.9948330389342414,80,,search_boards
+end effector reaching banana,aim the claw at the yellow banana,search,,0.994834202487602,80,,search_boards
+end effector reaching carrot,touch the carrot on the stove grate,search,,0.9810369816867583,80,,search_boards
+end effector reaching carrot,touch the orange carrot on the stove,search,,0.9866633019211942,80,,search_boards
+end effector reaching carrot,touch the orange carrot on the right stove grate,search,,0.9882352372191782,80,,search_boards
+end effector reaching carrot,point gripper at the orange carrot,search,,0.9887388374704236,80,,search_boards
+end effector reaching carrot,end effector reaching carrot,original,,0.9947117859407666,80,,search_boards
+end effector reaching carrot,aim gripper at the orange carrot,search,,0.9947521209393609,80,,search_boards
+end effector reaching corn,reach for the yellow corn on the stove,search,,0.9198251277245231,80,,search_boards
+end effector reaching corn,put the gripper next to the corn,search,,0.9922076983467258,80,,search_boards
+end effector reaching corn,touch the yellow corn,search,,0.9945381237175087,80,,search_boards
+end effector reaching corn,position gripper next to the corn,search,,0.9945852651661942,80,,search_boards
+end effector reaching corn,touch the yellow corn with the gripper,search,,0.9945870936330877,80,,search_boards
+end effector reaching corn,touch the toy corn with the gripper,search,,0.9946114145925855,80,,search_boards
+end effector reaching corn,end effector reaching corn,original,,0.994642869423042,80,,search_boards
+end effector reaching corn,touch the corn with the gripper,search,,0.9946482949591399,80,,search_boards
+end effector reaching pot or pan,touch the red pot on the burner,search,,0.9820696733523742,80,,search_boards
+end effector reaching pot or pan,reach for the red pot on the burner,search,,0.9907240172892482,80,,search_boards
+end effector reaching pot or pan,move the gripper to the red toy pot,search,,0.9922295469232523,80,,search_boards
+end effector reaching pot or pan,bring the gripper to the red toy pot,search,,0.9930756456220338,80,,search_boards
+end effector reaching pot or pan,touch the red plastic pot,search,,0.9947040397996572,80,,search_boards
+end effector reaching pot or pan,reach for the red cooking pot,search,,0.9947111904840746,80,,search_boards
+end effector reaching pot or pan,end effector reaching pot or pan,original,,0.9947266507046593,80,,search_boards
+end effector reaching salmon,[dry-run:gemini] fc8dfe765447,rephrased,search,0.2050086869119735,80,,loop_gemini
+end effector reaching salmon,[dry-run:gemini] 2656346a7b75,rephrased,search,0.6869161890604483,80,,loop_gemini
+end effector reaching salmon,bring gripper close to the pink salmon on the stove,search,,0.9790830547427262,80,,search_boards
+end effector reaching salmon,approach the salmon on the stove,search,,0.9893387566121641,80,,search_boards
+end effector reaching salmon,approach the salmon with the gripper,search,,0.989657497375485,80,,search_boards
+end effector reaching salmon,bring gripper close to the salmon,search,,0.990473139493237,80,,search_boards
+end effector reaching salmon,end effector reaching salmon,original,,0.9946962823725496,80,,search_boards
+end effector reaching salmon,approach the salmon slice with the gripper,search,,0.9947609770849329,80,,search_boards
+end effector reaching salmon,aim gripper at the salmon,search,,0.9947686403846532,80,,search_boards
+end effector reaching salmon,reach toward the salmon on the stove,search,,0.9947715848376746,80,,search_boards
+end effector reaching stuffedrabbit,end effector reaching pink rabbit,search,,0.9947331780268641,80,,search_boards
+end effector reaching stuffedrabbit,place gripper on the pink toy bunny,search,,0.9947438417685585,80,,search_boards
+end effector reaching stuffedrabbit,point gripper at the pink bunny toy,search,,0.9947468001056876,80,,search_boards
+end effector reaching stuffedrabbit,place the gripper on the pink stuffed rabbit,search,,0.9947485743129016,80,,search_boards
+end effector reaching stuffedrabbit,end effector reaching stuffedrabbit,original,,0.9947533026186275,80,,search_boards
+end effector reaching stuffedrabbit,end effector reaching pink stuffed rabbit,search,,0.9947674621416406,80,,search_boards
+end effector reaching stuffedrabbit,end effector reaching pink stuffed animal,search,,0.9947745276421259,80,,search_boards
+end effector reaching stuffedrabbit,end effector reaching pink bunny,search,,0.9947762925338633,80,,search_boards
+end effector transition from pot or pan to object,move arm from orange bowl to red wheel,search,,0.40954305957549975,80,,search_boards
+end effector transition from pot or pan to object,lift hand from orange bowl and move to red and white object,search,,0.41020014991616016,80,,search_boards
+end effector transition from pot or pan to object,move hand from orange bowl to the red cylinder,search,,0.4475551430694781,80,,search_boards
+end effector transition from pot or pan to object,end effector transition from orange pot to red container,search,,0.9929855571246959,80,,search_boards
+end effector transition from pot or pan to object,end effector transition from orange bowl to red container,search,,0.9933225772277311,80,,search_boards
+end effector transition from pot or pan to object,end effector transition from bowl to red cylinder,search,,0.9933994655451718,80,,search_boards
+end effector transition from pot or pan to object,end effector transition from bowl to red object,search,,0.9945956183623312,80,,search_boards
+end effector transition from pot or pan to object,end effector transition from pot or pan to object,original,,0.9947580266894913,80,,search_boards
+flip cup upright,flip cup upright,original,,0.98671088159692,80,,search_boards
+flip cup upright,put cup upright,search,,0.9868672962863637,80,,search_boards
+flip cup upright,flip cup right side up,search,,0.9878881087713429,80,,search_boards
+flip cup upright,turn cup upright,search,,0.988298238984673,80,,search_boards
+flip cup upright,rotate cup upright,search,,0.9886388349869205,80,,search_boards
+flip cup upright,rotate the blue cup upright,search,,0.9935564134678619,80,,search_boards
+flip cup upright,flip the small blue cup upright,search,,0.9935658273279379,80,,search_boards
+flip cup upright,turn the light blue cup upright,search,,0.9935889417320404,80,,search_boards
+flip orange pot upright in sink,turn the orange cup right side up,search,,0.9527653323794093,80,,search_boards
+flip orange pot upright in sink,turn the orange cup upright,search,,0.9562296556317798,80,,search_boards
+flip orange pot upright in sink,flip the orange cup right side up,search,,0.9681077527605452,80,,search_boards
+flip orange pot upright in sink,turn the orange cup upright in sink,search,,0.9783977266481958,80,,search_boards
+flip orange pot upright in sink,flip orange pot upright in sink,original,,0.981883362340432,80,,search_boards
+flip orange pot upright in sink,flip the orange cup upright in the sink,search,,0.9947141671007589,80,,search_boards
+flip orange pot upright in sink,turn the orange cup right side up in sink,search,,0.9947153572807931,80,,search_boards
+flip pot upright in sink,place the pot right-side up in the sink,search,,0.9740624397924902,80,,search_boards
+flip pot upright in sink,turn the pot right-side up in the sink,search,,0.9768993471628908,80,,search_boards
+flip pot upright in sink,place the pot right side up in the sink,search,,0.977872428775196,80,,search_boards
+flip pot upright in sink,orient the pot right side up in the sink,search,,0.9787654532921233,80,,search_boards
+flip pot upright in sink,flip pot upright in sink,original,,0.983065952202916,80,,search_boards
+flip pot upright in sink,reorient the pot upright in the sink,search,,0.994759797125031,80,,search_boards
+flip pot upright in sink,orient the pot upright inside the sink,search,,0.9947715848376746,80,,search_boards
+flip pot upright in sink,turn the pot right side up in the sink,search,,0.9947727621572322,80,,search_boards
+flip pot upright which is in sink,flip metal pot upright which is in sink,search,,0.9471477012234122,80,,search_boards
+flip pot upright which is in sink,turn pot upright which is in sink,search,,0.9516162797284192,80,,search_boards
+flip pot upright which is in sink,flip silver pot upright which is in sink,search,,0.9574450346196749,80,,search_boards
+flip pot upright which is in sink,flip pot upright which is in sink,original,,0.9582584355255711,80,,search_boards
+flip pot upright which is in sink,flip the pot in the sink right side up,search,,0.9907427228417455,80,,search_boards
+flip pot upright which is in sink,turn the silver pot over in the sink,search,,0.9910148318208558,80,,search_boards
+flip pot upright which is in sink,flip the upside down silver pot in the sink,search,,0.9911120747982421,80,,search_boards
+fold cloth in half,fold the light cloth in half over the burners,search,,0.9866170488698839,80,,search_boards
+fold cloth in half,fold the white cloth in half over the burners,search,,0.9869986742464014,80,,search_boards
+fold cloth in half,fold the beige cloth in half horizontally,search,,0.9886540815911337,80,,search_boards
+fold cloth in half,fold cloth in half,original,,0.9894669308020563,80,,search_boards
+fold cloth in half,fold the light beige cloth in half,search,,0.9900474320210907,80,,search_boards
+fold cloth in half,fold the white cloth on the counter in half,search,,0.9947391049818384,80,,search_boards
+fold cloth in half,fold the cloth in half horizontally,search,,0.9947479829767353,80,,search_boards
+fold cloth in half,fold the beige cloth in half,search,,0.9947521209393609,80,,search_boards
+fold cloth in half,fold the cloth in half over the burners,search,,0.9947521209393609,80,,search_boards
+fold the cloth from bottom right to top left,[dry-run:gemini] c248b0ea5907,rephrased,search,0.7906281118749,80,,loop_gemini
+fold the cloth from bottom right to top left,[dry-run:gemini] a0a0c38f7214,rephrased,search,0.8036616281453741,80,,loop_gemini
+fold the cloth from bottom right to top left,diagonally fold the green cloth from bottom right to top left corner,search,,0.9897037384163453,80,,search_boards
+fold the cloth from bottom right to top left,diagonally fold the green cloth from bottom right to top left,search,,0.9898378222476173,80,,search_boards
+fold the cloth from bottom right to top left,diagonally fold the green towel from bottom right to top left,search,,0.9906906704761586,80,,search_boards
+fold the cloth from bottom right to top left,fold the green towel from bottom right to top left,search,,0.9916318461666795,80,,search_boards
+fold the cloth from bottom right to top left,fold the cloth from bottom right to top left,original,,0.9925165194584435,80,,search_boards
+fold the cloth from bottom right to top left,fold the bottom right tape of the green cloth to the top left tape,search,,0.9945245799187113,80,,search_boards
+fold the cloth from bottom right to top left,fold the green cloth by moving the bottom right corner to the top left,search,,0.9945356636892063,80,,search_boards
+fold the cloth from bottom right to top left,fold the green cloth from the bottom right edge to the top left edge,search,,0.9945442689706271,80,,search_boards
+fold the cloth from bottom to top,fold the white cloth in half up,search,,0.9584662102728443,80,,search_boards
+fold the cloth from bottom to top,fold the white cloth in half upwards,search,,0.9702636484821119,80,,search_boards
+fold the cloth from bottom to top,fold the white towel from bottom to top,search,,0.9872945215461599,80,,search_boards
+fold the cloth from bottom to top,fold the bottom of the towel to the top,search,,0.9876970227167025,80,,search_boards
+fold the cloth from bottom to top,fold the cloth from bottom to top,original,,0.9917789565819082,80,,search_boards
+fold the cloth from left to right,move the left side of the orange cloth to the right,search,,0.9544772901696624,80,,search_boards
+fold the cloth from left to right,move the left corner of the orange cloth to the right,search,,0.9698593073769928,80,,search_boards
+fold the cloth from left to right,fold the left tape of the orange cloth to the right,search,,0.9785788029923597,80,,search_boards
+fold the cloth from left to right,fold the cloth from left to right,original,,0.9888940511331428,80,,search_boards
+fold the cloth from left to right,fold the orange cloth in half from left to right,search,,0.9904077642281187,80,,search_boards
+fold the cloth from left to right,fold the orange rag from left to right,search,,0.9947266507046593,80,,search_boards
+fold the cloth from right to left,fold the light green dish cloth on the counter from right to left,search,,0.9849970344255756,80,,search_boards
+fold the cloth from right to left,fold the light green cleaning cloth on the counter from right to left,search,,0.9855713867378955,80,,search_boards
+fold the cloth from right to left,fold the right half of the green cloth over to the left,search,,0.9873836650069734,80,,search_boards
+fold the cloth from right to left,grasp the right side of the green cloth and fold it left,search,,0.98744134704225,80,,search_boards
+fold the cloth from right to left,carefully fold the light green dish cloth on the counter from right to left,search,,0.9875420128960924,80,,search_boards
+fold the cloth from right to left,fold the green cloth in half starting from the right,search,,0.9875628844519658,80,,search_boards
+fold the cloth from right to left,fold the cloth on the counter from right to left,search,,0.9875864971448746,80,,search_boards
+fold the cloth from right to left,fold the green cleaning cloth on the counter from right to left,search,,0.9876169890467761,80,,search_boards
+fold the cloth from right to left,gently fold the light green dish cloth on the counter from right to left,search,,0.9878052129009007,80,,search_boards
+fold the cloth from right to left,gently fold the green cloth on the counter from right to left,search,,0.9881956910380921,80,,search_boards
+fold the cloth from right to left,fold the green dish cloth on the counter from right to left,search,,0.9892283550819456,80,,search_boards
+fold the cloth from right to left,carefully fold the green dish cloth on the counter from right to left,search,,0.9893721343645503,80,,search_boards
+fold the cloth from right to left,gently fold the green dish cloth on the counter from right to left,search,,0.9895304449986196,80,,search_boards
+fold the cloth from right to left,fold the green dish cloth on the counter over to the left,search,,0.9895538724871156,80,,search_boards
+fold the cloth from right to left,fold the cloth from right to left,original,,0.9920002178585442,80,,search_boards
+fold the cloth from the bottom to the top,fold the light blue rag from bottom to top,search,,0.9741167206079945,80,,search_boards
+fold the cloth from the bottom to the top,fold the bottom half of the blue cloth upward,search,,0.9765130644350453,80,,search_boards
+fold the cloth from the bottom to the top,fold the light blue towel in half from bottom to top,search,,0.9780383675141383,80,,search_boards
+fold the cloth from the bottom to the top,fold the light blue towel from bottom to top,search,,0.978421637734328,80,,search_boards
+fold the cloth from the bottom to the top,fold the cloth from the bottom to the top,original,,0.9885648570879546,80,,search_boards
+fold the cloth from the bottom to the top,grab the bottom edge of the blue cloth and fold it up,search,,0.994633210514065,80,,search_boards
+fold the cloth from the bottom to the top,fold the light blue cloth from bottom to top,search,,0.9946374384162134,80,,search_boards
+fold the cloth from the left to the right,bring the left edge of the light blue towel over to the right,search,,0.9583217763361991,80,,search_boards
+fold the cloth from the left to the right,fold the left side of the light blue towel to the right,search,,0.9782825922903202,80,,search_boards
+fold the cloth from the left to the right,grab the left corner of the light blue towel and fold it to the right,search,,0.9790087457861839,80,,search_boards
+fold the cloth from the left to the right,fold the left part of the light blue towel over to the right,search,,0.9828974257918538,80,,search_boards
+fold the cloth from the left to the right,fold the cloth from the left to the right,original,,0.9913034424815809,80,,search_boards
+fold the cloth from the left to the right,grab the left side of the blue cloth and fold it right,search,,0.994731398645527,80,,search_boards
+fold the cloth from the left to the right,fold the blue cloth horizontally from left to right,search,,0.9947361423341349,80,,search_boards
+fold the cloth from the left to the right,fold the left corner of the blue cloth to the right,search,,0.9947438417685585,80,,search_boards
+fold the cloth from the left to the right,fold the light blue towel in half from left to right,search,,0.9947450253022201,80,,search_boards
+fold the cloth from the top left to the bottom right,fold the blue cloth from top left to bottom right,search,,0.9801121825622938,80,,search_boards
+fold the cloth from the top left to the bottom right,fold the blue cloth starting from top left to bottom right,search,,0.9837709408928136,80,,search_boards
+fold the cloth from the top left to the bottom right,fold the towel from top left to bottom right,search,,0.9872618224140609,80,,search_boards
+fold the cloth from the top left to the bottom right,grab the top left corner of the blue towel and fold it to the bottom right,search,,0.9874833883779243,80,,search_boards
+fold the cloth from the top left to the bottom right,fold the blue cloth diagonally from top left to bottom right,search,,0.9875169213740923,80,,search_boards
+fold the cloth from the top left to the bottom right,fold the blue cloth from top left to bottom right corner,search,,0.9893423377541567,80,,search_boards
+fold the cloth from the top left to the bottom right,fold the cloth from top left to bottom right,search,,0.9899656809851228,80,,search_boards
+fold the cloth from the top left to the bottom right,fold the cloth from the top left to the bottom right,original,,0.9921506063889661,80,,search_boards
+fold the cloth from top left to bottom right,fold the blue cloth down diagonally to the bottom right,search,,0.9700111442269781,80,,search_boards
+fold the cloth from top left to bottom right,fold the blue cloth diagonally from top left to bottom right,search,,0.9800525225103971,80,,search_boards
+fold the cloth from top left to bottom right,fold the blue towel diagonally from top left to bottom right,search,,0.986035498345719,80,,search_boards
+fold the cloth from top left to bottom right,fold the blue rag diagonally from top left to bottom right,search,,0.9862274533709549,80,,search_boards
+fold the cloth from top left to bottom right,fold the cloth from top left to bottom right,original,,0.9910841122390774,80,,search_boards
+fold the cloth from top left to bottom right,fold the blue cloth down diagonally towards the bottom right corner,search,,0.9947171420510585,80,,search_boards
+fold the cloth from top left to bottom right,fold the blue towel diagonally towards the bottom right,search,,0.9947177368412334,80,,search_boards
+fold the cloth from top left to bottom right,fold the blue cloth from the top corner to the bottom right,search,,0.9947201153358965,80,,search_boards
+fold the cloth from top right to bottom left,fold the top edge of the blue rag towards the bottom left,search,,0.9811733738616591,80,,search_boards
+fold the cloth from top right to bottom left,diagonal fold of the blue rag from top right to bottom left,search,,0.9892632770630286,80,,search_boards
+fold the cloth from top right to bottom left,fold the top of the blue rag towards the bottom left,search,,0.9894065952008271,80,,search_boards
+fold the cloth from top right to bottom left,diagonal fold of the blue cloth from top right to bottom left,search,,0.9901185615214055,80,,search_boards
+fold the cloth from top right to bottom left,fold the blue cloth in half diagonally towards the bottom left,search,,0.990933838673742,80,,search_boards
+fold the cloth from top right to bottom left,diagonal fold the blue cloth from top right to bottom left,search,,0.9914486023923402,80,,search_boards
+fold the cloth from top right to bottom left,fold the cloth from top right to bottom left,original,,0.9916571689283115,80,,search_boards
+fold the cloth from top to bottom,[dry-run:gemini] 090997e719ea,rephrased,search,0.23203867888265794,80,,loop_gemini
+fold the cloth from top to bottom,[dry-run:gemini] 5aac1776ceba,rephrased,search,0.3463528744532318,80,,loop_gemini
+fold the cloth from top to bottom,grab the top edge of the blue cloth and pull it down,search,,0.9775790826007891,80,,search_boards
+fold the cloth from top to bottom,fold the blue cloth by pulling the top down,search,,0.9796886109566806,80,,search_boards
+fold the cloth from top to bottom,pull the top edge of the blue cloth down to fold it,search,,0.98646827542215,80,,search_boards
+fold the cloth from top to bottom,pull the top of the blue cloth down to fold it,search,,0.9881771912327536,80,,search_boards
+fold the cloth from top to bottom,pull the top corner of the blue cloth down,search,,0.9894160821695553,80,,search_boards
+fold the cloth from top to bottom,fold the blue cloth downward from the top,search,,0.9894350308984206,80,,search_boards
+fold the cloth from top to bottom,fold the cloth from top to bottom,original,,0.9908634013277143,80,,search_boards
+lever vertical to front,push the silver handle to the front,search,,0.9720113096114197,80,,search_boards
+lever vertical to front,move the silver handle to the front,search,,0.9723845638783154,80,,search_boards
+lever vertical to front,turn the silver handle to the front,search,,0.9732318630618668,80,,search_boards
+lever vertical to front,move the silver lever to the front,search,,0.9850504685669589,80,,search_boards
+lever vertical to front,lever vertical to front,original,,0.9857043802444438,80,,search_boards
+lever vertical to front,turn the faucet handle to point forward,search,,0.994636834633074,80,,search_boards
+lever vertical to front,rotate the faucet handle forward,search,,0.9946452814474935,80,,search_boards
+lever vertical to front,turn the faucet knob to the front,search,,0.9946549187484887,80,,search_boards
+lever vertical to front,move the faucet lever to the front,search,,0.9946669411177532,80,,search_boards
+lever vertical to front,pull the faucet handle to the front,search,,0.9946926982105562,80,,search_boards
+lever vertical to front,push the faucet handle to the front,search,,0.9947022506264784,80,,search_boards
+lever vertical to front,rotate the faucet handle to the front,search,,0.9947040397996572,80,,search_boards
+lift bowl,grab the light blue bowl,search,,0.9643826583093739,80,,search_boards
+lift bowl,grab and lift the blue bowl,search,,0.968472677299639,80,,search_boards
+lift bowl,pick up light blue bowl,search,,0.9685279289914159,80,,search_boards
+lift bowl,grab and lift blue bowl,search,,0.9696634694312294,80,,search_boards
+lift bowl,lift bowl,original,,0.9858787767651269,80,,search_boards
+lift bowl,pick up the blue bowl,search,,0.9947058283718063,80,,search_boards
+lift bowl,grab the blue bowl,search,,0.9947088079903099,80,,search_boards
+lift bowl,pick up the light blue bowl,search,,0.9947135719107625,80,,search_boards
+move light switch to the right,[dry-run:gemini] 14fa3c1c07c5,rephrased,search,0.639421902373544,80,,loop_gemini
+move light switch to the right,[dry-run:gemini] 5b98ff7f9cb2,rephrased,search,0.8648590071057884,80,,loop_gemini
+move light switch to the right,push the little white switch to the right,search,,0.9936499395141334,80,,search_boards
+move light switch to the right,push the little switch to the right,search,,0.9942730673249177,80,,search_boards
+move light switch to the right,flip the little switch to the right,search,,0.9943205660740884,80,,search_boards
+move light switch to the right,move light switch to the right,original,,0.9943295081616271,80,,search_boards
+move light switch to the right,push the little switch right,search,,0.9944576062114403,80,,search_boards
+move light switch to the right,toggle the switch right,search,,0.9947780568326413,80,,search_boards
+move light switch to the right,push the switch right,search,,0.9947880433348879,80,,search_boards
+move light switch to the right,flip the toggle switch to the right,search,,0.9947921498999742,80,,search_boards
+move the cloth from left to right,shift the blue cloth to the right,search,,0.9910409998996651,80,,search_boards
+move the cloth from left to right,move the blue cloth to the right,search,,0.9912927017975411,80,,search_boards
+move the cloth from left to right,move the blue cloth right,search,,0.9913908289260274,80,,search_boards
+move the cloth from left to right,move blue cloth to the right,search,,0.9915250361941779,80,,search_boards
+move the cloth from left to right,move the cloth from left to right,original,,0.9938710037331371,80,,search_boards
+move the cloth from left to right,move the blue cloth over the stove to the right,search,,0.9947105949606904,80,,search_boards
+move the cloth from left to right,drag the blue cloth to the right side of the stove,search,,0.9947278380887318,80,,search_boards
+move the cloth from right to left,drag the orange cloth from the right side to the left side,search,,0.9576383154062215,80,,search_boards
+move the cloth from right to left,reposition the orange rag on the left burner,search,,0.9578261847780272,80,,search_boards
+move the cloth from right to left,wipe the stove by moving the orange rag to the left,search,,0.9582901174312521,80,,search_boards
+move the cloth from right to left,slide the cloth from right to left,search,,0.9895935802338228,80,,search_boards
+move the cloth from right to left,pull the cloth from right to left,search,,0.9905603261841545,80,,search_boards
+move the cloth from right to left,shift the cloth from right to left,search,,0.9934571058941876,80,,search_boards
+move the cloth from right to left,move the cloth from right to left,original,,0.9936520818092477,80,,search_boards
+move the cloth to the left of the table,move the orange rag to the left side of the table,search,,0.9743242464428128,80,,search_boards
+move the cloth to the left of the table,shift the orange rag to the left side of the table,search,,0.9750199908177566,80,,search_boards
+move the cloth to the left of the table,shift the orange rag to the left part of the table,search,,0.9760332564693361,80,,search_boards
+move the cloth to the left of the table,push the orange cloth to the left,search,,0.9846074037180427,80,,search_boards
+move the cloth to the left of the table,slide the orange rag to the left,search,,0.9846895319972777,80,,search_boards
+move the cloth to the left of the table,move the orange rag to the left,search,,0.9849501252972015,80,,search_boards
+move the cloth to the left of the table,move the cloth to the left,search,,0.9870754336087547,80,,search_boards
+move the cloth to the left of the table,move the cloth to the left of the table,original,,0.9920127839138462,80,,search_boards
+move the cloth to the left of the table,move the orange rag to the left of the table,search,,0.9920601782916747,80,,search_boards
+move the silver pot to the upper right of table,[dry-run:gemini] 4444927a3cc2,rephrased,search,0.46714948342373447,80,,loop_gemini
+move the silver pot to the upper right of table,[dry-run:gemini] 9af3b2893c5d,rephrased,search,0.7443124780005983,80,,loop_gemini
+move the silver pot to the upper right of table,slide the plush mouse to the top right of the table,search,,0.8500950825879605,80,,search_boards
+move the silver pot to the upper right of table,slide the grey stuffed animal to the upper right,search,,0.8501671911613218,80,,search_boards
+move the silver pot to the upper right of table,move the small grey mouse away from the house,search,,0.9054027466981054,80,,search_boards
+move the silver pot to the upper right of table,move the small silver pot to the upper right of table,search,,0.9744992282579246,80,,search_boards
+move the silver pot to the upper right of table,shift the small silver pot to the upper right of table,search,,0.9837093814592239,80,,search_boards
+move the silver pot to the upper right of table,move the silver pot to the upper right of table,original,,0.9871186838965097,80,,search_boards
+move the silver pot to the upper right of table,shift the silver pot to the upper right of table,search,,0.9875753908086627,80,,search_boards
+open book,flip open the red album,search,,0.9880722613312576,80,,search_boards
+open book,open the book,search,,0.9946950879194733,80,,search_boards
+open book,open book,original,,0.9947099993706066,80,,search_boards
+open book,flip open the red book,search,,0.9947236810805911,80,,search_boards
+open book,open the red book on the table,search,,0.9947284316810358,80,,search_boards
+open brown1fbox flap,open the lid on the brown cardboard box,search,,0.9811063476126611,80,,search_boards
+open brown1fbox flap,open the brown cardboard box,search,,0.9883530919712149,80,,search_boards
+open brown1fbox flap,open the brown box lid,search,,0.991812115004232,80,,search_boards
+open brown1fbox flap,open the brown box,search,,0.993875139390362,80,,search_boards
+open brown1fbox flap,open the flap of the kitchen set box,search,,0.9945467251460991,80,,search_boards
+open brown1fbox flap,lift the flap of the brown box,search,,0.9945712264969231,80,,search_boards
+open brown1fbox flap,open the flap on the cardboard box,search,,0.9945718376258926,80,,search_boards
+open brown1fbox flap,open brown1fbox flap,original,,0.9946362307823197,80,,search_boards
+open cabinet,grasp the cabinet handle and pull open,search,,0.9920217476780806,80,,search_boards
+open cabinet,open cabinet,original,,0.9922817358327786,80,,search_boards
+open cabinet,use the handle to open the cabinet door,search,,0.9923016492389164,80,,search_boards
+open cabinet,pull open the kitchen cabinet,search,,0.9923266847995711,80,,search_boards
+open cabinet,open the cabinet under the counter,search,,0.9924421703300271,80,,search_boards
+open cabinet,pull open the cabinet door,search,,0.9924929419954668,80,,search_boards
+open cabinet,pull open the kitchen cabinet door,search,,0.9926432348134357,80,,search_boards
+open drawer of box,slide the drawer open,search,,0.9938710037331371,80,,search_boards
+open drawer of box,slide the black handle drawer open,search,,0.9946962823725496,80,,search_boards
+open drawer of box,slide the drawer out,search,,0.9946992673350172,80,,search_boards
+open drawer of box,open drawer of box,original,,0.9947266507046593,80,,search_boards
+open drawer of box,pull open the box drawer,search,,0.9947414739057303,80,,search_boards
+open drawer of box,open the drawer of the box on the counter,search,,0.9947627465292459,80,,search_boards
+open drawer of box,open the drawer,search,,0.9947674621416406,80,,search_boards
+open fridge,open fridge,original,,0.9891521024815677,80,,search_boards
+open fridge,pull open the gray toy refrigerator door,search,,0.9893040774794883,80,,search_boards
+open fridge,gently pull open the grey toy refrigerator door,search,,0.9895620598478103,80,,search_boards
+open fridge,pull open the grey toy fridge door,search,,0.989634299851703,80,,search_boards
+open fridge,pull open the grey toy refrigerator door,search,,0.9897267821558895,80,,search_boards
+open fridge,pull the fridge door open,search,,0.9922669843868684,80,,search_boards
+open fridge,pull open the refrigerator door,search,,0.9926100966300159,80,,search_boards
+open fridge,pull the refrigerator door open,search,,0.9927246188728929,80,,search_boards
+open fridge,pull open the grey fridge door,search,,0.9945017263492804,80,,search_boards
+open fridge,pull open the grey refrigerator door,search,,0.994687915580003,80,,search_boards
+open large4fbox flaps,open large4fbox flaps,original,,0.9871961747443057,80,,search_boards
+open large4fbox flaps,lift open the cardboard box flaps,search,,0.9935397246428906,80,,search_boards
+open large4fbox flaps,lift the cardboard flaps open,search,,0.9937918968430739,80,,search_boards
+open large4fbox flaps,lift the cardboard box flaps open,search,,0.9937918968430739,80,,search_boards
+open large4fbox flaps,pull the cardboard flaps open,search,,0.9939354780196373,80,,search_boards
+open large4fbox flaps,open the cardboard box flaps,search,,0.9946259549671825,80,,search_boards
+open large4fbox flaps,pull the cardboard box flaps open,search,,0.9946633372338209,80,,search_boards
+open large4fbox flaps,pull open the cardboard box flaps,search,,0.9946663406385778,80,,search_boards
+open low fridge,open the lower refrigerator door,search,,0.9789947841257067,80,,search_boards
+open low fridge,open the small white fridge door,search,,0.9790017660914397,80,,search_boards
+open low fridge,open the low white fridge,search,,0.9790040929086518,80,,search_boards
+open low fridge,open low fridge,original,,0.9912141911906683,80,,search_boards
+open low fridge,open the white lower refrigerator door,search,,0.9912985619814575,80,,search_boards
+open low fridge,open the white lower fridge door,search,,0.991320015894674,80,,search_boards
+open low fridge,open the lower fridge,search,,0.9913666426028188,80,,search_boards
+open low fridge,open the lower fridge door,search,,0.9915894720951155,80,,search_boards
+open oven,pull the oven handle to open it,search,,0.994436979996787,80,,search_boards
+open oven,grab the oven handle and open it,search,,0.9944376061536602,80,,search_boards
+open oven,pull open the oven door,search,,0.9944719370667436,80,,search_boards
+open oven,open oven,original,,0.9946265599685338,80,,search_boards
+open oven,pull open the handle of the white oven,search,,0.9946693423621159,80,,search_boards
+open oven,pull open the white oven door gently,search,,0.9946747412307843,80,,search_boards
+open oven,pull open the white oven,search,,0.9946747412307843,80,,search_boards
+open oven,grab and pull open the white oven door,search,,0.9946849242592625,80,,search_boards
+open small4fbox flaps,open the small cardboard box flaps,search,,0.9942154170258977,80,,search_boards
+open small4fbox flaps,open the small card board box flaps,search,,0.9943212052593372,80,,search_boards
+open small4fbox flaps,open the cardboard box flaps,search,,0.9945864842123647,80,,search_boards
+open small4fbox flaps,open small box flaps,search,,0.9945962267603737,80,,search_boards
+open small4fbox flaps,pull open the box flaps,search,,0.9946168718127513,80,,search_boards
+open small4fbox flaps,open small4fbox flaps,original,,0.9946789365904878,80,,search_boards
+open small4fbox flaps,open small brown cardboard box flaps,search,,0.9947088079903099,80,,search_boards
+open small4fbox flaps,open the small brown cardboard box flaps,search,,0.9947094037138154,80,,search_boards
+open the drawer,grab the handle and open the drawer,search,,0.9840433615282679,80,,search_boards
+open the drawer,pull the black handle to open the red drawer,search,,0.9845764939373054,80,,search_boards
+open the drawer,open the drawer on the red box,search,,0.9856612504068644,80,,search_boards
+open the drawer,pull open the drawer using the handle,search,,0.9868187968772588,80,,search_boards
+open the drawer,open the drawer,original,,0.9912692219163606,80,,search_boards
+open the drawer,use the handle to pull open the drawer,search,,0.9947580266894913,80,,search_boards
+open the drawer,pull the drawer handle,search,,0.9947662836346519,80,,search_boards
+opened the drawer,slide the red drawer out,search,,0.9644642170326777,80,,search_boards
+opened the drawer,slide out the red drawer with the black handle,search,,0.9813357747904741,80,,search_boards
+opened the drawer,open the red drawer by pulling its handle,search,,0.9842867915608254,80,,search_boards
+opened the drawer,slide the red drawer open,search,,0.9847881949321844,80,,search_boards
+opened the drawer,opened the drawer,original,,0.9880080576748298,80,,search_boards
+opened the drawer,slide open the red drawer,search,,0.9947355496054755,80,,search_boards
+opened the drawer,pull open the red drawer,search,,0.9947468001056876,80,,search_boards
+opened the drawer,pull the handle of the red drawer,search,,0.9947473915743331,80,,search_boards
+pick up any cup,[dry-run:gemini] 5252a3da701c,rephrased,search,0.4850915638999627,80,,loop_gemini
+pick up any cup,[dry-run:gemini] 6f66411425cf,rephrased,search,0.726315816690256,80,,loop_gemini
+pick up any cup,pick up any mug in the rack,search,,0.9880107396305565,80,,search_boards
+pick up any cup,pick up any cup from the rack,search,,0.9899183452759907,80,,search_boards
+pick up any cup,pick up any cup inside the rack,search,,0.99002510027878,80,,search_boards
+pick up any cup,pick up any cup,original,,0.9901428958663655,80,,search_boards
+pick up any cup,pick up any cup in the rack,search,,0.9906404274706345,80,,search_boards
+pick up any cup,grab any mug,search,,0.9946849242592625,80,,search_boards
+pick up any cup,pick up one of the cups,search,,0.9947094037138154,80,,search_boards
+pick up any cup,grab any cup from the rack,search,,0.9947266507046593,80,,search_boards
+pick up bit holder,lift the red plastic screwdriver bit holder,search,,0.9826289875769035,80,,search_boards
+pick up bit holder,grab the red plastic screwdriver bit holder,search,,0.9840433615282679,80,,search_boards
+pick up bit holder,pick up red screwdriver bit holder,search,,0.9850471344308984,80,,search_boards
+pick up bit holder,pick up red plastic bit holder,search,,0.9864516446807904,80,,search_boards
+pick up bit holder,pick up bit holder,original,,0.9871114854476906,80,,search_boards
+pick up bit holder,grasp the red bit holder,search,,0.9946265599685338,80,,search_boards
+pick up bit holder,grab the red plastic bit holder,search,,0.994635626863943,80,,search_boards
+pick up bit holder,pick up the red plastic screwdriver bit holder,search,,0.994652511041805,80,,search_boards
+pick up bit holder,pick up the red screwdriver bit holder,search,,0.9946567238208757,80,,search_boards
+pick up blue pen and put into drawer,[dry-run:gemini] f808e9853eb3,rephrased,search,0.21614187556875739,80,,loop_gemini
+pick up blue pen and put into drawer,[dry-run:gemini] e02e89970779,rephrased,search,0.7606333870054709,80,,loop_gemini
+pick up blue pen and put into drawer,grab the blue marker and place it in the upper left compartment,search,,0.9745048534549469,80,,search_boards
+pick up blue pen and put into drawer,move the blue pen to the top left plastic drawer,search,,0.9801430485462845,80,,search_boards
+pick up blue pen and put into drawer,put the blue pen in the upper left organizer,search,,0.984660494352299,80,,search_boards
+pick up blue pen and put into drawer,pick up the blue dry erase marker and put it in the upper left drawer,search,,0.9859510828622811,80,,search_boards
+pick up blue pen and put into drawer,pick up blue pen and put into drawer,original,,0.9887878844525916,80,,search_boards
+pick up blue pen and put into drawer,put the blue dry erase marker in the upper left compartment,search,,0.994642869423042,80,,search_boards
+pick up blue pen and put into drawer,pick up the blue pen and place it in the upper left drawer,search,,0.9946452814474935,80,,search_boards
+pick up blue pen and put into drawer,place the blue pen in the top left plastic drawer,search,,0.9946452814474935,80,,search_boards
+pick up blue pen and put into drawer,grab the blue dry erase marker and place it in the side compartment,search,,0.9946615343835946,80,,search_boards
+pick up bowl and put in small4fbox,put the light blue bowl in the cardboard box,search,,0.9884749391012171,80,,search_boards
+pick up bowl and put in small4fbox,place the light blue bowl in the cardboard box,search,,0.9894916759400044,80,,search_boards
+pick up bowl and put in small4fbox,put the light blue bowl in the box,search,,0.9895034391151474,80,,search_boards
+pick up bowl and put in small4fbox,put the light blue bowl inside the box,search,,0.9898104595015158,80,,search_boards
+pick up bowl and put in small4fbox,pick up bowl and put in small4fbox,original,,0.99317840294609,80,,search_boards
+pick up bowl and put in small4fbox,put the blue bowl into the cardboard box,search,,0.9947391049818384,80,,search_boards
+pick up bowl and put in small4fbox,move the blue bowl into the cardboard box,search,,0.9947391049818384,80,,search_boards
+pick up bowl and put in small4fbox,put the blue bowl in the box,search,,0.9947402895764468,80,,search_boards
+pick up box cutter and put into drawer,grab the silver box cutter and set it in the red drawer,search,,0.9904045376139823,80,,search_boards
+pick up box cutter and put into drawer,pick up the silver box cutter and set it inside the red drawer,search,,0.9906362284490785,80,,search_boards
+pick up box cutter and put into drawer,grab the silver box cutter and place it in the red drawer,search,,0.9909307873988851,80,,search_boards
+pick up box cutter and put into drawer,pick up the silver box cutter and put it in the red drawer,search,,0.9909490797968078,80,,search_boards
+pick up box cutter and put into drawer,pick up box cutter and put into drawer,original,,0.9926150767863813,80,,search_boards
+pick up box cutter and put into drawer,grab the box cutter and set it in the drawer,search,,0.9946434725304462,80,,search_boards
+pick up box cutter and put into drawer,pick up the silver box cutter and place it in the red drawer,search,,0.9946494998914378,80,,search_boards
+pick up box cutter and put into drawer,grab the box cutter and place it inside the red drawer,search,,0.9946507045539054,80,,search_boards
+pick up box cutter and put into drawer,pick up the silver box cutter and put it in the drawer,search,,0.994651908946602,80,,search_boards
+pick up glass cup,pick up glass,search,,0.9850454670882621,80,,search_boards
+pick up glass cup,pick up glass cup from dishwasher,search,,0.9850821063653792,80,,search_boards
+pick up glass cup,pick up the small glass cup,search,,0.9859306856070369,80,,search_boards
+pick up glass cup,pick up glass cup,original,,0.9874371352486409,80,,search_boards
+pick up glass cup,lift the glass cup from the rack,search,,0.9946693423621159,80,,search_boards
+pick up glass cup,take the clear glass out of the dishwasher,search,,0.994675340769259,80,,search_boards
+pick up glue and put into drawer,[dry-run:gemini] aa9ab54d088e,rephrased,search,0.44390871780745783,80,,loop_gemini
+pick up glue and put into drawer,[dry-run:gemini] 9a5473a40346,rephrased,search,0.7565771101713659,80,,loop_gemini
+pick up glue and put into drawer,move the red glue tube into the top left compartment,search,,0.9559206734789746,80,,search_boards
+pick up glue and put into drawer,put the red tube of glue in the top left organizer,search,,0.982421037637136,80,,search_boards
+pick up glue and put into drawer,put the red tube of glue in the upper tray,search,,0.9853720550664651,80,,search_boards
+pick up glue and put into drawer,pick up the small red glue tube and drop it in the upper tray,search,,0.9859777122177714,80,,search_boards
+pick up glue and put into drawer,pick up glue and put into drawer,original,,0.9879610273988656,80,,search_boards
+pick up glue and put into drawer,pick up the red tube of glue and place it in the top left organizer,search,,0.9946717425310944,80,,search_boards
+pick up glue and put into drawer,put the red tube of glue in the small open drawer on the left,search,,0.994682529996387,80,,search_boards
+pick up glue and put into drawer,put the red glue tube into the left side top drawer,search,,0.9946837272618909,80,,search_boards
+pick up green mug,pick up green mug,original,,0.9884258342000388,80,,search_boards
+pick up green mug,pick up the green cup,search,,0.9895128402741753,80,,search_boards
+pick up green mug,pick up green cup,search,,0.9896841110252396,80,,search_boards
+pick up green mug,pick up the green coffee cup,search,,0.9897106569039316,80,,search_boards
+pick up green mug,pick up green coffee cup,search,,0.9903213523602389,80,,search_boards
+pick up green mug,lift the green cup,search,,0.9946023069955361,80,,search_boards
+pick up green mug,grasp the green cup,search,,0.9946223235360697,80,,search_boards
+pick up pan from stove,lift the silver pot off the front left burner,search,,0.15736208542462687,80,,search_boards
+pick up pan from stove,[dry-run:gemini] 6a763934e9c5,rephrased,search,0.6768798224098472,80,,loop_gemini
+pick up pan from stove,lift the silver pot that is on the left burner,search,,0.8697810301904109,80,,search_boards
+pick up pan from stove,[dry-run:gemini] e2c13623aaa8,rephrased,search,0.9043802745211753,80,,loop_gemini
+pick up pan from stove,pick up the small silver pot from the stove,search,,0.9185894226624964,80,,search_boards
+pick up pan from stove,grab the small pot from the burner,search,,0.9187078526820476,80,,search_boards
+pick up pan from stove,take the silver pot off the front burner,search,,0.9265245751735625,80,,search_boards
+pick up pan from stove,grab the silver pot on the left burner,search,,0.9436187344270208,80,,search_boards
+pick up pan from stove,grab the small silver pot on the left burner,search,,0.9519746222999396,80,,search_boards
+pick up pan from stove,lift the silver pot on the left burner,search,,0.9541218594602021,80,,search_boards
+pick up pan from stove,pick up the silver pot on the left burner,search,,0.9582448505212061,80,,search_boards
+pick up pan from stove,pick up pan from stove,original,,0.9776558645104708,80,,search_boards
+pick up pot,grab the small metal pot from the burner,search,,0.20047206849486102,80,,search_boards
+pick up pot,grab the small silver pot from the burner,search,,0.2363478795690053,80,,search_boards
+pick up pot,grab the metal pot from the burner,search,,0.5153856673651152,80,,search_boards
+pick up pot,pick up the silver pot with handles,search,,0.9011710782975436,80,,search_boards
+pick up pot,grab the silver cooking pot,search,,0.9319481504717987,80,,search_boards
+pick up pot,lift the cooking pot,search,,0.9326767453635552,80,,search_boards
+pick up pot,grab the silver cooking pot from the stove,search,,0.9367240880484103,80,,search_boards
+pick up pot,grab the metal pot from the stove,search,,0.9566822206381319,80,,search_boards
+pick up pot,grab the small metal pot from the stove,search,,0.9581950026515248,80,,search_boards
+pick up pot,pick up pot,original,,0.9651787831102177,80,,search_boards
+pick up pot from sink,remove the silver pot from the sink,search,,0.9174393269337122,80,,search_boards
+pick up pot from sink,remove the pot from the sink,search,,0.9217323845147021,80,,search_boards
+pick up pot from sink,lift the silver cup out of the sink,search,,0.9357238341744942,80,,search_boards
+pick up pot from sink,lift the metal pot out of the sink,search,,0.9528976023036094,80,,search_boards
+pick up pot from sink,pick up pot from sink,original,,0.9755681853863954,80,,search_boards
+pick up pot from sink,grab the metal pot out of the sink,search,,0.9761468505549464,80,,search_boards
+pick up pot from sink,grab the silver cup from the sink,search,,0.976860999703219,80,,search_boards
+pick up pot from sink,grab the metal pot from the sink,search,,0.9785835480561293,80,,search_boards
+pick up pot from sink,grab the silver cup out of the sink,search,,0.9792700006135938,80,,search_boards
+pick up scissors and put into drawer,[dry-run:gemini] 58c20293710d,rephrased,search,0.5795004446248222,80,,loop_gemini
+pick up scissors and put into drawer,[dry-run:gemini] aec545de50da,rephrased,search,0.8818469597394157,80,,loop_gemini
+pick up scissors and put into drawer,place the scissors into the top red drawer,search,,0.9870204441234631,80,,search_boards
+pick up scissors and put into drawer,pick up scissors and put into drawer,original,,0.9870638760143775,80,,search_boards
+pick up scissors and put into drawer,place the scissors in the top red drawer,search,,0.9873469507160826,80,,search_boards
+pick up scissors and put into drawer,place the scissors in the top drawer,search,,0.9876487878658398,80,,search_boards
+pick up scissors and put into drawer,pick up scissors and place in drawer,search,,0.9945411972040745,80,,search_boards
+pick up scissors and put into drawer,pick up the scissors and place them in the drawer,search,,0.9945436547548718,80,,search_boards
+pick up sponge and wipe plate,use the sponge to clean the grey plate,search,,0.9923240986648659,80,,search_boards
+pick up sponge and wipe plate,use the sponge to wipe the grey plate,search,,0.9926992315511038,80,,search_boards
+pick up sponge and wipe plate,use the yellow sponge to clean the plate,search,,0.992919018750278,80,,search_boards
+pick up sponge and wipe plate,pick up sponge and wipe plate,original,,0.9931260559936075,80,,search_boards
+pick up sponge and wipe plate,use the yellow sponge to clean the grey plate,search,,0.99313146301759,80,,search_boards
+pick up sponge and wipe plate,pick up the yellow sponge and wipe the grey plate,search,,0.9946537150299575,80,,search_boards
+pick up sponge and wipe plate,grab the sponge and wipe the grey plate,search,,0.9946555205066647,80,,search_boards
+pick up sponge and wipe plate,grab the yellow sponge and wipe the grey plate,search,,0.9946579268656145,80,,search_boards
+pick up violet Allen key,grab the violet hex key,search,,0.9826077214715028,80,,search_boards
+pick up violet Allen key,grasp the purple hex key,search,,0.9832533610785085,80,,search_boards
+pick up violet Allen key,grasp the violet hex key,search,,0.9836184355087658,80,,search_boards
+pick up violet Allen key,pick up the violet hex key,search,,0.9852869710987495,80,,search_boards
+pick up violet Allen key,pick up violet Allen key,original,,0.9894326641439783,80,,search_boards
+pick up violet Allen key,grab the violet allen key,search,,0.9946735419523941,80,,search_boards
+pick up violet Allen key,pick up the purple l-key,search,,0.9946777382518609,80,,search_boards
+pick up violet Allen key,pick up the purple hex key,search,,0.9946956851794537,80,,search_boards
+pour almonds in pot,dump the almonds into the pot,search,,0.9938641048029306,80,,search_boards
+pour almonds in pot,pour almonds in pot,original,,0.993923867915764,80,,search_boards
+pour almonds in pot,dump the almonds from the container into the pot,search,,0.9939402522395323,80,,search_boards
+pour almonds in pot,dump the almonds into the pot bowl,search,,0.9939491087394554,80,,search_boards
+pour almonds in pot,dump the almonds in the pot,search,,0.9940503731537182,80,,search_boards
+pour almonds in pot,pour almonds from container into pot,search,,0.9946398528727741,80,,search_boards
+pour almonds in pot,transfer almonds from container to pot,search,,0.9946452814474935,80,,search_boards
+pour almonds in pot,pour the almonds into the pot,search,,0.9946482949591399,80,,search_boards
+put banana in colander,put the yellow banana into the silver bowl,search,,0.9835251563211709,80,,search_boards
+put banana in colander,drop the yellow banana in the silver bowl,search,,0.9862166868280224,80,,search_boards
+put banana in colander,place the yellow banana in the silver bowl,search,,0.9874693900614501,80,,search_boards
+put banana in colander,put the banana inside the silver bowl,search,,0.9886731114061853,80,,search_boards
+put banana in colander,put banana in colander,original,,0.9910991030064255,80,,search_boards
+put banana in colander,place the banana in the colander,search,,0.9946627363510415,80,,search_boards
+put banana in colander,put the banana in the colander bowl,search,,0.9946681418743873,80,,search_boards
+put banana in colander,drop the banana into the colander,search,,0.9946711425896411,80,,search_boards
+put banana in colander,put the yellow banana in the silver bowl,search,,0.9946831286626592,80,,search_boards
+put banana in pot cardboard fence,move the banana inside the orange bowl,search,,0.9871172445242553,80,,search_boards
+put banana in pot cardboard fence,pick up the banana and drop it in the pot,search,,0.9874132420638189,80,,search_boards
+put banana in pot cardboard fence,move the banana into the pot,search,,0.98913751776301,80,,search_boards
+put banana in pot cardboard fence,move the banana in the pot,search,,0.9892824964004242,80,,search_boards
+put banana in pot cardboard fence,put banana in pot cardboard fence,original,,0.9908767134592061,80,,search_boards
+put banana in pot cardboard fence,put the banana inside the orange bowl,search,,0.994680134660745,80,,search_boards
+put banana in pot cardboard fence,move banana to pot,search,,0.9946843257940896,80,,search_boards
+put banana in pot cardboard fence,pick up the banana and put it in the pot,search,,0.9946909052262158,80,,search_boards
+put banana in pot or pan,put the yellow banana in the silver pot,search,,0.986219763829702,80,,search_boards
+put banana in pot or pan,place the banana in the silver pot,search,,0.9866573426581554,80,,search_boards
+put banana in pot or pan,place the yellow banana in the silver pot,search,,0.9869681358724083,80,,search_boards
+put banana in pot or pan,place yellow banana in the silver pot,search,,0.987160356717494,80,,search_boards
+put banana in pot or pan,put banana in pot or pan,original,,0.9923292700697014,80,,search_boards
+put banana in pot or pan,place banana into the pot,search,,0.9947284316810358,80,,search_boards
+put banana in pot or pan,put the yellow banana into the silver pot,search,,0.9947373275923127,80,,search_boards
+put banana in pot or pan,put the banana in the silver pot,search,,0.9947491655828399,80,,search_boards
+put banana in pot or pan,place banana in the silver pot,search,,0.9947574364120991,80,,search_boards
+put banana on plate,put the yellow banana inside the green plate,search,,0.9910238985620811,80,,search_boards
+put banana on plate,put the yellow banana on the green plate,search,,0.991434195159711,80,,search_boards
+put banana on plate,put the yellow banana onto the green plate,search,,0.991452440262105,80,,search_boards
+put banana on plate,place the yellow banana onto the green plate,search,,0.9914840376010614,80,,search_boards
+put banana on plate,put banana on plate,original,,0.9915629987038067,80,,search_boards
+put banana on plate,put the banana on the plate,search,,0.994632001933198,80,,search_boards
+put banana on plate,move the yellow banana onto the plate,search,,0.994636834633074,80,,search_boards
+put banana on plate,put the yellow banana on the plate,search,,0.9946434725304462,80,,search_boards
+put big spoon from basket to tray,place the big silver spoon from the basket into the tray slot,search,,0.8307126446524172,80,,search_boards
+put big spoon from basket to tray,grab the large spoon from the basket and put it in the tray,search,,0.8495171846264382,80,,search_boards
+put big spoon from basket to tray,take the big spoon out of the basket and place it in the tray,search,,0.879842210109474,80,,search_boards
+put big spoon from basket to tray,move big spoon from basket to tray,search,,0.9019846547552963,80,,search_boards
+put big spoon from basket to tray,put the big spoon from basket to tray,search,,0.9020746827239169,80,,search_boards
+put big spoon from basket to tray,put big spoon from basket to tray,original,,0.9851633945794438,80,,search_boards
+put big spoon from basket to tray,place the big spoon from basket to tray,search,,0.985577823934347,80,,search_boards
+put big spoon from basket to tray,transfer the big spoon from basket to tray,search,,0.9856308229382394,80,,search_boards
+put big spoon from basket to tray,transfer big spoon from basket to tray,search,,0.9857505624827452,80,,search_boards
+put big spoon from basket to tray,place big spoon from basket to tray,search,,0.9858835035409653,80,,search_boards
+put blueberries on plate sink,[dry-run:gemini] 736870842653,rephrased,search,0.3438400991750587,80,,loop_gemini
+put blueberries on plate sink,[dry-run:gemini] 8e0d24dcbf9f,rephrased,search,0.8378896358880633,80,,loop_gemini
+put blueberries on plate sink,put blue grapes on the yellow plate in the sink,search,,0.9873058757237175,80,,search_boards
+put blueberries on plate sink,place blue grapes on the plate in the sink,search,,0.9873243049032837,80,,search_boards
+put blueberries on plate sink,place blue grapes on the yellow plate in the sink,search,,0.9874216800709941,80,,search_boards
+put blueberries on plate sink,place blue grapes on yellow plate sink,search,,0.989043469938388,80,,search_boards
+put blueberries on plate sink,put blueberries on plate sink,original,,0.9911885244834355,80,,search_boards
+put blueberries on plate sink,place blueberries on the plate in the sink,search,,0.9947396973123118,80,,search_boards
+put blueberries on plate sink,put blue grapes on plate sink,search,,0.994744433568529,80,,search_boards
+put blueberries on plate sink,put the blueberries on the plate in the sink,search,,0.9947462085707921,80,,search_boards
+put bowl on plate,[dry-run:gemini] b4c0eb2cf055,rephrased,search,0.18591231945586462,80,,loop_gemini
+put bowl on plate,[dry-run:gemini] eaa4f7a80c97,rephrased,search,0.876917616237073,80,,loop_gemini
+put bowl on plate,place bowl onto blue plate,search,,0.9921417862538572,80,,search_boards
+put bowl on plate,place the bowl on the blue plate,search,,0.9921646981807525,80,,search_boards
+put bowl on plate,place bowl on blue plate,search,,0.9923884933131681,80,,search_boards
+put bowl on plate,put the bowl on the plate,search,,0.9924226176356455,80,,search_boards
+put bowl on plate,place the bowl onto the plate,search,,0.9924464142858038,80,,search_boards
+put bowl on plate,place bowl on plate,search,,0.9925198816627189,80,,search_boards
+put bowl on plate,place bowl onto the plate,search,,0.9926308253150482,80,,search_boards
+put bowl on plate,place bowl on the plate,search,,0.9930678576640334,80,,search_boards
+put bowl on plate,put bowl on plate,original,,0.9934475340124647,80,,search_boards
+put bowl on plate cardboard fence,move blue bowl to green plate,search,,0.9871503099599215,80,,search_boards
+put bowl on plate cardboard fence,put blue bowl onto green plate,search,,0.987153181253562,80,,search_boards
+put bowl on plate cardboard fence,put blue bowl in green plate,search,,0.9872660922246417,80,,search_boards
+put bowl on plate cardboard fence,put the bowl on plate cardboard fence,search,,0.9925667954053397,80,,search_boards
+put bowl on plate cardboard fence,put bowl onto green plate cardboard fence,search,,0.9927694454148609,80,,search_boards
+put bowl on plate cardboard fence,put bowl on green plate cardboard,search,,0.9928526570340357,80,,search_boards
+put bowl on plate cardboard fence,put bowl on green plate cardboard fence,search,,0.9930334871868854,80,,search_boards
+put bowl on plate cardboard fence,put bowl on the green plate cardboard fence,search,,0.9930733101473603,80,,search_boards
+put bowl on plate cardboard fence,put bowl on plate cardboard fence,original,,0.9933905531397852,80,,search_boards
+put broccoli in bowl,place the green broccoli into the blue bowl,search,,0.9739190655548724,80,,search_boards
+put broccoli in bowl,place the green broccoli in the blue bowl,search,,0.9740652994379031,80,,search_boards
+put broccoli in bowl,drop the green broccoli in the blue bowl,search,,0.976927429190725,80,,search_boards
+put broccoli in bowl,put the green broccoli inside the blue bowl,search,,0.9776063572582043,80,,search_boards
+put broccoli in bowl,put broccoli in bowl,original,,0.9824093047738592,80,,search_boards
+put broccoli in bowl,pick up broccoli and put it in bowl,search,,0.9947171420510585,80,,search_boards
+put broccoli in bowl,place the broccoli in the bowl,search,,0.9947385125850189,80,,search_boards
+put broccoli in bowl,put green broccoli in blue bowl,search,,0.9947568460685884,80,,search_boards
+put broccoli in pot,put the green broccoli piece inside the silver pot,search,,0.9819396550241117,80,,search_boards
+put broccoli in pot,put the green broccoli piece inside the metal pot,search,,0.9843618935082598,80,,search_boards
+put broccoli in pot,drop the green broccoli piece into the metal pot,search,,0.9854176685475776,80,,search_boards
+put broccoli in pot,drop the green broccoli into the metal pot,search,,0.9860308217427814,80,,search_boards
+put broccoli in pot,put broccoli in pot,original,,0.9872603988298381,80,,search_boards
+put broccoli in pot,put the green broccoli in the pot,search,,0.9947509389953569,80,,search_boards
+put broccoli in pot,put the broccoli piece into the metal pot,search,,0.9947527118120828,80,,search_boards
+put broccoli in pot,put the green broccoli inside the silver pot,search,,0.994759797125031,80,,search_boards
+put broccoli in pot or pan,drop broccoli in pot,search,,0.9896493840915108,80,,search_boards
+put broccoli in pot or pan,put broccoli in the pot,search,,0.9903570902686978,80,,search_boards
+put broccoli in pot or pan,put the broccoli in the pot,search,,0.9905008700554404,80,,search_boards
+put broccoli in pot or pan,put broccoli in pot or pan,original,,0.9906885823617642,80,,search_boards
+put broccoli in pot or pan,put the broccoli into the pot,search,,0.991025912161929,80,,search_boards
+put broccoli in pot or pan,drop the broccoli inside the pot,search,,0.9947462085707921,80,,search_boards
+put broccoli in pot or pan,place broccoli in pot,search,,0.9947527118120828,80,,search_boards
+put broccoli in pot or pan,drop broccoli in the pot,search,,0.9947674621416406,80,,search_boards
+put broccoli in pot or pan,put the broccoli inside the pot,search,,0.9947704072543455,80,,search_boards
+put brush into pot or pan,[dry-run:gemini] 05370e4e91fb,rephrased,search,0.8755029153852805,80,,loop_gemini
+put brush into pot or pan,[dry-run:gemini] effaf077e38b,rephrased,search,0.9081939606115713,80,,loop_gemini
+put brush into pot or pan,put brush into pot or pan,original,,0.981441216163178,80,,search_boards
+put brush into pot or pan,drop the brush into the silver pot,search,,0.9850354591867293,80,,search_boards
+put brush into pot or pan,put the brush in the silver pot,search,,0.9850354591867293,80,,search_boards
+put brush into pot or pan,drop the brush in the pot,search,,0.9851749715114256,80,,search_boards
+put brush into pot or pan,drop the brush inside the silver pot,search,,0.9854209212860897,80,,search_boards
+put brush into pot or pan,place the brush inside the pot,search,,0.9892740921312783,80,,search_boards
+put brush into pot or pan,put the scrub brush in the pot,search,,0.9892896948749986,80,,search_boards
+put cap on container,put red cap on the container in the sink,search,,0.9878283711875022,80,,search_boards
+put cap on container,put the red lid on the glass container,search,,0.9885187004973802,80,,search_boards
+put cap on container,put the red lid on the glass jar,search,,0.9886984354201139,80,,search_boards
+put cap on container,place the red lid on the glass container,search,,0.9892656813433248,80,,search_boards
+put cap on container,put the red lid on the jar,search,,0.9897164187958388,80,,search_boards
+put cap on container,put cap on container,original,,0.9897221774946721,80,,search_boards
+put carrot in bowl,put the orange carrot in the light blue bowl,search,,0.9836803329099487,80,,search_boards
+put carrot in bowl,move carrot into the blue bowl,search,,0.9888429659944904,80,,search_boards
+put carrot in bowl,put orange carrot in blue bowl,search,,0.9891739432523061,80,,search_boards
+put carrot in bowl,move the orange carrot into the blue bowl,search,,0.989218701676311,80,,search_boards
+put carrot in bowl,move carrot into blue bowl,search,,0.9906194136946289,80,,search_boards
+put carrot in bowl,move carrot to blue bowl,search,,0.990848017260515,80,,search_boards
+put carrot in bowl,put carrot in bowl,original,,0.991224043258064,80,,search_boards
+put carrot in pot or pan,[dry-run:gemini] 77218aa5b77e,rephrased,search,0.1715882588862053,80,,loop_gemini
+put carrot in pot or pan,[dry-run:gemini] 09694e0708cf,rephrased,search,0.7212717333666832,80,,loop_gemini
+put carrot in pot or pan,put the carrot in pot,search,,0.9843601509699269,80,,search_boards
+put carrot in pot or pan,put carrot in pot,search,,0.9848575615038222,80,,search_boards
+put carrot in pot or pan,put carrot in pot or pan,original,,0.9849165303811291,80,,search_boards
+put carrot in pot or pan,put carrot into pot,search,,0.9849165303811291,80,,search_boards
+put carrot in pot or pan,put carrot inside pot,search,,0.9854306752132878,80,,search_boards
+put carrot in pot or pan,put the carrot in the pot,search,,0.9946729422124635,80,,search_boards
+put carrot in pot or pan,put the carrot inside the pot,search,,0.9946795356591589,80,,search_boards
+put carrot in pot or pan,place carrot in pot,search,,0.9946831286626592,80,,search_boards
+put carrot on cutting board,grab the orange carrot and place it on the green cutting board,search,,0.985605150462875,80,,search_boards
+put carrot on cutting board,pick up the orange carrot and set it on the cutting board,search,,0.9867952184423474,80,,search_boards
+put carrot on cutting board,pick up the orange carrot and put it on the cutting board,search,,0.9879205707529221,80,,search_boards
+put carrot on cutting board,put carrot on cutting board,original,,0.9883296147313347,80,,search_boards
+put carrot on cutting board,grab the carrot and put it on the cutting board,search,,0.9889869017687931,80,,search_boards
+put carrot on cutting board,place the carrot on the green cutting board,search,,0.9892464321798297,80,,search_boards
+put carrot on cutting board,set the carrot on the cutting board,search,,0.9892500439968914,80,,search_boards
+put carrot on cutting board,pick up the carrot and put it on the cutting board,search,,0.9892716897144065,80,,search_boards
+put carrot on cutting board,grab the carrot and place it on the cutting board,search,,0.9893136552667783,80,,search_boards
+put carrot on plate,[dry-run:gemini] e1de4728a972,rephrased,search,0.17588258217503064,80,,loop_gemini
+put carrot on plate,[dry-run:gemini] cd373a46eb5d,rephrased,search,0.2446073174766361,80,,loop_gemini
+put carrot on plate,move carrot onto green plate,search,,0.9190622010437468,80,,search_boards
+put carrot on plate,put carrot on plate,original,,0.9875573220820676,80,,search_boards
+put carrot on plate,place carrot onto the green plate,search,,0.9890508271796348,80,,search_boards
+put carrot on plate,move carrot to green plate,search,,0.9893052751671186,80,,search_boards
+put carrot on plate,move the carrot onto the green plate,search,,0.9893947246588679,80,,search_boards
+put carrot on plate,move carrot onto the green plate,search,,0.9894963827743671,80,,search_boards
+put clothes in laundry machine,[dry-run:gemini] 0bcab3976f3c,rephrased,search,0.5885495665330834,80,,loop_gemini
+put clothes in laundry machine,[dry-run:gemini] 209ae9dfcb3c,rephrased,search,0.7405640878094117,80,,loop_gemini
+put clothes in laundry machine,put clothes in the laundry machine,search,,0.9921945599560155,80,,search_boards
+put clothes in laundry machine,put clothes in laundry machine,original,,0.9922513347176938,80,,search_boards
+put clothes in laundry machine,place clothes in laundry machine,search,,0.9924217663807277,80,,search_boards
+put clothes in laundry machine,load the laundry machine with clothes,search,,0.9930303542196885,80,,search_boards
+put clothes in laundry machine,load the clothes from the basket into the machine,search,,0.9947751160052682,80,,search_boards
+put clothes in laundry machine,load the laundry basket items into the washing machine,search,,0.9947880433348879,80,,search_boards
+put clothes in laundry machine,place the clothes into the open laundry machine,search,,0.9947886301842003,80,,search_boards
+put corn in bowl sink,move the corn to the bowl,search,,0.9820636927845142,80,,search_boards
+put corn in bowl sink,move the corn into the blue bowl,search,,0.983381483004611,80,,search_boards
+put corn in bowl sink,place the corn in the bowl in the sink,search,,0.9835947078954967,80,,search_boards
+put corn in bowl sink,put corn in bowl sink,original,,0.9851385568759302,80,,search_boards
+put corn in bowl sink,move the corn into the bowl,search,,0.9851782775717359,80,,search_boards
+put corn in bowl sink,transfer the corn to the blue bowl,search,,0.9947141671007589,80,,search_boards
+put corn in pan which is on stove,place the orange carrot inside the empty silver pot,search,,0.9673513147682573,80,,search_boards
+put corn in pan which is on stove,drop the orange carrot inside the empty silver pot,search,,0.968521027656519,80,,search_boards
+put corn in pan which is on stove,place the orange carrot inside the empty pot,search,,0.9692174728408292,80,,search_boards
+put corn in pan which is on stove,put the carrot in the empty pot on the stove,search,,0.9694529936070134,80,,search_boards
+put corn in pan which is on stove,put the orange carrot in the empty pot,search,,0.9701884417640433,80,,search_boards
+put corn in pan which is on stove,drop the orange carrot into the metal pot on the stove,search,,0.9702538493497893,80,,search_boards
+put corn in pan which is on stove,put the orange carrot toy inside the silver pot,search,,0.9746227038290296,80,,search_boards
+put corn in pan which is on stove,put the orange carrot into the empty silver pot,search,,0.9749039379092825,80,,search_boards
+put corn in pan which is on stove,put the orange carrot into the empty pot,search,,0.9766657487797716,80,,search_boards
+put corn in pan which is on stove,drop the orange carrot into the empty silver pot,search,,0.9780116071950695,80,,search_boards
+put corn in pan which is on stove,put corn in pan which is on stove,original,,0.9854160419102148,80,,search_boards
+put corn in pot which is in sink,put corn in pot in sink,search,,0.8299152425192083,80,,search_boards
+put corn in pot which is in sink,put corn in the pot in the sink,search,,0.8477870954439772,80,,search_boards
+put corn in pot which is in sink,put corn in sink pot,search,,0.8511306912443773,80,,search_boards
+put corn in pot which is in sink,place corn in sink pot,search,,0.875799884268537,80,,search_boards
+put corn in pot which is in sink,put corn in the pot,search,,0.8838634165881842,80,,search_boards
+put corn in pot which is in sink,put corn in pot,search,,0.8944969588845056,80,,search_boards
+put corn in pot which is in sink,put the yellow corn in the pot,search,,0.908572759660674,80,,search_boards
+put corn in pot which is in sink,put the corn in the pot,search,,0.9179096586334706,80,,search_boards
+put corn in pot which is in sink,put the corn into the pot,search,,0.9191211219884409,80,,search_boards
+put corn in pot which is in sink,put the yellow corn inside of the pot,search,,0.9642658330641096,80,,search_boards
+put corn in pot which is in sink,put the corn inside of the pot,search,,0.96654828825617,80,,search_boards
+put corn in pot which is in sink,place the corn inside the silver pot,search,,0.9667744565553996,80,,search_boards
+put corn in pot which is in sink,put the corn inside the pot,search,,0.9679746807727017,80,,search_boards
+put corn in pot which is in sink,put corn in pot which is in sink,original,,0.9748873160995561,80,,search_boards
+put corn into bowl,move the corn to the blue bowl,search,,0.9842710276892627,80,,search_boards
+put corn into bowl,move the corn into blue bowl,search,,0.9851766246323629,80,,search_boards
+put corn into bowl,place yellow corn in the blue bowl,search,,0.986122512155689,80,,search_boards
+put corn into bowl,put yellow corn into blue bowl,search,,0.986909771595824,80,,search_boards
+put corn into bowl,put corn into bowl,original,,0.9878813350204672,80,,search_boards
+put corn into bowl,place the corn in the blue bowl,search,,0.9947260569128762,80,,search_boards
+put corn into bowl,put the corn in the bowl,search,,0.994734956810426,80,,search_boards
+put corn on plate,put corn on the pink plate,search,,0.9909134776116711,80,,search_boards
+put corn on plate,place the corn on the red plate,search,,0.9914744748981807,80,,search_boards
+put corn on plate,place corn on red plate,search,,0.9916139807741401,80,,search_boards
+put corn on plate,put corn on plate,original,,0.9922964593573997,80,,search_boards
+put corn on plate,put corn on the pink dish,search,,0.9947171420510585,80,,search_boards
+put corn on plate,put the corn on the pink plate,search,,0.9947195208121216,80,,search_boards
+put cucumber in cup,move the cucumber to the orange cup,search,,0.9801408453904745,80,,search_boards
+put cucumber in cup,move cucumber to the orange cup,search,,0.9806992482875747,80,,search_boards
+put cucumber in cup,move the cucumber into the orange cup,search,,0.9845902391533489,80,,search_boards
+put cucumber in cup,move cucumber into orange cup,search,,0.9868055391235845,80,,search_boards
+put cucumber in cup,put cucumber in cup,original,,0.9896133780644386,80,,search_boards
+put cucumber in cup,place cucumber in the orange cup,search,,0.994723086956195,80,,search_boards
+put cucumber in cup,put cucumber in orange cup,search,,0.994723086956195,80,,search_boards
+put cucumber in cup,pick up cucumber and put in orange cup,search,,0.9947236810805911,80,,search_boards
+put cup from anywhere into sink,[dry-run:gemini] bae27d9c6ce5,rephrased,search,0.7899955876929565,80,,loop_gemini
+put cup from anywhere into sink,[dry-run:gemini] 5db186b95539,rephrased,search,0.9104282426877264,80,,loop_gemini
+put cup from anywhere into sink,move the blue plastic cup to the sink,search,,0.9806520558640718,80,,search_boards
+put cup from anywhere into sink,put the blue plastic cup in the sink,search,,0.9807206620681023,80,,search_boards
+put cup from anywhere into sink,place the cup in the sink,search,,0.9813523533911245,80,,search_boards
+put cup from anywhere into sink,place the blue plastic cup in the sink,search,,0.9817824110261589,80,,search_boards
+put cup from anywhere into sink,put cup from anywhere into sink,original,,0.9817864596585499,80,,search_boards
+put cup from anywhere into sink,put blue cup inside the sink,search,,0.9924455656838886,80,,search_boards
+put cup from anywhere into sink,put blue cup in sink,search,,0.9929768792179726,80,,search_boards
+put cup from counter or drying rack into sink,move the yellow cup from the drying rack to the blue sink,search,,0.9067321864278632,80,,search_boards
+put cup from counter or drying rack into sink,move the small yellow cup from the dish drying rack to the blue sink,search,,0.9296220895224889,80,,search_boards
+put cup from counter or drying rack into sink,place the small yellow cup from the drying rack into the sink,search,,0.9418466673325943,80,,search_boards
+put cup from counter or drying rack into sink,put the small yellow cup from the drying rack into the sink,search,,0.9441761851569541,80,,search_boards
+put cup from counter or drying rack into sink,put cup from counter or drying rack into sink,original,,0.956092058226495,80,,search_boards
+put cup from counter or drying rack into sink,place the yellow cup from the rack into the blue sink,search,,0.9745161002240312,80,,search_boards
+put cup from counter or drying rack into sink,put the yellow cup that is in the rack into the sink,search,,0.9750227475991745,80,,search_boards
+put cup from counter to sink,drop the blue cup into the sink,search,,0.9702178924109676,80,,search_boards
+put cup from counter to sink,move the blue cup into the sink basin,search,,0.9705691076336428,80,,search_boards
+put cup from counter to sink,place the light blue cup into the sink,search,,0.9712626876881744,80,,search_boards
+put cup from counter to sink,place the light blue cup next to the toy vegetables in the sink,search,,0.9724998324522967,80,,search_boards
+put cup from counter to sink,put the blue cup next to the vegetables in the sink,search,,0.9737864802352227,80,,search_boards
+put cup from counter to sink,set the blue cup next to the vegetables in the sink,search,,0.9739650290293611,80,,search_boards
+put cup from counter to sink,move the light blue cup into the sink next to the vegetables,search,,0.9775443224540188,80,,search_boards
+put cup from counter to sink,move the blue cup next to the vegetables in the sink,search,,0.9813254058236013,80,,search_boards
+put cup from counter to sink,move the blue cup next to the toy vegetables in the sink,search,,0.9818289170186962,80,,search_boards
+put cup from counter to sink,move the light blue cup next to the vegetables in the sink,search,,0.9841072204132951,80,,search_boards
+put cup from counter to sink,put cup from counter to sink,original,,0.9868070128567865,80,,search_boards
+put cup into pot or pan,put the blue cup inside the metal pot,search,,0.9405942424883144,80,,search_boards
+put cup into pot or pan,move the blue cup into the silver pot,search,,0.9504886923707193,80,,search_boards
+put cup into pot or pan,place the blue cup in the silver pot,search,,0.9572509113307299,80,,search_boards
+put cup into pot or pan,put blue cup into silver pot,search,,0.9575187645587045,80,,search_boards
+put cup into pot or pan,put the blue cup into the silver pot,search,,0.9575831781012163,80,,search_boards
+put cup into pot or pan,place the blue cup inside the steel pot,search,,0.9608835277401351,80,,search_boards
+put cup into pot or pan,move the blue cup inside the silver pot,search,,0.9641721072804723,80,,search_boards
+put cup into pot or pan,place the blue cup inside the metal pot,search,,0.9697831098804915,80,,search_boards
+put cup into pot or pan,place blue cup inside the metal pot,search,,0.973618372360773,80,,search_boards
+put cup into pot or pan,move the blue cup inside the steel pot,search,,0.9767635744436124,80,,search_boards
+put cup into pot or pan,put cup into pot or pan,original,,0.9800082168769217,80,,search_boards
+put detergent from sink into drying rack,put the white soap bottle in the yellow rack,search,,0.9736067401291428,80,,search_boards
+put detergent from sink into drying rack,put the white soap bottle in the yellow dish rack,search,,0.9761731924129363,80,,search_boards
+put detergent from sink into drying rack,move the white dish soap bottle from the basin to the yellow rack,search,,0.9766347730278937,80,,search_boards
+put detergent from sink into drying rack,put the white dish soap bottle in the yellow rack,search,,0.9767558659429242,80,,search_boards
+put detergent from sink into drying rack,put detergent from sink into drying rack,original,,0.9874033906588369,80,,search_boards
+put detergent from sink into drying rack,place the white soap bottle in the yellow drying rack,search,,0.989778444125872,80,,search_boards
+put detergent from sink into drying rack,put the white soap bottle in the dish rack,search,,0.9912033412549754,80,,search_boards
+put detergent from sink into drying rack,move the white soap bottle from the basin to the rack,search,,0.9919225950199134,80,,search_boards
+put detergent in sink,[dry-run:gemini] 3db6bdfb5dc6,rephrased,search,0.7112215259220531,80,,loop_gemini
+put detergent in sink,[dry-run:gemini] b6cc9e15bebb,rephrased,search,0.7981373692998984,80,,loop_gemini
+put detergent in sink,put the dish soap bottle into the sink,search,,0.9859039682213325,80,,search_boards
+put detergent in sink,place the white bottle in the sink,search,,0.9862673708332391,80,,search_boards
+put detergent in sink,put the white bottle into the sink,search,,0.9868658291975424,80,,search_boards
+put detergent in sink,put detergent in sink,original,,0.9878065763568991,80,,search_boards
+put detergent in sink,move the soap bottle into the sink,search,,0.9886540815911337,80,,search_boards
+put eggplant in pot or pan,place the purple eggplant into the pot,search,,0.8882961966430815,80,,search_boards
+put eggplant in pot or pan,drop the purple eggplant into the metal pot,search,,0.9592255199827429,80,,search_boards
+put eggplant in pot or pan,put the eggplant in the cooking pot,search,,0.9659689056949826,80,,search_boards
+put eggplant in pot or pan,drop the eggplant into the metal pot,search,,0.9680587885654769,80,,search_boards
+put eggplant in pot or pan,put eggplant in pot or pan,original,,0.9680622884174555,80,,search_boards
+put eggplant into pan,place the eggplant inside the silver pot,search,,0.8759967503220182,80,,search_boards
+put eggplant into pan,move the eggplant into the metal pot,search,,0.904183922812322,80,,search_boards
+put eggplant into pan,pick up the eggplant and put it in the metal pot,search,,0.9043505039707028,80,,search_boards
+put eggplant into pan,put eggplant into pan,original,,0.9741452450273942,80,,search_boards
+put eggplant into pan,move the eggplant to the metal pot,search,,0.9758498740100533,80,,search_boards
+put eggplant into pan,move the eggplant into the silver pot,search,,0.9782681583731451,80,,search_boards
+put eggplant into pan,place the eggplant in the metal pot,search,,0.979690863243387,80,,search_boards
+put eggplant into pan,place eggplant in the metal pot,search,,0.9821154593781204,80,,search_boards
+put eggplant into pot or pan,drop eggplant into metal pot,search,,0.9733847773614781,80,,search_boards
+put eggplant into pot or pan,move eggplant to pot,search,,0.9734082271025545,80,,search_boards
+put eggplant into pot or pan,put eggplant into pot or pan,original,,0.9754681623858159,80,,search_boards
+put eggplant into pot or pan,put eggplant into pot,search,,0.9762913799783268,80,,search_boards
+put eggplant into pot or pan,place the eggplant into the pot,search,,0.9894480386768826,80,,search_boards
+put eggplant into pot or pan,drop eggplant into pot,search,,0.9894586696184599,80,,search_boards
+put eggplant on plate,transfer the eggplant to the green plate,search,,0.9799904676438762,80,,search_boards
+put eggplant on plate,put eggplant on plate,original,,0.9814102648069144,80,,search_boards
+put eggplant on plate,put the eggplant on the green plate,search,,0.9815337671880559,80,,search_boards
+put eggplant on plate,place eggplant on the green plate,search,,0.9816115685955111,80,,search_boards
+put eggplant on plate,transfer the purple eggplant to the green plate,search,,0.9834184393213412,80,,search_boards
+put eggplant on plate,place the eggplant onto the green plate,search,,0.9946759402405965,80,,search_boards
+put fork from basket to tray,move the silver fork from the basket to the black tray,search,,0.9660098128579667,80,,search_boards
+put fork from basket to tray,pick up the fork from the basket and place it in the tray,search,,0.9702636484821119,80,,search_boards
+put fork from basket to tray,move the silver fork out of the basket and into the tray,search,,0.9724483228398251,80,,search_boards
+put fork from basket to tray,put fork from basket into tray,search,,0.9784765350481599,80,,search_boards
+put fork from basket to tray,put fork from basket to tray,original,,0.9789598402074988,80,,search_boards
+put fork from basket to tray,put fork from the basket to the tray,search,,0.9794575883242809,80,,search_boards
+put fork from basket to tray,move the fork from the basket to the tray,search,,0.9811021507102141,80,,search_boards
+put green squash in pot or pan,put the green bitter melon in the metal pot,search,,0.9743100841726662,80,,search_boards
+put green squash in pot or pan,place the green bitter melon into the small metal pot,search,,0.9760861564178847,80,,search_boards
+put green squash in pot or pan,put the green bitter melon into the small metal pot,search,,0.976740441451702,80,,search_boards
+put green squash in pot or pan,put green bitter melon in the small metal pot,search,,0.9778846717813771,80,,search_boards
+put green squash in pot or pan,put green squash in pot or pan,original,,0.9841620084801855,80,,search_boards
+put green squash in pot or pan,put the green bitter melon in the silver pot,search,,0.9946950879194733,80,,search_boards
+put green squash in pot or pan,place the green bitter melon toy in the metal pot,search,,0.9946980735506028,80,,search_boards
+put green squash in pot or pan,put the green bitter melon in the small metal pot,search,,0.9947254630545852,80,,search_boards
+put green squash into pot or pan,place green squash inside pot,search,,0.9806821004768536,80,,search_boards
+put green squash into pot or pan,place green squash in pot,search,,0.9821253976623733,80,,search_boards
+put green squash into pot or pan,put the green squash in pot,search,,0.9830149994002805,80,,search_boards
+put green squash into pot or pan,place green squash into pot,search,,0.9833925783938846,80,,search_boards
+put green squash into pot or pan,put green squash into pot or pan,original,,0.9842534940243646,80,,search_boards
+put green squash into pot or pan,pick up the green squash and put it in the pot,search,,0.9910037379230341,80,,search_boards
+put green squash into pot or pan,place the green squash inside the metal pot,search,,0.9911140687949632,80,,search_boards
+put green squash into pot or pan,put green squash in the pot,search,,0.9914274635520021,80,,search_boards
+put green squash into pot or pan,put green squash in pot,search,,0.9924158049384927,80,,search_boards
+put green squash into pot or pan,put green squash into metal pot,search,,0.9924336753183258,80,,search_boards
+put knife in pot cardboard fence,place the plastic knife in the orange bowl,search,,0.9869053838919599,80,,search_boards
+put knife in pot cardboard fence,place the plastic knife inside the orange cup,search,,0.9877382187810441,80,,search_boards
+put knife in pot cardboard fence,move the plastic knife into the orange cup,search,,0.9878596338627014,80,,search_boards
+put knife in pot cardboard fence,place the plastic knife in the orange cup,search,,0.98787862447252,80,,search_boards
+put knife in pot cardboard fence,put knife in pot cardboard fence,original,,0.9919253153269229,80,,search_boards
+put knife in pot cardboard fence,put the plastic knife in the orange cup,search,,0.9946897095686147,80,,search_boards
+put knife in pot cardboard fence,place the knife into the orange cup,search,,0.9946962823725496,80,,search_boards
+put knife in pot cardboard fence,place the yellow knife into the orange cup,search,,0.9947004608520708,80,,search_boards
+put knife in pot or pan,put the white knife into the metal pot,search,,0.9842324282379463,80,,search_boards
+put knife in pot or pan,put the white toy knife inside the metal pot,search,,0.9849719224697777,80,,search_boards
+put knife in pot or pan,put knife in pot or pan,original,,0.9850804428632797,80,,search_boards
+put knife in pot or pan,put the white toy knife into the metal pot,search,,0.9853948793501047,80,,search_boards
+put knife in pot or pan,place the white toy knife into the pot,search,,0.9857775664366728,80,,search_boards
+put knife in pot or pan,put the white knife in the silver pot,search,,0.9947135719107625,80,,search_boards
+put knife in pot or pan,put the white toy knife in the silver pot,search,,0.9947218985077614,80,,search_boards
+put knife on cutting board,put knife on cutting board,original,,0.982646368116957,80,,search_boards
+put knife on cutting board,move the yellow knife to the green cutting board,search,,0.98279819932837,80,,search_boards
+put knife on cutting board,place yellow knife on green board,search,,0.983658513075335,80,,search_boards
+put knife on cutting board,move yellow knife to the green cutting board,search,,0.9839578235367062,80,,search_boards
+put knife on cutting board,move yellow knife onto the green cutting board,search,,0.9858976745132421,80,,search_boards
+put knife on cutting board,place the yellow knife on the green board,search,,0.9936784444771412,80,,search_boards
+put knife on cutting board cardboard fence,place the knife on the cutting board,search,,0.9877833771153146,80,,search_boards
+put knife on cutting board cardboard fence,place yellow knife on cutting board,search,,0.9882510190121062,80,,search_boards
+put knife on cutting board cardboard fence,put knife on cutting board,search,,0.988272028866583,80,,search_boards
+put knife on cutting board cardboard fence,move the knife onto the cutting board,search,,0.9885763675485776,80,,search_boards
+put knife on cutting board cardboard fence,move the yellow knife onto the green cutting board,search,,0.9890385623950534,80,,search_boards
+put knife on cutting board cardboard fence,place the knife on the green board,search,,0.9892259425323395,80,,search_boards
+put knife on cutting board cardboard fence,put knife on cutting board cardboard fence,original,,0.9899859003091507,80,,search_boards
+put lemon on plate,place the lemon on the red plate next to the sink,search,,0.9812713960377282,80,,search_boards
+put lemon on plate,pick up the yellow lemon and place it on the red plate,search,,0.9819456761899964,80,,search_boards
+put lemon on plate,grab the yellow lemon from the sink and place it on the red plate,search,,0.982218552888321,80,,search_boards
+put lemon on plate,grab the yellow lemon from the sink and put it on the red plate,search,,0.9823387459206634,80,,search_boards
+put lemon on plate,put lemon on plate,original,,0.9845058600688337,80,,search_boards
+put lemon on plate,grab the lemon and place it on the red plate,search,,0.9947645153790864,80,,search_boards
+put lemon on plate,grab the yellow lemon and put it on the red plate,search,,0.9947762925338633,80,,search_boards
+put lid on pot,put the orange lid on top of the cup,search,,0.9774222468201686,80,,search_boards
+put lid on pot,put the orange lid on the orange cup,search,,0.9842622632595874,80,,search_boards
+put lid on pot,put the orange plastic lid on top of the orange cup,search,,0.9852984530435299,80,,search_boards
+put lid on pot,put lid on pot,original,,0.9876956471631206,80,,search_boards
+put lid on pot,put the orange lid on top of the orange cup,search,,0.9878052129009007,80,,search_boards
+put lid on pot,place the lid on top of the cup,search,,0.9947070204194325,80,,search_boards
+put lid on pot,cover the orange container with the lid,search,,0.9947153572807931,80,,search_boards
+put lid on pot,put the orange lid on the orange container,search,,0.9947218985077614,80,,search_boards
+put lid on pot or pan,put the silver lid on the silver pot,search,,0.9876722395012874,80,,search_boards
+put lid on pot or pan,put lid on pot or pan,original,,0.9878582762666144,80,,search_boards
+put lid on pot or pan,place the lid on the pot,search,,0.9880629194918951,80,,search_boards
+put lid on pot or pan,place the silver lid onto the silver pot,search,,0.9881108863546816,80,,search_boards
+put lid on pot or pan,put the lid onto the silver pot,search,,0.98976698595328,80,,search_boards
+put lid on pot or pan,place the metal lid on the silver pot,search,,0.9947408817742506,80,,search_boards
+put lid on pot or pan,put the silver lid on top of the pot,search,,0.9947485743129016,80,,search_boards
+put lid on pot or pan,place the lid on top of the pot,search,,0.99475034792406,80,,search_boards
+put pan from drying rack into sink,put the metal pan in the orange basket into the sink,search,,0.937524430062465,80,,search_boards
+put pan from drying rack into sink,put the metal pan in the orange basket into the sink basin,search,,0.9381907182805038,80,,search_boards
+put pan from drying rack into sink,put the metal pan in the orange rack into the sink,search,,0.956068292862343,80,,search_boards
+put pan from drying rack into sink,move the stainless steel pot from the rack into the sink,search,,0.9744795305486422,80,,search_boards
+put pan from drying rack into sink,put pan from drying rack into sink,original,,0.9751437529293457,80,,search_boards
+put pan from drying rack into sink,move the metal pan into the white sink basin,search,,0.9912141911906683,80,,search_boards
+put pan from drying rack into sink,transfer the silver pot from the orange dish rack to the sink,search,,0.9914945442923679,80,,search_boards
+put pan from sink into drying rack,put pan in orange drying rack,search,,0.9902254088103141,80,,search_boards
+put pan from sink into drying rack,put pan from the sink into drying rack,search,,0.9907707111263743,80,,search_boards
+put pan from sink into drying rack,put pan from sink into drying rack,original,,0.9911100803580829,80,,search_boards
+put pan from sink into drying rack,put pan from sink into the drying rack,search,,0.9911806120941556,80,,search_boards
+put pan from sink into drying rack,put the small silver pan into the orange drying rack,search,,0.9924870361198946,80,,search_boards
+put pan from sink into drying rack,put the metal pan in the orange basket,search,,0.9944200472410365,80,,search_boards
+put pan from sink into drying rack,move the metal pan from the sink to the orange dish rack,search,,0.9946205069053862,80,,search_boards
+put pan from stove to sink,put pan from stove to sink,original,,0.965594837578104,80,,search_boards
+put pan from stove to sink,transfer the metal pot from the blue burner to the sink,search,,0.9816442307735787,80,,search_boards
+put pan from stove to sink,move the silver pot from the blue burner to the sink,search,,0.9828955229048917,80,,search_boards
+put pan from stove to sink,place the metal pot from the blue burner to the sink,search,,0.9833555654148817,80,,search_boards
+put pan from stove to sink,move the metal pot from the blue burner to the sink,search,,0.9836293753298113,80,,search_boards
+put pan from stove to sink,place the silver pan from the burner into the plastic sink,search,,0.9843200198080734,80,,search_boards
+put pan from stove to sink,move the silver pot off the burner and put it in the sink,search,,0.9877066473405132,80,,search_boards
+put pan from stove to sink,place the silver pot from the blue stove in the sink,search,,0.9890422432562936,80,,search_boards
+put pan from stove to sink,move the silver pot from the burner to the sink,search,,0.9894267449627872,80,,search_boards
+put pan from stove to sink,transfer the silver pot from the blue burner to the sink,search,,0.9900004780673575,80,,search_boards
+put pan from stove to sink,transfer the metal pot from the burner to the sink,search,,0.9905867499515402,80,,search_boards
+put pan in sink,put the pan into the sink,search,,0.9875071500901543,80,,search_boards
+put pan in sink,put the pan in the sink,search,,0.9875684443665663,80,,search_boards
+put pan in sink,put pan into the sink,search,,0.9887072855953579,80,,search_boards
+put pan in sink,put pan in sink,original,,0.9890704226126605,80,,search_boards
+put pan in sink,put the metal cooking pot in the sink,search,,0.9945877029855791,80,,search_boards
+put pan in sink,put the cooking pan into the sink,search,,0.9946211125167546,80,,search_boards
+put pan in sink,put the metal pan in the sink,search,,0.994652511041805,80,,search_boards
+put pan on stove and put blueberry in pan,place the metal pot on the burner and put the blue berry inside,search,,0.9750420367703516,80,,search_boards
+put pan on stove and put blueberry in pan,place the silver pan on the stove burner and put the blue berry inside,search,,0.9758552086509884,80,,search_boards
+put pan on stove and put blueberry in pan,put the small pot on the stove burner and put the blue berry in the pot,search,,0.9778895671298228,80,,search_boards
+put pan on stove and put blueberry in pan,place the silver pan on the stove burner and put the blue berry in it,search,,0.9814597627029575,80,,search_boards
+put pan on stove and put blueberry in pan,put pan on stove and put blueberry in pan,original,,0.984533462306753,80,,search_boards
+put pan on stove and put blueberry in pan,place the metal pan on the stove burner and put the blue berry in the pan,search,,0.9946915029545969,80,,search_boards
+put pan on stove and put stuffedduck in pan,move the pot to the stove and put the yellow duck inside,search,,0.9809462209446894,80,,search_boards
+put pan on stove and put stuffedduck in pan,move the pot to the stove and place the yellow stuffed duck inside,search,,0.9846946506672989,80,,search_boards
+put pan on stove and put stuffedduck in pan,place the pot on the stove and put the yellow stuffed duck inside,search,,0.9864137725345218,80,,search_boards
+put pan on stove and put stuffedduck in pan,set the pot on the stove and put the yellow stuffed duck inside,search,,0.9868305705126729,80,,search_boards
+put pan on stove and put stuffedduck in pan,put pan on stove and put stuffedduck in pan,original,,0.9873342173653256,80,,search_boards
+put pan on stove and put stuffedduck in pan,place the pot on the burner and put the yellow stuffed duck in it,search,,0.9908848959864425,80,,search_boards
+put pan on stove and put stuffedduck in pan,put the silver pot on the stove burner and place the duck inside,search,,0.9909531398067888,80,,search_boards
+put pan on stove and put stuffedduck in pan,set the pot on the burner and put the yellow stuffed duck inside,search,,0.9917401034146265,80,,search_boards
+put pan on stove and put stuffedpig in pan,put the metal cooking pot on the stove and place the pink pig in it,search,,0.9197917308625884,80,,search_boards
+put pan on stove and put stuffedpig in pan,put the silver pot on the stove burner and put the pink toy in it,search,,0.9198000812683503,80,,search_boards
+put pan on stove and put stuffedpig in pan,move the metal pot to the stove burner and put the pink pig in it,search,,0.92051525377912,80,,search_boards
+put pan on stove and put stuffedpig in pan,put the pan on stove and put stuffedpig in pan,search,,0.9305495013335554,80,,search_boards
+put pan on stove and put stuffedpig in pan,put pan on stove and put stuffed pig in pan,search,,0.9424328530556186,80,,search_boards
+put pan on stove and put stuffedpig in pan,put pan on the stove and put stuffedpig in pan,search,,0.943395500768996,80,,search_boards
+put pan on stove and put stuffedpig in pan,put pan on the stove and put the stuffed pig in pan,search,,0.9508337925942778,80,,search_boards
+put pan on stove and put stuffedpig in pan,put pan on stove and put the stuffed pig in pan,search,,0.9509078227506732,80,,search_boards
+put pan on stove and put stuffedpig in pan,put pan on the stove and put stuffedpig in the pan,search,,0.956747845320675,80,,search_boards
+put pan on stove and put stuffedpig in pan,put pan on stove and put stuffedpig in pan,original,,0.9885071326069074,80,,search_boards
+put pan on stove and put stuffedpig in pan,put the pan on the stove and place the stuffedpig in the pan,search,,0.9887615008406465,80,,search_boards
+put pan on stove and put stuffedpig in pan,put pan on stove and place the stuffedpig in the pan,search,,0.9887979192369551,80,,search_boards
+put pan on stove and put stuffedpig in pan,put pan on stove and put the stuffedpig in the pan,search,,0.9889424296564077,80,,search_boards
+put pan on stove and put stuffedpig in pan,put pan on the stove and place the stuffedpig in the pan,search,,0.9890127621073042,80,,search_boards
+put pan on stove from sink,lift the silver pan out of the sink and place it on the burner,search,,0.9819577126108592,80,,search_boards
+put pan on stove from sink,lift the silver pan from the sink and put it on the burner,search,,0.9847661353972175,80,,search_boards
+put pan on stove from sink,put pan on stove from sink,original,,0.9850837696848103,80,,search_boards
+put pan on stove from sink,lift the metal pan and place it on the stove burner,search,,0.9882746524867033,80,,search_boards
+put pan on stove from sink,lift the silver pan from the sink and place it on the blue burner,search,,0.9891860582150799,80,,search_boards
+put pan on stove from sink,place the pan on the blue burner,search,,0.9946464870546298,80,,search_boards
+put pan on stove from sink,transfer the metal pan from the sink to the stove top,search,,0.9946609332989123,80,,search_boards
+put pear in bowl,place the green pear in the blue bowl,search,,0.9854744883822675,80,,search_boards
+put pear in bowl,drop the green pear inside the blue bowl,search,,0.9872318941439703,80,,search_boards
+put pear in bowl,drop pear in blue bowl,search,,0.9883191653971384,80,,search_boards
+put pear in bowl,put pear in bowl,original,,0.9884646183676675,80,,search_boards
+put pear in bowl,pick up the pear and put it in the bowl,search,,0.9946783374547243,80,,search_boards
+put pear on plate,move pear to the green plate,search,,0.9895269263945143,80,,search_boards
+put pear on plate,put the green pear on the green plate,search,,0.9900318050048176,80,,search_boards
+put pear on plate,place the green pear onto the green plate,search,,0.9902952788056306,80,,search_boards
+put pear on plate,put the green pear onto the green plate,search,,0.9904099147072483,80,,search_boards
+put pear on plate,put pear on plate,original,,0.9930880882867497,80,,search_boards
+put pear on plate,move the green pear onto the green plate,search,,0.9946962823725496,80,,search_boards
+put pear on plate,put green pear on plate,search,,0.9946980735506028,80,,search_boards
+put pear on plate,move green pear to green plate,search,,0.9947028470843314,80,,search_boards
+put pear on plate,move pear to green plate,search,,0.9947183315647974,80,,search_boards
+put pepper in pan,put the red pepper inside the metal pot,search,,0.985748972442179,80,,search_boards
+put pepper in pan,put the red pepper inside the silver pot,search,,0.9867183007791241,80,,search_boards
+put pepper in pan,drop the red pepper inside the metal pot,search,,0.9871933129351469,80,,search_boards
+put pepper in pan,drop the red pepper into the silver pot,search,,0.9876887671166887,80,,search_boards
+put pepper in pan,put pepper in pan,original,,0.991921688048928,80,,search_boards
+put pepper in pan,place the pepper inside the silver pot,search,,0.9946986704762338,80,,search_boards
+put pepper in pan,put the red pepper in the pot,search,,0.9947004608520708,80,,search_boards
+put pepper in pan,put the red pepper into the metal pot,search,,0.9947111904840746,80,,search_boards
+put pepper in pot or pan,[dry-run:gemini] affa8ef68d95,rephrased,search,0.5164302741061629,80,,loop_gemini
+put pepper in pot or pan,[dry-run:gemini] 36999a4f8109,rephrased,search,0.9019442096872502,80,,loop_gemini
+put pepper in pot or pan,place the yellow pepper inside the silver pot,search,,0.9158741491855641,80,,search_boards
+put pepper in pot or pan,place the yellow pepper in the pot,search,,0.9178925984909246,80,,search_boards
+put pepper in pot or pan,put the yellow pepper in the silver pot,search,,0.9251489362996711,80,,search_boards
+put pepper in pot or pan,move pepper to pot,search,,0.9579859306470935,80,,search_boards
+put pepper in pot or pan,place the pepper in the pot,search,,0.9580269145525336,80,,search_boards
+put pepper in pot or pan,put pepper into pot,search,,0.9669051017537932,80,,search_boards
+put pepper in pot or pan,put pepper in pot or pan,original,,0.9699188103038789,80,,search_boards
+put pot in sink,[dry-run:gemini] ec6229e4acec,rephrased,search,0.28996248693167515,80,,loop_gemini
+put pot in sink,[dry-run:gemini] 10be753fa1a5,rephrased,search,0.6442700263992486,80,,loop_gemini
+put pot in sink,move the pot in front of the faucet into the sink,search,,0.9781861888293331,80,,search_boards
+put pot in sink,put the pot of yellow food in the sink,search,,0.9834571564949911,80,,search_boards
+put pot in sink,move the metal pot with yellow food into the sink,search,,0.983871834521028,80,,search_boards
+put pot in sink,move the small metal pot of yellow food into the sink,search,,0.9855633362609585,80,,search_boards
+put pot in sink,put pot in sink,original,,0.988668039876081,80,,search_boards
+put pot in sink,place the metal cooking pot in the sink,search,,0.9947111904840746,80,,search_boards
+put pot in sink,move the pot of fake food to the sink,search,,0.9947207097930898,80,,search_boards
+put pot on stove which is near stove,set the pot on the stove burner,search,,0.9470058638232468,80,,search_boards
+put pot on stove which is near stove,put the pot that is in the sink onto the stove,search,,0.9492599519015444,80,,search_boards
+put pot on stove which is near stove,place the pot onto the stove,search,,0.9495427072194356,80,,search_boards
+put pot on stove which is near stove,set the small silver pot on the stove burner,search,,0.9733818447299775,80,,search_boards
+put pot on stove which is near stove,set the small silver pot on the stove,search,,0.983907718236627,80,,search_boards
+put pot on stove which is near stove,set the small pot on the stove,search,,0.9861827950651684,80,,search_boards
+put pot on stove which is near stove,set the silver pot on the stove,search,,0.9872618224140609,80,,search_boards
+put pot on stove which is near stove,put pot on stove which is near stove,original,,0.9894987354092827,80,,search_boards
+put pot or pan from sink into drying rack,place the silver pot in the yellow drying basket,search,,0.990774850403092,80,,search_boards
+put pot or pan from sink into drying rack,put the metal pot in the yellow rack,search,,0.9908910281097147,80,,search_boards
+put pot or pan from sink into drying rack,put the metal pot inside the yellow dish rack,search,,0.9912809696911858,80,,search_boards
+put pot or pan from sink into drying rack,put pot or pan from sink into drying rack,original,,0.9921417862538572,80,,search_boards
+put pot or pan from sink into drying rack,transfer the silver pot from within the sink into the yellow drying basket,search,,0.9923970386638714,80,,search_boards
+put pot or pan from sink into drying rack,transfer the silver pot from the sink into the yellow drying basket,search,,0.9923978926751501,80,,search_boards
+put pot or pan from sink into drying rack,place the silver pot from the sink into the yellow drying basket,search,,0.9924294242598026,80,,search_boards
+put pot or pan from sink into drying rack,move the silver pot from the sink into the yellow drying basket,search,,0.9924777461407923,80,,search_boards
+put pot or pan from sink into drying rack,transfer the pot from the sink into the yellow dish drainer,search,,0.9927131645005766,80,,search_boards
+put pot or pan from sink into drying rack,transfer the pot from the sink to the dish drainer,search,,0.9933912962965865,80,,search_boards
+put pot or pan from sink into drying rack,place the silver pot from the sink into the yellow dish drainer,search,,0.9934776751017164,80,,search_boards
+put pot or pan from sink into drying rack,transfer the silver pot from the sink to the yellow dish drainer,search,,0.9935737822282831,80,,search_boards
+put pot or pan from sink into drying rack,transfer the silver pot from the sink into the yellow dish drainer,search,,0.9940369691816435,80,,search_boards
+put pot or pan in sink,put metal pot in sink,search,,0.979550757966709,80,,search_boards
+put pot or pan in sink,place the metal pot inside the sink,search,,0.983895167878047,80,,search_boards
+put pot or pan in sink,put the metal pot in the sink,search,,0.9848136091636683,80,,search_boards
+put pot or pan in sink,put pot or pan in sink,original,,0.9896725482103704,80,,search_boards
+put pot or pan in sink,drop the metal pot inside the sink,search,,0.9946410596955609,80,,search_boards
+put pot or pan in sink,place the small metal pot in the sink,search,,0.9946470897569514,80,,search_boards
+put pot or pan on stove,set the silver pot on the left burner,search,,0.9484248136254957,80,,search_boards
+put pot or pan on stove,set the silver pot on the left stove burner,search,,0.9498671093349156,80,,search_boards
+put pot or pan on stove,put the silver pot on the stove burner,search,,0.9810095871972342,80,,search_boards
+put pot or pan on stove,place the silver pot on the stove burner,search,,0.9831392855925445,80,,search_boards
+put pot or pan on stove,put the silver pot on the left burner,search,,0.9871287550590644,80,,search_boards
+put pot or pan on stove,put pot or pan on stove,original,,0.9880762627653676,80,,search_boards
+put pot or pan on stove,set the small metal pot on the stove,search,,0.9889077175084855,80,,search_boards
+put pot or pan on stove,set the silver cooking pot on the burner,search,,0.988967158263169,80,,search_boards
+put pot or pan on stove,place the small silver pot on the stove,search,,0.989022597861763,80,,search_boards
+put potato in pot cardboard fence,put the yellow potato in the orange pot,search,,0.9735776377152552,80,,search_boards
+put potato in pot cardboard fence,place the yellow potato in the orange pot,search,,0.9799838077025276,80,,search_boards
+put potato in pot cardboard fence,put the yellow potato in the pot,search,,0.9880348505834258,80,,search_boards
+put potato in pot cardboard fence,place potato in orange pot,search,,0.9880428769181941,80,,search_boards
+put potato in pot cardboard fence,put potato in pot cardboard fence,original,,0.9909155157550739,80,,search_boards
+put potato in pot cardboard fence,put the yellow potato in the orange cup,search,,0.9947556651831826,80,,search_boards
+put potato in pot cardboard fence,move the potato into the orange pot,search,,0.9947621567805371,80,,search_boards
+put potato in pot or pan,put the yellow potato into the metal pot,search,,0.9708875244627195,80,,search_boards
+put potato in pot or pan,put the yellow potato inside the metal pot,search,,0.9708939225671889,80,,search_boards
+put potato in pot or pan,put the yellow potato in the metal pot,search,,0.9730484253254839,80,,search_boards
+put potato in pot or pan,place the yellow potato into the metal pot,search,,0.9735222570976848,80,,search_boards
+put potato in pot or pan,put potato in pot or pan,original,,0.9830941943753962,80,,search_boards
+put potato in pot or pan,drop the potato into the pot,search,,0.994651908946602,80,,search_boards
+put potato in pot or pan,put potato in pot,search,,0.994652511041805,80,,search_boards
+put potato on plate,put potato on plate,original,,0.9868804928116266,80,,search_boards
+put potato on plate,place the potato onto the pink plate,search,,0.9871316311064113,80,,search_boards
+put potato on plate,put the potato on pink plate,search,,0.9874693900614501,80,,search_boards
+put potato on plate,put potato on pink plate,search,,0.9877217567283512,80,,search_boards
+put potato on plate,place potato on red plate,search,,0.9947105949606904,80,,search_boards
+put red bottle in sink,place the red bottle in the basin,search,,0.984660494352299,80,,search_boards
+put red bottle in sink,grab the red bottle and drop it in the sink,search,,0.9893124585074854,80,,search_boards
+put red bottle in sink,grab the red bottle and place it in the sink,search,,0.9898571601793383,80,,search_boards
+put red bottle in sink,grab the red bottle and put it in the sink,search,,0.9898639766322416,80,,search_boards
+put red bottle in sink,put red bottle in sink,original,,0.9906131004537941,80,,search_boards
+put red bottle in sink,place red bottle in the sink,search,,0.9946717425310944,80,,search_boards
+put red bottle in sink,drop the red bottle into the sink,search,,0.9946771389818899,80,,search_boards
+put redcube in pan and put pan on stove,place red block in pan and move pan to stove burner,search,,0.9650224708839015,80,,search_boards
+put redcube in pan and put pan on stove,put the red toy in the metal pot and place the pot on the stove,search,,0.9787631006019809,80,,search_boards
+put redcube in pan and put pan on stove,place red block in the pan and put the pan on the stove burner,search,,0.9840451387901099,80,,search_boards
+put redcube in pan and put pan on stove,put the red block in the pan and place the pan on the stove burner,search,,0.9848491188691443,80,,search_boards
+put redcube in pan and put pan on stove,put the red block in the pan and set the pan on the stove burner,search,,0.9849635426233239,80,,search_boards
+put redcube in pan and put pan on stove,put the red block in the pan and put the pan on the stove burner,search,,0.9849936885538532,80,,search_boards
+put redcube in pan and put pan on stove,put redcube in pan and put pan on stove,original,,0.9852639807023541,80,,search_boards
+put redcube in pan and put pan on stove,put the red block in the pan and put the pan on the stove,search,,0.9878120286754374,80,,search_boards
+put redcube in pan and put pan on stove,put the red block in the pan and set the pan on the stove,search,,0.9881268329534278,80,,search_boards
+put redcube in pan and put pan on stove,put red block inside the pan and put the pan on the stove burner,search,,0.9885135606341686,80,,search_boards
+put redcube in pan and put pan on stove,place red block inside the pan and put the pan on the stove burner,search,,0.9885878665566799,80,,search_boards
+put small spoon from basket to tray,place the small spoon from the grey container to the tray,search,,0.8692802153577711,80,,search_boards
+put small spoon from basket to tray,transfer the small spoon from the basket to the tray,search,,0.8874849517898891,80,,search_boards
+put small spoon from basket to tray,transfer small spoon from basket to tray,search,,0.9038303063123404,80,,search_boards
+put small spoon from basket to tray,move small spoon from basket to tray,search,,0.9879151663969071,80,,search_boards
+put small spoon from basket to tray,transfer the small spoon from basket to tray,search,,0.9883348359339141,80,,search_boards
+put small spoon from basket to tray,put the small spoon from basket to tray,search,,0.9890716461750322,80,,search_boards
+put small spoon from basket to tray,place small spoon from basket to tray,search,,0.9892860962357294,80,,search_boards
+put small spoon from basket to tray,put small spoon from basket to tray,original,,0.9894728277255387,80,,search_boards
+put spatula in pan,put spatula in the pan,search,,0.9883739214433216,80,,search_boards
+put spatula in pan,put spatula inside the pan,search,,0.9884555802330993,80,,search_boards
+put spatula in pan,put spatula in pan,original,,0.989022597861763,80,,search_boards
+put spatula in pan,place spatula in pan,search,,0.9891302181328734,80,,search_boards
+put spatula in pan,put the spatula in the pot,search,,0.99179278874422,80,,search_boards
+put spatula in pan,put spatula into pot,search,,0.9922739297251588,80,,search_boards
+put spatula in pan,place the spatula in the pot,search,,0.992443868196219,80,,search_boards
+put spatula on cutting board,place the spatula on top of the cutting board,search,,0.9911389563783479,80,,search_boards
+put spatula on cutting board,put the spatula on the board,search,,0.9913034424815809,80,,search_boards
+put spatula on cutting board,lay the spatula on the cutting board,search,,0.9913530688529993,80,,search_boards
+put spatula on cutting board,set the spatula on the green cutting board,search,,0.9916973409910976,80,,search_boards
+put spatula on cutting board,put spatula on cutting board,original,,0.9917271119366544,80,,search_boards
+put spatula on cutting board,place the spatula on the cutting board,search,,0.9947662836346519,80,,search_boards
+put spatula on cutting board,set the spatula on top of the cutting board,search,,0.9947715848376746,80,,search_boards
+put spatula on plate sink,place the green spatula in the blue bowl,search,,0.9569907639926997,80,,search_boards
+put spatula on plate sink,place the small spatula in the blue bowl in the sink,search,,0.979523531712615,80,,search_boards
+put spatula on plate sink,place the green spatula inside the blue bowl in the sink,search,,0.9832645405529082,80,,search_boards
+put spatula on plate sink,place the spatula in the blue bowl inside the sink,search,,0.9856067563158946,80,,search_boards
+put spatula on plate sink,put spatula on plate sink,original,,0.9908685236542973,80,,search_boards
+put spatula on plate sink,set the spatula in the blue bowl inside the sink,search,,0.994731398645527,80,,search_boards
+put spatula on plate sink,put the small spatula into the blue bowl,search,,0.9947325849661809,80,,search_boards
+put spoon in bowl sink,place the spoon in the blue bowl,search,,0.985098731342799,80,,search_boards
+put spoon in bowl sink,drop the spoon inside the blue bowl,search,,0.9871359439882181,80,,search_boards
+put spoon in bowl sink,put the spoon into the blue bowl,search,,0.9880120803862122,80,,search_boards
+put spoon in bowl sink,drop the spoon into the blue bowl,search,,0.9881188622972819,80,,search_boards
+put spoon in bowl sink,put spoon in bowl sink,original,,0.9905804149366685,80,,search_boards
+put spoon in bowl sink,place the spoon inside the blue bowl,search,,0.9946386457796784,80,,search_boards
+put spoon in bowl sink,put the spoon in the blue bowl,search,,0.9946513067839713,80,,search_boards
+put spoon in bowl sink,drop the spoon in the blue bowl,search,,0.9946555205066647,80,,search_boards
+put spoon in pot,place the spoon inside the metal pot,search,,0.9731875946150875,80,,search_boards
+put spoon in pot,place the blue and white spoon in the metal pot,search,,0.9750089607270394,80,,search_boards
+put spoon in pot,place the blue spoon inside the metal pot,search,,0.9772542772756687,80,,search_boards
+put spoon in pot,put the spoon in the metal pot,search,,0.9775318953601655,80,,search_boards
+put spoon in pot,put spoon in pot,original,,0.9841036793030985,80,,search_boards
+put spoon in pot,put the toy spoon in the pot,search,,0.9936413631477,80,,search_boards
+put spoon in pot,put the spoon in the pot,search,,0.9936549370856957,80,,search_boards
+put spoon in pot,place the spoon inside the pot,search,,0.9937723123728415,80,,search_boards
+put spoon in pot,place the spoon in the pot,search,,0.9938336577102201,80,,search_boards
+put spoon in pot,place the spoon in the metal pot,search,,0.9945944013618611,80,,search_boards
+put strawberry in pot,move the strawberry into the metal pot,search,,0.9838250680070576,80,,search_boards
+put strawberry in pot,move the strawberry to the pot,search,,0.9843042887403184,80,,search_boards
+put strawberry in pot,move the strawberry inside the pot,search,,0.9852968133062759,80,,search_boards
+put strawberry in pot,transfer the strawberry to the pot,search,,0.9857553315554631,80,,search_boards
+put strawberry in pot,put strawberry in pot,original,,0.9872461543474772,80,,search_boards
+put strawberry in pot,move the strawberry to the silver pot,search,,0.9893292010796507,80,,search_boards
+put strawberry in pot,move the strawberry into the pot,search,,0.9905709044956966,80,,search_boards
+put strawberry in pot,put the strawberry inside the pot,search,,0.9906488199189709,80,,search_boards
+put stuffedduck in pan,[dry-run:gemini] 7fce974fabc9,rephrased,search,0.7654724238505448,80,,loop_gemini
+put stuffedduck in pan,[dry-run:gemini] dd877a9b1ea7,rephrased,search,0.8845635628980515,80,,loop_gemini
+put stuffedduck in pan,put the yellow toy in the metal pan,search,,0.9748595892460956,80,,search_boards
+put stuffedduck in pan,put the yellow toy duck in the metal pan,search,,0.9813212566547859,80,,search_boards
+put stuffedduck in pan,place the yellow toy duck in the pot,search,,0.987801121629374,80,,search_boards
+put stuffedduck in pan,put the yellow toy duck in the pot,search,,0.9884219487024315,80,,search_boards
+put stuffedduck in pan,put stuffedduck in pan,original,,0.9924557426655923,80,,search_boards
+put stuffedduck in pan,place the yellow duck in the pan,search,,0.9947224927652543,80,,search_boards
+put stuffedduck in pan,put the yellow duck in the pan,search,,0.9947296186662157,80,,search_boards
+put stuffedduck in pan,place yellow duck in pot,search,,0.994742657969748,80,,search_boards
+put sushi in pot or pan,move the red sushi into the metal pot,search,,0.9771281321744741,80,,search_boards
+put sushi in pot or pan,place the red sushi in the pot,search,,0.9788171480109062,80,,search_boards
+put sushi in pot or pan,put red sushi in the silver pot,search,,0.9821492274275784,80,,search_boards
+put sushi in pot or pan,put red sushi inside the metal pot,search,,0.9823269591208416,80,,search_boards
+put sushi in pot or pan,put sushi in pot or pan,original,,0.9902909264562912,80,,search_boards
+put sushi in pot or pan,place the sushi in the pot,search,,0.994706424428995,80,,search_boards
+put sushi in pot or pan,put the sushi inside the metal pot,search,,0.9947183315647974,80,,search_boards
+put sushi in pot or pan,put the red sushi in the pot,search,,0.9947343639489792,80,,search_boards
+put sushi in pot or pan,place the red sushi inside the pot,search,,0.9947485743129016,80,,search_boards
+put sweet potato in pan which is on stove,put sweet potato in pot,search,,0.8286010427843271,80,,search_boards
+put sweet potato in pan which is on stove,put the sweet potato into the silver pan,search,,0.8550880016015501,80,,search_boards
+put sweet potato in pan which is on stove,place sweet potato in the metal pot,search,,0.857290071073581,80,,search_boards
+put sweet potato in pan which is on stove,put the sweet potato into the silver pot,search,,0.8678847983035918,80,,search_boards
+put sweet potato in pan which is on stove,put the sweet potato into the metal pan,search,,0.871692055580163,80,,search_boards
+put sweet potato in pan which is on stove,place the sweet potato into the silver pot,search,,0.885215959583569,80,,search_boards
+put sweet potato in pan which is on stove,place the sweet potato in the silver pot,search,,0.970452484436817,80,,search_boards
+put sweet potato in pan which is on stove,put the sweet potato in the silver pot,search,,0.9761468505549464,80,,search_boards
+put sweet potato in pan which is on stove,put the sweet potato in the silver metal pot,search,,0.9787889661737567,80,,search_boards
+put sweet potato in pan which is on stove,put sweet potato in pan which is on stove,original,,0.980470823951378,80,,search_boards
+put sweet potato in pan which is on stove,put the sweet potato in the silver pan,search,,0.9830055471760994,80,,search_boards
+put sweet potato in pot,place the sweet potato in the pot,search,,0.9820577102583111,80,,search_boards
+put sweet potato in pot,place the sweet potato inside the pot,search,,0.9824893263130126,80,,search_boards
+put sweet potato in pot,place the sweet potato into the pot,search,,0.9825243446803186,80,,search_boards
+put sweet potato in pot,put sweet potato in pot,original,,0.9843270064125481,80,,search_boards
+put sweet potato in pot,put sweet potato into the pot,search,,0.9947034434753885,80,,search_boards
+put sweet potato in pot which is in sink,put sweet potato in pot which is in sink,original,,0.9658944073172581,80,,search_boards
+put sweet potato in pot which is in sink,place the sweet potato in the silver pot inside the sink,search,,0.9677564099893456,80,,search_boards
+put sweet potato in pot which is in sink,put the sweet potato inside the silver pot inside the sink,search,,0.9698295131625911,80,,search_boards
+put sweet potato in pot which is in sink,place the sweet potato in the metal pot inside the sink,search,,0.9698394477366463,80,,search_boards
+put sweet potato in pot which is in sink,put the sweet potato in the pot inside the sink,search,,0.9741651939111532,80,,search_boards
+put sweet potato in pot which is in sink,put the sweet potato in the metal pot inside the sink,search,,0.9847898905162406,80,,search_boards
+put sweet potato in pot which is in sink,put the orange sweet potato in the silver pot,search,,0.9848068361256891,80,,search_boards
+put sweet potato in pot which is in sink,place the orange sweet potato in the metal pot,search,,0.9848997052425725,80,,search_boards
+put the ball in the cup,stack the yellow block on the blue block,search,,0.7866541292799122,80,,search_boards
+put the ball in the cup,stack yellow block on top of blue block,search,,0.8544838393674864,80,,search_boards
+put the ball in the cup,place the yellow block on top of the blue block,search,,0.863955590639285,80,,search_boards
+put the ball in the cup,put the ball in the cup,original,,0.9861441819510574,80,,search_boards
+put the blue figure on the top edge of the cloth,place the blue block at the top edge of the towel,search,,0.8400958905238401,80,,search_boards
+put the blue figure on the top edge of the cloth,put the blue block at the top edge of the cloth,search,,0.8416860487008065,80,,search_boards
+put the blue figure on the top edge of the cloth,place the blue block on the top edge of the cloth,search,,0.9085633564757204,80,,search_boards
+put the blue figure on the top edge of the cloth,place the blue block onto the top edge of the cloth,search,,0.9378748981786698,80,,search_boards
+put the blue figure on the top edge of the cloth,put the blue figure on the top edge of the cloth,original,,0.9895398222257389,80,,search_boards
+put the blue figure on the top edge of the cloth,place the blue block on the upper edge of the cloth,search,,0.9947674621416406,80,,search_boards
+put the blue figure on the top edge of the cloth,put the blue block on the top section of the cloth,search,,0.9947757043025115,80,,search_boards
+put the silver lid on the silver pot,put the silver lid on the silver bowl,search,,0.9858866538584161,80,,search_boards
+put the silver lid on the silver pot,put the silver lid on the metal pot,search,,0.9864788481363406,80,,search_boards
+put the silver lid on the silver pot,put the silver lid on top of the pot,search,,0.9881679305906785,80,,search_boards
+put the silver lid on the silver pot,put the lid on the metal pot,search,,0.9883530919712149,80,,search_boards
+put the silver lid on the silver pot,put the silver lid on the silver pot,original,,0.9889634524612954,80,,search_boards
+put the silver lid on the silver pot,place the silver lid on the metal bowl,search,,0.9947550746412726,80,,search_boards
+put the yellow duck in the drawer,get the yellow cloth out,search,,0.8723237287205442,80,,search_boards
+put the yellow duck in the drawer,take the yellow rag out of the dryer,search,,0.9151122757183014,80,,search_boards
+put the yellow duck in the drawer,take the yellow cloth,search,,0.9361107988866099,80,,search_boards
+put the yellow duck in the drawer,pick up the yellow cloth,search,,0.9503713699933806,80,,search_boards
+put the yellow duck in the drawer,put the yellow duck in the drawer,original,,0.9885814796320753,80,,search_boards
+put the yellow duck in the drawer,take out the yellow cloth,search,,0.9947521209393609,80,,search_boards
+right pepper shaker,put the grey shaker next to the dial,search,,0.9527245629686626,80,,search_boards
+right pepper shaker,move the grey shaker next to the dial,search,,0.9557677959427047,80,,search_boards
+right pepper shaker,put the grey shaker next to the stove dial,search,,0.9704297557286071,80,,search_boards
+right pepper shaker,put the grey shaker on the right,search,,0.9836001864963217,80,,search_boards
+right pepper shaker,right pepper shaker,original,,0.9867390527569943,80,,search_boards
+right pepper shaker,move the grey bottle to the top right,search,,0.9946861209885615,80,,search_boards
+right pepper shaker,move the grey container to the right,search,,0.9946986704762338,80,,search_boards
+sweep into pile,brush the black beans into a heap,search,,0.9910450190492657,80,,search_boards
+sweep into pile,brush the black beans into a pile,search,,0.9917577023515851,80,,search_boards
+sweep into pile,sweep all the beans together,search,,0.9923970386638714,80,,search_boards
+sweep into pile,sweep into pile,original,,0.9927360553715244,80,,search_boards
+sweep into pile,sweep the black beans into one heap,search,,0.9928695054699861,80,,search_boards
+sweep into pile,sweep the coffee beans together,search,,0.9946675415296873,80,,search_boards
+sweep into pile,sweep the beans to the center,search,,0.9946789365904878,80,,search_boards
+take banana out of colander,grab the banana and remove it from the colander,search,,0.9878487688945854,80,,search_boards
+take banana out of colander,grab the banana and take it out of the colander,search,,0.989218701676311,80,,search_boards
+take banana out of colander,get the banana and remove it from the colander,search,,0.9893387566121641,80,,search_boards
+take banana out of colander,get the yellow banana out of the colander,search,,0.9896760184008302,80,,search_boards
+take banana out of colander,take banana out of colander,original,,0.9908089293343905,80,,search_boards
+take banana out of colander,remove the banana from the colander,search,,0.994680134660745,80,,search_boards
+take banana out of colander,pick up the banana out of the colander,search,,0.9946843257940896,80,,search_boards
+take banana out of colander,get the banana out of the colander,search,,0.9946980735506028,80,,search_boards
+take beet from pot sink,lift beet from pot sink,search,,0.9891411657597734,80,,search_boards
+take beet from pot sink,take beet from orange pot sink,search,,0.9910450190492657,80,,search_boards
+take beet from pot sink,take the beet from pot sink,search,,0.991642172034271,80,,search_boards
+take beet from pot sink,take beet from pot sink,original,,0.991835063616422,80,,search_boards
+take beet from pot sink,take the beet out of the pot in the sink,search,,0.9936627825177391,80,,search_boards
+take beet from pot sink,take the beet from the orange cup in the sink,search,,0.9936691943377167,80,,search_boards
+take beet from pot sink,pick up the beet from the pot inside the sink,search,,0.9936699063641398,80,,search_boards
+take broccoli out of pan,pick up the green broccoli from the pot,search,,0.9865195523382159,80,,search_boards
+take broccoli out of pan,grab the broccoli from the pot,search,,0.9877765455164794,80,,search_boards
+take broccoli out of pan,grab the green broccoli from the pot,search,,0.9881520385274628,80,,search_boards
+take broccoli out of pan,take broccoli out of pan,original,,0.9893064727220862,80,,search_boards
+take broccoli out of pan,lift the green broccoli from the pot,search,,0.9893709440839452,80,,search_boards
+take broccoli out of pan,pick up the broccoli from the pot,search,,0.9894397628341571,80,,search_boards
+take broccoli out of pan,remove the green broccoli from the pot,search,,0.9894645711177086,80,,search_boards
+take broccoli out of pan,remove broccoli from metal pot,search,,0.9894810779314609,80,,search_boards
+take clothes out of laundry machine,pull cloth out of washing machine,search,,0.9901285236610599,80,,search_boards
+take clothes out of laundry machine,remove cloth from washing machine,search,,0.9903159260962204,80,,search_boards
+take clothes out of laundry machine,remove white cloth from washing machine,search,,0.9903495204360998,80,,search_boards
+take clothes out of laundry machine,remove the cloth from the washing machine,search,,0.9912985619814575,80,,search_boards
+take clothes out of laundry machine,take clothes out of laundry machine,original,,0.9931183243402518,80,,search_boards
+take clothes out of laundry machine,take the cloth out of the dryer,search,,0.9947674621416406,80,,search_boards
+take clothes out of laundry machine,take cloth out of dryer,search,,0.9947745276421259,80,,search_boards
+take corn out of bowl sink,take corn from blue bowl,search,,0.9827579669578781,80,,search_boards
+take corn out of bowl sink,take the corn out of the blue cup,search,,0.9829107401774086,80,,search_boards
+take corn out of bowl sink,take corn out of bowl sink,original,,0.9866826513985757,80,,search_boards
+take corn out of bowl sink,take corn out of bowl,search,,0.9874735911785735,80,,search_boards
+take corn out of bowl sink,take corn out of the blue bowl,search,,0.9895116655850417,80,,search_boards
+take corn out of bowl sink,get the corn from the blue bowl,search,,0.9895433365430578,80,,search_boards
+take cucumber out of cup,pull the green cucumber out of the red cup,search,,0.9895912486238073,80,,search_boards
+take cucumber out of cup,pull the green cucumber out of the cup,search,,0.9897990368476804,80,,search_boards
+take cucumber out of cup,pick up the cucumber from inside the cup,search,,0.9917047936724022,80,,search_boards
+take cucumber out of cup,pull the cucumber out of the cup,search,,0.9922269283066482,80,,search_boards
+take cucumber out of cup,take cucumber out of cup,original,,0.9927507332220343,80,,search_boards
+take cucumber out of cup,lift the green cucumber out of the cup,search,,0.9947727621572322,80,,search_boards
+take cucumber out of cup,take the cucumber out of the red cup,search,,0.9947751160052682,80,,search_boards
+take cup off plate,remove orange cup from plate,search,,0.9846861186143827,80,,search_boards
+take cup off plate,take orange cup off yellow plate,search,,0.9864319641770447,80,,search_boards
+take cup off plate,take orange cup off plate,search,,0.987254702922351,80,,search_boards
+take cup off plate,grab the orange cup off the plate,search,,0.9878501275406403,80,,search_boards
+take cup off plate,take cup off plate,original,,0.9884929784292272,80,,search_boards
+take cup off plate,pick up the orange cup off the plate,search,,0.9907810558699915,80,,search_boards
+take cup off plate,grab the orange cup from the plate,search,,0.9910921104259589,80,,search_boards
+take cup off plate,remove the orange cup from the yellow plate,search,,0.9921629380802923,80,,search_boards
+take cup off plate,take the orange cup off the yellow plate,search,,0.9922652470845706,80,,search_boards
+take cup off plate,remove orange cup from yellow plate,search,,0.992319786518306,80,,search_boards
+take cup off plate,take the orange cup away from the yellow plate,search,,0.9923850725048483,80,,search_boards
+take lid off pot or pan,remove the metal lid from the pot,search,,0.9714798846452823,80,,search_boards
+take lid off pot or pan,remove the lid of the silver pot,search,,0.9732672266350251,80,,search_boards
+take lid off pot or pan,take off the metal lid from the pot,search,,0.9744795305486422,80,,search_boards
+take lid off pot or pan,take the metal lid off the pot,search,,0.9771205417800871,80,,search_boards
+take lid off pot or pan,take lid off pot or pan,original,,0.9849198931929862,80,,search_boards
+take lid off pot or pan,take the lid off the silver pot,search,,0.994651908946602,80,,search_boards
+take lid off pot or pan,take off the lid of the silver pot,search,,0.9946549187484887,80,,search_boards
+take spatula off plate sink,take the green spatula from the plate,search,,0.9779164726204174,80,,search_boards
+take spatula off plate sink,take the green spatula off the plate,search,,0.9784192477909175,80,,search_boards
+take spatula off plate sink,grab the green spatula off the plate,search,,0.9787301361518509,80,,search_boards
+take spatula off plate sink,pick up the green spatula off the plate,search,,0.9801870614080026,80,,search_boards
+take spatula off plate sink,take spatula off plate sink,original,,0.985442046669374,80,,search_boards
+take spatula off plate sink,remove the spatula from the yellow plate,search,,0.9946950879194733,80,,search_boards
+take spatula off plate sink,lift the green spatula off the plate,search,,0.9947105949606904,80,,search_boards
+take spatula off plate sink,grab the spatula from the plate,search,,0.9947117859407666,80,,search_boards
+take sushi off plate,grab the sushi up from the green plate,search,,0.9871057238302317,80,,search_boards
+take sushi off plate,pick the sushi up from the green plate,search,,0.9906582525134717,80,,search_boards
+take sushi off plate,pick up the sushi from the green plate,search,,0.9908058364105428,80,,search_boards
+take sushi off plate,pick the sushi up off the green plate,search,,0.991115065627065,80,,search_boards
+take sushi off plate,take sushi off plate,original,,0.9914840376010614,80,,search_boards
+take sushi off plate,pick up the sushi on the plate,search,,0.9947414739057303,80,,search_boards
+take sushi off plate,grab the sushi off the plate,search,,0.9947491655828399,80,,search_boards
+take sushi off plate,grab the sushi from the green plate,search,,0.9947615669657686,80,,search_boards
+take sushi out of pan,pick up the red piece from the pot,search,,0.971785630676224,80,,search_boards
+take sushi out of pan,take the red sushi out of the pot,search,,0.9870552011255652,80,,search_boards
+take sushi out of pan,remove the red sushi from the pot,search,,0.9889436673873716,80,,search_boards
+take sushi out of pan,take sushi out of pan,original,,0.989555042498992,80,,search_boards
+take sushi out of pan,remove the red piece from the pot,search,,0.9903018037075068,80,,search_boards
+take sushi out of pan,take the red sushi out of the silver pot,search,,0.9945700040336918,80,,search_boards
+take sushi out of pan,grasp the red sushi from the pot and set it down,search,,0.9945852651661942,80,,search_boards
+take sushi out of pot cardboard fence,grasp the red pepper and move it onto the counter,search,,0.9914072372464804,80,,search_boards
+take sushi out of pot cardboard fence,grasp the red pepper and set it down on the counter,search,,0.9917502968097184,80,,search_boards
+take sushi out of pot cardboard fence,grasp the red pepper and place it on the counter,search,,0.9918579484373542,80,,search_boards
+take sushi out of pot cardboard fence,grasp the red pepper and put it on the counter,search,,0.9919044363957386,80,,search_boards
+take sushi out of pot cardboard fence,take sushi out of pot cardboard fence,original,,0.9922033213228949,80,,search_boards
+take sushi out of pot cardboard fence,grab the red pepper and move it outside the cardboard wall,search,,0.9946777382518609,80,,search_boards
+take sushi out of pot cardboard fence,place the red pepper outside the wooden cutting tray,search,,0.994680134660745,80,,search_boards
+take sushi out of pot cardboard fence,pick up the red pepper and set it down on the right,search,,0.9946873174498467,80,,search_boards
+take the eggplant and put it between the two right burners,move the purple eggplant to the back right side of the desk,search,,0.9271616005010755,80,,search_boards
+take the eggplant and put it between the two right burners,grasp the purple eggplant and put it on the back right of the table,search,,0.9311759897318875,80,,search_boards
+take the eggplant and put it between the two right burners,grab the purple eggplant and move it to the back right of the desk,search,,0.9396191237888637,80,,search_boards
+take the eggplant and put it between the two right burners,grasp the eggplant and place it on the empty space near the back,search,,0.9519021194884112,80,,search_boards
+take the eggplant and put it between the two right burners,take the eggplant and put it between the two right burners,original,,0.9902429228645178,80,,search_boards
+take the eggplant and put it between the two right burners,move the purple eggplant to the top right section of the table,search,,0.9946986704762338,80,,search_boards
+take the eggplant and put it between the two right burners,pick up the purple eggplant and place it near the back right corner of the table,search,,0.994706424428995,80,,search_boards
+topple basil bottle cardboard fence,knock over the red jar on the left,search,,0.9753595803575205,80,,search_boards
+topple basil bottle cardboard fence,push over the red jar,search,,0.9767943834981254,80,,search_boards
+topple basil bottle cardboard fence,push over the red bottle on the left,search,,0.9840930513143147,80,,search_boards
+topple basil bottle cardboard fence,topple the red bottle on the left,search,,0.9862673708332391,80,,search_boards
+topple basil bottle cardboard fence,topple basil bottle cardboard fence,original,,0.9887891392864929,80,,search_boards
+topple basil bottle cardboard fence,push the red bottle over,search,,0.994687915580003,80,,search_boards
+topple basil bottle cardboard fence,tip over the red jar,search,,0.994690307430891,80,,search_boards
+topple hot sauce bottle cardboard fence,topple the red bottle on the table,search,,0.9878582762666144,80,,search_boards
+topple hot sauce bottle cardboard fence,tip over the red bottle,search,,0.9894077815318316,80,,search_boards
+topple hot sauce bottle cardboard fence,knock over the red bottle in the tray,search,,0.9894113397363082,80,,search_boards
+topple hot sauce bottle cardboard fence,topple hot sauce bottle in cardboard fence,search,,0.9908367193028342,80,,search_boards
+topple hot sauce bottle cardboard fence,topple hot sauce bottle cardboard fence,original,,0.9911469058056098,80,,search_boards
+topple hot sauce bottle cardboard fence,topple hot sauce bottle,search,,0.9913666426028188,80,,search_boards
+turn faucet front to left,turn faucet front to left,original,,0.9909885880034786,80,,search_boards
+turn faucet front to left,turn faucet lever to the left,search,,0.9911796225504976,80,,search_boards
+turn faucet front to left,turn silver faucet lever to the left,search,,0.9915620516990434,80,,search_boards
+turn faucet front to left,push the faucet lever left,search,,0.9925013709688983,80,,search_boards
+turn faucet front to left,push faucet lever left,search,,0.9927344226792711,80,,search_boards
+turn faucet front to left,push the faucet lever to the left,search,,0.9946645387975296,80,,search_boards
+turn faucet front to left,rotate the faucet lever to the left,search,,0.9946783374547243,80,,search_boards
+turn faucet left,turn faucet left,original,,0.9943613300635749,80,,search_boards
+turn faucet left,rotate the faucet handle leftward,search,,0.9943695746320383,80,,search_boards
+turn faucet left,push faucet to the left,search,,0.9943923432403352,80,,search_boards
+turn faucet left,turn faucet handle to the left,search,,0.9943929743930596,80,,search_boards
+turn faucet left,rotate the faucet left,search,,0.9943942364866055,80,,search_boards
+turn faucet left,rotate faucet handle left,search,,0.9943967598263036,80,,search_boards
+turn faucet left,rotate faucet left,search,,0.9944112471266973,80,,search_boards
+turn faucet left,rotate faucet to the left,search,,0.9944519884342,80,,search_boards
+turn faucet right,rotate faucet knob to the right,search,,0.9945944013618611,80,,search_boards
+turn faucet right,rotate the metal faucet to the right,search,,0.9945968350902978,80,,search_boards
+turn faucet right,rotate faucet handle rightwards,search,,0.994613234277073,80,,search_boards
+turn faucet right,turn faucet right,original,,0.9946253498980816,80,,search_boards
+turn faucet right,rotate faucet clockwise,search,,0.994627164902143,80,,search_boards
+turn faucet right,rotate the faucet clockwise,search,,0.994627164902143,80,,search_boards
+turn faucet right,rotate the metallic faucet knob to the right,search,,0.9946633372338209,80,,search_boards
+turn faucet right,rotate silver faucet knob clockwise,search,,0.9946693423621159,80,,search_boards
+turn lever vertical to front,[dry-run:gemini] 621dc73ae4ca,rephrased,search,0.2078973924918147,80,,loop_gemini
+turn lever vertical to front,[dry-run:gemini] 43de0b941483,rephrased,search,0.5812716666050484,80,,loop_gemini
+turn lever vertical to front,rotate the silver handle forward,search,,0.9779848150024469,80,,search_boards
+turn lever vertical to front,point the silver handle forward,search,,0.9815870345423661,80,,search_boards
+turn lever vertical to front,turn the silver handle forward,search,,0.9827541304854895,80,,search_boards
+turn lever vertical to front,pull the silver handle forward,search,,0.9835746042909378,80,,search_boards
+turn lever vertical to front,turn lever vertical to front,original,,0.9861364465709358,80,,search_boards
+turn lever vertical to front,turn the silver faucet handle to the front,search,,0.9897876015209658,80,,search_boards
+turn lever vertical to front,turn the silver handle on the faucet forward,search,,0.991382129597373,80,,search_boards
+turn lever vertical to front,rotate the faucet lever to the vertical position,search,,0.9917363936295972,80,,search_boards
+turn lever vertical to front,point the faucet lever forward,search,,0.9932879520035844,80,,search_boards
+turn lever vertical to front,turn the faucet lever forward,search,,0.993607661422469,80,,search_boards
+turn lever vertical to front,turn the faucet handle forward,search,,0.9936577910860456,80,,search_boards
+unfold the cloth from bottom left to top right,open up the blue cloth,search,,0.9597053594914104,80,,search_boards
+unfold the cloth from bottom left to top right,unfold the light blue cloth,search,,0.9633658268555102,80,,search_boards
+unfold the cloth from bottom left to top right,unfold the cloth diagonally,search,,0.9662358020121949,80,,search_boards
+unfold the cloth from bottom left to top right,unfold the cloth from bottom left to top right,original,,0.9908910281097147,80,,search_boards
+unfold the cloth from bottom right to top left,open up the yellow cloth from bottom right to top left,search,,0.9860650810086444,80,,search_boards
+unfold the cloth from bottom right to top left,unfold the yellow cloth starting from bottom right to top left,search,,0.9862842246274939,80,,search_boards
+unfold the cloth from bottom right to top left,unfold the yellow cloth towards the top left,search,,0.9862979989230858,80,,search_boards
+unfold the cloth from bottom right to top left,unfold the yellow cloth from bottom right to top left,search,,0.9883856218391635,80,,search_boards
+unfold the cloth from bottom right to top left,unfold the cloth from bottom right to top left,original,,0.9885264060301698,80,,search_boards
+unfold the cloth from bottom to top,[dry-run:gemini] fbd89ec11076,rephrased,search,0.2408364013490311,80,,loop_gemini
+unfold the cloth from bottom to top,[dry-run:gemini] edc3c68ff00f,rephrased,search,0.2607618085340594,80,,loop_gemini
+unfold the cloth from bottom to top,flatten the orange rag from bottom to top,search,,0.9720482393549165,80,,search_boards
+unfold the cloth from bottom to top,open up the orange towel from bottom to top,search,,0.9725300884991798,80,,search_boards
+unfold the cloth from bottom to top,open up the orange cloth from bottom to top,search,,0.9751985663214567,80,,search_boards
+unfold the cloth from bottom to top,open up the cloth from bottom to top,search,,0.9801804655772639,80,,search_boards
+unfold the cloth from bottom to top,unfold the cloth from bottom to top,original,,0.990046316610368,80,,search_boards
+unfold the cloth from bottom to top,unfold orange cloth from bottom to top,search,,0.9945828262547418,80,,search_boards
+unfold the cloth from bottom to top,flatten the orange cloth from bottom to top,search,,0.9945846555407313,80,,search_boards
+unfold the cloth from left to right,open up the cloth from left to right,search,,0.9732524973379497,80,,search_boards
+unfold the cloth from left to right,open up the yellow cloth to the right,search,,0.9746450912870186,80,,search_boards
+unfold the cloth from left to right,open the yellow cloth from left to right,search,,0.9811021507102141,80,,search_boards
+unfold the cloth from left to right,open up the yellow cloth from left to right,search,,0.9812859521887449,80,,search_boards
+unfold the cloth from left to right,unfold the cloth from left to right,original,,0.9894042221444639,80,,search_boards
+unfold the cloth from left to right,unfold the yellow towel to the right,search,,0.9894728277255387,80,,search_boards
+unfold the cloth from left to right,unfold the yellow cloth from left to right,search,,0.9894999115312234,80,,search_boards
+unfold the cloth from right to left,spread the orange rag to the left,search,,0.9773922520583701,80,,search_boards
+unfold the cloth from right to left,spread the orange cloth to the left,search,,0.9804838240816812,80,,search_boards
+unfold the cloth from right to left,spread the orange cloth leftward,search,,0.9819054978334116,80,,search_boards
+unfold the cloth from right to left,spread out the orange cloth to the left,search,,0.9832887375867758,80,,search_boards
+unfold the cloth from right to left,unfold the cloth from right to left,original,,0.9893518816495971,80,,search_boards
+unfold the cloth from right to left,spread out the orange cloth from right to left,search,,0.994686719252702,80,,search_boards
+unfold the cloth from right to left,unfold the orange cloth to the left,search,,0.9946932957381495,80,,search_boards
+unfold the cloth from right to left,unfold the orange rag,search,,0.9946986704762338,80,,search_boards
+unfold the cloth from right to left,spread the orange cloth from right to left,search,,0.9947272444299421,80,,search_boards
+unfold the cloth from top left to bottom right,unfold the blue cloth from the top left corner to the bottom right,search,,0.9590436176078939,80,,search_boards
+unfold the cloth from top left to bottom right,unfold the cloth diagonally from top left to bottom right,search,,0.9751629510322403,80,,search_boards
+unfold the cloth from top left to bottom right,unfold the cloth from the top left to the bottom right,search,,0.9753432526997038,80,,search_boards
+unfold the cloth from top left to bottom right,unfold the cloth from top left toward bottom right,search,,0.981921579697198,80,,search_boards
+unfold the cloth from top left to bottom right,unfold the cloth from top left to bottom right corner,search,,0.9853769489406932,80,,search_boards
+unfold the cloth from top left to bottom right,unfold the cloth from top-left to bottom-right,search,,0.9868055391235845,80,,search_boards
+unfold the cloth from top left to bottom right,unfold the cloth from top left to bottom right,original,,0.9873963492808833,80,,search_boards
+unfold the cloth from top right to bottom left,unfold the blue fabric from the top right corner,search,,0.9808911358528161,80,,search_boards
+unfold the cloth from top right to bottom left,pull open the blue cloth from top right to bottom left,search,,0.9833648262552769,80,,search_boards
+unfold the cloth from top right to bottom left,unfold the blue fabric starting from the top right,search,,0.9879623736460935,80,,search_boards
+unfold the cloth from top right to bottom left,unfold the blue cloth starting from the top right,search,,0.988060249067564,80,,search_boards
+unfold the cloth from top right to bottom left,unfold the blue cloth downwards and to the left,search,,0.9909734128034825,80,,search_boards
+unfold the cloth from top right to bottom left,unfold the cloth from top right to bottom left,original,,0.9926671677234947,80,,search_boards
+unzip zipper bag,unzip the small black protective case,search,,0.9679957277755502,80,,search_boards
+unzip zipper bag,unzip the black protective case,search,,0.9798702559226706,80,,search_boards
+unzip zipper bag,unzip the black carrying case,search,,0.9871431289544618,80,,search_boards
+unzip zipper bag,pull the zipper on the black protective case,search,,0.9897095041422288,80,,search_boards
+unzip zipper bag,unzip zipper bag,original,,0.9898435136594366,80,,search_boards
+unzip zipper bag,unzip the small black bag,search,,0.9947165471942649,80,,search_boards
+unzip zipper bag,pull open the zipper on the black bag,search,,0.9947177368412334,80,,search_boards
+upright basil bottle cardboard fence,stand up the red spice bottle,search,,0.88011717334293,80,,search_boards
+upright basil bottle cardboard fence,stand up the spice bottle,search,,0.891216163686482,80,,search_boards
+upright basil bottle cardboard fence,stand up the red container,search,,0.9023742437610357,80,,search_boards
+upright basil bottle cardboard fence,stand up the red plastic bottle,search,,0.908205390396223,80,,search_boards
+upright basil bottle cardboard fence,upright basil bottle cardboard fence,original,,0.9859055412157045,80,,search_boards
+upright basil bottle cardboard fence,stand up the red jar,search,,0.9947111904840746,80,,search_boards
+upright basil bottle cardboard fence,make the red bottle stand up,search,,0.9947135719107625,80,,search_boards
+upright basil bottle cardboard fence,stand upright the red bottle,search,,0.994721304183709,80,,search_boards
+upright basil bottle cardboard fence,stand up the red bottle,search,,0.994723086956195,80,,search_boards
+upright hot sauce bottle cardboard fence,place the red bottle standing up in the tray,search,,0.9796118875052748,80,,search_boards
+upright hot sauce bottle cardboard fence,set the red bottle standing up,search,,0.981198448532834,80,,search_boards
+upright hot sauce bottle cardboard fence,stand up the red bottle in the tray,search,,0.9851667031826,80,,search_boards
+upright hot sauce bottle cardboard fence,set the red sauce bottle upright,search,,0.9863544834100952,80,,search_boards
+upright hot sauce bottle cardboard fence,upright hot sauce bottle cardboard fence,original,,0.9889238472422438,80,,search_boards
+upright hot sauce bottle cardboard fence,stand up the red sauce bottle inside the box,search,,0.9947028470843314,80,,search_boards
+upright hot sauce bottle cardboard fence,pick up and place the hot sauce bottle upright,search,,0.9947088079903099,80,,search_boards
+upright hot sauce bottle cardboard fence,place the red bottle standing up,search,,0.9947165471942649,80,,search_boards
+upright hot sauce bottle cardboard fence,set the red sauce bottle standing up,search,,0.9947171420510585,80,,search_boards
+wipe pot with sponge,[dry-run:gemini] 68cab6bad521,rephrased,search,0.6243685913123146,80,,loop_gemini
+wipe pot with sponge,[dry-run:gemini] a37748b5edd5,rephrased,search,0.900518987315776,80,,loop_gemini
+wipe pot with sponge,use the yellow sponge to wipe the pot,search,,0.9902767679682836,80,,search_boards
+wipe pot with sponge,wipe pot with sponge,original,,0.9905772458458447,80,,search_boards
+wipe pot with sponge,use the yellow sponge to clean off the pot,search,,0.990608889288633,80,,search_boards
+wipe pot with sponge,use the yellow sponge to wipe down the pot,search,,0.9907229769947157,80,,search_boards
+wipe pot with sponge,use the yellow sponge to wipe off the pot,search,,0.9908377469606382,80,,search_boards
+wipe pot with sponge,clean the pot with the yellow sponge,search,,0.9945992677289625,80,,search_boards
+wipe pot with sponge,use the sponge to wipe the pot,search,,0.9946102011299566,80,,search_boards
+wipe pot with sponge,use the yellow sponge to clean the pot,search,,0.994652511041805,80,,search_boards
+zip zipper bag,zip up the black pouch,search,,0.9904592441617439,80,,search_boards
+zip zipper bag,zip up the round black pouch,search,,0.9909895987841607,80,,search_boards
+zip zipper bag,zip the round black pouch,search,,0.99108311196545,80,,search_boards
+zip zipper bag,zip the black pouch closed,search,,0.9915573150941294,80,,search_boards
+zip zipper bag,zip zipper bag,original,,0.9928695054699861,80,,search_boards
+zip zipper bag,zip up the black case,search,,0.9947432499023005,80,,search_boards
+zip zipper bag,close the zipper on the black bag,search,,0.9947456169696386,80,,search_boards

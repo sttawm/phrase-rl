@@ -30,11 +30,13 @@ Real round 1:
 import argparse
 import concurrent.futures as cf
 import hashlib
+import itertools
 import json
 import os
 import re
 import subprocess
 import sys
+import threading
 import time
 import uuid
 from pathlib import Path
@@ -113,6 +115,62 @@ def label_kinds(df):
     return df
 
 
+def rule_id(text):
+    """A rule's identity IS its wording. Whitespace is normalised (reflowing a
+    rule is not changing it); everything else -- a word, a number, a comma --
+    makes it a different rule with a different id, because it is a different
+    instruction to the applier and may measure differently."""
+    return hashlib.sha1(" ".join(str(text).split()).encode()).hexdigest()[:12]
+
+
+# Single-rule measurements are the loop's dominant cost (SINGLE_EDIT_N x R applies
+# AND scorings per iteration) and most rules survive an iteration untouched, so
+# they are cached across iterations, passes and runs. Keyed on
+# (rephraser, rule_id, task, base phrase) -- the rewrite depends on all four.
+# Raw channels are stored, never proxy, so a recalibration does not invalidate it.
+RULE_CACHE = REPO / "results" / "rules_runs" / "_rule_cache.parquet"
+
+
+def rule_cache_lookup(rephraser, rid, bases):
+    if not RULE_CACHE.exists():
+        return pd.DataFrame(), bases
+    c = pd.read_parquet(RULE_CACHE)
+    c = c[(c.rephraser == rephraser) & (c.rule_id == rid)]
+    if not len(c):
+        return pd.DataFrame(), bases
+    key = set(zip(c.task, c.base))
+    hit = bases[[(t, p) in key for t, p in zip(bases.task, bases.phrase)]]
+    miss = bases[[(t, p) not in key for t, p in zip(bases.task, bases.phrase)]]
+    got = c.merge(hit[["task", "phrase"]].rename(columns={"phrase": "base"}),
+                  on=["task", "base"], how="inner")
+    return got, miss
+
+
+def rule_cache_store(rephraser, rid, rule_text, scored):
+    """scored: task, base, phrase(rewrite), z, grip, n_ctx"""
+    rows = scored.assign(rephraser=rephraser, rule_id=rid,
+                         rule_text=" ".join(str(rule_text).split()))
+    cols = ["rephraser", "rule_id", "rule_text", "task", "base", "phrase",
+            "z", "grip", "n_ctx"]
+    rows = rows[[c for c in cols if c in rows]]
+    RULE_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    if RULE_CACHE.exists():
+        rows = pd.concat([pd.read_parquet(RULE_CACHE), rows], ignore_index=True)
+    rows.drop_duplicates(["rephraser", "rule_id", "task", "base"], keep="last") \
+        .to_parquet(RULE_CACHE, index=False)
+
+
+def recompute_proxy(df):
+    """The single place proxy is computed. Search-board rows carry grip but no
+    verifier channel, so z is imputed to the column mean -- exactly as at seed
+    time. Any second implementation of this drifts and blanks the evidence."""
+    z = df.z.fillna(df.z.mean()) if df.z.notna().any() else df.z.fillna(0.0)
+    g = df.grip.fillna(df.grip.mean()) if df.grip.notna().any() else df.grip.fillna(0.0)
+    out = proxy_success(z, g)
+    df["proxy_imputed"] = df.z.isna() | df.grip.isna()   # visible in the evidence
+    return out
+
+
 def is_sealed(task):
     return any(s in str(task) for s in SEALED_STEMS)
 
@@ -149,12 +207,20 @@ def jwrite(p, obj):
 
 
 # --- LLM backends -----------------------------------------------------------
+_LOG_LOCK = threading.Lock()
+_LOG_SEQ = itertools.count()
+
+
 def _log_llm(run, tag, prompt, response):
+    """Collision-proof under the parallel appliers: a glob-derived index raced and
+    made pairs cross-contaminate (prompt of one call beside another's response)."""
     d = run.dir / "llm_log"
-    d.mkdir(exist_ok=True)
-    n = len(list(d.glob(f"{tag}_*")))
-    (d / f"{tag}_{n:03d}.prompt.txt").write_text(prompt)
-    (d / f"{tag}_{n:03d}.response.txt").write_text(response)
+    with _LOG_LOCK:
+        d.mkdir(exist_ok=True)
+        i = next(_LOG_SEQ)
+    stem = d / f"{tag}_{i:04d}_{os.getpid()}"
+    stem.with_suffix(".prompt.txt").write_text(prompt)
+    stem.with_suffix(".response.txt").write_text(response)
 
 
 REASONING_ROLES = ("distill", "judge", "plan", "corpus")
@@ -191,14 +257,19 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
                     "--allowedTools", "Read", "Grep", "Glob", "Bash"]
         if session:
             marker = run.dir / f".session_{session}"
-            if marker.exists():
-                cmd += ["--resume", session]
-            else:
-                cmd += ["--session-id", session]
-                marker.write_text(session)
+            started = marker.exists()
+            cmd += (["--resume", session] if started else ["--session-id", session])
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        if r.returncode != 0 and session and marker.exists():
+            # a resume can fail if the session was never really created; fall back
+            # to starting it fresh rather than wedging every later call
+            marker.unlink(missing_ok=True)
+            cmd = [c for c in cmd if c not in ("--resume", session)] + ["--session-id", session]
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
         if r.returncode != 0:
             raise RuntimeError(f"claude CLI failed: {r.stderr[:300]}")
+        if session:
+            marker.write_text(session)      # only after a call actually succeeded
         response = r.stdout.strip()
     elif backend == "gemini":
         from google import genai
@@ -311,7 +382,7 @@ def seed_bank(run):
             frames.append(pd.DataFrame(rows))
     bank = pd.concat(frames, ignore_index=True)
     bank = bank[~bank.task.map(is_sealed)].drop_duplicates(["task", "phrase"])
-    bank["proxy"] = proxy_success(bank.z.fillna(bank.z.mean()), bank.grip.fillna(bank.grip.mean()))
+    bank["proxy"] = recompute_proxy(bank)
     bank["iter_added"] = -1
     bank = label_kinds(bank)
     bank.to_parquet(bank_path, index=False)
@@ -339,6 +410,10 @@ def bank_add(run, df):
     def merge(g):
         if len(g) == 1:
             return g.iloc[0]
+        # only independent draws add confidence: identical (draw) rows are the
+        # same measurement seen twice and must not inflate n_ctx
+        if "draw" in g:
+            g = g.drop_duplicates("draw", keep="last")
         w = g.n_ctx.to_numpy(dtype=float)
         r = g.iloc[0].copy()
         for ch in ("z", "grip"):
@@ -357,7 +432,7 @@ def bank_add(run, df):
     merged = pd.concat([both[~dup], pd.DataFrame(rows)], ignore_index=True) \
         if rows else both[~dup].copy()
     merged = label_kinds(merged)
-    merged["proxy"] = proxy_success(merged.z, merged.grip)
+    merged["proxy"] = recompute_proxy(merged)
     merged.to_parquet(bank_path, index=False)
     return merged
 
@@ -422,6 +497,7 @@ def score_phrases(run, cfg, df, tag, draw=0):
     res = df.drop(columns=[c for c in ("z", "grip", "proxy", "n_ctx") if c in df],
                   errors="ignore").merge(out[keep], on=["task", "phrase"], how="left")
     res["n_meas"] = 1
+    res["draw"] = draw
     return res
 
 
@@ -469,7 +545,8 @@ def write_evidence_file(run, bank, tasks, path):
     # a phrase measured on few contexts is a weak claim; the reader needs to see
     # that to decide whether a gap is real or worth re-measuring
     sub["n_ctx"] = sub.n_ctx.fillna(FALLBACK_NCTX).round().astype(int)
-    cols = ["task", "phrase", "kind", "base_kind", "proxy", "n_ctx", "gt_success", "source"]
+    cols = ["task", "phrase", "kind", "base_kind", "proxy", "proxy_imputed",
+            "n_ctx", "gt_success", "source"]
     sub[[c for c in cols if c in sub.columns]].to_csv(path, index=False)
     Path(str(path) + ".README.md").write_text(
         "# evidence.csv\n\n"
@@ -490,6 +567,10 @@ def write_evidence_file(run, bank, tasks, path):
         "               search       surfaced by automated phrasing search, or\n"
         "                            proposed as a probe; exploratory wordings\n"
         "             plus `unknown` for measurements that predate labelling.\n"
+        "  proxy_imputed  True when one reward channel was missing for this row\n"
+        "             and was filled with the column mean. Those estimates are\n"
+        "             driven by the surviving channel alone -- weaker evidence\n"
+        "             than a row with both.\n"
         "  base_kind  for `rephrased` rows only: the kind of the instruction it\n"
         "             was rewritten FROM. Blank otherwise. This is the column that\n"
         "             says what a rewrite was REPAIRING.\n\n"
@@ -611,8 +692,9 @@ def baseline_proxy(run, cfg, bases, tag):
 
 def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False):
     """Returns (mean proxy score of rewrites, scored df, rules_eval_summary)."""
-    art = itdir / f"eval_{tag}.json"
-    scored_art = itdir / f"eval_{tag}.parquet"
+    rsha = hashlib.sha1(rules.encode()).hexdigest()[:10]
+    art = itdir / f"eval_{tag}_{rsha}.json"
+    scored_art = itdir / f"eval_{tag}_{rsha}.parquet"
     if art.exists():
         return jread(art)["score"], pd.read_parquet(scored_art), jread(art).get("summary")
     rewrites = apply_rules(run, cfg, rephraser, rules, bases, f"{tag}")
@@ -625,11 +707,26 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
         sample = bases.sample(min(cfg["single_edit_n"], len(bases)), random_state=cfg["seed"])
         base_scored = score_phrases(run, cfg, sample[["task", "phrase"]], f"{tag}_base")
         per_rule = {}
+        cache_hits = 0
         for k, rtext in enumerate(rule_list, 1):
-            rw = apply_rules(run, cfg, rephraser, rules, sample, f"{tag}_r{k}", only_rule=rtext)
-            rs = score_phrases(run, cfg,
-                               rw[["task", "rewrite"]].rename(columns={"rewrite": "phrase"}),
-                               f"{tag}_r{k}sc")
+            rid = rule_id(rtext)
+            cached, todo = rule_cache_lookup(rephraser, rid, sample)
+            cache_hits += len(cached)
+            fresh = pd.DataFrame()
+            if len(todo):
+                rw = apply_rules(run, cfg, rephraser, rules, todo, f"{tag}_r{k}",
+                                 only_rule=rtext)
+                sc = score_phrases(run, cfg,
+                                   rw[["task", "rewrite"]].rename(columns={"rewrite": "phrase"}),
+                                   f"{tag}_r{k}sc")
+                fresh = sc.merge(rw.rename(columns={"phrase": "base", "rewrite": "phrase"})
+                                   [["task", "base", "phrase"]],
+                                 on=["task", "phrase"], how="left")
+                rule_cache_store(rephraser, rid, rtext, fresh)
+            rs = pd.concat([c for c in (cached, fresh) if len(c)], ignore_index=True)
+            if not len(rs):
+                continue
+            rs["proxy"] = recompute_proxy(rs)
             by_kind = {}
             if "kind" in sample:
                 merged = rs.merge(sample[["task", "kind"]].drop_duplicates("task"),
@@ -649,10 +746,16 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
                 "by_kind": by_kind,   # the interaction: a rule can help one regime
             }                          # and do nothing for another
         eval_file = itdir / "rules_eval.md"
+        # headline must compare like with like: the rulebook's score is over the
+        # FULL base set, so its baseline must be too (base_scored is the 8-base
+        # single-edit sample and belongs only inside the per-rule deltas)
         write_eval_file(run, eval_file, rules, per_rule,
                         [{"task": r.task, "base": r.phrase, "rewrite": r.rewrite}
                          for r in rewrites.head(40).itertuples()],
-                        float(base_scored.proxy.mean()), score)
+                        baseline_proxy(run, cfg, bases, tag), score)
+        if rule_list:
+            print(f"    single-edit: {cache_hits}/{len(rule_list) * len(sample)} "
+                  f"measurements served from the rule cache")
         judge_p = prompt_from("judge.md", rules=rules_only(rules), eval_file=eval_file)
         judgement = call_llm(run, cfg["judge"], judge_p, f"{tag}_judge",
                              session=run.session, add_dir=run.dir, effort="high")
@@ -662,8 +765,10 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
                    "suggestions": section(judgement, "SUGGESTIONS")}
     scored.to_parquet(scored_art, index=False)
     base_mean = baseline_proxy(run, cfg, bases, tag)
-    jwrite(art, {"score": score, "base": base_mean, "delta": score - base_mean,
-                 "n": int(len(scored)), "summary": summary})
+    rec = {"score": score, "base": base_mean, "delta": score - base_mean,
+           "n": int(len(scored)), "rules_sha": rsha, "summary": summary}
+    jwrite(art, rec)
+    jwrite(itdir / f"eval_{tag}.json", rec)   # stable alias: latest for this tag
     return score, scored, summary
 
 
@@ -785,7 +890,16 @@ def main():
     # frozen at run start: bank grows every iteration with the loop's OWN rewrites,
     # and sampling from the live bank would make iteration N's bases be iteration
     # N-1's outputs -- the comparison would drift instead of holding still
-    base_pool = bank[["task", "phrase"] + (["kind"] if "kind" in bank else [])].copy()
+    # Persisted, not recomputed: bank.parquet grows every iteration with the
+    # loop's own rewrites, so re-deriving the pool on a resume would silently
+    # change every base instruction -- the exact drift the freeze exists to stop.
+    pool_path = run.dir / "base_pool.parquet"
+    if pool_path.exists():
+        base_pool = pd.read_parquet(pool_path)
+    else:
+        cols = ["task", "phrase"] + (["kind"] if "kind" in bank else [])
+        base_pool = bank[cols].copy()
+        base_pool.to_parquet(pool_path, index=False)
 
     def bases_for(task_list, n=None, seed=0):
         d = base_pool[base_pool.task.isin(task_list)]
@@ -826,6 +940,7 @@ def main():
             print(f"[{run.id}:{rephraser}] iter {it} (since_best={st['since_best']})")
 
             # 1. distill
+            ev_file = itdir / "evidence.csv"        # written below; referenced by plan too
             rp = itdir / "rules.md"
             if rp.exists():
                 rules = rp.read_text()
@@ -835,7 +950,6 @@ def main():
                 rp.write_text(rules)
             else:
                 bank = pd.read_parquet(run.dir / "bank.parquet")
-                ev_file = itdir / "evidence.csv"
                 n_ev = write_evidence_file(run, bank, train_tasks, ev_file)
                 prev_eval = pdir / f"iter_{it - 1:02d}" / "rules_eval.md"
                 if not prev_eval.exists():
@@ -869,10 +983,23 @@ def main():
                                  eval_file=prev_eval)
                 print(f"    distilling over {n_ev} measured phrases "
                       f"({len(train_tasks)} tasks) ...")
-                rules = call_llm(run, cfg["distiller"], dp, f"{rephraser}_distill",
-                                 session=run.session, add_dir=run.dir, effort="high",
-                                 timeout=1800)
-                rp.write_text(rules)
+                rules = None
+                for attempt in range(3):
+                    cand = call_llm(run, cfg["distiller"], dp, f"{rephraser}_distill",
+                                    session=run.session, add_dir=run.dir, effort="high",
+                                    timeout=1800)
+                    try:
+                        if parse_rules(cand):
+                            rules = cand
+                            break
+                    except ValueError as e:
+                        print(f"    unparseable rulebook (attempt {attempt + 1}): {e}")
+                    (itdir / f"rules.rejected.{attempt}.md").write_text(cand)
+                if rules is None:
+                    raise RuntimeError("distiller produced no parseable rulebook in 3 "
+                                       "attempts; rejected replies saved beside this "
+                                       "iteration")
+                rp.write_text(rules)        # only a parseable rulebook is persisted
             (pdir / f"rules_{it:02d}.md").write_text(rules)   # flat, browsable history
             cur = run.dir / "current_rules.md"
             cur.write_text(rules)
@@ -889,9 +1016,14 @@ def main():
                 run, cfg, itdir, rephraser, rules, tb, "train", single_edit=True)
             # a rewrite inherits the kind of the instruction it was rewritten FROM
             kmap = dict(zip(tb.phrase, tb.kind)) if "kind" in tb else {}
-            bank = bank_add(run, ev_train.assign(
+            applied = set(tuple(x) for x in st.get("bank_applied", []))
+            akey = (rephraser, it, "train")
+            bank = pd.read_parquet(run.dir / "bank.parquet") if akey in applied else bank_add(run, ev_train.assign(
                 source=f"loop_{rephraser}", iter_added=it,
                 base_kind=ev_train.base.map(kmap) if "base" in ev_train else np.nan))
+            if akey not in applied:
+                st["bank_applied"] = [list(x) for x in applied | {akey}]
+                jwrite(state_p, st)      # record the mutation BEFORE the long val evals
 
             # 3. eval on both validation sets
             vh, _, _ = eval_rules(run, cfg, itdir, rephraser, rules,
@@ -921,8 +1053,11 @@ def main():
 
             # 5. probe phrases the bank lacks
             if summary and summary.get("suggestions"):
+                if not ev_file.exists():   # iteration 0 does not distil
+                    write_evidence_file(run, pd.read_parquet(run.dir / "bank.parquet"),
+                                        train_tasks, ev_file)
                 pp = prompt_from("plan.md", suggestions=summary["suggestions"],
-                                 evidence_file=itdir / "evidence.md",
+                                 evidence_file=ev_file,
                                  max_probes=cfg.get("max_probes", 20),
                                  tasks="\n".join(train_tasks[:40]))
                 planned = call_llm(run, cfg["distiller"], pp, f"{rephraser}_plan",

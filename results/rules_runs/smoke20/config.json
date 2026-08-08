@@ -1,0 +1,35 @@
+{
+ "run_id": "smoke20",
+ "created": "2026-08-07 17:35",
+ "seed": 7,
+ "patience": 2,
+ "max_iters": 2,
+ "sample_n": 24,
+ "single_edit_n": 8,
+ "score_budget": 64,
+ "contexts_per_task": 16,
+ "frames_per_episode": 4,
+ "min_eps_per_task": 8,
+ "rephrasers": [
+  "gemini"
+ ],
+ "distiller": "claude",
+ "judge": "claude",
+ "claude_model": "claude-opus-5",
+ "max_probes": 20,
+ "init_rules_from": null,
+ "rollback_on_regress": true,
+ "proxy": {
+  "C": 8.123,
+  "bz": 0.4445,
+  "bg": 11.3193
+ },
+ "prompt_hashes": {
+  "apply.md": "807ee8ae563b",
+  "apply_single.md": "08d6f5540104",
+  "corpus.md": "5ff1148aadc6",
+  "distill.md": "0c1e0870f0bc",
+  "judge.md": "7106b51bfdf3",
+  "plan.md": "1c8bffa15ef8"
+ }
+}

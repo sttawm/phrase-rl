@@ -1,0 +1,25 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+This is a controlled single-edit experiment. Apply ONLY the rule below. Leave
+every other aspect of the instruction exactly as it is, even if another rule in
+the rulebook would also apply.
+
+RULE TO APPLY: Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+Scene description:
+The image shows a robotic gripper holding a toy orange carrot over a play kitchen set. To the left of the gripper, there is a silver toy pot sitting in a white drawer compartment. To the right, there is a toy stove burner with a green broccoli piece, a red bell pepper, a yellow toy banana, and a blue cup.
+
+The instruction tells the robot to place the orange carrot it is holding into the silver pot next to the stove.
+
+Original: carrot, pot, pan as many as possible potential replacements: orange vegetable, toy carrot, silver pot, metal pot, cooking pot, metal container, saucepan
+Original: put, in as many as possible potential replacements: place inside, drop into, move to, transfer to, deposit inside, insert into, set inside
+Original: - as many as possible potential replacements: orange, silver, metal, cooking
+Original: - as many as possible potential replacements: -
+
+Incoming instruction: put carrot in pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If this particular rule does not apply to this instruction, reply with
+the instruction unchanged.
