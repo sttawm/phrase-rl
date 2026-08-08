@@ -520,7 +520,10 @@ def seed_bank(run):
         hit = bank.z_m.notna() & bank.grip_m.notna()
         for c in ("z", "grip", "n_ctx"):
             bank.loc[hit, c] = bank.loc[hit, f"{c}_m"]
-        bank.loc[hit, "source"] = bank.loc[hit, "source"].astype(str) + "|remeasured"
+        # a SEPARATE column, not an append to `source`: label_kinds matches
+        # source exactly ("search_boards"), so decorating it silently reclassified
+        # those phrases as `unknown` and cost the distiller the kind label
+        bank["remeasured"] = hit
         bank = bank.drop(columns=[c for c in bank.columns if c.endswith("_m")])
         print(f"[{run.id}] bank: {int(hit.sum())}/{len(bank)} phrases carry freshly "
               f"measured z+grip ({len(m)} measurements on disk)")
