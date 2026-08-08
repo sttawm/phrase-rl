@@ -9,23 +9,24 @@ from matplotlib.patches import Patch
 
 C = {"sealed": "#a3bffa", "rr": "#fed7aa", "gen": "#b2f5ea",
      "train": "#d6bcfa", "worker": "#c6f6d5", "setup": "#e2e8f0"}
-NOW = 77.4  # 05:25 Aug 8 UTC (hours from 00:00 Aug 5)
+NOW = 79.6  # 07:35 Aug 8 UTC (hours from 00:00 Aug 5)
 
 ROWS = [
     ("L40S",    [("v10 RL", 4.0, 44.5, "train"), ("stopped", 44.6, 47.5, "gen"),
-                 ("v11 RL TRAINING — step 95/1000, continues", 52.0, 84.0, "train")]),
+                 ("v11 RL TRAINING — step 105, FLAT (drift -0.11pp over 100 steps)", 52.0, 95.0, "train")]),
     ("Eval 4",  [("v10 legs + cells", 39.0, 47.2, "rr"), ("gen-stack", 51.5, 52.2, "setup"),
-                 ("v11 nat24 evaluator — 10 cells, continues", 52.3, 84.0, "worker")]),
+                 ("v11 nat24 evaluator — 11 cells through step 100", 52.3, 95.0, "worker")]),
     ("Eval 1",  [("(was Pod 5) qwen gens", 22.2, 39.9, "setup"), ("retired", 40.0, 41.4, "gen"),
                  ("repair + disk rescue", 58.3, 58.6, "setup"),
                  ("v3 GEMINI leg — 37.41 (merge recovered)", 58.6, 69.5, "rr"),
-                 ("git gc: 65G .git compacting", 70.6, 77.8, "setup"),
-                 ("BANK SCORING — 1,648 TRAINING phrases, depth-first, all night", 77.9, 95.0, "worker")]),
+                 ("git gc (killed at 26G; 39G reclaimed)", 70.6, 78.6, "setup"),
+                 ("BANK SCORING — training shard 0/2, 107 tasks", 78.8, 88.2, "worker")]),
     ("Eval 6",  [("v10 gens + archive keeper", 4.0, 51.6, "worker"), ("stopped", 51.9, 53.0, "gen"),
                  ("v3 qwen leg (30.08)", 53.2, 61.0, "rr"),
-                 ("v3 CLAUDE leg — layouts 12-23, 72% done", 63.4, 81.7, "rr"),
-                 ("sim contexts: val8 + 7 distractor scenes", 81.8, 85.2, "gen"),
-                 ("BANK SCORING — 479 SIM phrases", 85.3, 90.5, "worker")]),
+                 ("v3 CLAUDE leg — 36.68, cell complete", 63.4, 77.6, "rr"),
+                 ("recording sim contexts (11 tasks) + top-up for thin ones", 77.7, 84.8, "gen"),
+                 ("BANK SCORING — 479 SIM phrases (chunk 16)", 84.9, 87.6, "worker"),
+                 ("then TRAINING shard 1/2", 87.7, 95.0, "worker")]),
     ("Eval 5",  [("v10 cells + legs", 39.0, 55.2, "rr"),
                  ("v3 qwen lay12 (30.82)", 57.3, 65.0, "rr"),
                  ("v3 CLAUDE leg — 36.02", 62.6, 71.0, "rr"),
@@ -45,7 +46,7 @@ for i, (pod, bars) in enumerate(ROWS):
         if e - s > 2.6:
             ax.text((s + e) / 2, y, label, ha="center", va="center", fontsize=6.6, color="#2d3748")
 ax.axvline(NOW, color="#e53e3e", lw=1.5, ls="--")
-ax.text(NOW + 0.2, len(ROWS) - 0.4, "now 05:25", color="#e53e3e", fontsize=8.5, fontweight="bold")
+ax.text(NOW + 0.2, len(ROWS) - 0.4, "now 07:35", color="#e53e3e", fontsize=8.5, fontweight="bold")
 ax.set_yticks(range(len(ROWS)))
 ax.set_yticklabels([p for p, _ in reversed(ROWS)], fontsize=9.5)
 ticks = list(range(4, 97, 4))
@@ -57,10 +58,10 @@ ax.legend(handles=[Patch(color=C[k], label=l) for k, l in
                    [("train", "RL training"), ("rr", "sealed robustness leg"),
                     ("worker", "scoring / evaluation"), ("setup", "setup / repair"), ("gen", "stop")]],
           fontsize=8, loc="lower left")
-ax.set_title("Bank init split as asked: e1 takes the 1,648 TRAINING phrases, e6 takes the 479 SIM phrases "
-             "(now incl. 7 distractor scenes) once its A28 leg lands.\n"
-             "v3 beats v4 on matched layouts for all three appliers; the one hole left is v4-Gemini layouts 0-11, "
-             "queued for the next free pod.", fontsize=9.5)
+ax.set_title("Bank scoring runs ~5x faster after fixing the batching (173s/context + 12.8s/phrase); e1 on the training "
+             "half, e6 on sim then joining as shard 1.\n"
+             "A28 done — v3 beats v4 for all three appliers on matched layouts. v11 is flat through 100 steps and "
+             "awaiting a call; v4-Gemini lay0-11 queued for the next free pod.", fontsize=9.5)
 fig.tight_layout()
 fig.savefig("results/charts/fleet_gantt.png", dpi=140, bbox_inches="tight", pad_inches=0.2)
 print("chart -> results/charts/fleet_gantt.png")
