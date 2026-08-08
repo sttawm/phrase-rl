@@ -73,12 +73,45 @@ if out_path.exists():
     done = set(zip(prev.task, prev.phrase))
     print(f"resume: {len(done)} phrases already scored", flush=True)
 
-banks = pd.concat([pd.read_parquet(f) for f in [
-    REPO / "data/contexts_train_multit16.parquet",
-    REPO / "data/contexts_val_multit16.parquet",
-    REPO / "data/contexts_club.parquet"] if f.exists()], ignore_index=True)
-bkey = "task" if "task" in banks.columns else "instruction"
-banks["_key"] = banks[bkey].astype(str)
+# Context tables disagree on their key column: the club/val tables are keyed by
+# instruction text, the sim tables by task name. Build _key PER FILE before
+# concatenating -- deciding once on the concatenated frame picks "task", which is
+# null on every club row, and silently yields NO CONTEXTS for all 213 training
+# tasks.
+parts = []
+for f in [REPO / "data/contexts_train_multit16.parquet",
+          REPO / "data/contexts_val_multit16.parquet",
+          REPO / "data/contexts_club.parquet",
+          REPO / "data/contexts_sim_oov.parquet",
+          REPO / "data/contexts_sim_oov5.parquet",
+          REPO / "data/contexts_sim_val8.parquet"]:
+    if not f.exists():
+        continue
+    d = pd.read_parquet(f)
+    k = "task" if "task" in d.columns else "instruction"
+    d["_key"] = d[k].astype(str)
+    parts.append(d)
+    print(f"contexts: {f.name} ({len(d)} rows, keyed on {k})", flush=True)
+if not parts:
+    sys.exit("no context tables found on this pod")
+banks = pd.concat(parts, ignore_index=True)
+
+# The bank names sim tasks widowx_<x>; some context tables use the bare <x>.
+alias = {}
+for k in banks._key.unique():
+    alias.setdefault(f"widowx_{k}", k)
+    if str(k).startswith("widowx_"):
+        alias.setdefault(str(k)[len("widowx_"):], k)
+
+
+def contexts_for(task):
+    t = str(task)
+    sub = banks[banks._key == t]
+    if len(sub) == 0 and t in alias:
+        sub = banks[banks._key == alias[t]]
+    if len(sub) == 0 and t.endswith("_clean"):
+        sub = banks[banks._key == t[: -len("_clean")]]
+    return sub
 
 rng = np.random.default_rng(args.seed)
 sargs = types.SimpleNamespace(k=8, score_seed=args.seed, tau_min=0.0,
@@ -93,7 +126,7 @@ for ti, (task, grp) in enumerate(todo.groupby("task"), 1):
                if (task, p) not in done]
     if not phrases:
         continue
-    sub = banks[banks._key == str(task)]
+    sub = contexts_for(task)
     if len(sub) == 0:
         for p in phrases:
             rows.append({"task": task, "phrase": p, "z": np.nan, "grip": np.nan,
