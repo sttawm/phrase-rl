@@ -501,6 +501,30 @@ def seed_bank(run):
             frames.append(pd.DataFrame(rows))
     bank = pd.concat(frames, ignore_index=True)
     bank = bank[~bank.task.map(is_sealed)].drop_duplicates(["task", "phrase"])
+
+    # Freshly measured channels supersede the seeded ones. The search boards
+    # recorded grip ONLY, so 87% of the seed's z was imputed from a column mean
+    # and the distiller would have been reading spread that was partly filled in.
+    # bank_scores_*.parquet carries both channels, measured at F=4 C=16 -- the
+    # same aggregation the calibration was fitted on.
+    meas = [pd.read_parquet(f) for f in
+            sorted((REPO / "results/analysis").glob("bank_scores_*.parquet"))]
+    if meas:
+        m = (pd.concat(meas, ignore_index=True)
+             .dropna(subset=["z", "grip"])
+             .drop_duplicates(["task", "phrase"], keep="last"))
+        if "n_ctx" not in bank:
+            bank["n_ctx"] = np.nan
+        bank = bank.merge(m[["task", "phrase", "z", "grip", "n_ctx"]],
+                          on=["task", "phrase"], how="left", suffixes=("", "_m"))
+        hit = bank.z_m.notna() & bank.grip_m.notna()
+        for c in ("z", "grip", "n_ctx"):
+            bank.loc[hit, c] = bank.loc[hit, f"{c}_m"]
+        bank.loc[hit, "source"] = bank.loc[hit, "source"].astype(str) + "|remeasured"
+        bank = bank.drop(columns=[c for c in bank.columns if c.endswith("_m")])
+        print(f"[{run.id}] bank: {int(hit.sum())}/{len(bank)} phrases carry freshly "
+              f"measured z+grip ({len(m)} measurements on disk)")
+
     bank["proxy"] = recompute_proxy(bank)
     bank["iter_added"] = -1
     bank = label_kinds(bank)
