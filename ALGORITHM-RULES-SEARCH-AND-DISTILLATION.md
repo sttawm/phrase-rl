@@ -158,6 +158,21 @@ can end a run. Everything is also charted as a delta against `base_mean` — "di
 the rules beat saying nothing" is the decision-relevant view, since the absolute
 level drifts with sample difficulty.
 
+**(12) Rules have identities, and single-rule measurements are cached by them.**
+A rule's identity is its wording, normalised for whitespace only: reflowing a rule
+does not change it, but altering a word does — because that is a different
+instruction to the applier and may measure differently. Rules are shown to the
+distiller with an `[r:abc123]` marker and it is told to reproduce kept rules
+verbatim, marker included; the markers are stripped before any rulebook reaches
+an applier.
+
+This pays for itself immediately. Single-rule measurements are the loop's
+dominant cost — `SINGLE_EDIT_N × R` applications *and* scorings per iteration —
+and most rules survive an iteration untouched. Measurements are cached across
+iterations, passes and runs, keyed on (rephraser, rule id, task, base phrase),
+storing raw channels so a recalibration does not invalidate them. A rule that
+keeps its marker while changing wording is reported as churn and re-measured.
+
 **(11) Every phrase carries what kind of input it is.**
 `original` (the canonical training instruction), `natural` (a fluent rewording),
 `adversarial` (awkward/ornate/indirect), `rephrased` (a rulebook's output),
