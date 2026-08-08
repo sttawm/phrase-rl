@@ -741,8 +741,11 @@ def write_evidence_file(run, bank, tasks, path):
     # per-task summary: the aggregation an agent would otherwise need a shell for
     agg = sub.groupby("task").agg(
         phrases=("phrase", "size"),
-        best=("score", "max"), worst=("score", "min"),
-        median=("score", "median"),
+        # on the LOGIT, not the normalised score: min-maxing inside a task makes
+        # every task's spread exactly 1.0, which would flatten the very ranking
+        # plan.md selects on. The logit is one common scale across tasks.
+        best=("logit", "max"), worst=("logit", "min"),
+        median=("logit", "median"),
         calibrated=("calibrated_ok", lambda s: bool(s.any())),
         rollout_measured=("gt_success", lambda s: int(s.notna().sum())),
         thin_evidence=("n_ctx", lambda s: int((pd.to_numeric(s, errors="coerce") < 40).sum())),

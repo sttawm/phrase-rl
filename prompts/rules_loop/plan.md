@@ -5,11 +5,12 @@ rulebook that rewrites instructions given to a robot policy.
 
   {{summary_file}}
       One row per task — the complete set of tasks you may probe. For each: how
-      many phrases have been measured on it, the best, worst and median score
-      (normalised WITHIN each task, so spread is comparable across tasks but
-      the levels are not),
-      the SPREAD between best and worst, how many of its phrases carry a real
-      rollout number rather than an estimate, and how many rest on thin sampling.
+      many phrases have been measured on it, the best, worst and median value on
+      the estimator's own scale, the SPREAD between best and worst — how far
+      apart the best and worst phrasings sit on that task, comparable across
+      tasks, so a large spread means phrasing matters a lot there — how many of
+      its phrases carry a real rollout number rather than an estimate, and how
+      many rest on thin sampling.
       Sorted by spread, descending. **Every task you name must appear here**,
       spelled exactly as it is spelled here; a probe naming anything else is
       discarded.
