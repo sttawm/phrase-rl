@@ -143,6 +143,10 @@ def label_kinds(df):
     if "source" in df:
         fill(df.source.astype(str).str.startswith("loop_"), "rephrased")
         fill(df.source.eq("search_boards"), "search")
+        # the generate_phrases arms: these are the input regimes the rules exist
+        # to repair, and the distiller must be able to tell them apart
+        fill(df.source.astype(str).str.startswith("generated_natural"), "natural")
+        fill(df.source.astype(str).str.startswith("generated_adversarial"), "adversarial")
         fill(df.source.eq("probe"), "search")
     df["kind"] = k.mask(k.isna() | (k == ""), "unknown")
     if "base_kind" not in df:
