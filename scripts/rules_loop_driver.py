@@ -565,6 +565,51 @@ def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=7200
     raise TimeoutError(f"job {jid} ({kind}) not returned in {timeout}s")
 
 
+_RVG = {"n": 0, "rhos": []}
+# measured previously: the two-channel formula and gripper-only agree at rank
+# correlation 0.645 within groups of 16 (76.3% pair agreement). A live run that
+# falls far below that is not measuring what the calibration measured.
+RVG_FLOOR = 0.50
+
+
+def check_reward_vs_gripper(run, out, tag):
+    """Assert the calibrated reward still ranks phrases roughly as gripper-only
+    does. The proxy is a two-channel blend; if the verifier channel is broken or
+    mis-scaled, the blend can look plausible while ranking nothing like the
+    channel we know works. Checked on the first few real scoring jobs, then
+    reported."""
+    if run.dry or run.mock_scoring or "grip" not in out or "z" not in out:
+        return
+    rhos = []
+    for t, g in out.groupby("task"):
+        g = g.dropna(subset=["proxy", "grip"])
+        if len(g) < 4:
+            continue
+        r = g.proxy.rank().corr((-g.grip).rank(), method="spearman")
+        if pd.notna(r):
+            rhos.append(float(r))
+    if not rhos:
+        return
+    rho = float(np.mean(rhos))
+    _RVG["n"] += 1
+    _RVG["rhos"].append(rho)
+    if _RVG["n"] <= 5:
+        run_mean = float(np.mean(_RVG["rhos"]))
+        print(f"    [reward check {_RVG['n']}/5] rank corr(calibrated reward, "
+              f"gripper-only) = {rho:.3f} over {len(rhos)} task(s); "
+              f"run mean {run_mean:.3f} (prior measurement 0.645)")
+        jwrite(run.dir / "reward_vs_gripper.json",
+               {"per_job": _RVG["rhos"], "mean": run_mean, "floor": RVG_FLOOR,
+                "prior_measurement": 0.645})
+        if _RVG["n"] == 3 and run_mean < RVG_FLOOR:
+            raise RuntimeError(
+                f"calibrated reward is ranking unlike gripper-only "
+                f"(rank corr {run_mean:.3f} over the first 3 jobs, floor "
+                f"{RVG_FLOOR}, previously 0.645). The verifier channel is the "
+                f"likely culprit -- check reward_mode and the ensemble manifest "
+                f"before trusting any number from this run.")
+
+
 def score_phrases(run, cfg, df, tag, draw=0):
     """df: [task, phrase] -> adds z, grip, proxy. CRN: the worker samples
     cfg['contexts_per_task'] contexts per task with seed cfg['seed'] -- same
@@ -578,6 +623,7 @@ def score_phrases(run, cfg, df, tag, draw=0):
         "frames_per_episode": cfg["frames_per_episode"],
         "pool_val8_stems": True, "seed": cfg["seed"] + 1009 * draw,
         "proxy": PROXY}, tag)
+    check_reward_vs_gripper(run, out, tag)
     keep = [c for c in ("task", "phrase", "z", "grip", "proxy", "n_ctx") if c in out]
     res = df.drop(columns=[c for c in ("z", "grip", "proxy", "n_ctx") if c in df],
                   errors="ignore").merge(out[keep], on=["task", "phrase"], how="left")
@@ -1014,6 +1060,9 @@ def main():
                     help="model for the distiller/judge/planner and for "
                          "rephraser=claude")
     ap.add_argument("--max-probes", type=int, default=20)
+    ap.add_argument("--max-train-tasks", type=int, default=0,
+                    help="cap the training pool (0 = all); the val splits are "
+                         "unaffected")
     ap.add_argument("--init-rules-from", default=None, metavar="RUN_ID",
                     help="start each pass from RUN_ID's best rulebook for the same "
                          "model (round 2 initializes from round 1 this way)")
@@ -1070,6 +1119,9 @@ def main():
     rng.shuffle(tasks)
     n_held = max(2, len(tasks) // 6)
     val_held_tasks, train_tasks = tasks[:n_held], tasks[n_held:]
+    if args.max_train_tasks:
+        train_tasks = train_tasks[:args.max_train_tasks]
+        print(f"[{run.id}] training pool capped to {len(train_tasks)} tasks")
     jwrite(run.dir / "splits.json", {"train": train_tasks, "val_held": val_held_tasks,
                                      "val8": VAL8_TASKS,
                                      "support_floor": cfg["min_eps_per_task"],
