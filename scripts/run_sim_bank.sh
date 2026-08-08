@@ -27,7 +27,9 @@ mark "at $(git rev-parse --short HEAD)"
 
 # the phrase spoken during recording is each env's own instruction, asked of the
 # env rather than hardcoded, so a registry change cannot silently mis-caption
-.venv-gen/bin/python - <<'PY'
+# simpler_env lives only in the INT-ACT venv -- the same interpreter that runs
+# the rollout, so the env registry it sees is the one that will be rolled
+/workspace/INT-ACT/.venv/bin/python - <<'PY'
 import pandas as pd, simpler_env
 TASKS = ["widowx_carrot_on_plate", "widowx_spoon_on_towel", "widowx_stack_cube",
          "widowx_put_eggplant_in_basket",
@@ -39,12 +41,17 @@ TASKS = ["widowx_carrot_on_plate", "widowx_spoon_on_towel", "widowx_stack_cube",
          "widowx_spoon_on_towel_lang_common_distract"]
 rows = []
 for t in TASKS:
-    env = simpler_env.make(t)
-    env.reset()
-    ins = env.get_language_instruction()
-    env.close()
+    try:
+        env = simpler_env.make(t)
+        env.reset()
+        ins = env.get_language_instruction()
+        env.close()
+    except Exception as e:                    # a registry miss must be loud, not silent
+        print(f"{t:48s} FAILED {type(e).__name__}: {e}", flush=True)
+        continue
     rows.append({"task": t, "phrase": ins, "arm": "original"})
     print(f"{t:48s} {ins!r}", flush=True)
+assert len(rows) == len(TASKS), f"only {len(rows)}/{len(TASKS)} envs resolved"
 pd.DataFrame(rows).to_parquet("data/phrases_sim_ctx.parquet", index=False)
 PY
 [ -s data/phrases_sim_ctx.parquet ] || { mark "FATAL: could not build phrases_sim_ctx"; exit 1; }
@@ -66,7 +73,7 @@ mark "rollout rc=$rc"
 
 .venv/bin/python -m phrase_rl.sim_contexts_extract --record-dir data/sim_traj_val8 \
   --out data/contexts_sim_val8.parquet --per-episode 4 || { mark "FATAL extract"; exit 1; }
-.venv-gen/bin/python - <<'PY'
+.venv/bin/python - <<'PY'
 import pandas as pd
 d = pd.read_parquet("data/contexts_sim_val8.parquet")
 k = "task" if "task" in d.columns else "instruction"
