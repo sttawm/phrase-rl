@@ -69,9 +69,43 @@ PROXY = {"C": 8.123, "bz": 0.4445, "bg": 11.3193}
 FALLBACK_NCTX = 80
 
 
+def proxy_logit(z, grip):
+    """The calibration's linear predictor, before the sigmoid."""
+    return PROXY["C"] + PROXY["bz"] * np.asarray(z) + PROXY["bg"] * (-np.asarray(grip))
+
+
 def proxy_success(z, grip):
-    x = PROXY["C"] + PROXY["bz"] * np.asarray(z) + PROXY["bg"] * (-np.asarray(grip))
-    return 1.0 / (1.0 + np.exp(-np.clip(x, -30, 30)))
+    return 1.0 / (1.0 + np.exp(-np.clip(proxy_logit(z, grip), -30, 30)))
+
+
+# The calibration was fit against SIM rollout success, where gripper error runs
+# 0.5-0.9 because the scenes are out of distribution. On Bridge TRAINING frames,
+# scored against ground-truth action chunks, grip is 0.04-0.05 -- an order of
+# magnitude off the flat left edge of the sigmoid, where every phrase reads
+# 0.9996+. Ranking survives (the sigmoid is monotone, so proxy order == logit
+# order), but the NUMBER carries no spread, and a distiller reading a column of
+# 1.000 learns nothing. So the evidence reports a within-task normalised score,
+# and keeps the calibrated probability only where it is in range.
+CALIB_GRIP_LO, CALIB_GRIP_HI = 0.30, 0.95
+
+
+def in_calibration_range(grip):
+    g = pd.to_numeric(pd.Series(grip), errors="coerce")
+    return g.between(CALIB_GRIP_LO, CALIB_GRIP_HI)
+
+
+def within_task_score(df):
+    """Min-max the logit inside each task -> 0..1, where 1 is that task's best
+    measured phrase. Monotone-equivalent to the proxy, but with usable spread on
+    tasks where the calibrated probability saturates. Tasks with a single
+    measured phrase, or no spread at all, get NaN rather than a fake 1.0."""
+    lg = pd.Series(proxy_logit(df.z.astype(float), df.grip.astype(float)),
+                   index=df.index)
+    def mm(x):
+        lo, hi = x.min(), x.max()
+        return (x - lo) / (hi - lo) if np.isfinite(lo) and np.isfinite(hi) and hi > lo \
+            else pd.Series(np.nan, index=x.index)
+    return lg.groupby(df.task).transform(mm), lg
 
 
 # What KIND of input a phrase is. The rules exist to repair inputs, so which
@@ -676,13 +710,14 @@ def write_new_measurements(run, bank, tasks, path, since_iter):
     here is what came back. They stay in the bank either way; only the
     presentation separates them, and only until the next iteration."""
     if "iter_added" not in bank:
-        Path(path).write_text("task,phrase,kind,base_kind,proxy,n_ctx,source\n")
+        Path(path).write_text("task,phrase,kind,base_kind,score,proxy,n_ctx,source\n")
         return 0
     fresh = bank[bank.task.isin(tasks)
                  & (pd.to_numeric(bank.iter_added, errors="coerce") >= since_iter)].copy()
-    cols = [c for c in ("task", "phrase", "kind", "base_kind", "proxy", "n_ctx", "source")
-            if c in fresh]
-    fresh.sort_values("proxy", ascending=False)[cols].to_csv(path, index=False)
+    fresh["score"], _ = within_task_score(fresh)
+    cols = [c for c in ("task", "phrase", "kind", "base_kind", "score", "proxy",
+                        "n_ctx", "source") if c in fresh]
+    fresh.sort_values("score", ascending=False)[cols].to_csv(path, index=False)
     return len(fresh)
 
 
@@ -692,20 +727,23 @@ def write_evidence_file(run, bank, tasks, path):
     make it harder to grep; and the agent has a shell, so a table it can sort and
     group beats a structure it must parse by eye. A short README sits beside it."""
     sub = bank[bank.task.isin(tasks)].copy()
-    sub = sub.sort_values(["task", "proxy"])
+    sub["score"], sub["logit"] = within_task_score(sub)
+    sub["calibrated_ok"] = in_calibration_range(sub.grip)
+    sub = sub.sort_values(["task", "score"])
     if "n_ctx" not in sub:
         sub["n_ctx"] = FALLBACK_NCTX
     # a phrase measured on few contexts is a weak claim; the reader needs to see
     # that to decide whether a gap is real or worth re-measuring
     sub["n_ctx"] = sub.n_ctx.fillna(FALLBACK_NCTX).round().astype(int)
-    cols = ["task", "phrase", "kind", "base_kind", "proxy", "proxy_imputed",
-            "n_ctx", "gt_success", "source"]
+    cols = ["task", "phrase", "kind", "base_kind", "score", "proxy",
+            "calibrated_ok", "proxy_imputed", "n_ctx", "gt_success", "source"]
     sub[[c for c in cols if c in sub.columns]].to_csv(path, index=False)
     # per-task summary: the aggregation an agent would otherwise need a shell for
     agg = sub.groupby("task").agg(
         phrases=("phrase", "size"),
-        best=("proxy", "max"), worst=("proxy", "min"),
-        median=("proxy", "median"),
+        best=("score", "max"), worst=("score", "min"),
+        median=("score", "median"),
+        calibrated=("calibrated_ok", lambda s: bool(s.any())),
         rollout_measured=("gt_success", lambda s: int(s.notna().sum())),
         thin_evidence=("n_ctx", lambda s: int((pd.to_numeric(s, errors="coerce") < 40).sum())),
     ).reset_index()
@@ -719,7 +757,21 @@ def write_evidence_file(run, bank, tasks, path):
         "Columns:\n"
         "  task       the instruction/task the phrase was measured on\n"
         "  phrase     the exact wording measured\n"
-        "  proxy      estimated success rate, 0-1 (a calibrated estimate)\n"
+        "  score      THE COLUMN TO RANK BY. 0-1 WITHIN ITS TASK: 1.0 is the\n"
+        "             best phrase measured for that task, 0.0 the worst. It is\n"
+        "             NOT comparable across tasks, and it is not a success rate.\n"
+        "             Blank when a task has only one measured phrase.\n"
+        "  proxy      the calibrated success-rate estimate, 0-1. Trustworthy as\n"
+        "             an absolute number ONLY where calibrated_ok is True.\n"
+        "  calibrated_ok  False means this row sits outside the range the\n"
+        "             estimator was fitted on, so `proxy` is pinned near 1.0 and\n"
+        "             says nothing. This is the NORMAL case for the training\n"
+        "             instructions: the estimator was fitted against simulator\n"
+        "             rollouts, whose scenes are much harder than the frames\n"
+        "             these phrases are scored on. The ordering inside a task is\n"
+        "             still meaningful -- that is what `score` is for. Do not\n"
+        "             read `proxy` as a success rate on those rows, and do not\n"
+        "             conclude a phrase is near-perfect because it reads 0.999.\n"
         "  kind       what the phrase IS. Five kinds:\n"
         "               original     the task's own canonical instruction -- the\n"
         "                            wording the policy was trained on\n"

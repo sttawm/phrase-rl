@@ -20,6 +20,13 @@ sorted by spread) as a starting point, but compute whatever else you need.
       task. This is the full spread, not a summary — read enough of it to see
       within-task variation, not just the extremes. Where a phrase has a
       real-rollout number it is marked; those are more reliable than estimates.
+      Rank by the `score` column, which is normalised WITHIN each task: 1.0 is
+      that task's best measured phrase, 0.0 its worst. Do not compare scores
+      across tasks, and do not read the `proxy` column as a success rate unless
+      that row's `calibrated_ok` is True — on the training instructions it is
+      normally False, where `proxy` sits pinned near 1.0 and carries no
+      information. A column of 0.999s is not evidence that the phrasing is
+      already perfect; the discrimination lives in `score`.
 
   {{new_file}}
       Only what has been measured SINCE your last rulebook: the probe phrases you
