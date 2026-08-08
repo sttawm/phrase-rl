@@ -1,0 +1,25 @@
+task,phrase,kind,base_kind,proxy,n_ctx,source
+unfold the cloth from bottom to top,[dry-run:gemini] edefd6552979,rephrased,search,0.9212227269808776,80.0,loop_gemini
+put blueberries on plate sink,[dry-run:gemini] 1d826ba9ac9b,rephrased,search,0.909741846549812,80.0,loop_gemini
+move the silver pot to the upper right of table,[dry-run:gemini] cca6993d0569,rephrased,search,0.8910364521396862,80.0,loop_gemini
+end effector reaching salmon,[dry-run:gemini] c8f211e83298,rephrased,search,0.7698281844504054,80.0,loop_gemini
+put detergent in sink,[dry-run:gemini] f1742c0ef0a5,rephrased,search,0.6489448185795084,80.0,loop_gemini
+fold the cloth from bottom right to top left,[dry-run:gemini] d3264758e504,rephrased,search,0.6331175519537551,80.0,loop_gemini
+pick up any cup,[dry-run:gemini] 4414cafba3e7,rephrased,search,0.6280473671343904,80.0,loop_gemini
+put carrot in pot or pan,[dry-run:gemini] 2e723069e6ee,rephrased,search,0.5995172770801115,80.0,loop_gemini
+fold the cloth from top to bottom,[dry-run:gemini] 5d38986acda5,rephrased,search,0.5976059132963886,80.0,loop_gemini
+put brush into pot or pan,[dry-run:gemini] d383a23d8750,rephrased,search,0.5963690240618753,80.0,loop_gemini
+put stuffedduck in pan,[dry-run:gemini] 171464f3b30a,rephrased,search,0.5285399050521215,80.0,loop_gemini
+put pot in sink,[dry-run:gemini] fa8bb4efc7d3,rephrased,search,0.34410451781301277,80.0,loop_gemini
+pick up glue and put into drawer,[dry-run:gemini] 9b2e4a29f257,rephrased,search,0.33951468225792886,80.0,loop_gemini
+move light switch to the right,[dry-run:gemini] 54a1975bd7e6,rephrased,search,0.33019909459632957,80.0,loop_gemini
+put cup from anywhere into sink,[dry-run:gemini] 4cf28c445f2e,rephrased,search,0.320477691169806,80.0,loop_gemini
+turn lever vertical to front,[dry-run:gemini] b1f84e140a99,rephrased,search,0.3082165053507561,80.0,loop_gemini
+put clothes in laundry machine,[dry-run:gemini] 02e005835878,rephrased,search,0.29597358153776937,80.0,loop_gemini
+put bowl on plate,[dry-run:gemini] 239f1c37e48c,rephrased,search,0.29200196201245165,80.0,loop_gemini
+put pepper in pot or pan,[dry-run:gemini] a33a066885cd,rephrased,search,0.27933185484905376,80.0,loop_gemini
+pick up scissors and put into drawer,[dry-run:gemini] 57082971d079,rephrased,search,0.2642993855952033,80.0,loop_gemini
+put carrot on plate,[dry-run:gemini] cba2aa39e102,rephrased,search,0.24997671448984574,80.0,loop_gemini
+wipe pot with sponge,[dry-run:gemini] e08c3d040195,rephrased,search,0.23799506858698208,80.0,loop_gemini
+pick up pan from stove,[dry-run:gemini] 195de983d7e3,rephrased,search,0.2221682836149114,80.0,loop_gemini
+pick up blue pen and put into drawer,[dry-run:gemini] f9cebdb920e5,rephrased,search,0.17245345359381334,80.0,loop_gemini

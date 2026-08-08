@@ -1,0 +1,46 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a toy kitchen set. On the left burner of a two-burner stove sits a silver metallic cooking pot (saucepan) with a metal handle. On the right burner, a yellow sponge is standing upright. In the background and around the stove, there are other toy food items, including a red strawberry, a green cabbage, a slice of salmon, and a toy ice cream cone on the counter.
+
+<Meaning of the instruction in the context of the image>
+The instruction "wipe pot with sponge" means the robot should pick up the yellow sponge from the right burner and use it to wipe, clean, or rub the silver metallic pot located on the left burner.
+
+Original: pot as many as possible potential replacements: silver pot, cooking pot, saucepan, metallic pot, silver saucepan, metallic pan
+Original: sponge as many as possible potential replacements: yellow sponge, cleaning sponge, foam sponge, yellow foam block
+Original: wipe as many as possible potential replacements: clean, rub, scrub, wipe down, wash, polish
+Original: with as many as possible potential replacements: using, by utilizing
+
+Original Instruction:
+wipe pot with sponge
+
+Incoming instruction: use the sponge to wipe the pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.
