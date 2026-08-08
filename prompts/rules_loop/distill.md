@@ -50,14 +50,11 @@ Guidance:
   and say so explicitly in the rationale.
 - Prefer stability: a rulebook that changes wholesale every iteration cannot
   converge. Change what the evidence says to change.
-- Each rule is shown with an identity marker, `[r:abc123]`. **Reproduce every
-  rule you are keeping EXACTLY as shown, marker included, character for
-  character.** A rule's identity is its wording: an unchanged rule keeps its
-  marker and every measurement already made for it is reused, while any reworded
-  rule -- even cosmetically -- is a different rule that must be measured again
-  from scratch. Reword only when you mean to change what the rule instructs.
-  Drop the marker from any rule you deliberately change, and omit markers
-  entirely for rules you are adding.
+- **Reproduce every rule you are keeping word for word.** A rule's identity is
+  its wording: keep it identical and its existing measurements carry over;
+  reword it at all -- even cosmetically -- and it becomes a rule with no
+  evidence behind it, which must be measured again from scratch. Reword only
+  when you mean to change what the rule instructs.
 - Rules must be executable by a model reading them cold, with no access to this
   evidence and no examples beyond what you write into the rule itself.
 

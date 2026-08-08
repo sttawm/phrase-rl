@@ -1,0 +1,22 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image shows an open washing machine with a robotic gripper holding a blue cloth inside the drum. Below the washing machine, there is a white plastic basket filled with colorful laundry (red and green clothes), and a grey cloth lying on the platform next to it.
+
+The instruction means to load the colorful garments (such as the red and green clothes from the white basket or the grey piece of cloth) into the drum of the washing machine.
+
+Original: clothes, laundry machine as many as possible potential replacements: garments, laundry, apparel, textiles, fabric, washing machine, washer, drum, washer drum, laundry basket, basket
+Original: put as many as possible potential replacements: load, place, insert, transfer, move, deposit, toss, drop
+Original: - as many as possible potential replacements: colorful, red, green, blue, grey, open, white, plastic
+Original: -
+
+Incoming instruction: place the clothes into the open laundry machine
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

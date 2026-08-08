@@ -159,12 +159,13 @@ the rules beat saying nothing" is the decision-relevant view, since the absolute
 level drifts with sample difficulty.
 
 **(12) Rules have identities, and single-rule measurements are cached by them.**
-A rule's identity is its wording, normalised for whitespace only: reflowing a rule
-does not change it, but altering a word does — because that is a different
-instruction to the applier and may measure differently. Rules are shown to the
-distiller with an `[r:abc123]` marker and it is told to reproduce kept rules
-verbatim, marker included; the markers are stripped before any rulebook reaches
-an applier.
+A rule's identity is `sha1` of its wording, normalised for whitespace only:
+reflowing a rule does not change it, but altering a word does — that is a
+different instruction to the applier and may measure differently. The hash lives
+entirely in the driver; nothing appears in the rulebook itself. The distiller is
+simply told to reproduce kept rules word for word, and the driver reports each
+iteration's churn (unchanged / reworded / dropped) so gratuitous rewriting is
+visible.
 
 This pays for itself immediately. Single-rule measurements are the loop's
 dominant cost — `SINGLE_EDIT_N × R` applications *and* scorings per iteration —

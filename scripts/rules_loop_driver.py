@@ -516,8 +516,7 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag, only_rule=
             "rules_sha": hashlib.sha1(rules.encode()).hexdigest()[:12],
             "only_rule": only_rule}, tag)
     tmpl = "apply_single.md" if only_rule else "apply.md"
-    rules = strip_rule_tags(rules_only(rules))   # markers are for the distiller only
-    only_rule = RULE_TAG.sub("", only_rule) if only_rule else only_rule
+    rules = rules_only(rules)
     traces = load_traces()
     jobs = []
     for r in bases.itertuples():
@@ -653,29 +652,6 @@ def section(text, name):
     return m.group(1).strip() if m else ""
 
 
-RULE_TAG = re.compile(r"^\s*\[r:([0-9a-f]{6,12})\]\s*")
-
-
-def render_rules_with_ids(rules_text):
-    """Show each rule with its identity marker. A rule reproduced verbatim keeps
-    its id, and every measurement already made for it is reused; a rule whose
-    wording changes is a different rule and must be measured again."""
-    out = []
-    for line in rules_only(rules_text).split("\n"):
-        m = re.match(r"^(\s*\d+[.)]\s+)(.*)$", line)
-        if m and m.group(2).strip():
-            body = RULE_TAG.sub("", m.group(2))
-            out.append(f"{m.group(1)}[r:{rule_id(body)}] {body}")
-        else:
-            out.append(line)
-    return "\n".join(out)
-
-
-def strip_rule_tags(text):
-    return "\n".join(RULE_TAG.sub("", ln) if re.match(r"^\s*\d+[.)]\s", ln) or
-                      RULE_TAG.match(ln) else ln for ln in text.split("\n"))
-
-
 def rules_only(rules_text):
     """The rulebook with the RATIONALE stripped. The rationale is written for us,
     not for the applier -- shipping it would waste context and, worse, feed the
@@ -699,19 +675,8 @@ def parse_rules(rules_text):
                              "===RATIONALE=== delimiter -- refusing to guess which "
                              "numbered lines are rules")
         body = head
-    out, churn = [], []
-    for m in re.finditer(r"^[ \t]*\d+[.)][ \t]+(.*(?:\n(?![ \t]*\d+[.)]|===)[ \t]+\S.*)*)",
-                         body, re.M):
-        raw = " ".join(m.group(1).split())
-        tag = RULE_TAG.match(raw)
-        text = RULE_TAG.sub("", raw)
-        if tag and tag.group(1) != rule_id(text):
-            churn.append(tag.group(1))   # claimed unchanged, but the wording moved
-        out.append(text)
-    if churn:
-        print(f"    note: {len(churn)} rule(s) kept an id marker while changing "
-              f"wording -- treated as new rules, cache not reused")
-    return out
+    return [" ".join(m.group(1).split()) for m in re.finditer(
+        r"^[ \t]*\d+[.)][ \t]+(.*(?:\n(?![ \t]*\d+[.)]|===)[ \t]+\S.*)*)", body, re.M)]
 
 
 def baseline_proxy(run, cfg, bases, tag):
@@ -1003,7 +968,7 @@ def main():
 
                 bi = st["best_iter"]
                 best_rules, best_eval = pair(bi) if bi >= 0 else (st["rules"], none_eval)
-                best_rules = render_rules_with_ids(best_rules)
+
                 regressed_block, regressed_eval = (
                     "(no regression: the last attempt was the best so far)", none_eval)
                 if cfg.get("rollback_on_regress", True) and st["since_best"] > 0 and bi >= 0:
@@ -1013,7 +978,7 @@ def main():
                         f"{st['last_val']:.4f} on validation against the best rulebook's "
                         f"{st['best_val']:.4f}). Do NOT build from this one -- diff it "
                         f"against the best rulebook above and work out which change cost "
-                        f"the ground:\n{render_rules_with_ids(rr)}\n")
+                        f"the ground:\n{rr}\n")
 
                 dp = prompt_from("distill.md", best_rules=best_rules,
                                  regressed_block=regressed_block,
@@ -1039,9 +1004,17 @@ def main():
                                        "attempts; rejected replies saved beside this "
                                        "iteration")
                 rp.write_text(rules)        # only a parseable rulebook is persisted
+                prev_ids = {rule_id(r) for r in parse_rules(best_rules)} \
+                    if bi >= 0 else set()
+                new_ids = {rule_id(r) for r in parse_rules(rules)}
+                if prev_ids:
+                    print(f"    rulebook churn: {len(prev_ids & new_ids)} unchanged, "
+                          f"{len(new_ids - prev_ids)} new/reworded, "
+                          f"{len(prev_ids - new_ids)} dropped "
+                          f"(unchanged rules reuse cached measurements)")
             (pdir / f"rules_{it:02d}.md").write_text(rules)   # flat, browsable history
             cur = run.dir / "current_rules.md"
-            cur.write_text(strip_rule_tags(rules))   # pod-side applier: no markers
+            cur.write_text(rules)
             if not run.dry and "qwen" in cfg["rephrasers"]:
                 # the pod reads this file; it must exist on origin before any
                 # apply job referencing it is submitted
