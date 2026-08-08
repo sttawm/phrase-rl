@@ -616,10 +616,15 @@ def check_reward_vs_gripper(run, out, tag):
         return
     rhos = []
     for t, g in out.groupby("task"):
-        g = g.dropna(subset=["proxy", "grip"])
+        # rank on the LOGIT rather than the proxy: on training frames the sigmoid
+        # sits flat near 1.0, and ties there would depress the correlation for a
+        # numerical reason rather than a measurement one. The two are
+        # rank-identical wherever the sigmoid is not saturated.
+        g = g.dropna(subset=["z", "grip"]).assign(
+            _lg=lambda d: proxy_logit(d.z.astype(float), d.grip.astype(float)))
         if len(g) < 4:
             continue
-        r = g.proxy.rank().corr((-g.grip).rank(), method="spearman")
+        r = g._lg.rank().corr((-g.grip).rank(), method="spearman")
         if pd.notna(r):
             rhos.append(float(r))
     if not rhos:
