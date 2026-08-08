@@ -1076,8 +1076,17 @@ def main():
                                  tasks="\n".join(train_tasks[:40]))
                 planned = call_llm(run, cfg["distiller"], pp, f"{rephraser}_plan",
                                    session=run.session, add_dir=run.dir, effort="high")
-                new = [{"task": m.group(1), "phrase": m.group(2).strip()}
-                       for m in re.finditer(r"^\s*\[([^\]]+)\]\s+(.+)$", planned, re.M)]
+                allowed = set(train_tasks)
+                new, rejected = [], []
+                for m in re.finditer(r"^\s*\[([^\]]+)\]\s+(.+)$", planned, re.M):
+                    t = m.group(1).strip()
+                    (new if t in allowed else rejected).append(
+                        {"task": t, "phrase": m.group(2).strip()})
+                if rejected:
+                    # a probe outside the training split would measure on a task
+                    # the loop is not permitted to learn from
+                    print(f"    dropped {len(rejected)} probe(s) naming tasks "
+                          f"outside the training split")
                 if new:
                     nd = score_phrases(run, cfg, pd.DataFrame(new), f"probe_i{it}",
                                        draw=it + 1)

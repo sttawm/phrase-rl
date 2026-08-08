@@ -1,0 +1,164 @@
+{
+ "whole_rulebook": {
+  "with_rules": 0.5446655332438163,
+  "unrephrased": 0.5930633698441763,
+  "delta": -0.04839783660036001
+ },
+ "per_rule": {
+  "rule_1": {
+   "text": "Keep the original wording unless a rule below applies.",
+   "delta_proxy": -0.009175066679930177,
+   "n": 8,
+   "by_kind": {
+    "search": {
+     "delta_proxy": -0.009175066679930177,
+     "n": 8
+    }
+   }
+  },
+  "rule_2": {
+   "text": "Use common household nouns.",
+   "delta_proxy": -0.08100085259100631,
+   "n": 8,
+   "by_kind": {
+    "search": {
+     "delta_proxy": -0.08100085259100631,
+     "n": 8
+    }
+   }
+  },
+  "rule_3": {
+   "text": "Keep existing color adjectives.",
+   "delta_proxy": -0.1177030411860962,
+   "n": 8,
+   "by_kind": {
+    "search": {
+     "delta_proxy": -0.1177030411860962,
+     "n": 8
+    }
+   }
+  }
+ },
+ "samples": [
+  {
+   "task": "put stuffedduck in pan",
+   "base": "place yellow duck in pot",
+   "rewrite": "[dry-run:gemini] 610341445ca0"
+  },
+  {
+   "task": "turn lever vertical to front",
+   "base": "pull the silver handle forward",
+   "rewrite": "[dry-run:gemini] c5513e1d7816"
+  },
+  {
+   "task": "pick up pan from stove",
+   "base": "pick up the small silver pot from the stove",
+   "rewrite": "[dry-run:gemini] c57e038be017"
+  },
+  {
+   "task": "put pot in sink",
+   "base": "move the pot of fake food to the sink",
+   "rewrite": "[dry-run:gemini] 329c169b834d"
+  },
+  {
+   "task": "put blueberries on plate sink",
+   "base": "place blue grapes on the yellow plate in the sink",
+   "rewrite": "[dry-run:gemini] a9e35c240f86"
+  },
+  {
+   "task": "fold the cloth from bottom right to top left",
+   "base": "diagonally fold the green towel from bottom right to top left",
+   "rewrite": "[dry-run:gemini] 6af0c68a9921"
+  },
+  {
+   "task": "move the silver pot to the upper right of table",
+   "base": "slide the grey stuffed animal to the upper right",
+   "rewrite": "[dry-run:gemini] 382e62c1eecf"
+  },
+  {
+   "task": "fold the cloth from top to bottom",
+   "base": "fold the blue cloth by pulling the top down",
+   "rewrite": "[dry-run:gemini] 21b10f76c73b"
+  },
+  {
+   "task": "put detergent in sink",
+   "base": "place the white bottle in the sink",
+   "rewrite": "[dry-run:gemini] 37dd8ad2a353"
+  },
+  {
+   "task": "pick up any cup",
+   "base": "pick up any cup from the rack",
+   "rewrite": "[dry-run:gemini] 1ff946efa80e"
+  },
+  {
+   "task": "wipe pot with sponge",
+   "base": "use the sponge to wipe the pot",
+   "rewrite": "[dry-run:gemini] 1dd3d488370b"
+  },
+  {
+   "task": "unfold the cloth from bottom to top",
+   "base": "flatten the orange rag from bottom to top",
+   "rewrite": "[dry-run:gemini] ca6459f4683c"
+  },
+  {
+   "task": "put clothes in laundry machine",
+   "base": "place the clothes into the open laundry machine",
+   "rewrite": "[dry-run:gemini] 22a500ce28f7"
+  },
+  {
+   "task": "put carrot in pot or pan",
+   "base": "put carrot in pot",
+   "rewrite": "[dry-run:gemini] 06557b96b4ac"
+  },
+  {
+   "task": "end effector reaching salmon",
+   "base": "bring gripper close to the salmon",
+   "rewrite": "[dry-run:gemini] 2494cf975c88"
+  },
+  {
+   "task": "put cup from anywhere into sink",
+   "base": "put the blue plastic cup in the sink",
+   "rewrite": "[dry-run:gemini] 940a6c78a6aa"
+  },
+  {
+   "task": "put brush into pot or pan",
+   "base": "drop the brush inside the silver pot",
+   "rewrite": "[dry-run:gemini] 48abeee6e8e4"
+  },
+  {
+   "task": "put carrot on plate",
+   "base": "place carrot onto the green plate",
+   "rewrite": "[dry-run:gemini] cfe675dca31f"
+  },
+  {
+   "task": "put bowl on plate",
+   "base": "place the bowl onto the plate",
+   "rewrite": "[dry-run:gemini] 6ced14f2b52d"
+  },
+  {
+   "task": "pick up glue and put into drawer",
+   "base": "put the red tube of glue in the top left organizer",
+   "rewrite": "[dry-run:gemini] 7f68f051eab3"
+  },
+  {
+   "task": "pick up blue pen and put into drawer",
+   "base": "move the blue pen to the top left plastic drawer",
+   "rewrite": "[dry-run:gemini] 10c5100126c2"
+  },
+  {
+   "task": "pick up scissors and put into drawer",
+   "base": "pick up scissors and place in drawer",
+   "rewrite": "[dry-run:gemini] 6fddba7ef480"
+  },
+  {
+   "task": "put pepper in pot or pan",
+   "base": "place the pepper in the pot",
+   "rewrite": "[dry-run:gemini] c51fe2759398"
+  },
+  {
+   "task": "move light switch to the right",
+   "base": "toggle the switch right",
+   "rewrite": "[dry-run:gemini] 0e24edf9ce62"
+  }
+ ]
+}

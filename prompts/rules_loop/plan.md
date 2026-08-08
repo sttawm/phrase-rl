@@ -9,8 +9,14 @@ PROPOSED EXPERIMENTS (from the rulebook audit; may be empty, in which case
 propose nothing and reply with no lines):
 {{suggestions}}
 
-Write phrases only for these tasks (use the task name verbatim):
-{{tasks}}
+Choose which tasks to probe yourself, from the evidence file. Use ONLY task names
+that appear there, verbatim — that file is the permitted set, and a probe naming
+anything else is discarded.
+
+Prefer tasks where more measurement would actually change what we know: ones with
+few phrases, ones whose phrases are bunched at similar scores, or ones where the
+audit's questions bite. Spending all the probes on a task that is already
+densely measured buys little.
 
 Each phrase must be a plausible instruction for its task — a real thing someone
 might say — not a nonsense string. Vary one thing at a time where you can, so

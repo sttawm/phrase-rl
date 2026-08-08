@@ -1,0 +1,43 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+An open red metal toolbox drawer contains various tools, including red wire strippers, yellow-handled shears, and a tap wrench set. A robotic gripper is positioned above the drawer, and another drawer is partially open below.
+The instruction asks the robot to grasp the yellow-handled shears (referred to as "scissors") and place them into a drawer (such as the lower open drawer of the red toolbox).
+
+Original: scissors as many as possible potential replacements: yellow shears, yellow-handled cutters, yellow scissors, yellow snips, cutting tool with yellow handles
+Original: drawer as many as possible potential replacements: red drawer, tool drawer, cabinet drawer, lower compartment, bottom drawer
+Original: pick up as many as possible potential replacements: grab, grasp, lift, retrieve, take, collect
+Original: put into as many as possible potential replacements: place inside, deposit in, transfer to, drop into, set in
+Original: Adjectives as many as possible potential replacements: yellow, red, lower, open, bottom
+Original: Adverbs: None
+
+Original Instruction:
+pick up scissors and put into drawer
+
+Incoming instruction: pick up scissors and place in drawer
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

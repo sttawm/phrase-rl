@@ -1,0 +1,67 @@
+You are auditing a rulebook for rewriting instructions given to a robot policy —
+against the rewrites it produced, and against the measured effect of each of its
+rules.
+
+You audit the WHOLE rulebook at once, not one rule at a time, so that you can see
+rules interacting: two rules pulling against each other, or one only paying off
+when another has already fired, are findings a per-rule view cannot produce.
+
+Read the working file before answering. It covers every rule in one place:
+
+/Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke28/pass_gemini/iter_01/rules_eval.md
+
+It contains, for each numbered rule: the rule's text, the measured change in
+estimated success when THAT RULE ALONE was applied (a controlled single-edit
+contrast against the same base instructions), how many instructions it was
+measured on, and where available the same delta broken down by input kind
+(original / natural / adversarial / rephrased). A rule that helps one kind and
+not another is not a weak rule — it is a conditional one, and should be reported
+that way. The file ends with a sample of base → rewrite pairs from applying the
+whole rulebook. A `.json` twin sits beside it if you would rather compute over it.
+
+RULEBOOK UNDER AUDIT:
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+## What to report per rule
+
+Two things that are genuinely different, never conflated:
+
+- **adherence** — did the applier actually do what the rule said? Judge this from
+  the rewrite samples, not from the numbers.
+- **performance** — when it WAS obeyed, what did the measurement say it did to
+  success? Cite the number, and the per-kind split where it exists.
+
+A rule can have high adherence and poor performance (it was followed and that was
+a bad idea) or the reverse (it is a good idea nobody executed). Those call for
+opposite fixes, so state both even when one seems obvious.
+
+Then say **what to do about the rule, and how** — concretely enough to act on. Not
+a label. If it should be simplified, give the simpler wording or say which clause
+to cut. If it should be narrowed, say to which input kind or which condition. If
+it should be dropped, say what evidence would have to appear for it to earn a way
+back. If the measurement is too thin to call, say what would settle it. Write
+this as prose; the reader is another model deciding what the next rulebook should
+contain, and it can weigh a real argument better than a category.
+
+## Suggestions
+
+After every rule is covered, propose **new phrasings to measure** — experiments
+that would collect evidence the current bank lacks. These are for the phrase
+bank, not for the rulebook: each line is a wording to go and test, plus what its
+outcome would tell us. They do not need to correspond to rules one-for-one, and
+if the evidence genuinely settles everything you looked at, it is correct to
+propose none rather than invent filler.
+
+## Format
+
+Reply with these two delimiter lines verbatim, and nothing before the first:
+
+===RULE NOTES===
+1. <adherence, performance with numbers, and what to do about it and how>
+2. <...>
+(one block per rule; every rule covered; prose, as long as it needs to be)
+===SUGGESTIONS===
+<one phrasing experiment per line: what to measure and what it would tell us>
+(may be empty)
