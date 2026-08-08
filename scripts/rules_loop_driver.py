@@ -227,6 +227,31 @@ def _log_llm(run, tag, prompt, response):
 REASONING_ROLES = ("distill", "judge", "plan", "corpus")
 
 
+def stage_for_agent(run):
+    """Mirror the run's working files into the agent workspace and return the
+    files that came back. Only what the prompts reference crosses over: small
+    CSV and markdown artifacts, never the repo."""
+    run.agent_dir.mkdir(parents=True, exist_ok=True)
+    for f in run.dir.rglob("*"):
+        if f.is_file() and f.suffix in (".csv", ".md", ".json") and ".sb" not in f.name:
+            dst = run.agent_dir / f.relative_to(run.dir)
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            if not dst.exists() or dst.stat().st_mtime < f.stat().st_mtime:
+                dst.write_bytes(f.read_bytes())
+
+
+def collect_from_agent(run):
+    """Copy back anything the agent wrote (it authors corpus_stats.md itself)."""
+    if not run.agent_dir.exists():
+        return
+    for f in run.agent_dir.rglob("*"):
+        if f.is_file() and f.suffix in (".csv", ".md", ".json"):
+            dst = run.dir / f.relative_to(run.agent_dir)
+            if not dst.exists() or dst.stat().st_mtime < f.stat().st_mtime:
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                dst.write_bytes(f.read_bytes())
+
+
 def sandbox_wrapper(run):
     """macOS seatbelt profile: everything allowed EXCEPT reading this repo, with
     the run directory re-allowed even though it lives inside the repo.
@@ -242,12 +267,13 @@ def sandbox_wrapper(run):
     protection)."""
     if not shutil.which("sandbox-exec"):
         return []
-    prof = run.dir / ".sandbox.sb"
+    run.agent_dir.mkdir(parents=True, exist_ok=True)
+    prof = run.agent_dir / ".sandbox.sb"
     prof.write_text(
         "(version 1)\n"
         "(allow default)\n"
         f'(deny file-read* (subpath "{REPO.resolve()}"))\n'
-        f'(allow file-read* file-write* (subpath "{run.dir.resolve()}"))\n')
+        f'(allow file-read* file-write* (subpath "{run.agent_dir.resolve()}"))\n')
     return ["sandbox-exec", "-f", str(prof)]
 
 
@@ -273,37 +299,54 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
         cmd = sandbox_wrapper(run) + ["claude", "-p", prompt, "--output-format", "text",
                "--model", run.claude_model, "--effort", effort]
         if add_dir:
-            # the agent reads its working files itself, Claude-Code style, instead
-            # of us pasting summaries into the prompt
-            cmd += ["--add-dir", str(add_dir),
-                    # Bash included deliberately: the evidence table is ~1400 rows,
-                    # far past what is reliable to eyeball. With a shell the agent
-                    # can group, filter and correlate it the way we would.
-                    # Full tooling, including a shell: the evidence table runs
-                    # to thousands of rows and aggregating it properly beats
-                    # skimming it. Isolation is enforced at the FILESYSTEM layer
-                    # instead (see sandbox_wrapper) -- a tool allowlist cannot
-                    # bound a shell anyway.
-                    "--allowedTools", "Read", "Grep", "Glob", "Bash", "Write"]
+            # The agent reads its working files itself, Claude-Code style, rather
+            # than us pasting summaries into the prompt. Full tooling including a
+            # shell: the evidence table runs to thousands of rows and aggregating
+            # it properly beats skimming it. Isolation is enforced at the
+            # FILESYSTEM layer (sandbox_wrapper + a workspace outside the repo) --
+            # a tool allowlist cannot bound a shell anyway. The workspace is the
+            # cwd, so nothing needs adding.
+            cmd += ["--allowedTools", "Read", "Grep", "Glob", "Bash", "Write"]
         if session:
             marker = run.dir / f".session_{session}"
             started = marker.exists()
             cmd += (["--resume", session] if started else ["--session-id", session])
-        r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        stage_for_agent(run)
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout,
+                           cwd=str(run.agent_dir), stdin=subprocess.DEVNULL)
         if r.returncode != 0 and session and marker.exists():
             # a resume can fail if the session was never really created; fall back
             # to starting it fresh rather than wedging every later call
             marker.unlink(missing_ok=True)
             cmd = [c for c in cmd if c not in ("--resume", session)] + ["--session-id", session]
-            r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout,
+                               cwd=str(run.agent_dir), stdin=subprocess.DEVNULL)
+        blob = (r.stdout or "") + (r.stderr or "")
+        if "Not logged in" in blob or "/login" in blob:
+            raise RuntimeError(
+                "the claude CLI is not authenticated for headless use. Run `claude` "
+                "once interactively and sign in, then re-run -- the loop resumes "
+                "from wherever it stopped. (Or pass --distiller gemini to run the "
+                "reasoning prompts through the Gemini API instead.)")
         if r.returncode != 0:
-            raise RuntimeError(f"claude CLI failed: {r.stderr[:300]}")
+            raise RuntimeError(f"claude CLI failed (rc={r.returncode}): "
+                               f"{(r.stderr or r.stdout or '(no output)')[:300]}")
+        collect_from_agent(run)
         if session:
             marker.write_text(session)      # only after a call actually succeeded
         response = r.stdout.strip()
     elif backend == "gemini":
         from google import genai
         from google.genai import types
+        # An API backend has no filesystem: inline every working file the prompt
+        # names, so the same prompts serve both paths without a second wording.
+        for m in re.findall(r"^\s{2}([A-Za-z0-9_./-]+\.(?:csv|md|json))\s*$",
+                            prompt, re.M):
+            f = run.dir / m
+            if f.exists():
+                body = f.read_text()[:120_000]
+                prompt = prompt.replace(f"  {m}",
+                                        f"  {m} (contents below)\n\n```\n{body}\n```\n")
         client = genai.Client()
         resp = client.models.generate_content(
             model="gemini-pro-latest", contents=prompt,
@@ -351,6 +394,12 @@ class Run:
         self.dry = dry
         self.mock_scoring = mock_scoring
         self.dir = REPO / "results" / "rules_runs" / run_id
+        # The agent's workspace is OUTSIDE the repo. Running an agent from a cwd
+        # inside a directory the sandbox denies makes the CLI die with EPERM as it
+        # walks up looking for .git and settings -- and more importantly, "given
+        # only what it needs" is a property of the workspace, not of a deny rule.
+        self.agent_dir = Path(os.environ.get(
+            "RULES_AGENT_DIR", "/tmp/rules_loop_agent")) / run_id
         self.session = None
         self.claude_model = "claude-opus-5"   # set from config at run start
         (self.dir / "jobs").mkdir(parents=True, exist_ok=True)
@@ -369,7 +418,7 @@ class Run:
             "min_eps_per_task": args.min_eps_per_task,
 
             "rephrasers": args.rephrasers.split(","),
-            "distiller": "claude", "judge": "claude",
+            "distiller": args.distiller, "judge": args.distiller,
             "claude_model": args.claude_model,
             "max_probes": args.max_probes,
             "init_rules_from": args.init_rules_from,
@@ -705,8 +754,40 @@ def ensure_corpus_file(run, cfg):
     if run.dry or not inputs.exists():
         out.write_text("# Corpus statistics\n\n(dry-run placeholder)\n")
         return out
-    p = prompt_from("corpus.md", inputs_dir=inputs, out_file=out)
-    call_llm(run, "claude", p, "corpus", add_dir=REPO, effort="high", timeout=1800)
+    staged = run.dir / "corpus_inputs"
+    staged.mkdir(exist_ok=True)
+    copied = []
+    for f in sorted(inputs.iterdir()):
+        # exclude anything carrying earlier rules or their outcomes
+        if f.is_file() and not any(x in f.name.lower() for x in ("rules", "readme")):
+            (staged / f.name).write_bytes(f.read_bytes())
+            copied.append(f.name)
+    jwrite(run.dir / "corpus_inputs_manifest.json",
+           {"copied": copied,
+            "excluded": [f.name for f in sorted(inputs.iterdir()) if f.name not in copied]})
+    print(f"[{run.id}] corpus inputs staged: {len(copied)} files")
+    # .txt/.csv inputs are not covered by the default stage filter
+    run.agent_dir.mkdir(parents=True, exist_ok=True)
+    (run.agent_dir / "corpus_inputs").mkdir(exist_ok=True)
+    for f in staged.iterdir():
+        (run.agent_dir / "corpus_inputs" / f.name).write_bytes(f.read_bytes())
+    backend = cfg.get("distiller", "claude")
+    if backend == "claude":
+        p = prompt_from("corpus.md", inputs_dir="corpus_inputs", out_file=out.name)
+        call_llm(run, backend, p, "corpus", add_dir=run.agent_dir,
+                 effort="high", timeout=1800)
+    else:
+        # an API backend cannot write files: inline the corpus and take the reply
+        # as the artifact
+        text = "\n\n".join(
+            f"### {f.name}\n```\n{f.read_text(errors='replace')[:200_000]}\n```"
+            for f in sorted(staged.iterdir()) if f.suffix in (".txt", ".csv", ".md"))
+        p = (prompt_from("corpus.md", inputs_dir="(inlined below)", out_file=out.name)
+             .replace("Reply with a one-line confirmation and the two tier sizes "
+                      "once the file is written.",
+                      "Reply with the FILE CONTENTS themselves and nothing else.")
+             + "\n\n## Corpus files\n\n" + text)
+        out.write_text(call_llm(run, backend, p, "corpus", effort="high", timeout=1800))
     if not out.exists():
         out.write_text("# Corpus statistics\n\n(agent did not write a file)\n")
     return out
@@ -900,6 +981,9 @@ def main():
                          "F = clamp(budget/C, this, 16)")
     ap.add_argument("--min-eps-per-task", type=int, default=8,
                     help="training-task support floor (same episode-count criterion as the search)")
+    ap.add_argument("--distiller", default="claude", choices=["claude", "gemini"],
+                    help="backend for the distiller/judge/planner (claude needs an "
+                         "authenticated CLI; gemini uses the API and inlines files)")
     ap.add_argument("--claude-model", default="claude-opus-5",
                     help="model for the distiller/judge/planner and for "
                          "rephraser=claude")
