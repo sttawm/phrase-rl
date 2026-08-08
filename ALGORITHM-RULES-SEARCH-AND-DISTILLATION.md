@@ -4,8 +4,9 @@ An LLM writes a rulebook for rewriting task instructions. The rulebook is applie
 by a rephraser model, the rewrites are scored, and the measurements come back to
 the LLM so it can revise. Repeat until validation stops improving.
 
-Run it **twice**: first on training data, then a few times on val8. Combine the
-two rulebooks at the end.
+Run it **twice**: first on training data, then a few times on val8. The output
+is **per-model rulebooks, never merged**: each rephraser ends with a
+training-derived ruleset (round 1) and a training+val8-derived ruleset (round 2).
 
 ---
 
@@ -79,7 +80,12 @@ for rephraser in [qwen, claude, gemini]:           # shared bank, per-model rule
 
   rules_per_model[rephraser] = best.rules
 
-final_rules = combine(rules_per_model)
+# OUTPUT: one rulebook per (rephraser, round) -- six artifacts total. No merging:
+# each model's rules are tuned to its own rule-following capacity (see (2)), and
+# a combined book would reintroduce exactly the capacity mismatch that killed v2.
+#   round 1 -> rules_r1[model]   (training-derived)
+#   round 2 -> rules_r2[model]   (training + val8-derived, starting from rules_r1[model])
+return rules_per_model
 ```
 
 ---
@@ -188,8 +194,10 @@ noise for every phrase, so phrase contrasts are not swamped by decode variance.
 
 ## Splits and what may be reported
 
-Round 1 early-stops on val8; round 2 trains on it. Either way val8 is spent as an
-evaluation instrument — **the sealed set certifies the final rules.**
+Round 1 early-stops on val8; round 2 trains on it (each model's round-2 pass
+starts from its own round-1 rulebook). Either way val8 is spent as an evaluation
+instrument — **the sealed set certifies the final rulebooks, separately per
+model.**
 
 Report *both* val8 numbers: the round-1 rules (proxy-distilled, val8 seen only
 through early stopping) and the round-2 rules (distilled against val8 rollouts).

@@ -1,0 +1,18 @@
+{
+ "score": 0.5749805907704034,
+ "base": 0.5930633698441763,
+ "delta": -0.01808277907377287,
+ "n": 24,
+ "summary": {
+  "per_rule_perf": {
+   "rule_1": {
+    "text": "Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.",
+    "delta_proxy": -0.1333633163839989,
+    "n": 8
+   }
+  },
+  "judge": "[dry-run:claude] 07c80a06af79",
+  "rule_notes": "",
+  "suggestions": ""
+ }
+}

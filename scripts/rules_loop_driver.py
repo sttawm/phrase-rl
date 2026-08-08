@@ -217,6 +217,7 @@ class Run:
             "rephrasers": args.rephrasers.split(","),
             "distiller": "claude", "judge": "claude",
             "max_probes": args.max_probes,
+            "init_rules_from": args.init_rules_from,
             "rollback_on_regress": not args.no_rollback,
             "proxy": PROXY,
             "prompt_hashes": {p.name: hashlib.sha1(p.read_bytes()).hexdigest()[:12]
@@ -584,6 +585,9 @@ def main():
     ap.add_argument("--min-eps-per-task", type=int, default=8,
                     help="training-task support floor (same episode-count criterion as the search)")
     ap.add_argument("--max-probes", type=int, default=20)
+    ap.add_argument("--init-rules-from", default=None, metavar="RUN_ID",
+                    help="start each pass from RUN_ID's best rulebook for the same "
+                         "model (round 2 initializes from round 1 this way)")
     ap.add_argument("--no-rollback", action="store_true",
                     help="keep revising the latest rulebook even after a "
                          "validation regression (default: revise the best)")
@@ -656,14 +660,24 @@ def main():
         # full history -- every prior rulebook, rationale, and audit
         run.session = str(uuid.UUID(hashlib.sha1(f"{run.id}:{rephraser}".encode()).hexdigest()[:32]))
         state_p = pdir / "state.json"
+        init_rules = None
+        if cfg.get("init_rules_from"):
+            prev_best = (REPO / "results" / "rules_runs" / cfg["init_rules_from"]
+                         / f"pass_{rephraser}" / "best_rules.md")
+            if prev_best.exists():
+                init_rules = prev_best.read_text()
+                print(f"[{run.id}:{rephraser}] initialized from "
+                      f"{cfg['init_rules_from']}'s best rulebook")
         st = jread(state_p) if state_p.exists() else {
             "iter": 0, "best_val": -1e9, "best_iter": -1, "since_best": 0,
             "last_val": -1e9,
-            "rules": ("===RULES===\n"
+            "rules": init_rules or ("===RULES===\n"
                       "1. Rewrite the instruction as a short, plain imperative that "
                       "keeps the same objects and goal.\n"
                       "===RATIONALE===\nno-rules baseline: the scaffold alone, measured "
                       "as iteration 0 so every distilled rulebook has an anchor to beat.\n")}
+        # iteration 0 measures whatever we start from -- the no-rules scaffold in
+        # round 1, the round-1 rulebook in round 2 -- so the anchor is always real
         while st["since_best"] < cfg["patience"] and st["iter"] < cfg["max_iters"]:
             it = st["iter"]
             itdir = pdir / f"iter_{it:02d}"
@@ -779,8 +793,11 @@ def main():
         (pdir / "best_rules.md").write_text(rules_per_model[rephraser])
         print(f"[{run.id}:{rephraser}] done: best iter {st['best_iter']} val {st['best_val']:.3f}")
 
-    jwrite(run.dir / "final.json", {m: f"pass_{m}/best_rules.md" for m in rules_per_model})
-    print(f"[{run.id}] all passes complete -> {run.dir}/final.json")
+    jwrite(run.dir / "final.json", {
+        "note": "per-model rulebooks -- deliberately NOT merged; each is tuned to "
+                "its applier's rule-following capacity",
+        "rulebooks": {m: f"pass_{m}/best_rules.md" for m in rules_per_model}})
+    print(f"[{run.id}] all passes complete -> {run.dir}/final.json (per-model, unmerged)")
 
 
 if __name__ == "__main__":
