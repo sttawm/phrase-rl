@@ -28,6 +28,11 @@ mark "$n recorded trajectory files"
 # of them landed a single episode in 40. Scoring 28 phrases against one scene is
 # a measurement in name only, so top those tasks up with more seeds before
 # extracting. Easy tasks are already well past the floor and are skipped.
+# 60 extra seeds, not 160: at the measured success rates the extra 100 buys one
+# more task above the floor for 3.6h of GPU, while the training half (824
+# phrases, the bulk of the loop's evidence) waits. The core val8 tasks the loop
+# validates on already carry 11-37 successful episodes; only the bonus
+# distractor scenes are thin, and n_ctx records that honestly.
 FLOOR="${CTX_FLOOR:-10}"
 thin=$(ls "$TRAJ" 2>/dev/null | sed -E 's/_ep[0-9]+.*//; s/\.npz$//' | sort | uniq -c \
        | awk -v f="$FLOOR" '$1 < f {print $2}')
@@ -47,7 +52,7 @@ PY
     --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
     --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
     --phrases /workspace/phrase-rl/data/phrases_sim_topup.parquet \
-    --episode-ids $(seq 40 199) \
+    --episode-ids $(seq 40 $((40 + ${TOPUP_EPS:-60} - 1))) \
     --out /workspace/phrase-rl/data/rollouts_simtopup.parquet \
     --record-dir /workspace/phrase-rl/data/sim_traj_val8 --record-success-only
   cd /workspace/phrase-rl
