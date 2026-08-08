@@ -39,6 +39,9 @@ sys.path.insert(0, str(REPO / "src"))
 ap = argparse.ArgumentParser()
 ap.add_argument("--shard", type=int, default=0)
 ap.add_argument("--of", type=int, default=1)
+ap.add_argument("--task-kind", default="all", choices=["all", "train", "sim"],
+                help="train = the bridge training instructions; sim = the "
+                     "simulator tasks (widowx_*), which the loop validates on")
 ap.add_argument("--contexts", type=int, default=16)   # C
 ap.add_argument("--frames", type=int, default=4)      # F, the calibration's value
 ap.add_argument("--budget", type=int, default=64)     # F*C target
@@ -49,11 +52,17 @@ args = ap.parse_args()
 from phrase_rl.phase2_train import score_phrases  # noqa: E402
 
 todo = pd.read_parquet(REPO / "results/analysis/bank_to_score.parquet")
+is_sim = todo.task.astype(str).str.startswith("widowx_")
+if args.task_kind == "train":
+    todo = todo[~is_sim]
+elif args.task_kind == "sim":
+    todo = todo[is_sim]
 tasks = sorted(todo.task.unique())
 mine = [t for i, t in enumerate(tasks) if i % args.of == args.shard]
 todo = todo[todo.task.isin(mine)]
 
-out_path = REPO / f"results/analysis/bank_scores_shard{args.shard}of{args.of}.parquet"
+out_path = REPO / (f"results/analysis/bank_scores_{args.task_kind}"
+                   f"_{args.shard}of{args.of}.parquet")
 done = set()
 rows = []
 if out_path.exists():
@@ -74,7 +83,7 @@ sargs = types.SimpleNamespace(k=8, score_seed=args.seed, tau_min=0.0,
                               reward_mode="verifier", k_l2=4, score_timeout=3600,
                               _reward_frames_map=None)
 ipc = Path(args.ipc)
-print(f"shard {args.shard}/{args.of}: {len(mine)} tasks, {len(todo)} phrases "
+print(f"[{args.task_kind}] shard {args.shard}/{args.of}: {len(mine)} tasks, {len(todo)} phrases "
       f"({len(todo) - len(done)} outstanding)", flush=True)
 
 for ti, (task, grp) in enumerate(todo.groupby("task"), 1):
@@ -119,4 +128,5 @@ for ti, (task, grp) in enumerate(todo.groupby("task"), 1):
           f"F={F} C={C} -> {len(rows)} rows total", flush=True)
 
 pd.DataFrame(rows).to_parquet(out_path, index=False)
-print(f"BANK-SCORING-DONE shard {args.shard}: {len(rows)} rows -> {out_path.name}")
+print(f"BANK-SCORING-DONE [{args.task_kind}] shard {args.shard}: "
+      f"{len(rows)} rows -> {out_path.name}")
