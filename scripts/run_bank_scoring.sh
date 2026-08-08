@@ -53,7 +53,8 @@ fi
 
 SRV_PY=$(pick_python phrase_rl.phase2_score_server) \
   || { mark "FATAL: no venv on this pod can import phrase_rl.phase2_score_server"; exit 1; }
-SCORE_PY=$(pick_python pandas) || SCORE_PY="$SRV_PY"
+SCORE_PY=$(pick_python phrase_rl.phase2_train) \
+  || { mark "FATAL: no venv can import phrase_rl.phase2_train (needs google.genai)"; exit 1; }
 mark "server python: $SRV_PY"
 
 if ! pgrep -f "[p]hase2_score_server.*$IPC_DIR" >/dev/null 2>&1; then
