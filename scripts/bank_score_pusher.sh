@@ -37,7 +37,11 @@ except Exception:
   for i in 1 2 3; do
     timeout 600 bash -c "git -c rebase.autoStash=true pull -q --rebase origin main && git push -q origin HEAD:main" \
       && { ok=1; break; }
-    git rebase --abort 2>/dev/null; sleep 20
+    # `git rebase --abort` FAILS when no rebase is in progress, leaving a stale
+    # .git/rebase-merge behind that wedges every later pull and push -- this pod
+    # sat unpublished for an hour on exactly that
+    git rebase --abort 2>/dev/null; rm -rf .git/rebase-merge .git/rebase-apply
+    sleep 20
   done
   [ "$ok" = 1 ] && { log "pushed $rows rows"; last="$rows"; } || log "PUSH FAILED, will retry next round"
   # the scorer exits and pushes on its own; stop once it is gone and we are current
