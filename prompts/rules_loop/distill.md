@@ -10,10 +10,10 @@ message alone:
       What the policy's training instructions look like: vocabulary,
       grammatical shape, register, notable absences.
 
-The evidence table is large. `evidence_summary.csv` sits beside it with one row
-per task -- phrase count, best/worst/median, spread, and how much of it rests on
-real rollouts versus thin sampling, sorted by spread. Start there, then read into
-the detail for the tasks it points you to.
+The evidence table is large — aggregate it, do not skim it. You have a shell.
+`evidence_summary.csv` sits beside it with one row per task (phrase count,
+best/worst/median, spread, how much rests on real rollouts versus thin sampling,
+sorted by spread) as a starting point, but compute whatever else you need.
 
   {{evidence_file}}
       Every phrase measured so far, with its estimated success rate, grouped by

@@ -1,0 +1,46 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a toy kitchen setup. On the left, there is a white sink containing a grey, rectangular, gridded plastic drying rack (or utensil holder). To the right of the sink, there is a toy stove with black grates and grey knobs. In the background, there is a toy faucet, a green toy cabbage, a red spice bottle, and some toy food items like salmon sushi and a red strawberry near a blue play microwave. A robot gripper is partially visible near the sink and stove.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to grasp the grey plastic drying rack (utensil basket) currently sitting inside the white sink basin and lift or move it so that it is no longer inside the sink.
+
+Original: drying rack as many as possible potential replacements: grey basket, plastic drying rack, grey utensil holder, dish rack, grey organizer, rectangular basket, utensil basket, grey plastic rack, dish holder
+Original: sink as many as possible potential replacements: white sink, basin, white basin, kitchen sink
+Original: move as many as possible potential replacements: lift, remove, take, extract, pick up, pull, retrieve, transfer, displace, clear
+Original: out of as many as possible potential replacements: from, away from, outside of
+Original: Adjectives as many as possible potential replacements: grey, white, plastic, rectangular, gridded
+Original: Adverbs as many as possible potential replacements: None
+
+Original Instruction:
+move drying rack out of sink
+
+Incoming instruction: move drying rack out of sink
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

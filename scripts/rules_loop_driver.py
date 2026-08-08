@@ -34,6 +34,7 @@ import itertools
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import threading
@@ -226,6 +227,30 @@ def _log_llm(run, tag, prompt, response):
 REASONING_ROLES = ("distill", "judge", "plan", "corpus")
 
 
+def sandbox_wrapper(run):
+    """macOS seatbelt profile: everything allowed EXCEPT reading this repo, with
+    the run directory re-allowed even though it lives inside the repo.
+
+    A tool allowlist cannot contain a shell, so the boundary belongs below the
+    agent, not inside it. What this keeps out is the project's own prior
+    rulebooks (results/analysis/b4_phrasing_rules_v*.md): an agent that reads
+    those is recalling earlier conclusions rather than distilling from the
+    evidence in front of it, and the run would look normal while meaning nothing.
+
+    Returns a command prefix, or [] where seatbelt is unavailable (the run then
+    proceeds unsandboxed and says so, rather than silently dropping the
+    protection)."""
+    if run.dry or not shutil.which("sandbox-exec"):
+        return []
+    prof = run.dir / ".sandbox.sb"
+    prof.write_text(
+        "(version 1)\n"
+        "(allow default)\n"
+        f'(deny file-read* (subpath "{REPO.resolve()}"))\n'
+        f'(allow file-read* file-write* (subpath "{run.dir.resolve()}"))\n')
+    return ["sandbox-exec", "-f", str(prof)]
+
+
 def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
              effort="high"):
     """session: a uuid to pin/resume a conversation. Reasoning roles (distill,
@@ -245,7 +270,7 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
         _log_llm(run, tag, prompt, response)
         return response
     if backend == "claude":
-        cmd = ["claude", "-p", prompt, "--output-format", "text",
+        cmd = sandbox_wrapper(run) + ["claude", "-p", prompt, "--output-format", "text",
                "--model", run.claude_model, "--effort", effort]
         if add_dir:
             # the agent reads its working files itself, Claude-Code style, instead
@@ -254,15 +279,12 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
                     # Bash included deliberately: the evidence table is ~1400 rows,
                     # far past what is reliable to eyeball. With a shell the agent
                     # can group, filter and correlate it the way we would.
-                    # Read/Grep/Glob only. These honour the cwd + --add-dir
-                    # boundary; a shell does not, and an agent that can cat the
-                    # repo can read the previous project's rulebooks -- at which
-                    # point it is recalling them, not distilling from evidence.
-                    # What a shell would have been used for is precomputed into
-                    # evidence_summary.csv.
-                    "--allowedTools", "Read", "Grep", "Glob",
-                    "--disallowedTools", "Bash", "Write", "Edit", "WebFetch",
-                    "WebSearch", "Task"]
+                    # Full tooling, including a shell: the evidence table runs
+                    # to thousands of rows and aggregating it properly beats
+                    # skimming it. Isolation is enforced at the FILESYSTEM layer
+                    # instead (see sandbox_wrapper) -- a tool allowlist cannot
+                    # bound a shell anyway.
+                    "--allowedTools", "Read", "Grep", "Glob", "Bash", "Write"]
         if session:
             marker = run.dir / f".session_{session}"
             started = marker.exists()
@@ -871,6 +893,10 @@ def main():
     run.claude_model = cfg.get("claude_model", "claude-opus-5")
     rng = np.random.default_rng(cfg["seed"])
     bank = seed_bank(run)
+    sb = sandbox_wrapper(run)
+    print(f"[{run.id}] agent filesystem sandbox: "
+          + ("ON (repo unreadable, run dir allowed)" if sb else
+             "OFF -- agents can read the repo, including prior rulebooks"))
     print(f"[{run.id}] bank: {len(bank)} phrases, {bank.task.nunique()} tasks "
           f"({int(bank.gt_success.notna().sum())} with real-rollout gt)")
 
