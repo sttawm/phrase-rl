@@ -1,0 +1,4 @@
+(version 1)
+(allow default)
+(deny file-read* (subpath "/Users/sttawm/dev/robotics/phrase-rl"))
+(allow file-read* file-write* (subpath "/Users/sttawm/dev/robotics/phrase-rl/results/rules_runs/smoke33"))

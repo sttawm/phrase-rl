@@ -1,0 +1,51 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+===RULES===
+1. Keep existing color adjectives.
+
+
+---
+
+Scene analysis:
+**Description of the image:**  
+The image shows the inside of an open dishwasher rack filled with various types of drinkware. There are several white ceramic mugs, a single green mug, a dark blue mug, and multiple clear glass tumblers arranged in the rack. A robotic gripper is visible in the upper-left corner, positioned near the cups.
+
+**Meaning of the instruction in the context of the image:**  
+The instruction "pick up any cup" means the robot should select and lift any of the available drinkware from the dishwasher rack, which includes the white mugs, the green mug, the dark blue mug, or any of the transparent glass cups.
+
+* **Original Nouns:** cup  
+  * **Potential replacements:** mug, glass, tumbler, drinkware, ceramic cup, glassware
+* **Original Verbs:** pick up  
+  * **Potential replacements:** grab, grasp, lift, take, retrieve, raise
+* **Original Adjectives:** any  
+  * **Potential replacements:** a, one, one of the, any single, clear, white, green, blue, ceramic, glass
+* **Original Adverbs:** (None)
+
+---
+
+**Original Instruction:**  
+pick up any cup
+
+Incoming instruction: pick up any cup from the rack
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

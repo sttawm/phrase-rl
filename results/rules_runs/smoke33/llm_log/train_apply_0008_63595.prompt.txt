@@ -1,0 +1,42 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+A play kitchen counter containing a gray toy sink in the center with a gray faucet. To the left of the sink, there is a white/cream-colored plastic detergent bottle, a yellow toy banana, a toy stove burner, and a purple striped toy onion. Other toy vegetables like a green cabbage and an orange carrot are visible in the background.
+The instruction asks the robot to pick up the white/cream detergent bottle from the left counter and place it inside the gray sink basin.
+
+Original: detergent as many as possible potential replacements: soap bottle, detergent bottle, white bottle, cream-colored bottle, plastic container, cleaning bottle, dish soap container
+Original: sink as many as possible potential replacements: basin, gray basin, sink bowl, kitchen sink, gray sink, sink basin
+Original: put as many as possible potential replacements: place, move, set, drop, transfer, deposit, relocate, position, lower
+Original: [None] as many as possible potential replacements: [None]
+Original: [None]
+
+Original Instruction:
+put detergent in sink
+
+Incoming instruction: place the white bottle in the sink
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

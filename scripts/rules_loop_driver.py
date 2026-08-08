@@ -240,7 +240,7 @@ def sandbox_wrapper(run):
     Returns a command prefix, or [] where seatbelt is unavailable (the run then
     proceeds unsandboxed and says so, rather than silently dropping the
     protection)."""
-    if run.dry or not shutil.which("sandbox-exec"):
+    if not shutil.which("sandbox-exec"):
         return []
     prof = run.dir / ".sandbox.sb"
     prof.write_text(
@@ -346,9 +346,10 @@ def prompt_from(name, **kw):
 
 # --- run dir / config -------------------------------------------------------
 class Run:
-    def __init__(self, run_id, dry):
+    def __init__(self, run_id, dry, mock_scoring=False):
         self.id = run_id
         self.dry = dry
+        self.mock_scoring = mock_scoring
         self.dir = REPO / "results" / "rules_runs" / run_id
         self.session = None
         self.claude_model = "claude-opus-5"   # set from config at run start
@@ -488,7 +489,7 @@ def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=7200
     result = jdir / f"{jid}.result.parquet"
     if result.exists():
         return pd.read_parquet(result)
-    if run.dry:
+    if run.dry or run.mock_scoring:
         out = payload.copy()
         h = payload.phrase.map(lambda p: int(hashlib.sha1(p.encode()).hexdigest()[:6], 16) / 0xFFFFFF)
         if kind == "score":
@@ -876,7 +877,11 @@ def plot_progress(run, pdir, rephraser):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run-id", required=True)
-    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="no LLM calls and no scoring; plumbing only")
+    ap.add_argument("--mock-scoring", action="store_true",
+                    help="REAL agents and rephraser, synthetic scores -- smoke-tests "
+                         "prompts, sessions, parsing and the cache without a GPU pod")
     ap.add_argument("--rephrasers", default="qwen,claude,gemini")
     ap.add_argument("--patience", type=int, default=3)
     ap.add_argument("--max-iters", type=int, default=12)
@@ -908,7 +913,7 @@ def main():
     ap.add_argument("--seed", type=int, default=7)
     args = ap.parse_args()
 
-    run = Run(args.run_id, args.dry_run)
+    run = Run(args.run_id, args.dry_run, mock_scoring=args.mock_scoring)
     cfg = run.config(args)
     run.claude_model = cfg.get("claude_model", "claude-opus-5")
     rng = np.random.default_rng(cfg["seed"])
@@ -1149,10 +1154,13 @@ def main():
                 if not ev_file.exists():   # iteration 0 does not distil
                     write_evidence_file(run, pd.read_parquet(run.dir / "bank.parquet"),
                                         train_tasks, ev_file)
+                # the per-task summary IS the permitted task list, with coverage
+                # attached, so the planner can see where measurement is thin
                 pp = prompt_from("plan.md", suggestions=summary["suggestions"],
-                                 evidence_file=ev_file,
-                                 max_probes=cfg.get("max_probes", 20),
-                                 tasks="\n".join(train_tasks[:40]))
+                                 evidence_file=rel(ev_file),
+                                 summary_file=rel(ev_file).replace(
+                                     "evidence.csv", "evidence_summary.csv"),
+                                 max_probes=cfg.get("max_probes", 20))
                 planned = call_llm(run, cfg["distiller"], pp, f"{rephraser}_plan",
                                    session=run.session, add_dir=run.dir, effort="high")
                 allowed = set(train_tasks)
@@ -1161,6 +1169,9 @@ def main():
                     t = m.group(1).strip()
                     (new if t in allowed else rejected).append(
                         {"task": t, "phrase": m.group(2).strip()})
+                if new:
+                    print(f"    {len(new)} probes across "
+                          f"{len({r['task'] for r in new})} task(s)")
                 if rejected:
                     # a probe outside the training split would measure on a task
                     # the loop is not permitted to learn from
