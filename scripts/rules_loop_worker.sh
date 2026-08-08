@@ -15,12 +15,17 @@ RUN_ID="${RUN_ID:?set RUN_ID}"
 JOBS="results/rules_runs/$RUN_ID/jobs"
 mark() { echo "[rlworker $(date -u +%H:%M)] $*" >> /workspace/rules_worker.log; }
 
+IPC_DIR="${IPC_DIR:-/workspace/ipc}"
+case "$IPC_DIR" in
+  ""|"/"|"/workspace"|"/root"|"/tmp"|*..*) echo "unsafe IPC_DIR=$IPC_DIR" >&2; exit 1;;
+esac
+
 ensure_score_server() {
   tmux has-session -t score 2>/dev/null && return 0
-  mkdir -p /workspace/ipc
+  mkdir -p "$IPC_DIR"
   tmux new-session -d -s score \
     "cd /workspace/phrase-rl && .venv/bin/python -m phrase_rl.phase2_score_server \
-       --ipc-dir /workspace/ipc > /workspace/rl_score_server.log 2>&1"
+       --ipc-dir \"$IPC_DIR\" > /workspace/rl_score_server.log 2>&1"
   mark "booted score server"
   sleep 30
 }

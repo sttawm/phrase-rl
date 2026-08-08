@@ -18,7 +18,13 @@ FORK_CKPT="${FORK_CKPT:-results/checkpoints/phase2_v7/step_0140}"
 BETA="${BETA:-0.05}"
 [ -f "$FORK_CKPT/adapter_config.json" ] || { echo "fork ckpt missing: $FORK_CKPT"; exit 1; }
 
-IPC_DIR=/workspace/ipc
+IPC_DIR="${IPC_DIR:-/workspace/ipc}"
+# the rm below expands $IPC_DIR into a glob: refuse anything that would make it
+# scan a root or shared directory, even though every caller passes a literal
+case "$IPC_DIR" in
+  ""|"/"|"/workspace"|"/root"|"/tmp"|*..*) echo "unsafe IPC_DIR=$IPC_DIR" >&2; exit 1;;
+esac
+[ -d "$IPC_DIR" ] || mkdir -p "$IPC_DIR"
 mkdir -p "$IPC_DIR" results/checkpoints/phase2_v7e
 rm -f "$IPC_DIR"/*.req.json "$IPC_DIR"/*.done.json "$IPC_DIR"/*.failed.json \
       "$IPC_DIR"/*.err.txt "$IPC_DIR"/*.parquet "$IPC_DIR"/*.tmp
