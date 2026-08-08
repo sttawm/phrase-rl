@@ -254,7 +254,15 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
                     # Bash included deliberately: the evidence table is ~1400 rows,
                     # far past what is reliable to eyeball. With a shell the agent
                     # can group, filter and correlate it the way we would.
-                    "--allowedTools", "Read", "Grep", "Glob", "Bash"]
+                    # Read/Grep/Glob only. These honour the cwd + --add-dir
+                    # boundary; a shell does not, and an agent that can cat the
+                    # repo can read the previous project's rulebooks -- at which
+                    # point it is recalling them, not distilling from evidence.
+                    # What a shell would have been used for is precomputed into
+                    # evidence_summary.csv.
+                    "--allowedTools", "Read", "Grep", "Glob",
+                    "--disallowedTools", "Bash", "Write", "Edit", "WebFetch",
+                    "WebSearch", "Task"]
         if session:
             marker = run.dir / f".session_{session}"
             started = marker.exists()
@@ -555,6 +563,17 @@ def write_evidence_file(run, bank, tasks, path):
     cols = ["task", "phrase", "kind", "base_kind", "proxy", "proxy_imputed",
             "n_ctx", "gt_success", "source"]
     sub[[c for c in cols if c in sub.columns]].to_csv(path, index=False)
+    # per-task summary: the aggregation an agent would otherwise need a shell for
+    agg = sub.groupby("task").agg(
+        phrases=("phrase", "size"),
+        best=("proxy", "max"), worst=("proxy", "min"),
+        median=("proxy", "median"),
+        rollout_measured=("gt_success", lambda s: int(s.notna().sum())),
+        thin_evidence=("n_ctx", lambda s: int((pd.to_numeric(s, errors="coerce") < 40).sum())),
+    ).reset_index()
+    agg["spread"] = agg.best - agg.worst
+    agg = agg.sort_values("spread", ascending=False)
+    agg.to_csv(str(path).replace("evidence.csv", "evidence_summary.csv"), index=False)
     Path(str(path) + ".README.md").write_text(
         "# evidence.csv\n\n"
         f"{len(sub)} measured phrases across {sub.task.nunique()} tasks, sorted by\n"
@@ -596,8 +615,12 @@ def write_evidence_file(run, bank, tasks, path):
         "  gt_success real measured success rate, 0-100, blank if never rolled.\n"
         "             Where present, trust this over `proxy`.\n"
         "  source     where the measurement came from\n\n"
-        "You have a shell. Group, sort and aggregate this rather than reading it\n"
-        "row by row -- the within-task SPREAD is the signal, not the extremes.\n")
+        "\nevidence_summary.csv sits beside it: one row per task with phrase count,\n"
+        "best/worst/median estimate, SPREAD (best-worst), how many phrases carry a\n"
+        "real rollout number, and how many rest on thin sampling. Sorted by spread,\n"
+        "descending -- the tasks where wording matters most are at the top. Read it\n"
+        "first, then go into evidence.csv for the tasks it points you to. The\n"
+        "within-task spread is the signal, not the extremes.\n")
     return len(sub)
 
 

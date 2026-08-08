@@ -5,7 +5,8 @@ table, not a summary. A summary is useless for that job: the question is always
 "is THIS word in the corpus", and a word absent from your file will be treated as
 absent from the corpus.
 
-You have a shell. Use it — do not eyeball the corpus.
+Read the files carefully and count exactly. Where a count is genuinely
+approximate, say so rather than presenting an estimate as exact.
 
 ## Inputs
 
