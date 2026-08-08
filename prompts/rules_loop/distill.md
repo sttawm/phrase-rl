@@ -19,23 +19,30 @@ it rather than skimming it.
       within-task variation, not just the extremes. Where a phrase has a
       real-rollout number it is marked; those are more reliable than estimates.
 
-  {{eval_file}}
-      How the LAST rulebook tried actually performed: per-rule adherence, the
-      measured single-edit effect of each individual rule, and an auditor's
-      notes. A .json twin sits beside it if you want to compute over it. Absent
-      on the first iteration.
+  {{best_eval_file}}
+      How the BEST rulebook performed: per-rule adherence, the measured
+      single-edit effect of each individual rule, and an auditor's notes. A .json
+      twin sits beside it if you want to compute over it. Absent on the first
+      iteration.
 
-      Note carefully: after a regression this describes a DIFFERENT rulebook than
-      the one printed below -- it describes the attempt that lost ground, while
-      the rulebook below is the best one so far. That pairing is deliberate: build
-      from what works, informed by what just failed.
+  {{regressed_eval_file}}
+      How the REGRESSED rulebook performed, in the same format -- present only
+      when the last attempt scored worse than the best. Absent otherwise.
 
-PREVIOUS RULEBOOK (verbatim; empty on the first iteration):
-{{prev_rules}}
+BEST RULEBOOK SO FAR (verbatim; empty on the first iteration). This is what you
+are revising -- build from it:
+{{best_rules}}
+
+{{regressed_block}}
 
 Guidance:
-- A rule earns its place by evidence. If {{eval_file}} shows a rule had no
+- A rule earns its place by evidence. If {{best_eval_file}} shows a rule had no
   measurable effect, or a negative one, remove it or replace it.
+- When a regressed rulebook is shown, diff it against the best one and identify
+  which specific change cost the ground. Their two eval files let you compare the
+  same rules measured under both -- a rule present in both whose delta moved is
+  more informative than one that only appears in the loser. Do not simply revert;
+  say what you learned and why your new change is not the same mistake.
 - If a rule is being poorly adhered to, the fix may be to state it more simply
   rather than to drop it. Poor adherence and poor performance are different
   failures and have different remedies.

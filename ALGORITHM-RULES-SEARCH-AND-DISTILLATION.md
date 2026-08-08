@@ -116,26 +116,22 @@ rationale, and audit it has already produced. Rule *application* is deliberately
 stateless — phrases must not contaminate each other, and statelessness is what
 lets applies run in parallel.
 
-**(4) `prev_rules` and `last_attempt` are different things, and both are needed.**
-This is the entire regression mechanism. (`last_attempt` bundles the v0 notation's
-`rules_eval_summary` with the rulebook that produced it and its validation score —
-same object, plus provenance.)
+**(4) Two matched (rulebook, measurements) pairs.**
+This is the entire regression mechanism.
 
-| | |
+| pair | role |
 |---|---|
-| `prev_rules` | where to **build from** — the best rulebook so far |
-| `last_attempt` | what **just happened** — possibly a regression |
+| best rulebook + its `rules_eval_summary` | what to **build from** |
+| regressed rulebook + its `rules_eval_summary` | what to **avoid** — present only after a regression |
 
-Without the first, one bad iteration becomes the base for every later one and the
-search random-walks away from its own best point. Without the second, after a
-rollback the inputs would be *identical* to the previous iteration's and the
-distiller would re-derive the same failing revision forever. No separate history
-file is needed — the shared session already holds every earlier rulebook verbatim;
-what it cannot supply is the structured measurement of the attempt that just
-failed, which is what `last_attempt` carries.
-
-After a regression the eval file describes a **different rulebook** than the one
-printed above it. That pairing is deliberate and the prompt says so.
+A rulebook is never shown beside another rulebook's numbers. Building from the
+best stops one bad iteration becoming the base for every later one; showing the
+regressed pair stops the inputs being identical to the previous iteration's,
+which would make the distiller re-derive the same failing revision forever. And
+because both pairs are matched, the distiller can diff them directly — the same
+rule measured under both is far more informative than one that appears only in
+the loser. No history file is needed: the shared session already holds every
+earlier rulebook verbatim.
 
 **(5) Each rule is applied alone as well as together.**
 A rule's effect is then a paired single-edit contrast against the same bases,

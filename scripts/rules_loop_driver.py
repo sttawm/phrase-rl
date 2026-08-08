@@ -306,6 +306,11 @@ def prompt_from(name, **kw):
     t = (PROMPTS / name).read_text()
     for k, v in kw.items():
         t = t.replace("{{" + k + "}}", str(v))
+    left = sorted(set(re.findall(r"\{\{([a-z_]+)\}\}", t)))
+    if left:
+        raise KeyError(f"{name}: unsubstituted placeholder(s) {left} -- the template "
+                       f"and its call site have drifted apart. Supplied: "
+                       f"{sorted(kw)}")
     return t
 
 
@@ -951,36 +956,37 @@ def main():
             else:
                 bank = pd.read_parquet(run.dir / "bank.parquet")
                 n_ev = write_evidence_file(run, bank, train_tasks, ev_file)
-                prev_eval = pdir / f"iter_{it - 1:02d}" / "rules_eval.md"
-                if not prev_eval.exists():
-                    prev_eval = itdir / "no_previous_eval.md"
-                    prev_eval.write_text("(first iteration -- no previous rulebook was measured)")
-                # Roll back on regression: revise the BEST rulebook so far, not
-                # whatever the last iteration produced. Without this a single bad
-                # iteration becomes the base for every later one and the search
-                # random-walks away from its own best point. The session history
-                # still contains the regressing attempt, and the note below tells
-                # the distiller explicitly what happened -- so the information is
-                # kept while the starting point is not corrupted.
-                base_rules, note = st["rules"], ""
-                if cfg.get("rollback_on_regress", True) and st["best_iter"] >= 0 \
-                        and st["since_best"] > 0:
-                    bf = pdir / f"iter_{st['best_iter']:02d}" / "rules.md"
-                    if bf.exists():
-                        base_rules = bf.read_text()
-                        note = (f"\n\nNOTE ON THE LAST ATTEMPT: the rulebook you wrote at "
-                                f"iteration {it - 1} scored {st['last_val']:.4f} on "
-                                f"validation -- WORSE than iteration {st['best_iter']}'s "
-                                f"{st['best_val']:.4f}. The rulebook printed above is "
-                                f"iteration {st['best_iter']}'s, the best so far, and is "
-                                f"what you should build from. The measurements you are "
-                                f"given alongside it describe the attempt that REGRESSED, "
-                                f"not this rulebook -- read them for what to avoid. Your "
-                                f"conversation history has both rulebooks in full; diff "
-                                f"them and identify which change cost the ground.")
-                dp = prompt_from("distill.md", prev_rules=base_rules + note,
+                # Two matched (rulebook, measurements) pairs -- never a rulebook paired
+                # with another rulebook's numbers. The best pair is what to build from;
+                # the regressed pair, when there is one, is what to avoid.
+                none_eval = itdir / "no_eval.md"
+                if not none_eval.exists():
+                    none_eval.write_text("(no measurements -- first iteration)")
+
+                def pair(i):
+                    r = pdir / f"rules_{i:02d}.md"
+                    e = pdir / f"iter_{i:02d}" / "rules_eval.md"
+                    return (r.read_text() if r.exists() else st["rules"],
+                            e if e.exists() else none_eval)
+
+                bi = st["best_iter"]
+                best_rules, best_eval = pair(bi) if bi >= 0 else (st["rules"], none_eval)
+                regressed_block, regressed_eval = (
+                    "(no regression: the last attempt was the best so far)", none_eval)
+                if cfg.get("rollback_on_regress", True) and st["since_best"] > 0 and bi >= 0:
+                    rr, regressed_eval = pair(it - 1)
+                    regressed_block = (
+                        f"REGRESSED RULEBOOK (iteration {it - 1}, scored "
+                        f"{st['last_val']:.4f} on validation against the best rulebook's "
+                        f"{st['best_val']:.4f}). Do NOT build from this one -- diff it "
+                        f"against the best rulebook above and work out which change cost "
+                        f"the ground:\n{rr}\n")
+
+                dp = prompt_from("distill.md", best_rules=best_rules,
+                                 regressed_block=regressed_block,
                                  corpus_file=corpus_file, evidence_file=ev_file,
-                                 eval_file=prev_eval)
+                                 best_eval_file=best_eval,
+                                 regressed_eval_file=regressed_eval)
                 print(f"    distilling over {n_ev} measured phrases "
                       f"({len(train_tasks)} tasks) ...")
                 rules = None

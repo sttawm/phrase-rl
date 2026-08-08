@@ -1,0 +1,27 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen set. On the stove grate, there is an orange-brown tin can (labeled "PEA..."). Near the sink faucet, there is a small silver metal cooking pot. Other items include a toy fried egg on the stove and some toy vegetables in the sink.
+
+<Meaning of the instruction in the context of the image>
+The instruction tells the robot to pick up the orange-brown tin can from the stove burner and place it inside the small silver cooking pot located next to the faucet.
+
+Original: can as many as possible potential replacements: tin can, orange can, food can, bean can, metal can, soup can
+Original: pot as many as possible potential replacements: silver pot, cooking pot, metal pot, saucepan, silver container
+Original: put as many as possible potential replacements: place, move, transfer, drop, set, deposit, insert, lower
+Original: None as many as possible potential replacements: None
+
+Original Instruction:
+put can in pot
+
+Incoming instruction: put the jar into the metal pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

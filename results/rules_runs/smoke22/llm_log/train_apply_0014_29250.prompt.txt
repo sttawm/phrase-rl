@@ -1,0 +1,25 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image depicts a play kitchen setup. There is a sink on the left with a silver cooking pot inside. Next to the sink is a toy stove with two burners. On the left burner, there is a green plate, and next to it lies a yellow toy banana. On the right burner, there is a red toy food item representing a piece of salmon. A robotic end effector (gripper) is visible in the upper right, positioned near the right burner.
+
+<Meaning of the instruction in the context of the image>
+The instruction "end effector reaching salmon" means the robotic gripper should move towards and position itself near or touch the red toy salmon located on the right burner of the toy stove.
+
+Original: end effector as many as possible potential replacements: gripper, robot hand, robotic arm, mechanical claw, mechanical hand, arm, gripper tool
+Original: salmon as many as possible potential replacements: red salmon, red fish, red toy fish, salmon piece, red food toy, red object on the burner, plastic salmon
+Original: reaching as many as possible potential replacements: moving toward, approaching, extending to, going to, positioning near, touching, reaching for, coming close to, targeting, guiding to
+Original: <Adverbs> None
+
+Original Instruction:
+end effector reaching salmon
+
+Incoming instruction: bring gripper close to the salmon
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

@@ -1,0 +1,37 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+This is a controlled single-edit experiment. Apply ONLY the rule below. Leave
+every other aspect of the instruction exactly as it is, even if another rule in
+the rulebook would also apply.
+
+RULE TO APPLY: Use common household nouns.
+
+Scene description:
+**Description of the image:**
+The image shows a play kitchen setup with a white countertop containing a sink, stove burners, and dials. A black robotic arm is positioned directly above a small silver pan (or saucepan) with a handle that is sitting on one of the stove burners. There is also a larger silver pot on the leftmost burner, along with toy vegetables like yellow corn, a purple onion, and an orange carrot on the counter.
+
+**Meaning of the instruction in the context of the image:**
+The instruction "pick up pan from stove" directs the robotic gripper to grasp and lift the small silver pan/saucepan located on the active burner of the toy stove.
+
+**Original: Nouns**
+* **pan**: silver pan, small pot, metal pot, toy pan, saucepan, cookware, silver container
+* **stove**: burner, cooktop, range, stove burner, play stove, countertop burner
+
+**Original: Verbs**
+* **pick up**: lift, grasp, take, grab, retrieve, hold, raise, remove
+
+**Original: Adjectives**
+* **none** (potential additions: silver, metallic, little, small, play)
+
+**Original: Adverbs**
+* **none**
+
+Incoming instruction: pick up the small silver pot from the stove
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If this particular rule does not apply to this instruction, reply with
+the instruction unchanged.

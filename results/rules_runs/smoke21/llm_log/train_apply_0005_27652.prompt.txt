@@ -1,0 +1,22 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a black robotic gripper positioned over the bottom-right corner of a yellow cloth spread on a white table. The corners of the yellow cloth have black tape markers on them.
+
+<Meaning of the instruction in the context of the image>
+The instruction directs the robot to grasp the bottom-right corner of the yellow cloth (marked with black tape) and fold it over towards the top-left corner, performing a diagonal fold.
+
+Original: cloth as many as possible potential replacements: fabric, rag, towel, napkin, textile, sheet
+Original: fold as many as possible potential replacements: pull, bring, move, crease, flip, double over, grasp and place, drag
+Original: bottom right, top left as many as possible potential replacements: lower-right corner, upper-left corner, lower-right side, upper-left side, bottom-right corner, top-left corner
+Original: none as many as possible potential replacements: none
+
+Incoming instruction: diagonally fold the green towel from bottom right to top left
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.
