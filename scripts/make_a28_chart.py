@@ -75,8 +75,9 @@ for h, l in zip(handles, labels):
         seen.add(l); hh.append(h); ll.append(l)
 ax.legend(hh, ll, fontsize=8.5, loc="upper left")
 ax.grid(axis="y", alpha=0.25)
-ax.set_title("A28 — does the v4 training-corpus overlay cost us on NATURAL inputs?\n"
-             "hatched = one leg only (12 layouts, not 24)", fontsize=10.5)
+ax.set_title("A28 — does the v4 training-corpus overlay cost us on NATURAL inputs?  Yes, for every applier.\n"
+             "v3-v4 on MATCHED layouts: qwen +1.04, gemini +2.86, claude +5.17   "
+             "(hatched = one leg only, 12 layouts not 24)", fontsize=10.5)
 fig.tight_layout()
 fig.savefig("results/charts/a28_rulesv3_vs_v4.png", dpi=150, bbox_inches="tight",
             pad_inches=0.2)
