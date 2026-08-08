@@ -7,7 +7,8 @@ exchange. GPU work (proxy scoring, Qwen rule application) is submitted as jobs
 through git; a pod running scripts/rules_loop_worker.sh consumes them and
 commits results back. LLM calls go through pluggable backends:
 
-    distiller / judge : `claude -p` (headless CLI, no API key needed)
+    distiller / judge : `claude -p` (headless CLI, no API key needed; model set by
+                        --claude-model, default claude-opus-5)
     rephraser=claude  : `claude -p`
     rephraser=gemini  : google-genai (GEMINI_API_KEY)
     rephraser=qwen    : pod job (kind=apply), Qwen3.5-9B on a worker
@@ -137,7 +138,7 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
         return response
     if backend == "claude":
         cmd = ["claude", "-p", prompt, "--output-format", "text",
-               "--model", "claude-fable-5", "--effort", effort]
+               "--model", run.claude_model, "--effort", effort]
         if add_dir:
             # the agent reads its working files itself, Claude-Code style, instead
             # of us pasting summaries into the prompt
@@ -202,6 +203,7 @@ class Run:
         self.dry = dry
         self.dir = REPO / "results" / "rules_runs" / run_id
         self.session = None
+        self.claude_model = "claude-opus-5"   # set from config at run start
         (self.dir / "jobs").mkdir(parents=True, exist_ok=True)
         self.cfg_path = self.dir / "config.json"
 
@@ -216,9 +218,10 @@ class Run:
             "contexts_per_task": args.contexts_per_task,
             "frames_per_episode": args.frames_per_episode,
             "min_eps_per_task": args.min_eps_per_task,
-            "distiller_model": "claude-fable-5", "apply_model": "claude-fable-5",
+
             "rephrasers": args.rephrasers.split(","),
             "distiller": "claude", "judge": "claude",
+            "claude_model": args.claude_model,
             "max_probes": args.max_probes,
             "init_rules_from": args.init_rules_from,
             "rollback_on_regress": not args.no_rollback,
@@ -635,6 +638,9 @@ def main():
                          "F = clamp(budget/C, this, 16)")
     ap.add_argument("--min-eps-per-task", type=int, default=8,
                     help="training-task support floor (same episode-count criterion as the search)")
+    ap.add_argument("--claude-model", default="claude-opus-5",
+                    help="model for the distiller/judge/planner and for "
+                         "rephraser=claude")
     ap.add_argument("--max-probes", type=int, default=20)
     ap.add_argument("--init-rules-from", default=None, metavar="RUN_ID",
                     help="start each pass from RUN_ID's best rulebook for the same "
@@ -647,6 +653,7 @@ def main():
 
     run = Run(args.run_id, args.dry_run)
     cfg = run.config(args)
+    run.claude_model = cfg.get("claude_model", "claude-opus-5")
     rng = np.random.default_rng(cfg["seed"])
     bank = seed_bank(run)
     print(f"[{run.id}] bank: {len(bank)} phrases, {bank.task.nunique()} tasks "

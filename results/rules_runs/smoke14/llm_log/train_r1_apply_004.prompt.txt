@@ -1,0 +1,36 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+This is a controlled single-edit experiment. Apply ONLY the rule below. Leave
+every other aspect of the instruction exactly as it is, even if another rule in
+the rulebook would also apply.
+
+RULE TO APPLY: Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+Scene description:
+**Description of the image:**
+The image shows a robotic arm with a black gripper interacting with a folded yellow cloth (which resembles a miniature t-shirt or apron with black trim) resting on a toy kitchen stove top next to a grey sink.
+
+**Meaning of the instruction in the context of the image:**
+The instruction asks the robot to unfold the yellow cloth by grasping its lower or bottom portion and pulling or spreading it towards the top or upper section of the stove area to lay it out flat.
+
+**Original: cloth, bottom, top**
+Potential replacements for Nouns: yellow cloth, yellow fabric, yellow garment, yellow rag, bottom edge, lower part, top side, upper section, stove top
+
+**Original: unfold**
+Potential replacements for Verbs: open, spread out, pull, stretch, flatten, expand, lift
+
+**Original: bottom, top**
+Potential replacements for Adjectives: yellow, lower, upper, bottom, top
+
+**Original: from, to**
+Potential replacements for Adverbs: (None used in original, avoid adding adverbs like "upwardly")
+
+---
+
+Incoming instruction: flatten the orange rag from bottom to top
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If this particular rule does not apply to this instruction, reply with
+the instruction unchanged.

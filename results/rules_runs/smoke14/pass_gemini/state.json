@@ -1,0 +1,8 @@
+{
+ "iter": 2,
+ "best_val": 0.5786907161378159,
+ "best_iter": 0,
+ "since_best": 1,
+ "last_val": 0.5595408660439118,
+ "rules": "===RULES===\n1. Keep the original wording unless a rule below applies.\n2. Use common household nouns.\n3. Keep existing color adjectives.\n===RATIONALE===\n1. dry-run stub; numbered here on purpose so the\n   RULES/RATIONALE split is exercised by the smoke test.\n"
+}
