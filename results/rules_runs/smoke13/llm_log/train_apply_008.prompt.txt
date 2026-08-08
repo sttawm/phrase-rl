@@ -1,0 +1,27 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a robotic gripper positioned inside a grey toy kitchen sink. Inside the sink are a yellow play plate, a red toy pepper, and a blue plastic berry cluster (representing blueberries). Outside the sink on the counter is a yellow wedge of toy cheese, and to the left is a toy black stovetop.
+
+<Meaning of the instruction in the context of the image>
+The instruction directs the robot to place the blue toy blueberries (which are currently inside the sink area) onto the yellow play plate that is also located inside the grey sink.
+
+Original: blueberries as many as possible potential replacements: blue berries, blue berry, blue toy fruit, blue berry cluster, blue plastic fruit
+Original: plate as many as possible potential replacements: yellow plate, yellow dish, play plate, yellow play dish
+Original: sink as many as possible potential replacements: basin, grey sink, toy sink, sink basin
+Original: put as many as possible potential replacements: place, set, move, drop, transfer, deposit, position, lay, release
+Original: blue, yellow, plastic, toy as many as possible potential replacements: blue-colored, yellow-colored
+Original: Adverbs: None
+
+Original Instruction:
+put blueberries on plate sink
+
+Incoming instruction: place blue grapes on the yellow plate in the sink
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

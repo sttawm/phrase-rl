@@ -36,7 +36,7 @@ base_mean = {split: mean(score(eval_set)) for split, eval_set in
 rules_per_model = {}
 for rephraser in [qwen, claude, gemini]:           # shared bank, per-model rules: see (2)
   session    = new_conversation()                  # distiller + judge + planner: see (3)
-  rules      = initial_no_rules_prompt()
+  rules      = initial_no_rules_prompt()           # EMPTY: models inherit phrases, not rules
   best       = None        # (rules, val, rules_eval_summary) -- high-water mark
   last       = None        # (rules, val, rules_eval_summary) -- what we just tried
   since_best = 0
@@ -75,8 +75,10 @@ for rephraser in [qwen, claude, gemini]:           # shared bank, per-model rule
     else:
       since_best += 1
 
+    # probes may re-list a phrase already in the bank; that re-measures it on
+    # fresh contexts and the measurements COMBINE -- see (10)
     scored_bank += score(session.plan_new_phrases(
-        rules_eval_summary.suggestions, train_split))     # see (8)
+        rules_eval_summary.suggestions, train_split), draw=it)
 
   rules_per_model[rephraser] = best.rules
 
@@ -103,8 +105,10 @@ contrast, not a resampling artifact.
 A phrase's score is a property of (phrase, task, policy) — it does not depend on
 which model wrote the phrase — so the bank is shared and grows monotonically
 across passes; later passes inherit earlier ones' exploration. Rules are *not*
-shared: rule-following capacity differs enough that Qwen could not execute the v2
-rules at all. Run the strongest applier last, against the fullest bank.
+shared, and **every model starts round 1 from an empty rulebook**: models inherit
+*measurements*, never each other's rules. Rule-following capacity differs enough
+that Qwen could not execute the v2 rules at all. Run the strongest applier last,
+against the fullest bank.
 
 **(3) One conversation per pass.**
 The distiller, judge, and planner share a session, so each sees every rulebook,
@@ -157,6 +161,15 @@ Both are reported; the average drives early stopping so neither one's noise alon
 can end a run. Everything is also charted as a delta against `base_mean` — "did
 the rules beat saying nothing" is the decision-relevant view, since the absolute
 level drifts with sample difficulty.
+
+**(10) Every phrase carries how well-measured it is, and can be re-measured.**
+The bank stores `n_ctx` (scored contexts behind the estimate) and `n_meas` (how
+many separate measurements). Re-measuring **accumulates**: `n_ctx` adds and the
+channels become n-weighted means, each draw using different CRN contexts so the
+second measurement is independent information rather than a replay of the first.
+The evidence table exposes `n_ctx` for exactly this reason — a difference between
+two thinly-measured phrases may be noise, and the planner is told it can re-list
+such a phrase to buy significance instead of treating a weak reading as settled.
 
 **(9) Iteration 0 measures the no-rules prompt.**
 The scaffold prompt is evaluated before any distillation, so the curve has an

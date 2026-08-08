@@ -1,0 +1,6 @@
+{
+ "note": "per-model rulebooks -- deliberately NOT merged; each is tuned to its applier's rule-following capacity",
+ "rulebooks": {
+  "gemini": "pass_gemini/best_rules.md"
+ }
+}

@@ -1,0 +1,15 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+(no scene description available)
+
+Incoming instruction: set the green cube on the yellow cube
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

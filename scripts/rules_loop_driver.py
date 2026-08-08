@@ -60,6 +60,9 @@ VAL8_TASKS = [
 ]
 # calibrated proxy (fit_simple_success_reward.py): success = sigmoid(C + bz*z + bg*(-grip))
 PROXY = {"C": 8.123, "bz": 0.4445, "bg": 11.3193}
+# measurements imported from the historical banks predate n_ctx bookkeeping;
+# they were scored at F=4 C>=20, so this is a conservative stand-in
+FALLBACK_NCTX = 80
 
 
 def proxy_success(z, grip):
@@ -270,9 +273,42 @@ def seed_bank(run):
 
 
 def bank_add(run, df):
+    """Accumulate measurements for a phrase rather than discarding either copy.
+
+    A phrase measured twice should end up MORE precisely known, not overwritten:
+    n_ctx adds, and z/grip become n-weighted means. (The previous
+    drop_duplicates(keep="first") silently threw away every re-measurement, which
+    made re-scoring for significance impossible.)"""
     bank_path = run.dir / "bank.parquet"
     bank = pd.read_parquet(bank_path)
-    merged = pd.concat([bank, df], ignore_index=True).drop_duplicates(["task", "phrase"], keep="first")
+    both = pd.concat([bank, df], ignore_index=True)
+    for c in ("n_ctx", "n_meas"):
+        if c not in both:
+            both[c] = np.nan
+    both["n_ctx"] = both.n_ctx.fillna(FALLBACK_NCTX)
+    both["n_meas"] = both.n_meas.fillna(1)
+
+    def merge(g):
+        if len(g) == 1:
+            return g.iloc[0]
+        w = g.n_ctx.to_numpy(dtype=float)
+        r = g.iloc[0].copy()
+        for ch in ("z", "grip"):
+            v = g[ch].to_numpy(dtype=float)
+            ok = ~np.isnan(v) & (w > 0)
+            r[ch] = float(np.average(v[ok], weights=w[ok])) if ok.any() else np.nan
+        r["n_ctx"] = float(w.sum())
+        r["n_meas"] = float(g.n_meas.sum())
+        if "gt_success" in g:            # a real rollout number always wins
+            gt = g.gt_success.dropna()
+            r["gt_success"] = gt.iloc[0] if len(gt) else np.nan
+        return r
+
+    dup = both.duplicated(["task", "phrase"], keep=False)
+    rows = [merge(g) for _, g in both[dup].groupby(["task", "phrase"], sort=False)]
+    merged = pd.concat([both[~dup], pd.DataFrame(rows)], ignore_index=True) \
+        if rows else both[~dup].copy()
+    merged["proxy"] = proxy_success(merged.z, merged.grip)
     merged.to_parquet(bank_path, index=False)
     return merged
 
@@ -320,18 +356,24 @@ def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=7200
     raise TimeoutError(f"job {jid} ({kind}) not returned in {timeout}s")
 
 
-def score_phrases(run, cfg, df, tag):
+def score_phrases(run, cfg, df, tag, draw=0):
     """df: [task, phrase] -> adds z, grip, proxy. CRN: the worker samples
     cfg['contexts_per_task'] contexts per task with seed cfg['seed'] -- same
     contexts for every phrase, all run."""
     out = run_job(run, "score", df[["task", "phrase"]].drop_duplicates(), {
         "score_budget": cfg.get("score_budget", 64),
+        "draw": draw,          # distinct draw -> different CRN contexts, so a
+                               # re-measurement adds information instead of
+                               # reproducing the first measurement exactly
         "contexts_per_task": cfg["contexts_per_task"],
         "frames_per_episode": cfg["frames_per_episode"],
-        "pool_val8_stems": True, "seed": cfg["seed"],
+        "pool_val8_stems": True, "seed": cfg["seed"] + 1009 * draw,
         "proxy": PROXY}, tag)
-    return df.drop(columns=[c for c in ("z", "grip", "proxy") if c in df], errors="ignore") \
-             .merge(out[["task", "phrase", "z", "grip", "proxy"]], on=["task", "phrase"], how="left")
+    keep = [c for c in ("task", "phrase", "z", "grip", "proxy", "n_ctx") if c in out]
+    res = df.drop(columns=[c for c in ("z", "grip", "proxy", "n_ctx") if c in df],
+                  errors="ignore").merge(out[keep], on=["task", "phrase"], how="left")
+    res["n_meas"] = 1
+    return res
 
 
 def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag, only_rule=None):
@@ -373,7 +415,12 @@ def write_evidence_file(run, bank, tasks, path):
     group beats a structure it must parse by eye. A short README sits beside it."""
     sub = bank[bank.task.isin(tasks)].copy()
     sub = sub.sort_values(["task", "proxy"])
-    cols = ["task", "phrase", "proxy", "gt_success", "source"]
+    if "n_ctx" not in sub:
+        sub["n_ctx"] = FALLBACK_NCTX
+    # a phrase measured on few contexts is a weak claim; the reader needs to see
+    # that to decide whether a gap is real or worth re-measuring
+    sub["n_ctx"] = sub.n_ctx.fillna(FALLBACK_NCTX).round().astype(int)
+    cols = ["task", "phrase", "proxy", "n_ctx", "gt_success", "source"]
     sub[[c for c in cols if c in sub.columns]].to_csv(path, index=False)
     Path(str(path) + ".README.md").write_text(
         "# evidence.csv\n\n"
@@ -383,6 +430,10 @@ def write_evidence_file(run, bank, tasks, path):
         "  task       the instruction/task the phrase was measured on\n"
         "  phrase     the exact wording measured\n"
         "  proxy      estimated success rate, 0-1 (a calibrated estimate)\n"
+        "  n_ctx      how many scored contexts back that estimate. LOW n_ctx =\n"
+        "             a weak claim. If two phrases differ but both have small\n"
+        "             n_ctx, the difference may be noise -- you can propose\n"
+        "             re-measuring them (see the experiment format).\n"
         "  gt_success real measured success rate, 0-100, blank if never rolled.\n"
         "             Where present, trust this over `proxy`.\n"
         "  source     where the measurement came from\n\n"
@@ -785,7 +836,8 @@ def main():
                 new = [{"task": m.group(1), "phrase": m.group(2).strip()}
                        for m in re.finditer(r"^\s*\[([^\]]+)\]\s+(.+)$", planned, re.M)]
                 if new:
-                    nd = score_phrases(run, cfg, pd.DataFrame(new), f"probe_i{it}")
+                    nd = score_phrases(run, cfg, pd.DataFrame(new), f"probe_i{it}",
+                                       draw=it + 1)
                     bank = bank_add(run, nd.assign(source="probe", iter_added=it))
 
         best = pdir / f"iter_{st['best_iter']:02d}" / "rules.md"
