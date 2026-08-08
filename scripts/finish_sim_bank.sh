@@ -37,7 +37,7 @@ k = "task" if "task" in d.columns else "instruction"
 print("contexts per task:"); print(d.groupby(k).episode_index.nunique().to_string())
 PY
 
-TASK_KIND=sim SHARD=0 OF=1 IPC_DIR=/workspace/ipc_bank bash scripts/run_bank_scoring.sh
+TASK_KIND=sim SHARD=0 OF=1 PHRASE_CHUNK=16 IPC_DIR=/workspace/ipc_bank bash scripts/run_bank_scoring.sh
 mark "sim half done; joining the training half as shard 1/2"
 
 # e1 is working shard 0 of the training half; take shard 1 rather than idling

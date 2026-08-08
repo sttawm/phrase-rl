@@ -16,6 +16,10 @@ export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 cd /workspace/phrase-rl
 TASK_KIND="${TASK_KIND:?set TASK_KIND to train or sim}"
 SHARD="${SHARD:-0}"; OF="${OF:-1}"
+# cost is ~173s fixed per task-context + ~12.8s per phrase riding along, so a
+# bigger chunk pays off exactly where a task has many phrases (the sim tasks
+# carry ~30 each, the training instructions ~8)
+PHRASE_CHUNK="${PHRASE_CHUNK:-8}"
 IPC_DIR="${IPC_DIR:-/workspace/ipc_bank}"
 case "$IPC_DIR" in
   ""|"/"|"/workspace"|"/root"|"/tmp"|*..*) echo "unsafe IPC_DIR=$IPC_DIR" >&2; exit 1;;
@@ -81,7 +85,8 @@ fi
 mark "score server up; scoring $TASK_KIND shard $SHARD/$OF"
 
 IPC_DIR="$IPC_DIR" PYTHONPATH=/workspace/phrase-rl/src $SCORE_PY scripts/score_bank.py \
-  --task-kind "$TASK_KIND" --shard "$SHARD" --of "$OF" --ipc "$IPC_DIR" 2>&1 | tee -a "$LOG"
+  --task-kind "$TASK_KIND" --shard "$SHARD" --of "$OF" --ipc "$IPC_DIR" \
+  --phrase-chunk "$PHRASE_CHUNK" 2>&1 | tee -a "$LOG"
 rc=${PIPESTATUS[0]}
 
 OUT="results/analysis/bank_scores_${TASK_KIND}_${SHARD}of${OF}.parquet"
