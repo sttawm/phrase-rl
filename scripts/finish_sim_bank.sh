@@ -24,6 +24,36 @@ n=$(ls "$TRAJ" 2>/dev/null | wc -l | tr -d ' ')
 [ "${n:-0}" -gt 0 ] || { mark "FATAL: no trajectories in $TRAJ"; exit 1; }
 mark "$n recorded trajectory files"
 
+# Contexts are success-only, and the hard distractor scenes succeed rarely -- one
+# of them landed a single episode in 40. Scoring 28 phrases against one scene is
+# a measurement in name only, so top those tasks up with more seeds before
+# extracting. Easy tasks are already well past the floor and are skipped.
+FLOOR="${CTX_FLOOR:-10}"
+thin=$(ls "$TRAJ" 2>/dev/null | sed -E 's/_ep[0-9]+.*//; s/\.npz$//' | sort | uniq -c \
+       | awk -v f="$FLOOR" '$1 < f {print $2}')
+if [ -n "$thin" ] && [ "${SKIP_TOPUP:-0}" != "1" ]; then
+  mark "topping up thin tasks (<$FLOOR successful episodes): $(echo $thin | tr '\n' ' ')"
+  /workspace/INT-ACT/.venv/bin/python - "$thin" <<'PY'
+import sys, pandas as pd
+thin = [t for t in sys.argv[1].split() if t]
+d = pd.read_parquet("data/phrases_sim_ctx.parquet")
+d[d.task.isin(thin)].to_parquet("data/phrases_sim_topup.parquet", index=False)
+print(f"top-up list: {len(thin)} tasks", flush=True)
+PY
+  rm -f data/rollouts_simtopup.parquet
+  cd /workspace/INT-ACT
+  /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
+    --int-act-root /workspace/INT-ACT \
+    --config config/experiment/simpler/pi0_finetune_bridge_ev.yaml \
+    --ckpt juexzz/INTACT-pi0-finetune-rephrase-bridge \
+    --phrases /workspace/phrase-rl/data/phrases_sim_topup.parquet \
+    --episode-ids $(seq 40 199) \
+    --out /workspace/phrase-rl/data/rollouts_simtopup.parquet \
+    --record-dir /workspace/phrase-rl/data/sim_traj_val8 --record-success-only
+  cd /workspace/phrase-rl
+  mark "after top-up: $(ls $TRAJ | wc -l) trajectory files"
+fi
+
 PY=$(pick_python phrase_rl.sim_contexts_extract) || { mark "FATAL: no usable venv"; exit 1; }
 mark "python: $PY"
 PYTHONPATH=/workspace/phrase-rl/src $PY -m phrase_rl.sim_contexts_extract \
