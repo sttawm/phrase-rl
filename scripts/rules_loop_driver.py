@@ -1204,6 +1204,16 @@ def main():
     print(f"[{run.id}] task support floor >={cfg['min_eps_per_task']} eps: "
           f"{len(tasks)} training tasks admitted, {dropped} dropped (recorded in splits.json)")
     rng.shuffle(tasks)
+    # Prefer tasks whose phrases carry freshly measured channels. The loop exists
+    # to reason about measured spread; a task still resting on imputed z hands the
+    # distiller a table it cannot learn from. Python's sort is stable, so the
+    # shuffle still randomises within each group.
+    if "remeasured" in bank:
+        measured = set(bank.loc[bank.remeasured.fillna(False), "task"])
+        tasks.sort(key=lambda t: t not in measured)
+        n_meas = sum(t in measured for t in tasks)
+        print(f"[{run.id}] {n_meas}/{len(tasks)} admitted tasks carry fresh "
+              f"measurements; those are drawn first")
     n_held = max(2, len(tasks) // 6)
     val_held_tasks, train_tasks = tasks[:n_held], tasks[n_held:]
     if args.max_train_tasks:
