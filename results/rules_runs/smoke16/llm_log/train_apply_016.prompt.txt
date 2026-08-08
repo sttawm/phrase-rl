@@ -1,0 +1,23 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+A play kitchen counter containing a gray toy sink in the center with a gray faucet. To the left of the sink, there is a white/cream-colored plastic detergent bottle, a yellow toy banana, a toy stove burner, and a purple striped toy onion. Other toy vegetables like a green cabbage and an orange carrot are visible in the background.
+The instruction asks the robot to pick up the white/cream detergent bottle from the left counter and place it inside the gray sink basin.
+
+Original: detergent as many as possible potential replacements: soap bottle, detergent bottle, white bottle, cream-colored bottle, plastic container, cleaning bottle, dish soap container
+Original: sink as many as possible potential replacements: basin, gray basin, sink bowl, kitchen sink, gray sink, sink basin
+Original: put as many as possible potential replacements: place, move, set, drop, transfer, deposit, relocate, position, lower
+Original: [None] as many as possible potential replacements: [None]
+Original: [None]
+
+Original Instruction:
+put detergent in sink
+
+Incoming instruction: place the white bottle in the sink
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

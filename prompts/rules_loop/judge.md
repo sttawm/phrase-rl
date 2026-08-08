@@ -5,8 +5,11 @@ Read the working file before answering:
 
   {{eval_file}}
       For each numbered rule: its text, the measured change in estimated success
-      when that rule alone was applied (a controlled single-edit contrast), and
-      the number of instructions it was measured on. Followed by a sample of
+      when that rule alone was applied (a controlled single-edit contrast), the
+      number of instructions it was measured on, and where available the same
+      delta BROKEN DOWN BY INPUT KIND (original / natural / adversarial / ...).
+      A rule that helps one kind and not another is not a weak rule -- it is a
+      conditional one, and should be reported that way. Followed by a sample of
       base -> rewrite pairs produced when the whole rulebook was applied.
 
 RULEBOOK UNDER AUDIT:

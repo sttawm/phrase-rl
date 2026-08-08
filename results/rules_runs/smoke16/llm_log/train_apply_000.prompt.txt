@@ -1,0 +1,22 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a robotic arm holding a small yellow stuffed duck toy over a small silver metal cooking pot (or pan) which is placed on a toy stove burner next to a play sink.
+
+<Meaning of the instruction in the context of the image>
+The instruction tells the robot to place or drop the yellow stuffed duck toy it is holding into the silver metallic pot/pan sitting on the toy stove.
+
+Original: stuffedduck, pan as many as possible potential replacements: yellow duck, toy duck, stuffed duck, plush duck, duckling, yellow toy, stuffed animal, yellow bird, pot, silver pot, metallic pan, metal pot, cooking pot, saucepan, container
+Original: put as many as possible potential replacements: place, drop, set, release, deposit, lower, insert, move
+Original: None as many as possible potential replacements: yellow, stuffed, plush, silver, metal, metallic, small
+Original: None
+
+Incoming instruction: place yellow duck in pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

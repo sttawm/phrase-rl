@@ -71,6 +71,47 @@ def proxy_success(z, grip):
     return 1.0 / (1.0 + np.exp(-np.clip(x, -30, 30)))
 
 
+# What KIND of input a phrase is. The rules exist to repair inputs, so which
+# input regime a measurement came from is load-bearing: our own ladder shows rules
+# worth +5.5..+6.3 on adversarial text and only +0.4..+2.8 on natural text. A
+# distiller that cannot see the label averages those two regimes and tunes for
+# neither. "unknown" is a real value -- historical measurements predate the
+# labelling and are not going to be guessed at.
+KINDS = ("original", "natural", "adversarial", "search", "unknown")
+
+
+def label_kinds(df):
+    """Label what is honestly recoverable; leave the rest 'unknown'.
+
+    Four real kinds plus an honest escape hatch. Phrases produced by applying a
+    rulebook, and phrases proposed as probes, INHERIT the kind of the input they
+    came from -- what a measurement teaches us is about the regime it was drawn
+    from, not about the mechanism that generated the string. Where the base is
+    not recorded, a probe counts as `search` (it is proposed exploration), and
+    anything genuinely unrecoverable stays `unknown` rather than being guessed."""
+    if "kind" not in df:
+        df["kind"] = np.nan
+    k = df["kind"].astype(object)
+
+    def fill(mask, value):
+        nonlocal k
+        blank = k.isna() | (k == "") | (k == "unknown")
+        k = k.mask(blank & mask, value)
+
+    # a rewrite or probe inherits its base phrase's kind
+    if "base" in df and "base_kind" in df:
+        fill(df.base_kind.notna(), df.base_kind)
+    # the task's own canonical instruction, verbatim
+    fill(df.phrase.astype(str).str.strip().str.lower()
+         == df.task.astype(str).str.strip().str.lower(), "original")
+    if "source" in df:
+        fill(df.source.eq("search_boards"), "search")
+        fill(df.source.eq("probe"), "search")
+        fill(df.source.astype(str).str.startswith("loop_"), "search")
+    df["kind"] = k.mask(k.isna() | (k == ""), "unknown")
+    return df
+
+
 def is_sealed(task):
     return any(s in str(task) for s in SEALED_STEMS)
 
@@ -271,7 +312,10 @@ def seed_bank(run):
     bank = bank[~bank.task.map(is_sealed)].drop_duplicates(["task", "phrase"])
     bank["proxy"] = proxy_success(bank.z.fillna(bank.z.mean()), bank.grip.fillna(bank.grip.mean()))
     bank["iter_added"] = -1
+    bank = label_kinds(bank)
     bank.to_parquet(bank_path, index=False)
+    print(f"[{run.id}] phrase kinds: "
+          + ", ".join(f"{k}={v}" for k, v in bank.kind.value_counts().items()))
     return bank
 
 
@@ -311,6 +355,7 @@ def bank_add(run, df):
     rows = [merge(g) for _, g in both[dup].groupby(["task", "phrase"], sort=False)]
     merged = pd.concat([both[~dup], pd.DataFrame(rows)], ignore_index=True) \
         if rows else both[~dup].copy()
+    merged = label_kinds(merged)
     merged["proxy"] = proxy_success(merged.z, merged.grip)
     merged.to_parquet(bank_path, index=False)
     return merged
@@ -423,7 +468,7 @@ def write_evidence_file(run, bank, tasks, path):
     # a phrase measured on few contexts is a weak claim; the reader needs to see
     # that to decide whether a gap is real or worth re-measuring
     sub["n_ctx"] = sub.n_ctx.fillna(FALLBACK_NCTX).round().astype(int)
-    cols = ["task", "phrase", "proxy", "n_ctx", "gt_success", "source"]
+    cols = ["task", "phrase", "kind", "proxy", "n_ctx", "gt_success", "source"]
     sub[[c for c in cols if c in sub.columns]].to_csv(path, index=False)
     Path(str(path) + ".README.md").write_text(
         "# evidence.csv\n\n"
@@ -433,6 +478,23 @@ def write_evidence_file(run, bank, tasks, path):
         "  task       the instruction/task the phrase was measured on\n"
         "  phrase     the exact wording measured\n"
         "  proxy      estimated success rate, 0-1 (a calibrated estimate)\n"
+        "  kind       what sort of input the phrase is. Four kinds:\n"
+        "               original     the task's own canonical instruction -- the\n"
+        "                            wording the policy was trained on\n"
+        "               natural      a fluent rewording, the kind of thing a\n"
+        "                            person would actually say\n"
+        "               adversarial  a deliberately awkward, ornate or indirect\n"
+        "                            rewording -- the hard case rules exist for\n"
+        "               search       surfaced by automated phrasing search, or\n"
+        "                            proposed as a probe; exploratory wordings\n"
+        "             plus `unknown` for measurements that predate labelling.\n"
+        "             Rewrites inherit the kind of the instruction they were\n"
+        "             rewritten from.\n\n"
+        "             COMPARE WITHIN A KIND. Rules exist to repair inputs, and the\n"
+        "             regimes behave differently: a rule that rescues adversarial\n"
+        "             wordings may do nothing at all for natural ones. A single\n"
+        "             number averaged across kinds hides both effects. When the\n"
+        "             evidence supports it, say which regime a rule is for.\n"
         "  n_ctx      how many scored contexts back that estimate. LOW n_ctx =\n"
         "             a weak claim. If two phrases differ but both have small\n"
         "             n_ctx, the difference may be noise -- you can propose\n"
@@ -463,6 +525,8 @@ def write_eval_file(run, path, rules, per_rule, pairs, base_mean, rules_mean):
         lines.append(f"### {k}")
         lines.append(f"text: {v['text']}")
         lines.append(f"delta vs base: {v['delta_proxy']:+.4f}   (n={v['n']} instructions)")
+        for kk, kv in (v.get("by_kind") or {}).items():
+            lines.append(f"    on {kk:12s} inputs: {kv['delta_proxy']:+.4f}  (n={kv['n']})")
         lines.append("")
     lines += ["## Sample rewrites from the whole rulebook", ""]
     for p in pairs:
@@ -560,11 +624,24 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
             rs = score_phrases(run, cfg,
                                rw[["task", "rewrite"]].rename(columns={"rewrite": "phrase"}),
                                f"{tag}_r{k}sc")
+            by_kind = {}
+            if "kind" in sample:
+                merged = rs.merge(sample[["task", "kind"]].drop_duplicates("task"),
+                                  on="task", how="left")
+                bk = base_scored.merge(sample[["task", "kind"]].drop_duplicates("task"),
+                                       on="task", how="left")
+                for kk in merged.kind.dropna().unique():
+                    a = merged[merged.kind == kk].proxy.mean()
+                    b = bk[bk.kind == kk].proxy.mean()
+                    if pd.notna(a) and pd.notna(b):
+                        by_kind[str(kk)] = {"delta_proxy": float(a - b),
+                                            "n": int((merged.kind == kk).sum())}
             per_rule[f"rule_{k}"] = {
                 "text": rtext,
                 "delta_proxy": float(rs.proxy.mean() - base_scored.proxy.mean()),
                 "n": int(len(rs)),
-            }
+                "by_kind": by_kind,   # the interaction: a rule can help one regime
+            }                          # and do nothing for another
         eval_file = itdir / "rules_eval.md"
         write_eval_file(run, eval_file, rules, per_rule,
                         [{"task": r.task, "base": r.phrase, "rewrite": r.rewrite}
@@ -702,7 +779,7 @@ def main():
     # frozen at run start: bank grows every iteration with the loop's OWN rewrites,
     # and sampling from the live bank would make iteration N's bases be iteration
     # N-1's outputs -- the comparison would drift instead of holding still
-    base_pool = bank[["task", "phrase"]].copy()
+    base_pool = bank[["task", "phrase"] + (["kind"] if "kind" in bank else [])].copy()
 
     def bases_for(task_list, n=None, seed=0):
         d = base_pool[base_pool.task.isin(task_list)]
@@ -804,7 +881,11 @@ def main():
             tb = bases_for(train_tasks, cfg["sample_n"], seed=0)
             train_score, ev_train, summary = eval_rules(
                 run, cfg, itdir, rephraser, rules, tb, "train", single_edit=True)
-            bank = bank_add(run, ev_train.assign(source=f"loop_{rephraser}", iter_added=it))
+            # a rewrite inherits the kind of the instruction it was rewritten FROM
+            kmap = dict(zip(tb.phrase, tb.kind)) if "kind" in tb else {}
+            bank = bank_add(run, ev_train.assign(
+                source=f"loop_{rephraser}", iter_added=it,
+                base_kind=ev_train.base.map(kmap) if "base" in ev_train else np.nan))
 
             # 3. eval on both validation sets
             vh, _, _ = eval_rules(run, cfg, itdir, rephraser, rules,

@@ -1,0 +1,20 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image shows a robotic arm gripper positioned over a red and white toy drawer. Inside the drawer, there is a yellow banana resting on a blue cloth. To the right of the drawer are two red blocks, and behind them sits a silver metal can or pot with a colorful label. The items are placed on a brown wooden table surface.
+
+The instruction asks the robot to grasp the silver metal can (referred to as the "silver pot") and relocate it to the far top-right corner of the wooden table.
+
+Original: pot, table, right as many as possible potential replacements: can, container, cylinder, tin, desk, surface, board, corner, side, area
+Original: move as many as possible potential replacements: place, put, relocate, shift, position, transfer, transport, carry, set
+Original: silver, upper as many as possible potential replacements: metal, metallic, top, far, higher
+Original: None as many as possible potential replacements: None
+
+Incoming instruction: slide the grey stuffed animal to the upper right
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

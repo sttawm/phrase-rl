@@ -1,0 +1,46 @@
+{
+ "score": 0.629620478511028,
+ "base": 0.5930633698441763,
+ "delta": 0.03655710866685169,
+ "n": 24,
+ "summary": {
+  "per_rule_perf": {
+   "rule_1": {
+    "text": "Keep the original wording unless a rule below applies.",
+    "delta_proxy": -0.2603759754725266,
+    "n": 8,
+    "by_kind": {
+     "search": {
+      "delta_proxy": -0.2603759754725266,
+      "n": 8
+     }
+    }
+   },
+   "rule_2": {
+    "text": "Use common household nouns.",
+    "delta_proxy": -0.21124785024434256,
+    "n": 8,
+    "by_kind": {
+     "search": {
+      "delta_proxy": -0.21124785024434256,
+      "n": 8
+     }
+    }
+   },
+   "rule_3": {
+    "text": "Keep existing color adjectives.",
+    "delta_proxy": -0.10357929281509604,
+    "n": 8,
+    "by_kind": {
+     "search": {
+      "delta_proxy": -0.10357929281509604,
+      "n": 8
+     }
+    }
+   }
+  },
+  "judge": "[dry-run:claude] e902e4e75983",
+  "rule_notes": "",
+  "suggestions": ""
+ }
+}

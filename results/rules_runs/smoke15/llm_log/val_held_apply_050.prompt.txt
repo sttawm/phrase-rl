@@ -1,0 +1,27 @@
+1. Keep the original wording unless a rule below applies.
+2. Use common household nouns.
+3. Keep existing color adjectives.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+**Description of the image**  
+The image shows a robotic arm gripper grasping the black metal loop handle of a wooden drawer with a red front. The drawer is partially open, revealing blue blocks inside. On the wooden table surface, there is a small yellow pepper toy, a green bitter gourd toy, and a white round object with a black strap.
+
+**Meaning of the instruction in the context of the image**  
+The instruction "Open the drawer" means the robot should pull the black metal handle of the red-fronted drawer outward to slide the drawer open.
+
+**Original: drawer** as many as possible potential replacements: red drawer, wooden drawer, red container, sliding compartment, red-faced drawer  
+**Original: open** as many as possible potential replacements: pull, slide open, pull open, draw out, slide out  
+**Original: [None]** as many as possible potential replacements (Adjectives): red, wooden, black, metal  
+**Original: [None]** as many as possible potential replacements (Adverbs): [None]
+
+**Original Instruction:**  
+Open the drawer
+
+Incoming instruction: open the small red drawer
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.
