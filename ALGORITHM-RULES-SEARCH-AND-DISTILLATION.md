@@ -162,6 +162,20 @@ can end a run. Everything is also charted as a delta against `base_mean` — "di
 the rules beat saying nothing" is the decision-relevant view, since the absolute
 level drifts with sample difficulty.
 
+**(11) Every phrase carries what kind of input it is.**
+`original` (the canonical training instruction), `natural` (a fluent rewording),
+`adversarial` (awkward/ornate/indirect), `rephrased` (a rulebook's output),
+`search` (turned up by phrasing search or proposed as a probe), plus `unknown`
+for measurements that predate the labelling and are not guessed at. A `rephrased`
+row also carries `base_kind` — the regime it was rewritten *from*.
+
+This is load-bearing rather than bookkeeping: our own ladder puts rules at
++5.5..+6.3pp on adversarial inputs and +0.4..+2.8pp on natural ones. That
+interaction is the finding, and a distiller that cannot see the label averages
+the two regimes and tunes for neither. Per-rule single-edit deltas are therefore
+reported broken down by regime, and a rule that helps one and not another is
+reported as conditional, not weak.
+
 **(10) Every phrase carries how well-measured it is, and can be re-measured.**
 The bank stores `n_ctx` (scored contexts behind the estimate) and `n_meas` (how
 many separate measurements). Re-measuring **accumulates**: `n_ctx` adds and the

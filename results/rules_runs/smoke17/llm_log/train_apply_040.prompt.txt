@@ -1,0 +1,23 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+The image shows a red tool chest with its drawers pulled open, revealing various items like a yellow tape measure, a white glue bottle, scissors, pliers, and drill bits. A robotic gripper is visible in the upper-left, holding a blue marker or pen above the open drawer compartments.
+
+The instruction means that the robot should take the blue writing utensil (pen/marker) and place it inside one of the open compartments of the red tool chest drawer.
+
+Original: pen, drawer as many as possible potential replacements: marker, writing utensil, stylus, writing tool, compartment, tray, tool chest, storage drawer, toolbox compartment
+Original: pick up, put as many as possible potential replacements: grasp, take, lift, grab, retrieve, place, set, deposit, drop, insert, store, transfer, move
+Original: blue as many as possible potential replacements: blue-colored, colored, open, red
+Original: up as many as possible potential replacements: None (remove)
+
+Original Instruction:
+pick up blue pen and put into drawer
+
+Incoming instruction: move the blue pen to the top left plastic drawer
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

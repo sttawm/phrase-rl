@@ -1,0 +1,25 @@
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Apply the rulebook above to one instruction.
+
+Scene description:
+<Description of the image>
+The image shows a toy kitchen set. On the left burner of a two-burner stove sits a silver metallic cooking pot (saucepan) with a metal handle. On the right burner, a yellow sponge is standing upright. In the background and around the stove, there are other toy food items, including a red strawberry, a green cabbage, a slice of salmon, and a toy ice cream cone on the counter.
+
+<Meaning of the instruction in the context of the image>
+The instruction "wipe pot with sponge" means the robot should pick up the yellow sponge from the right burner and use it to wipe, clean, or rub the silver metallic pot located on the left burner.
+
+Original: pot as many as possible potential replacements: silver pot, cooking pot, saucepan, metallic pot, silver saucepan, metallic pan
+Original: sponge as many as possible potential replacements: yellow sponge, cleaning sponge, foam sponge, yellow foam block
+Original: wipe as many as possible potential replacements: clean, rub, scrub, wipe down, wash, polish
+Original: with as many as possible potential replacements: using, by utilizing
+
+Original Instruction:
+wipe pot with sponge
+
+Incoming instruction: use the sponge to wipe the pot
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble. If no rule applies, reply with the instruction unchanged.

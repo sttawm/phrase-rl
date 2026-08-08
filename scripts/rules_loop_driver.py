@@ -77,18 +77,20 @@ def proxy_success(z, grip):
 # distiller that cannot see the label averages those two regimes and tunes for
 # neither. "unknown" is a real value -- historical measurements predate the
 # labelling and are not going to be guessed at.
-KINDS = ("original", "natural", "adversarial", "search", "unknown")
+KINDS = ("original", "natural", "adversarial", "rephrased", "search", "unknown")
 
 
 def label_kinds(df):
     """Label what is honestly recoverable; leave the rest 'unknown'.
 
-    Four real kinds plus an honest escape hatch. Phrases produced by applying a
-    rulebook, and phrases proposed as probes, INHERIT the kind of the input they
-    came from -- what a measurement teaches us is about the regime it was drawn
-    from, not about the mechanism that generated the string. Where the base is
-    not recorded, a probe counts as `search` (it is proposed exploration), and
-    anything genuinely unrecoverable stays `unknown` rather than being guessed."""
+    Five kinds plus an honest escape hatch. A rulebook's output is `rephrased` --
+    it is a distinct thing, neither the wording a person would produce nor the
+    hostile one -- and it additionally carries `base_kind`, the regime of the
+    instruction it was rewritten FROM. Both facts matter and neither substitutes
+    for the other: `kind` says what the phrase is, `base_kind` says what it was
+    repairing. Rules are judged on the second.
+
+    Anything genuinely unrecoverable stays `unknown` rather than being guessed."""
     if "kind" not in df:
         df["kind"] = np.nan
     k = df["kind"].astype(object)
@@ -98,17 +100,16 @@ def label_kinds(df):
         blank = k.isna() | (k == "") | (k == "unknown")
         k = k.mask(blank & mask, value)
 
-    # a rewrite or probe inherits its base phrase's kind
-    if "base" in df and "base_kind" in df:
-        fill(df.base_kind.notna(), df.base_kind)
     # the task's own canonical instruction, verbatim
     fill(df.phrase.astype(str).str.strip().str.lower()
          == df.task.astype(str).str.strip().str.lower(), "original")
     if "source" in df:
+        fill(df.source.astype(str).str.startswith("loop_"), "rephrased")
         fill(df.source.eq("search_boards"), "search")
         fill(df.source.eq("probe"), "search")
-        fill(df.source.astype(str).str.startswith("loop_"), "search")
     df["kind"] = k.mask(k.isna() | (k == ""), "unknown")
+    if "base_kind" not in df:
+        df["base_kind"] = np.nan
     return df
 
 
@@ -468,7 +469,7 @@ def write_evidence_file(run, bank, tasks, path):
     # a phrase measured on few contexts is a weak claim; the reader needs to see
     # that to decide whether a gap is real or worth re-measuring
     sub["n_ctx"] = sub.n_ctx.fillna(FALLBACK_NCTX).round().astype(int)
-    cols = ["task", "phrase", "kind", "proxy", "n_ctx", "gt_success", "source"]
+    cols = ["task", "phrase", "kind", "base_kind", "proxy", "n_ctx", "gt_success", "source"]
     sub[[c for c in cols if c in sub.columns]].to_csv(path, index=False)
     Path(str(path) + ".README.md").write_text(
         "# evidence.csv\n\n"
@@ -478,22 +479,27 @@ def write_evidence_file(run, bank, tasks, path):
         "  task       the instruction/task the phrase was measured on\n"
         "  phrase     the exact wording measured\n"
         "  proxy      estimated success rate, 0-1 (a calibrated estimate)\n"
-        "  kind       what sort of input the phrase is. Four kinds:\n"
+        "  kind       what the phrase IS. Five kinds:\n"
         "               original     the task's own canonical instruction -- the\n"
         "                            wording the policy was trained on\n"
         "               natural      a fluent rewording, the kind of thing a\n"
         "                            person would actually say\n"
         "               adversarial  a deliberately awkward, ornate or indirect\n"
         "                            rewording -- the hard case rules exist for\n"
+        "               rephrased    the output of applying a rulebook\n"
         "               search       surfaced by automated phrasing search, or\n"
         "                            proposed as a probe; exploratory wordings\n"
         "             plus `unknown` for measurements that predate labelling.\n"
-        "             Rewrites inherit the kind of the instruction they were\n"
-        "             rewritten from.\n\n"
-        "             COMPARE WITHIN A KIND. Rules exist to repair inputs, and the\n"
-        "             regimes behave differently: a rule that rescues adversarial\n"
-        "             wordings may do nothing at all for natural ones. A single\n"
-        "             number averaged across kinds hides both effects. When the\n"
+        "  base_kind  for `rephrased` rows only: the kind of the instruction it\n"
+        "             was rewritten FROM. Blank otherwise. This is the column that\n"
+        "             says what a rewrite was REPAIRING.\n\n"
+        "             COMPARE WITHIN A REGIME. Rules exist to repair inputs, and\n"
+        "             the regimes behave differently: a rule that rescues\n"
+        "             adversarial wordings may do nothing at all for natural ones.\n"
+        "             A single number averaged across them hides both effects. For\n"
+        "             a rephrased row the regime is `base_kind`, not `kind` --\n"
+        "             every rewrite is `rephrased`, so that column alone tells you\n"
+        "             nothing about which problem the rule was solving. When the\n"
         "             evidence supports it, say which regime a rule is for.\n"
         "  n_ctx      how many scored contexts back that estimate. LOW n_ctx =\n"
         "             a weak claim. If two phrases differ but both have small\n"
