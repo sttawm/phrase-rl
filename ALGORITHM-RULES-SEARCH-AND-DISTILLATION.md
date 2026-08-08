@@ -158,6 +158,14 @@ can end a run. Everything is also charted as a delta against `base_mean` — "di
 the rules beat saying nothing" is the decision-relevant view, since the absolute
 level drifts with sample difficulty.
 
+**(13) The distiller sees what was measured since its last rulebook.**
+The probes it asked for and the rewrites its own rulebook produced are split into
+their own small file for one iteration. They are in the evidence table too — the
+separation is presentational, and it exists because the answer to an experiment
+the distiller proposed would otherwise arrive as twenty rows inside a table of
+thousands, indistinguishable from background. This is what closes the loop on
+`plan.md`: a question was asked, and here is what came back.
+
 **(12) Rules have identities, and single-rule measurements are cached by them.**
 A rule's identity is `sha1` of its wording, normalised for whitespace only:
 reflowing a rule does not change it, but altering a word does — that is a

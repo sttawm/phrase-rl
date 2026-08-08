@@ -570,6 +570,26 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag, only_rule=
     return pd.DataFrame(rows)
 
 
+def write_new_measurements(run, bank, tasks, path, since_iter):
+    """Just what has been measured since the last distillation: the probes the
+    distiller asked for, and the rewrites its own rulebook produced.
+
+    Without this the answers to its experiments arrive as ~20 new rows inside a
+    table of thousands and are effectively invisible. Splitting them out for one
+    iteration closes the loop on plan.md -- the distiller proposed a question and
+    here is what came back. They stay in the bank either way; only the
+    presentation separates them, and only until the next iteration."""
+    if "iter_added" not in bank:
+        Path(path).write_text("task,phrase,kind,base_kind,proxy,n_ctx,source\n")
+        return 0
+    fresh = bank[bank.task.isin(tasks)
+                 & (pd.to_numeric(bank.iter_added, errors="coerce") >= since_iter)].copy()
+    cols = [c for c in ("task", "phrase", "kind", "base_kind", "proxy", "n_ctx", "source")
+            if c in fresh]
+    fresh.sort_values("proxy", ascending=False)[cols].to_csv(path, index=False)
+    return len(fresh)
+
+
 def write_evidence_file(run, bank, tasks, path):
     """The full spread per task as CSV. CSV over JSON deliberately: this table
     runs to thousands of rows, where JSON's repeated keys triple the tokens and
@@ -1004,6 +1024,9 @@ def main():
             else:
                 bank = pd.read_parquet(run.dir / "bank.parquet")
                 n_ev = write_evidence_file(run, bank, train_tasks, ev_file)
+                new_file = itdir / "new_measurements.csv"
+                n_new = write_new_measurements(run, bank, train_tasks, new_file,
+                                               since_iter=it - 1)
                 # Two matched (rulebook, measurements) pairs -- never a rulebook paired
                 # with another rulebook's numbers. The best pair is what to build from;
                 # the regressed pair, when there is one, is what to avoid.
