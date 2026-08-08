@@ -1,130 +1,160 @@
-# v12: list-prompted, advantage-weighted rephrase tuning
+# v12: magnitude-reward, multiplicity-collapsed advantage tuning
 
-Status: SPEC. v11 keeps running until this is ready; pausing v11 is a decision,
-not a side effect of starting v12.
+Status: SPEC, ready to run. v11 continues until swapped — pausing it is a
+decision, not a side effect. v11 is resumable from `v11_step_0150` on origin.
 
----
-
-## Why v12 exists
-
-v11 ran 153 steps and produced no measurable change in rollout success (trend
-−0.0103 pp/step, 95% CI [−0.033, +0.012], p=0.39). Four measurements taken on
-2026-08-08 explain that, and each one names a change below.
-
-**1. The policy optimised the reward hard, and the gain did not transfer.**
-
-| absolute metric (lower = better) | first 20 steps | last 20 steps |
-|---|---|---|
-| `cand_loss[nominal]` — verifier channel | 1.027 | **0.481** |
-| `cand_loss[benign]` | 1.391 | **0.540** |
-| `grip[nominal]` — gripper channel | 0.0670 | 0.0625 |
-| `grip[benign]` | 0.0871 | 0.0874 |
-
-The verifier channel improved by 0.55–0.85; the gripper channel moved 0.005.
-Under the calibrated proxy's own coefficients the verifier gain alone predicts
-**+6.0pp** of rollout success. Measured: −1.1pp ± 1.3. That is Goodharting the
-verifier — the failure `EXPERIMENT.md` line 63 predicted.
-
-Note the transfer calculation assumes coefficients fitted ACROSS PHRASES also
-describe changes induced BY TRAINING. They need not. Its failure is the evidence
-for off-manifold optimisation, not a refutation of the proxy.
-
-**2. `cand_blend_mean` cannot move and must never be read as progress.** It is
-the mean of a within-group rank; it is pinned near 0.5 by construction. It sat
-at 0.4852 → 0.4867 for 161 steps and told us nothing.
-
-**3. The candidate set collapsed.** From `replay.pt` at step 150 (408 groups):
-median **6 unique candidates of 16**, minimum 1, mean duplicate fraction 0.579.
-The modal output is frequently the input instruction verbatim.
-
-**4. `rank01` amplifies floating-point noise into gradient.** Identical strings
-scored on identical frames with identical draws differ in the last bits, because
-batched GPU reductions are not bit-deterministic. `rank01` promotes that ~1e-7
-difference to a full rank step — 1/16 of the reward range, an amplification of
-~1e6. Of 1042 duplicate sets, **306 (29.4%)** carry a spurious reward spread,
-and every nonzero spread is an exact multiple of a rank step (0.0156 = 0.25/16,
-0.0469 = 0.75/16, 0.0625 = 1/16 …), which is the signature of tie-breaking
-rather than of differing frames or seeds.
+Supersedes the first draft of this file (2026-08-08). Three of its
+recommendations were wrong and are corrected below, each with the measurement
+that overturned it.
 
 ---
 
-## The four changes, and why they are one change
+## What v11 measured
 
-**(a) Reward: calibrated proxy LOGIT, not c4b ranks.**
+153 steps, no measurable change in rollout success: trend **−0.0103 pp/step**,
+95% CI [−0.033, +0.012], p=0.39, over 13 nat24 cells.
 
-    reward = 0.4445 * z + 11.3193 * (-grip)      # intercept dropped: GRPO
-                                                 # subtracts the group mean
+**1. The policy climbed its reward and the gain did not transfer.** Paired
+against the original instruction on the same contexts and CRN draws, the
+candidate margin closed from 2.905 → 2.391 nats (t = −2.64): the policy recovered
+**17.7% of the gap to the unrephrased instruction in ~100 steps**, and the
+original still beats roughly three quarters of its rewrites. Meanwhile the
+verifier channel improved 0.55–0.85 while gripper error moved 0.005. Under the
+calibrated proxy's own coefficients the verifier gain alone predicts **+6.0pp**
+of rollout success; measured −1.1 ± 1.3pp. That gap is the Goodhart signature
+`EXPERIMENT.md` line 63 predicted.
+
+The transfer calculation assumes coefficients fitted ACROSS PHRASES also describe
+changes induced BY TRAINING. They need not — and its failure is precisely the
+evidence for off-manifold optimisation.
+
+**2. `cand_blend_mean` cannot move.** `rank01` emits average ranks, so any convex
+blend of two rank01 vectors sums to n/2. With P=17 the statistic reduces to
+`(8.5 − blend_rank_of_the_ORIGINAL)/16` ∈ [0.469, 0.531] — a 6%-wide window
+reporting one fact. It sat at 0.4852 → 0.4867 for 161 steps and I read it as
+proof of no learning. **Retire it.**
+
+**3. `rank01` manufactures gradient from floating-point noise.** Identical
+strings, identical frames, identical draws differ in the last bits (batched GPU
+reductions are not bit-deterministic); `rank01` promotes ~1e-7 to a full rank
+step. Of 1042 duplicate sets at step 150, **306 (29.4%)** carry a spurious
+spread, and every nonzero spread is an exact multiple of a rank step
+(0.0156 = 0.25/16, 0.0469 = 0.75/16, 0.0625 = 1/16) — the signature of
+tie-breaking, not of differing frames or seeds.
+
+**4. Collapse is real but is NOT why val is flat.** Median 6 unique candidates of
+16 at step 150 (min 1, mean duplicate fraction 0.579). But v10 ran its whole life
+at dup_rate 0.185 → 0.314 with identical flags and model, and its val was equally
+flat (v10_pol +0.0037 pp/step t=1.56; v10_adv −0.0036 t=−0.63). **Duplication
+varied ~2× across runs and the downstream metric did not move.** The first draft
+of this spec leaned on collapse as the cause. That was wrong.
+
+---
+
+## Design
+
+### Reward: calibrated proxy LOGIT
+
+    reward = 0.4445 * z + 11.3193 * (-grip)        # intercept dropped:
+                                                   # GRPO subtracts the group mean
 Never the sigmoid — on training frames grip ≈ 0.04 sits on the flat end and the
-probability pins at 0.999. Use the logit, clipped to a sane range.
+probability pins at 0.999. Clip the logit to a sane range.
 
-Against real rollouts, within task (the only comparison the update makes):
+Within task, against real rollout success (8 tasks, 254 phrases, 36 rollouts
+each), and on a degenerate group (16 candidates identical to within 1e-7):
 
-| reward | mean ρ | n-weighted | tasks ranking BACKWARDS |
+| reward | Pearson | Spearman | max abs advantage on a DEGENERATE group |
 |---|---|---|---|
-| c4b (v11) | +0.282 | +0.271 | 3/8 |
-| **proxy logit** | **+0.319** | **+0.350** | **1/8** |
-| gripper only | +0.278 | +0.249 | 3/8 |
-| verifier only | +0.240 | +0.320 | 3/8 |
+| c4b rank01 w=0.25 (v11) | +0.478 | +0.442 | 1.790 |
+| raw-std w=0.25 | **+0.549** | +0.445 | **2.016** |
+| **proxy logit** | +0.533 | **+0.460** | **0.903** |
 
-The correlation gain is not significant (+0.037, Wilcoxon p=0.95). The reasons to
-switch are structural: a magnitude reward is Lipschitz, so finding (4) disappears
-— ε in, ε out — and the fitted coefficients weight the channel that transfers
-(grip) 25.5× the channel that is exploitable (verifier), inverting c4b's rank
-weighting, under which a 0.25-weighted consistent signal beat a 0.75-weighted
-noisy one.
+Chosen for the two properties that bear on training dynamics: best **Spearman**
+(a ranking-consumed reward needs rank fidelity), and it is the only form that
+**refuses to invent signal**. Fixed coefficients keep ε at ε until GRPO's
+`(r − mean)/(std + 1e-6)`, where the floor caps it. Both group-adaptive forms
+re-normalise by the group's own spread, so ε is stretched back to unit scale —
+`raw-std` is marginally WORSE than `rank01` here, which is why it is an arm and
+not the default despite winning Pearson.
 
-Cost: magnitudes lose rank01's outlier robustness. Clip the logit.
+Its coefficients also weight the channel that transfers (grip) **25.5×** the
+channel that is exploitable (verifier) — inverting c4b's rank weighting, under
+which a 0.25-weighted consistent signal beat a 0.75-weighted noisy one.
 
-**(b) Generation: prompt for K=8 UNIQUE rephrasings (`--gen-mode list`).**
+`--blend-w 0.75` is rejected: within group it reverses (raw-std 0.492 at w=0.75
+vs 0.549 at w=0.25). The `fine_grid` case for it is a cross-task, large-gap
+effect the update never sees.
 
-List mode already dedupes (`unique = dedupe(parsed)`; `<6 unique` → parse-fail,
-skip), so uniqueness is enforced at generation rather than hoped for. K=8 sits
-above that floor.
+### Generation: keep `sample_single`, keep K=16
 
-**(c) Update: signed advantages over the FULL group, importance-corrected.**
+The first draft proposed list-prompting for K=8 unique. Both halves are dropped:
 
-Not positives-only (winner's curse: imitating the argmax of K noisy estimates at
-~70% pairwise accuracy), not top-K. All 8 candidates contribute, ranked.
+- **K=16 stays.** Its justification was collapse, which finding (4) falsified.
+  Best-of-K by the current reward degrades with K (+3.27pp at K=4 → +2.07pp at
+  K=16) but never goes negative, and that penalty only bites when the update
+  concentrates on the top — i.e. under RAFT or `--max-pos-per-ctx`, neither of
+  which we use.
+- **`sample_single` stays**, and this is the load-bearing reason: it samples from
+  the prompt being updated, so signed full-group advantages are an unbiased
+  on-policy estimator with **no importance correction needed**. List mode samples
+  from `p_list` while updating `p_single`, which would require the computed
+  weight `exp(log p_single − log p_list)` and its variance. Since duplication is
+  not the problem, that machinery buys nothing.
 
-This is the subtle part. Positives-only imitation is proposal-agnostic — it is
-rejection sampling, valid under any sampling distribution. **Signed advantages
-are a policy gradient**, so they assume samples come from the policy being
-updated. List mode samples from `p_list` while the update targets `p_single`.
+### Update: signed advantages over the full group
 
-Here, unusually, the correction is exactly computable:
+All 16 candidates, ranked, positives and negatives. Not positives-only (winner's
+curse: imitating the argmax of K noisy estimates at ~73% pairwise accuracy), not
+top-K. Errors distribute across the ranking instead of concentrating on the pick.
 
-    w = exp( log p_single(y) - log p_list(y) )      # clipped
+### Budget: multiplicity-collapsed scoring buys C=10 for free
 
-`log p_single(y)` is already computed for every candidate in `apply_update`;
-`log p_list(y)` is the generation log-prob, capturable at sampling time.
+Score the **distinct** strings, then `np.repeat` rewards AND grips back to the
+full 16-multiset **before** the reward transform. This is exact, not an
+approximation: identical text has identical channels by construction. Collapsing
+without re-expanding would change the group statistics and silently alter the
+objective.
 
-PREREQUISITE: the ratio must use **summed** log-probs. `apply_update` currently
-computes `ratio = exp(mean_logp - old_lp)`, which is `true_ratio^(1/n)` — for an
-8–12 token phrase a genuine 2× ratio becomes ~1.07, inside the [0.8, 1.2] clip,
-so `--replay-clip` never binds. Harmless today; load-bearing the moment a ratio
-carries weight. Fix mean→sum WITH this change, not after.
+At mean duplicate fraction 0.579, E[unique] ≈ 7.7 of 16:
 
-**(d) Budget: C=10 contexts, and skip uninformative groups.**
+    v11:  16 slots x C=5  x F=4 = 320 evals/group
+    v12: 7.7 slots x C=10 x F=4 = 308 evals/group      # same cost
 
-The proxy was fitted at F=4 with C=10–24 episodes (median 18), i.e. F×C ≈ 72.
-v11 trains at F=4, C=1–5 → F×C = 4–20, so the reward is fed inputs 3.6–18×
-noisier than the calibration assumed. Both channels are means, so the linear
-predictor's EXPECTATION is budget-independent and ranking stays valid — but the
-probability calibration does not, and it must not be read as a success rate at
+Why C=10 — pairwise accuracy at F=4 on the band a GRPO group actually occupies
+(closest pairs), from `fine_grid_all.json`:
+
+| C | 5–10pp pairs | 15+pp pairs |
+|---|---|---|
+| 4 | 71.7 | 63.9 |
+| 8 | 76.2 | 67.5 |
+| **10** | **78.2** | 67.7 |
+| 16 | 78.6 | 70.1 |
+| 20 | 79.8 | 70.3 |
+
+C=5→10 buys ~**+5pp** on close pairs; saturation begins only after C=10. (An
+earlier claim that C=5→10 is saturated came from reading the `far_15+` column —
+far pairs are exactly what a group of near-identical candidates never contains.)
+
+The proxy was fitted at F=4, C=10–24 (median 18, F×C ≈ 72). C=10 also closes most
+of that calibration gap. Both channels are means, so the linear predictor's
+EXPECTATION is budget-independent and ranking stays valid at any C — but the
+probability calibration is not, and must never be read as a success rate at
 training budget.
 
-| config | unique cands | C | F×C | pairwise accuracy |
-|---|---|---|---|---|
-| v11 today | ~6 of 16 | 5 | 20 | ~69% |
-| list K=16 | 16 | 5 | 20 | ~69% |
-| **v12: list K=8** | **8** | **10** | **40** | **~73%** |
+### Skip uninformative groups
 
-Same ~320 evaluations per group.
+GRPO normalises every group to unit advantage variance, so a group with no real
+spread contributes gradient as large as one with signal. Skip when the **raw**
+channel spread is below a floor. No reward form can rank a group that has
+nothing to rank.
 
-Also: GRPO normalises every group to unit advantage variance, so a group scored
-at C=1 contributes gradient as large as one scored at C=5 despite carrying a
-fifth of the information. Skip groups whose reward std is below a floor — they
-are noise-only, and under (a) they are also where ε/(ε+1e-6) still bites.
+### Fix the ratio: sum, not mean
+
+`apply_update` computes `ratio = exp(mean_logp - old_lp)` = `true_ratio^(1/n)`.
+For an 8–12 token phrase a genuine 2× ratio becomes ~1.07, inside the [0.8, 1.2]
+clip, so `--replay-clip` never binds and replayed samples (up to 6 reuses) are
+effectively uncorrected. Cosmetic today, load-bearing the moment a ratio carries
+weight. Fix with this change.
 
 ---
 
@@ -134,80 +164,71 @@ are noise-only, and under (a) they are also where ε/(ε+1e-6) still bites.
 
 Deltas from `run_arm_v11.sh`:
 
-    --gen-mode list --n-candidates 8       # was sample_single, 16
-    --update-rule grpo                     # signed, full group (NOT raft)
-    --reward-blend proxy_logit             # NEW; was c4b
-    --reward-contexts 10                   # was 5
-    --min-group-std 0.02                   # NEW: skip noise-only groups
-    --importance-correct list_to_single    # NEW: computed w, clipped
-    --replay-clip 0.2                      # now actually binds (sum log-probs)
-    (drop --no-gate)                       # gate ON: prompting for diversity
-                                           # pushes toward semantic drift
+    --reward-blend proxy_logit      # NEW; was c4b
+    --reward-contexts 10            # was 5 (paid for by collapse-scoring)
+    --collapse-duplicate-scoring    # NEW: score distinct, re-expand before blend
+    --min-group-spread 0.02         # NEW: skip noise-only groups
+    --ratio-mode sum                # NEW: was an implicit mean
+    (drop --no-gate)                # gate ON
 
-Unchanged: beta 0.15, lr 7e-6, kl-abort 1.2, save-every 10, val-every 20,
-source-mix 0.25/0.5/0.25, F=4.
+Unchanged: `--gen-mode sample_single`, `--n-candidates 16`, `--update-rule grpo`,
+beta 0.15, lr 7e-6, kl-abort 1.2, F=4, save-every 10, source-mix 0.25/0.5/0.25.
 
----
-
-## New telemetry (v11 was blind to its own failure)
-
-Per step, all of these:
-
-- `n_unique_cands` and `dup_frac` — (3) must not recur
-- `reward_std_within_group` — the quantity that decides whether advantages carry
-  signal; if it approaches the reward's measurement noise, nothing can be learned
-- `iw_mean`, `iw_p95`, `iw_clip_frac` — importance-weight distribution. If
-  p_single and p_list diverge, weights go heavy-tailed and this must be visible
-  at step 5, not inferred from a flat curve at step 150
-- `grip_delta` and `verifier_delta` SEPARATELY — the Goodhart signature is the
-  gap between them, and v11 only surfaced it because the tiers were logged
-- **candidate text + per-candidate raw z, grip** to a parquet. `replay.pt`
-  happens to preserve text and blended reward for a 50-step window; that was
-  luck, not design.
-
-Retire `cand_blend_mean` as a progress metric, or rename it
-`cand_blend_mean_IS_A_RANK_DO_NOT_READ_AS_PROGRESS`.
+**Registered arms** (one variable each, run only if the primary is ambiguous):
+- **A — raw-std reward:** `w·zscore(z) + (1−w)·zscore(−grip)`, w=0.25. Wins
+  Pearson (+0.549) and is the only form with no task ranking backwards, but is
+  the worst on degenerate groups.
+- **B — list K=8 + importance correction:** tests diversity directly; requires
+  `exp(log p_single − log p_list)` clipped, and `iw_clip_frac` logged.
 
 ---
 
-## Falsification
+## Telemetry v11 lacked
 
-Pre-registered, so v12 is not judged after the fact.
+Per step: `n_unique_cands`, `dup_frac`, `reward_std_within_group` (raw channel
+units, not post-transform), `grip_delta` and `verifier_delta` **separately** (the
+Goodhart signature is the gap between them), `cand_margin_logit` and
+`cand_margin_grip` (paired against the original — the only v11 training metric
+with real dynamic range, t = −2.64), and **candidate text + per-candidate raw z
+and grip to a parquet**. `replay.pt` preserved text and blended reward for a
+50-step window by luck, not design; that is what made the ε-amplification
+diagnosis possible at all.
 
-**Kill it if, by step 60:**
-- `dup_frac` > 0.3 — list prompting failed to fix collapse
-- `iw_clip_frac` > 0.5 — the p_list→p_single gap is too wide to correct, and the
-  update is effectively uncorrected off-policy
-- `verifier_delta` improves > 0.3 while `grip_delta` < 0.01 — Goodharting again,
-  with a different reward
-- `reward_std_within_group` < 2× the measured reward noise — the reward cannot
-  rank its own candidates; no update rule fixes that
+Delete `cand_blend_mean` or rename it `..._IS_A_RANK_DO_NOT_READ_AS_PROGRESS`.
 
-**Judge it at step 150** against v11's own trend, on nat24 with **768 episodes
-per cell, not 192**. At 192 the per-cell s.e. is 3.56pp and the minimum
-detectable slope is 22.6pp/1000 steps — v11 could have been improving at
-+20pp/1000 and we could not have seen it. 768 halves the s.e. This is the change
-that makes the whole comparison meaningful and it is cheap next to training.
+---
 
-**Success:** rollout success on nat24 rises ≥ 5pp over the step-0 baseline of
-42.19 with the trend's 95% CI excluding zero.
+## Falsification (pre-registered)
+
+**Kill by step 60 if:**
+- `verifier_delta` improves > 0.3 while `grip_delta` < 0.01 — Goodharting again
+- `reward_std_within_group` < 2× measured reward noise — the reward cannot rank
+  its own candidates, and no update rule repairs that
+- `cand_margin_logit` fails to fall — the policy is not even climbing its reward
+
+**Judge at step 150** on nat24 with **768 episodes per cell, not 192.** At 192
+the per-cell s.e. is 3.56pp and the minimum detectable slope is 22.6pp/1000
+steps — v11 could have been improving at +20pp/1000 and we could not have seen
+it. This is the change that makes the comparison mean anything, and it is cheap
+beside training.
+
+**Success:** nat24 rises ≥ 5pp over the 42.19 step-0 baseline, trend CI excluding
+zero.
 
 ---
 
 ## Resumability (standing order)
 
-Every run stays resumable forever. A checkpoint dir carries the full state:
-`adapter_model.safetensors`, `optimizer.pt`, `replay.pt`, `rng.pt`,
-`trainer_state.json`.
+Checkpoints carry full state: `adapter_model.safetensors`, `optimizer.pt`,
+`replay.pt`, `rng.pt`, `trainer_state.json`.
 
-| run | commit | on origin | resume |
-|---|---|---|---|
-| v10 | see `results/experiments.json` | steps 0010–0030, 0230–0260, best_val, latest | `scripts/ckpt_archive.sh unpack v10_latest` then `run_arm_v10.sh` (has `--resume`) |
-| v11 | `4930b7e` (launch), running through `94bb556` | steps 0010–0150 + latest | `scripts/ckpt_archive.sh unpack v11_step_0150` then `run_arm_v11.sh` |
-| v12 | this spec | — | — |
+| run | on origin | resume |
+|---|---|---|
+| v10 | `v10_step_0010/0020/0030/0230/0240/0250/0260`, `v10_best_val`, `v10_latest` (step 260) | `ckpt_archive.sh unpack v10_latest` → `run_arm_v10.sh` |
+| v11 | `v11_step_0010` … `v11_step_0150` | `ckpt_archive.sh unpack v11_step_0150` → `run_arm_v11.sh` |
 
-`scripts/ckpt_drain_v11.sh` archives each new checkpoint, verifies it against
-`git ls-tree origin/main`, and keeps only the newest two locally. Verify by
-ORIGIN, never by a push exit code: `git push` exits 0 when nothing was staged,
-which is how v11 steps 0140/0150 were reported "pushed" while origin still held
-0130.
+v10 steps 0040–0220 are **lost** — rotated locally before ever being pushed.
+`scripts/ckpt_drain_v11.sh` prevents recurrence: it verifies each checkpoint
+against `git ls-tree origin/main` before dropping the local copy. Verify by
+ORIGIN, never by a push exit code — `git push` exits 0 when nothing was staged,
+which is how v11 steps 0140/0150 were logged "pushed" while origin held 0130.
