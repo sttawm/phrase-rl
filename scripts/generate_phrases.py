@@ -42,6 +42,9 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--n-natural", type=int, default=7)
 ap.add_argument("--n-adversarial", type=int, default=2)
 ap.add_argument("--limit", type=int, default=0, help="0 = all tasks")
+ap.add_argument("--topup", action="store_true",
+                help="generate only the SHORTFALL against --n-natural/--n-adversarial, "
+                     "showing the model what already exists so it does not repeat it")
 ap.add_argument("--workers", type=int, default=8)
 ap.add_argument("--model", default="gemini-pro-latest")
 args = ap.parse_args()
@@ -94,11 +97,24 @@ client = genai.Client()
 
 
 def one(task):
-    if task in done:
-        return done[task]
+    have = done.get(task)
+    want_n, want_a = args.n_natural, args.n_adversarial
+    existing = ""
+    if have is not None:
+        if not args.topup:
+            return have
+        # top-up: ask only for the shortfall, and show what we hold so the model
+        # produces genuinely new wordings rather than paraphrasing its own output
+        want_n = max(0, args.n_natural - int((have.kind == "natural").sum()))
+        want_a = max(0, args.n_adversarial - int((have.kind == "adversarial").sum()))
+        if want_n == 0 and want_a == 0:
+            return have
+        existing = ("\n\nALREADY WRITTEN for this task — do NOT repeat these, and do not\n"
+                    "produce close variants of them:\n"
+                    + "\n".join(f"  {r.phrase}" for r in have.itertuples()))
     prompt = (PROMPT.replace("{{instruction}}", instruction_for(task))
-                    .replace("{{n_natural}}", str(args.n_natural))
-                    .replace("{{n_adversarial}}", str(args.n_adversarial)))
+                    .replace("{{n_natural}}", str(want_n))
+                    .replace("{{n_adversarial}}", str(want_a)) + existing)
     try:
         resp = client.models.generate_content(
             model=args.model, contents=prompt,
@@ -126,11 +142,25 @@ def one(task):
         print(f"  EMPTY {task!r}", flush=True)
         return None
     df = pd.DataFrame(rows).drop_duplicates(["task", "phrase"])
+    if have is not None:
+        df = (pd.concat([have, df], ignore_index=True)
+                .drop_duplicates(["task", "phrase"]))
     return df
 
 
 results = list(done.values())
-todo = [t for t in tasks if t not in done]
+if args.topup:
+    # a task is outstanding when it is SHORT of quota, not merely when it is absent
+    def short(t):
+        h = done.get(t)
+        if h is None:
+            return True
+        return (int((h.kind == "natural").sum()) < args.n_natural
+                or int((h.kind == "adversarial").sum()) < args.n_adversarial)
+    todo = [t for t in tasks if short(t)]
+    results = [d for t, d in done.items() if t not in set(todo)]
+else:
+    todo = [t for t in tasks if t not in done]
 print(f"{len(tasks)} tasks ({len(todo)} outstanding); "
       f"{args.n_natural} natural + {args.n_adversarial} adversarial each", flush=True)
 
