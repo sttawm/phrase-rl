@@ -1031,13 +1031,20 @@ def main():
                         f"against the best rulebook above and work out which change cost "
                         f"the ground:\n{rr}\n")
 
+                def rel(p):
+                    try:
+                        return str(Path(p).resolve().relative_to(run.dir.resolve()))
+                    except ValueError:
+                        return str(p)
+
                 dp = prompt_from("distill.md", best_rules=best_rules,
                                  regressed_block=regressed_block,
-                                 corpus_file=corpus_file, evidence_file=ev_file,
-                                 best_eval_file=best_eval,
-                                 regressed_eval_file=regressed_eval)
+                                 corpus_file=rel(corpus_file), evidence_file=rel(ev_file),
+                                 new_file=rel(new_file),
+                                 best_eval_file=rel(best_eval),
+                                 regressed_eval_file=rel(regressed_eval))
                 print(f"    distilling over {n_ev} measured phrases "
-                      f"({len(train_tasks)} tasks) ...")
+                      f"({len(train_tasks)} tasks), {n_new} newly measured ...")
                 rules = None
                 for attempt in range(3):
                     cand = call_llm(run, cfg["distiller"], dp, f"{rephraser}_distill",

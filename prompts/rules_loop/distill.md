@@ -21,6 +21,14 @@ sorted by spread) as a starting point, but compute whatever else you need.
       within-task variation, not just the extremes. Where a phrase has a
       real-rollout number it is marked; those are more reliable than estimates.
 
+  {{new_file}}
+      Only what has been measured SINCE your last rulebook: the probe phrases you
+      asked for, and the rewrites your own rulebook produced. These rows are also
+      in the evidence file -- they are split out here because the answers to your
+      own experiments would otherwise be a handful of rows among thousands. If you
+      proposed an experiment last time, this is what it returned. Read it before
+      the full table.
+
   {{best_eval_file}}
       How the BEST rulebook performed: per-rule adherence, the measured
       single-edit effect of each individual rule, and an auditor's notes. A .json
