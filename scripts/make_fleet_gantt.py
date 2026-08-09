@@ -9,24 +9,29 @@ from matplotlib.patches import Patch
 
 C = {"sealed": "#a3bffa", "rr": "#fed7aa", "gen": "#b2f5ea",
      "train": "#d6bcfa", "worker": "#c6f6d5", "setup": "#e2e8f0"}
-NOW = 79.6  # 07:35 Aug 8 UTC (hours from 00:00 Aug 5)
+NOW = 99.2  # 03:10 Aug 9 UTC (hours from 00:00 Aug 5)
 
 ROWS = [
-    ("L40S",    [("v10 RL", 4.0, 44.5, "train"), ("stopped", 44.6, 47.5, "gen"),
-                 ("v11 RL TRAINING — step 105, FLAT (drift -0.11pp over 100 steps)", 52.0, 95.0, "train")]),
+    ("L40S",    [("v10 RL -> step 260 (archived)", 4.0, 44.5, "train"), ("stopped", 44.6, 47.5, "gen"),
+                 ("v11 RL — died step 130 (disk)", 52.0, 82.7, "train"),
+                 ("rebuilt venvs", 82.8, 84.0, "setup"),
+                 ("v11 RL RESUMED — step 180, still flat", 84.1, 112.0, "train")]),
     ("Eval 4",  [("v10 legs + cells", 39.0, 47.2, "rr"), ("gen-stack", 51.5, 52.2, "setup"),
-                 ("v11 nat24 evaluator — 11 cells through step 100", 52.3, 95.0, "worker")]),
+                 ("v11 nat24 evaluator — 13 cells", 52.3, 90.1, "worker"),
+                 ("v4-GEMINI leg — 33.94, A28 COMPLETE", 90.2, 99.0, "rr"),
+                 ("v11 evaluator — backlog 130-180", 99.1, 112.0, "worker")]),
     ("Eval 1",  [("(was Pod 5) qwen gens", 22.2, 39.9, "setup"), ("retired", 40.0, 41.4, "gen"),
                  ("repair + disk rescue", 58.3, 58.6, "setup"),
                  ("v3 GEMINI leg — 37.41 (merge recovered)", 58.6, 69.5, "rr"),
-                 ("git gc (killed at 26G; 39G reclaimed)", 70.6, 78.6, "setup"),
-                 ("BANK SCORING — training shard 0/2, 107 tasks", 78.8, 88.2, "worker")]),
+                 ("git gc + partial clone repair", 70.6, 78.6, "setup"),
+                 ("BANK SCORING shard 0/2 — 788 phrases left, ~4.8 GPU-h", 78.8, 104.0, "worker")]),
     ("Eval 6",  [("v10 gens + archive keeper", 4.0, 51.6, "worker"), ("stopped", 51.9, 53.0, "gen"),
                  ("v3 qwen leg (30.08)", 53.2, 61.0, "rr"),
-                 ("v3 CLAUDE leg — 36.68, cell complete", 63.4, 77.6, "rr"),
-                 ("recording sim contexts (11 tasks) + top-up for thin ones", 77.7, 84.8, "gen"),
-                 ("BANK SCORING — 479 SIM phrases (chunk 16)", 84.9, 87.6, "worker"),
-                 ("then TRAINING shard 1/2", 87.7, 95.0, "worker")]),
+                 ("v3 CLAUDE leg — 36.68", 63.4, 77.6, "rr"),
+                 ("sim contexts + 479 SIM phrases", 77.7, 87.6, "gen"),
+                 ("BANK shard 1/2 — DONE (2099 rows)", 87.7, 98.9, "worker"),
+                 ("temp sweep: frozen vs v11", 99.0, 100.5, "setup"),
+                 ("then: 180 sim phrases (~1.4 GPU-h)", 100.6, 104.0, "worker")]),
     ("Eval 5",  [("v10 cells + legs", 39.0, 55.2, "rr"),
                  ("v3 qwen lay12 (30.82)", 57.3, 65.0, "rr"),
                  ("v3 CLAUDE leg — 36.02", 62.6, 71.0, "rr"),
@@ -46,22 +51,22 @@ for i, (pod, bars) in enumerate(ROWS):
         if e - s > 2.6:
             ax.text((s + e) / 2, y, label, ha="center", va="center", fontsize=6.6, color="#2d3748")
 ax.axvline(NOW, color="#e53e3e", lw=1.5, ls="--")
-ax.text(NOW + 0.2, len(ROWS) - 0.4, "now 07:35", color="#e53e3e", fontsize=8.5, fontweight="bold")
+ax.text(NOW + 0.2, len(ROWS) - 0.4, "now 03:10", color="#e53e3e", fontsize=8.5, fontweight="bold")
 ax.set_yticks(range(len(ROWS)))
 ax.set_yticklabels([p for p, _ in reversed(ROWS)], fontsize=9.5)
-ticks = list(range(4, 97, 4))
+ticks = list(range(4, 117, 4))
 ax.set_xticks(ticks)
-ax.set_xticklabels([f"{t % 24:02d}:00" + ("\n(Aug 6)" if 24 <= t < 48 else ("\n(Aug 7)" if 48 <= t < 72 else ("\n(Aug 8)" if 72 <= t < 96 else ""))) for t in ticks], fontsize=8)
-ax.set_xlim(3.5, 95.5)
+ax.set_xticklabels([f"{t % 24:02d}:00" + ("\n(Aug 6)" if 24 <= t < 48 else ("\n(Aug 7)" if 48 <= t < 72 else ("\n(Aug 8)" if 72 <= t < 96 else ("\n(Aug 9)" if t >= 96 else "")))) for t in ticks], fontsize=8)
+ax.set_xlim(3.5, 113.5)
 ax.grid(axis="x", alpha=0.25)
 ax.legend(handles=[Patch(color=C[k], label=l) for k, l in
                    [("train", "RL training"), ("rr", "sealed robustness leg"),
                     ("worker", "scoring / evaluation"), ("setup", "setup / repair"), ("gen", "stop")]],
           fontsize=8, loc="lower left")
-ax.set_title("Bank scoring runs ~5x faster after fixing the batching (173s/context + 12.8s/phrase); e1 on the training "
-             "half, e6 on sim then joining as shard 1.\n"
-             "A28 done — v3 beats v4 for all three appliers on matched layouts. v11 is flat through 100 steps and "
-             "awaiting a call; v4-Gemini lay0-11 queued for the next free pod.", fontsize=9.5)
+ax.set_title("A28 COMPLETE (v3 > v4 for all three appliers). Bank 80% scored, 968 phrases left. v11 resumed at step 130 "
+             "after a disk-full death, now step 180 and still flat.\n"
+             "NO POD IS IDLE: L40S trains, e1 finishes shard 0, e4 clears the 130-180 eval backlog, e6 runs the "
+             "temperature sweep then the last 180 sim phrases.", fontsize=9.5)
 fig.tight_layout()
 fig.savefig("results/charts/fleet_gantt.png", dpi=140, bbox_inches="tight", pad_inches=0.2)
 print("chart -> results/charts/fleet_gantt.png")
