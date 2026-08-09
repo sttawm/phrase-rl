@@ -37,9 +37,9 @@ sorted by spread) as a starting point, but compute whatever else you need.
       the full table.
 
   {{best_eval_file}}
-      How the BEST rulebook performed: per-rule adherence, the measured
-      single-edit effect of each individual rule, and an auditor's notes. A .json
-      twin sits beside it if you want to compute over it. Absent on the first
+      The auditor's read on the BEST rulebook: whether each rule was actually
+      followed, and notes on the rewrites. It carries the BOOK's measured delta,
+      not a number per rule. A .json twin sits beside it. Absent on the first
       iteration.
 
   {{regressed_eval_file}}
@@ -53,12 +53,14 @@ are revising -- build from it:
 {{regressed_block}}
 
 Guidance:
-- A rule earns its place by evidence, but note what the evidence can and cannot
-  resolve. The BOOK's delta is measured. A single rule's contribution is NOT --
-  it is well under 1pp and would need ~8,700 measurements to resolve, so no
-  per-rule number is given and you should not infer one. Judge rules on whether
-  the applier obeyed them and on what the rewrites look like; judge the book on
-  its delta. If you want a rule isolated, ask for that experiment in your plan.
+- Learn what works from the EVIDENCE file — it is the accumulated record of every
+  phrase ever measured, and it grows every iteration. The eval files are the
+  auditor's read on whether your rules were followed, not a second source of
+  performance numbers.
+- When you add or reword a rule, you are making a claim that has not been
+  measured yet. Say what measurement would test it, and name it in your plan —
+  those measurements land in the evidence and are there for every later
+  iteration.
 - When a regressed rulebook is shown, diff it against the best one and identify
   which specific change cost the ground. Their two eval files let you compare the
   same rules measured under both -- a rule present in both whose delta moved is

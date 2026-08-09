@@ -14,15 +14,9 @@ It contains the rulebook's text and a sample of base → rewrite pairs from
 applying the WHOLE rulebook, with each rewrite's measured score. A `.json` twin
 sits beside it if you would rather compute over it.
 
-There is deliberately NO per-rule score. A single rule is worth well under 1pp,
-and resolving that would take ~8,700 measurements per rule — three orders of
-magnitude beyond what a run can afford. Any per-rule number we could produce
-would be noise, and acting on it would churn the rulebook at random. So judge
-rules on ADHERENCE (below) and on what you can see in the rewrites themselves;
-judge the BOOK on its measured delta. If you want a controlled contrast for one
-specific rule, propose it as an experiment — that is what the planning step is
-for, and spending the budget where you have a hypothesis beats spreading it
-thinly across every rule.
+There is no per-rule score — the measurement is of the book, not of its parts.
+Judge each rule on adherence and on what the rewrites show; judge the book on its
+delta. If you want one rule isolated, ask for that measurement.
 
 RULEBOOK UNDER AUDIT:
 {{rules}}
