@@ -53,8 +53,12 @@ are revising -- build from it:
 {{regressed_block}}
 
 Guidance:
-- A rule earns its place by evidence. If {{best_eval_file}} shows a rule had no
-  measurable effect, or a negative one, remove it or replace it.
+- A rule earns its place by evidence, but note what the evidence can and cannot
+  resolve. The BOOK's delta is measured. A single rule's contribution is NOT --
+  it is well under 1pp and would need ~8,700 measurements to resolve, so no
+  per-rule number is given and you should not infer one. Judge rules on whether
+  the applier obeyed them and on what the rewrites look like; judge the book on
+  its delta. If you want a rule isolated, ask for that experiment in your plan.
 - When a regressed rulebook is shown, diff it against the best one and identify
   which specific change cost the ground. Their two eval files let you compare the
   same rules measured under both -- a rule present in both whose delta moved is

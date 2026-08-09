@@ -10,14 +10,19 @@ Read the working file before answering. It covers every rule in one place:
 
 {{eval_file}}
 
-It contains, for each numbered rule: the rule's text, the measured change in
-estimated success when THAT RULE ALONE was applied (a controlled single-edit
-contrast against the same base instructions), how many instructions it was
-measured on, and where available the same delta broken down by input kind
-(original / natural / adversarial / rephrased). A rule that helps one kind and
-not another is not a weak rule — it is a conditional one, and should be reported
-that way. The file ends with a sample of base → rewrite pairs from applying the
-whole rulebook. A `.json` twin sits beside it if you would rather compute over it.
+It contains the rulebook's text and a sample of base → rewrite pairs from
+applying the WHOLE rulebook, with each rewrite's measured score. A `.json` twin
+sits beside it if you would rather compute over it.
+
+There is deliberately NO per-rule score. A single rule is worth well under 1pp,
+and resolving that would take ~8,700 measurements per rule — three orders of
+magnitude beyond what a run can afford. Any per-rule number we could produce
+would be noise, and acting on it would churn the rulebook at random. So judge
+rules on ADHERENCE (below) and on what you can see in the rewrites themselves;
+judge the BOOK on its measured delta. If you want a controlled contrast for one
+specific rule, propose it as an experiment — that is what the planning step is
+for, and spending the budget where you have a hypothesis beats spreading it
+thinly across every rule.
 
 RULEBOOK UNDER AUDIT:
 {{rules}}
@@ -28,8 +33,10 @@ Two things that are genuinely different, never conflated:
 
 - **adherence** — did the applier actually do what the rule said? Judge this from
   the rewrite samples, not from the numbers.
-- **performance** — when it WAS obeyed, what did the measurement say it did to
-  success? Cite the number, and the per-kind split where it exists.
+- **performance** — when it WAS obeyed, did the rewrites look better or worse to
+  you, and did the BOOK's measured delta move? There is no per-rule number; say
+  so plainly rather than inventing one, and flag which rules you would want a
+  controlled experiment on.
 
 A rule can have high adherence and poor performance (it was followed and that was
 a bad idea) or the reverse (it is a good idea nobody executed). Those call for
