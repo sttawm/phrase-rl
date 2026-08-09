@@ -191,10 +191,15 @@ class Sizes:
     orig_nat_adv: tuple = (0.20, 0.50, 0.30)
     """Base mix. Costs the same whatever it is -- every base costs one rephrase
     and one measurement. It sets what the number MEANS, not what it costs.
-    OUTSTANDING: the ERT adversarial reference exists for 0 of 8 val8 tasks, so
-    the 0.30 share must be generated before the first real iteration. Note also
-    that 254 of the ~350 existing val8 phrases are fine_exam CLOSE PARAPHRASES,
-    which fill none of these three buckets cleanly."""
+    ORIG TIER ON val8 = the fine_exam phrases (user call, 2026-08-09). Each val8
+    task has exactly ONE original instruction, so a 20% orig share (6.4/task) is
+    undefined taken literally. fine_exam phrases are competent, undegraded
+    phrasings of the task -- which is what the orig tier represents -- and 254 of
+    them exist against the ~51 needed. This also stops them being unclassifiable.
+
+    OUTSTANDING at N_sim=32: natural short 64 (have 64, need 128), adversarial
+    short 45 (have 32, need 77). ~109 phrases to generate, and they must exist
+    BEFORE trace generation since traces are per-base."""
 
     iterations: int = 6
     rephrasers: int = 1
