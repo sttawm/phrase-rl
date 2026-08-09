@@ -15,10 +15,11 @@ Rules for this file
   quietly disagree about what N means.
 
 DESIGN IN ONE LINE (2026-08-09)
-    Every phrase the loop evaluates is measured at BANK GRADE, so evaluation and
-    bank-building are the same act rather than two budgets. Sim phrases get
-    n=36 rollouts, train phrases get F*C=64 proxy contexts -- both matching the
-    grade of what is already banked, so old and new rows stay comparable.
+    Each eval set is sized by its own job, not by a shared N. train buys evidence
+    volume, train_held buys precision on one number, sim buys RESOLUTION on the
+    rulebook comparison -- and sim deliberately spends its episodes on more bases
+    rather than deeper per-phrase measurement, which takes it below bank grade.
+    Train scoring stays at F*C=64 so those rows DO match the banked ones.
 """
 from dataclasses import dataclass
 
@@ -162,7 +163,7 @@ class Sizes:
     different jobs, and equal N was really N=16 propagated from the val8
     bank-grade decision without a separate argument."""
 
-    n_sim: int = 16
+    n_sim: int = 32
     """Bases per val8 task -> 8 x 16 = 128 bases.
 
     Sized by BANK GRADE: every one gets the full n=36 rollouts, so this count
@@ -210,10 +211,26 @@ SIZE = Sizes()
 
 @dataclass(frozen=True)
 class Rollouts:
-    gt_n: int = 36
-    """Rollouts per sim phrase. EVERY evaluated sim phrase gets the full 36, so
-    the eval output is bank-grade by construction and there is no separate
-    gt-subset pass to schedule or reconcile.
+    gt_n: int = 18
+    """Rollouts per sim phrase.
+
+    18, NOT 36 -- and this DROPS bank grade on purpose (2026-08-09, user call).
+    At a fixed episode budget the paired variance is
+        Var = 2p(1-p)/E + 2*sd^2/n
+    so halving rollouts-per-phrase to double the base count leaves the binomial
+    term untouched (E is unchanged at 4,608) and HALVES the phrase term:
+        128 bases x 36 -> 5.1pp, floor 4.7pp
+        256 bases x 18 -> 3.9pp, floor 3.3pp
+    Same 32.3 GPU-h. 3.9pp finally reaches the +3.2pp gemini effect the loop
+    exists to detect, where 5.1pp could not.
+
+    The cost is that n=18 is NOT the bank standard: a single phrase carries
+    +/-22.8pp, so these rows inform the rulebook comparison and do not enter the
+    bank as ground truth. Bank additions need a separate n=36 pass on a chosen
+    subset if wanted.
+
+    Composition is clean: 18 = layouts 0-17 x 1 rep, the training layout pool
+    exactly once.
 
     36 is the repo's established SEARCH grade, and it is a structural number,
     not a power calculation: 18 training layouts x 2 reps. Its companions in
@@ -225,7 +242,7 @@ class Rollouts:
     number later becomes a CLAIM inside a rule ('phrase X gives +N pp'), it
     needs certification at 144 and the n=36 row cannot carry it."""
 
-    gt_composition: str = "layouts 0-17 x 2 reps"
+    gt_composition: str = "layouts 0-17 x 1 rep"
     """HOW the 36 is composed -- and this, not the count, is the standard.
 
     The bank currently holds two forms:
@@ -240,8 +257,8 @@ class Rollouts:
     every new measurement and record it per row. See KNOWN_ISSUES: the val8
     per-task grid sizes are still unverified."""
 
-    reps_per_layout: int = 2
-    """Follows from gt_composition: 18 layouts x 2 = 36.
+    reps_per_layout: int = 1
+    """Follows from gt_composition: 18 layouts x 1 = 18.
 
     Note this REVERSES the K=1 rule that governs a rulebook-mean design. Both
     are right for their own job:
@@ -291,8 +308,11 @@ class BankPolicy:
     filter (rules_loop_driver.py:1296) would exclude them anyway -- this flag
     says do not rely on that filter as the sole guard."""
 
-    bank_sim: bool = True
-    """val8 (8 tasks x 16) is banked at gt n=36, into the SIM bank."""
+    bank_sim: bool = False
+    """val8 rows are NO LONGER banked: at n=18 they are below the n=36 bank
+    standard (+/-22.8pp on a single phrase). The eval buys rulebook resolution
+    instead of bank rows. If sim bank rows are wanted, run a separate n=36 pass
+    on a chosen subset."""
 
     sim_bank_visible_to_proxy_loop: bool = False
     """Sim rows are for the sim loop only. Verify this holds for any NEW
@@ -533,7 +553,8 @@ def main():
     row("train  N=%d" % SIZE.n_train, n_train(), "evidence rows for the distiller")
     row("held   N=%d" % SIZE.n_train_held, n_train_held(),
         f"precision on one number: {proxy_resolution_pp(n_train_held()):.1f}pp")
-    row("sim    N=%d" % SIZE.n_sim, n_sim_bases(), "bases, each at bank grade n=36")
+    row("sim    N=%d" % SIZE.n_sim, n_sim_bases(),
+        f"bases x n={ROLL.gt_n} rollouts: {sim_resolution_pp():.1f}pp (below bank grade)")
     row("F x C", SIZE.fxc, "matches the 2,105 banked rows at n_ctx=64")
     row("orig:nat:adv", "%.0f:%.0f:%.0f" % tuple(x * 100 for x in SIZE.orig_nat_adv),
         "free -- sets meaning, not cost")
@@ -558,10 +579,11 @@ def main():
 
     print("\nBANK YIELD PER ITERATION")
     row("train", n_train(), f"proxy rows at F*C={SIZE.fxc}")
-    row("sim", n_sim_bases(), f"gt rows at n={ROLL.gt_n}")
+    row("sim", 0 if not BANK.bank_sim else n_sim_bases(),
+        f"({n_sim_bases()} measured at n={ROLL.gt_n}, below the n=36 bank standard)")
     row("train_held", 0, f"({n_train_held()} measured, deliberately not banked)")
-    print(f"    over {SIZE.iterations} iterations: {n_train()*SIZE.iterations} train "
-          f"+ {n_sim_bases()*SIZE.iterations} sim rows")
+    print(f"    over {SIZE.iterations} iterations: {n_train()*SIZE.iterations} train rows"
+          f"{'' if not BANK.bank_sim else f' + {n_sim_bases()*SIZE.iterations} sim rows'}")
 
     print("\nRESOLUTION (detectable rulebook difference, 95%, paired)")
     row("train_held", f"{proxy_resolution_pp(n_train_held()):.1f} pp", f"on {n_train_held()} phrases")
