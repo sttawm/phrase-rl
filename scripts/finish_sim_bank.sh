@@ -34,7 +34,7 @@ mark "$n recorded trajectory files"
 # validates on already carry 11-37 successful episodes; only the bonus
 # distractor scenes are thin, and n_ctx records that honestly.
 FLOOR="${CTX_FLOOR:-10}"
-thin=$(ls "$TRAJ" 2>/dev/null | sed -E 's/_ep[0-9]+.*//; s/\.npz$//' | sort | uniq -c \
+thin=$(ls "$TRAJ" 2>/dev/null | sed -E 's/__ep[0-9]+.*//; s/\.npz$//' | sort | uniq -c \
        | awk -v f="$FLOOR" '$1 < f {print $2}')
 if [ -n "$thin" ] && [ "${SKIP_TOPUP:-0}" != "1" ]; then
   mark "topping up thin tasks (<$FLOOR successful episodes): $(echo $thin | tr '\n' ' ')"
@@ -46,6 +46,16 @@ d[d.task.isin(thin)].to_parquet("data/phrases_sim_topup.parquet", index=False)
 print(f"top-up list: {len(thin)} tasks", flush=True)
 PY
   rm -f data/rollouts_simtopup.parquet
+  # phase0c_rollout needs these; this was the ONLY call site in the repo missing
+  # them, a regression from splitting this script out as a CPU-only tail. The
+  # rollout died instantly and, with no rc check below, extract+score carried on
+  # over the thin trajectories and the run reported success.
+  export VLA_DATA_DIR="${VLA_DATA_DIR:-/workspace/data}"
+  export VLA_LOG_DIR="${VLA_LOG_DIR:-/workspace/log}"
+  export WANDB_MODE=offline
+  export UV_CACHE_DIR="${UV_CACHE_DIR:-/workspace/.uv-cache}"
+  export UV_LINK_MODE=copy
+  mkdir -p "$VLA_DATA_DIR" "$VLA_LOG_DIR"
   cd /workspace/INT-ACT
   /workspace/INT-ACT/.venv/bin/python /workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py \
     --int-act-root /workspace/INT-ACT \
@@ -55,8 +65,17 @@ PY
     --episode-ids $(seq 40 $((40 + ${TOPUP_EPS:-60} - 1))) \
     --out /workspace/phrase-rl/data/rollouts_simtopup.parquet \
     --record-dir /workspace/phrase-rl/data/sim_traj_val8 --record-success-only
+  rc=$?
   cd /workspace/phrase-rl
-  mark "after top-up: $(ls $TRAJ | wc -l) trajectory files"
+  before=$n; after=$(ls "$TRAJ" | wc -l | tr -d ' ')
+  if [ "$rc" -ne 0 ]; then
+    mark "FATAL: top-up rollout exited $rc -- refusing to score thin scenes"; exit 1
+  fi
+  if [ "$after" -le "$before" ]; then
+    mark "FATAL: top-up added no trajectories ($before -> $after) -- the filter or"
+    mark "       the env is wrong; scoring now would repeat the silent failure"; exit 1
+  fi
+  mark "after top-up: $after trajectory files (+$((after - before)))"
 fi
 
 PY=$(pick_python phrase_rl.sim_contexts_extract) || { mark "FATAL: no usable venv"; exit 1; }
