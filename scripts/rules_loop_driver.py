@@ -398,19 +398,56 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
 
 
 _TRACES = {}
+PER_BASE_TRACES = REPO / "results/phrase_artifacts/traces_rules_v1.parquet"
+LEGACY_TRACES = REPO / "results/phrase_artifacts/cover35_teacher_train.parquet"
 
 
 def load_traces():
-    """Scene descriptions, keyed by instruction. Expensive to generate, so they
-    are loaded once from the teacher bank and reused for every rule application."""
+    """Scene descriptions for rule application. Expensive to generate, so they
+    are loaded once and reused.
+
+    TWO sources, and the distinction is the whole point:
+
+      PER-BASE (traces_rules_v1.parquet, keyed (task, phrase)) -- generated FROM
+      the base phrase itself. An adversarial base gets a scene description read
+      through its own wording.
+
+      LEGACY (cover35_teacher_train.parquet, keyed instruction) -- all 2,000 were
+      generated from the ORIGINAL instruction, so handing one to a natural or
+      adversarial base leaks the canonical vocabulary into the input the
+      rulebook is supposed to repair. Kept only as a fallback for bases with no
+      per-base trace yet.
+
+    Returns a dict whose keys are BOTH (task, phrase) tuples and bare strings;
+    trace_for() below encodes the precedence."""
     global _TRACES
     if _TRACES:
         return _TRACES
-    f = REPO / "results/phrase_artifacts/cover35_teacher_train.parquet"
-    if f.exists():
-        t = pd.read_parquet(f, columns=["instruction", "trace"]).drop_duplicates("instruction")
-        _TRACES = dict(zip(t.instruction, t.trace))
+    out = {}
+    if LEGACY_TRACES.exists():
+        t = pd.read_parquet(LEGACY_TRACES, columns=["instruction", "trace"])
+        t = t.drop_duplicates("instruction")
+        out.update(dict(zip(t.instruction, t.trace)))
+    n_legacy = len(out)
+    if PER_BASE_TRACES.exists():
+        p = pd.read_parquet(PER_BASE_TRACES, columns=["task", "phrase", "trace"])
+        p = p.drop_duplicates(["task", "phrase"])
+        out.update({(str(r.task), str(r.phrase)): r.trace for r in p.itertuples()})
+        print(f"[traces] {len(p)} per-base + {n_legacy} legacy-by-instruction")
+    else:
+        print(f"[traces] {n_legacy} legacy-by-instruction ONLY -- every base will "
+              f"be conditioned on a trace built from the ORIGINAL instruction, "
+              f"which leaks canonical vocabulary into hostile inputs")
+    _TRACES = out
     return _TRACES
+
+
+def trace_for(traces, task, phrase):
+    """Precedence: per-base first, then the legacy instruction-keyed fallbacks."""
+    return (traces.get((str(task), str(phrase)))
+            or traces.get(task)
+            or traces.get(phrase)
+            or "(no scene description available)")
 
 
 def prompt_from(name, **kw):
@@ -720,8 +757,7 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag, only_rule=
     for r in bases.itertuples():
         jobs.append((r.task, r.phrase, prompt_from(
             "apply.md", rules=rules, phrase=r.phrase,
-            trace=traces.get(r.task, traces.get(r.phrase,
-                                                "(no scene description available)")))))
+            trace=trace_for(traces, r.task, r.phrase))))
     rows = [None] * len(jobs)
 
     def one(i):
