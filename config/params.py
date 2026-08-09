@@ -163,17 +163,21 @@ class Rollouts:
     never on repeats. This is already how nat24 is built: 24 distinct phrases
     per task, one layout each."""
 
-    layout_pool: tuple = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-                          12, 13, 14, 15, 16, 17)
-    """Layouts the loop may draw from. 0-17 ONLY.
+    layout_pool: tuple = tuple(range(24))
+    """Layouts the loop may draw from. ALL 24.
 
-    18-23 are the repo's RESERVED held-out set (EXPERIMENT.md:400-407): 'seen
-    layouts (0-17) vs HELD-OUT layouts (18-23). The 18-23 column is the honest
-    generalization number', and 18-23 appears in the contamination audit trail.
-    Six iterations of selection on a fixed set IS selection on that set, so the
-    promoted rulebook gets its confirmation read on 18-23."""
+    The 0-17 / 18-23 reservation in EXPERIMENT.md:398-407 governs ROLLOUT RL --
+    its header is literally 'FAIR-EVAL PROTOCOL (rollout RL trains in the same
+    sim it is evaluated in)'. That RL gradient-updates on layout 0-17 outcomes
+    and can memorise them, so 18-23 is its generalization control.
 
-    layout_balance: str = "2 from 0-11, 2 from 12-17"
+    The rules loop trains no weights; it emits text. No mechanism carries a
+    layout outcome into a rulebook except the choice of which rulebook to
+    promote -- ~6 bits over a whole run. That is reported, not fenced off.
+    (An earlier draft of this file reserved 18-23 here. Wrong: it imported a
+    rollout-RL control into a loop with no gradient.)"""
+
+    layout_balance: str = "2 from 0-11, 2 from 12-23"
     """Because layouts 12-23 run +4.3pp easier than 0-11 (see
     Measured.layout_half_gap_pp), an unbalanced fixed set biases every
     delta-vs-original the loop reports."""
@@ -343,9 +347,10 @@ DECISIONS = [
      "Distractors inherit their bases' phrases, have 8-25pp base rates against "
      "val8's 42, have essentially no ground truth, and their proxy scores are "
      "broken-thin. Statistically a wash. Use once on the promoted rulebook."),
-    ("2026-08-09", "Layouts FIXED across iterations, drawn from 0-17",
-     "CORRECTS 'balanced 2 from 0-11 + 2 from 12-23'. 18-23 is the repo's "
-     "reserved held-out set (EXPERIMENT.md:400-407)."),
+    ("2026-08-09", "Layouts FIXED across iterations, drawn from all 24",
+     "The 0-17/18-23 reservation governs ROLLOUT RL, which gradient-updates on "
+     "layout outcomes. The rules loop trains no weights, so it does not apply. "
+     "Balance 2 from 0-11 + 2 from 12-23 against the +4.3pp half gap."),
     ("2026-08-09", "gt_n=36 stays the bank standard; the eval does not feed it",
      "L=4 gives +/-48pp on a single phrase. A gt_subset of 32 rewrites per "
      "iteration is promoted to 36 rollouts and banked."),
@@ -375,7 +380,7 @@ def main():
     print("\nROLLOUTS")
     row("L (layouts/base)", ROLL.layouts_per_base, ROLL.layout_balance)
     row("K (reps/layout)", ROLL.reps_per_layout, "optimal at 1")
-    row("layout pool", "0-17", "18-23 RESERVED for confirmation")
+    row("layout pool", "0-23", "all 24 -- the RL reservation does not apply")
     row("eval episodes", episodes_eval(), "= n x L x K")
     row("gt_n (bank standard)", ROLL.gt_n, f"+/-{per_phrase_ci_pp(ROLL.gt_n):.0f}pp per phrase")
     row("gt subset/iter", ROLL.gt_subset_per_iter, f"= {episodes_gt()} episodes, banked")
