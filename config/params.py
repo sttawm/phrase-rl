@@ -93,13 +93,25 @@ M = Measured()
 
 @dataclass(frozen=True)
 class EvalSets:
-    t_train: int = 25
+    t_train: int = 156
     """Training tasks. The distiller SEES these -- its evidence file is built
-    from these tasks only (rules_loop_driver.py:1296 passes train_tasks)."""
+    from these tasks only (rules_loop_driver.py:1296 passes train_tasks).
+
+    156, not 25. An earlier draft of this file used 25, which was the
+    --max-train-tasks cap from the night1g SMOKE run. The production split is
+    live1: 156 train / 31 held. Using the smoke number understated the proxy
+    leg by ~3.3x."""
 
     t_train_held: int = 31
     """Held-out real-robot tasks. Proxy-scored every iteration as the
-    generalization read, and NEVER banked -- see BankPolicy."""
+    generalization read, and NEVER banked -- see BankPolicy.
+
+    The size is not a design choice: rules_loop_driver.py:1221 hardcodes
+    n_held = max(2, len(tasks) // 6), so the held set is structurally 1/6 of the
+    admitted pool. The 1:5 direction is defensible (learning needs more breadth
+    than checking does) but the magnitude is a line of code, justified nowhere.
+    Worth revisiting: held PRECISION comes from phrases, not tasks, so N is the
+    lever; task count only buys task-type diversity for the overfitting check."""
 
     t_sim_held: int = 8
     """val8 sim tasks, CLEAN only, frozen as VAL8_TASKS in the driver and
@@ -129,14 +141,34 @@ SETS = EvalSets()
 
 @dataclass(frozen=True)
 class Sizes:
-    n_per_task: int = 16
-    """Bases per task, the SAME on all three eval sets.
+    n_train: int = 8
+    """Bases per TRAIN task -> 156 x 8 = 1,248 evidence rows.
 
-    Uniform on purpose: the train-vs-train_held gap is the loop's overfitting
-    signal, and it reads cleanest when both sides carry the same phrase count
-    and the same measurement grade.
+    Sized by EVIDENCE VOLUME, not by statistical precision: this is what the
+    distiller reads, and the binding constraint is what an LLM can actually use
+    (the corpus step already read-timed out inlining 17k instructions, which is
+    why vocabulary is now counted in code). 1,248 rows is ample without being
+    unreadable."""
 
-    -> 25 x 16 = 400 train, 31 x 16 = 496 train_held, 8 x 16 = 128 sim.
+    n_train_held: int = 16
+    """Bases per HELD task -> 31 x 16 = 496 phrases -> 4.2pp detectable.
+
+    Sized by PRECISION on the single generalization number this set produces per
+    iteration. N=8 would give 6.0pp, mushier than the 5.1pp sim leg it is meant
+    to corroborate; N=24 buys 3.4pp for +0.9 GPU-h if that is wanted.
+
+    Deliberately DIFFERENT from n_train. An earlier draft used 16 everywhere,
+    justified as 'the gap reads cleanest at equal counts' -- but the two sets do
+    different jobs, and equal N was really N=16 propagated from the val8
+    bank-grade decision without a separate argument."""
+
+    n_sim: int = 16
+    """Bases per val8 task -> 8 x 16 = 128 bases.
+
+    Sized by BANK GRADE: every one gets the full n=36 rollouts, so this count
+    sets the rollout leg. STILL OPEN -- 128 bases reads 5.1pp against a floor of
+    4.7pp, adequate for a Claude-sized gain (+5.2pp) but underpowered for a
+    Gemini-sized one (+3.2pp), which needs 42/task.
 
     NOT gated by the phrase bank -- that was an error corrected 2026-08-09. The
     bank's sim rows are proxy-scored EVIDENCE for distillation; eval bases are
@@ -335,11 +367,11 @@ CACHE = CachePolicy()
 
 
 def n_train():
-    return SETS.t_train * SIZE.n_per_task
+    return SETS.t_train * SIZE.n_train
 
 
 def n_train_held():
-    return SETS.t_train_held * SIZE.n_per_task
+    return SETS.t_train_held * SIZE.n_train_held
 
 
 def n_proxy_phrases():
@@ -347,20 +379,21 @@ def n_proxy_phrases():
 
 
 def n_sim_bases():
-    return SETS.t_sim_held * SIZE.n_per_task
+    return SETS.t_sim_held * SIZE.n_sim
 
 
 def episodes():
     return n_sim_bases() * ROLL.gt_n
 
 
-def _proxy_task_sec():
+def _proxy_task_sec(n):
     return SIZE.fxc * (M.sec_per_context_row
-                       + M.sec_per_extra_phrase_row * (SIZE.n_per_task - 1))
+                       + M.sec_per_extra_phrase_row * (n - 1))
 
 
 def proxy_hours():
-    return (SETS.t_train + SETS.t_train_held) * _proxy_task_sec() / 3600
+    return (SETS.t_train * _proxy_task_sec(SIZE.n_train)
+            + SETS.t_train_held * _proxy_task_sec(SIZE.n_train_held)) / 3600
 
 
 def rollout_hours():
@@ -427,9 +460,19 @@ DECISIONS = [
      "Sim at n=36, train at F*C=64. Evaluation and bank-building become one act "
      "instead of two budgets, and no separate gt-subset pass has to be "
      "scheduled or reconciled. Costs sim resolution -- see the 5.1pp entry."),
-    ("2026-08-09", "N = 16 per task, uniform across all three eval sets",
-     "The train vs train_held gap is the overfitting signal and reads cleanest "
-     "at equal phrase counts and equal grade."),
+    ("2026-08-09", "SUPERSEDED: N = 16 per task uniform across all three sets",
+     "N=16 was propagated from the val8 bank-grade decision with no separate "
+     "argument for the proxy sets, and it used T_train=25 -- the night1g SMOKE "
+     "cap, not the production 156."),
+    ("2026-08-09", "Asymmetric N: train 8, train_held 16, sim 16",
+     "The three sets do different jobs. train is EVIDENCE VOLUME, bounded by "
+     "what an LLM can read. train_held is PRECISION on one number (496 phrases "
+     "-> 4.2pp, comparable to the sim leg's 5.1pp). sim is BANK GRADE, and its "
+     "count sets the rollout leg."),
+    ("2026-08-09", "OPEN: the 1:5 train/held task split is unjustified",
+     "rules_loop_driver.py:1221 hardcodes n_held = len(tasks)//6. The direction "
+     "is defensible, the magnitude is a line of code. Held precision comes from "
+     "phrases not tasks, so N is the real lever."),
     ("2026-08-09", "F*C = 64, not 40",
      "bank_scores_train_0of2.parquet holds n_ctx=64 on all 2,105 rows. Scoring "
      "at 40 would bank a grade that cannot be compared with them, to save "
@@ -486,11 +529,11 @@ def main():
     row("T_train_held", SETS.t_train_held, "generalization read; NEVER banked")
     row("T_sim_held", SETS.t_sim_held, "val8 CLEAN only; BANKED")
 
-    print("\nSIZE")
-    row("N per task", SIZE.n_per_task, "uniform across all three sets")
-    row("  -> train", n_train(), "phrases")
-    row("  -> train_held", n_train_held(), "phrases")
-    row("  -> sim", n_sim_bases(), "bases")
+    print("\nSIZE  (asymmetric on purpose -- each set sized by its own job)")
+    row("train  N=%d" % SIZE.n_train, n_train(), "evidence rows for the distiller")
+    row("held   N=%d" % SIZE.n_train_held, n_train_held(),
+        f"precision on one number: {proxy_resolution_pp(n_train_held()):.1f}pp")
+    row("sim    N=%d" % SIZE.n_sim, n_sim_bases(), "bases, each at bank grade n=36")
     row("F x C", SIZE.fxc, "matches the 2,105 banked rows at n_ctx=64")
     row("orig:nat:adv", "%.0f:%.0f:%.0f" % tuple(x * 100 for x in SIZE.orig_nat_adv),
         "free -- sets meaning, not cost")
@@ -521,7 +564,7 @@ def main():
           f"+ {n_sim_bases()*SIZE.iterations} sim rows")
 
     print("\nRESOLUTION (detectable rulebook difference, 95%, paired)")
-    row("proxy", f"{proxy_resolution_pp():.1f} pp", f"on {n_proxy_phrases()} phrases")
+    row("train_held", f"{proxy_resolution_pp(n_train_held()):.1f} pp", f"on {n_train_held()} phrases")
     row("sim", f"{sim_resolution_pp():.1f} pp",
         f"on {n_sim_bases()} bases x {ROLL.gt_n}")
     row("sim floor", f"{sim_resolution_floor_pp():.1f} pp",
