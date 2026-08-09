@@ -42,6 +42,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--n-natural", type=int, default=7)
 ap.add_argument("--n-adversarial", type=int, default=2)
 ap.add_argument("--limit", type=int, default=0, help="0 = all tasks")
+ap.add_argument("--only", default="", help="regex; restrict to matching tasks. val8 needs a deeper base pool than the native tasks (N=32 vs 8), so it is topped up on its own rather than dragging 213 tasks along")
 ap.add_argument("--topup", action="store_true",
                 help="generate only the SHORTFALL against --n-natural/--n-adversarial, "
                      "showing the model what already exists so it does not repeat it")
@@ -56,6 +57,10 @@ def is_sealed(task):
 
 bank = pd.read_parquet(REPO / "results/analysis/bank_to_score.parquet")
 tasks = [t for t in sorted(bank.task.unique()) if not is_sealed(t)]
+if args.only:
+    import re as _re
+    tasks = [t for t in tasks if _re.search(args.only, str(t))]
+    print(f"[gen] --only {args.only!r} -> {len(tasks)} tasks", flush=True)
 if args.limit:
     tasks = tasks[: args.limit]
 
