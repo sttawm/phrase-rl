@@ -1,0 +1,44 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a robotic arm gripper holding a yellow toy banana directly above a silver metal colander with handles on a wooden table. To the right of the colander is a blue plate with a toy fried egg. Below these items on the table are a red chili pepper and a purple eggplant.
+<Meaning of the instruction in the context of the image>
+The instruction requires the robot to release or place the yellow banana it is currently holding into the silver metal colander on the table.
+
+Original: banana as many as possible potential replacements: yellow banana, yellow fruit, toy banana, banana
+Original: colander as many as possible potential replacements: silver colander, metal strainer, silver bowl, metal colander, silver container, metal bowl, strainer
+Original: put as many as possible potential replacements: place, drop, release, deposit, set, lower, transfer, let go of
+Original: Adjectives as many as possible potential replacements: yellow, silver, metal, toy
+Original: Adverbs as many as possible potential replacements: None
+
+Original Instruction:
+put banana in colander
+
+Incoming instruction: put the yellow banana into the silver bowl
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

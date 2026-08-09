@@ -1,0 +1,46 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a robotic gripper holding an orange toy carrot directly over a small, translucent orange cup or pot. This pot sits on a wooden cutting board tray that is enclosed by a cardboard border (cardboard fence) secured with black clips. There are other toy items on the tray, including a red pepper, a red strawberry, and an orange slice.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to drop or place the orange toy carrot it is currently holding into the orange translucent pot/cup that is located inside the cardboard-bordered wooden tray.
+
+Original: carrot as many as possible potential replacements: orange carrot, toy carrot, orange vegetable, carrot toy, orange food item
+Original: pot as many as possible potential replacements: orange cup, translucent pot, orange container, plastic pot, orange bowl, orange cup
+Original: cardboard fence as many as possible potential replacements: cardboard tray, cardboard enclosure, cardboard-bordered tray, boxed area, fenced tray
+Original: put as many as possible potential replacements: place, drop, release, set, deposit, lower, insert, transfer
+Original: Adjectives as many as possible potential replacements: orange, translucent, plastic, toy, wooden, cardboard
+Original: Adverbs as many as possible potential replacements: None
+
+Original Instruction:
+put carrot in pot cardboard fence
+
+Incoming instruction: put the carrot into the orange cup
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

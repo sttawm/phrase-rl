@@ -1,0 +1,107 @@
+{
+ "whole_rulebook": {
+  "with_rules": 0.5746865379472507,
+  "unrephrased": 0.7277201467438084,
+  "delta": -0.1530336087965577
+ },
+ "per_rule": {
+  "rule_1": {
+   "text": "Format the output strictly in lowercase letters with no punctuation. Never capitalize the first letter and never use a period.",
+   "delta_proxy": 0.0,
+   "n": 3,
+   "by_kind": {
+    "search": {
+     "delta_proxy": 0.0,
+     "n": 3
+    }
+   }
+  },
+  "rule_2": {
+   "text": "Begin the instruction with a highly frequent action verb, such as \"move\", \"put\", \"place\", \"pick up\", \"take\", \"remove\", \"fold\", or \"unfold\".",
+   "delta_proxy": 0.10164709380391612,
+   "n": 3,
+   "by_kind": {
+    "search": {
+     "delta_proxy": 0.10164709380391612,
+     "n": 3
+    }
+   }
+  },
+  "rule_3": {
+   "text": "Include the definite article \"the\" before nouns (e.g., write \"put the cup on the plate\" instead of \"put cup on plate\").",
+   "delta_proxy": 0.0,
+   "n": 3,
+   "by_kind": {
+    "search": {
+     "delta_proxy": 0.0,
+     "n": 3
+    }
+   }
+  },
+  "rule_4": {
+   "text": "Describe objects using basic category nouns (e.g., \"pot\", \"bowl\", \"block\", \"cloth\"), simple colors (e.g., \"blue\", \"yellow\", \"red\", \"green\", \"orange\", \"white\", \"grey\", \"purple\"), and common materials (e.g., \"silver\", \"metal\", \"plastic\", \"wooden\").",
+   "delta_proxy": -0.4320611352583547,
+   "n": 3,
+   "by_kind": {
+    "search": {
+     "delta_proxy": -0.4320611352583547,
+     "n": 3
+    }
+   }
+  },
+  "rule_5": {
+   "text": "Specify locations and spatial relations using common prepositions and positional words (e.g., \"on\", \"in\", \"from\", \"to\", \"into\", \"out of\", \"left\", \"right\", \"top\", \"bottom\", \"middle\", \"corner\").",
+   "delta_proxy": -0.18030412177954958,
+   "n": 3,
+   "by_kind": {
+    "search": {
+     "delta_proxy": -0.18030412177954958,
+     "n": 3
+    }
+   }
+  },
+  "rule_6": {
+   "text": "Do not use politeness markers (e.g., \"please\"), adverbs of manner (e.g., \"carefully\"), conditionals (e.g., \"if\"), exact measurements, or brand names.",
+   "delta_proxy": 0.0,
+   "n": 3,
+   "by_kind": {
+    "search": {
+     "delta_proxy": 0.0,
+     "n": 3
+    }
+   }
+  }
+ },
+ "samples": [
+  {
+   "task": "put pan on stove from sink",
+   "base": "place the pan on the blue burner",
+   "rewrite": "place the pan on the blue burner"
+  },
+  {
+   "task": "pick up glass cup",
+   "base": "pick up glass cup",
+   "rewrite": "pick up the glass cup"
+  },
+  {
+   "task": "put cup on plate",
+   "base": "set the orange cup on the plate",
+   "rewrite": "put the orange cup on the plate"
+  },
+  {
+   "task": "put fork from basket to tray",
+   "base": "move the fork from the basket to the tray",
+   "rewrite": "move the silver metal fork from the grey plastic basket on the left to the black tray on the right"
+  },
+  {
+   "task": "put pear in bowl",
+   "base": "drop pear in blue bowl",
+   "rewrite": "put the pear in the blue bowl"
+  },
+  {
+   "task": "put cup on plate",
+   "base": "set the orange cup onto the plate",
+   "rewrite": "put the orange cup on the plate"
+  }
+ ]
+}

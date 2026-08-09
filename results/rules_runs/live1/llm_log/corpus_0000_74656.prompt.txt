@@ -1,0 +1,450 @@
+You are describing the instruction corpus a robot policy was trained on. The
+vocabulary itself has already been counted exactly — your job is the part that
+requires judgement, not counting.
+
+## What has been measured for you
+
+17297 instructions. Here is the head of the vocabulary table that
+will sit above your text in the final file:
+
+# Corpus vocabulary — exact membership test
+
+17297 instructions, 2192 distinct tokens, 555 above a
+floor of 5 occurrences (rarer words excluded as noise). Tokenised as
+lowercase runs of letters and apostrophes.
+
+A word is corpus-present if and only if it appears below. Presence licenses a
+token; it never makes a token good — frequency is not outcome.
+
+**Common (n>=50):** the 39715, of 10330, to 7926, move 6813, put 4895, on 4692, left 4637, right 4428, table 4245, cloth 4102, pot 3709, and 3560, top 3403, side 3032, blue 2742, it 2460, from 2318, place 2176, yellow 2153, silver 2107, bottom 2058, in 1996, burner 1941, red 1758, green 1696, object 1553, spoon 1492, moved 1269, towel 1218, corner 1190, orange 1171, take 1053, stove 994, upper 958, pick 881, block 868, middle 827, drawer 803, front 783, up 762, edge 714, lower 713, cube 713, can 694, white 666, pan 661, fork 624, spatula 587, bowl 507, purple 470, between 463, lid 451, center 433, a 432, inside 413, brush 409, knife 405, arch 394, into 388, out 353, above 329, remove 323, thing 320, fold 317, basket 305, behind 303, near 296, toy 296, unfold 277, with 270, at 265, cylinder 261, pepper 260, back 254, mushroom 253, rectangular 252, next 245, banana 236, sushi 231, tower 227, sink 220, rectangle 215, metal 213, placed 207, napkin 199, counter 194, corn 190, figure 180, below 178, vessel 163, microwave 161, burners 158, part 145, brown 145, off 142, onto 133, other 133, machine 127, two 126, la 124, beside 123, towards 123, carrot 122, far 121, cup 121, down 121, moves 117, over 109, slide 109, cover 106, box 105, hole 103, strawberry 102, washing 100, push 98, bottle 97, black 94, ball 92, item 91, pink 91, cans 88, picked 88, broccoli 88, bell 87, just 87, potato 86, moving 85, took 83, vegetable 83, eggplant 82, violet 81, egg 80, triangle 78, centre 78, wooden 76, le 76, chicken 75, container 74, cheese 74, de 72, close 69, tin 66, is 66, tomato 66, bread 65, another 65, colander 64, piece 63, removed 63, rag 62, utensil 61, under 60, so 60, open 59, duck 58, plastic 58, gray 57, robot 57, or 56, croissant 56, cooker 56, ladle 55, plate 55, steel 54, keep 54, square 54, wall 53, cucumber 52, dish 50, clothe 50
+
+**Present (n=5-49):** across, against, al, along, amarillo, an, animal, anything, apple, arc, area, arm, aside, au, avocado, away, azul, backwards, bag, banner, bar, bas, basin, baster, bear, before, beige, beneath, berry, besides, big, bit, blanket, blender, bleu, blocks, blueberry, board, bord, botton, bowel, brick, bring, brinjal, bucket, bun, buner, bunner, bunny, but, by, cabinet, cake, canned, cap, capsicum, cauliflower, change, chess, chili, chocolate, circle, circular, closed, closer, closes, clothes, clothing, cloths, cob, coloca, color, cone, cooking, cooktop, cot, covered, cream, cubes, cuboid, cupcake, cutting, cylindrical, d, da, dans, dark, del, dentro, derecha, derecho, desk, diagonally, did, direction, directly, do, dog, doll, door, downward, drag, drainer, draw, droite, drop, drumstick, dryer, du, e, el, elephant, empty, en, end, estufa, et, fabric, facing, fish, flip, floor, folded, folding, folds, folk, food, for, form, forward, four, fruit, frying, further, gas, gauche, gaveta, get, glass, goods, grab, grabbed, grabs, grape, grapes, grater, grey, hacia, half, hand, handkerchief, handle, handled, has, haut, he, heater, hexagon, hob, hold, hot, hotdog, ice, image, images, induction, inferior, infront, it's, items, its, izquierda, izquierdo, jar, kitchen, l, label, laddle, lado, lamba, lata, laundry, leave, leftside, leg, lemon, let, lift, light, lime, little, lo, loaded, long, maize, make, mango, marmite, maroon, mat, measuring, meat, mesa, metallic, mettre, mid, monkey, moove, mouse, mover, moveu, mueve, n, no, not, nothing, o, objects, objet, objeto, olla, one, onion, ontop, opened, opening, opens, opposite, outside, oven, p, pack, para, parallelepiped, parte, pawn, pear, peeler, picking, pickle, picks, pickup, pile, pineapple, placer, places, placing, plant, plata, plateada, plier, plus, plush, po, pointed, poner, position, pots, prism, progresses, pull, pulled, pumpkin, puppy, pushed, pushing, puting, puts, putting, pyramid, quemador, rabbit, rack, rear, removing, rieur, righ, rigth, ring, roll, rotate, round, s, salmon, salt, same, sauce, saucepan, sausage, scoop, scrubber, sequence, set, shaker, shape, shaped, shelf, shrimp, slice, slightly, sliver, small, soap, something, soup, space, spatule, sphere, sponge, spoons, spot, squash, stack, stainless, stand, standing, stick, stoves, stovetop, straight, strainer, stuff, stuffed, stuffedduck, sup, superior, sur, surface, sweet, switch, t, table's, tablecloth, taken, takes, taking, tall, te, teddy, that, then, thigh, thin, things, this, tiger, tiroir, tissu, toma, touch, touched, touches, touching, toward, transfer, transferred, transparent, tray, triangular, turn, un, unfolded, unfolding, unfolds, upright, upside, upthe, upward, using, verde, vers, video, vissel, was, wash, washer, wedge, which, wing, wipe, wok, wood, y, yellon, yelow
+
+
+## A sample of the instructions themselves
+
+Move the pot and put it on the blue cloth.
+put the blue knife in the orange pot on the lower right burner
+Pick up the spoon from the piece of cloth and place it near the steel pan.
+Put the red block on the top of green arch
+Pick up the spatula and place it on the right of the pot
+move the red spoon to the top right of the burner
+put the blue brush on top of the blue cloth
+remove the clynder on top of the table and put it on top of the triangle
+moved the orange pan to the right of the silver pan
+PICK UP THE BANANA AND PUT ON THE ORANGE TOWEL
+take the orange pot and put it on the upper left burner
+puts the green thing in the drawer
+mamelatra ilay lamba
+move the can to the right of the orange cloth
+move the cloth to the top right of the burner
+put corncob in pot or pan an put pot or pan on stove
+remove the cylinder shapes and put in middle beside in wood stick
+move green block to the right side of table
+move the sushi to the top right burner
+move the orange cloth up
+moved the can from the left side of the table to the right side of the table
+move the banana onto the cloth
+move the blue cloth to the lower center of the table on the right side of a can
+Move the spoon to the other side of the table
+Grab and put back the red spoon ontop the stove
+move the  blue cloth from the bottom of the table to the middle of the table.
+move the green bell pepper to the left lower burner
+Move the yellow cloth behind edge of the table
+removed the orange thing from the drawer
+Move the blue cloth to the front of the red cone
+Take the pepper out of the bowl and put it on the towel to dry.
+put the violet towel in the washing machine
+put the blue spoon below the silver pot
+place white object on the edge of the cloth
+Put the pear into the pot.
+move red spoon little bit right and place it on the center
+moved the silver pot to the left side of the table
+Put the yellow cloth under the blue spoon
+move yellow to the bottom corner of the table on the left
+Place the sushi in the pot.
+Pick knife from corner of the table and place it in front of vessel.
+open the drawer in the top of the table
+Put the pan on the lower left side of the table
+Put the spoon on the green cloth.
+put the small can in the right burner to the top side of the left burner
+took the yellow bar from the blue and green bars and put it on the table
+remove the red figure from the cloth to the wooden surface
+keep blue spoon next to the violet cloth
+put the lid beside the silver pot
+Put the pot on the left of the avocado.
+remove the cloth from the washing machine and put it on the table
+put the yellow triangle in the blue block
+put the square with hole in the middle on top of the blue arch
+put spoon in the tin and hold the knife
+Move the blue fork in the middle of the stove
+moved the blue spoon to the top right of the stove
+move the large mushroom into the silver pot
+place the green object on the cloth
+Fold the cloth from the bottom left to the top right
+Move capsicum out of pan and place it on the table.
+moved the can beside the red towel
+Move the ladle to the left of the potato
+fold the cloth from right to left whilst covering the fruit using the cloth
+move the spatula to the right upper side of the table
+pick up the white object and place it on the top right of the napkin
+Pick the knife from left corner and put it on right corner
+move the pan on the bottom left of the table
+remove a block from the rectangular tower and put it on the left
+opens the drawer.
+move the green cloth to the upper of the table
+Place the pot to the front of the oven.
+Place the silver bowl to the left of the purple eggplant
+move the silver pot between the knife and the red pepper
+Put the white object on the left side of the table
+Move the orange cloth to the far edge of the table.
+put the cylinderon the surface of the table
+take the silver lid and put it on the lower right of the stove
+doing nothing
+remove the object from the strainer and place it on yellow towel.
+put the drumstick between the stove and the sink
+Place the yellow product next to the yellow napkin
+put the green arch on top of the red arch
+Place the purple cloth on the back center of the brick wall.
+Put the scrubber behind the pot.
+Pick up spoon and place to the bottom right of the table.
+fold the cloth from left to the right
+taking the item out of the drawer
+Move the cloth to the bottom of the table
+unfold the cloth cloth from top left to bottom right
+Move the orange from the bowl to left front counter.
+take the orange pot and put yit on the upper left stove
+put the half of bell pepper inside the pan
+put the orange figure on the bottom edge of the cloth
+Move the orange carrot to the front middle edge of counter
+took the blue cloth from the box and put it inside the washing machine.
+Move chicken to right side of table, near edge.
+placed the blue object on the silver pot
+move the wooden brush to the right side of the burner
+Move the blue piece of cloth near the salt can.
+Fold the cloth from bottom left to upper right
+Move the blue-handled scoop to the upper-mid part of the stove.
+unfold the cloth from centre to top left
+move the carrot from left side to right side
+move the blue spoon to the bottom of the right burner
+move white toy to the right corner of the table
+opens the silver pot
+put the green spatula to the basket
+move the bigger can to the right of the smaller can
+move green cloth diagonally and keep it on the center of the table
+puts the white spoon  in the right sie of the sink fro the sufuria
+take the toys out of the box onto the table
+put the cube with a hole on top of the cube
+take the red rectangle block from the tower and put in the middle of the table
+move the pot left side of yellow cloth
+Move blue napkin to space in front of cans.
+unfold the cloth from left to right.
+moved the orange cloth to the left top side of the burner
+move the silver pot on the bottom right corner of the table
+Put the fork on the left side of the pot.
+pick green stuff  put the right side on the stove
+Move the silver pot to the left burner
+put the green cloth on the left burner
+unfold the cloth from the right to top left
+put the pot over the yellow towel
+folded the cloth from top right to the bottom left
+Place the blue fork on top of the yellow towel
+move the red pepper in the lower left burner
+Move the fish and place it on the towel.
+move the white thing to the upper side of the table
+Move the blue cloth behind the pot with the spatula
+unfold the cloth from left top to bottom right
+Put the pot in the lower left stove.
+move the can to top left of table
+put cauliflower in pot or pan an put pot or pan on stove
+put the yellow duck on the table between the gray mouse and the green bell pepper
+Put the bottle in the pot
+Move the yellow knife to the right of the pan.
+Move red fork to left below purple cloth
+Remove grapes from pan and place on top of the orange cloth.
+move the bear and put it inside the drawer
+place the cloth to the left of the bowl.
+move the red pot to the right side of the blue cloth
+Put the spoon between the cloth and the mushroom.
+unfold from the left to the right
+Place the pan on the right edge of the table
+move the yellow spoon to the middle of the table
+put a siver pot from the right side of the table to the left side
+move the cloth to the right side of the table
+unfold the cloth from bottom left to the top right
+moved the silver pot to the top right banner
+put the red arch on top of the blue block
+Move the put to the left of the green cloth.
+put the silver cup over the blue cloth
+Move pot to the right of the spoon.
+Picking the stuffed doll and putting it  near the banana
+move the green object from under the heater to the top right outside
+move triangular object into drawer
+Put the towel on the right of the pan.
+Place pot on front left corner of table
+Put the red and white mushroom in the pot
+Place the pot in the front centre of the table
+put egg in pot or pan an put pot or pan on stove
+Put the pot on the napkin.
+remove the cube from the cylinder and put it in the red block
+moved the silver object.
+Place the vessel on the green cloth.
+take the knife and put it into the pot
+take the yellow object and move it to the left of the silver cap
+move the blue thing to the right lower corner of the table
+move sushi to the bottom of the table.
+put strawberry on plate and stuffedduck in pot or pan in sink
+Move the bread to the middle of the bottom of counter.
+move the red figure from edge of the cloth to the left side of the table
+put the yellow bar on top of the red arch
+put potato on plate and strawberry in pot or pan in sink
+Place the orange towel behind the chicken wing
+Move the pot between the hot dog and the spoon
+Move the silver pot to the right of the cloth.
+move the spoon inside the orange tin
+move the can to the top right corner of the stove
+move bowl to upper right corner
+put the blue object on the bottom right edge of the cloth
+remove the green arch from the tower and put into the blue block
+Move the fork to the bottom-right corner of the counter.
+Move the red hexagon to the left side of the table
+move the pot to bottom right of the burner
+put the white object inside the orange pan
+fold the cloth from top right to left
+move the pot to the top of the cloth on the right
+move the silver pot on the lower right corner of the stove
+move the blue spoon to the bottom right corner of the burner
+takes the strawberry from the drawer and moves it to the bottom of the table
+move the white basket to the right of the blue towel
+Move the spatula to the right side of the stove.
+Place the spoon in the front of the microwave
+Put the sushi near the grapes
+move the cylinder to the top of the green arch
+Move the pan to the right of the white item
+move the blue berries on the bottom right corner of the burner
+put the mango on the top of blue cloth
+put the lid on the pot
+take the red object
+move the orange cloth on the edge of table near the yellow knife
+remove the cube from the white rectangular block and put it on top the blue block
+move yellow ball to the left bottom of the table
+move the yellow cloth of the table
+fold the cloth from left tot right
+Place the pan on the right edge of the table.
+moved the orange cloth on the top end of the burner
+picked up the violet cloth from the container and drop it inside
+move the green cloth to the left edge of the table
+move vessel and blue cloth both little bit right
+move the blue cloth from the left burner to the right burner
+Take the red spoon and put it on the yellow cloth.
+the handkerchief is let the robot arm drop into the table
+put the silver pot to the bottom right side burner
+Place the green and yellow vegetable on the orange cloth.
+Take the blue object out of the silver pot and put it on the upper right side of the stove
+put the yellow bottle in the middle of the lower burners
+put the yellow rectangular on top of the green rectangular
+Put the blue cube on top of the other blue cube.
+take the lid out of the silver pot and put it on top of the violet cloth
+Heh, the orange cat from the silver bowl, place it on the green cloth
+take the chicken leg from the silver pot and put it on the orange cloth
+Place the red fork at the front left corner of the table
+Relocate the pot to the back left corner.
+move the silver pot to the upper side of the right burner
+moved the silver pot to the right side burner
+Place the orange pepper on top of towel.
+unfold the cloth from the left
+put pot or pan on stove and put fry in pot or pan
+moved the yellow handled knife to the edge of the right burner
+move the yellow cloth from left side to in front of table
+removed the lid from the silver pot and put it on the top right of the stove
+fold the cloth from bottom right to top
+Move the blue cloth with the blue utensil on it to the left center of the table.
+move the red box left side to right side
+put the silver pot between the can and the red fork
+unfold the cloth from the bottom left to the top right
+take the strainer and put it on the lower right of the stove
+move the orange cloth on top of the left stove
+Move the grater and place directly to the right of pepper
+move the corn to the upper right of the stove
+take the ball off of the cup and put it on the table
+put the purple cloth in the washing machine
+Take the stainless steel pot and put it on the blue towel
+fold the cloth with carrot from top to bottom
+Move the bread to the back right counter corner.
+repositioned the green spoon of the left side of the table
+Move the black cloth from top left corner of the table to top right corner of the table.
+move the green bear to the left side of the table
+Move the fork over to the left side of the table
+move the orange object to the left side of the table
+move the blue spoon to the bottom left of the burner
+Slide the blue cloth to the front of the counter.
+take the tomato in the pot and put it on the left side of the blue spatula.
+move the white thing to the upper right burner
+fold the blue cloth on the table from bottom right to top left
+move the pink rabbit to the upper left
+move the blue spoon to the  lower left side of the table
+Bring the pan to the front edge of the table.
+Move blue napkin to back right corner of stove top
+fold the cloth from top left to  center
+move the knife to the left side of the table
+move the purple cloth above the can
+moved the silver pot cover to the upper right of the table
+move the cube to the left side.
+PICK UP THE CHERRY  AND PUT ANOTHER  SIDE OF THE TABLE
+move the green triangle to the left of table
+Move the yellow cloth near to the blue spatula.
+Put  the green bell pepper in the pot
+Put the bowl on the right side of the spoon.
+Move the red spoon to the left of the metal pot.
+Move the tin to the centre of the table
+move the silver pot from the left lower burner to the right upper burner
+move the purple can to the back side of the left burner
+Move the bowl to the right of the sushi.
+Move spoon to upper left of stuffed animal
+move the yellow towel to the left side of the table
+Place the vessel just behind the cloth
+Move the brush to the right of the sushi.
+Take the banana and place it into the red pot
+put egg on plate and stuffedduck in pot or pan on stove
+moved the sushi in the righ side of the burner
+Move a box to the center of the top of the stove
+fold the cloth from to top left to right
+take the yellow duck out of the drawer and put it on top of the drawer
+Put the mushroom above the blue cloth
+Move the blue cloth to the left of the pot
+Open the lid of the silver pot
+change the position of the white container to stand upright
+Take the red cube off the tower and place it on the yellow rectangular block
+Move the pan to the bottom edge
+fold the cloth from left side
+placed the lid on the silver pot
+move the cloth from left to top of the table
+pick the printed object on top of the drawer and put in the drawer
+put the cone block on the center of the table
+put the blue object in the drawer
+placing the green wash cloth on the right side of the burner
+move the orange bucket to the bottom of the right table
+unfold the cloth from bottom to top left
+Put the pepper to the left of the spoon.
+move the pot to the front left of the counter
+move blue spoon to the far bottom left
+Put bread on top of the orange cloth
+Pick up the mushroom and place it on the blue cloth
+placed the purple cloth on the right top of the stove
+take that thing out of the drawer and put it above the drawer
+Moves the sushi from the right to the left of the cloth.
+folded the cloth from left to right
+move the silver lid to the bottom left side on the table
+fold the cloth from the bottom right to the upper right
+pick the blue towel and  put it on thr middle
+moved the red spoon on the left bottom corner of the burner
+move the maroon pawn to the right side of the table
+put the green arch on top of the green arch
+Move the blue fork above and to the right side of silver bowl
+take the blue spoon and put it in the silver right pot.
+Moved the orange fork on top of the green cloth
+Place the pan next to the spatula.
+move the triangular block from the cylinder
+put the green cloth inside of the container.
+move the toy to the left of the drawer
+move the yellow object to the bottom right burner
+take the object out of the drawer and place it on the upper left side of the table
+move the yellow object to the top left burner
+move the fork to the left of the pot
+Move the pot to the bottom of the cloth.
+Move the spoon at the right of the table.
+taken the chocolate bar out of the drawer
+move metal pot to lower left corner
+Put the sushi in the pot.
+take the red bell pepper and put it on the lower left burner
+move the object in the middle of the burner switch
+Move the can back to the right of the green cloth.
+took the pink rabbit and placed it on the left side of stove
+move the cloth from bottom left to top right of the table
+move the wooden spatula to the right side of the stove
+move the towel to the upper left corner
+the pepper is being removed the right side of the cloth to the left top of the table
+Moved the red rag from the top right corner to the bottom right corner of the stove
+move the cloth from top left to the bottom right of the table
+move the rectangular block to the right side of the table
+move the orange bowl to the upper middle of the table slightly to the left
+unfold the cloth from to right to boutton
+unfold the cloth from the bottom right to the top left of the table
+Move pineapple into pot.
+Put the pepper inside the pan
+put the blue spoon below the drying rack
+Place the corn into the steel pan.
+Place the pot close to the red and yellow cans.
+Place the broccoli on the front left edge of the stove
+déplacer le poupes à coté gauche du tiroir
+move the spoon to the  middle upper side of the table
+put the blue arch on top of green rectangle
+unfold the cloth from top left to the bottom right
+move the yellow corn to the top middle of the table
+put the knife in the silver pot
+Moved the green piece of cloth from near the sink to the far end of the table.
+move the tin into the bottom side of the burner
+moved the silver pot from the lower side of right stove to upper side of right stove
+fold the cloth from the top to bottom
+Put the strawberry in the table's upper right corner.
+takes the object on the drawer and places it in the lower right corner of the table
+moved the orange pan just a little to the top of the table
+folding cloth from bottom to top left.
+Put the ball on the cup
+Move the spoon to the top right corner of the table.
+move blue spoon diagonally little bit down
+move the silver pot lid from the pot to the yellow cloth on the top left of the table
+Le robot déplacer le tissu à gauche de la table
+move the bowl to the bottom right of the table
+removed the lid from the orange pot and placed it on the top left burner
+fold the cloth from top right top to center of the cloth
+Move the knife with the robo and place it beside the pan.
+Put the red spoon on the green rag.
+move the blue cloth to the left on the table
+Move the cloth to the left side above the pot.
+Move the silver pot on the top of the orange towel
+take out the fluffy from the silver pan and put it on the upper right side of the stove
+put the block on top of the yellow cube
+cover the pot with the lid
+Move the potato in the silver pot on the bottom right corner of the burner
+flip salt upright
+put the tin on top of the desk
+put the green triangle on top of the plus sign
+take the yellow cloth and put it between the blue cloth and white basket
+Slide the green cloth to the right of the pot.
+Put the white object inside the pot on the left burner
+fold the cloth from the top right to bottom left
+put the brown thing in the silver pot
+Move the blue fork to the right of the yellow cloth
+Move the spatula and place it at the edge of the corner of the table.
+move the bunny to the lower middle edge of the table
+get the silver pot and place it at the bottom right side of the stove
+move the bread to the upper right of the table
+Move the utensil and place it at the edge of the corner.
+unfold the top of the cloth
+move the pot in the right side of the table
+
+## What to write
+
+Three sections, in this order. Cite counts or proportions where you can, and say
+when a figure is approximate rather than presenting an estimate as exact.
+
+## Shape of the corpus
+Typical instruction length; the usual sentence form; how instructions begin;
+whether articles and determiners are usually present; how often instructions are
+multi-step rather than single.
+
+## Register
+How objects get described — by category, colour, material, brand, function,
+position. Which of those are common and which are rare. Quote real examples.
+
+## Notable absences
+Word classes or constructions that are conspicuously rare or missing given the
+domain. Name specific words you looked for and did not find in the vocabulary
+table, and say what that suggests about the corpus's conventions.
+
+Describe only what the corpus contains. Do not recommend phrasings and do not
+speculate about what the policy prefers — later steps decide that from measured
+outcomes, and a prior introduced here would contaminate them.
+
+Reply with the three sections as markdown, and nothing else.

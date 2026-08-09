@@ -1,0 +1,4 @@
+task,phrase,kind,base_kind,proxy,n_ctx,source
+pick up glass cup,grab glass cup,rephrased,original,0.7749777577627233,80.0,loop_gemini
+put pan on stove from sink,Place the pan on the blue burner.,rephrased,search,0.3867283662579127,80.0,loop_gemini
+put fork from basket to tray,Move the fork from the basket to the tray.,rephrased,search,0.20005659442656062,80.0,loop_gemini

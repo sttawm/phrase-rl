@@ -1,0 +1,52 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Format the output strictly in lowercase letters with no punctuation. Never capitalize the first letter and never use a period.
+2. Begin the instruction with a highly frequent action verb, such as "move", "put", "place", "pick up", "take", "remove", "fold", or "unfold".
+3. Include the definite article "the" before nouns (e.g., write "put the cup on the plate" instead of "put cup on plate").
+4. Describe objects using basic category nouns (e.g., "pot", "bowl", "block", "cloth"), simple colors (e.g., "blue", "yellow", "red", "green", "orange", "white", "grey", "purple"), and common materials (e.g., "silver", "metal", "plastic", "wooden").
+5. Specify locations and spatial relations using common prepositions and positional words (e.g., "on", "in", "from", "to", "into", "out of", "left", "right", "top", "bottom", "middle", "corner").
+6. Do not use politeness markers (e.g., "please"), adverbs of manner (e.g., "carefully"), conditionals (e.g., "if"), exact measurements, or brand names.
+
+---
+
+Scene analysis:
+**Description of the image:**
+The image shows a robotic arm with a parallel-jaw gripper positioned inside a dishwasher rack. The dishwasher rack is filled with various drinkware, including transparent glasses, white mugs, a dark blue mug, and a single light green mug. The robotic gripper is currently grasping the green mug, preparing to lift it.
+
+**Meaning of the instruction in the context of the image:**
+The instruction "pick up green mug" directs the robot to secure its grip on the green cup located in the dishwasher rack and lift it upwards, separating it from the rack.
+
+* **Original Nouns:** mug
+  * **Potential replacements:** cup, ceramic cup, ceramic mug, container, vessel, drinkware, coffee mug
+* **Original Verbs:** pick up
+  * **Potential replacements:** lift, grasp, grab, take, retrieve, raise, hold, acquire
+* **Original Adjectives:** green
+  * **Potential replacements:** light green, pale green, colored
+* **Original Adverbs:** None
+
+**Original Instruction:**
+pick up green mug
+
+Incoming instruction: lift the green cup
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

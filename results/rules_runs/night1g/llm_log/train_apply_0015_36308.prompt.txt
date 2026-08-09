@@ -1,0 +1,46 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a wooden tabletop. On the left side of the table, there is a spread-out green cloth. To the right of the cloth, there are three small toy food items: an orange shrimp-like toy, a green grape-like toy, and a white and yellow sushi-like toy. A cardboard box stands in the background behind the items.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to take the green cloth located on the left side of the table and fold it over towards the right side.
+
+Original: cloth as many as possible potential replacements: fabric, rag, towel, sheet, textile, material, green cloth, green fabric, green rag
+Original: left as many as possible potential replacements: left side, left edge, left half, left portion
+Original: right as many as possible potential replacements: right side, right edge, right half, right portion
+Original: fold as many as possible potential replacements: fold over, crease, double over, bring over, flip, turn over, pull over, bend
+Original: none as many as possible potential replacements: green
+Original: none
+
+Original Instruction:
+fold the cloth from left to right
+
+Incoming instruction: move the left corner of the orange cloth to the right
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

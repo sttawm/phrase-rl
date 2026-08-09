@@ -1,0 +1,45 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a small wooden box with a light-colored wood finish sitting on a brown countertop. The box has a red front panel which is a drawer, featuring a prominent black loop handle. A robotic arm is positioned to the left of the box.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to open the drawer of the box. In this context, this means the robot must grasp the black handle and pull the red drawer outward from the wooden box.
+
+Original: drawer as many as possible potential replacements: red drawer, red compartment, red tray, sliding drawer, sliding tray
+Original: box as many as possible potential replacements: wooden box, wooden container, cabinet, wooden toy box, container
+Original: open as many as possible potential replacements: pull, pull open, pull out, slide open, slide out, draw out
+Original: (Implicit Adjectives) as many as possible potential replacements: red, black, wooden, light-colored
+Original: (Implicit Adverbs) as many as possible potential replacements: none
+
+Original Instruction:
+open drawer of box
+
+Incoming instruction: slide the black handle drawer open
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

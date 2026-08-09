@@ -1,0 +1,25 @@
+{
+ "score": 0.5109382074581312,
+ "base": 0.7277201467438084,
+ "delta": -0.21678193928567713,
+ "n": 6,
+ "rules_sha": "dbce4e474e",
+ "summary": {
+  "per_rule_perf": {
+   "rule_1": {
+    "text": "Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.",
+    "delta_proxy": -0.39481707263377014,
+    "n": 3,
+    "by_kind": {
+     "search": {
+      "delta_proxy": -0.39481707263377014,
+      "n": 3
+     }
+    }
+   }
+  },
+  "judge": "===RULE NOTES===\n1. **Adherence**: I am unable to judge adherence because the working file (`rules_eval.md`) containing the base \u2192 rewrite samples was not provided in the prompt. As an AI, I do not have access to your local file system (`/Users/sttawm/...`). \n**Performance**: I cannot cite the performance numbers or the per-kind splits (original / natural / adversarial / rephrased) because the evaluation data is located in the missing file.\n**What to do about it and how**: Please re-run this prompt and paste the contents of `rules_eval.md` (or its `.json` twin) directly into the text. Once the data is provided, I will audit the rule exactly as requested: checking if the model actually produced short, plain imperatives, analyzing the success deltas across different input kinds, and giving concrete recommendations on how to reword, narrow, or drop the rule based on the evidence.\n\n===SUGGESTIONS===",
+  "rule_notes": "1. **Adherence**: I am unable to judge adherence because the working file (`rules_eval.md`) containing the base \u2192 rewrite samples was not provided in the prompt. As an AI, I do not have access to your local file system (`/Users/sttawm/...`). \n**Performance**: I cannot cite the performance numbers or the per-kind splits (original / natural / adversarial / rephrased) because the evaluation data is located in the missing file.\n**What to do about it and how**: Please re-run this prompt and paste the contents of `rules_eval.md` (or its `.json` twin) directly into the text. Once the data is provided, I will audit the rule exactly as requested: checking if the model actually produced short, plain imperatives, analyzing the success deltas across different input kinds, and giving concrete recommendations on how to reword, narrow, or drop the rule based on the evidence.",
+  "suggestions": ""
+ }
+}

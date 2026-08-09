@@ -1,0 +1,44 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a robot arm gripper positioned over a play kitchen set. The gripper is holding or about to pick up a light green toy pear on the stove area. Next to the stove is a sink area containing a small, light blue bowl. An orange toy pumpkin is also visible on the stove burner.
+
+<Meaning of the instruction in the context of the image>
+The instruction requires the robot to grasp the light green toy pear and place it inside the small light blue bowl located next to the stove.
+
+Original: pear, bowl as many as possible potential replacements: green pear, light green pear, pear toy, green fruit, green toy fruit, blue bowl, light blue bowl, small blue bowl, blue dish, blue container
+Original: put as many as possible potential replacements: place, move, deposit, drop, transfer, set, insert, lower, release
+Original: <Adjectives> as many as possible potential replacements: green, light green, blue, light blue, small, toy, plastic
+Original: <Adverbs> as many as possible potential replacements: None
+
+Original Instruction:
+put pear in bowl
+
+Incoming instruction: drop pear in blue bowl
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

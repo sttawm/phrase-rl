@@ -1,0 +1,52 @@
+{
+ "whole_rulebook": {
+  "with_rules": 0.5109382074581312,
+  "unrephrased": 0.7277201467438084,
+  "delta": -0.21678193928567713
+ },
+ "per_rule": {
+  "rule_1": {
+   "text": "Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.",
+   "delta_proxy": -0.39481707263377014,
+   "n": 3,
+   "by_kind": {
+    "search": {
+     "delta_proxy": -0.39481707263377014,
+     "n": 3
+    }
+   }
+  }
+ },
+ "samples": [
+  {
+   "task": "put pan on stove from sink",
+   "base": "place the pan on the blue burner",
+   "rewrite": "Place the pan on the blue burner."
+  },
+  {
+   "task": "pick up glass cup",
+   "base": "pick up glass cup",
+   "rewrite": "grab glass cup"
+  },
+  {
+   "task": "put cup on plate",
+   "base": "set the orange cup on the plate",
+   "rewrite": "set the orange cup on the plate"
+  },
+  {
+   "task": "put fork from basket to tray",
+   "base": "move the fork from the basket to the tray",
+   "rewrite": "Move the fork from the basket to the tray."
+  },
+  {
+   "task": "put pear in bowl",
+   "base": "drop pear in blue bowl",
+   "rewrite": "drop pear in blue bowl"
+  },
+  {
+   "task": "put cup on plate",
+   "base": "set the orange cup onto the plate",
+   "rewrite": "set the orange cup onto the plate"
+  }
+ ]
+}

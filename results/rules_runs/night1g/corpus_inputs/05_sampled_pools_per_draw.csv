@@ -1,0 +1,436 @@
+source,task,phrase,success_pct,n_episodes,is_pool_oracle
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and put it on the black keyboard.,29.2,24,True
+sam8x1_B_step_0080.parquet,widowx_carrot_on_keyboard_clean,pick up the orange carrot and place it on the black keyboard,25.0,48,True
+sam8x1_frozenERT.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and put it on the black computer keyboard.,25.0,24,True
+sam8x1_frozenERT.parquet,widowx_carrot_on_keyboard_clean,pick up the orange carrot and place it on the black keyboard,25.0,24,True
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_keyboard_clean,Place the carrot on the keyboard.,22.9,48,True
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_keyboard_clean,place the carrot on the keyboard,20.8,24,True
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_keyboard_clean,Grasp the orange carrot and place it on the black keyboard.,20.8,24,True
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and put it on the keyboard,20.8,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the black keyboard.,20.8,24,True
+sam8x1_B_step_0080.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on top of the black keyboard.,20.8,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on top of the black keyboard.,20.8,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the black keyboard.,18.1,72,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the black keyboard.,17.7,96,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the black keyboard.,16.7,72,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_keyboard_clean,pick up the orange carrot and place it on top of the black keyboard,16.7,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_keyboard_clean,pick up the orange carrot and put it on the black keyboard,16.7,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the keyboard.,16.7,48,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_keyboard_clean,Grasp the orange carrot and set it on the black keyboard.,16.7,24,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_keyboard_clean,Pick up the carrot and place it on the black keyboard.,16.7,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the keyboard.,16.7,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on top of the keyboard.,16.7,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_keyboard_clean,Grasp the orange carrot and place it on top of the black keyboard.,16.7,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the black keyboard.,16.7,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_keyboard_clean,Take the orange carrot and put it on the black keyboard.,16.7,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_keyboard_clean,Pick up the carrot and place it on your keyboard.,16.7,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_keyboard_clean,Pick up the orange carrot and place it on the keyboard,12.5,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_keyboard_clean,grasp the carrot and put it on the keyboard,12.5,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_keyboard_clean,Grip the orange carrot and place it on the keyboard,12.5,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_keyboard_clean,Pick up the carrot and put it on the keyboard.,8.3,24,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_keyboard_clean,Pick up the carrot and put it on the keyboard.,8.3,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_keyboard_clean,Pick up the tapered orange fruit and put it on the keys.,8.3,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_keyboard_clean,Pop the carrot on the keyboard.,8.3,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_keyboard_clean,Pick the carrot and place it on top of the keyboard.,8.3,24,True
+sftsam8x1_sft.parquet,widowx_carrot_on_keyboard_clean,Put the carrot above the keychain.,8.3,24,True
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_keyboard_clean,grasp the carrot and position it on the keyboard,4.2,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_keyboard_clean,Find the long orange vegetable and place it on the black keyboard.,4.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_keyboard_clean,Please place the carrot on the laptop.,4.2,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_keyboard_clean,Place the orange with green top on top of the keyboard.,4.2,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_keyboard_clean,Pick up the carrot and place it on the keyboard.,0.0,48,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_keyboard_clean,Pick up the carrot and place it on the keyboard.,0.0,72,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_keyboard_clean,Pick the carrot and place it on the keyboard,0.0,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_keyboard_clean,Pick up the carrot and place it on the keyboard.,0.0,48,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_keyboard_clean,Locat the long orage vcetable with geen laves and place it on the top of the black periphery used for typing. (This is a valid English sentence with typos that can be corrected to the target phrase).,0.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_keyboard_clean,"Locate the long, orange vegetable with green leaves and place it carefully on top of the black peripheral device used for typing.",0.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_keyboard_clean,Put the pepper on the keyboard.,0.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_keyboard_clean,Place the carrot above the mouse.,0.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_keyboard_clean,Place the yellow vegetable and move the mouse.,0.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_keyboard_clean,move the orange bell pepper and put it over the mouse pad,0.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_keyboard_clean,put the bell pepper on the keyboard,0.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_keyboard_clean,put the carrot over the mouse,0.0,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_plate,place the orange carrot on the green plate,62.5,24,True
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_plate,place the orange carrot on the green plate,58.3,24,True
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_plate,Pick up the carrot and place it on the green plate.,54.2,24,True
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_plate,Pick up the carrot and place it on the green plate.,54.2,24,True
+sam8x1_B_step_0080.parquet,widowx_carrot_on_plate,Pick up the carrot and place it on the green plate.,54.2,48,True
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_plate,Place the carrot on the green plate.,50.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_plate,Place the carrot on the green plate.,50.0,72,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_plate,Place the carrot on the green plate.,50.0,48,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_plate,Place the carrot on the green plate.,50.0,48,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_plate,Pick up the orange carrot and place it on the green plate.,45.8,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_plate,Pick up the orange carrot and balance it on the green plate.,45.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_plate,Pick up the orange carrot and place it on the green plate.,45.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_plate,Place the orange carrot on the light-green plate.,45.8,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_plate,Pick up the orange carrot and place it on the green plate.,45.8,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_plate,Place the orange carrot on the light-green plate,45.8,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_plate,Place the orange carrot on the light-green plate.,45.8,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_plate,pick up the orange carrot and place it on the green plate,45.8,24,True
+sftsam8x1_sft.parquet,widowx_carrot_on_plate,just put the carrot on the plate.,45.8,24,True
+sftsam8x1_sft.parquet,widowx_carrot_on_plate,take the carrot and put it on the plate,45.8,24,True
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_plate,place the carrot on the green plate,41.7,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_plate,Pick up the orange carrot and place it on the light-green plate.,41.7,48,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_plate,put the carrot in the green plate,41.7,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_plate,Pick up the carrot and place it on the plate.,41.7,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_plate,Pick up the orange carrot and place it on the light-green plate.,41.7,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_plate,Pick up the orange carrot and place it on the green ceramic plate.,41.7,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_plate,Pick up the orange carrot and place it on the light-green plate.,41.7,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_plate,put carrot on plate,41.7,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_plate,put the carrot on the plate.,41.7,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_plate,Pick up the orange carrot and put it on the green plate.,37.5,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_plate,place the carrot on the plate,37.5,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_plate,Take the orange carrot and place it on the green dish.,37.5,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_plate,Place the carrot on the ceramic platter.,37.5,48,True
+sftsam8x1_sft.parquet,widowx_carrot_on_plate,put the carrot in the tray,37.5,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_plate,Pick up the orange carrot and put it on the green plate.,33.3,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_plate,Place the orange carrot on the green plate.,33.3,72,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_plate,Place the orange carrot on the green plate.,33.3,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_plate,Pick up the orange carrot and put it on the light-green plate.,33.3,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_plate,Place the orange carrot on the green plate.,33.3,48,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_plate,How to balance a carrot on a ceramic platter?,33.3,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_plate,PUTS A CARROT ON THE PLATE,33.3,24,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_plate,Place the orange carrot on the green plate.,31.9,72,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_plate,Place the orange carrot on the green plate.,29.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_plate,Balance the carrot on the ceramic platter.,25.0,96,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_plate,balance the carrot on the ceramic platter.,25.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_plate,put the radish on the plate,16.7,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_plate,move the orange vegetable to the green plate,12.5,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_plate,Pick up the orange vegetable and place it on the green plate.,8.3,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_plate,pick up the orange vegetable and place it on the green plate,4.2,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_plate,Move the carrot to the bowl.,4.2,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_wheel_clean,grab the orange carrot and place it inside the hollow black wheel,37.5,24,True
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_wheel_clean,Pick up the orange carrot and place it into the tire.,33.3,24,True
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and put it into the tire.,16.7,24,True
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and put it in the tire,16.7,24,True
+sam8x1_frozenERT.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and place it into the tire,16.7,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and put it into the tire,12.5,24,True
+sam8x1_B_step_0080.parquet,widowx_carrot_on_wheel_clean,Pick up the orange carrot and place it in the center of the black tire.,12.5,24,True
+sftsam8x1_sft.parquet,widowx_carrot_on_wheel_clean,pick carrot and put it on the traffic cone,12.5,24,True
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it in the tire.,8.3,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_wheel_clean,Pick up the orange carrot and put it in the wheel.,8.3,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and place it inside the tire,8.3,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it in the tire.,8.3,24,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_wheel_clean,Pick the carrot and place it on the tire.,8.3,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it in the tire.,8.3,48,True
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and put it in the tire,8.3,24,True
+sam8x1_frozenERT.parquet,widowx_carrot_on_wheel_clean,Grab the orange carrot and put it into the middle of the black tire.,8.3,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_wheel_clean,Grasp the orange carrot and move it into the center of the black tire.,8.3,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_wheel_clean,dig an orange carrot and put it on the tire.,8.3,24,True
+sftsam8x1_sft.parquet,widowx_carrot_on_wheel_clean,Pick up the red carrot and place it on the steering wheel,8.3,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_wheel_clean,Pick the carrot and put it in the center of the tire.,4.2,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and put it in the center of the tire,4.2,24,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and place it in the tire,4.2,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it in the center of the wheel,4.2,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_wheel_clean,pick up the orange carrot and place it in the center of the tire,4.2,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it in the center of the tire.,4.2,48,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it into the center of the tire.,4.2,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and put it in the center of the tire.,4.2,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and place it in the center of the tire,4.2,48,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_wheel_clean,Pick the carrot and put it in the center of the black tire.,4.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_wheel_clean,Retrieve a carrot and place it into the car's hubcap.,4.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_wheel_clean,Retrieve carrot and place on record.,4.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_wheel_clean,Retrieve the carrot and place it on the tire.,4.2,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_wheel_clean,Take the yellow banana from the cloth and place it on the flywheel.,4.2,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_wheel_clean,pick carrot and put it in middle of traction,4.2,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it in the center of the tire.,2.1,48,False
+sam8x1_B_v6step_0140.parquet,widowx_carrot_on_wheel_clean,Pick up the orange carrot and place it in the center of the wheel.,0.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it in the center of the tire.,0.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_wheel_clean,Pick up the orange carrot and place it in the middle of the tire,0.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and place it in the center of the tire,0.0,48,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it inside the tire.,0.0,24,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and put it in the middle of the tire.,0.0,48,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_wheel_clean,Pick up the orange carrot and put it in the center of the tire.,0.0,24,False
+sam8x1_B_v6step_0180.parquet,widowx_carrot_on_wheel_clean,Pick up the orange carrot and put it in the middle of the tire.,0.0,24,False
+sam8x1_B_v6step_0160.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and put it in the middle of the tire.,0.0,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_wheel_clean,Pick up the orange carrot and place it in the middle of the tire.,0.0,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_wheel_clean,pick up the orange carrot and place it in the middle of the tire,0.0,24,False
+sam8x1_B_step_0080.parquet,widowx_carrot_on_wheel_clean,pick up the orange carrot and place it in the middle of the wheel,0.0,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_wheel_clean,Grab the carrot and put it inside the center of the wheel.,0.0,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_wheel_clean,Pick up the carrot and place it in the middle of the tire.,0.0,24,False
+sam8x1_frozenERT.parquet,widowx_carrot_on_wheel_clean,Pick up the orange carrot and put it in the middle of the wheel.,0.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_wheel_clean,Plant an orange carrot in the middle of the car's circular tire track.,0.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_wheel_clean,Retrieve carrot and put it in center of wheel.,0.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_wheel_clean,Retrieve the garlic and place it on the car tire.,0.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_carrot_on_wheel_clean,This is a reworded robot instruction. Recover the original plain instruction it came from. Reply with ONLY that instruction.,0.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_wheel_clean,Put the orange carrot on the truck.,0.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_wheel_clean,grab the carrot and place it on the wheel,0.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_wheel_clean,pick up the carrot and place it on the flat piece used on the flat tire,0.0,24,False
+sftsam8x1_sft.parquet,widowx_carrot_on_wheel_clean,take the carrot and put it back in the middle of the revolving tire,0.0,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_plate_clean,Pick up the red cola can and place it on the yellow plate,50.0,24,True
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_plate_clean,Pick up the red cola can and place it on the yellow plate.,45.8,24,True
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_plate_clean,Pick up the red cola can and place it on the yellow plate.,45.8,24,True
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_plate_clean,Pick up the red cola can and put it on the yellow plate.,45.8,24,True
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_plate_clean,Pick up the red cola can and place it on the yellow plate.,45.8,48,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_plate_clean,"Pick the soda, put it on the yellow dish.",41.7,24,True
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_plate_clean,pick up the red cola can and place it on the yellow plate,37.5,24,True
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_plate_clean,Pick up the red can and place it on the yellow plate,33.3,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_plate_clean,Move the red coca-cola can to the yellow plate.,33.3,24,True
+sam8x1_frozenERT.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can on the left and place it on the yellow plate.,33.3,24,True
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_plate_clean,Pick up the red can and place it on the yellow plate.,29.2,72,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_plate_clean,pick up the red can and place it on the yellow plate,29.2,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_plate_clean,pick up the red can and put it on the yellow plate,29.2,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_plate_clean,Pick the red soda can and put it on the yellow plate.,29.2,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_plate_clean,Pick up the red can and place it on the yellow plate.,29.2,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_plate_clean,pick up the red can and place it on the yellow plate,29.2,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_plate_clean,Pick up the red can and place it on the yellow plate.,29.2,48,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_plate_clean,pick up the red soda can and place it on the yellow plate,29.2,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_plate_clean,Pick up the red cola can on the left and place it on the yellow plate to its right.,29.2,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_plate_clean,pick up the red soda can and put it on the yellow plate,29.2,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_plate_clean,Pick up the red can and place it on the yellow plate.,29.2,48,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can and place it on top of the yellow plate.,29.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_plate_clean,Put the carbonated beverage container on top of the yellow dining vessel.,29.2,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_plate_clean,Pick up the red cola can on the left and place it on the yellow plate to its right.,26.4,72,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can and place it on the yellow plate.,25.0,24,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_plate_clean,grasp the red can and place it on the yellow plate,25.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can and place it on the yellow plate.,25.0,48,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_plate_clean,Pick up the red can on the left and place it on the yellow plate to its right.,25.0,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can and place it on the yellow plate.,25.0,48,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can and place it on the yellow plate.,25.0,48,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can and place it on the yellow plate.,25.0,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can and put it on the yellow plate.,25.0,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can on the left and put it on the yellow plate to its right.,25.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_plate_clean,Pick up the red can and put it on the yellow plate.,20.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_plate_clean,Pick up the red can and put it on the yellow plate.,20.8,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_plate_clean,Pick up the red can and put it on the yellow plate.,20.8,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_plate_clean,Pick up the red cola can on the left and place it on the yellow plate to the right.,20.8,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_plate_clean,pick up the leftmost carbonated drink container and place it on top of the flat yellow serving dish to its right.,20.8,24,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_plate_clean,Pick up the red can on the left and put it on the yellow plate to its right.,16.7,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_plate_clean,Pick up the red soda can and put it on the yellow plate to its right.,16.7,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_plate_clean,Pick up the red can and place it on the yellow plate to its right.,12.5,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_plate_clean,Pick up the left soda can and put it on the yellow plate.,12.5,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_plate_clean,pick the can at the left side and put it to the right side of the yellow food plate,8.3,24,True
+sftsam8x1_sft.parquet,widowx_coke_can_on_plate_clean,take the can left side and put above yellow plate right side,4.2,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_plate_clean,took the can on the left side and moved it on the yellow dinner tray on the right side,4.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_plate_clean,"Retrieve the carbonated drink container on the left and position it carefully on top of the flat, yellow dining vessel to its right.",2.1,48,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_plate_clean,This is a reworded robot instruction. Recover the original plain instruction it came from. Reply with ONLY that instruction.,0.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_plate_clean,retrieve carbonated drink container left to flat yellow dining vessel right.,0.0,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_plate_clean,Grab the can on the left and move it on top of the yellow table on the right,0.0,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_plate_clean,Grab the can on the left and put it on top of the yellow dinnerware on the right,0.0,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_plate_clean,Take the can from the left and put it on top of the yellow plate to the right,0.0,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_plate_clean,take left can and put it on right side of yellow table pot,0.0,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_plate_clean,take the can in the left side and put it on the right side on top by the table on top of a yellow plate,0.0,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it vertically in the white bowl.,79.2,24,True
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it inside the white bowl.,79.2,24,True
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it standing upright inside the white ceramic bowl.,79.2,24,True
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright inside the white bowl.,75.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it standing inside the white bowl.,70.8,24,True
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_ramekin_clean,Grasp the red cola can and place it upright inside the white bowl.,70.8,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and put it in the white bowl.,70.8,24,True
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_ramekin_clean,Grasp the red cylinder and transfer it into the white ceramic cup.,70.8,24,True
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red Cola can and place it upright inside the white bowl.,66.7,24,True
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it upright inside the white bowl,66.7,24,True
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright in the white bowl.,66.7,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it standing upright in the white bowl.,66.7,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it upright inside the white bowl,66.7,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red Coca-Cola can and place it vertically inside the white bowl.,66.7,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright into the white bowl.,66.7,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_ramekin_clean,Grasp the red-labeled cylinder containing carbonated drink and put it in the hollow white ceramic cup-like container nearby.,66.7,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red Cola can and put it upright in the white bowl.,62.5,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it upright in the white bowl,62.5,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it inside the white bowl.,62.5,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and put it inside the white bowl.,62.5,24,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright into the white bowl.,58.3,24,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and put it inside the white bowl,58.3,24,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it upright in the white bowl.,58.3,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_ramekin_clean,pick up the red soda can and place it upright inside the white bowl,58.3,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_ramekin_clean,Lift the red cola can and place it standing upright inside the white bowl.,58.3,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright inside the white bowl.,58.3,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it upright inside the white ceramic bowl.,58.3,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it upright inside the white bowl,58.3,24,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright in the white bowl.,54.2,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it standing inside the white bowl.,54.2,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and put it inside the white bowl.,54.2,24,False
+sam8x1_B_step_0080.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it upright inside the white bowl.,54.2,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red can and put it in the white bowl.,54.2,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_ramekin_clean,pick the plus shaped can with a red label and move it into the white bowl shaped container.,54.2,24,True
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it upright inside the white bowl.,50.0,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red cola can and put it upright in the white bowl.,50.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_ramekin_clean,Grasp the red-labeled carbonated drink cylinder and place it upright in the nearby white ceramic cup.,50.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_ramekin_clean,Please grasp the red-labeled cylinder containing a carbonated drink and place it upright inside the hollow white ceramic cup.,50.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_ramekin_clean,"There is an upside-down red canister inside a white ceramic cup, both on a table. Can you grab the red canister and put it back upright inside the white ceramic cup?",50.0,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it upright in the white bowl.,47.9,48,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and put it inside the white bowl.,45.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red can and place it inside the white bowl,45.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red can and put it inside the white bowl.,45.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it inside the white bowl.,45.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it upright inside the white bowl.,45.8,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red soda can and place it vertically in the white bowl.,45.8,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_ramekin_clean,Grasp the red-labeled carbonated drink cylinder and place it upright inside the nearby hollow white ceramic cup.,45.8,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red can and place it upright inside the white bowl.,41.7,24,False
+sam8x1_B_v6step_0180.parquet,widowx_coke_can_on_ramekin_clean,pick up the cola can and put it inside the white bowl.,41.7,24,False
+sam8x1_B_v6step_0160.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red can and place it inside the white bowl.,41.7,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_ramekin_clean,pick up the red soda can and put it inside the white bowl,41.7,24,False
+sam8x1_frozenERT.parquet,widowx_coke_can_on_ramekin_clean,pick up the red soda can and put it vertically inside the white bowl,41.7,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_ramekin_clean,Grasp the red-labeled cylinder containing carbonated drink and transfer it so that it is sitting upright inside the hollow white ceramic cup-like container nearby.,41.7,24,False
+sam8x1_B_v6step_0140.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red can and place it upright inside the white bowl.,33.3,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_ramekin_clean,pickup the can and put it into the cup like shape,29.2,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_ramekin_clean,Pick up can and move it into the white object like a cup.,25.0,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red can and move it into the white cup shaped object.,20.8,24,False
+sam8x1_B_v6step_0120.parquet,widowx_coke_can_on_ramekin_clean,Pick up the red can and place it upright in the white bowl.,16.7,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_ramekin_clean,Move the can into the cup,16.7,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_ramekin_clean,PICK UP THE CAN AND PUT INTO THE WHITE BOWL,16.7,24,False
+sftsam8x1_frozen_bare.parquet,widowx_coke_can_on_ramekin_clean,Place a cylinder on its side.,0.0,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_ramekin_clean,pick up and move the can to the other side of white cup/ bowl,0.0,24,False
+sftsam8x1_sft.parquet,widowx_coke_can_on_ramekin_clean,take the can with the red label and move it to the cup-like container with a hole in the center nearby,0.0,24,False
+sam8x1_B_v6step_0160.parquet,widowx_put_eggplant_in_basket,Place the purple eggplant in the yellow rack.,100.0,24,True
+sftsam8x1_sft.parquet,widowx_put_eggplant_in_basket,put the eggplant in the yellow basket,100.0,24,True
+sftsam8x1_sft.parquet,widowx_put_eggplant_in_basket,put the eggplant to the yellow basket,100.0,24,True
+sam8x1_frozenERT.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow rack.,95.8,48,True
+sam8x1_frozenERT.parquet,widowx_put_eggplant_in_basket,pick up the purple eggplant and place it in the yellow dish drying rack,95.8,24,True
+sftsam8x1_sft.parquet,widowx_put_eggplant_in_basket,Put the eggplant into the yellow container,91.7,24,False
+sftsam8x1_sft.parquet,widowx_put_eggplant_in_basket,picked up the eggplant and put it in the yellow basket,91.7,24,False
+sam8x1_B_step_0080.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant from the sink and place it in the yellow bin.,87.5,24,True
+sftsam8x1_sft.parquet,widowx_put_eggplant_in_basket,put the eggplant into yellow basket,87.5,24,False
+sftsam8x1_sft.parquet,widowx_put_eggplant_in_basket,take the eggplant with the yellow cloth to the yellow basket,87.5,24,False
+sam8x1_B_v6step_0120.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow bin.,83.3,24,True
+sam8x1_B_v6step_0160.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow bin.,83.3,48,False
+sam8x1_B_step_0080.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and put it in the yellow bin.,83.3,24,False
+sam8x1_B_step_0080.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant from the blue sink and place it in the yellow bin.,83.3,24,False
+sam8x1_frozenERT.parquet,widowx_put_eggplant_in_basket,Pick the purple eggplant from the blue sink and put it in the yellow dish drainer.,83.3,24,False
+sam8x1_B_v6step_0180.parquet,widowx_put_eggplant_in_basket,Place the purple eggplant in the yellow bin.,81.9,72,True
+sam8x1_B_v6step_0140.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant from the sink and put it in the yellow bin.,79.2,24,True
+sam8x1_B_v6step_0180.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow bin.,79.2,24,False
+sam8x1_B_v6step_0160.parquet,widowx_put_eggplant_in_basket,Place the purple eggplant in the yellow bin.,79.2,24,False
+sftsam8x1_sft.parquet,widowx_put_eggplant_in_basket,take the eggplant and put it in the yellow basket,79.2,24,False
+sam8x1_B_v6step_0120.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and put it in the yellow bin.,77.1,48,False
+sam8x1_B_v6step_0140.parquet,widowx_put_eggplant_in_basket,Place the purple eggplant in the yellow bin.,75.0,72,False
+sam8x1_B_v6step_0120.parquet,widowx_put_eggplant_in_basket,Place the purple eggplant into the yellow bin.,75.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_put_eggplant_in_basket,place the purple eggplant in the yellow bin,75.0,24,False
+sam8x1_B_v6step_0160.parquet,widowx_put_eggplant_in_basket,Move the purple eggplant into the yellow bin.,75.0,24,False
+sam8x1_B_v6step_0160.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and put it in the yellow bin.,75.0,24,False
+sam8x1_B_step_0080.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow bin.,75.0,24,False
+sam8x1_B_step_0080.parquet,widowx_put_eggplant_in_basket,take the purple eggplant and place it in the yellow bin,75.0,24,False
+sam8x1_frozenERT.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and put it in the yellow bin.,75.0,24,False
+sam8x1_frozenERT.parquet,widowx_put_eggplant_in_basket,pick up the purple eggplant and place it in the yellow bin,75.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_put_eggplant_in_basket,Place the purple eggplant in the yellow bin.,70.8,48,False
+sam8x1_B_v6step_0160.parquet,widowx_put_eggplant_in_basket,put the purple eggplant in the yellow bin,70.8,24,False
+sam8x1_B_step_0080.parquet,widowx_put_eggplant_in_basket,pick up the purple eggplant and place it in the yellow bin,70.8,24,False
+sam8x1_B_v6step_0140.parquet,widowx_put_eggplant_in_basket,Pick up the purple eggplant and place it in the yellow bin.,66.7,24,False
+sam8x1_B_v6step_0140.parquet,widowx_put_eggplant_in_basket,Put the purple eggplant in the yellow bin.,66.7,24,False
+sam8x1_B_v6step_0120.parquet,widowx_put_eggplant_in_basket,Put the purple eggplant in the yellow bin.,66.7,24,False
+sam8x1_B_v6step_0180.parquet,widowx_put_eggplant_in_basket,place the purple eggplant in the yellow bin,66.7,24,False
+sam8x1_B_v6step_0160.parquet,widowx_put_eggplant_in_basket,Put the purple eggplant in the yellow bin.,66.7,24,False
+sam8x1_B_step_0080.parquet,widowx_put_eggplant_in_basket,pick up the purple eggplant and put it in the yellow bin,66.7,24,False
+sftsam8x1_sft.parquet,widowx_put_eggplant_in_basket,take the egg plant and put it in the yellow basket,66.7,24,False
+sam8x1_frozenERT.parquet,widowx_put_eggplant_in_basket,Move the purple eggplant into the yellow bin.,62.5,24,False
+sam8x1_frozenERT.parquet,widowx_put_eggplant_in_basket,Put the purple eggplant in the yellow bin.,62.5,24,False
+sam8x1_B_v6step_0180.parquet,widowx_put_eggplant_in_basket,Place the eggplant inside the yellow bin.,58.3,24,False
+sam8x1_B_step_0080.parquet,widowx_put_eggplant_in_basket,Put the purple eggplant in the yellow bin.,58.3,24,False
+sftsam8x1_frozen_bare.parquet,widowx_put_eggplant_in_basket,Arrange the eggplant in the yellow bin.,58.3,24,True
+sftsam8x1_frozen_bare.parquet,widowx_put_eggplant_in_basket,Arrange the eggplant neatly in the yellow bin.,58.3,24,True
+sftsam8x1_frozen_bare.parquet,widowx_put_eggplant_in_basket,Put eggs inside yellow bin.,58.3,24,True
+sftsam8x1_frozen_bare.parquet,widowx_put_eggplant_in_basket,Put the eggplant in the yellow bin nicely.,58.3,24,True
+sftsam8x1_frozen_bare.parquet,widowx_put_eggplant_in_basket,put the eggplant in the yellow bin.,58.3,24,True
+sam8x1_B_v6step_0140.parquet,widowx_put_eggplant_in_basket,Put the purple eggplant into the yellow bin.,54.2,24,False
+sam8x1_B_v6step_0180.parquet,widowx_put_eggplant_in_basket,Place the purple eggplant in the yellow bin,54.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_put_eggplant_in_basket,Put eggplant neatly in yellow bin.,54.2,24,False
+sam8x1_B_v6step_0140.parquet,widowx_put_eggplant_in_basket,Place the eggplant in the yellow bin.,50.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_put_eggplant_in_basket,Sort the eggplants in the yellow container.,45.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_put_eggplant_in_basket,Put the eggplant in the yellow bin.,41.7,24,False
+sftsam8x1_frozen_bare.parquet,widowx_put_eggplant_in_basket,Arrange the eggplant in yellow bin with neatness.,8.3,24,False
+sftsam8x1_sft.parquet,widowx_spoon_on_towel,Place the spoon on top of the towel,75.0,24,True
+sam8x1_B_v6step_0180.parquet,widowx_spoon_on_towel,Place the spoon on the towel.,58.3,24,True
+sam8x1_frozenERT.parquet,widowx_spoon_on_towel,pick up the green toy spoon and place it on the blue towel,58.3,24,True
+sam8x1_B_v6step_0160.parquet,widowx_spoon_on_towel,Place the green spoon on the blue towel.,54.2,24,True
+sftsam8x1_sft.parquet,widowx_spoon_on_towel,Move the spoon and place it on the towel.,54.2,24,False
+sftsam8x1_sft.parquet,widowx_spoon_on_towel,move spoon to towel,54.2,24,False
+sftsam8x1_sft.parquet,widowx_spoon_on_towel,Put the spoon on top of the towel,52.1,48,False
+sam8x1_B_v6step_0160.parquet,widowx_spoon_on_towel,Place the toy spoon on the center of the blue towel.,50.0,24,False
+sftsam8x1_sft.parquet,widowx_spoon_on_towel,put the spoon onto the towel,50.0,24,False
+sam8x1_B_step_0080.parquet,widowx_spoon_on_towel,Place the green-handled spoon in the center of the blue towel.,47.9,48,True
+sam8x1_B_v6step_0140.parquet,widowx_spoon_on_towel,Place the green-handled spoon in the center of the blue towel.,45.8,24,True
+sam8x1_B_v6step_0120.parquet,widowx_spoon_on_towel,pick up the green-handled spoon and place it in the center of the blue towel,45.8,24,True
+sam8x1_B_v6step_0180.parquet,widowx_spoon_on_towel,Place the green spoon on the blue towel.,45.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_spoon_on_towel,Put the green spoon on the blue towel.,45.8,24,False
+sam8x1_frozenERT.parquet,widowx_spoon_on_towel,Place the green-handled toy spoon on top of the blue cloth.,45.8,24,False
+sam8x1_B_v6step_0140.parquet,widowx_spoon_on_towel,Pick up the green spoon and place it on the blue towel.,41.7,24,False
+sam8x1_B_v6step_0140.parquet,widowx_spoon_on_towel,Place the green spoon on the blue towel.,41.7,48,False
+sam8x1_frozenERT.parquet,widowx_spoon_on_towel,Pick up the green toy spoon and place it on the blue cloth.,41.7,24,False
+sam8x1_frozenERT.parquet,widowx_spoon_on_towel,Take the toy spoon and place it on the center of the blue cloth,41.7,24,False
+sam8x1_B_v6step_0120.parquet,widowx_spoon_on_towel,Place the green-handled spoon in the center of the blue towel.,39.6,48,False
+sam8x1_B_v6step_0180.parquet,widowx_spoon_on_towel,Place the green-handled spoon in the center of the blue towel.,39.6,48,False
+sam8x1_B_v6step_0180.parquet,widowx_spoon_on_towel,Place the spoon in the center of the towel.,37.5,24,False
+sam8x1_B_v6step_0160.parquet,widowx_spoon_on_towel,Place the green toy spoon in the center of the blue towel.,37.5,24,False
+sam8x1_B_step_0080.parquet,widowx_spoon_on_towel,Pick up the green-handled spoon and place it in the center of the blue towel.,37.5,24,False
+sam8x1_B_step_0080.parquet,widowx_spoon_on_towel,Place the green-handled spoon on the center of the blue towel.,37.5,24,False
+sam8x1_B_v6step_0120.parquet,widowx_spoon_on_towel,Place the toy spoon in the center of the blue towel.,33.3,24,False
+sam8x1_B_v6step_0120.parquet,widowx_spoon_on_towel,Put the green spoon in the center of the blue towel.,29.2,24,False
+sam8x1_B_v6step_0160.parquet,widowx_spoon_on_towel,Pick up the green spoon and place it in the center of the towel.,29.2,24,False
+sam8x1_frozenERT.parquet,widowx_spoon_on_towel,Place the green toy spoon on the center of the blue cloth.,29.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_spoon_on_towel,Set the spoon in the middle of the towel.,29.2,24,True
+sam8x1_B_v6step_0180.parquet,widowx_spoon_on_towel,Place the green-handled spoon in the middle of the towel.,25.0,24,False
+sam8x1_B_step_0080.parquet,widowx_spoon_on_towel,Pick up the green spoon and place it in the center of the blue towel.,25.0,24,False
+sam8x1_B_step_0080.parquet,widowx_spoon_on_towel,Pick up the green-handled spoon and place it on the center of the blue towel.,25.0,24,False
+sftsam8x1_frozen_bare.parquet,widowx_spoon_on_towel,"(spoon, towel)",25.0,24,False
+sam8x1_B_v6step_0140.parquet,widowx_spoon_on_towel,Place the green spoon in the center of the blue towel.,22.9,48,False
+sam8x1_B_v6step_0140.parquet,widowx_spoon_on_towel,Pick up the green spoon and place it in the center of the blue towel.,20.8,24,False
+sam8x1_B_v6step_0140.parquet,widowx_spoon_on_towel,Pick up the green spoon and place it in the middle of the blue towel.,20.8,24,False
+sam8x1_B_v6step_0120.parquet,widowx_spoon_on_towel,Pick up the green spoon and place it in the middle of the blue towel.,20.8,24,False
+sam8x1_B_v6step_0120.parquet,widowx_spoon_on_towel,Place the green spoon in the center of the blue towel.,20.8,48,False
+sam8x1_B_v6step_0180.parquet,widowx_spoon_on_towel,Pick up the green spoon and place it in the middle of the blue towel.,20.8,24,False
+sam8x1_B_v6step_0160.parquet,widowx_spoon_on_towel,Place the green spoon in the center of the blue towel.,20.8,24,False
+sam8x1_B_v6step_0160.parquet,widowx_spoon_on_towel,Place the spoon in the middle of the towel.,20.8,24,False
+sam8x1_B_v6step_0160.parquet,widowx_spoon_on_towel,put the green toy spoon in the middle of the blue towel,20.8,24,False
+sam8x1_B_step_0080.parquet,widowx_spoon_on_towel,Place the green spoon in the center of the blue towel.,20.8,48,False
+sam8x1_frozenERT.parquet,widowx_spoon_on_towel,Place the green spoon in the center of the blue towel.,20.8,24,False
+sam8x1_frozenERT.parquet,widowx_spoon_on_towel,place the green spoon on the middle of the blue towel,20.8,24,False
+sftsam8x1_frozen_bare.parquet,widowx_spoon_on_towel,Place the spoon in the center of the towel,20.8,24,False
+sftsam8x1_frozen_bare.parquet,widowx_spoon_on_towel,Set the spoon exactly in the middle of the towel.,20.8,24,False
+sftsam8x1_sft.parquet,widowx_spoon_on_towel,move the spoon to the middle of the towel,20.8,24,False
+sam8x1_frozenERT.parquet,widowx_spoon_on_towel,Pick up the green spoon and put it on the center of the blue towel.,16.7,24,False
+sftsam8x1_frozen_bare.parquet,widowx_spoon_on_towel,The spoon should be in the middle of the towel.,16.7,24,False
+sftsam8x1_sft.parquet,widowx_spoon_on_towel,put the spoon in the middle of the towel,16.7,24,False
+sftsam8x1_frozen_bare.parquet,widowx_spoon_on_towel,Put the spoon in the center of the towel.,12.5,24,False
+sftsam8x1_frozen_bare.parquet,widowx_spoon_on_towel,Set the spoon exactly in the middle of the towel. (Instruction 2) Recovery: Place the spoon in the center of the towel.,12.5,24,False
+sftsam8x1_frozen_bare.parquet,widowx_spoon_on_towel,`Set the spoon exactly in the middle of the towel.`,12.5,24,False
+sam8x1_B_v6step_0160.parquet,widowx_spoon_on_towel,Pick up the green spoon and place it in the middle of the towel.,4.2,24,False
+sam8x1_B_v6step_0120.parquet,widowx_stack_cube,Pick up the green cube and place it on top of the yellow cube.,37.5,24,True
+sam8x1_B_v6step_0180.parquet,widowx_stack_cube,Stack the green cube on the yellow cube.,37.5,24,True
+sam8x1_B_v6step_0160.parquet,widowx_stack_cube,Stack the green cube on the yellow cube.,37.5,24,True
+sftsam8x1_sft.parquet,widowx_stack_cube,put the green cube on top of the yellow cube,37.5,24,True
+sam8x1_B_v6step_0140.parquet,widowx_stack_cube,Place the green cube on top of the yellow cube.,33.3,24,True
+sam8x1_B_v6step_0120.parquet,widowx_stack_cube,Place the green cube on top of the yellow block.,33.3,24,False
+sam8x1_B_v6step_0140.parquet,widowx_stack_cube,Stack the green block on the yellow block.,29.2,48,False
+sam8x1_B_v6step_0140.parquet,widowx_stack_cube,Stack the green block onto the yellow block.,29.2,24,False
+sam8x1_B_v6step_0120.parquet,widowx_stack_cube,Place the green cube on top of the yellow cube.,29.2,24,False
+sam8x1_B_v6step_0180.parquet,widowx_stack_cube,Stack the green block on the yellow block.,29.2,48,False
+sam8x1_B_v6step_0180.parquet,widowx_stack_cube,Stack the green block onto the yellow block.,29.2,24,False
+sam8x1_frozenERT.parquet,widowx_stack_cube,Pick up the green cube and place it on top of the yellow cube,29.2,24,True
+sam8x1_frozenERT.parquet,widowx_stack_cube,Stack the green block on the yellow block.,29.2,24,True
+sftsam8x1_sft.parquet,widowx_stack_cube,put the green block on top of yellow block.,29.2,24,False
+sftsam8x1_sft.parquet,widowx_stack_cube,put the green block on top of the yellow block,27.1,48,False
+sam8x1_B_v6step_0160.parquet,widowx_stack_cube,Stack the green block on top of the yellow block.,26.4,72,False
+sam8x1_B_v6step_0140.parquet,widowx_stack_cube,Place the green block on top of the yellow block.,25.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_stack_cube,Pick up the green block and put it on top of the yellow block.,25.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_stack_cube,Place the green block on top of the yellow block.,25.0,24,False
+sam8x1_B_v6step_0120.parquet,widowx_stack_cube,Stack the green block on top of the yellow block.,25.0,48,False
+sam8x1_B_v6step_0160.parquet,widowx_stack_cube,Place the green block on top of the yellow block.,25.0,72,False
+sam8x1_B_step_0080.parquet,widowx_stack_cube,Stack the green block on top of the yellow block.,25.0,24,True
+sam8x1_frozenERT.parquet,widowx_stack_cube,Place the green block on top of the yellow block.,25.0,24,False
+sam8x1_frozenERT.parquet,widowx_stack_cube,Stack the green block on top of the yellow block.,25.0,24,False
+sftsam8x1_sft.parquet,widowx_stack_cube,Put the green block on top of the yellow block.,25.0,24,False
+sftsam8x1_sft.parquet,widowx_stack_cube,Put the green block on top of yellow block,25.0,24,False
+sam8x1_B_step_0080.parquet,widowx_stack_cube,Place the green block on top of the yellow block.,24.0,96,False
+sam8x1_B_v6step_0180.parquet,widowx_stack_cube,Place the green block on top of the yellow block.,23.6,72,False
+sam8x1_B_step_0080.parquet,widowx_stack_cube,Stack the green block on top of the yellow block,20.8,24,False
+sam8x1_B_step_0080.parquet,widowx_stack_cube,stack the green block on the yellow block,20.8,24,False
+sam8x1_frozenERT.parquet,widowx_stack_cube,stack the green block on the yellow block,20.8,24,False
+sftsam8x1_frozen_bare.parquet,widowx_stack_cube,Place the green thing on top of the orange thing.,20.8,24,True
+sftsam8x1_frozen_bare.parquet,widowx_stack_cube,Put the green thing on the yellow thing.,20.8,24,True
+sftsam8x1_sft.parquet,widowx_stack_cube,put the green cube on top of the orange cube,20.8,24,False
+sam8x1_B_v6step_0180.parquet,widowx_stack_cube,Pick up the green block and place it on top of the yellow block.,16.7,24,False
+sam8x1_B_step_0080.parquet,widowx_stack_cube,Place the green block on top of the yellow block,16.7,24,False
+sam8x1_frozenERT.parquet,widowx_stack_cube,Pick up the green block and stack it on the yellow block.,16.7,24,False
+sftsam8x1_frozen_bare.parquet,widowx_stack_cube,Arrange the green element on the yellow one.,16.7,24,False
+sam8x1_B_v6step_0140.parquet,widowx_stack_cube,Pick up the green block and stack it on top of the yellow block.,12.5,24,False
+sam8x1_B_v6step_0160.parquet,widowx_stack_cube,Stack the green block on the yellow block,12.5,24,False
+sam8x1_frozenERT.parquet,widowx_stack_cube,Pick up the green block and stack it on the yellow cube.,12.5,24,False
+sam8x1_B_v6step_0140.parquet,widowx_stack_cube,Place the green block onto the yellow block.,8.3,24,False
+sam8x1_B_v6step_0120.parquet,widowx_stack_cube,pick up the green block and stack it on the yellow block,8.3,24,False
+sam8x1_frozenERT.parquet,widowx_stack_cube,Place the teal block on top of the yellow block.,8.3,24,False
+sftsam8x1_frozen_bare.parquet,widowx_stack_cube,Arrange the lush green element on top of the yellowish-orange element.,8.3,24,False
+sftsam8x1_frozen_bare.parquet,widowx_stack_cube,Place the leaf on the sun.,8.3,24,False
+sam8x1_B_v6step_0140.parquet,widowx_stack_cube,Place the green block on the yellow block.,4.2,24,False
+sftsam8x1_frozen_bare.parquet,widowx_stack_cube,Place the lush green element on top of the yellowish-orange element.,4.2,48,False
+sftsam8x1_frozen_bare.parquet,widowx_stack_cube,Put the leaf on top of the pumpkin.,4.2,24,False
+sftsam8x1_sft.parquet,widowx_stack_cube,move the green cube on top of the yellow and orange cube,4.2,24,False

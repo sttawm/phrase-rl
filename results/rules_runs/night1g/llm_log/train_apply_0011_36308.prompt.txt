@@ -1,0 +1,45 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+**Description of the image:**
+A robotic arm is grasping a small orange cup, hovering over a light blue plate located on a play kitchen stove. To the left sits a yellow bell pepper, and on the burner behind is a toy potato. A gray toy sink is visible on the right side of the counter.
+
+**Meaning of the instruction in the context of the image:**
+The robotic arm needs to place the orange cup it is currently holding onto the light blue plate on the stove top.
+
+**Original: cup** as many as possible potential replacements: orange cup, red cup, orange mug, plastic cup, red mug, cup
+**Original: plate** as many as possible potential replacements: light blue plate, blue plate, blue saucer, light blue dish, blue dish, plate
+**Original: put** as many as possible potential replacements: place, set, deposit, position, lower, leave, sit, stack, move
+**Original: on** as many as possible potential replacements: onto, on top of
+**Original: Adverbs** as many as possible potential replacements: None
+
+**Original Instruction:**
+put cup on plate
+
+Incoming instruction: put the cup on the green plate
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

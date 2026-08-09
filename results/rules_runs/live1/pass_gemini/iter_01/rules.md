@@ -1,0 +1,14 @@
+===RULES===
+1. Format the output strictly in lowercase letters with no punctuation. Never capitalize the first letter and never use a period.
+2. Begin the instruction with a highly frequent action verb, such as "move", "put", "place", "pick up", "take", "remove", "fold", or "unfold".
+3. Include the definite article "the" before nouns (e.g., write "put the cup on the plate" instead of "put cup on plate").
+4. Describe objects using basic category nouns (e.g., "pot", "bowl", "block", "cloth"), simple colors (e.g., "blue", "yellow", "red", "green", "orange", "white", "grey", "purple"), and common materials (e.g., "silver", "metal", "plastic", "wooden").
+5. Specify locations and spatial relations using common prepositions and positional words (e.g., "on", "in", "from", "to", "into", "out of", "left", "right", "top", "bottom", "middle", "corner").
+6. Do not use politeness markers (e.g., "please"), adverbs of manner (e.g., "carefully"), conditionals (e.g., "if"), exact measurements, or brand names.
+===RATIONALE===
+1. The previous rulebook caused a massive regression (-0.217) because it instructed the LLM to write a "short, plain imperative", which the LLM interpreted as standard English with capitalization and punctuation (e.g., "Place the pan on the blue burner."). The corpus stats explicitly state that instructions are tokenized as lowercase runs of letters and apostrophes, with no punctuation. The policy has likely never seen capitalized words or periods, causing the success rate to plummet. Rule 1 now strictly enforces lowercase output with no punctuation to fix this.
+2. Rules 2-5 are added to align the rewrites with the most frequent and successful patterns in the corpus. The evidence table shows that phrases using common verbs ("put", "place", "move") perform exceptionally well (e.g., "transfer the metal pan from the sink to the stove top" scores 0.9946).
+3. The corpus stats note that the definite article "the" is ubiquitous (averaging 2.3 per instruction). The evidence table confirms that adding "the" and specific colors/materials (e.g., "the metal pot", "the orange cup") consistently raises success rates over bare nouns. Rule 3 enforces this.
+4. Rule 4 encourages describing objects with basic category nouns, simple colors, and common materials, which are highly prevalent in the corpus and dominate the top-performing phrases.
+5. Rule 5 encourages the use of common prepositions and positional words to describe spatial relations, matching the precise positional language noted in the corpus stats.
+6. Rule 6 explicitly forbids out-of-distribution elements like politeness markers, adverbs, conditionals, exact measurements, and brand names, as their notable absence is highlighted in the corpus stats.

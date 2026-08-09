@@ -1,0 +1,50 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+1. Format the output strictly in lowercase letters with no punctuation. Never capitalize the first letter and never use a period.
+2. Begin the instruction with a highly frequent action verb, such as "move", "put", "place", "pick up", "take", "remove", "fold", or "unfold".
+3. Include the definite article "the" before nouns (e.g., write "put the cup on the plate" instead of "put cup on plate").
+4. Describe objects using basic category nouns (e.g., "pot", "bowl", "block", "cloth"), simple colors (e.g., "blue", "yellow", "red", "green", "orange", "white", "grey", "purple"), and common materials (e.g., "silver", "metal", "plastic", "wooden").
+5. Specify locations and spatial relations using common prepositions and positional words (e.g., "on", "in", "from", "to", "into", "out of", "left", "right", "top", "bottom", "middle", "corner").
+6. Do not use politeness markers (e.g., "please"), adverbs of manner (e.g., "carefully"), conditionals (e.g., "if"), exact measurements, or brand names.
+
+---
+
+Scene analysis:
+The image shows a wooden toy kitchen countertop enclosed by a brown cardboard fence. On the wooden surface, there is a small silver metal cooking pot, a red plastic chili pepper, and an orange toy slice. A black robotic gripper is positioned above the scene, ready to interact with the objects.
+
+The instruction asks the robot to stand or straighten the silver metal cooking pot so that it is upright within the area enclosed by the cardboard fence.
+
+Original: metal pot, cardboard fence
+potential replacements: silver pot, metal cooking pot, steel pot, silver container, metal saucepan, silver cooking pot, cardboard barrier, cardboard border, cardboard enclosure, cardboard boundary, fenced wooden area, cardboard-enclosed tray
+Original: upright
+potential replacements: stand, straighten, set upright, make upright, position upright, adjust to stand upright, turn upright, align upright, stand up, erect
+Original: [none]
+potential replacements: [none]
+Original: [none]
+
+Original Instruction:
+upright metal pot cardboard fence
+
+Incoming instruction: turn the metal pot right side up next to the pepper
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.
