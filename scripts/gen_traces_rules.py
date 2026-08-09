@@ -170,16 +170,43 @@ PROMPT_SHA = hashlib.sha1(USER_TEMPLATE.encode()).hexdigest()[:12]
 _IMG = {}
 
 
+def preload_images(tasks):
+    """Read each source parquet ONCE, pulling only the rows we need.
+
+    The first version called pd.read_parquet(path) inside image_for(), i.e. once
+    per task -- 187 full reads of a 3 GB file, from 6 threads at a time. It made
+    the machine unusable before a single trace landed. Row-group filtering keeps
+    peak memory to the frames we actually want."""
+    import pyarrow.parquet as pq
+    by_path = {}
+    for t in tasks:
+        kind, path, ep, tt = frames[t]
+        by_path.setdefault((path, kind), []).append((t, ep, tt))
+    for (path, kind), want in by_path.items():
+        keys = {(w[0], w[1], w[2]) for w in want}
+        idcol = "task" if kind == "sim" else "instruction"
+        epcol = "episode_id" if kind == "sim" else "episode_index"
+        pf = pq.ParquetFile(path)
+        cols = [idcol, epcol, "image_png"] + ([] if kind == "sim" else ["t"])
+        got = 0
+        for batch in pf.iter_batches(batch_size=256, columns=cols):
+            d = batch.to_pandas()
+            for r in d.itertuples():
+                k = (getattr(r, idcol), int(getattr(r, epcol)),
+                     int(getattr(r, "t", 0)) if kind != "sim" else 0)
+                if k in keys and k[0] not in _IMG:
+                    _IMG[k[0]] = bytes(r.image_png)
+                    got += 1
+            if got >= len(keys):
+                break
+        print(f"  [frames] {got}/{len(keys)} from {Path(path).name}", flush=True)
+    missing = [t for t in tasks if t not in _IMG]
+    if missing:
+        print(f"  [frames] !! {len(missing)} tasks have no image, skipped: {missing[:4]}")
+    return missing
+
+
 def image_for(task):
-    if task in _IMG:
-        return _IMG[task]
-    kind, path, ep, t = frames[task]
-    d = pd.read_parquet(path)
-    if kind == "sim":
-        row = d[(d.task == task) & (d.episode_id == ep)].iloc[0]
-    else:
-        row = d[(d.instruction == task) & (d.episode_index == ep) & (d.t == t)].iloc[0]
-    _IMG[task] = bytes(row.image_png)
     return _IMG[task]
 
 
@@ -218,12 +245,14 @@ def flush(rows):
     print(f"    [flush] {len(both)} rows -> {OUT.name}", flush=True)
 
 
+print("\n  preloading frames (one pass per source file)...")
+_missing = set(preload_images(sorted(set(todo.task))))
+todo = todo[~todo.task.isin(_missing)]
 recs = todo.drop(columns=["has_frame"]).to_dict("records")
+print(f"  {len(recs)} calls after frame preload\n", flush=True)
 done, buf, failed = 0, [], 0
 t0 = time.time()
 with cf.ThreadPoolExecutor(max_workers=args.workers) as ex:
-    for r in ex.map(lambda x: (lambda rec: (rec, None))(x), []):
-        pass
     futs = {ex.submit(one, r): r for r in recs}
     for fut in cf.as_completed(futs):
         try:
