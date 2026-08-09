@@ -205,6 +205,26 @@ class Rollouts:
     iteration, ~9x the L=4 design. Rejected.
     Resolution: see gt_subset_per_iter."""
 
+    gt_composition: str = "layouts 0-17 x 2 reps"
+    """HOW the 36 is composed -- and this, not the count, is the standard.
+
+    Layouts differ in difficulty by +4.3pp between halves, so two n=36
+    measurements built from different layout sets are NOT comparable.
+
+    The bank currently holds BOTH forms:
+      fine_exam    254 phrases, layouts 0-17 x 2 reps  (EXPERIMENT.md:1719)
+      sim nat/adv  180 phrases, episode_ids 0-35 x 1   (roll_sim_arms.sh:60)
+    Because episode_id wraps modulo the per-task grid, ids 0-35 on a 24-layout
+    task resolve to layouts 0-23 once plus 0-11 again -- the same 2/3 hard,
+    1/3 easy balance as 0-17 x 2, so the two agree. On an 18-layout task they
+    agree exactly. On any other grid size they DIVERGE.
+
+    That is a coincidence, not a design. Every new gt measurement pins this
+    composition explicitly and records it per row, so a later reader can tell
+    whether two numbers may be compared instead of assuming n=36 means one
+    thing. See KNOWN_ISSUES: the val8 per-task grid sizes are still
+    unverified."""
+
     gt_subset_per_iter: int = 32
     """Rewrites promoted to a full gt_n=36 measurement each iteration, 4 per
     val8 task, and added to the SIM bank. 32 x 36 = 1,152 episodes = 8.1 GPU-h.
@@ -351,6 +371,10 @@ DECISIONS = [
      "The 0-17/18-23 reservation governs ROLLOUT RL, which gradient-updates on "
      "layout outcomes. The rules loop trains no weights, so it does not apply. "
      "Balance 2 from 0-11 + 2 from 12-23 against the +4.3pp half gap."),
+    ("2026-08-09", "gt COMPOSITION (0-17 x 2), not just gt_n=36, is the standard",
+     "Two n=36 measurements from different layout sets are not comparable -- the "
+     "halves differ by 4.3pp. The bank already holds two forms that agree only "
+     "because the grid happens to be 24."),
     ("2026-08-09", "gt_n=36 stays the bank standard; the eval does not feed it",
      "L=4 gives +/-48pp on a single phrase. A gt_subset of 32 rewrites per "
      "iteration is promoted to 36 rollouts and banked."),
