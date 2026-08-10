@@ -54,14 +54,10 @@ for rephraser in [qwen, claude, gemini]:           # shared bank, per-model rule
     # apply the whole rulebook, and each rule alone: see (5)
     rewrites    = rephraser.apply(rules, train_eval, traces)
     train_score = mean(score(rewrites))
-    per_rule_perf = {r: mean(score(rephraser.apply_only(r, sample, traces)))
-                        - base_mean["train"]
-                     for r in parse_rules(rules)}
-    audit = session.judge(rules, per_rule_perf, rewrites)   # see (6)
-    rules_eval_summary = {                         # the user-facing object, as in v0:
-        "per_rule_adherence": audit.adherence,     #   did the applier obey each rule?
-        "per_rule_perf":      per_rule_perf,       #   measured single-edit delta each
-        "suggestions":        audit.suggestions}   #   experiments to run next
+    audit = session.judge(rules, rewrites, train_score - base_mean)  # see (5),(6)
+    rules_eval_summary = {                     # the user-facing object:
+        "judge":       audit,                  #   adherence: did rewrites follow the book?
+        "suggestions": audit.suggestions}      #   experiments to run next
     scored_bank += rewrites
 
     val_held_score = mean(score(rephraser.apply(rules, val_held, traces)))
@@ -133,12 +129,15 @@ rule measured under both is far more informative than one that appears only in
 the loser. No history file is needed: the shared session already holds every
 earlier rulebook verbatim.
 
-**(5) Each rule is applied alone as well as together.**
-A rule's effect is then a paired single-edit contrast against the same bases,
-rather than an attribution guess over rewrites where several rules fired at once.
-`parse_rules` reads the `===RULES===` section only — the rationale also contains
-numbered lines, and counting those would invent phantom rules and corrupt every
-measurement.
+**(5) The book is measured, not its parts.**
+Per-rule single-edit evaluation was removed (2026-08-10): applying every rule
+alone cost SINGLE_EDIT_N × R applies and scorings per iteration, scaling with
+the rule count. An LLM judge now reads the whole-rulebook numbers and sample
+rewrites and reports on adherence instead; a rule that needs isolating is a new
+measurement the distiller can propose, not a standing cost. `parse_rules` still
+reads the `===RULES===` section only — the rationale also contains numbered
+lines, and counting those would invent phantom rules and corrupt the novelty
+diff across iterations.
 
 **(6) Adherence and performance are separate questions.**
 Did the applier obey the rule, and was being told to do it a good idea? A rule can
@@ -192,9 +191,9 @@ row also carries `base_kind` — the regime it was rewritten *from*.
 This is load-bearing rather than bookkeeping: our own ladder puts rules at
 +5.5..+6.3pp on adversarial inputs and +0.4..+2.8pp on natural ones. That
 interaction is the finding, and a distiller that cannot see the label averages
-the two regimes and tunes for neither. Per-rule single-edit deltas are therefore
-reported broken down by regime, and a rule that helps one and not another is
-reported as conditional, not weak.
+the two regimes and tunes for neither. Whole-book evaluation is therefore read
+against the kind labels in the evidence, and a book that helps one regime and
+not another is reported as conditional, not weak.
 
 **(10) Every phrase carries how well-measured it is, and can be re-measured.**
 The bank stores `n_ctx` (scored contexts behind the estimate) and `n_meas` (how

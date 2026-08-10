@@ -162,41 +162,11 @@ def rule_id(text):
     return hashlib.sha1(" ".join(str(text).split()).encode()).hexdigest()[:12]
 
 
-# Single-rule measurements are the loop's dominant cost (SINGLE_EDIT_N x R applies
-# AND scorings per iteration) and most rules survive an iteration untouched, so
-# they are cached across iterations, passes and runs. Keyed on
-# (rephraser, rule_id, task, base phrase) -- the rewrite depends on all four.
-# Raw channels are stored, never proxy, so a recalibration does not invalidate it.
-RULE_CACHE = REPO / "results" / "rules_runs" / "_rule_cache.parquet"
-
-
-def rule_cache_lookup(rephraser, rid, bases):
-    if not RULE_CACHE.exists():
-        return pd.DataFrame(), bases
-    c = pd.read_parquet(RULE_CACHE)
-    c = c[(c.rephraser == rephraser) & (c.rule_id == rid)]
-    if not len(c):
-        return pd.DataFrame(), bases
-    key = set(zip(c.task, c.base))
-    hit = bases[[(t, p) in key for t, p in zip(bases.task, bases.phrase)]]
-    miss = bases[[(t, p) not in key for t, p in zip(bases.task, bases.phrase)]]
-    got = c.merge(hit[["task", "phrase"]].rename(columns={"phrase": "base"}),
-                  on=["task", "base"], how="inner")
-    return got, miss
-
-
-def rule_cache_store(rephraser, rid, rule_text, scored):
-    """scored: task, base, phrase(rewrite), z, grip, n_ctx"""
-    rows = scored.assign(rephraser=rephraser, rule_id=rid,
-                         rule_text=" ".join(str(rule_text).split()))
-    cols = ["rephraser", "rule_id", "rule_text", "task", "base", "phrase",
-            "z", "grip", "n_ctx"]
-    rows = rows[[c for c in cols if c in rows]]
-    RULE_CACHE.parent.mkdir(parents=True, exist_ok=True)
-    if RULE_CACHE.exists():
-        rows = pd.concat([pd.read_parquet(RULE_CACHE), rows], ignore_index=True)
-    rows.drop_duplicates(["rephraser", "rule_id", "task", "base"], keep="last") \
-        .to_parquet(RULE_CACHE, index=False)
+# Per-rule single-edit evaluation was REMOVED (2026-08-10, user decision): its
+# cost scaled with the rule count and the measurement is of the book, not of its
+# parts -- an LLM adherence judge reads the eval file instead. The historical
+# cache artifact results/rules_runs/_rule_cache.parquet stays: its 66 rows are
+# the measured 19.7% pass-through rate that config/params.py CachePolicy cites.
 
 
 def recompute_proxy(df):
@@ -486,7 +456,7 @@ class Run:
         cfg = {
             "run_id": self.id, "created": time.strftime("%Y-%m-%d %H:%M"),
             "seed": args.seed, "patience": args.patience, "max_iters": args.max_iters,
-            "sample_n": args.sample_n, "single_edit_n": args.single_edit_n,
+            "sample_n": args.sample_n,
             "score_budget": args.score_budget,
             "contexts_per_task": args.contexts_per_task,
             "frames_per_episode": args.frames_per_episode,
@@ -513,7 +483,26 @@ def seed_bank(run):
     instructions x ~30 proxy-scored phrases)."""
     bank_path = run.dir / "bank.parquet"
     if bank_path.exists():
-        return pd.read_parquet(bank_path)
+        cached = pd.read_parquet(bank_path)
+        # The freeze is deliberate (iteration N's bases must not be iteration
+        # N-1's outputs), so a cached bank is returned as-is even when its
+        # inputs have moved on -- but SILENTLY doing so is how live1 nearly
+        # distilled from a two-day-old bank with zero natural/adversarial
+        # phrases. Warn loudly; deleting the file (fresh run) is the remedy.
+        srcs = [REPO / "results/analysis/bank_to_score.parquet",
+                *sorted((REPO / "results/analysis").glob("bank_scores_*.parquet"))]
+        newest = max((f.stat().st_mtime for f in srcs if f.exists()), default=0)
+        stale = bank_path.stat().st_mtime < newest
+        missing_kinds = "kind" in cached and not \
+            cached.kind.isin(["natural", "adversarial"]).any()
+        if stale or missing_kinds:
+            print(f"[{run.id}] !! bank.parquet is FROZEN but "
+                  + ("PREDATES its inputs" if stale else "")
+                  + (" and " if stale and missing_kinds else "")
+                  + ("holds no natural/adversarial phrases" if missing_kinds else "")
+                  + " -- fine mid-run, wrong for a new run. Delete "
+                  f"{bank_path} (or use a fresh run id) to rebuild.")
+        return cached
     frames = []
     fe = pd.concat([pd.read_parquet(REPO / "results/analysis/fine_exam_features_native.parquet"),
                     pd.read_parquet(REPO / "results/analysis/fine_exam_features_oov.parquet")])
@@ -540,6 +529,17 @@ def seed_bank(run):
                              "source": "search_boards"})
         if rows:
             frames.append(pd.DataFrame(rows))
+    # The generated tiers (natural / adversarial bases) enter HERE. Until
+    # 2026-08-10 seed_bank read only fine_exam + search_boards, so even a fresh
+    # rebuild contained zero naturals or adversarials -- deleting a stale
+    # bank.parquet did not actually fix it. bank_to_score.parquet is the full
+    # scoring worklist (task, phrase, source); appended LAST so the richer
+    # fine_exam/search rows above win the dedup, and the bank_scores merge
+    # below attaches z/grip to whatever is measured.
+    wl = REPO / "results/analysis/bank_to_score.parquet"
+    if wl.exists():
+        w = pd.read_parquet(wl)[["task", "phrase", "source"]]
+        frames.append(w.assign(z=np.nan, grip=np.nan, gt_success=np.nan))
     bank = pd.concat(frames, ignore_index=True)
     bank = bank[~bank.task.map(is_sealed)].drop_duplicates(["task", "phrase"])
 
@@ -739,19 +739,15 @@ def score_phrases(run, cfg, df, tag, draw=0):
     return res
 
 
-def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag, only_rule=None):
+def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag):
     """bases: [task, phrase(base instruction)] -> adds rewrite column."""
     if rephraser == "qwen" and not run.dry:
         # rules travel as a file for the pod, but their hash goes in the spec so
         # the job id changes when the rulebook does
         return run_job(run, "apply", bases[["task", "phrase"]], {
             "rules_file": str((run.dir / "current_rules.md").relative_to(REPO)),
-            "rules_sha": hashlib.sha1(rules.encode()).hexdigest()[:12],
-            "only_rule": only_rule}, tag)
-    # Single-edit: the applier sees a ONE-RULE rulebook, not the whole book with
-    # an instruction to ignore the others. Showing rules it is told not to apply
-    # contaminates the very contrast the measurement exists to isolate.
-    rules = f"===RULES===\n1. {only_rule}\n" if only_rule else rules_only(rules)
+            "rules_sha": hashlib.sha1(rules.encode()).hexdigest()[:12]}, tag)
+    rules = rules_only(rules)
     traces = load_traces()
     jobs = []
     for r in bases.itertuples():
@@ -889,27 +885,16 @@ def write_evidence_file(run, bank, tasks, path):
     return len(sub)
 
 
-def write_eval_file(run, path, rules, per_rule, pairs, base_mean, rules_mean):
+def write_eval_file(run, path, rules, pairs, base_mean, rules_mean):
     # machine-readable twin: small and structured, so JSON is the right shape here
     jwrite(Path(str(path).replace(".md", ".json")),
            {"whole_rulebook": {"with_rules": rules_mean, "unrephrased": base_mean,
                                "delta": rules_mean - base_mean},
-            "per_rule": per_rule, "samples": pairs})
+            "samples": pairs})
     lines = ["# Previous rulebook: measured performance", "",
              f"Whole rulebook applied: estimated success {rules_mean:.3f} vs "
              f"{base_mean:.3f} for the unrephrased instruction "
-             f"({rules_mean - base_mean:+.3f}).", "",
-             "## Per-rule single-edit effects", "",
-             "Each rule applied ALONE to the same base instructions, so the",
-             "delta below is attributable to that rule and not to the rest of",
-             "the rulebook.", ""]
-    for k, v in (per_rule or {}).items():
-        lines.append(f"### {k}")
-        lines.append(f"text: {v['text']}")
-        lines.append(f"delta vs base: {v['delta_proxy']:+.4f}   (n={v['n']} instructions)")
-        for kk, kv in (v.get("by_kind") or {}).items():
-            lines.append(f"    on {kk:12s} inputs: {kv['delta_proxy']:+.4f}  (n={kv['n']})")
-        lines.append("")
+             f"({rules_mean - base_mean:+.3f}).", ""]
     lines += ["## Sample rewrites from the whole rulebook", ""]
     for p in pairs:
         lines.append(f"  [{p['task']}]")
@@ -1013,8 +998,9 @@ def rules_only(rules_text):
 def parse_rules(rules_text):
     """Numbered rules from the RULES section ONLY. The RATIONALE section also
     contains numbered lines; counting those would invent phantom rules and
-    corrupt every single-edit measurement, so a missing RULES delimiter is a
-    hard failure rather than a silent fallback over the whole text."""
+    corrupt the novelty tracking that diffs rulebooks across iterations, so a
+    missing RULES delimiter is a hard failure rather than a silent fallback
+    over the whole text."""
     body = section(rules_text, "RULES")
     if not body:
         head = rules_text.split("===RATIONALE===")[0].strip()
@@ -1040,8 +1026,17 @@ def baseline_proxy(run, cfg, bases, tag):
     return float(sc.proxy.mean())
 
 
-def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False):
-    """Returns (mean proxy score of rewrites, scored df, rules_eval_summary)."""
+def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
+    """Returns (mean proxy score of rewrites, scored df, rules_eval_summary).
+
+    There is NO per-rule measurement. The book is measured, not its parts: the
+    old single-edit path applied every rule alone to a sample (SINGLE_EDIT_N x R
+    applies and scorings per iteration) and its cost scaled with the rule count.
+    What replaced it is the `judge` flag -- an LLM reads the whole-rulebook
+    numbers and sample rewrites and reports on ADHERENCE (were the rules
+    followed), which is the part of the old measurement that was actually being
+    consumed. If one rule needs isolating, that is a new measurement to request,
+    not a standing cost."""
     rsha = hashlib.sha1(rules.encode()).hexdigest()[:10]
     art = itdir / f"eval_{tag}_{rsha}.json"
     scored_art = itdir / f"eval_{tag}_{rsha}.parquet"
@@ -1052,65 +1047,17 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, single_edit=False)
     scored = score_phrases(run, cfg, rw, f"{tag}_sc")
     score = float(scored.proxy.mean())
     summary = None
-    if single_edit:
-        rule_list = parse_rules(rules)
-        sample = bases.sample(min(cfg["single_edit_n"], len(bases)), random_state=cfg["seed"])
-        base_scored = score_phrases(run, cfg, sample[["task", "phrase"]], f"{tag}_base")
-        per_rule = {}
-        cache_hits = 0
-        for k, rtext in enumerate(rule_list, 1):
-            rid = rule_id(rtext)
-            cached, todo = rule_cache_lookup(rephraser, rid, sample)
-            cache_hits += len(cached)
-            fresh = pd.DataFrame()
-            if len(todo):
-                rw = apply_rules(run, cfg, rephraser, rules, todo, f"{tag}_r{k}",
-                                 only_rule=rtext)
-                sc = score_phrases(run, cfg,
-                                   rw[["task", "rewrite"]].rename(columns={"rewrite": "phrase"}),
-                                   f"{tag}_r{k}sc")
-                fresh = sc.merge(rw.rename(columns={"phrase": "base", "rewrite": "phrase"})
-                                   [["task", "base", "phrase"]],
-                                 on=["task", "phrase"], how="left")
-                rule_cache_store(rephraser, rid, rtext, fresh)
-            rs = pd.concat([c for c in (cached, fresh) if len(c)], ignore_index=True)
-            if not len(rs):
-                continue
-            rs["proxy"] = recompute_proxy(rs)
-            by_kind = {}
-            if "kind" in sample:
-                merged = rs.merge(sample[["task", "kind"]].drop_duplicates("task"),
-                                  on="task", how="left")
-                bk = base_scored.merge(sample[["task", "kind"]].drop_duplicates("task"),
-                                       on="task", how="left")
-                for kk in merged.kind.dropna().unique():
-                    a = merged[merged.kind == kk].proxy.mean()
-                    b = bk[bk.kind == kk].proxy.mean()
-                    if pd.notna(a) and pd.notna(b):
-                        by_kind[str(kk)] = {"delta_proxy": float(a - b),
-                                            "n": int((merged.kind == kk).sum())}
-            per_rule[f"rule_{k}"] = {
-                "text": rtext,
-                "delta_proxy": float(rs.proxy.mean() - base_scored.proxy.mean()),
-                "n": int(len(rs)),
-                "by_kind": by_kind,   # the interaction: a rule can help one regime
-            }                          # and do nothing for another
+    if judge:
         eval_file = itdir / "rules_eval.md"
-        # headline must compare like with like: the rulebook's score is over the
-        # FULL base set, so its baseline must be too (base_scored is the 8-base
-        # single-edit sample and belongs only inside the per-rule deltas)
-        write_eval_file(run, eval_file, rules, per_rule,
+        write_eval_file(run, eval_file, rules,
                         [{"task": r.task, "base": r.phrase, "rewrite": r.rewrite}
                          for r in rewrites.head(40).itertuples()],
                         baseline_proxy(run, cfg, bases, tag), score)
-        if rule_list:
-            print(f"    single-edit: {cache_hits}/{len(rule_list) * len(sample)} "
-                  f"measurements served from the rule cache")
         judge_p = prompt_from("judge.md", rules=rules_only(rules), eval_file=eval_file)
         judgement = call_llm(run, cfg["judge"], judge_p, f"{tag}_judge",
                              session=run.session, add_dir=run.dir, effort="high")
         (itdir / "judge.md").write_text(judgement)
-        summary = {"per_rule_perf": per_rule, "judge": judgement,
+        summary = {"judge": judgement,
                    "rule_notes": section(judgement, "RULE NOTES"),
                    "suggestions": section(judgement, "SUGGESTIONS")}
     scored.to_parquet(scored_art, index=False)
@@ -1166,7 +1113,6 @@ def main():
     ap.add_argument("--patience", type=int, default=3)
     ap.add_argument("--max-iters", type=int, default=12)
     ap.add_argument("--sample-n", type=int, default=24)
-    ap.add_argument("--single-edit-n", type=int, default=8)
     ap.add_argument("--score-budget", type=int, default=64,
                     help="target F*C forward passes per phrase per task")
     ap.add_argument("--contexts-per-task", type=int, default=16,
@@ -1405,12 +1351,12 @@ def main():
                 # apply job referencing it is submitted
                 gitsync([cur], f"rules-loop {run.id}/{rephraser} iter {it} rulebook")
 
-            # 2. eval on train sample (with per-rule single edits)
+            # 2. eval on train sample (judged for adherence)
             # fixed across iterations (seed 0) so the train curve is a comparable
             # series -- new evidence enters through probes, not through resampling
             tb = bases_for(train_tasks, cfg["sample_n"], seed=0)
             train_score, ev_train, summary = eval_rules(
-                run, cfg, itdir, rephraser, rules, tb, "train", single_edit=True)
+                run, cfg, itdir, rephraser, rules, tb, "train", judge=True)
             # a rewrite inherits the kind of the instruction it was rewritten FROM
             kmap = dict(zip(tb.phrase, tb.kind)) if "kind" in tb else {}
             applied = set(tuple(x) for x in st.get("bank_applied", []))
