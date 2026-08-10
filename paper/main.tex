@@ -433,9 +433,7 @@ acts on the instruction channel alone.
 Our primary benchmark is a \emph{sealed} test suite of 12 tasks
 $\times$ 24 scene layouts, frozen before method development and never
 used for training, tuning, or prompt iteration. Each evaluation run
-rolls 12 episodes per (task, layout) cell, i.e.\ 3{,}456 episodes. All
-runs were preregistered before execution; every phrase set was inspected
-before its first exposure to the sealed suite.
+rolls 12 episodes per (task, layout) cell, i.e.\ 3{,}456 episodes.
 
 \textbf{Vocabulary strata.}
 We stratify the 12 sealed tasks by whether their key object nouns occur
@@ -445,9 +443,9 @@ strata, since phrasing interventions behave differently when the
 canonical noun is unavailable to the executor.
 
 \textbf{Adversarial and natural conditions.}
-The adversarial condition rolls one adversarial rewording per task
-(\S\ref{sec:characterizing}) over the full grid: 12 instructions
-$\times$ 24 layouts $\times$ 12 repetitions (3{,}456 episodes). The
+The adversarial condition uses one adversarial rewording per task
+(\S\ref{sec:characterizing}) --- 12 phrases in total --- each evaluated
+on all 24 layouts, 12 times per layout (3{,}456 episodes). The
 natural condition rolls all $K{=}16$ natural rephrases per task, one
 episode per (rephrase, layout), over all 24 layouts (4{,}608 episodes).
 
@@ -721,6 +719,19 @@ proxy for both RL and rule evidence;
 here come from a few supervised iterations;
 \item sandboxing the rule-derivation loop so that sealed evaluation
 tasks are provably invisible to every stage of it;
+\item broadening the adversarial evaluation: the sealed adversarial
+condition currently samples a single attack per task (12 phrases), so
+while per-phrase estimates are tight and all repair comparisons are
+paired on the same phrases, the condition mean characterizes those 12
+attacks rather than the attack distribution --- more adversarial
+phrases per task are needed;
+\item regenerating the natural-condition results with matched traces:
+by mistake, the scene traces supplied to the rephraser during natural
+evaluations were derived from the adversarial (ERT) rewordings rather
+than from the natural inputs themselves. We do not expect the numbers
+to move much --- natural inputs tend to be at least as easy to ground
+as adversarial ones --- but a trace coherent with its input should only
+help, so we aim to rerun these evaluations;
 \item other executors and datasets; and
 \item applying the same machinery one level up, to plan phrasing rather
 than instruction phrasing.
