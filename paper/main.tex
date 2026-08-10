@@ -37,6 +37,8 @@
 \setlength{\stripsep}{4pt plus 1pt minus 1pt}
 \usepackage{flafter} % Makes figures appear after their references
 \usepackage{dblfloatfix} % Force teaser image above abstract
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 \title{\LARGE \bf
 Improving VLA Performance by Rephrasing Task Instructions\\
@@ -367,6 +369,39 @@ ones), and passes the accumulated evidence to the distiller together with
 an LLM judge's report on whether the rewrites actually \emph{followed}
 the rules. The results reported here come from the supervised runs
 described above; the automated loop is how we continue iterating.
+Algorithm~\ref{alg:loop} summarizes one iteration.
+
+\begin{algorithm}[t]
+\caption{Automated rule-distillation loop}
+\label{alg:loop}
+\begin{algorithmic}[1]
+\Require frozen executor $\pi$; rephraser VLM $g$; distiller $D$;
+judge $J$; trajectory proxy $r(\cdot)$
+\Require training tasks $\mathcal{T}_{tr}$, held-out tasks
+$\mathcal{T}_{h}$, simulatable tasks $\mathcal{T}_{sim}$
+\Require evidence bank $B$ of scored phrases; initial rulebook $R_0$
+\State freeze base sets $X_s$ for $s \in \{tr, h, sim\}$: original,
+natural, and adversarial phrasings, each with a scene trace
+\For{$t = 1, \dots, N$}
+  \State $Y_s \gets \{\, g(R_{t-1}, x, \mathrm{trace}(x)) : x \in
+  X_s \,\}$ \Comment{rewrite}
+  \State score $Y_{tr}, Y_{h}$ with proxy $r$ on $\pi$
+  \Comment{$F{\times}C$ frames}
+  \State score $Y_{sim}$ by simulated rollouts of $\pi$
+  \Comment{success over layouts}
+  \State $B \gets B \cup \mathrm{scored}(Y_{tr})$
+  \Comment{held-out rewrites are never banked}
+  \State $A_t \gets J(R_{t-1},\ \mathrm{sample\ rewrites,\
+  scores})$ \Comment{adherence audit}
+  \State $R_t \gets D(\mathrm{evidence}(B, \mathcal{T}_{tr}),\ A_t,\
+  R_{t-1})$ \Comment{new rules must cite a testable measurement}
+  \State $v_t \gets$ mean held-out score ($r$ on $\mathcal{T}_{h}$,
+  rollouts on $\mathcal{T}_{sim}$)
+  \State stop if $v$ has not improved in $p$ iterations
+\EndFor
+\State \Return $R_{t^{*}}$, \ $t^{*} = \arg\max_t v_t$
+\end{algorithmic}
+\end{algorithm}
 
 \textbf{Deployment.}
 The frozen rule set is placed in the prompt of an off-the-shelf VLM,
