@@ -144,8 +144,14 @@ def one(task):
             rows.append({"task": task, "phrase": s, "kind": kind,
                          "source": f"generated_{kind}"})
     if not rows:
-        print(f"  EMPTY {task!r}", flush=True)
-        return None
+        # A failed parse must never DESTROY what the task already had. Returning
+        # None dropped the task from the final concat entirely: 'open microwave'
+        # lost all 12 of its phrases that way, silently, and the run reported
+        # GENERATION-DONE. Hand back the existing rows unchanged instead.
+        print(f"  EMPTY {task!r}"
+              + (f" -- keeping its {len(have)} existing phrases" if have is not None
+                 else " -- nothing to keep"), flush=True)
+        return have
     df = pd.DataFrame(rows).drop_duplicates(["task", "phrase"])
     if have is not None:
         df = (pd.concat([have, df], ignore_index=True)
