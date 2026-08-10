@@ -545,9 +545,10 @@ reference (36.1); the same frozen applier without rules reaches 31.2.}
     \includegraphics[width=\columnwidth]{sealed_ladder_adversarial.png}
     \caption{Adversarial (ERT) condition on the sealed suite: three
 appliers $\times$ \{rollout{+}training-data rules, rollout-derived
-rules, bare prompt\}. Identical rule
-text is worth $+7.7$ points in Claude's hands and is \emph{harmful} in
-frozen Qwen's --- capability to comply dominates rule content.}
+rules, bare prompt\}. The rollout-derived rules repair almost
+identically in every applier's hands (31.0--31.6); the deeper
+rollout{+}training-data repair exists only for capable appliers (34.3
+Claude vs.\ 30.1 frozen Qwen).}
     \label{fig:sealed_ladder_adv}
 \end{figure}
 
@@ -636,23 +637,31 @@ survives.
 \subsection{Analysis}
 \label{sec:results-analysis}
 
-\textbf{Rules beat frozen rephrasers, but the applier dominates.}
+\textbf{Rules beat frozen rephrasers; how much the applier matters
+depends on the rules.}
 An off-the-shelf VLM asked to rewrite instructions \emph{without} any
 distilled knowledge already helps slightly on degraded inputs (bare
 Gemini: 27.8 vs.\ 26.6 passthrough on adversarial, 31.2 vs.\ 28.5 on
 naturals). The rules multiply that --- $+5.5$ further points on
-adversarial and $+5.7$ on naturals for the same frozen applier --- so the
-distilled knowledge, not the rewriting capacity, carries most of the
-value. Yet identical rule text is worth very different amounts in
-different hands: a ${\sim}4$-point applier swing on adversarial inputs
-(Claude 34.3 / Gemini 33.3 / frozen Qwen 30.1), and for the weakest
-applier the rules are outright harmful --- a license to rewrite without
-the capacity to comply. Frozen Qwen with the full rulebook scores 27.8
-on unmodified original instructions, 8.3 points below leaving them
-untouched. Prompt
-\emph{architecture} shows the same capability gradient: swapping a
-scaffolded template for a bare one is worth $+5.4$ to Qwen, $\pm0$ to
-Gemini, and $-1.2$ to Claude.
+adversarial and $+5.7$ on naturals for the same frozen applier --- so
+the distilled knowledge, not the rewriting capacity, carries most of the
+value. The two rule sets then part ways on \emph{who} can spend that
+knowledge. The rollout-derived rules are applier-robust: on adversarial
+inputs all three appliers land within 0.6 points of one another (31.0 to
+31.6 --- frozen Qwen matches Claude), and on naturals both capable
+appliers fully repair (Gemini 36.9, Claude 36.4). The
+rollout{+}training-data rules are applier-\emph{sensitive}: their
+deeper adversarial repair exists only in capable hands (Claude 34.3 /
+Gemini 33.3 / frozen Qwen 30.1), on naturals they open a 2.7-point gap
+between the same two appliers the simpler rules held together (33.9 vs
+31.2), and for the weakest applier they are outright harmful --- a
+license to rewrite without the capacity to comply: frozen Qwen with the
+full rulebook scores 27.8 on unmodified original instructions, 8.3
+points below leaving them untouched. Prompt \emph{architecture} shows
+the same capability gradient: swapping a scaffolded template for a bare
+one is worth $+5.4$ to Qwen, $\pm0$ to Gemini, and $-1.2$ to Claude.
+The pattern is consistent: the more a rulebook asks of its applier, the
+more the applier's capability becomes the binding constraint.
 
 \textbf{An in-distribution gate is the cheapest missing piece.}
 Every intervention pays a small in-vocab tax (rules: $-2.3$ on
