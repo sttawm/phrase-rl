@@ -71,9 +71,17 @@ done = set()
 rows = []
 if out_path.exists():
     prev = pd.read_parquet(out_path)
-    rows = prev.to_dict("records")
-    done = set(zip(prev.task, prev.phrase))
-    print(f"resume: {len(done)} phrases already scored", flush=True)
+    # A row is only DONE if it carries a real measurement. Resuming on row
+    # EXISTENCE makes a failed attempt permanent: the e1 run that found no
+    # contexts wrote 132 rows with z=NaN and n_ctx=0, and every later run then
+    # skipped them as "already scored". Drop the empty rows so they are retried.
+    ok = prev.z.notna() & prev.grip.notna()
+    rows = prev[ok].to_dict("records")
+    done = set(zip(prev.loc[ok, "task"], prev.loc[ok, "phrase"]))
+    dropped = int((~ok).sum())
+    print(f"resume: {len(done)} phrases already scored"
+          + (f"; DISCARDED {dropped} empty rows (z/grip null) for retry" if dropped else ""),
+          flush=True)
 
 # Context tables disagree on their key column: the club/val tables are keyed by
 # instruction text, the sim tables by task name. Build _key PER FILE before
