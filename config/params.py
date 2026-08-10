@@ -43,11 +43,12 @@ class Measured:
     min_per_episode: float = 0.42
     """Sim rollout wall-clock per episode, one pod. Measured on the e6 leg."""
 
-    sd_phrase_success: float = 0.193
+    sd_phrase_success: float = 0.166
     """SD of rollout success ACROSS phrases WITHIN a task -- the dominant noise
-    term in every sim resolution below. Binomial-corrected, measured on
-    sim_rollouts_natadv_0of2.parquet: 96 phrases (64 natural + 32 adversarial),
-    8 val8 tasks, 36 rollouts each.
+    term in every sim resolution below. Binomial-corrected, measured on BOTH
+    natadv shards (sim_rollouts_natadv_{0,1}of2.parquet): all 180 generated
+    phrases (120 natural + 60 adversarial), 8 val8 tasks, 36 rollouts each.
+    Was 0.193 on shard 0's 96 phrases alone; the full set tightened it.
 
     USE THIS ONE, NOT fine_exam's 0.096. fine_exam is a set of CLOSE
     PARAPHRASES built to test fine reward discrimination, so its spread is small
@@ -328,16 +329,6 @@ class BankPolicy:
     distractor variants inherit sealed status and go with their bases."""
 
     KNOWN_ISSUES: tuple = (
-        "results/rules_runs/live1/bank.parquet is STALE (Aug 7 19:08, before "
-        "bank_generated.parquet on Aug 8 10:25) and holds ZERO natural and ZERO "
-        "adversarial phrases. seed_bank() returns the cached file "
-        "unconditionally when it exists, so re-running live1 silently distills "
-        "from the old bank. Delete or rebuild before the next run.",
-        "scripts/finish_sim_bank.sh invokes phase0c_rollout without exporting "
-        "VLA_DATA_DIR / VLA_LOG_DIR / WANDB_MODE -- the only script in the repo "
-        "that does not. The rollout dies, and with no rc check under "
-        "'set -uo pipefail' (no -e) scoring proceeds over thin trajectories and "
-        "the run self-reports success. This is work item #26.",
         "episode_id wraps MODULO the per-task grid "
         "(len(xy_configs) * len(quat_configs)), and grid sizes differ per task "
         "(4 to 360 in the vendored envs). Verify each val8 task's grid before "
@@ -529,6 +520,20 @@ DECISIONS = [
      "wrong sigma. Dropped in favour of measuring everything at bank grade, "
      "which is simpler to operate and yields 128 banked sim phrases per "
      "iteration instead of 32."),
+    ("2026-08-10", "sigma_phrase tightened to 0.166 on the full 180-phrase gt set",
+     "Both natadv shards landed; shard 0's 96 phrases alone read 0.193. At "
+     "N_sim=32 x n=18 the sim leg now resolves ~3.5pp (floor 2.9)."),
+    ("2026-08-10", "Single-edit machinery REMOVED from the driver; judge stays",
+     "eval_rules(judge=True) writes the whole-book eval file and calls the "
+     "adherence judge; RULE_CACHE / rule_cache_lookup / only_rule / "
+     "--single-edit-n are gone. The _rule_cache.parquet ARTIFACT stays as the "
+     "measured 19.7% pass-through rate cited by CachePolicy."),
+    ("2026-08-10", "seed_bank now reads the generated tiers, and warns on a stale freeze",
+     "Its rebuild read only fine_exam + search_boards, so even deleting a stale "
+     "bank.parquet could not bring naturals/adversarials in. It now appends the "
+     "bank_to_score worklist (scores attach via the bank_scores merge), and a "
+     "cached bank that predates its inputs or lacks nat/adv prints a loud "
+     "warning. live1's stale snapshot is deleted; a fresh run id rebuilds."),
     ("2026-08-09", "Per-rule evaluation dropped in favour of an adherence judge",
      "Per-rule cost scaled with the rule count and the loop could not afford "
      "it. The book is measured, not its parts."),
