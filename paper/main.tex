@@ -641,12 +641,15 @@ The pattern is consistent: the more a rulebook asks of its applier, the
 more the applier's capability becomes the binding constraint.
 
 \textbf{An in-distribution gate is the cheapest missing piece.}
-Every intervention pays a small in-vocab tax (rules: $-2.3$ on
-original-instruction in-vocab tasks; SFT: its entire OOV loss) while earning its keep
-out-of-vocabulary and on degraded inputs. A classifier that recognizes
-already-canonical, in-vocabulary instructions and passes them through
-untouched would keep the OOV gains at essentially no cost; none of our
-methods currently has one.
+On adversarial inputs, rewriting is all upside. The tax appears when the
+input was already well phrased: on original instructions the rules give
+back in-vocab performance ($-2.3$ for the best configuration versus
+leaving them untouched), and a natural input that already matches the
+executor's preferred phrasing risks the same needless edit. A classifier
+that recognizes already-canonical, in-vocabulary instructions and passes
+them through untouched would keep the out-of-vocabulary and
+degraded-input gains at essentially no cost; none of our methods
+currently has one.
 
 \textbf{What did the trajectory proxy contribute?}
 Less than we expected, and the evidence is worth stating carefully. The
