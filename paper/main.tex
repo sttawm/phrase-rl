@@ -520,37 +520,34 @@ out-of-vocabulary; SFT redistributes success toward in-vocab tasks
 without net gain; and GRPO optimizes its reward without moving rollout
 success at all.
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
     \centering
-    \includegraphics[width=\columnwidth]{natural_ladder.png}
-    \caption{Natural-input condition (uniform 24 layouts): 16 natural
-rephrases per task, rewritten by each rephraser configuration before
-reaching the executor. The rollout-derived rules applied by Gemini
-restore pooled success to 36.9\%, level with the original-instruction
-reference (36.1); the same frozen applier without rules reaches 31.2.}
-    \label{fig:natural_ladder}
-\end{figure}
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{sealed_ladder_adversarial.png}
-    \caption{Adversarial (ERT) condition on the sealed suite: three
-appliers $\times$ \{rollout{+}training-data rules, rollout-derived
-rules, bare prompt\}. The rollout-derived rules repair almost
-identically in every applier's hands (31.0--31.6); the deeper
-rollout{+}training-data repair exists only for capable appliers (34.3
-Claude vs.\ 30.1 frozen Qwen).}
-    \label{fig:sealed_ladder_adv}
-\end{figure}
+    \includegraphics[width=\textwidth]{results_translating.png}
+    \caption{Main results on the sealed suite. Left block: the four
+no-rephraser baselines, drawn once and repeated as dotted levels across
+all panels. Each condition panel shows the three appliers (Gemini,
+Claude, frozen Qwen) rewriting the incoming instruction under the
+rollout{+}training-data rules, the rollout-derived rules, or a bare
+prompt with no rules (grey --- itself a baseline). Wide bars pool the 12
+sealed tasks; flanking bars split in-vocab (5) and out-of-vocab (7)
+strata. Baselines and all cells on original and adversarial inputs roll
+24 layouts $\times$ 12 reps ($n{=}3{,}456$ per cell); natural inputs
+roll 16 rephrases $\times$ 24 layouts $\times$ 1 episode
+($n{=}4{,}608$). Oracle phrasings were selected on 18 layouts and
+evaluated on all 24. Bare-prompt rewriting of original instructions was
+measured only for Qwen.}
+    \label{fig:results}
+\end{figure*}
 
 \subsubsection{LLM-distilled rules}
-On \textbf{natural} inputs (Fig.~\ref{fig:natural_ladder}), the
+On \textbf{natural} inputs (Fig.~\ref{fig:results}, Natural panel), the
 rollout-derived rules applied by Gemini restore pooled success to 36.9\% --- above the 36.1\%
 original-instruction reference, i.e.\ complete repair of
 natural-phrasing damage ($+8.4$ over passthrough 28.5). The same frozen
 applier \emph{without} the rules reaches 31.2: most of the value is the
 distilled knowledge, not the rewriting capacity. On \textbf{adversarial}
-inputs (Fig.~\ref{fig:sealed_ladder_adv}) the rule sets trade places:
+inputs (Fig.~\ref{fig:results}, Adversarial panel) the rule sets trade
+places:
 the rollout{+}training-data rules deepen repair to 33.3 (Gemini) and
 34.3 (Claude; $+7.7$ over passthrough, the deepest adversarial repair we
 measured) versus 31.6 for the rollout-derived rules. On unmodified
@@ -562,19 +559,8 @@ above the originals themselves. Gains are OOV-concentrated throughout
 48.3) --- the pattern that motivates the in-distribution gate discussed
 in \S\ref{sec:results-analysis}.
 
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{a28_rulesv3_vs_v4.png}
-    \caption{Rule-set ablation on natural inputs (uniform 24 layouts):
-the rollout-derived rules beat the rollout{+}training-data rules for
-every applier --- $+1.0$ (Qwen), $+3.2$ (Gemini), $+5.2$ (Claude) ---
-while the ordering reverses on adversarial inputs. The training-data
-evidence taught a more conservative repair protocol that over-corrects
-benign variation.}
-    \label{fig:a28}
-\end{figure}
-
-Fig.~\ref{fig:a28} isolates the rule-set difference: the
+The Natural panel of Fig.~\ref{fig:results} isolates the rule-set
+difference: the
 rollout-derived rules win on naturals for every applier, and the
 ordering reverses under attack. The training-data pass taught deeper
 repair of hostile inputs at the price of over-correcting natural ones.
@@ -667,7 +653,7 @@ Less than we expected, and the evidence is worth stating carefully. The
 rollout{+}training-data rules' advantage is confined to adversarial
 inputs ($+1.7$ to $+3.3$); on naturals the rollout-derived rules win for
 every applier
-(Fig.~\ref{fig:a28}). Moreover the training-data evidence bundles
+(Fig.~\ref{fig:results}). Moreover the training-data evidence bundles
 proxy-\emph{scored} search results with plain corpus statistics
 (vocabulary counts), and the distillation's own hypothesis gate rejected
 all 14 proxy-motivated improvement rules while keeping repair rules ---
