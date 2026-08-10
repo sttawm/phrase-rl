@@ -483,7 +483,7 @@ Adversarial (ERT) & 26.6 & 30.6 & 23.7 \\
 \end{table}
 
 Table~\ref{tab:sensitivity} characterizes phrase sensitivity on the
-sealed suite. Three observations drive everything that follows.
+sealed suite. Two observations drive everything that follows.
 
 \textbf{Headroom is large, and concentrated out-of-vocabulary.}
 Oracle phrasings add 12.2 points over the original instructions. The
@@ -508,22 +508,6 @@ task whose original scores ${\sim}28$.
 Figs.~\ref{fig:spread_coke_can_on_keyboard}--\ref{fig:spread_eggplant_on_keyboard}
 show per-phrase spreads: on sensitive OOV tasks, near-synonymous requests
 span 0--58 points.
-
-\textbf{The headroom is not reachable by blind sampling.} Where does
-the 12-point oracle gap come from? Not from paraphrase luck. As a
-baseline --- separate from the natural condition above, whose rephrases
-are Gemini's image-conditioned imitations of \emph{human} phrasing ---
-we let the frozen Qwen rephraser sample 16 unguided rephrases of each
-original instruction. The average sample scores 29.5: rewording a
-working instruction at random \emph{costs} 6.6 points. Keeping only
-the best of the 16 per task merely matches the originals (37.8 vs.\
-36.1, and post-hoc selection over 24 episodes per phrase inflates that
-estimate), and the pool never contains the large rescues: on the
-ramekin task its best sample scores 16.7 where scene-informed rewrites
-reach 46.2. The oracle phrasings reach 48.2 because their candidate
-pools were authored and refined with knowledge of what this executor
-prefers (\S\ref{sec:characterizing}); sampling paraphrases and picking
-a winner recovers essentially none of the gap.
 
 \subsection{Comparing the Three Learning Methods}
 \label{sec:results-comparison}
