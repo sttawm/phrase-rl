@@ -509,12 +509,17 @@ Figs.~\ref{fig:spread_coke_can_on_keyboard}--\ref{fig:spread_eggplant_on_keyboar
 show per-phrase spreads: on sensitive OOV tasks, near-synonymous requests
 span 0--58 points.
 
-\textbf{Random rephrasing has no headroom.} Sixteen unguided rephrases
-of each original average 29.5 --- \emph{below} the originals --- and
-even selecting the best of the 16 per task (37.8) barely clears them
-(36.1). The oracle gap is reachable only by \emph{informed} search:
-knowing what this executor prefers is worth 12 points; guessing is worth
-nothing.
+\textbf{The headroom is not reachable by blind sampling.} Where does
+the 12-point oracle gap come from? Not from paraphrase luck: when we
+generate 16 \emph{unguided} rephrases of each original instruction (no
+rules, no knowledge of the executor), the average rephrase scores 29.5
+--- rewording a working instruction at random \emph{costs} 6.6 points.
+Even keeping only the best of the 16 per task merely matches the
+originals (37.8 vs.\ 36.1, and post-hoc selection over just 24 episodes
+per phrase inflates that estimate). The oracle phrasings reach 48.2
+because their candidate pools were authored and refined with knowledge
+of what this executor prefers (\S\ref{sec:characterizing}); sampling
+paraphrases and picking a winner recovers essentially none of the gap.
 
 \subsection{Comparing the Three Learning Methods}
 \label{sec:results-comparison}
