@@ -70,7 +70,7 @@ axB.set_xticks([])
 axB.set_ylabel("sealed-suite success %", fontsize=11)
 
 # ---------------- condition panels ----------------
-for ax, cond in zip(axes[1:], ["Adversarial", "Original", "Natural"]):
+for ax, cond in zip(axes[1:], ["Adversarial", "Natural", "Original"]):
     x = 0.0
     ticks, tlabels = [], []
     for mi, model in enumerate(MODELS):
