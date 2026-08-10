@@ -26,9 +26,9 @@ for line in open("results/analysis/rephrase_robustness.jsonl"):
     rows[d["arm"]] = d
 
 APPLIERS = [("qwen", "Frozen Qwen 3.5-9B"), ("claude", "Claude"), ("gemini", "Gemini Pro")]
-CONDS = [("promptB", "no rules (prompt B)", "#a0aec0"),
-         ("rulesv4", "rules v4", "#2b6cb0"),
-         ("rulesv3", "rules v3", "#dd6b20")]
+CONDS = [("promptB", "no rules (bare prompt)", "#a0aec0"),
+         ("rulesv4", "rollout+training-data rules", "#2b6cb0"),
+         ("rulesv3", "rollout-derived rules", "#dd6b20")]
 PASSTHROUGH = 28.45   # pi0 on the natural rephrases, no rephraser at all
 
 

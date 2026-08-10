@@ -15,7 +15,7 @@ REFS = [("oracle*", (48.2, 50.3, 46.8)), ("original", (36.1, 48.3, 27.3)),
 
 DATA = {
     "adversarial": {
-        "roles": ["train+rollout rules (v4)", "rollout rules (v3)", "no rules (prompt B)"],
+        "roles": ["rollout+training-data rules", "rollout-derived rules", "no rules (bare prompt)"],
         "models": {
             "Frozen Qwen": [(30.1, 35.3, 26.3), (31.5, 35.7, 28.5), (29.6, 40.5, 21.9)],
             "Gemini-Pro": [(33.3, 37.0, 30.7), (31.6, 38.2, 26.8), (27.8, 33.1, 24.0)],
@@ -24,7 +24,7 @@ DATA = {
         "pending": {},
     },
     "nominal": {
-        "roles": ["train+rollout rules (v4)", "rollout rules (v3)", "no rules (prompt B)"],
+        "roles": ["rollout+training-data rules", "rollout-derived rules", "no rules (bare prompt)"],
         "models": {
             "Frozen Qwen": [(27.8, 34.9, 22.7), (32.2, 34.9, 30.3), (29.8, 40.7, 22.0)],
             "Gemini-Pro": [(37.2, 46.0, 30.9), (34.8, 42.1, 29.6), None],
@@ -73,7 +73,7 @@ for cond, spec in DATA.items():
             else:
                 triplet_bars(ax, x, cell)
             role = spec["roles"][i]
-            ax.text(x, 15.4, role.replace(" rules", "\nrules"), ha="center", va="top",
+            ax.text(x, 14.6, role.replace("+", "+\n").replace(" rules", "\nrules").replace(" (", "\n("), ha="center", va="top",
                     fontsize=7.2, color="#4a5568")
             cxs.append(x)
             x += 1.35

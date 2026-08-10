@@ -16,12 +16,12 @@ REFS = [("A", "original (canonical) — 24 layouts, 12 reps", (36.08, 48.3, 27.3
         ("C", "natural on NON-augmented $\\pi_0$ — 24 layouts", (23.78, 35.6, 15.4)),
         ("D", "adversarial ERT, no rewriter — 24 layouts, 12 reps", (26.59, 30.6, 23.7))]
 
-ROLES = ["rules-v4", "no rules (prompt B)"]
+ROLES = ["rollout+training-data rules", "rollout-derived rules", "no rules (bare prompt)"]
 # cell = (pooled, IV, OOV, is_partial_0_11) or None (pending)
 MODELS = {
-    "Frozen Qwen":  [(29.41, 35.2, 25.3, False), (28.32, 39.1, 20.6, False)],
-    "Gemini-Pro":   [(33.92, 42.0, 28.2, False), (31.15, 43.6, 22.2, False)],
-    "Claude Fable": [(31.18, 40.9, 24.3, False), (30.75, 43.3, 21.8, False)],
+    "Frozen Qwen":  [(29.41, 35.2, 25.3, False), (30.44, 33.4, 28.3, False), (28.32, 39.1, 20.6, False)],
+    "Gemini-Pro":   [(33.92, 42.0, 28.2, False), (36.89, 42.2, 33.1, False), (31.15, 43.6, 22.2, False)],
+    "Claude Fable": [(31.18, 40.9, 24.3, False), (36.35, 41.2, 32.9, False), (30.75, 43.3, 21.8, False)],
 }
 PENDING = {}
 
@@ -36,7 +36,7 @@ def triplet_bars(ax, x, pool, iv, oov, dagger=False):
     ax.text(x, pool + 0.7, lbl, ha="center", fontsize=8.8, fontweight="bold", zorder=3)
 
 
-fig, ax = plt.subplots(figsize=(13.2, 5.0))
+fig, ax = plt.subplots(figsize=(15.8, 5.0))
 x = 0.0
 ticks, labels = [], []
 for letter, _d, (p, iv, oo) in REFS:
@@ -60,12 +60,12 @@ for model, cells in MODELS.items():
         else:
             p, iv, oo, part = cell
             triplet_bars(ax, x, p, iv, oo, dagger=part)
-        ax.text(x, -3.6, ROLES[i].replace(" (", "\n("), ha="center", va="top",
-                fontsize=7.2, color="#4a5568")
+        ax.text(x, -3.6, ROLES[i].replace("rules", "\nrules").replace(" (", "\n("), ha="center", va="top",
+                fontsize=7.0, color="#4a5568")
         cxs.append(x)
         x += 1.35
     ticks.append(sum(cxs) / len(cxs))
-    labels.append("\n\n" + model)
+    labels.append("\n\n\n\n" + model)
     x += 0.7
 handles = [plt.Rectangle((0, 0), 1, 1, color=C_POOL),
            plt.Rectangle((0, 0), 1, 1, color=C_IV, alpha=0.55),
@@ -81,8 +81,7 @@ ax.grid(axis="y", alpha=0.25)
 ax.set_title("Natural-rephrase ladder — 24-layout basis "
              "(executor: rephrase-augmented $\\pi_0$ unless noted)", fontsize=10.5, pad=12)
 fig.text(0.01, 0.005,
-         "$^\\dagger$ layouts 0-11 only (1 rep) — second halves land ~09:00 UTC and convert these cells to 24-layout in place. "
-         "Naturals: 1 rep/layout; A and D: 12 reps. Qwen arms queued at end-of-line priority.",
+         "Naturals: 1 rep/layout over all 24 layouts; references A and D: 12 reps.",
          fontsize=6.8, color="#4a5568")
 fig.tight_layout()
 fig.savefig("results/charts/natural_ladder.png", dpi=140, bbox_inches="tight", pad_inches=0.25)
