@@ -6,7 +6,7 @@
 
 %\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
 
-\IEEEoverridecommandlockouts                              % This command is only needed if
+\IEEEoverridecommandlockouts                              % This command is only needed if 
                                                           % you want to use the \thanks command
 
 \overrideIEEEmargins                                      % Needed to meet printer requirements.
@@ -130,7 +130,7 @@ In an attempt to address these issues we add a \textit{translator} model that tr
 
 Our first and most successful method we call \textit{LLM-derived rules}. In this method, we first calculate VLA task success across many different task phrasings. We perform this phrase-comparison for both its real-world training set and in a simulated environment. Since we cannot directly measure task success on the robot's real-world training data, we use a gripper-based proxy. This proxy shows high correlation with actual task success, especially when sampled at many different frames along a robot's task trajectory. After gathering a dataset of per-task phrase-rankings, we ask an LLM to derive observations about how phrasing affects task success. These observations are compiled into rules, and the rules are given in a prompt to an off-the-shelf VLM (Vision Language Model) rephraser. This is the method reported in the abstract; it improves VLA performance on adversarially phrased instructions by 25\% and improves performance on naturally phrased instructions by 30\%.
 
-Our second method is more or less the "weights" based, RL counterpart to the above. In this method, we test many rephrasing per task, ranking the results according to our gripper-based proxy reward and apply GRPO. We have yet to see significant improvement when using this method, though it does seem that the proxy reward is able to be mildly optimized.
+Our second method is more or less the "weights" based, RL counterpart to the above. In this method, we test many rephrasing per task, ranking the results according to our gripper-based proxy reward and apply GRPO. We have yet to see significant improvement when using this method, though it does seem that the proxy reward is able to be mildly optimized. 
 
 Our third method trains a VLM to map rephrased training tasks back to their original training task. In our evaluation, it helps with in-vocabulary tasks and hurts on out-of-vocabulary tasks. For future work, it may be interesting to endow this method with access to our proxy-reward function; in about half of all training tasks, our proxy was able to find a better task phrase than the original.
 
@@ -143,12 +143,12 @@ Our third method trains a VLM to map rephrased training tasks back to their orig
 \section{Related Work}
 
 \textbf{Language-Sensitivity. }
-Other works call attention to the language-sensitivity of language-conditioned robot policies ~\cite{karnik2024embodied}.
+Other works call attention to the language-sensitivity of language-conditioned robot policies ~\cite{karnik2024embodied}. 
 
 \textbf{Reducing Language Sensitivity. }
 Recent works improve VLA performance by augmenting its training data with additional rephrases of its training instructions ~\cite{kwok2026scaling, chen2026steerable}.
 
-In conjunction with the above, a frozen VLA's performance can be improved by generating many phrase-action pairs at runtime and then using a pre-trained model to select the best candidate ~\cite{kwok2026scaling}. This method is our closest known comparison, yet we operate solely on task-phrasing; that is, we do not explicitly select good candidate actions. Moreover, though generating multiple phrase-action pairs at each inference step is relatively inexpensive, we avoid this cost by generating our rephrase just once, at the beginning of the episode.
+In conjunction with the above, a frozen VLA's performance can be improved by generating many phrase-action pairs at runtime and then using a pre-trained model to select the best candidate ~\cite{kwok2026scaling}. This method is our closest known comparison, yet we operate solely on task-phrasing; that is, we do not explicitly select good candidate actions. Moreover, though generating multiple phrase-action pairs at each inference step is relatively inexpensive, we avoid this cost by generating our rephrase just once, at the beginning of the episode.  
 
 \textbf{Using a VLM to improve VLA performance. }
 Another body of work incorporates a VLM in some capacity to improve the performance of a downstream VLA \cite{zitkovich2023rt2,driess2023palme,shi2025hirobot}.
@@ -273,7 +273,7 @@ search screens at ($F{=}1$, $C{=}4$) and re-scores finalists at
 \end{figure}
 
 \subsection{Reward-Guided Phrase Search and LLM Rule Distillation}
-TODO: Update this in light of our most recent work.
+TODO: Update this in light of our most recent work. 
 Make sure to describe the difference between v3 rules and v4 rules, and rename them to something like
 "rollout-derived rules" and "rollout + training-data derived rules"
 
@@ -390,28 +390,44 @@ rate near 35\% is ${\sim}0.8$ percentage points.
 \label{sec:results-sensitivity}                 % headroom, adversarial drop,
                                                 % natural-rephrase penalty
 
+The obvious thing here is to characterize the success rate on
+oracle, natural, and adversarial.
+
+headroom is the highlight here. And our methods want to recover that.
+
+we definitely should show some examples of oracle phrasings,
+as well as adversarial and natural with numbers. 
+
 \subsection{Comparing the Three Learning Methods}  % rules vs SFT vs GRPO
 \label{sec:results-comparison}                     % on sealed + robustness,
 Probably here we should have a brief intro comparing the three methods.
 
 Then we can have a sub-sub section on each of the methods, showing results and analyzing.
 
-We should rename v3 and v4 rules accordingly. We
+We should rename v3 and v4 rules accordingly.
 
+I'll want to highlight out of vocab improvements, despite in-vocab regression.
+
+For our rules method, I'm not sure we need to go into great detail on our loop. Though we can. 
 
 
 \subsection{Analysis}                    % template x applier matrix, rules x
 \label{sec:results-analysis}             % executor interaction, RL training
                                          % dynamics (the inverted-U curve)
+Seems that the LLM rules method mostly makes out of vocab better.
 
+It's not entirely clear that our proxy is contributing much!
 
 \section{Conclusions}
 Our LLM-based loop seemed better able to generalize than our classic RL or SFT loop.
-In light of this, should be reconsider improvements to our traditional weights-based RL
+In light of this, should be reconsider improvements to our traditional weights-based RL 
 algorithms that somehow generalize better?
 
 Future-work:
 - get a weights-based RL algorithm to work more effectively
+- adding an in-vocab clasifier might also be an easy way to improve performance since 
+the rules methods tend to reduce 
+- more simulation will lead to better weights-based RL comparison as well as a broader base from which to generalize rules; it's a little tricky to have to rely on a proxy
 - more thorough running of the rules iteration loop -- we only did a few ad hoc iterations
 and it would be nice to better automate it
 - we should test different models and datasets, as well
