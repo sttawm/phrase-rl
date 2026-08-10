@@ -16,7 +16,8 @@ import matplotlib.pyplot as plt
 BASE = [("oracle*", 48.2, 50.3, 46.8, "#2f855a"),
         ("original", 36.1, 48.3, 27.3, "#4a5568"),
         ("natural", 28.45, 41.5, 19.2, "#b7791f"),
-        ("adversarial", 26.6, 30.6, 23.7, "#c53030")]
+        ("adversarial", 26.6, 30.6, 23.7, "#c53030"),
+        ("natural,\nstd. $\\pi_0$", 23.8, 35.6, 15.4, "#805ad5")]
 
 ROLES = ["rollout+\ntraining-data\nrules", "rollout-\nderived\nrules", "no rules\n(bare\nprompt)"]
 MODELS = ["Gemini-Pro", "Claude Fable", "Frozen Qwen"]
@@ -40,10 +41,10 @@ DATA = {
 }
 C_RULES, C_BASEBAR = "#a3bffa", "#8b96a5"     # blue = rules cells, grey = baselines
 C_IV, C_OOV = "#b2f5ea", "#fed7aa"
-YMIN, YMAX = 20, 52     # 22 would clip four OOV bars (min 20.6)
+YMIN, YMAX = 15, 52     # floor set by the std-pi0 natural OOV stratum (15.4)
 
-fig, axes = plt.subplots(1, 4, figsize=(21.0, 5.8), sharey=True,
-                         gridspec_kw={"width_ratios": [1.15, 3, 3, 3]})
+fig, axes = plt.subplots(1, 4, figsize=(21.8, 5.8), sharey=True,
+                         gridspec_kw={"width_ratios": [1.75, 3, 3, 3]})
 
 
 def triplet(ax, x, p, iv, oo, pooled_color):
@@ -62,8 +63,8 @@ def triplet(ax, x, p, iv, oo, pooled_color):
 axB = axes[0]
 for i, (name, p, iv, oo, c) in enumerate(BASE):
     triplet(axB, float(i), p, iv, oo, C_BASEBAR)
-    axB.text(i, YMIN - 1.1, name.replace("adversarial", "adver-\nsarial"),
-             ha="center", va="top", fontsize=7.6, color="#4a5568")
+    axB.text(i, YMIN - 1.1, name.replace("adversarial", "adver-\nsarial").replace("oracle*", "oracle$^{*}$"),
+             ha="center", va="top", fontsize=7.2, color="#4a5568")
 axB.set_title("Baselines\n(no rephraser)", fontsize=11.5, pad=10)
 axB.set_xlim(-0.7, len(BASE) - 0.3)
 axB.set_xticks([])
@@ -109,7 +110,7 @@ axes[0].set_ylim(YMIN, YMAX)
 # right-edge line labels
 axR = axes[3]
 for name, p, iv, oo, c in BASE:
-    axR.text(axR.get_xlim()[1] + 0.06, p, name.rstrip("*"), fontsize=8.2,
+    axR.text(axR.get_xlim()[1] + 0.06, p, name.rstrip("*").replace(",\n", " "), fontsize=8.2,
              color=c, va="center", ha="left", clip_on=False)
 
 handles = [plt.Rectangle((0, 0), 1, 1, color=C_RULES),
