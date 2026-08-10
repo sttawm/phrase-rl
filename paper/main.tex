@@ -375,31 +375,24 @@ Algorithm~\ref{alg:loop} summarizes one iteration.
 \caption{Automated rule-distillation loop}
 \label{alg:loop}
 \begin{algorithmic}[1]
-\Require frozen executor $\pi$; rephraser VLM $g$; distiller $D$;
-judge $J$; trajectory proxy $r(\cdot)$
-\Require training tasks $\mathcal{T}_{tr}$, held-out tasks
-$\mathcal{T}_{h}$, simulatable tasks $\mathcal{T}_{sim}$
+\Require frozen VLA; rephraser $g$; distiller $D$; judge $J$
+\Require train and validation base sets (original, natural, and
+adversarial phrasings, each with a scene trace)
 \Require evidence bank $B$ of scored phrases; initial rulebook $R_0$
-\State freeze base sets $X_s$ for $s \in \{tr, h, sim\}$: original,
-natural, and adversarial phrasings, each with a scene trace
 \For{$t = 1, \dots, N$}
-  \State $Y_s \gets \{\, g(R_{t-1}, x, \mathrm{trace}(x)) : x \in
-  X_s \,\}$ \Comment{rewrite}
-  \State score $Y_{tr}, Y_{h}$ with proxy $r$ on $\pi$
-  \Comment{$F{\times}C$ frames}
-  \State score $Y_{sim}$ by simulated rollouts of $\pi$
-  \Comment{success over layouts}
-  \State $B \gets B \cup \mathrm{scored}(Y_{tr})$
-  \Comment{held-out rewrites are never banked}
-  \State $A_t \gets J(R_{t-1},\ \mathrm{sample\ rewrites,\
-  scores})$ \Comment{adherence audit}
-  \State $R_t \gets D(\mathrm{evidence}(B, \mathcal{T}_{tr}),\ A_t,\
-  R_{t-1})$ \Comment{new rules must cite a testable measurement}
-  \State $v_t \gets$ mean held-out score ($r$ on $\mathcal{T}_{h}$,
-  rollouts on $\mathcal{T}_{sim}$)
-  \State stop if $v$ has not improved in $p$ iterations
+  \State $Y \gets$ rewrite every base with $g$ under rulebook $R_{t-1}$
+  \State score every rewrite in $Y$ on the frozen VLA
+  \State add the scored \emph{train} rewrites to $B$
+  \Comment{validation rewrites are never banked}
+  \State $A \gets J(R_{t-1}, Y, \mathrm{scores})$
+  \Comment{did the rewrites follow the rules?}
+  \State $R_t, P \gets D(B, A, R_{t-1})$
+  \Comment{updated rules $+$ proposed new experiments}
+  \State score the proposed probe phrases $P$; add them to $B$
+  \State $v_t \gets$ mean validation score
+  \State stop early if $v$ has not improved in $p$ iterations
 \EndFor
-\State \Return $R_{t^{*}}$, \ $t^{*} = \arg\max_t v_t$
+\State \Return the rulebook with the best $v_t$
 \end{algorithmic}
 \end{algorithm}
 
@@ -569,8 +562,10 @@ strata. Baselines and all cells on original and adversarial inputs roll
 24 layouts $\times$ 12 reps ($n{=}3{,}456$ per cell); natural inputs
 roll 16 rephrases $\times$ 24 layouts $\times$ 1 episode
 ($n{=}4{,}608$). Oracle phrasings were selected on 18 layouts and
-evaluated on all 24. Bare-prompt rewriting of original instructions was
-measured only for Qwen.}
+evaluated on all 24. The rightmost baseline rolls the natural inputs on
+the \emph{standard} (non-rephrase-augmented) $\pi_0$ fine-tune; every
+other number uses the rephrase-augmented executor. Bare-prompt rewriting
+of original instructions was measured only for Qwen.}
     \label{fig:results}
 \end{figure*}
 
