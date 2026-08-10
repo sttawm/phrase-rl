@@ -61,12 +61,17 @@ Improving VLA Performance by Rephrasing Task Instructions
 \begin{strip}
     \vspace{-1.2em}
     \centering
-    \includegraphics[width=\textwidth]{training_flow_compact.png}
-    \captionof{figure}{Phrase-search and rule-distillation training loop.
-    A VLM generates candidate rephrasings, which are evaluated using either
-    simulation success rate or a learned success-rate proxy. An LLM distills
-    the resulting scored phrases into updated phrasing rules for subsequent
-    iterations.}
+    \includegraphics[width=\textwidth]{training_flow_loop.png}
+    \captionof{figure}{The phrase-search and rule-distillation loop. Each
+    iteration, a VLM rephraser conditioned on the current rulebook and a
+    per-input scene trace (\S\ref{sec:traces}) rewrites an evaluation set
+    of original, natural, and adversarial instructions; the frozen
+    executor's behavior on each rewrite is scored by simulated rollouts
+    where the task is simulatable and by the trajectory proxy elsewhere.
+    Scored rewrites accumulate in an evidence bank across iterations; an
+    LLM judge audits whether the rewrites followed the rules, and the
+    distiller reads the evidence and the audit alongside the previous
+    rulebook to emit the next one.}
     \label{fig:training_flow_compact}
     \vspace{-0.5em}
 \end{strip}
