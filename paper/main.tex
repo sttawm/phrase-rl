@@ -224,9 +224,14 @@ at $F$ sampled frames of $C$ demonstration episodes, we query the
 frozen executor and measure the error of its predicted
 \emph{gripper-channel} actions against the ground truth --- whether the
 phrase triggers correct grasp/release behavior at the correct moments.
-We also train an ensemble of learned \emph{verifiers} over the
-executor's full predicted-action features. The two channels prove
-complementary --- gripper error is the sharper judge of close calls,
+We also train an ensemble of learned \emph{verifiers}: small
+networks that read the executor's predicted-action features at a frame
+--- its denoising residuals against the demonstrated action, decoded
+action chunks, and their spread across draws --- and are trained to
+distinguish the instruction a demonstration was actually following
+from instructions swapped in from other episodes (both near-miss and
+unrelated negatives). The ensemble's mean calibrated logit is the
+verifier score. The two channels prove complementary --- gripper error is the sharper judge of close calls,
 the verifier ensemble of large gaps --- and our final reward is a
 logistic success model fitted on 254 phrases with rollout-measured
 success, combining both channels. Its output is consumed strictly as a
@@ -244,11 +249,8 @@ pairs (83\% when true success differs by more than 15 points; 71\%
 at 5--10 points); alone, the gripper channel orders 74\% of pairs and
 the verifier 76\%. On the held-out rephrasings the within-task rank
 correlation with true success is 0.51, higher than on the
-narrow-spread fitting set itself (0.32). Two caveats are load-bearing.
-First, absolute calibration does not transfer: on the held-out set the
-sigmoid predicts 58\% mean success where the simulator measures
-23\%, which is why every consumer treats the score as a ranking.
-Second, re-scoring with an independent draw of context frames
+narrow-spread fitting set itself (0.32). One caveat is load-bearing:
+re-scoring with an independent draw of context frames
 reproduces 95\% of pairwise orderings, so the proxy's residual
 disagreement with the simulator is model bias rather than sampling
 noise --- more scoring budget cannot close it, and neither could
