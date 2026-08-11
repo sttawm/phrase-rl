@@ -18,9 +18,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-SCRATCH = ("/private/tmp/claude-501/-Users-sttawm-dev-robotics-phrase-rl/"
-           "a45839fa-48ee-4aea-bdee-72eb4fc9dccf/scratchpad")
-v11 = [json.loads(l) for l in open(f"{SCRATCH}/v11_train_log.jsonl")]
+SCRATCH = "results/analysis/v11_telemetry"
+v11 = [json.loads(l) for l in open(f"{SCRATCH}/train_log.jsonl")]
 v11v = sorted((r for r in v11 if r.get("type") == "val"), key=lambda r: r["step"])
 v10 = [json.loads(l) for l in open("results/analysis/v10_telemetry/train_log.jsonl")]
 v10v = sorted((r for r in v10 if r.get("type") == "val"), key=lambda r: r["step"])

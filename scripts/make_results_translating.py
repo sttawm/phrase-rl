@@ -118,7 +118,7 @@ handles = [plt.Rectangle((0, 0), 1, 1, color=C_RULES),
            plt.Rectangle((0, 0), 1, 1, color=C_OOV, alpha=0.55),
            plt.Line2D([0], [0], color="#4a5568", lw=1.2, ls=(0, (3, 3)))]
 axes[1].legend(handles, ["rules cell (pooled)", "baseline (pooled)",
-                         "in-vocab (5)", "out-of-vocab (7)", "baseline level"],
+                         "in-distribution (5)", "out-of-distribution (7)", "baseline level"],
                fontsize=7.4, loc="upper left", framealpha=0.95)
 
 fig.tight_layout(rect=(0, 0, 0.985, 1.0))

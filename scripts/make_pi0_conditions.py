@@ -35,7 +35,7 @@ for name, (pool, iv, oov) in DATA:
 handles = [plt.Rectangle((0, 0), 1, 1, color=C_POOL),
            plt.Rectangle((0, 0), 1, 1, color=C_IV, alpha=0.55),
            plt.Rectangle((0, 0), 1, 1, color=C_OOV, alpha=0.55)]
-ax.legend(handles, ["pooled (5 + 7)", "in-vocab (5)", "out-of-vocabulary (7)"],
+ax.legend(handles, ["pooled (5 + 7)", "in-distribution (5)", "out-of-distribution (7)"],
           fontsize=9, loc="upper right")
 ax.set_xticks(ticks)
 ax.set_xticklabels(labels, fontsize=9.5)
