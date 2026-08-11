@@ -75,8 +75,16 @@ fi
 # measured against THIS cell, not the inherited 42.19.
 if [ ! -f results/analysis/v12cells/nat24_judge_0000.json ] \
    && [ -f results/phrase_artifacts/dev12q_g_nat24_0000.parquet ]; then
-  mark "JUDGE step 0 (768 episodes)"
-  roll_and_cell results/phrase_artifacts/dev12q_g_nat24_0000.parquet nat24_judge_0000 95
+  mark "JUDGE step 0 (768 episodes: rows x4 at episode offsets +24/+48/+72)"
+  $GEN - <<'PYX4'
+import pandas as pd
+d = pd.read_parquet("results/phrase_artifacts/dev12q_g_nat24_0000.parquet")
+out = pd.concat([d.assign(episode_id=d.episode_id + k) for k in (0, 24, 48, 72)],
+                ignore_index=True)
+out.to_parquet("results/phrase_artifacts/dev12q_g_nat24_0000_x4.parquet", index=False)
+print("judge parquet:", len(out), "rows")
+PYX4
+  roll_and_cell results/phrase_artifacts/dev12q_g_nat24_0000_x4.parquet nat24_judge_0000 95
 fi
 
 while true; do
@@ -105,9 +113,19 @@ while true; do
         PROBE_TRACES=results/phrase_artifacts/traces_probe8.parquet \
         $GEN scripts/gen_ckpt_phrases.py "$d" 1 > /workspace/v12gen_j150.log 2>&1 \
         && cp data/rval_greedy.parquet results/phrase_artifacts/dev12q_g_nat24_j150.parquet \
-        && { mark "JUDGE step 150 (768 episodes)"; \
-             roll_and_cell results/phrase_artifacts/dev12q_g_nat24_j150.parquet nat24_judge_0150 95; } \
-        || mark "JUDGE150 GEN FAIL"
+        || { mark "JUDGE150 GEN FAIL"; }
+      if [ -f results/phrase_artifacts/dev12q_g_nat24_j150.parquet ]; then
+        mark "JUDGE step 150 (768 episodes: rows x4, same construction as step 0)"
+        $GEN - <<'PYX4B'
+import pandas as pd
+d = pd.read_parquet("results/phrase_artifacts/dev12q_g_nat24_j150.parquet")
+out = pd.concat([d.assign(episode_id=d.episode_id + k) for k in (0, 24, 48, 72)],
+                ignore_index=True)
+out.to_parquet("results/phrase_artifacts/dev12q_g_nat24_j150_x4.parquet", index=False)
+print("judge parquet:", len(out), "rows")
+PYX4B
+        roll_and_cell results/phrase_artifacts/dev12q_g_nat24_j150_x4.parquet nat24_judge_0150 95
+      fi
     fi
   fi
 
