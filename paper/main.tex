@@ -382,13 +382,13 @@ adversarial phrasings, each with a scene trace)
 \For{$t = 1, \dots, N$}
   \State $Y \gets$ rewrite every base with $g$ under rulebook $R_{t-1}$
   \State score every rewrite in $Y$ on the frozen VLA
-  \State add the scored \emph{train} rewrites to $B$
-  \Comment{validation rewrites are never banked}
   \State $A \gets J(R_{t-1}, Y, \mathrm{scores})$
-  \Comment{did the rewrites follow the rules?}
-  \State $R_t, P \gets D(B, A, R_{t-1})$
-  \Comment{updated rules $+$ proposed new experiments}
-  \State score the proposed probe phrases $P$; add them to $B$
+  \Comment{adherence: did the rewrites follow the rules?}
+  \State $P \gets D(B, R_{t-1})$
+  \Comment{propose new probe experiments}
+  \State score $P$ on the frozen VLA; add the results to $B$
+  \State $R_t \gets D(B, A, R_{t-1})$
+  \Comment{distill the updated rulebook}
   \State $v_t \gets$ mean validation score
   \State stop early if $v$ has not improved in $p$ iterations
 \EndFor
