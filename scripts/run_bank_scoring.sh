@@ -64,18 +64,25 @@ SCORE_PY=$(pick_python phrase_rl.phase2_train) \
 mark "server python: $SRV_PY"
 
 if ! pgrep -f "[p]hase2_score_server.*$IPC_DIR" >/dev/null 2>&1; then
-  tmux kill-session -t bankscore 2>/dev/null
   mkdir -p "$IPC_DIR"
-  # tmux runs the command under a fresh sh that never sources ~/.bashrc, so the
-  # server starts without HF_TOKEN and dies on the gated paligemma repo. Source
-  # it INSIDE the session rather than passing it on the command line, where it
-  # would be visible to every ps on the box.
-  tmux new-session -d -s bankscore \
-    "cd /workspace/phrase-rl && eval \"\$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc)\" && export HF_HOME=\"\${HF_HOME:-/workspace/hf_cache}\" && PYTHONPATH=/workspace/phrase-rl/src $SRV_PY -m phrase_rl.phase2_score_server \
+  # The env is sourced INSIDE the child shell rather than passed on the command
+  # line, where HF_TOKEN would be visible to every ps on the box.
+  SRV_CMD="cd /workspace/phrase-rl && eval \"\$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc)\" && export HF_HOME=\"\${HF_HOME:-/workspace/hf_cache}\" && PYTHONPATH=/workspace/phrase-rl/src $SRV_PY -m phrase_rl.phase2_score_server \
        --ipc-dir \"$IPC_DIR\" \
        --stats-contexts results/phrase_artifacts/chunk_stats.parquet \
        --verifier-ensemble results/checkpoints/verifier_reward_ensemble_4f.json \
        > /workspace/bank_score_server.log 2>&1"
+  # Fresh-restarted containers lose apt packages: no tmux, and tmux's failure
+  # exit was previously unchecked, so the launcher waited 10 minutes for a
+  # server that never existed. Fall back to setsid, and check the rc either way.
+  if command -v tmux >/dev/null 2>&1; then
+    tmux kill-session -t bankscore 2>/dev/null
+    tmux new-session -d -s bankscore "$SRV_CMD" \
+      || { mark "FATAL: tmux new-session failed"; exit 1; }
+  else
+    mark "no tmux on this pod; booting server via setsid"
+    setsid nohup bash -c "$SRV_CMD" >/dev/null 2>&1 &
+  fi
   mark "booting verifier score server (ipc=$IPC_DIR)"
   ok=0
   for _ in $(seq 1 40); do
