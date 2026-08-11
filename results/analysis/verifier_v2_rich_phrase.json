@@ -1,0 +1,40 @@
+{
+  "folds": [
+    {
+      "test_v2": 86.6,
+      "test_v2_budget64": 84.7,
+      "test_base": 86.8,
+      "n_test_pairs": 589,
+      "best_step": 300,
+      "alpha": 1.0,
+      "resid_sd": 1.537,
+      "test_tasks": "phrase-fold-0"
+    },
+    {
+      "test_v2": 69.9,
+      "test_v2_budget64": 59.1,
+      "test_base": 71.9,
+      "n_test_pairs": 495,
+      "best_step": 20,
+      "alpha": 1.0,
+      "resid_sd": 0.824,
+      "test_tasks": "phrase-fold-1"
+    },
+    {
+      "test_v2": 72.7,
+      "test_v2_budget64": 58.3,
+      "test_base": 74.2,
+      "n_test_pairs": 477,
+      "best_step": 20,
+      "alpha": 1.0,
+      "resid_sd": 0.582,
+      "test_tasks": "phrase-fold-2"
+    }
+  ],
+  "pooled": {
+    "base": 78.2,
+    "v2": 77.1,
+    "n_pairs": 1561
+  },
+  "final_steps": 20
+}
