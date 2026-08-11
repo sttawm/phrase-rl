@@ -51,11 +51,20 @@ ap.add_argument("--phrase-chunk", type=int, default=8,
 ap.add_argument("--call-rows", type=int, default=64,
                 help="frames sent per IPC call for the phrase in hand")
 ap.add_argument("--ipc", default=os.environ.get("IPC_DIR", "/workspace/ipc_rules"))
+ap.add_argument("--phrases-parquet", default="",
+                help="override worklist (task, phrase parquet); default bank_to_score")
+ap.add_argument("--out-tag", default="",
+                help="write to bank_scores_<tag>.parquet instead of the shard name")
+ap.add_argument("--frame-sample", action="store_true",
+                help="rng-sample F frames per episode instead of the earliest F. "
+                     "For self-agreement draws: decode noise is frozen at the "
+                     "ensemble seed (verifier contract), so without this, tasks "
+                     "whose whole pool fits in C would redraw identically")
 args = ap.parse_args()
 
 from phrase_rl.phase2_train import score_phrases  # noqa: E402
 
-todo = pd.read_parquet(REPO / "results/analysis/bank_to_score.parquet")
+todo = pd.read_parquet(REPO / (args.phrases_parquet or "results/analysis/bank_to_score.parquet"))
 is_sim = todo.task.astype(str).str.startswith("widowx_")
 if args.task_kind == "train":
     todo = todo[~is_sim]
@@ -65,8 +74,9 @@ tasks = sorted(todo.task.unique())
 mine = [t for i, t in enumerate(tasks) if i % args.of == args.shard]
 todo = todo[todo.task.isin(mine)]
 
-out_path = REPO / (f"results/analysis/bank_scores_{args.task_kind}"
-                   f"_{args.shard}of{args.of}.parquet")
+out_path = REPO / (f"results/analysis/bank_scores_{args.out_tag}.parquet" if args.out_tag
+                   else f"results/analysis/bank_scores_{args.task_kind}"
+                        f"_{args.shard}of{args.of}.parquet")
 done = set()
 rows = []
 if out_path.exists():
@@ -152,7 +162,13 @@ for ti, (task, grp) in enumerate(todo.groupby("task"), 1):
     for e in sorted(pick):
         ep = sub[sub.episode_index == e]
         ep = ep.sort_values("t") if "t" in ep.columns else ep
+        if args.frame_sample and len(ep) > F:
+            ep = ep.iloc[sorted(rng.choice(len(ep), size=F, replace=False))]
         ctx_rows.extend(r for _, r in ep.head(F).iterrows())
+    # fingerprint of the exact (episode, t) selection, so the self-agreement
+    # analysis can tell "different measurement" from "identical redraw"
+    ctx_sig = hash(tuple(sorted((int(r.episode_index), int(r.get("t", -1)))
+                                for r in ctx_rows))) & 0xffffffff
 
     # DEPTH-FIRST IN CHUNKS. A phrase is carried to completion over all F*C
     # frames and flushed before the next chunk starts, so an interruption costs
@@ -179,7 +195,8 @@ for ti, (task, grp) in enumerate(todo.groupby("task"), 1):
         gm = np.nanmean(np.stack(gs), axis=0)
         for phr, z, g in zip(chunk, np.atleast_1d(zm), np.atleast_1d(gm)):
             rows.append({"task": task, "phrase": phr, "z": float(z),
-                         "grip": float(g), "n_ctx": len(ctx_rows)})
+                         "grip": float(g), "n_ctx": len(ctx_rows),
+                         "ctx_sig": ctx_sig})
         pd.DataFrame(rows).to_parquet(out_path, index=False)   # flush per CHUNK
         pi = min(ci + args.phrase_chunk, len(phrases))
         if pi % 5 == 0 or pi == len(phrases):

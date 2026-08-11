@@ -84,12 +84,24 @@ if ! pgrep -f "[p]hase2_score_server.*$IPC_DIR" >/dev/null 2>&1; then
 fi
 mark "score server up; scoring $TASK_KIND shard $SHARD/$OF"
 
+# Optional overrides for special draws (e.g. the self-agreement diagnostic):
+#   PHRASES=<worklist parquet>  OUT_TAG=<name>  SEED=<n>  FRAME_SAMPLE=1
+EXTRA=()
+[ -n "${PHRASES:-}" ] && EXTRA+=(--phrases-parquet "$PHRASES")
+[ -n "${OUT_TAG:-}" ] && EXTRA+=(--out-tag "$OUT_TAG")
+[ -n "${SEED:-}" ] && EXTRA+=(--seed "$SEED")
+[ "${FRAME_SAMPLE:-0}" = "1" ] && EXTRA+=(--frame-sample)
+
 IPC_DIR="$IPC_DIR" PYTHONPATH=/workspace/phrase-rl/src $SCORE_PY scripts/score_bank.py \
   --task-kind "$TASK_KIND" --shard "$SHARD" --of "$OF" --ipc "$IPC_DIR" \
-  --phrase-chunk "$PHRASE_CHUNK" 2>&1 | tee -a "$LOG"
+  --phrase-chunk "$PHRASE_CHUNK" ${EXTRA[@]+"${EXTRA[@]}"} 2>&1 | tee -a "$LOG"
 rc=${PIPESTATUS[0]}
 
-OUT="results/analysis/bank_scores_${TASK_KIND}_${SHARD}of${OF}.parquet"
+if [ -n "${OUT_TAG:-}" ]; then
+  OUT="results/analysis/bank_scores_${OUT_TAG}.parquet"
+else
+  OUT="results/analysis/bank_scores_${TASK_KIND}_${SHARD}of${OF}.parquet"
+fi
 if [ -f "$OUT" ]; then
   git add -f "$OUT"
   git commit -q -m "bank scores: $TASK_KIND shard $SHARD/$OF (rc=$rc)" || true
