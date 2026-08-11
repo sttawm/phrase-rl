@@ -141,13 +141,15 @@ def confident_pairs(phrases, tasks):
 # ---------------------------------------------------------------- model
 
 class V2Head(nn.Module):
-    def __init__(self, d_in=3, h=48, mu=None, sd=None):
+    def __init__(self, d_in=3, h=48, mu=None, sd=None, pool="mean"):
         super().__init__()
+        self.pool = pool                     # "mean" | "meanmax"
+        m = 2 if pool == "meanmax" else 1    # meanmax: worst-frame evidence
         self.register_buffer("mu", torch.zeros(d_in) if mu is None else mu)
         self.register_buffer("sd", torch.ones(d_in) if sd is None else sd)
         self.phi = nn.Sequential(nn.Linear(d_in, h), nn.ReLU(), nn.Linear(h, h), nn.ReLU())
-        self.ep = nn.Sequential(nn.Linear(h, h), nn.ReLU())
-        self.head = nn.Sequential(nn.Linear(h, h), nn.ReLU(), nn.Linear(h, 1))
+        self.ep = nn.Sequential(nn.Linear(h * m, h), nn.ReLU())
+        self.head = nn.Sequential(nn.Linear(h * m, h), nn.ReLU(), nn.Linear(h, 1))
         nn.init.zeros_(self.head[-1].weight)     # residual starts at exactly 0
         nn.init.zeros_(self.head[-1].bias)
         # alpha frozen at 1 by default: on thin features a trainable alpha let
@@ -169,8 +171,14 @@ class V2Head(nn.Module):
             xs = xs + noise * torch.randn_like(xs)
         h = self.phi(xs)
         epm = (h * mf3).sum(2) / mf3.sum(2).clamp(min=1.0)
+        if self.pool == "meanmax":
+            epx = h.masked_fill(mf3 == 0, -1e9).max(2).values
+            epm = torch.cat([epm, epx.clamp(min=-1e8)], dim=-1)
         he = self.ep(epm)
         ctx = (he * me3).sum(1) / me3.sum(1).clamp(min=1.0)
+        if self.pool == "meanmax":
+            cx = he.masked_fill(me3 == 0, -1e9).max(1).values
+            ctx = torch.cat([ctx, cx.clamp(min=-1e8)], dim=-1)
         return self.alpha * base + self.head(ctx).squeeze(-1), base
 
 
@@ -210,7 +218,7 @@ def run_fold(phrases, x, mf, me, train_t, stop_t, test_t, args, rng):
     D = x.shape[-1]
     mu = x[tr_idx].reshape(-1, D)[mf[tr_idx].reshape(-1) > 0].mean(0)
     sd = x[tr_idx].reshape(-1, D)[mf[tr_idx].reshape(-1) > 0].std(0) + 1e-6
-    model = V2Head(d_in=D, mu=mu, sd=sd)
+    model = V2Head(d_in=D, mu=mu, sd=sd, pool=args.pool)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-4)
 
     ib = torch.tensor([i for i, _ in tr_prs])
@@ -254,6 +262,8 @@ def main():
                          "every unit it moves the score away from the base")
     ap.add_argument("--patience", type=int, default=8)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--pool", default="mean", choices=["mean", "meanmax"],
+                    help="set pooling: mean, or mean+max (worst-frame evidence)")
     ap.add_argument("--features", default="",
                     help="rich per-frame parquet from extract_v2_features.py; "
                          "default = thin fine_exam features")
@@ -302,7 +312,7 @@ def main():
     D = x.shape[-1]
     mu = x.reshape(-1, D)[mf.reshape(-1) > 0].mean(0)
     sd = x.reshape(-1, D)[mf.reshape(-1) > 0].std(0) + 1e-6
-    model = V2Head(d_in=D, mu=mu, sd=sd)
+    model = V2Head(d_in=D, mu=mu, sd=sd, pool=args.pool)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-4)
     prs = confident_pairs(phrases, tasks)
     ib = torch.tensor([i for i, _ in prs]); iw = torch.tensor([j for _, j in prs])
