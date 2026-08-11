@@ -48,3 +48,17 @@ class VerifierEnsemble:
             z = m["net"](torch.from_numpy(X.astype(np.float32))).numpy()
             outs.append((z + m["shift"]) / m["T"])
         return np.stack(outs, axis=1)
+
+    @torch.no_grad()
+    def member_embeddings(self, feats_df) -> np.ndarray:
+        """(P, 64) penultimate-layer activations, mean over members.
+
+        The verifier-v2 residual head consumes these instead of the scalar
+        logit: one number per frame is a lossy bottleneck on what the members
+        know (the reason the current reward needs grip bolted on externally)."""
+        outs = []
+        for m in self.members:
+            X = (featurize(feats_df, m["mode"], m["include_diff"]) - m["mu"]) / m["sd"]
+            h = m["net"].net[:-1](torch.from_numpy(X.astype(np.float32))).numpy()
+            outs.append(h)
+        return np.mean(np.stack(outs, axis=0), axis=0)

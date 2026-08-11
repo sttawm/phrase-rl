@@ -1,0 +1,58 @@
+{
+  "folds": [
+    {
+      "test_v2": 87.1,
+      "test_base": 87.1,
+      "n_test_pairs": 1019,
+      "best_step": 20,
+      "alpha": 1.0,
+      "resid_sd": 0.164,
+      "test_tasks": [
+        "carrot_on_wheel_clean",
+        "coke_can_on_ramekin_clean"
+      ]
+    },
+    {
+      "test_v2": 68.7,
+      "test_base": 68.6,
+      "n_test_pairs": 703,
+      "best_step": 100,
+      "alpha": 1.0,
+      "resid_sd": 0.495,
+      "test_tasks": [
+        "coke_can_on_plate_clean",
+        "spoon_on_towel"
+      ]
+    },
+    {
+      "test_v2": 88.0,
+      "test_base": 88.0,
+      "n_test_pairs": 326,
+      "best_step": 20,
+      "alpha": 1.0,
+      "resid_sd": 0.142,
+      "test_tasks": [
+        "put_eggplant_in_basket",
+        "carrot_on_keyboard_clean"
+      ]
+    },
+    {
+      "test_v2": 59.4,
+      "test_base": 64.0,
+      "n_test_pairs": 392,
+      "best_step": 160,
+      "alpha": 1.0,
+      "resid_sd": 0.494,
+      "test_tasks": [
+        "carrot_on_plate",
+        "stack_cube"
+      ]
+    }
+  ],
+  "pooled": {
+    "base": 78.2,
+    "v2": 77.5,
+    "n_pairs": 2440
+  },
+  "final_steps": 60
+}
