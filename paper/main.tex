@@ -329,25 +329,25 @@ measurement that supports it, and the next iteration's scores test it.
 \caption{Automated rule-distillation loop}
 \label{alg:loop}
 \begin{algorithmic}[1]
-\Require frozen VLA; evidence bank $B$ of scored phrases; initial
-rulebook $\mathit{rules}_1$
-\Require train and validation base sets (original, natural, and
+\Require frozen VLA; $\mathit{evidence}$: a bank of scored phrases;
+initial rulebook $\mathit{rules}_1$
+\Require train and validation instruction sets (original, natural, and
 adversarial phrasings, each with a scene trace)
 \Require \textsc{rephrase} is a VLM; \textsc{judge},
 \textsc{propose\_experiments}, and \textsc{distill} are LLM calls
 \For{$t = 1, \dots, N$}
-  \State $\mathit{rewrites} \gets \Call{rephrase}{\mathit{bases},
-  \mathit{rules}_t}$ \Comment{conditioned on rulebook and trace}
+  \State $\mathit{rewrites} \gets
+  \Call{rephrase}{\mathit{instructions}, \mathit{rules}_t}$
   \State $\mathit{rewrite\_scores} \gets
   \Call{score}{\mathit{rewrites}, \mathrm{VLA}}$
   \State $\mathit{adherence} \gets \Call{judge}{\mathit{rules}_t,
   \mathit{rewrites}, \mathit{rewrite\_scores}}$
   \State $\mathit{next\_experiments} \gets
-  \Call{propose\_experiments}{B, \mathit{rules}_t}$
+  \Call{propose\_experiments}{\mathit{evidence}, \mathit{rules}_t}$
   \Comment{probe phrases targeting thin evidence}
-  \State $B \gets B \cup \Call{score}{\mathit{next\_experiments},
-  \mathrm{VLA}}$
-  \State $\mathit{rules}_{t+1} \gets \Call{distill}{B,
+  \State $\mathit{evidence} \gets \mathit{evidence} \cup
+  \Call{score}{\mathit{next\_experiments}, \mathrm{VLA}}$
+  \State $\mathit{rules}_{t+1} \gets \Call{distill}{\mathit{evidence},
   \mathit{adherence}, \mathit{rules}_t}$
   \State $v_t \gets$ mean of $\mathit{rewrite\_scores}$ on the
   validation sets
