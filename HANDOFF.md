@@ -78,6 +78,21 @@ committed and reproduces everything; outputs in
   success labels.
 - Validation: rotating 10/5 task splits; labels born later (the rules loop's
   own sim evals, n=18, weight by n) are the uncontaminated test set.
+- **VERDICT (2026-08-11, rungs 1-2 DONE, both NEGATIVE):** trainer =
+  `scripts/train_verifier_v2.py`; rich per-frame features (64-d penultimate
+  embeddings + member logits, all 434 phrases, 15 tasks) =
+  `results/analysis/v2_features_gt434.parquet` (extracted on e6). Six
+  configurations (thin/rich features x mean/meanmax pooling x alpha/penalty
+  variants) on TWO validation axes: task-held-out (Bridge-deployment bar)
+  base 81.1 vs v2 75.9-76.9; phrase-held-out on known tasks (the sim loop's
+  consumer) base 78.2 vs v2 77.1. Every residual that grew failed to
+  transfer. Conclusion: **the frozen mean + fixed blend is the ceiling of
+  anything built on the frozen verifier's outputs**; the proxy's remaining
+  ~20% error (bias, per selfagree_434) lives below the encoder. Only rung 3
+  (retrain the encoder pretext on sim rollouts) or a new signal source can
+  attack it -- weigh against just running the rules loop (#27), which
+  generates fresh labels as a side effect. Full numbers:
+  `results/analysis/verifier_v2_rich_{mean,phrase}.json`.
 
 ## 2. The rules loop (the main algorithm)
 
