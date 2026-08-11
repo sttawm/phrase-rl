@@ -357,40 +357,26 @@ adversarial phrasings, each with a scene trace)
 \end{algorithmic}
 \end{algorithm}
 
+\textbf{Initializing the evidence bank.} The bank is seeded before the
+first iteration with every phrase already measured: the oracle-search
+boards of \S\ref{sec:characterizing}, plus generated natural and
+adversarial phrasings of each task, all scored against the frozen
+executor --- roughly 5{,}000 scored phrasings across the training and
+simulatable tasks. Alongside the bank, the distiller receives corpus
+statistics --- word counts over the training instructions --- computed
+deterministically in code, so claims about what is in-vocabulary rest
+on counting rather than a model's impression.
+
 \textbf{Instantiations.} The two rulebooks we evaluate come from
 supervised passes of this loop. The first pass ran on simulatable
 tasks, with \textsc{score} implemented by simulated rollouts; its
 output is the \emph{rollout-derived} rulebook. The second pass
 searched the \emph{training} corpus --- where no simulator exists ---
 with \textsc{score} implemented by the trajectory proxy of
-\S\ref{sec:reward}, seeded with the rollout-derived rules and corpus
-statistics (vocabulary counts over the training instructions); its
-output is the \emph{rollout{+}training-data} rulebook. The two turn
-out to occupy different points on a repair--conservatism trade-off
-(\S\ref{sec:results-comparison}); the fully automated loop is how we
-continue iterating.
-
-\textbf{Candidate generation and search.} Candidates are authored by
-an image-conditioned LLM from the instruction and a scene frame, guided
-by the current rules (prompts in Appendix~\ref{app:search-prompts});
-the original is always retained. Each task's candidates are screened
-cheaply, finalists are re-scored at a higher budget, and the winner is
-refined by short LLM-proposed hill-climbing rounds --- yielding a
-per-task ranking of phrases with margins over the original.
-
-\textbf{Hypothesis gating.}
-An LLM reads the accumulated rankings --- winners, losers, and margins
-across tasks --- together with the previous rule set, and proposes
-updated rules for how phrasing affects this executor. Proposed rules
-are treated as hypotheses: each is tested by applying it to held-out
-training instructions and scoring the rewrites with the same reward.
-This gate proved decisive. Of 817 elite searched rewrites, only 20.6\%
-beat their original, and all 14 candidate \emph{improvement} rules
-failed held-out testing (mean $-1.8$\,pp per rule-following rewrite).
-The distillation therefore converged on a conservative protocol: the
-final rules primarily teach the rephraser to \emph{repair} defective
-inputs --- restoring canonical object nouns and training-register
-phrasing --- and to leave already-canonical inputs untouched. The full rule sets are released with our code.
+\S\ref{sec:reward}, seeded with the rollout-derived rules and the
+corpus statistics; its output is the \emph{rollout{+}training-data}
+rulebook. The two turn out to occupy different points on a
+repair--conservatism trade-off (\S\ref{sec:results-comparison}).
 
 \textbf{Deployment.}
 The frozen rule set is placed in the prompt of an off-the-shelf VLM,
