@@ -225,27 +225,48 @@ frozen executor and measure the error of its predicted
 \emph{gripper-channel} actions against the ground truth --- whether the
 phrase triggers correct grasp/release behavior at the correct moments.
 We also train an ensemble of learned \emph{verifiers} over the
-executor's full predicted-action features; alone it is equal to or worse
-than the raw gripper signal at practical budgets
-(Fig.~\ref{fig:reward_grids_gripper}). Our final reward is a logistic
-success model fitted on 254 phrases with rollout-measured success,
-combining both channels into a calibrated success estimate.
+executor's full predicted-action features. The two channels prove
+complementary --- gripper error is the sharper judge of close calls,
+the verifier ensemble of large gaps --- and our final reward is a
+logistic success model fitted on 254 phrases with rollout-measured
+success, combining both channels. Its output is consumed strictly as a
+ranking signal, never as an absolute success estimate.
 
-\textbf{Validation and budget allocation.}
-We validated the proxy on four simulatable tasks. For two, real
-training demonstrations exist and the training instruction applies
-verbatim in simulation (``put the spoon on the towel'', ``put the
-green cube on top of the yellow cube''); for the other two, we
-generated demonstrations by keeping successful simulated episodes.
-In all four, the simulator measures each phrase's true success rate,
-while the proxy scores the same phrases by comparing the executor's
-predicted actions against the demonstrated actions --- and we count how often the two agree on which of two phrases is
-better: 92.4\% on clearly-different pairs, and 79.6\% when true
-success differs by only 5--10 points ($F{=}4$, $C{=}20$). More episodes beat more frames
-at equal cost, so the search screens cheaply ($F{=}1$, $C{=}4$) and
-re-scores finalists carefully ($F{=}4$, $C{=}10$), while RL accepts
-noisier scores for throughput ($C{=}5$, $F{=}4$) --- group averaging
-washes the noise out.
+\textbf{Validation.}
+We validate the proxy against 434 phrases whose true success rates
+were each measured with 36 simulated rollouts, across fifteen
+simulatable tasks: 254 close paraphrases, plus 180 natural and
+adversarial rephrasings collected \emph{after} the logistic was
+fitted on the paraphrases --- a genuinely held-out test. Restricted to
+phrase pairs whose true ordering is statistically confident, the
+calibrated proxy picks the truly better phrase in 78\% of within-task
+pairs (83\% when true success differs by more than 15 points; 71\%
+at 5--10 points); alone, the gripper channel orders 74\% of pairs and
+the verifier 76\%. On the held-out rephrasings the within-task rank
+correlation with true success is 0.51, higher than on the
+narrow-spread fitting set itself (0.32). Two caveats are load-bearing.
+First, absolute calibration does not transfer: on the held-out set the
+sigmoid predicts 58\% mean success where the simulator measures
+23\%, which is why every consumer treats the score as a ranking.
+Second, re-scoring with an independent draw of context frames
+reproduces 95\% of pairwise orderings, so the proxy's residual
+disagreement with the simulator is model bias rather than sampling
+noise --- more scoring budget cannot close it, and neither could
+refitting: pooled recalibration and learned re-aggregation heads both
+underperformed this simple fit under task- and phrase-held-out
+evaluation.
+
+\textbf{Budget allocation.}
+Agreement grids over $(F, C)$ come from a four-task exam
+(Fig.~\ref{fig:reward_grids_gripper}): for two tasks, real training
+demonstrations exist and the training instruction applies verbatim in
+simulation (``put the spoon on the towel'', ``put the green cube on
+top of the yellow cube''); for the other two, demonstrations are kept
+successful simulated episodes. More episodes beat more frames at equal
+cost, so the search screens cheaply ($F{=}1$, $C{=}4$) and re-scores
+finalists carefully ($F{=}4$, $C{=}10$), while RL accepts noisier
+scores for throughput ($C{=}5$, $F{=}4$) --- group averaging washes
+the noise out.
 
 \begin{figure}[!t]
     \centering
