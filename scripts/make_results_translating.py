@@ -44,7 +44,7 @@ C_IV, C_OOV = "#b2f5ea", "#fed7aa"
 YMIN, YMAX = 15, 52     # floor set by the std-pi0 natural OOV stratum (15.4)
 
 fig, axes = plt.subplots(1, 4, figsize=(21.8, 5.8), sharey=True,
-                         gridspec_kw={"width_ratios": [1.75, 3, 3, 3]})
+                         gridspec_kw={"width_ratios": [1.75, 3, 3, 2.15]})
 
 
 def triplet(ax, x, p, iv, oo, pooled_color):
@@ -76,14 +76,13 @@ for ax, cond in zip(axes[1:], ["Adversarial", "Natural", "Original"]):
     ticks, tlabels = [], []
     for mi, model in enumerate(MODELS):
         cxs = []
-        for ri, cell in enumerate(DATA[cond][model]):
-            if cell is None:
-                ax.text(x, YMIN + 2.0, "not\nmeasured", ha="center", va="bottom",
-                        fontsize=7.0, color="#a0aec0", style="italic")
-            else:
-                p, iv, oo = cell
-                color = C_BASEBAR if ri == 2 else C_RULES   # bare prompt = baseline grey
-                triplet(ax, x, p, iv, oo, color)
+        cells = DATA[cond][model]
+        if cond == "Original":
+            cells = cells[:2]          # bare-prompt column dropped for Originals
+        for ri, cell in enumerate(cells):
+            p, iv, oo = cell
+            color = C_BASEBAR if ri == 2 else C_RULES       # bare prompt = baseline grey
+            triplet(ax, x, p, iv, oo, color)
             ax.text(x, YMIN - 1.1, ROLES[ri], ha="center", va="top", fontsize=6.4,
                     color="#4a5568")
             cxs.append(x)
