@@ -44,6 +44,40 @@ committed and reproduces everything; outputs in
   every printed number): replace the stitched sentence with the 434-phrase
   held-out validation (Spearman 0.51 on unseen nat/adv, ~80% pairwise at 15+pp,
   calibration caveat). Paper edits go through Overleaf (§8).
+- **Self-agreement diagnostic (DONE, 2026-08-11 overnight):** scored the gt
+  phrases a second time with a different context draw (seed 8007, frame
+  resampling; verifier noise must stay pinned to the ensemble seed — the member
+  MLPs encode those CRN draws). `scripts/selfagree_analysis.py` →
+  `results/analysis/selfagree_434.json`: draw-to-draw pairwise agreement
+  **95.3%** (z Spearman 0.961) vs proxy-vs-gt **68.9%** on the same confident
+  pairs (231 phrases, 11 tasks; the 4 clean tasks whose contexts live only on
+  e6's volume were skipped — optional gap-fill if e6's host ever frees).
+  Conclusion: context-sampling noise is small; the proxy's remaining error is
+  **model bias**, so retraining is the lever, not more contexts.
+
+### 1b. Verifier-v2 retrain plan (designed with the user 2026-08-11, not built)
+
+- Deep-Sets over (GT, measured) pairs: shared per-pair MLP → masked mean-pool
+  frames → masked mean-pool contexts → score head. No transformer. Variable N
+  via masked pooling (no special tokens); train-time random subsampling of
+  episodes/frames (4..256) is the key augmentation for thin tasks.
+- **Deploy as residual**: f = α·(current aggregate z) + g(frozen per-pair
+  embeddings — tap the penultimate layer, NOT just the scalar logit — plus
+  grip, t_frac); α init 1, g zero-init. Bit-identical fallback at init; the
+  frozen verifier can't be overwritten; g's gain is one ablation number.
+- **Loss: within-task pairwise ranking (RankNet on confident pairs), NOT
+  success-rate regression** — contexts identify the task, so regression chases
+  per-task base rates (exactly how the pooled 434 refit killed the z
+  coefficient). One scalar per phrase at inference; sort. No calibration head
+  (user decision): if evidence tables need readable numbers, map to within-task
+  percentiles at write time.
+- Stage 1 (if the frozen tap underperforms): retrain the pretext task
+  (own/hard/easy instruction-vs-trajectory discrimination, free labels) on sim
+  successful rollouts + Bridge demos, then freeze and refit g. Bridge stays in
+  the pretext only for domain coverage of train-task scoring — it has no
+  success labels.
+- Validation: rotating 10/5 task splits; labels born later (the rules loop's
+  own sim evals, n=18, weight by n) are the uncontaminated test set.
 
 ## 2. The rules loop (the main algorithm)
 
