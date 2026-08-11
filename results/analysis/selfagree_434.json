@@ -1,0 +1,14 @@
+{
+  "n_matched": 231,
+  "identical_tasks": [],
+  "n_live": 231,
+  "selfcorr_z": 0.961,
+  "selfcorr_grip": 0.914,
+  "selfcorr_logit": 0.955,
+  "pairwise_confident": {
+    "draw1 vs gt": 68.9,
+    "draw2 vs gt": 68.0,
+    "draw1 vs draw2": 95.3
+  },
+  "n_pairs": 1839
+}
