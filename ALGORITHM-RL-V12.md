@@ -162,6 +162,16 @@ weight. Fix with this change.
 
     bash scripts/run_arm_v12.sh
 
+**Amendment (2026-08-11, user decision, pre-step-10 restart):** image
+conditioning restored -- `--prompt-family bplusimg` (prompt B+ text with the
+camera frame as the first user content part). This makes the v11 comparison
+two-variable (reward AND image); accepted knowingly ("who knows, it may
+help"). Val cadence 10 (was 20), aligned with the checkpoint stride; the val
+probe reports natural-input and adversarial-input series on the same frozen
+contexts. The bplus-generated step-0 cells were discarded and regenerated
+under bplusimg (a policy conditioned differently at step 0 is a different
+step-0 policy; the paired-judge logic requires measuring THAT one).
+
 Deltas from `run_arm_v11.sh`:
 
     --reward-blend proxy_logit      # NEW; was c4b

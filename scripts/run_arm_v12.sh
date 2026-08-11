@@ -49,7 +49,7 @@ tmux new-session -d -s train \
    .venv-gen/bin/python -m phrase_rl.phase2_train \
      --ipc-dir $IPC_DIR --resume \
      --ckpt-dir results/checkpoints/phase2_v12 \
-     --prompt-family bplus \
+     --prompt-family bplusimg \
      --reward-mode verifier --reward-frames ${REWARD_FRAMES:-4} \
      --source-mix 0.25,0.5,0.25 \
      --input-dropout 0.5 \
@@ -62,7 +62,7 @@ tmux new-session -d -s train \
      --score-timeout 3600 \
      --beta $BETA --lr 7e-6 --kl-abort 1.2 \
      --contexts-per-step 8 --grad-accum-groups 1 \
-     --val-every 20 --save-every 10 --probe-every 1000 --probe-samples 4 \
+     --val-every 10 --save-every 10 --probe-every 1000 --probe-samples 4 \
      --traces results/phrase_artifacts/naturals_v11_train.parquet \
      --probe-contexts results/phrase_artifacts/contexts_probe8.parquet \
      --probe-traces results/phrase_artifacts/traces_probe8.parquet \

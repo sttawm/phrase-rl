@@ -60,7 +60,7 @@ fi
 
 if [ ! -f results/analysis/v12cells/nat24_0000.json ]; then
   mark "baseline: BASE qwen + prompt B+ (step 0)"
-  GEN_TAG="" PROMPT_FAMILY=bplus \
+  GEN_TAG="" PROMPT_FAMILY=bplusimg \
     PROBE_CONTEXTS=results/phrase_artifacts/contexts_probe8_nat24.parquet \
     PROBE_TRACES=results/phrase_artifacts/traces_probe8.parquet \
     $GEN scripts/gen_ckpt_phrases.py BASE 1 > /workspace/v12gen_base.log 2>&1 \
@@ -100,7 +100,7 @@ while true; do
     fi
     if [ -f "$d/adapter_model.safetensors" ]; then
       mark "gen judge150 phrases"
-      GEN_TAG="" PROMPT_FAMILY=bplus \
+      GEN_TAG="" PROMPT_FAMILY=bplusimg \
         PROBE_CONTEXTS=results/phrase_artifacts/contexts_probe8_nat24.parquet \
         PROBE_TRACES=results/phrase_artifacts/traces_probe8.parquet \
         $GEN scripts/gen_ckpt_phrases.py "$d" 1 > /workspace/v12gen_j150.log 2>&1 \
@@ -144,7 +144,7 @@ while true; do
   fi
 
   mark "gen nat $s (prompt B+)"
-  GEN_TAG="" PROMPT_FAMILY=bplus \
+  GEN_TAG="" PROMPT_FAMILY=bplusimg \
     PROBE_CONTEXTS=results/phrase_artifacts/contexts_probe8_nat24.parquet \
     PROBE_TRACES=results/phrase_artifacts/traces_probe8.parquet \
     $GEN scripts/gen_ckpt_phrases.py "$d" 1 > /workspace/v12gen_$s.log 2>&1 \

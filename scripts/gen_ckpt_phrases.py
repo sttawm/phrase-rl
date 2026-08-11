@@ -31,6 +31,10 @@ elif _fam == "bplus":
     from phrase_rl.cover_prompt import build_single_phrase_prefix_bplus
     def build_single_phrase_prefix(src, img, trace=None):  # v11 prompt-B+ routing
         return build_single_phrase_prefix_bplus(src, trace=trace)
+elif _fam == "bplusimg":
+    from phrase_rl.cover_prompt import build_single_phrase_prefix_bplusimg
+    def build_single_phrase_prefix(src, img, trace=None):  # v12 prompt-B+ with image
+        return build_single_phrase_prefix_bplusimg(src, img, trace=trace)
 from phrase_rl.phase2_train import apply_template
 
 adapter_dir = sys.argv[1]

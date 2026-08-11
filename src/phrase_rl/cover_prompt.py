@@ -400,6 +400,20 @@ QWEN_MINI_RULES = """Rewriting rules (derived from measured robot-policy behavio
 PROMPT_BPLUS_SYSTEM = PROMPT_B_SYSTEM + "\n\n" + QWEN_MINI_RULES
 
 
+def build_single_phrase_prefix_bplusimg(instruction: str, image, trace: str | None = None) -> list:
+    """Prompt B+ with the camera frame restored (v12, user decision 2026-08-11):
+    text identical to B+, image as the first user content part -- the same
+    part convention as the CoVer prefix."""
+    return [
+        {"role": "system", "content": [{"type": "text", "text": PROMPT_BPLUS_SYSTEM}]},
+        {"role": "user", "content": [
+            {"type": "image", "image": image},
+            {"type": "text",
+             "text": PROMPT_B_USER.format(trace=(trace or "(none provided)"), src=instruction)}]},
+        {"role": "assistant", "content": [{"type": "text", "text": ""}]},
+    ]
+
+
 def build_single_phrase_prefix_bplus(instruction: str, trace: str | None = None) -> list:
     """Prompt B+ (v11, 2026-08-07): prompt B with the data-shrunk mini rules
     appended to the system block; user block identical to prompt B."""
