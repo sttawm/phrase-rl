@@ -59,22 +59,18 @@ still in progress; numbers may change.}%
 
 \begin{document}
 
-
-
 \maketitle
 
-\begin{strip}
-    \vspace{-1.2em}
+\begin{figure*}[!t]
     \centering
     \includegraphics[width=\textwidth]{training_flow_compact.png}
-    \captionof{figure}{Phrase-search and rule-distillation training loop.
+    \caption{Phrase-search and rule-distillation training loop.
     A VLM generates candidate rephrasings, which are evaluated using either
     simulation success rate or a learned success-rate proxy. An LLM distills
     the resulting scored phrases into updated phrasing rules for subsequent
     iterations.}
     \label{fig:training_flow_compact}
-    \vspace{-0.5em}
-\end{strip}
+\end{figure*}
 
 \begin{figure}[!t]
     \centering
@@ -110,35 +106,7 @@ We have come a long way toward developing general-purpose robots -- implemented 
     \label{fig:pi0_conditions}
 \end{figure}
 
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{spread_coke_can_on_keyboard.png}
-    \caption{Per-phrase success on the sealed out-of-vocab task
-\emph{coke\_can\_on\_keyboard} (layouts 0--11; oracle / original /
-adversarial bars $n{=}144$, natural bars $n{=}24$ each). Oracle 57.6,
-original 42.4, adversarial 0.7; the 16 natural rephrases span 0--25\%,
-six of them at zero.}
-    \label{fig:spread_coke_can_on_keyboard}
-\end{figure}
 
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{spread_cube_on_plate.png}
-    \caption{The robust in-vocab foil \emph{cube\_on\_plate}: oracle
-82.6, original 72.9, adversarial 69.4, and every one of the 16 natural
-rephrases at or above 58\%. Phrasing barely matters when the task
-vocabulary is in-distribution.}
-    \label{fig:spread_cube_on_plate}
-\end{figure}
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{spread_eggplant_on_keyboard.png}
-    \caption{\emph{eggplant\_on\_keyboard}: near-synonyms 58 points
-apart --- ``Rest the eggplant on the keyboard.''\ scores 58.3\% while
-``Place the eggplant on top of the keyboard.''\ scores 0.0\%.}
-    \label{fig:spread_eggplant_on_keyboard}
-\end{figure}
 
 In an attempt to address these issues we add a \textit{translator} model that translates incoming task-instructions into (what is ideally) the robot's preferred form. We try three different methods. Each of our methods inspects the robot's training data and optionally some simulated rollouts of various task rephrasings.
 
@@ -147,10 +115,6 @@ Our first and most successful method we call \textit{LLM-derived rules}. In this
 Our second method is more or less the "weights" based, RL counterpart to the above. In this method, we test many rephrasing per task, ranking the results according to our gripper-based proxy reward and apply GRPO. We have yet to see significant improvement when using this method, though it does seem that the proxy reward is able to be mildly optimized. 
 
 Our third method trains a VLM to map rephrased training tasks back to their original training task. In our evaluation, it helps with in-vocabulary tasks and hurts on out-of-vocabulary tasks. For future work, it may be interesting to endow this method with access to our proxy-reward function; on roughly a third of evaluated training tasks (69 of 213), our proxy-guided search found a phrasing that outscored the original.
-
-
-
-
 
 
 
@@ -176,8 +140,6 @@ execution feedback~\cite{huang2022inner}. Our rephraser is the
 instruction-level analogue: rather than selecting \emph{which} skill to
 invoke, it learns which \emph{surface forms} of an instruction this
 executor parses reliably, and edits the instruction accordingly.
-
-
 
 \section{Method}
 \label{sec:method}
@@ -326,31 +288,22 @@ treated as hypotheses throughout: a proposed rule must cite the
 measurement that supports it, and the next iteration's scores test it.
 
 \begin{algorithm}[t]
-\caption{Automated rule-distillation loop}
+\caption{Automated rule-distillation loop. \textsc{rephrase} is a VLM;
+\textsc{judge}, \textsc{propose\_experiments}, and \textsc{distill}
+are LLM calls.}
 \label{alg:loop}
+\small
 \begin{algorithmic}[1]
-\Require frozen VLA; $\mathit{evidence}$: a bank of scored phrases;
-initial rulebook $\mathit{rules}_1$
-\Require train and validation instruction sets (original, natural, and
-adversarial phrasings, each with a scene trace)
-\Require \textsc{rephrase} is a VLM; \textsc{judge},
-\textsc{propose\_experiments}, and \textsc{distill} are LLM calls
+\Require frozen VLA; phrase bank $\mathit{evidence}$; rulebook $\mathit{rules}_1$
+\Require train and validation instruction sets, with scene traces
 \For{$t = 1, \dots, N$}
-  \State $\mathit{rewrites} \gets
-  \Call{rephrase}{\mathit{instructions}, \mathit{rules}_t}$
-  \State $\mathit{rewrite\_scores} \gets
-  \Call{score}{\mathit{rewrites}, \mathrm{VLA}}$
-  \State $\mathit{adherence} \gets \Call{judge}{\mathit{rules}_t,
-  \mathit{rewrites}, \mathit{rewrite\_scores}}$
-  \State $\mathit{next\_experiments} \gets
-  \Call{propose\_experiments}{\mathit{evidence}, \mathit{rules}_t}$
-  \Comment{probe phrases targeting thin evidence}
-  \State $\mathit{evidence} \gets \mathit{evidence} \cup
-  \Call{score}{\mathit{next\_experiments}, \mathrm{VLA}}$
-  \State $\mathit{rules}_{t+1} \gets \Call{distill}{\mathit{evidence},
-  \mathit{adherence}, \mathit{rules}_t}$
-  \State $v_t \gets$ mean of $\mathit{rewrite\_scores}$ on the
-  validation sets
+  \State $\mathit{rewrites} \gets \Call{rephrase}{\mathit{instructions}, \mathit{rules}_t}$
+  \State $\mathit{scores} \gets \Call{score}{\mathit{rewrites}, \mathrm{VLA}}$
+  \State $\mathit{adherence} \gets \Call{judge}{\mathit{rules}_t, \mathit{rewrites}, \mathit{scores}}$
+  \State $\mathit{experiments} \gets \Call{propose\_experiments}{\mathit{evidence}, \mathit{rules}_t}$
+  \State $\mathit{evidence} \gets \mathit{evidence} \cup \Call{score}{\mathit{experiments}, \mathrm{VLA}}$
+  \State $\mathit{rules}_{t+1} \gets \Call{distill}{\mathit{evidence}, \mathit{adherence}, \mathit{rules}_t}$
+  \State $v_t \gets$ mean of $\mathit{scores}$ on the validation sets
   \State stop early if $v$ has not improved in $p$ iterations
 \EndFor
 \State \Return the rulebook with the best $v_t$
@@ -474,26 +427,9 @@ rate near 35\% is ${\sim}0.8$ percentage points.
 \subsection{How Phrase-Sensitive Are VLAs?}
 \label{sec:results-sensitivity}
 
-\begin{table}[t]
-\caption{Sealed-suite success (\%) by input condition and vocabulary
-stratum (12 tasks $\times$ 24 layouts $\times$ 12 reps per condition;
-pooled SE ${\sim}0.8$\,pp). No rephraser is applied.}
-\label{tab:sensitivity}
-\centering
-\begin{tabular}{lccc}
-\hline
-Input condition & Pooled & In-vocab (5) & OOV (7) \\
-\hline
-Oracle phrasings & \textbf{48.2} & 50.3 & 46.8 \\
-Original instructions & 36.1 & 48.3 & 27.3 \\
-Natural rephrases ($K{=}16$) & 28.5 & 41.5 & 19.2 \\
-Adversarial (ERT) & 26.6 & 30.6 & 23.7 \\
-\hline
-\end{tabular}
-\end{table}
-
-Table~\ref{tab:sensitivity} characterizes phrase sensitivity on the
-sealed suite. Two observations drive everything that follows.
+Fig.~\ref{fig:pi0_conditions} and the baselines block of
+Fig.~\ref{fig:results} characterize phrase sensitivity on the sealed
+suite. Two observations drive everything that follows.
 
 \textbf{Headroom is large, and concentrated out-of-vocabulary.}
 Oracle phrasings add 12.2 points over the original instructions. The
@@ -507,6 +443,36 @@ each); ``put coke can on wheel'' 12.2\% becomes 45.5\% as ``put coke
 can in black wheel''; and deleting one word (``put coke can on
 keyboard'' $\rightarrow$ ``put coke on keyboard'') is worth $+11$
 points.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\columnwidth]{spread_coke_can_on_keyboard.png}
+    \caption{Per-phrase success on the sealed out-of-vocab task
+\emph{coke\_can\_on\_keyboard} (layouts 0--11; oracle / original /
+adversarial bars $n{=}144$, natural bars $n{=}24$ each). Oracle 57.6,
+original 42.4, adversarial 0.7; the 16 natural rephrases span 0--25\%,
+six of them at zero.}
+    \label{fig:spread_coke_can_on_keyboard}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\columnwidth]{spread_cube_on_plate.png}
+    \caption{The robust in-vocab foil \emph{cube\_on\_plate}: oracle
+82.6, original 72.9, adversarial 69.4, and every one of the 16 natural
+rephrases at or above 58\%. Phrasing barely matters when the task
+vocabulary is in-distribution.}
+    \label{fig:spread_cube_on_plate}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\columnwidth]{spread_eggplant_on_keyboard.png}
+    \caption{\emph{eggplant\_on\_keyboard}: near-synonyms 58 points
+apart --- ``Rest the eggplant on the keyboard.''\ scores 58.3\% while
+``Place the eggplant on top of the keyboard.''\ scores 0.0\%.}
+    \label{fig:spread_eggplant_on_keyboard}
+\end{figure}
 
 \textbf{Natural rephrasing costs three quarters of what an adversary
 costs.} Naturally phrased requests --- the input deployed systems
@@ -524,7 +490,8 @@ span 0--58 points.
 
 All three methods are evaluated as drop-in rephrasers in front of the
 frozen executor (Fig.~\ref{fig:deployment}), against the conditions of
-Table~\ref{tab:sensitivity}. In summary: the rules method repairs both
+the conditions of
+\S\ref{sec:results-sensitivity}. In summary: the rules method repairs both
 degraded conditions and is the only method whose gains survive
 out-of-vocabulary; SFT redistributes success toward in-vocab tasks
 without net gain; and GRPO optimizes its reward without moving rollout
@@ -739,11 +706,7 @@ than instruction phrasing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Appendix}
@@ -964,8 +927,6 @@ Qwen Team,
 
 
 
-
-
 \bibitem{huang2022inner}
 W. Huang, F. Xia, T. Xiao, H. Chan, J. Liang, P. Florence, A. Zeng,
 J. Tompson, I. Mordatch, Y. Chebotar, P. Sermanet, N. Brown, T. Jackson,
@@ -988,8 +949,6 @@ language models,''
 \emph{arXiv preprint arXiv:2402.03300}, 2024.
 
 \end{thebibliography}
-
-
 
 
 \end{document}
