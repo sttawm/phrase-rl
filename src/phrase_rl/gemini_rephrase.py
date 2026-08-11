@@ -21,8 +21,14 @@ import os
 import re
 
 import pandas as pd
-from google import genai
-from google.genai import types
+# Lazy: faithfulness_gate (-> phase2_train -> every scoring consumer) imports
+# this module only for HARD_STOP_MARKERS/server_retry_delay; score-only pods
+# have no google-genai SDK after /root wipes take .venv-gen with them.
+try:
+    from google import genai
+    from google.genai import types
+except ImportError:
+    genai = types = None
 from tqdm import tqdm
 
 # Set when a 429 indicates depleted credits/quota-0 — a state retries can never
@@ -97,6 +103,8 @@ async def one_call(client, sem, model, row, n, retries=6):
 
 
 async def run(args):
+    if genai is None:
+        raise RuntimeError("google-genai is not installed in this venv")
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 
     # preflight: one tiny call so a dead quota/billing state fails in seconds,

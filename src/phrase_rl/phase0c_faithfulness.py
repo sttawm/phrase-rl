@@ -21,8 +21,13 @@ import os
 from collections import Counter
 
 import pandas as pd
-from google import genai
-from google.genai import types
+# Lazy: faithfulness_gate imports PROMPT/SEVERITY from here on score-only pods
+# that have no google-genai SDK (see faithfulness_gate.py).
+try:
+    from google import genai
+    from google.genai import types
+except ImportError:
+    genai = types = None
 
 SEVERITY = {"goal_drift": 2, "rename": 1, "clean": 0}
 
@@ -65,6 +70,8 @@ def main():
     ap.add_argument("--votes", type=int, default=3)
     args = ap.parse_args()
 
+    if genai is None:
+        raise RuntimeError("google-genai is not installed in this venv")
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     df = pd.read_parquet(args.phrases)
     rows = []
