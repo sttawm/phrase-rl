@@ -202,6 +202,30 @@ def subsample_masks(phrases, mf, me, rng):
 
 # ---------------------------------------------------------------- train/eval
 
+def eval_at_budget(model, phrases, x, mf, me, prs, rng, cap_e=16, cap_f=4, draws=8):
+    """Held-out agreement at the DEPLOYMENT budget: cap evidence to cap_e
+    episodes x cap_f frames (random subset, averaged over draws). The full-set
+    number says what the head can do; this says what it does at the price we
+    actually pay per phrase."""
+    accs = []
+    for _ in range(draws):
+        mf2, me2 = mf.clone(), me.clone()
+        for i, p in enumerate(phrases):
+            E = len(p["eps"])
+            if E > cap_e:
+                drop = rng.choice(E, size=E - cap_e, replace=False)
+                me2[i, drop] = 0.0
+                mf2[i, drop] = 0.0
+            for j, e in enumerate(p["eps"]):
+                if me2[i, j] > 0 and len(e) > cap_f:
+                    drop = rng.choice(len(e), size=len(e) - cap_f, replace=False)
+                    mf2[i, j, drop] = 0.0
+        with torch.no_grad():
+            f, _ = model(x, mf2, me2)
+        accs.append(agreement(f.numpy(), prs))
+    return float(np.mean(accs))
+
+
 def agreement(scores, prs):
     if not prs:
         return float("nan")
@@ -246,6 +270,8 @@ def run_fold(phrases, x, mf, me, train_t, stop_t, test_t, args, rng):
     with torch.no_grad():
         fe, base = model(x, mf, me)
     return {"test_v2": round(agreement(fe.numpy(), te_prs), 1),
+            "test_v2_budget64": round(eval_at_budget(model, phrases, x, mf, me,
+                                                     te_prs, rng), 1),
             "test_base": round(agreement(base.numpy(), te_prs), 1),
             "n_test_pairs": len(te_prs), "best_step": best[1],
             "alpha": round(model.alpha.item(), 3),
@@ -297,6 +323,7 @@ def main():
         r["test_tasks"] = [t.replace("widowx_", "") for t in test_t]
         out["folds"].append(r)
         print(f"fold {r['test_tasks']}: base {r['test_base']}  ->  v2 {r['test_v2']} "
+              f"(budget64 {r['test_v2_budget64']}) "
               f"({r['n_test_pairs']} pairs, alpha {r['alpha']}, resid_sd {r['resid_sd']}, "
               f"step {r['best_step']})")
         wsum += r["n_test_pairs"]
