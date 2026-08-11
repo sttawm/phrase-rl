@@ -370,20 +370,13 @@ out to occupy different points on a repair--conservatism trade-off
 (\S\ref{sec:results-comparison}); the fully automated loop is how we
 continue iterating.
 
-\textbf{Candidate generation and search.} Within an iteration,
-candidate rephrasings are authored by an image-conditioned LLM from the
-instruction and a scene frame, guided by the current rules and style
-examples from earlier search (prompts in
-Appendix~\ref{app:search-prompts}); the original is always retained as
-a candidate. Search budget goes to the 213 training instructions with
-the most recorded episodes --- selecting for score reliability rather
-than predicted headroom. Within a task, eight authored candidates plus
-the original are screened cheaply ($F{=}1$, $C{=}4$); the top three are
-re-scored with the original at the finals budget ($F{=}4$, $C{=}10$);
-the winner then seeds up to two hill-climbing rounds, a variation being
-adopted only if it beats the incumbent's simultaneous re-score by a
-minimum margin. The output is a per-task ranking of phrases with their
-margins over the original.
+\textbf{Candidate generation and search.} Candidates are authored by
+an image-conditioned LLM from the instruction and a scene frame, guided
+by the current rules (prompts in Appendix~\ref{app:search-prompts});
+the original is always retained. Each task's candidates are screened
+cheaply, finalists are re-scored at a higher budget, and the winner is
+refined by short LLM-proposed hill-climbing rounds --- yielding a
+per-task ranking of phrases with margins over the original.
 
 \textbf{Hypothesis gating.}
 An LLM reads the accumulated rankings --- winners, losers, and margins
