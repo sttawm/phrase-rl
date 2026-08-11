@@ -49,6 +49,38 @@ CONF, MIN_GAP = 0.8, 5.0
 
 # ---------------------------------------------------------------- data
 
+def load_phrases_rich(path):
+    """Rich per-frame features from extract_v2_features.py: slot 0 = mean member
+    logit (the deployed z), slot 1 = grip, slot 2 = t_frac, then the 64-d
+    penultimate embedding and the per-member logits. Ground truth = the full
+    434-phrase set (fine_exam gt_n per panel; nat/adv at n=36)."""
+    feats = pd.read_parquet(path)
+    fe = pd.read_parquet("results/analysis/fine_exam_phrases.parquet")
+    gt = {(r.task, r.phrase): (float(r.gt_success), int(r.gt_n)) for r in fe.itertuples()}
+    for f in ("results/analysis/sim_rollouts_natadv_0of2.parquet",
+              "results/analysis/sim_rollouts_natadv_1of2.parquet"):
+        for r in pd.read_parquet(f).itertuples():
+            gt.setdefault((r.task, r.phrase), (float(r.gt_success), 36))
+
+    phrases = []
+    for (task, phrase), g in feats.groupby(["task", "phrase"]):
+        if (task, phrase) not in gt:
+            continue
+        eps = []
+        for _, ge in g.groupby("episode_index"):
+            ge = ge.sort_values("t")
+            tmax = max(float(ge.t.max()), 1.0)
+            emb = np.stack(ge.embed.map(np.asarray))            # (F, 64)
+            ml = np.stack(ge.member_logits.map(np.asarray))     # (F, M)
+            z = ml.mean(axis=1, keepdims=True)                  # deployed z per frame
+            grip = ge.grip_row.values[:, None]
+            tf = (ge.t.values / tmax)[:, None]
+            eps.append(np.concatenate([z, grip, tf, emb, ml], axis=1).astype(np.float32))
+        s, n = gt[(task, phrase)]
+        phrases.append({"task": task, "phrase": phrase, "eps": eps, "gt": s, "gt_n": n})
+    return phrases
+
+
 def load_phrases():
     feats = pd.concat([pd.read_parquet("results/analysis/fine_exam_features_native.parquet"),
                        pd.read_parquet("results/analysis/fine_exam_features_oov.parquet")],
@@ -73,11 +105,13 @@ def load_phrases():
 
 
 def pad_tensors(phrases):
-    """-> x (P,E,F,3) raw features, mask_f (P,E,F), mask_e (P,E)."""
+    """-> x (P,E,F,D) raw features, mask_f (P,E,F), mask_e (P,E).
+    Slot 0 is always the deployed z, slot 1 grip, slot 2 t_frac; rich features
+    append the embedding + member logits after."""
     E = max(len(p["eps"]) for p in phrases)
     F = max(max(len(e) for e in p["eps"]) for p in phrases)
-    P = len(phrases)
-    x = np.zeros((P, E, F, 3), dtype=np.float32)
+    P, D = len(phrases), phrases[0]["eps"][0].shape[1]
+    x = np.zeros((P, E, F, D), dtype=np.float32)
     mf = np.zeros((P, E, F), dtype=np.float32)
     me = np.zeros((P, E), dtype=np.float32)
     for i, p in enumerate(phrases):
@@ -173,9 +207,10 @@ def run_fold(phrases, x, mf, me, train_t, stop_t, test_t, args, rng):
     te_prs = confident_pairs(phrases, test_t)
 
     tr_idx = [i for i, p in enumerate(phrases) if p["task"] in train_t]
-    mu = x[tr_idx][..., :].reshape(-1, 3)[mf[tr_idx].reshape(-1) > 0].mean(0)
-    sd = x[tr_idx].reshape(-1, 3)[mf[tr_idx].reshape(-1) > 0].std(0) + 1e-6
-    model = V2Head(mu=mu, sd=sd)
+    D = x.shape[-1]
+    mu = x[tr_idx].reshape(-1, D)[mf[tr_idx].reshape(-1) > 0].mean(0)
+    sd = x[tr_idx].reshape(-1, D)[mf[tr_idx].reshape(-1) > 0].std(0) + 1e-6
+    model = V2Head(d_in=D, mu=mu, sd=sd)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-4)
 
     ib = torch.tensor([i for i, _ in tr_prs])
@@ -219,21 +254,31 @@ def main():
                          "every unit it moves the score away from the base")
     ap.add_argument("--patience", type=int, default=8)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--features", default="",
+                    help="rich per-frame parquet from extract_v2_features.py; "
+                         "default = thin fine_exam features")
     args = ap.parse_args()
     torch.manual_seed(args.seed)
     rng = np.random.default_rng(args.seed)
 
-    phrases = load_phrases()
+    phrases = load_phrases_rich(args.features) if args.features else load_phrases()
     x, mf, me = pad_tensors(phrases)
     tasks = sorted({p["task"] for p in phrases})
     print(f"{len(phrases)} phrases, {len(tasks)} tasks, tensor {tuple(x.shape)}")
 
+    # rotating folds: ~1/3 of tasks test, 2 stop, rest train (15 -> 5/2/8,
+    # the 10/5 split; 8 thin-feature tasks -> 2/1/5 as before)
     order = list(rng.permutation(tasks))
+    n_test = max(2, round(len(order) / 3))
+    n_stop = 2 if len(order) >= 12 else 1
     folds, out = [], {"folds": []}
-    for k in range(0, len(order), 2):
-        test_t = order[k:k + 2]
-        stop_t = [order[(k + 2) % len(order)]]
-        train_t = [t for t in order if t not in test_t + stop_t]
+    for k in range(0, len(order) - (len(order) % n_test or 0), n_test):
+        test_t = order[k:k + n_test]
+        if not test_t:
+            continue
+        rest = [t for t in order if t not in test_t]
+        stop_t = rest[:n_stop]
+        train_t = rest[n_stop:]
         folds.append((train_t, stop_t, test_t))
 
     wsum = vsum = bsum = 0
@@ -254,9 +299,10 @@ def main():
 
     # deployment prototype: same recipe on all tasks, median best_step, no peeking
     steps = int(np.median([f["best_step"] for f in out["folds"]]) or 200)
-    mu = x.reshape(-1, 3)[mf.reshape(-1) > 0].mean(0)
-    sd = x.reshape(-1, 3)[mf.reshape(-1) > 0].std(0) + 1e-6
-    model = V2Head(mu=mu, sd=sd)
+    D = x.shape[-1]
+    mu = x.reshape(-1, D)[mf.reshape(-1) > 0].mean(0)
+    sd = x.reshape(-1, D)[mf.reshape(-1) > 0].std(0) + 1e-6
+    model = V2Head(d_in=D, mu=mu, sd=sd)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-4)
     prs = confident_pairs(phrases, tasks)
     ib = torch.tensor([i for i, _ in prs]); iw = torch.tensor([j for _, j in prs])
