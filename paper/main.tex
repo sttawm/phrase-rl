@@ -37,6 +37,9 @@
 \setlength{\stripsep}{4pt plus 1pt minus 1pt}
 \usepackage{flafter} % Makes figures appear after their references
 \usepackage{dblfloatfix} % Force teaser image above abstract
+\setcounter{dbltopnumber}{2}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\dblfloatpagefraction}{0.85}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 
@@ -59,6 +62,8 @@ still in progress; numbers may change.}%
 
 \begin{document}
 
+
+
 \maketitle
 
 \begin{figure*}[!t]
@@ -71,6 +76,8 @@ still in progress; numbers may change.}%
     iterations.}
     \label{fig:training_flow_compact}
 \end{figure*}
+
+
 
 \begin{figure}[!t]
     \centering
@@ -114,7 +121,7 @@ Our first and most successful method we call \textit{LLM-derived rules}. In this
 
 Our second method is more or less the "weights" based, RL counterpart to the above. In this method, we test many rephrasing per task, ranking the results according to our gripper-based proxy reward and apply GRPO. We have yet to see significant improvement when using this method, though it does seem that the proxy reward is able to be mildly optimized. 
 
-Our third method trains a VLM to map rephrased training tasks back to their original training task. In our evaluation, it helps with in-vocabulary tasks and hurts on out-of-vocabulary tasks. For future work, it may be interesting to endow this method with access to our proxy-reward function; on roughly a third of evaluated training tasks (69 of 213), our proxy-guided search found a phrasing that outscored the original.
+Our third method trains a VLM to map rephrased training tasks back to their original training task. In our evaluation, it helps with in-distribution tasks and hurts on out-of-distribution tasks. For future work, it may be interesting to endow this method with access to our proxy-reward function; on roughly a third of evaluated training tasks (69 of 213), our proxy-guided search found a phrasing that outscored the original.
 
 
 
@@ -317,7 +324,7 @@ adversarial phrasings of each task, all scored against the frozen
 executor --- roughly 5{,}000 scored phrasings across the training and
 simulatable tasks. Alongside the bank, the distiller receives corpus
 statistics --- word counts over the training instructions --- computed
-deterministically in code, so claims about what is in-vocabulary rest
+deterministically in code, so claims about what is in-distribution rest
 on counting rather than a model's impression.
 
 \textbf{Instantiations.} The two rulebooks we evaluate come from
@@ -398,10 +405,10 @@ $\times$ 24 scene layouts, frozen before method development and never
 used for training, tuning, or prompt iteration. Each evaluation run
 rolls 12 episodes per (task, layout) cell, i.e.\ 3{,}456 episodes.
 
-\textbf{Vocabulary strata.}
+\textbf{Distribution strata.}
 We stratify the 12 sealed tasks by whether their key object nouns occur
-in the executor's training corpus: 5 tasks are \emph{in-vocabulary} and
-7 are \emph{out-of-vocabulary}. We report pooled success alongside both
+in the executor's training corpus: 5 tasks are \emph{in-distribution} and
+7 are \emph{out-of-distribution}. We report pooled success alongside both
 strata, since phrasing interventions behave differently when the
 canonical noun is unavailable to the executor.
 
@@ -431,9 +438,9 @@ Fig.~\ref{fig:pi0_conditions} and the baselines block of
 Fig.~\ref{fig:results} characterize phrase sensitivity on the sealed
 suite. Two observations drive everything that follows.
 
-\textbf{Headroom is large, and concentrated out-of-vocabulary.}
+\textbf{Headroom is large, and concentrated out-of-distribution.}
 Oracle phrasings add 12.2 points over the original instructions. The
-originals show a 21-point cliff between in-vocab and OOV tasks (48.3 vs
+originals show a 21-point cliff between in-distribution and OOD tasks (48.3 vs
 27.3); the oracle nearly erases it (50.3 vs 46.8) --- when a task's key
 noun is missing from the executor's training vocabulary, almost the
 entire deficit is recoverable by rewording alone. Individual tasks are
@@ -447,7 +454,7 @@ points.
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{spread_coke_can_on_keyboard.png}
-    \caption{Per-phrase success on the sealed out-of-vocab task
+    \caption{Per-phrase success on the sealed out-of-distribution task
 \emph{coke\_can\_on\_keyboard} (layouts 0--11; oracle / original /
 adversarial bars $n{=}144$, natural bars $n{=}24$ each). Oracle 57.6,
 original 42.4, adversarial 0.7; the 16 natural rephrases span 0--25\%,
@@ -458,7 +465,7 @@ six of them at zero.}
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{spread_cube_on_plate.png}
-    \caption{The robust in-vocab foil \emph{cube\_on\_plate}: oracle
+    \caption{The robust in-distribution foil \emph{cube\_on\_plate}: oracle
 82.6, original 72.9, adversarial 69.4, and every one of the 16 natural
 rephrases at or above 58\%. Phrasing barely matters when the task
 vocabulary is in-distribution.}
@@ -477,12 +484,12 @@ apart --- ``Rest the eggplant on the keyboard.''\ scores 58.3\% while
 \textbf{Natural rephrasing costs three quarters of what an adversary
 costs.} Naturally phrased requests --- the input deployed systems
 actually face --- lose 7.6 points against the originals; deliberately
-hostile rewordings lose 9.5. On OOV tasks naturals are the \emph{worst}
+hostile rewordings lose 9.5. On OOD tasks naturals are the \emph{worst}
 condition measured (19.2, below even adversarial 23.7), and an everyday
 request like ``Move the carrot to the ramekin.''\ can score 0/24 on a
 task whose original scores ${\sim}28$.
 Figs.~\ref{fig:spread_coke_can_on_keyboard}--\ref{fig:spread_eggplant_on_keyboard}
-show per-phrase spreads: on sensitive OOV tasks, near-synonymous requests
+show per-phrase spreads: on sensitive OOD tasks, near-synonymous requests
 span 0--58 points.
 
 \subsection{Comparing the Three Learning Methods}
@@ -493,7 +500,7 @@ frozen executor (Fig.~\ref{fig:deployment}), against the conditions of
 the conditions of
 \S\ref{sec:results-sensitivity}. In summary: the rules method repairs both
 degraded conditions and is the only method whose gains survive
-out-of-vocabulary; SFT redistributes success toward in-vocab tasks
+out-of-distribution; SFT redistributes success toward in-distribution tasks
 without net gain; and GRPO optimizes its reward without moving rollout
 success at all.
 
@@ -506,7 +513,7 @@ all panels. Each condition panel shows the three appliers (Gemini,
 Claude, frozen Qwen) rewriting the incoming instruction under the
 rollout{+}training-data rules, the rollout-derived rules, or a bare
 prompt with no rules (grey --- itself a baseline). Wide bars pool the 12
-sealed tasks; flanking bars split in-vocab (5) and out-of-vocab (7)
+sealed tasks; flanking bars split in-distribution (5) and out-of-distribution (7)
 strata. Baselines and all cells on original and adversarial inputs roll
 24 layouts $\times$ 12 reps ($n{=}3{,}456$ per cell); natural inputs
 roll 16 rephrases $\times$ 24 layouts $\times$ 1 episode
@@ -531,9 +538,9 @@ the rollout{+}training-data rules deepen repair to 33.3 (Gemini) and
 measured) versus 31.6 for the rollout-derived rules. On unmodified
 \textbf{original} instructions the best configuration does no harm: the
 rollout{+}training-data rules applied by Claude score 37.7, slightly
-above the originals themselves. Gains are OOV-concentrated throughout
---- on original instructions the rollout{+}training-data rules reach OOV
-30.9 vs 27.3 passthrough, while in-vocab gives back two points (46.0 vs
+above the originals themselves. Gains are OOD-concentrated throughout
+--- on original instructions the rollout{+}training-data rules reach OOD
+30.9 vs 27.3 passthrough, while in-distribution gives back two points (46.0 vs
 48.3) --- the pattern that motivates the in-distribution gate discussed
 in \S\ref{sec:results-analysis}.
 
@@ -548,19 +555,20 @@ proxy.
 \subsubsection{GRPO}
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=\columnwidth]{v11_nat24.png}
-    \caption{RL does not move ground truth: rollout success of the
-GRPO policy's rewrites on 192-phrase natural probes over 240 training
-steps (val-8 tasks). Drift $-0.8$\,pp, within the $\pm7.1$\,pp noise
-band; across 25 cells the trend is $-0.005$\,pp/step (95\% CI
-$[-0.013, +0.002]$). Over the same steps the policy closed 17.7\% of
-its reward gap to the original instructions.}
-    \label{fig:v11_nat24}
+    \includegraphics[width=\columnwidth]{grpo_progress.png}
+    \caption{GRPO reliably optimizes its reward while ground truth stays
+flat. Left: greedy-decode proxy reward during training --- the final
+recipe (telemetry through step 80) and its 260-step sibling run. Right:
+rollout success of the final policy's rewrites on 192-phrase natural
+probes over 240 steps --- drift $-0.8$\,pp inside a $\pm7.1$\,pp noise
+band, against the step-0 policy (42.2) and no-rephraser (37.5)
+references.}
+    \label{fig:grpo_progress}
 \end{figure}
 
 The GRPO recipe of \S\ref{sec:grpo} reliably climbs its reward and
 just as reliably fails to move rollout success
-(Fig.~\ref{fig:v11_nat24}). The decomposition is diagnostic: nearly all
+(Fig.~\ref{fig:grpo_progress}). The decomposition is diagnostic: nearly all
 reward movement came through the learned-verifier channel
 ($+0.55$--$0.85$) while the gripper channel moved $0.005$; the
 calibrated success model's own coefficients predict $+6$\,pp from such
@@ -578,13 +586,13 @@ whose peak checkpoint is the only RL artifact that transferred anything.
 
 \subsubsection{SFT}
 On development tasks SFT looks like a win: $+5.3\pm2.3$ pooled over its
-frozen twin, with the best in-vocab scores we recorded (56.3 vs 38.5).
+frozen twin, with the best in-distribution scores we recorded (56.3 vs 38.5).
 The sealed suite exposes the mechanism: against the matched no-finetune
-baseline, SFT moves in-vocab tasks up and OOV tasks down by roughly
+baseline, SFT moves in-distribution tasks up and OOD tasks down by roughly
 $\pm15$ points each, netting $+0.9$ (CI $[-2.7,+4.2]$) --- and lands
 \emph{below} doing nothing at all (24.6 vs 26.6 passthrough pooled).
 Trained to canonicalize into training vocabulary, it destroys exactly
-the OOV nouns that matter: ``ramekin'' becomes ``the white object''
+the object names that make a task out-of-distribution: ``ramekin'' becomes ``the white object''
 (3.8\%) where the visual rename ``white bowl'' scores 64\%. Scene
 traces partially rescue this in development; the redistribution
 survives.
@@ -621,13 +629,14 @@ more the applier's capability becomes the binding constraint.
 \textbf{An in-distribution gate is the cheapest missing piece.}
 On adversarial inputs, rewriting is all upside. The tax appears when the
 input was already well phrased: on original instructions the rules give
-back in-vocab performance ($-2.3$ for the best configuration versus
+back in-distribution performance ($-2.3$ for the best configuration versus
 leaving them untouched), and a natural input that already matches the
-executor's preferred phrasing risks the same needless edit. A classifier
-that recognizes already-canonical, in-vocabulary instructions and passes
-them through untouched would keep the out-of-vocabulary and
-degraded-input gains at essentially no cost; none of our methods
-currently has one.
+executor's preferred phrasing risks the same needless edit. The goal is
+to keep the out-of-distribution improvements while avoiding the
+in-distribution degradation: a classifier that recognizes
+already-canonical, in-distribution instructions and passes them through
+untouched would achieve exactly that at essentially no cost. None of
+our methods currently has one.
 
 \textbf{What did the trajectory proxy contribute?}
 Less than we expected, and the evidence is worth stating carefully. The
@@ -651,11 +660,11 @@ of a noisy reward.
 
 A frozen $\pi_0$ executor's success rate depends heavily on instruction
 surface form: 12 points of oracle headroom, most of it on
-out-of-vocabulary tasks, and a 7.6-point penalty for the natural
+out-of-distribution tasks, and a 7.6-point penalty for the natural
 phrasing variation real users produce. Of the three ways we tried to
 learn a rephraser, the LLM rule-distillation loop generalized best ---
 fully repairing natural-phrasing damage and most adversarial damage ---
-while SFT traded out-of-vocabulary performance for in-vocabulary gains
+while SFT traded out-of-distribution performance for in-distribution gains
 and GRPO optimized a reward channel that did not transfer. That an
 explicit, human-readable rulebook out-generalized both weight-updating
 methods is, to us, the interesting result: the transferable knowledge
@@ -671,8 +680,8 @@ Future work:
 \item a weights-based RL recipe that transfers (our revised
 calibrated-reward recipe of \S\ref{sec:grpo} is specified and queued);
 \item an in-distribution classifier gating the rephraser
-(\S\ref{sec:results-analysis}), which would keep out-of-vocabulary
-gains without the in-vocab tax;
+(\S\ref{sec:results-analysis}), which would keep out-of-distribution
+gains without the in-distribution tax;
 \item more simulation coverage, reducing reliance on the trajectory
 proxy for both RL and rule evidence;
 \item longer, fully automated runs of the rules loop --- the results
