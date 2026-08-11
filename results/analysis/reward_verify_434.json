@@ -1,0 +1,167 @@
+{
+  "n": 434,
+  "frozen": {
+    "b0": 8.123,
+    "bz": 0.4445,
+    "bg": 11.3193
+  },
+  "within_task": {
+    "gripper_only|ALL": {
+      "pearson": 0.543,
+      "spearman": 0.394,
+      "tasks": 15
+    },
+    "gripper_only|fine_exam": {
+      "pearson": 0.408,
+      "spearman": 0.278,
+      "tasks": 8
+    },
+    "gripper_only|nat/adv": {
+      "pearson": 0.571,
+      "spearman": 0.525,
+      "tasks": 15
+    },
+    "verifier_only|ALL": {
+      "pearson": 0.435,
+      "spearman": 0.349,
+      "tasks": 15
+    },
+    "verifier_only|fine_exam": {
+      "pearson": 0.338,
+      "spearman": 0.24,
+      "tasks": 8
+    },
+    "verifier_only|nat/adv": {
+      "pearson": 0.441,
+      "spearman": 0.409,
+      "tasks": 15
+    },
+    "calibrated_frozen|ALL": {
+      "pearson": 0.551,
+      "spearman": 0.422,
+      "tasks": 15
+    },
+    "calibrated_frozen|fine_exam": {
+      "pearson": 0.461,
+      "spearman": 0.319,
+      "tasks": 8
+    },
+    "calibrated_frozen|nat/adv": {
+      "pearson": 0.566,
+      "spearman": 0.509,
+      "tasks": 15
+    }
+  },
+  "pairwise": {
+    "gripper_only|ALL": {
+      "5-10pp": {
+        "acc": 57.1,
+        "pairs": 1805
+      },
+      "10-15pp": {
+        "acc": 65.2,
+        "pairs": 1399
+      },
+      "15+pp": {
+        "acc": 78.4,
+        "pairs": 3524
+      }
+    },
+    "gripper_only|fine_exam": {
+      "5-10pp": {
+        "acc": 55.3,
+        "pairs": 1071
+      },
+      "10-15pp": {
+        "acc": 58.6,
+        "pairs": 822
+      },
+      "15+pp": {
+        "acc": 64.4,
+        "pairs": 1470
+      }
+    },
+    "gripper_only|nat/adv": {
+      "5-10pp": {
+        "acc": 64.7,
+        "pairs": 201
+      },
+      "10-15pp": {
+        "acc": 72.0,
+        "pairs": 150
+      },
+      "15+pp": {
+        "acc": 79.3,
+        "pairs": 382
+      }
+    },
+    "calibrated_frozen|ALL": {
+      "5-10pp": {
+        "acc": 59.5,
+        "pairs": 1805
+      },
+      "10-15pp": {
+        "acc": 67.6,
+        "pairs": 1399
+      },
+      "15+pp": {
+        "acc": 83.3,
+        "pairs": 3524
+      }
+    },
+    "calibrated_frozen|fine_exam": {
+      "5-10pp": {
+        "acc": 58.8,
+        "pairs": 1071
+      },
+      "10-15pp": {
+        "acc": 63.6,
+        "pairs": 822
+      },
+      "15+pp": {
+        "acc": 74.5,
+        "pairs": 1470
+      }
+    },
+    "calibrated_frozen|nat/adv": {
+      "5-10pp": {
+        "acc": 60.2,
+        "pairs": 201
+      },
+      "10-15pp": {
+        "acc": 70.7,
+        "pairs": 150
+      },
+      "15+pp": {
+        "acc": 79.6,
+        "pairs": 382
+      }
+    }
+  },
+  "frozen_heldout_natadv": {
+    "pearson": 0.413,
+    "spearman": 0.424,
+    "mean_predicted_pct": 57.7,
+    "mean_measured_pct": 23.5
+  },
+  "refit": {
+    "b0": 0.849,
+    "bz": -0.0135,
+    "bg": 3.7964,
+    "std_contrib_z": 0.01,
+    "std_contrib_grip": 0.132
+  },
+  "cv_spearman": {
+    "frozen": 0.422,
+    "refit_heldout": 0.395,
+    "tasks": 15
+  },
+  "refit_calibration_fine_exam": {
+    "mean_predicted_pct": 33.9,
+    "mean_measured_pct": 43.6
+  },
+  "refit_calibration_natadv": {
+    "mean_predicted_pct": 37.2,
+    "mean_measured_pct": 23.5
+  }
+}
