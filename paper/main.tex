@@ -390,7 +390,14 @@ LoRA~\cite{hu2021lora}) samples $K{=}16$ rephrases of each incoming
 instruction, each candidate is scored by the frozen executor
 ($F{=}4$, $C{=}5$), and group-normalized advantages update the policy
 under a KL leash ($\beta{=}0.15$) to the frozen base, without which the
-policy collapses. Around this skeleton we varied most of the recipe
+policy collapses. Concretely: LoRA rank 16 ($\alpha{=}32$, dropout 0,
+so the update scores exactly the policy that sampled), AdamW at
+learning rate $7{\times}10^{-6}$ with gradient clipping at 1.0; each
+step samples 8 fresh instructions at temperature 1.0 and replays 8
+recent groups --- 16 groups of 16 candidates, 256 candidates per
+update, replayed candidates reused at most six times under a
+PPO-style ratio clip of 0.2; runs span 150--260 steps at roughly 11
+minutes per step on a single L40S GPU. Around this skeleton we varied most of the recipe
 across runs: the conditioning (bare instruction, scene-trace
 conditioned, and image-bearing prompts); the mix of original, natural,
 and adversarial training inputs (1:2:1 and 1:1:2); the reward
