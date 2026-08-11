@@ -229,8 +229,8 @@ networks that read the executor's predicted-action features at a frame
 --- its denoising residuals against the demonstrated action, decoded
 action chunks, and their spread across draws --- and are trained to
 distinguish the instruction a demonstration was actually following
-from instructions swapped in from other episodes (both near-miss and
-unrelated negatives). The ensemble's mean calibrated logit is the
+from instructions swapped in from other episodes. The
+ensemble's mean calibrated logit is the
 verifier score. The two channels prove complementary --- gripper error is the sharper judge of close calls,
 the verifier ensemble of large gaps --- and our final reward is a
 logistic success model fitted on 254 phrases with rollout-measured
