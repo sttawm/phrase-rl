@@ -313,63 +313,17 @@ conditioning for RL sampling (\S\ref{sec:grpo}).
 \subsection{Reward-Guided Phrase Search and LLM Rule Distillation}
 \label{sec:search-rules}
 
-This method runs the loop of Fig.~\ref{fig:training_flow_compact} twice,
-producing two successive rule sets that we evaluate separately. The first
-iteration reuses the oracle search of \S\ref{sec:characterizing} on
-simulatable tasks, scoring candidates by simulated success-rate, and
-distills the scored phrases into \emph{rollout-derived} rules. The
-second iteration searches the \emph{training} corpus --- where no
-simulator is available --- scoring candidates with the trajectory proxy of
-\S\ref{sec:reward}, with the rollout-derived rules informing candidate
-authoring; its results are distilled, together with the rollout-derived
-rules and corpus statistics (vocabulary counts over the training
-instructions), into the \emph{rollout{+}training-data} rules. The two turn out to occupy
-different points on a repair--conservatism trade-off
-(\S\ref{sec:results-comparison}).
-
-\textbf{Candidates and task selection.}
-Candidate rephrasings are authored by an image-conditioned LLM from the
-instruction and a scene frame, guided by the first iteration's rules
-and style examples from the oracle search (prompt in
-Appendix~\ref{app:search-prompts}); the original is always retained as
-a candidate. Search budget goes to the 213 training instructions with
-the most recorded episodes --- selecting for score reliability rather
-than predicted headroom.
-
-\textbf{Search.}
-Within a task, every candidate is scored on the same episodes and
-frames and ranked by reward. Eight authored candidates plus the
-original are screened cheaply ($F{=}1$, $C{=}4$); the top three are
-re-scored with the original at the finals budget ($F{=}4$, $C{=}10$).
-The winner then seeds up to two hill-climbing rounds: an LLM proposes
-eight variations of the incumbent, all are scored on identical frames,
-and a variation is adopted only if it beats the incumbent's
-simultaneous re-score by a minimum margin. The output is a per-task
-ranking of phrases with their margins over the original.
-
-\textbf{Rule distillation with hypothesis gating.}
-An LLM reads the accumulated rankings --- winners, losers, and margins
-across tasks --- together with the previous rule set, and proposes
-updated rules for how phrasing affects this executor. Proposed rules
-are treated as hypotheses: each is tested by applying it to held-out
-training instructions and scoring the rewrites with the same reward.
-This gate proved decisive. Of 817 elite searched rewrites, only 20.6\%
-beat their original, and all 14 candidate \emph{improvement} rules
-failed held-out testing (mean $-1.8$\,pp per rule-following rewrite).
-The distillation therefore converged on a conservative protocol: the
-final rules primarily teach the rephraser to \emph{repair} defective
-inputs --- restoring canonical object nouns and training-register
-phrasing --- and to leave already-canonical inputs untouched. The full rule sets are released with our code.
-
-\textbf{Automation.}
-We have since packaged this pipeline as an automated loop: each iteration
-rephrases a fixed evaluation set with the current rules, scores the
-rewrites (proxy on training tasks, simulated rollouts on simulatable
-ones), and passes the accumulated evidence to the distiller together with
-an LLM judge's report on whether the rewrites actually \emph{followed}
-the rules. The results reported here come from the supervised runs
-described above; the automated loop is how we continue iterating.
-Algorithm~\ref{alg:loop} summarizes one iteration.
+Our primary method distills what the executor prefers into an explicit,
+human-readable rulebook via the iteration loop of
+Algorithm~\ref{alg:loop} (Fig.~\ref{fig:training_flow_compact}). Each
+iteration rewrites a fixed evaluation set of original, natural, and
+adversarial instructions under the current rulebook and scores the
+rewrites against the frozen executor; an LLM judge audits whether the
+rewrites actually \emph{followed} the rules; the distiller may request
+new probe measurements where its evidence is thin, and only after those
+land in the evidence bank does it emit the next rulebook. Rules are
+treated as hypotheses throughout: a proposed rule must cite the
+measurement that supports it, and the next iteration's scores test it.
 
 \begin{algorithm}[t]
 \caption{Automated rule-distillation loop}
@@ -402,6 +356,48 @@ adversarial phrasings, each with a scene trace)
 \State \Return the rulebook with the best $v_t$
 \end{algorithmic}
 \end{algorithm}
+
+\textbf{Instantiations.} The two rulebooks we evaluate come from
+supervised passes of this loop. The first pass ran on simulatable
+tasks, with \textsc{score} implemented by simulated rollouts; its
+output is the \emph{rollout-derived} rulebook. The second pass
+searched the \emph{training} corpus --- where no simulator exists ---
+with \textsc{score} implemented by the trajectory proxy of
+\S\ref{sec:reward}, seeded with the rollout-derived rules and corpus
+statistics (vocabulary counts over the training instructions); its
+output is the \emph{rollout{+}training-data} rulebook. The two turn
+out to occupy different points on a repair--conservatism trade-off
+(\S\ref{sec:results-comparison}); the fully automated loop is how we
+continue iterating.
+
+\textbf{Candidate generation and search.} Within an iteration,
+candidate rephrasings are authored by an image-conditioned LLM from the
+instruction and a scene frame, guided by the current rules and style
+examples from earlier search (prompts in
+Appendix~\ref{app:search-prompts}); the original is always retained as
+a candidate. Search budget goes to the 213 training instructions with
+the most recorded episodes --- selecting for score reliability rather
+than predicted headroom. Within a task, eight authored candidates plus
+the original are screened cheaply ($F{=}1$, $C{=}4$); the top three are
+re-scored with the original at the finals budget ($F{=}4$, $C{=}10$);
+the winner then seeds up to two hill-climbing rounds, a variation being
+adopted only if it beats the incumbent's simultaneous re-score by a
+minimum margin. The output is a per-task ranking of phrases with their
+margins over the original.
+
+\textbf{Hypothesis gating.}
+An LLM reads the accumulated rankings --- winners, losers, and margins
+across tasks --- together with the previous rule set, and proposes
+updated rules for how phrasing affects this executor. Proposed rules
+are treated as hypotheses: each is tested by applying it to held-out
+training instructions and scoring the rewrites with the same reward.
+This gate proved decisive. Of 817 elite searched rewrites, only 20.6\%
+beat their original, and all 14 candidate \emph{improvement} rules
+failed held-out testing (mean $-1.8$\,pp per rule-following rewrite).
+The distillation therefore converged on a conservative protocol: the
+final rules primarily teach the rephraser to \emph{repair} defective
+inputs --- restoring canonical object nouns and training-register
+phrasing --- and to leave already-canonical inputs untouched. The full rule sets are released with our code.
 
 \textbf{Deployment.}
 The frozen rule set is placed in the prompt of an off-the-shelf VLM,
