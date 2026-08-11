@@ -375,21 +375,28 @@ Algorithm~\ref{alg:loop} summarizes one iteration.
 \caption{Automated rule-distillation loop}
 \label{alg:loop}
 \begin{algorithmic}[1]
-\Require frozen VLA; rephraser $g$; distiller $D$; judge $J$
+\Require frozen VLA; evidence bank $B$ of scored phrases; initial
+rulebook $\mathit{rules}_1$
 \Require train and validation base sets (original, natural, and
 adversarial phrasings, each with a scene trace)
-\Require evidence bank $B$ of scored phrases; initial rulebook $R_0$
+\Require \textsc{rephrase} is a VLM; \textsc{judge},
+\textsc{propose\_experiments}, and \textsc{distill} are LLM calls
 \For{$t = 1, \dots, N$}
-  \State $Y \gets$ rewrite every base with $g$ under rulebook $R_{t-1}$
-  \State score every rewrite in $Y$ on the frozen VLA
-  \State $A \gets J(R_{t-1}, Y, \mathrm{scores})$
-  \Comment{adherence: did the rewrites follow the rules?}
-  \State $P \gets D(B, R_{t-1})$
-  \Comment{propose new probe experiments}
-  \State score $P$ on the frozen VLA; add the results to $B$
-  \State $R_t \gets D(B, A, R_{t-1})$
-  \Comment{distill the updated rulebook}
-  \State $v_t \gets$ mean validation score
+  \State $\mathit{rewrites} \gets \Call{rephrase}{\mathit{bases},
+  \mathit{rules}_t}$ \Comment{conditioned on rulebook and trace}
+  \State $\mathit{rewrite\_scores} \gets
+  \Call{score}{\mathit{rewrites}, \mathrm{VLA}}$
+  \State $\mathit{adherence} \gets \Call{judge}{\mathit{rules}_t,
+  \mathit{rewrites}, \mathit{rewrite\_scores}}$
+  \State $\mathit{next\_experiments} \gets
+  \Call{propose\_experiments}{B, \mathit{rules}_t}$
+  \Comment{probe phrases targeting thin evidence}
+  \State $B \gets B \cup \Call{score}{\mathit{next\_experiments},
+  \mathrm{VLA}}$
+  \State $\mathit{rules}_{t+1} \gets \Call{distill}{B,
+  \mathit{adherence}, \mathit{rules}_t}$
+  \State $v_t \gets$ mean of $\mathit{rewrite\_scores}$ on the
+  validation sets
   \State stop early if $v$ has not improved in $p$ iterations
 \EndFor
 \State \Return the rulebook with the best $v_t$
