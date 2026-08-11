@@ -206,14 +206,21 @@ Delete `cand_blend_mean` or rename it `..._IS_A_RANK_DO_NOT_READ_AS_PROGRESS`.
   its own candidates, and no update rule repairs that
 - `cand_margin_logit` fails to fall — the policy is not even climbing its reward
 
-**Judge at step 150** on nat24 with **768 episodes per cell, not 192.** At 192
-the per-cell s.e. is 3.56pp and the minimum detectable slope is 22.6pp/1000
-steps — v11 could have been improving at +20pp/1000 and we could not have seen
-it. This is the change that makes the comparison mean anything, and it is cheap
-beside training.
+**Judge at step 0 AND step 150** on nat24 with **768 episodes per cell, not
+192**, both cells on the SAME episode set (CRN: identical layouts, reps, seeds)
+so the comparison is paired and shared episode noise cancels. At 192 the
+per-cell s.e. is 3.56pp and the minimum detectable slope is 22.6pp/1000 steps
+-- v11 could have been improving at +20pp/1000 and we could not have seen it.
+The step-0 judge matters for three reasons: without it the difference s.e. is
+sqrt(3.6^2 + 1.8^2) ~= 4.0pp and the baseline's noise vetoes the endpoint
+measurement (with both at 768: ~2.5pp, so +5pp ~= 2 sigma, tighter still under
+pairing); it validates the assumption that v12's step-0 policy equals v11's
+(any prompt/sampling delta silently breaks the inherited 42.19); and it runs
+concurrently with early training since nothing gates on it (the step-60 kill
+criteria are telemetry-only). ~5 GPU-h.
 
-**Success:** nat24 rises ≥ 5pp over the 42.19 step-0 baseline, trend CI excluding
-zero.
+**Success:** nat24 rises >= 5pp over the MEASURED step-0 judge (42.19 is the
+inherited reference, not the comparator), trend CI excluding zero.
 
 ---
 
