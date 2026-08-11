@@ -1,0 +1,44 @@
+{
+  "n_pairs": {
+    "fine_5-10": 438,
+    "med_10-15": 1399,
+    "far_15+": 3524
+  },
+  "cv_rankfit_agreement": 73.9,
+  "cv_alphas": [
+    0.35,
+    0.65
+  ],
+  "rows": {
+    "gripper only (rank)": [
+      74.4,
+      71.9,
+      65.2,
+      78.4
+    ],
+    "verifier only (rank)": [
+      75.6,
+      63.9,
+      63.1,
+      82.0
+    ],
+    "frozen calibrated logit": [
+      78.2,
+      70.8,
+      67.6,
+      83.3
+    ],
+    "c4b 0.25z+0.75g (ranks)": [
+      75.4,
+      70.3,
+      64.3,
+      80.4
+    ],
+    "rank-fit alpha=0.65 (in-sample)": [
+      77.1,
+      66.0,
+      65.4,
+      83.1
+    ]
+  }
+}
