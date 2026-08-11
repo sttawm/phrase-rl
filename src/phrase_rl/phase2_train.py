@@ -503,7 +503,21 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
     """
     if not pairs:
         return
-    contexts = [(row, [res["instruction"]] + res["survivors"]) for row, res in pairs]
+    if getattr(args, "collapse_duplicate_scoring", False):
+        # v12: identical strings have identical channels by construction; score
+        # each DISTINCT candidate once and re-expand below, BEFORE the reward
+        # transform (collapsing without re-expanding would change the group
+        # statistics and silently alter the objective).
+        for _, res in pairs:
+            uniq = list(dict.fromkeys(res["survivors"]))
+            res["_expand_idx"] = np.asarray([uniq.index(c) for c in res["survivors"]],
+                                            dtype=np.int64)
+            res["_score_plist"] = [res["instruction"]] + uniq
+    else:
+        for _, res in pairs:
+            res.pop("_expand_idx", None)
+            res["_score_plist"] = [res["instruction"]] + res["survivors"]
+    contexts = [(row, res["_score_plist"]) for row, res in pairs]
     # v7e: fan out N-1 same-instruction club contexts per pair (appended after
     # the parents, pair-ordered); reward below averages across each pair's set.
     n_extra = []
@@ -516,7 +530,7 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
         # --adaptive-contexts changes the TRAIN-DF side only (all parents kept,
         # per-parent club fan-out as available); the scoring fan-out is shared.
         for row, res in pairs:
-            plist = [res["instruction"]] + res["survivors"]
+            plist = res["_score_plist"]
             pool = [e for e in club.get(str(row["instruction"]), [])
                     if e != int(row["episode_index"]) and e in fmap]
             pick = (list(np.random.choice(pool, size=min(NC - 1, len(pool)), replace=False))
@@ -545,11 +559,33 @@ def score_group(ipc_dir: Path, job_id: str, pairs: list, args):
         off += k
         rewards = -np.stack([l.mean(axis=1) for l in L]).mean(axis=0)
         grips = None if G[0] is None else np.nanmean(np.stack(G), axis=0)
+        zp = (-all_losses[i].mean(axis=1))
+        exp_idx = res.pop("_expand_idx", None)
+        if exp_idx is not None:  # re-expand unique-space channels to the multiset
+            full = np.concatenate([[0], 1 + exp_idx])
+            rewards = rewards[full]
+            grips = None if grips is None else grips[full]
+            zp = zp[full]
+        res.pop("_score_plist", None)
         res.update(r_orig=float(rewards[0]), rewards_logit=rewards[1:],
                    grips=None if grips is None else grips[1:],
+                   grip_orig=None if grips is None else float(grips[0]),
                    n_reward_contexts=1 + k,
-                   z_parent=(-all_losses[i].mean(axis=1))[1:])
-        if getattr(args, "reward_blend", "") == "c4b" and grips is not None:
+                   z_parent=zp[1:])
+        if getattr(args, "reward_blend", "") == "proxy_logit":
+            # v12 reward: the calibrated proxy LOGIT with FIXED coefficients --
+            # the only tested form that refuses to invent signal on a
+            # degenerate group (fixed scale keeps eps at eps until the GRPO
+            # std floor). Never the sigmoid. NaN grips drop the group to
+            # z-only, consistently for the WHOLE group, and are flagged.
+            g_arr = None if grips is None else np.asarray(grips, dtype=np.float64)
+            fallback = g_arr is None or bool(np.isnan(g_arr).any())
+            res["blend_fallback"] = fallback
+            pl = 0.4445 * rewards if fallback else 0.4445 * rewards + 11.3193 * (-g_arr)
+            clip = getattr(args, "logit_clip", 8.0)
+            pl = np.clip(pl, -clip, clip)
+            res.update(r_orig_blend=float(pl[0]), rewards=pl[1:])
+        elif getattr(args, "reward_blend", "") == "c4b" and grips is not None:
             # 2026-08-03 review: any NaN grip flips the WHOLE group to pure
             # logit rank inside blend_rewards — flag it so silent reward-regime
             # swaps are visible in the step record (blend_fallbacks counter)
@@ -873,20 +909,27 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
                 _BATCH_PARITY["use_batched"] = False
                 use_batched = False
                 outs = None
-        def _cand_loss(mean_logp, kl, a, cand, old_lp, res):
+        def _cand_loss(mean_logp, kl, a, cand, old_lp, res, n_tok=1):
             if old_lp is None:  # fresh, on-policy: original objective
                 li = -(a * mean_logp) + args.beta * kl
                 res.setdefault("cand_logps", {})[cand] = float(mean_logp.detach())
-            else:  # replayed: PPO-clipped surrogate on the mean-logp ratio
+            else:  # replayed: PPO-clipped surrogate
                 eps = getattr(args, "replay_clip", 0.2)
-                ratio = torch.exp(mean_logp - float(old_lp))
+                if getattr(args, "ratio_mode", "mean") == "sum":
+                    # v12: true sequence ratio exp(sum lp - sum old). The mean
+                    # form is true_ratio^(1/n): a genuine 2x ratio reads ~1.07
+                    # for a 10-token phrase and the clip never binds.
+                    ratio = torch.exp(torch.clamp(
+                        (mean_logp - float(old_lp)) * float(n_tok), -20.0, 20.0))
+                else:
+                    ratio = torch.exp(mean_logp - float(old_lp))
                 li = -torch.min(ratio * a, torch.clamp(ratio, 1 - eps, 1 + eps) * a) \
                      + args.beta * kl
             return li
 
         if outs is not None:
             for (inputs, start_, n_new, a, cand, old_lp, res), (mean_logp, kl) in zip(chunk, outs):
-                li = _cand_loss(mean_logp, kl, a, cand, old_lp, res)
+                li = _cand_loss(mean_logp, kl, a, cand, old_lp, res, n_new)
                 gloss = li if gloss is None else gloss + li
                 loss_sum += float(li.detach())
                 kl_sum += float(kl.detach())
@@ -895,7 +938,7 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
         else:
             for inputs, start_, n_new, a, cand, old_lp, res in chunk:
                 mean_logp, kl = phrase_logprob_and_kl(model, inputs, start_, n_new, args.beta)
-                li = _cand_loss(mean_logp, kl, a, cand, old_lp, res)
+                li = _cand_loss(mean_logp, kl, a, cand, old_lp, res, n_new)
                 gloss = li if gloss is None else gloss + li
                 loss_sum += float(li.detach())
                 kl_sum += float(kl.detach())
@@ -1257,7 +1300,19 @@ def step_record(step: int, t0: float, ctx_results: list, upd: dict, args) -> dic
         "adv_max": float(advs.max()) if advs.size else None,
         "cand_loss_mean": float(np.mean([-_rlog(r).mean() for r in ok])) if ok else None,
         "orig_loss_mean": float(np.mean([-r["r_orig"] for r in ok])) if ok else None,
-        "cand_blend_mean": float(np.mean([r["rewards"].mean() for r in ok])) if ok and getattr(args, "reward_blend", "") else None,
+        # cand_blend_mean is RETIRED: under rank blends it was mathematically
+        # pinned to ~0.5 and reported nothing (v12 spec, finding 2).
+        "reward_std_within_group": float(np.mean([np.std(r["rewards"]) for r in ok])) if ok else None,
+        "verifier_mean": float(np.mean([np.mean(r["rewards_logit"]) for r in ok])) if ok else None,
+        "grip_mean": float(np.mean([np.nanmean(r["grips"]) for r in ok
+                                    if r.get("grips") is not None] or [np.nan])) if ok else None,
+        "cand_margin_logit": float(np.mean([r["r_orig_blend"] - float(np.mean(r["rewards"]))
+                                            for r in ok if r.get("r_orig_blend") is not None]
+                                           or [np.nan])) if ok else None,
+        "cand_margin_grip": float(np.mean([float(np.nanmean(r["grips"])) - r["grip_orig"]
+                                           for r in ok if r.get("grip_orig") is not None
+                                           and r.get("grips") is not None]
+                                          or [np.nan])) if ok else None,
         "tier_counts": {t: sum(r.get("source_tier") == t for r in ctx_results)
                         for t in ("nominal", "benign", "ert")},
         "input_dropout_rate": float(np.mean([bool(r.get("input_dropped")) for r in ctx_results])) if ctx_results else None,
@@ -1319,6 +1374,38 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
         score_group(ipc_dir, f"s{step:06d}_{uuid.uuid4().hex[:8]}", ok_pairs, args)
         _score_sec = time.time() - _score_t0
 
+        # v12: a group with no real spread has nothing to rank; GRPO's unit
+        # normalization would hand it full-strength gradient anyway. Skip it.
+        _n_lowspread = 0
+        if getattr(args, "min_group_spread", 0):
+            for _res in ctx_results:
+                if _res["ok"] and _res.get("rewards") is not None and                         float(np.std(_res["rewards"])) < args.min_group_spread:
+                    _res["ok"] = False
+                    _res["reason"] = "low_spread"
+                    _n_lowspread += 1
+
+        # v12 telemetry: candidate text + raw channels, every step, to parquet.
+        # replay.pt preserved this for a 50-step window BY LUCK in v11; it is
+        # what made the eps-amplification diagnosis possible.
+        _crows = getattr(args, "_cand_rows", None)
+        if _crows is None:  # resume: extend the existing dump, never clobber it
+            _p = ckpt_dir / "cand_channels.parquet"
+            _crows = pd.read_parquet(_p).to_dict("records") if _p.exists() else []
+        for _res in ctx_results:
+            if _res.get("rewards") is None or _res.get("rewards_logit") is None:
+                continue
+            _gl = (_res["grips"] if _res.get("grips") is not None
+                   else [float("nan")] * len(_res["survivors"]))
+            for _c, _z, _g, _rw in zip(_res["survivors"], _res["rewards_logit"],
+                                       _gl, _res["rewards"]):
+                _crows.append({"step": step, "instruction": _res["instruction"],
+                               "cand": _c, "z": float(_z), "grip": float(_g),
+                               "reward": float(_rw), "ok": bool(_res["ok"])})
+        args._cand_rows = _crows
+        if _crows and step % 5 == 0:
+            pd.DataFrame(_crows).to_parquet(ckpt_dir / "cand_channels.parquet",
+                                            index=False)
+
         _upd_t0 = time.time()
         _replayed = []
         if getattr(args, "replay_groups", 0) and getattr(args, "_replay", None) is not None:
@@ -1340,6 +1427,7 @@ def train_loop(model, processor, gate, optimizer, trainable, train_df, val_df,
         _rec["score_sec"] = round(_score_sec, 1)
         _rec["update_sec"] = round(_upd_sec, 1)
         _rec["replayed_groups"] = len(_replayed)
+        _rec["n_skipped_low_spread"] = _n_lowspread
         log_jsonl(log_path, _rec)
         if args.kl_abort and _rec.get("kl"):
             _klh = getattr(args, "_kl_hist", [])
@@ -1460,7 +1548,7 @@ def main():
     ap.add_argument("--update-rule", choices=["raft", "grpo"], default="raft",
                     help="raft: positive-only advantage-weighted SFT (v1-v3). grpo: full group, signed advantages — negatives get pushed down")
 
-    ap.add_argument("--reward-blend", default="", choices=["", "c4b"],
+    ap.add_argument("--reward-blend", default="", choices=["", "c4b", "proxy_logit"],
                     help="c4b: candidate rewards = 0.25*rank01(ensemble) + 0.75*rank01(-grip), within-group (v7)")
     ap.add_argument("--blend-w", type=float, default=0.25,
                     help="ensemble weight in the c4b blend (exam-selected 0.25)")
@@ -1469,6 +1557,20 @@ def main():
     ap.add_argument("--grad-accum-groups", type=int, default=1,
                     help="accumulate gradients over N context-groups before optimizer.step() — standard-order effective batches at zero extra compute")
     ap.add_argument("--min-parsed", type=int, default=6, help="min unique candidates else parse-fail")
+    ap.add_argument("--collapse-duplicate-scoring", action="store_true",
+                    help="v12: score DISTINCT candidate strings once, re-expand "
+                         "channels to the full multiset before the reward "
+                         "transform (exact -- identical text has identical channels)")
+    ap.add_argument("--min-group-spread", type=float, default=0.0,
+                    help="v12: skip groups whose raw blended-reward std is below "
+                         "this floor; GRPO would normalize pure noise to unit "
+                         "advantage variance")
+    ap.add_argument("--ratio-mode", default="mean", choices=["mean", "sum"],
+                    help="v12: replay PPO ratio -- 'mean' reproduces the v11 bug "
+                         "(true_ratio^(1/n), clip never binds), 'sum' is the "
+                         "true sequence ratio")
+    ap.add_argument("--logit-clip", type=float, default=8.0,
+                    help="clip for the proxy_logit reward (raw logit units)")
     ap.add_argument("--min-survivors", type=int, default=4, help="min gate survivors else skip")
     ap.add_argument("--gate-votes", type=int, default=1)  # flash-lite single vote; majority-of-3 only for offline precision
     ap.add_argument("--judge-model", default="gemini-3.1-flash-lite")
