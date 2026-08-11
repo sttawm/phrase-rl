@@ -38,8 +38,14 @@ import re
 import os
 from collections import Counter
 
-from google import genai
-from google.genai import types
+# Lazy: score-only consumers import phase2_train (-> this module) on pods whose
+# venv has no google-genai (.venv-gen dies with /root on every pod stop). The
+# gate itself still fails loudly, at client construction, if the SDK is absent.
+try:
+    from google import genai
+    from google.genai import types
+except ImportError:
+    genai = types = None
 from tqdm import tqdm
 
 from phrase_rl.gemini_rephrase import HARD_STOP_MARKERS, server_retry_delay
@@ -119,6 +125,8 @@ class FaithfulnessGate:
     # ---------------------------------------------------------------- client
 
     def _get_client(self):
+        if genai is None:
+            raise GateUnavailable("google-genai is not installed in this venv")
         loop = asyncio.get_running_loop()
         if self._client is None or self._client_loop is not loop:
             self._client = genai.Client(api_key=self.api_key)
