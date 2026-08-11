@@ -233,12 +233,7 @@ def agreement(scores, prs):
     return 100 * ok / len(prs)
 
 
-def run_fold(phrases, x, mf, me, train_t, stop_t, test_t, args, rng):
-    tr_prs = confident_pairs(phrases, train_t)
-    st_prs = confident_pairs(phrases, stop_t)
-    te_prs = confident_pairs(phrases, test_t)
-
-    tr_idx = [i for i, p in enumerate(phrases) if p["task"] in train_t]
+def run_fold(phrases, x, mf, me, tr_prs, st_prs, te_prs, tr_idx, args, rng):
     D = x.shape[-1]
     mu = x[tr_idx].reshape(-1, D)[mf[tr_idx].reshape(-1) > 0].mean(0)
     sd = x[tr_idx].reshape(-1, D)[mf[tr_idx].reshape(-1) > 0].std(0) + 1e-6
@@ -288,6 +283,10 @@ def main():
                          "every unit it moves the score away from the base")
     ap.add_argument("--patience", type=int, default=8)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--split", default="task", choices=["task", "phrase"],
+                    help="task = generalize to unseen tasks (Bridge-deployment "
+                         "bar); phrase = new phrases on known tasks (the sim "
+                         "loop's actual consumer)")
     ap.add_argument("--pool", default="mean", choices=["mean", "meanmax"],
                     help="set pooling: mean, or mean+max (worst-frame evidence)")
     ap.add_argument("--features", default="",
@@ -304,23 +303,52 @@ def main():
 
     # rotating folds: ~1/3 of tasks test, 2 stop, rest train (15 -> 5/2/8,
     # the 10/5 split; 8 thin-feature tasks -> 2/1/5 as before)
-    order = list(rng.permutation(tasks))
-    n_test = max(2, round(len(order) / 3))
+    order = list(rng.permutation(tasks)) if args.split == "task" else [None] * 3
+    n_test = max(2, round(len(order) / 3)) if args.split == "task" else 1
     n_stop = 2 if len(order) >= 12 else 1
     folds, out = [], {"folds": []}
-    for k in range(0, len(order) - (len(order) % n_test or 0), n_test):
-        test_t = order[k:k + n_test]
-        if not test_t:
-            continue
-        rest = [t for t in order if t not in test_t]
-        stop_t = rest[:n_stop]
-        train_t = rest[n_stop:]
-        folds.append((train_t, stop_t, test_t))
+    if args.split == "task":
+        for k in range(0, len(order) - (len(order) % n_test or 0), n_test):
+            test_t = order[k:k + n_test]
+            if not test_t:
+                continue
+            rest = [t for t in order if t not in test_t]
+            stop_t = rest[:n_stop]
+            train_t = rest[n_stop:]
+            folds.append((train_t, stop_t, test_t))
+    else:
+        folds = [(None, None, None)] * 3
 
     wsum = vsum = bsum = 0
     for train_t, stop_t, test_t in folds:
-        r = run_fold(phrases, x, mf, me, train_t, stop_t, test_t, args, rng)
-        r["test_tasks"] = [t.replace("widowx_", "") for t in test_t]
+        if args.split == "task":
+            tr_prs = confident_pairs(phrases, train_t)
+            st_prs = confident_pairs(phrases, stop_t)
+            te_prs = confident_pairs(phrases, test_t)
+            tr_idx = [i for i, p in enumerate(phrases) if p["task"] in train_t]
+            label = [t.replace("widowx_", "") for t in test_t]
+        else:
+            # phrase-held-out: every task contributes; phrases split 4:1:1 into
+            # train/stop/test by hash of the fold id. Pairs stay within-task AND
+            # within-subset so no test phrase is ever compared against a train
+            # score it could lean on.
+            fid = len(out["folds"])
+            role = {}
+            for t in tasks:
+                ph = sorted([i for i, p in enumerate(phrases) if p["task"] == t])
+                ph = list(np.roll(ph, fid * len(ph) // 3))
+                n = len(ph)
+                role.update({i: "te" for i in ph[: n // 3]})
+                role.update({i: "st" for i in ph[n // 3: n // 3 + max(1, n // 6)]})
+                role.update({i: "tr" for i in ph[n // 3 + max(1, n // 6):]})
+            allp = confident_pairs(phrases, tasks)
+            tr_prs = [p for p in allp if role[p[0]] == role[p[1]] == "tr"]
+            st_prs = [p for p in allp if role[p[0]] == role[p[1]] == "st"]
+            te_prs = [p for p in allp if role[p[0]] == role[p[1]] == "te"]
+            tr_idx = [i for i, r_ in role.items() if r_ == "tr"]
+            label = f"phrase-fold-{fid}"
+        r = run_fold(phrases, x, mf, me, tr_prs, st_prs, te_prs, tr_idx, args, rng)
+        r["test_tasks"] = label
         out["folds"].append(r)
         print(f"fold {r['test_tasks']}: base {r['test_base']}  ->  v2 {r['test_v2']} "
               f"(budget64 {r['test_v2_budget64']}) "
