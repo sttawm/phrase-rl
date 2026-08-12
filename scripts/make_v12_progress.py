@@ -41,11 +41,16 @@ judges.sort()
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(13.6, 4.6))
 
 xs = [r["step"] for r in steps]
-orig_level = [r["cand_margin_logit"] + per_step.get(r["step"], float("nan")) for r in steps]
-a1.plot(per_step.index, per_step.values, "o-", color="#0d9488", lw=2.2, ms=6,
-        label="candidates (mean proxy logit)")
-a1.plot(xs, orig_level, "s--", color="#805ad5", lw=1.6, ms=5,
-        label="original instruction (same contexts)")
+orig_level = pd.Series([r["cand_margin_logit"] + per_step.get(r["step"], float("nan"))
+                        for r in steps], index=xs)
+cand = per_step.sort_index()
+W = 5   # rolling mean over 5 steps; raw points stay as faint texture
+a1.plot(cand.index, cand.values, "o", color="#0d9488", ms=3.5, alpha=0.30)
+a1.plot(cand.index, cand.rolling(W, min_periods=1).mean().values, "-",
+        color="#0d9488", lw=2.4, label=f"candidates (mean proxy logit, {W}-step avg)")
+a1.plot(orig_level.index, orig_level.values, "s", color="#805ad5", ms=3.5, alpha=0.30)
+a1.plot(orig_level.index, orig_level.rolling(W, min_periods=1).mean().values, "--",
+        color="#805ad5", lw=1.8, label=f"original instruction ({W}-step avg)")
 vals = [r for r in recs if r.get("type") == "val" and r.get("mean_greedy_reward") is not None]
 if vals:
     ax = a1.twinx()
