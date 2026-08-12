@@ -88,7 +88,7 @@ PYX4
 fi
 
 while true; do
-  timeout 240 git -c rebase.autoStash=true pull -q --rebase 2>/dev/null \
+  timeout 600 git -c rebase.autoStash=true pull -q --rebase 2>>/workspace/v12eval_pull.log \
     || { git rebase --abort 2>/dev/null; git reset --hard -q origin/main; }
 
   # step-150 judge: when the checkpoint lands, it outranks stride cells.
