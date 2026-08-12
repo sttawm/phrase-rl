@@ -210,6 +210,11 @@ Delete `cand_blend_mean` or rename it `..._IS_A_RANK_DO_NOT_READ_AS_PROGRESS`.
 
 ## Falsification (pre-registered)
 
+**Amendment (2026-08-12, user order): the step-60 kill criteria are ADVISORY
+for this run** -- report any trip, but train through the night regardless
+("I want to see what happens"). The 36h autostop guard remains the only hard
+stop.
+
 **Kill by step 60 if:**
 - `verifier_delta` improves > 0.3 while `grip_delta` < 0.01 — Goodharting again
 - `reward_std_within_group` < 2× measured reward noise — the reward cannot rank
