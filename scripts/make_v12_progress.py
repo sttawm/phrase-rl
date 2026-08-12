@@ -68,12 +68,21 @@ if cells:
 for s, v in judges:
     a2.scatter([s], [v], marker="D", s=90, color="#c53030", zorder=5,
                label="768-episode judge" if (s, v) == judges[0] else None)
-a2.axhline(42.19, ls="--", color="#805ad5", lw=1.4)
-a2.text(0.98, 42.5, "step-0 policy 42.19", color="#805ad5", fontsize=9,
-        ha="right", transform=a2.get_yaxis_transform())
-a2.axhline(37.5, ls="--", color="#718096", lw=1.4)
-a2.text(0.98, 36.6, "no rephraser 37.5", color="#718096", fontsize=9,
-        ha="right", transform=a2.get_yaxis_transform())
+refs = {}
+for name, f in (("step0", "results/analysis/v12cells/nat24_0000.json"),
+                ("pass", "results/analysis/v12cells/nat24_pass.json")):
+    try:
+        refs[name] = json.load(open(f))["pooled"]
+    except FileNotFoundError:
+        pass
+if "step0" in refs:
+    a2.axhline(refs["step0"], ls="--", color="#805ad5", lw=1.4)
+    a2.text(0.98, refs["step0"] + 0.4, f"step-0 policy {refs['step0']}",
+            color="#805ad5", fontsize=9, ha="right", transform=a2.get_yaxis_transform())
+if "pass" in refs:
+    a2.axhline(refs["pass"], ls="--", color="#718096", lw=1.4)
+    a2.text(0.98, refs["pass"] - 1.1, f"no rephraser {refs['pass']}",
+            color="#718096", fontsize=9, ha="right", transform=a2.get_yaxis_transform())
 a2.set_ylim(30, 52)
 a2.set_xlim(-5, 155)
 a2.set_xlabel("training step")
