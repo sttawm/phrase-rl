@@ -210,6 +210,21 @@ Delete `cand_blend_mean` or rename it `..._IS_A_RANK_DO_NOT_READ_AS_PROGRESS`.
 
 ## Falsification (pre-registered)
 
+**Step-60 review (2026-08-12, recorded; training continues per user order):**
+ground truth 7 cells 44.79/45.31/42.71/41.67/40.62/39.06/39.58 -- trend
+**-1.08pp per 10 steps, 95% CI [-1.37, -0.79]**, projecting ~29 at step 150
+(passthrough floor 37.5). Kill criteria: Goodhart signature **TRIPPED** --
+fixed-val verifier delta +0.60 (>0.3) while grip WORSENED (+0.0016 error);
+the entire blended-reward climb is verifier-channel. Spread floor NOT tripped
+(0.19-0.84, 2 groups skipped total); margin IS falling (policy climbs its
+reward). Interpretation: v12's defenses removed the rank-noise pathway and the
+policy still Goodharts -- via genuine verifier exploitation, faster and more
+damaging than v11 (flat -> actively negative), while keeping grip flat
+(physically plausible text that games the learned channel). The verifier
+network itself is the exploit surface; fixed coefficients cannot leash it.
+Direct evidence for uncertainty-penalized scoring + exploit hard-negatives
+(v13 plan).
+
 **Amendment (2026-08-12, user order): the step-60 kill criteria are ADVISORY
 for this run** -- report any trip, but train through the night regardless
 ("I want to see what happens"). The 36h autostop guard remains the only hard
