@@ -115,6 +115,24 @@ if cells or judges:
     a2.legend(fontsize=9, loc="lower right")
 a2.grid(alpha=0.25)
 
+DESC = (
+    "v12: GRPO fine-tuning of the rephraser (Qwen3.5-9B, LoRA r16) against the frozen $\\pi_0$ executor. Each step draws 8 instructions "
+    "-- 25% original / 50% natural / 25% adversarial (plus 8 replayed groups) -- conditioned on the camera frame and a Gemini scene trace "
+    "(prompt B+ with image). The policy samples K=16 rewrites per instruction at temperature 1.0; every DISTINCT rewrite is scored by the "
+    "frozen proxy (verifier-ensemble logit z and gripper error at F=4 frames x C=10 episodes, channels re-expanded to the full multiset), "
+    "and the reward is the fixed-coefficient calibrated logit 0.4445z + 11.3193(-grip), clipped at $\\pm$8 -- never rank-transformed, so "
+    "scoring noise cannot be amplified into gradient. Signed group-normalized advantages update the policy under a KL leash ($\\beta$=0.15) "
+    "to the frozen base; groups with raw reward spread < 0.02 are skipped; replayed candidates are PPO-clipped on the true sum ratio. "
+    "LEFT: per-step candidate reward vs the original instruction's level on the same contexts, plus a frozen val set (greedy rewrites of "
+    "original and adversarial inputs, every 5 steps). CENTER: identity collapse -- the fraction of sampled rewrites that are near-verbatim "
+    "copies of the input (similarity > 0.92) and the mean input-similarity of all rewrites. RIGHT: ground truth -- rollout success of "
+    "greedy rewrites of 24 NATURAL rephrasings (192 episodes per cell every 10 steps; diamonds are paired 768-episode judges at steps 0 "
+    "and 150 on an identical episode set). Reward rises while natural-input rollout success falls: the policy increasingly copies its "
+    "input -- a strategy that pays on the 25% original tier and bleeds across tiers -- rather than repairing degraded phrasings."
+)
+fig.text(0.015, -0.02, DESC, fontsize=8.1, va="top", ha="left", wrap=True,
+         family="sans-serif", color="#2d3748",
+         bbox=dict(boxstyle="round,pad=0.55", fc="#f7fafc", ec="#cbd5e0", lw=0.8))
 fig.tight_layout()
-fig.savefig("results/charts/v12_progress.png", dpi=140, bbox_inches="tight", pad_inches=0.2)
+fig.savefig("results/charts/v12_progress.png", dpi=140, bbox_inches="tight", pad_inches=0.35)
 print("chart -> results/charts/v12_progress.png")
