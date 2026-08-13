@@ -1032,7 +1032,8 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
     torch.manual_seed(args.val_seed)
     try:
         best, mean, orig, greedy, greedy_ert, gphrases = [], [], [], [], [], []
-        g_orig, g_greedy, g_ert = [], [], []
+        greedy_nat = []
+        g_orig, g_greedy, g_ert, g_nat = [], [], [], []
         n_failed = judged = survived = 0
         rows = val_df.head(args.val_n)
         for i, (_, row) in enumerate(tqdm(rows.iterrows(), total=len(rows),
@@ -1063,6 +1064,24 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
                                  skip_special_tokens=True).strip().split("\n")[0]).strip() or gp
             except Exception:
                 pass
+            # NATURAL-input probe (2026-08-13): greedy from a FIXED natural
+            # rephrasing of this context -- the proxy counterpart of the nat24
+            # ground-truth cells (same input type). Absent before v13 for
+            # historical reasons only.
+            gpn = None
+            ni = (getattr(args, "_val_nat", None) or {}).get(
+                (row["episode_index"], row["t"]))
+            if ni:
+                gpn = ni
+                try:
+                    gmn = build_prefix(args, ni, res["img"], res["trace"])
+                    ginp = apply_template(processor, gmn, continue_final_message=True).to(model.device)
+                    with torch.no_grad():
+                        gout = model.generate(**ginp, do_sample=False, max_new_tokens=48)
+                    gpn = _TAG_RE.sub("", processor.decode(gout[0][ginp["input_ids"].shape[1]:],
+                                      skip_special_tokens=True).strip().split("\n")[0]).strip() or ni
+                except Exception:
+                    pass
             # deployment-realistic ERT probe: greedy from the ADVERSARIAL instruction
             # (ert_val40), scored in the same CRN job — pairs against the frozen
             # ERT->greedy reference
@@ -1082,23 +1101,34 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
                 except Exception:
                     pass
             job = f"val{step:06d}i{i:03d}_{uuid.uuid4().hex[:8]}"
-            plist = [raw_instr] + res["survivors"] + [gp] + ([gpe] if gpe else [])
+            plist = [raw_instr] + res["survivors"] + [gp]
+            idx_gp = len(plist) - 1
+            idx_gpn = idx_gpe = None
+            if gpn:
+                plist.append(gpn); idx_gpn = len(plist) - 1
+            if gpe:
+                plist.append(gpe); idx_gpe = len(plist) - 1
             losses = score_phrases(ipc_dir, job, [(row, plist)], args)[0]
             vgrips = getattr(score_phrases, "last_grips", [None])[0]
             rewards = -losses.mean(axis=1)
-            n_tail = 2 if gpe else 1
-            res.update(r_orig=float(rewards[0]), rewards=rewards[1:-n_tail])
+            res.update(r_orig=float(rewards[0]),
+                       rewards=rewards[1:1 + len(res["survivors"])])
             best.append(float(res["rewards"].max()))
             mean.append(float(res["rewards"].mean()))
             orig.append(res["r_orig"])
-            greedy.append(float(rewards[-n_tail]))
+            greedy.append(float(rewards[idx_gp]))
+            if idx_gpn is not None:
+                greedy_nat.append(float(rewards[idx_gpn]))
+            if idx_gpe is not None:
+                greedy_ert.append(float(rewards[idx_gpe]))
             if vgrips is not None and not np.isnan(vgrips).all():
-                g_orig.append(float(vgrips[0])); g_greedy.append(float(vgrips[-n_tail]))
-                if gpe:
-                    g_ert.append(float(vgrips[-1]))
-            if gpe:
-                greedy_ert.append(float(rewards[-1]))
+                g_orig.append(float(vgrips[0])); g_greedy.append(float(vgrips[idx_gp]))
+                if idx_gpn is not None:
+                    g_nat.append(float(vgrips[idx_gpn]))
+                if idx_gpe is not None:
+                    g_ert.append(float(vgrips[idx_gpe]))
             gphrases.append({"instruction": raw_instr, "greedy": gp,
+                             "nat_instruction": ni, "greedy_nat": gpn,
                              "ert_instruction": ei, "greedy_ert": gpe})
         return {
             "step": step,
@@ -1109,6 +1139,8 @@ def run_val(model, processor, gate, val_df, args, ipc_dir: Path, step: int) -> d
             "mean_orig_reward": float(np.mean(orig)) if orig else None,
             "mean_greedy_reward": float(np.mean(greedy)) if greedy else None,
             "mean_greedy_ert_reward": float(np.mean(greedy_ert)) if greedy_ert else None,
+            "mean_greedy_nat_reward": float(np.mean(greedy_nat)) if greedy_nat else None,
+            "mean_greedy_nat_grip": float(np.mean(g_nat)) if g_nat else None,
             "greedy_win_rate": float(np.mean([g > o for g, o in zip(greedy, orig)])) if greedy else None,
             "mean_orig_grip": float(np.mean(g_orig)) if g_orig else None,
             "mean_greedy_grip": float(np.mean(g_greedy)) if g_greedy else None,
@@ -1730,6 +1762,16 @@ def main():
                             for r in _et.itertuples()}
         print(f"v6 source mix {args._source_mix}: {len(args._ert_sources)} contexts with hostile "
               f"variants, {len(args._ert_traces)} ERT-derived traces")
+    args._val_nat = {}
+    try:
+        _vn = pd.read_parquet(args.val_traces)
+        if "rephrases" in _vn.columns:
+            args._val_nat = {(r.episode_index, r.t): str(list(r.rephrases)[0])
+                             for r in _vn.itertuples() if len(list(r.rephrases))}
+            print(f"val NATURAL probe: {len(args._val_nat)} fixed natural inputs "
+                  f"(first rephrase per context)")
+    except Exception as _e:
+        print(f"val natural probe unavailable: {_e}")
     args._val_ert = {}
     _ep = Path("results/phrase_artifacts/ert_val40.parquet")
     if _ep.exists():  # tuned ERT->greedy val probe (pairs vs frozen ERT->greedy ref)

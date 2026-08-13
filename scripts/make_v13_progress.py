@@ -104,6 +104,10 @@ if vals:
     ax = a1.twinx()
     ax.plot([v["step"] for v in vals], [v["mean_greedy_reward"] for v in vals],
             "^-", color="#c05621", lw=2.0, ms=7, label="fixed-val greedy (original input)")
+    natv = [v for v in vals if v.get("mean_greedy_nat_reward") is not None]
+    if natv:
+        ax.plot([v["step"] for v in natv], [v["mean_greedy_nat_reward"] for v in natv],
+                "D-", color="#b7791f", lw=2.0, ms=6, label="fixed-val greedy (natural input)")
     if vals[0].get("mean_greedy_ert_reward") is not None:
         ax.plot([v["step"] for v in vals], [v["mean_greedy_ert_reward"] for v in vals],
                 "v--", color="#9b2c2c", lw=1.6, ms=6, label="fixed-val greedy (adversarial)")
