@@ -73,6 +73,7 @@ Usage (pod, via scripts/run_phase2.sh):
 import argparse
 import copy
 import io
+from difflib import SequenceMatcher
 import itertools
 import json
 import os
@@ -830,6 +831,16 @@ def apply_update(model, processor, optimizer, trainable, ctx_results, args, do_s
             continue
         r = res["rewards"]
         adv = (r - r.mean()) / (r.std() + 1e-6)
+        thr = getattr(args, "copy_guard_sim", 0.0)
+        if thr and res.get("source_tier") in ("benign", "ert"):
+            src = _TAG_RE.sub("", str(res.get("source", res["instruction"]))).lower()
+            clamped = 0
+            for ci, cand in enumerate(res["survivors"]):
+                if SequenceMatcher(None, src, str(cand).lower()).ratio() > thr:
+                    if adv[ci] > 0:
+                        adv[ci] = 0.0
+                        clamped += 1
+            res["n_copy_clamped"] = clamped
         res["adv"] = adv
         prefix_msgs = None
         grpo = getattr(args, "update_rule", "raft") == "grpo"
@@ -1319,6 +1330,12 @@ def step_record(step: int, t0: float, ctx_results: list, upd: dict, args) -> dic
                         for t in ("nominal", "benign", "ert")},
         "input_dropout_rate": float(np.mean([bool(r.get("input_dropped")) for r in ctx_results])) if ctx_results else None,
         "blend_fallbacks": sum(bool(r.get("blend_fallback")) for r in ok),
+        "copy_rate": (lambda sims: float(np.mean(sims)) if sims else None)(
+            [SequenceMatcher(None,
+                             _TAG_RE.sub("", str(r.get("source", r["instruction"]))).lower(),
+                             str(c).lower()).ratio() > 0.92
+             for r in ok for c in r["survivors"]]),
+        "n_copy_clamped": sum(r.get("n_copy_clamped", 0) for r in ok),
         "cand_loss_by_tier": {t: float(np.mean([-_rlog(r).mean() for r in ok
                                                 if r.get("source_tier") == t] or [np.nan]))
                               for t in ("nominal", "benign", "ert")},
@@ -1573,6 +1590,14 @@ def main():
                          "true sequence ratio")
     ap.add_argument("--logit-clip", type=float, default=8.0,
                     help="clip for the proxy_logit reward (raw logit units)")
+    ap.add_argument("--copy-guard-sim", type=float, default=0.0,
+                    help="v13: on benign/ert-tier inputs, a candidate whose "
+                         "similarity to the SOURCE input exceeds this gets its "
+                         "advantage clamped <= 0 -- identity is never "
+                         "reinforced on degraded inputs (it may still serve as "
+                         "the group baseline). 0 disables. v12 measured copy "
+                         "rate tripling to 47% under GRPO mean-centering: "
+                         "copying is the zero-risk move unless clamped.")
     ap.add_argument("--min-survivors", type=int, default=4, help="min gate survivors else skip")
     ap.add_argument("--gate-votes", type=int, default=1)  # flash-lite single vote; majority-of-3 only for offline precision
     ap.add_argument("--judge-model", default="gemini-3.1-flash-lite")
