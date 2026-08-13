@@ -1,32 +1,15 @@
 #!/usr/bin/env bash
-# v13 -- anti-identity-collapse revision of v12 (user decisions 2026-08-13):
-#   * --source-mix 0,0.67,0.33 : ORIGINALS REMOVED from training inputs. v12's
-#     copy rate tripled to 47% -- identity wins on the canonical tier and the
-#     bias bled across tiers (nat24 -4pp while reward climbed).
-#   * --copy-guard-sim 0.92    : near-verbatim candidates on benign/ert inputs
-#     get advantage clamped <= 0. Under GRPO mean-centering, copies at 47%
-#     share ARE the group mean (zero advantage = zero risk); the clamp makes
-#     "never reinforce copying" structural. Copying stays available from the
-#     prior for already-canonical inputs; we just never spend gradient on it.
-#   * copy_rate + n_copy_clamped per-step telemetry (step records).
+# v13 -- single-variable revision of v12 (user decision 2026-08-13):
+#   * --source-mix 0,0.67,0.33 : ORIGINALS REMOVED from training inputs.
+#     v12's copy rate tripled to 47% (identity wins on the canonical tier and
+#     the bias bled across tiers; nat24 fell ~4pp while reward climbed).
+#     Removing the tier where copying pays is the simplest intervention --
+#     tried FIRST, alone, so the effect is attributable. No copy clamp, no
+#     curriculum gate (both designed, held in reserve; --copy-guard-sim stays
+#     available but off). copy_rate + n_copy_clamped telemetry stays -- the
+#     center panel of the v12 chart is the metric this run must move.
 # Everything else inherited from v12 (proxy_logit reward, C=10 collapsed,
 # min-group-spread, sum ratio, gate ON, bplusimg prompt family, val-every 5).
-# v12 — magnitude-reward, multiplicity-collapsed GRPO (ALGORITHM-RL-V12.md).
-# Deltas from v11, each tied to a v11 measurement:
-#   * --reward-blend proxy_logit : fixed-coefficient calibrated logit
-#     0.4445*z + 11.3193*(-grip), clipped; rank01 manufactured gradient from
-#     float noise (29.4% of duplicate sets carried spurious rank spread)
-#   * --reward-contexts 10       : paid for by --collapse-duplicate-scoring
-#     (score distinct strings once, re-expand before the transform; exact)
-#   * --min-group-spread 0.02    : GRPO normalizes noise-only groups to unit
-#     advantage variance; skip them
-#   * --ratio-mode sum           : replay ratio was true_ratio^(1/n); clip
-#     never bound
-#   * gate ON (no --no-gate)     : needs GEMINI_API_KEY in ~/.bashrc
-# Unchanged: sample_single (on-policy, no importance weights), K=16 (collapse
-# falsified as the flat-val cause), signed full-group advantages, beta 0.15,
-# lr 7e-6, kl-abort 1.2, F=4, save-every 10, source-mix 0.25/0.5/0.25.
-# COLD START from frozen base Qwen (fresh zero-init LoRA), prompt B+.
 set -euxo pipefail
 eval "$(grep -E '^export (HF_TOKEN|HF_HOME|GEMINI_API_KEY)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
@@ -69,7 +52,6 @@ tmux new-session -d -s train \
      --replay-groups 8 --replay-window 50 --replay-clip 0.2 --replay-max-reuse 6 \
      --reward-blend proxy_logit --reward-contexts ${RCTX:-10} --club-contexts data/contexts_club.parquet \
      --collapse-duplicate-scoring --min-group-spread 0.02 --ratio-mode sum \
-     --copy-guard-sim 0.92 \
      --gen-mode sample_single --update-rule grpo \
      --gen-temp 1.0 --n-candidates 16 \
      --score-timeout 3600 \
