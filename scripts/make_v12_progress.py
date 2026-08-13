@@ -44,8 +44,38 @@ sim = pd.Series([SequenceMatcher(None, str(a).lower(), str(b).lower()).ratio()
 cand_df = cand_df.assign(sim=sim, copy=sim > 0.92)
 cp = cand_df.groupby("step").agg(copy_rate=("copy", "mean"), mean_sim=("sim", "mean"))
 
-fig, (a1, ac, a2) = plt.subplots(1, 3, figsize=(18.4, 4.6),
-                                 gridspec_kw={"width_ratios": [1.2, 0.75, 1.2]})
+fig, (a1, at, ac, a2) = plt.subplots(1, 4, figsize=(23.0, 4.6),
+                                     gridspec_kw={"width_ratios": [1.2, 0.9, 0.75, 1.2]})
+
+# --- reward by input tier: blended proxy logit reconstructed from the per-tier
+# channel series (z = -cand_loss_by_tier, grip = grip_by_tier)
+TIERS = [("nominal", "original", "#805ad5"), ("benign", "natural", "#b7791f"),
+         ("ert", "adversarial", "#c53030")]
+for tier, label, color in TIERS:
+    xs, ys = [], []
+    for r in steps:
+        cl = (r.get("cand_loss_by_tier") or {}).get(tier)
+        gr = (r.get("grip_by_tier") or {}).get(tier)
+        if cl is None or gr is None:
+            continue
+        try:
+            if cl != cl or gr != gr:   # NaN
+                continue
+        except TypeError:
+            continue
+        xs.append(r["step"])
+        ys.append(0.4445 * (-cl) + 11.3193 * (-gr))
+    if not xs:
+        continue
+    ser = pd.Series(ys, index=xs).sort_index()
+    at.plot(ser.index, ser.values, "o", color=color, ms=3, alpha=0.25)
+    at.plot(ser.index, ser.rolling(7, min_periods=1).mean().values, "-",
+            color=color, lw=2.2, label=label)
+at.set_xlabel("training step")
+at.set_ylabel("candidate reward (proxy logit)")
+at.set_title("Reward by input tier", fontsize=12)
+at.legend(fontsize=9, loc="best")
+at.grid(alpha=0.25)
 
 ac.plot(cp.index, cp.copy_rate.values, "o", color="#b83280", ms=3, alpha=0.3)
 ac.plot(cp.index, cp.copy_rate.rolling(5, min_periods=1).mean().values, "-",
