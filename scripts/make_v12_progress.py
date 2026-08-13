@@ -68,9 +68,9 @@ for tier, label, color in TIERS:
     if not xs:
         continue
     ser = pd.Series(ys, index=xs).sort_index()
-    at.plot(ser.index, ser.values, "o", color=color, ms=3, alpha=0.25)
-    at.plot(ser.index, ser.rolling(7, min_periods=1).mean().values, "-",
-            color=color, lw=2.2, label=label)
+    at.plot(ser.index, ser.values, "o", color=color, ms=2.5, alpha=0.12)
+    at.plot(ser.index, ser.rolling(21, min_periods=5, center=True).mean().values, "-",
+            color=color, lw=2.4, label=label)
 at.set_xlabel("training step")
 at.set_ylabel("candidate reward (proxy logit)")
 at.set_title("Reward by input tier", fontsize=12)
