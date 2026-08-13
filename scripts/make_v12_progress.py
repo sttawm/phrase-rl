@@ -25,8 +25,8 @@ import pandas as pd
 recs = [json.loads(l) for l in open("results/analysis/v12_telemetry/train_log.jsonl")]
 steps = [r for r in recs if r.get("step") is not None and r.get("cand_margin_logit") is not None]
 
-cand = pd.read_parquet("results/analysis/v12_telemetry/cand_channels.parquet")
-per_step = cand.groupby("step").reward.mean()
+cand_df = pd.read_parquet("results/analysis/v12_telemetry/cand_channels.parquet")
+per_step = cand_df.groupby("step").reward.mean()
 
 cells, judges = [], []
 for f in sorted(glob.glob("results/analysis/v12cells/nat24_*.json")):
@@ -38,7 +38,25 @@ for f in sorted(glob.glob("results/analysis/v12cells/nat24_*.json")):
 cells = sorted([c for c in cells if isinstance(c[0], int)])
 judges.sort()
 
-fig, (a1, a2) = plt.subplots(1, 2, figsize=(13.6, 4.6))
+from difflib import SequenceMatcher
+sim = pd.Series([SequenceMatcher(None, str(a).lower(), str(b).lower()).ratio()
+                 for a, b in zip(cand_df.instruction, cand_df.cand)], index=cand_df.index)
+cand_df = cand_df.assign(sim=sim, copy=sim > 0.92)
+cp = cand_df.groupby("step").agg(copy_rate=("copy", "mean"), mean_sim=("sim", "mean"))
+
+fig, (a1, ac, a2) = plt.subplots(1, 3, figsize=(18.4, 4.6),
+                                 gridspec_kw={"width_ratios": [1.2, 0.75, 1.2]})
+
+ac.plot(cp.index, cp.copy_rate.values, "o", color="#b83280", ms=3, alpha=0.3)
+ac.plot(cp.index, cp.copy_rate.rolling(5, min_periods=1).mean().values, "-",
+        color="#b83280", lw=2.4, label="copy rate (sim>0.92)")
+ac.plot(cp.index, cp.mean_sim.rolling(5, min_periods=1).mean().values, "--",
+        color="#6b46c1", lw=1.8, label="mean input-similarity")
+ac.set_ylim(0, 1)
+ac.set_xlabel("training step")
+ac.set_title("Identity collapse", fontsize=12)
+ac.legend(fontsize=8, loc="upper left")
+ac.grid(alpha=0.25)
 
 xs = [r["step"] for r in steps]
 orig_level = pd.Series([r["cand_margin_logit"] + per_step.get(r["step"], float("nan"))
@@ -55,7 +73,7 @@ vals = [r for r in recs if r.get("type") == "val" and r.get("mean_greedy_reward"
 if vals:
     ax = a1.twinx()
     ax.plot([v["step"] for v in vals], [v["mean_greedy_reward"] for v in vals],
-            "^-", color="#c05621", lw=2.0, ms=7, label="fixed-val greedy (natural)")
+            "^-", color="#c05621", lw=2.0, ms=7, label="fixed-val greedy (original input)")
     if vals[0].get("mean_greedy_ert_reward") is not None:
         ax.plot([v["step"] for v in vals], [v["mean_greedy_ert_reward"] for v in vals],
                 "v--", color="#9b2c2c", lw=1.6, ms=6, label="fixed-val greedy (adversarial)")
