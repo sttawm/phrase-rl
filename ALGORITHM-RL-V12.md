@@ -254,6 +254,23 @@ inherited reference, not the comparator), trend CI excluding zero.
 
 ---
 
+## FINAL VERDICT (2026-08-13)
+
+Paired 768-episode judges, identical CRN episode sets: **step 0 = 44.40,
+step 150 = 39.71 -- a 4.7pp DECLINE** (bar was >= 49.4). Training made the
+rephraser worse on natural inputs than not training at all, ending 2.2pp above
+the no-rephraser floor (37.5). Reward climbed throughout (fixed-val
+original-input greedy -0.65 -> +0.05; every unit verifier-channel, grip flat).
+Mechanism identified and quantified: IDENTITY COLLAPSE -- near-verbatim copy
+rate of sampled candidates rose 13% -> 47% by step 120 (mean input-similarity
+0.68 -> 0.82); copying pays on the 25% original tier and, under GRPO
+mean-centering, is the zero-risk move everywhere once copies dominate the
+group mean. The magnitude reward, collapsed scoring, spread floor, and sum
+ratio all functioned as designed -- the failure came through the training
+DISTRIBUTION, not the reward transform. Tail to step 158 archived
+(v12_latest). Successor: v13 (originals removed, 0/0.67/0.33) launched
+2026-08-13 with copy_rate as first-class telemetry.
+
 ## Resumability (standing order)
 
 Checkpoints carry full state: `adapter_model.safetensors`, `optimizer.pt`,
