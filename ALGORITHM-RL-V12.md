@@ -271,6 +271,27 @@ DISTRIBUTION, not the reward transform. Tail to step 158 archived
 (v12_latest). Successor: v13 (originals removed, 0/0.67/0.33) launched
 2026-08-13 with copy_rate as first-class telemetry.
 
+## v13 FINAL VERDICT (2026-08-15)
+
+v13 (originals removed, 0/0.67/0.33; single variable vs v12) -- paired
+768-episode judges, same construction: **step 0 = 44.40, step 140 = 40.36:
+-4.0pp** (v12: -4.7pp at step 150; difference +0.65 is within pairing noise).
+Judge ran at 140 not 150: a stray autostop stopped the pod 2 steps short and
+its host had no free GPU; the 140 phrases were already minted (deterministic),
+amendment documented. Copy rate stayed contained the whole run (~0.02-0.12
+with benign near-canonical spikes vs v12's ramp to 47%); mid-run the curve
+recovered to -1.0 of baseline (step 70) before sagging back to the 40-41 band.
+
+**Conclusion across the v10-v13 arc:** rank-noise amplification (v12 fixed),
+identity collapse (v13 fixed), and input-mix confounds are each ELIMINATED as
+the cause -- and the outcome is unchanged. The proxy's correlation with
+rollout success does not survive optimization pressure via any pathway we can
+close from the outside; the exploit surface is the learned verifier itself
+(v13's reward climbed on all tiers while truth fell, with honest rewriting).
+Direct motivation for reward-hardening (uncertainty-penalized ensemble
+scoring, exploit hard-negatives) before any further RL spend; the rules loop
+(#27) remains the productive path meanwhile.
+
 ## Resumability (standing order)
 
 Checkpoints carry full state: `adapter_model.safetensors`, `optimizer.pt`,
