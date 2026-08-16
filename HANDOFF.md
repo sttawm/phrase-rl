@@ -209,7 +209,17 @@ unverified — task #29). Layout halves 0–11 vs 12–23 differ +4.3pp
 (executor-dependent); treatment arms are flat across halves. The 0–17/18–23
 layout reservation applies to rollout RL only.
 
-## 7. RunPod workflow
+## 7. RunPod workflow (FLEET TERMINATED 2026-08-15)
+
+**All eight pods are DELETED** — ids in git history are dead. Everything
+canonical was salvaged first: all checkpoints/telemetry (v7 through v13
+incl. v13_latest), all context-table archives (val8 + oov + oov5 + native in
+results/analysis/data_archive/), cells/judges, and the Mac data/ masters.
+Rebuilding a pod: scripts/bootstrap_trainpod.sh (train) or the eval-pod
+recipe in the memory files (Vulkan: libegl1 + ICD manifest). CPU-only resume
+via API was refused on full hosts — the console button is the fallback.
+
+### (historical) RunPod workflow
 
 - API key: `KEY=$(grep -m1 'RUNPOD_API_KEY' ~/.zshrc | sed "s/^[^=]*=//; s/[\"']//g; s/[[:space:]]*$//")`
   — never echo it, never put it in a URL or `ps`-visible position.
