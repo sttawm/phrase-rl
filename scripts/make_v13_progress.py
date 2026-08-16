@@ -159,6 +159,9 @@ DESC = (
     "inherited from v12 by determinism (same frozen base, same prompt family, same CRN episodes). CENTER panel (copy rate) is the "
     "primary metric: if the canonical tier was the collapse driver, it stays flat."
 )
+fig.tight_layout()
+fig.savefig("results/charts/v13_progress_paper.png", dpi=200, bbox_inches="tight",
+            pad_inches=0.15)   # caption-less variant for the paper (caption in tex)
 fig.text(0.015, -0.02, DESC, fontsize=8.1, va="top", ha="left", wrap=True,
          family="sans-serif", color="#2d3748",
          bbox=dict(boxstyle="round,pad=0.55", fc="#f7fafc", ec="#cbd5e0", lw=0.8))
