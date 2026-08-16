@@ -405,13 +405,17 @@ calibrated success model of \S\ref{sec:reward} --- a magnitude cannot
 amplify scoring noise into gradient the way a rank can --- and restoring
 image conditioning eliminated the noise pathway but surfaced a new
 failure, near-verbatim copying of the input (47\% of samples by late
-training); removing original instructions from the training mix then
-eliminated the copying as well --- and rollout success declined all the
-same, from 44.4\% to 40.4\% on paired 768-episode measurements, while
-the reward climbed on every input tier. With rank noise, identity
-collapse, and the input mix each ruled out, what remains is the reward
-itself: its correlation with success, measured across phrases, does not
-survive an optimizer searching for phrases it scores too favorably.
+training); removing original instructions from the training mix
+suppressed the copying only temporarily --- it climbed back to roughly
+40\% of samples late in training, now near-copies of the degraded
+inputs themselves --- and rollout success declined all the same, from
+44.4\% to 40.4\% on paired 768-episode measurements, while the
+policy's proxy margin over the original instruction widened throughout.
+With the noise pathway closed and the incentive to copy originals
+removed, the optimizer still found behavior the proxy favors and
+rollouts do not: the reward's correlation with success, measured across
+static phrases, does not survive an optimizer searching for the phrases
+it scores too favorably.
 
 \begin{figure*}[!t]
     \centering
@@ -426,17 +430,20 @@ and applies signed group-normalized advantages under a KL leash
 ($\beta{=}0.15$). \emph{Far left}: mean candidate reward against the
 original instruction's reward on the same scenes, with greedy rewrites
 of a frozen validation set every 5 steps. \emph{Center left}:
-candidate reward by input tier --- the reward rises on all tiers.
-\emph{Center right}: the copying diagnostic --- the fraction of
-rewrites nearly identical to the input stays low throughout (the
-previous revision, which trained with original instructions, collapsed
-to 47\%). \emph{Far right}: ground truth --- rollout success of
+candidate reward by input tier --- neither tier's level climbs over the
+run; the natural tier crests around step 110 and both end below where
+they began. \emph{Center right}: the copying diagnostic --- the
+near-copy fraction runs near 15\% for the first half of training, then
+climbs to roughly 40\% (the previous revision, which trained with
+original instructions, collapsed to 47\%). \emph{Far right}: ground truth --- rollout success of
 greedy rewrites of 24 natural rephrasings, 192 episodes per point;
 diamonds are paired 768-episode measurements on an identical episode
 set at the endpoints (44.4\% at step 0, 40.4\% at step 140). The
-reward climbs while measured success falls: with every other failure
-mode eliminated, the divergence isolates the proxy itself as the
-exploited surface.}
+policy's margin over the original instruction widens throughout and its
+frozen-validation rewrites improve under the proxy while measured
+success falls: the optimizer keeps finding behavior the proxy scores
+favorably --- late near-copying included --- that does not transfer to
+rollouts, isolating the proxy itself as the exploited surface.}
     \label{fig:v13_progress}
 \end{figure*}
 
@@ -614,22 +621,10 @@ repair of hostile inputs at the price of over-correcting natural ones.
 proxy.
 
 \subsubsection{GRPO}
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{grpo_progress.png}
-    \caption{GRPO reliably optimizes its reward while ground truth stays
-flat. Left: greedy-decode proxy reward during training --- the final
-recipe (telemetry through step 80) and its 260-step sibling run. Right:
-rollout success of the final policy's rewrites on 192-phrase natural
-probes over 240 steps --- drift $-0.8$\,pp inside a $\pm7.1$\,pp noise
-band, against the step-0 policy (42.2) and no-rephraser (37.5)
-references.}
-    \label{fig:grpo_progress}
-\end{figure}
-
 The GRPO recipe of \S\ref{sec:grpo} reliably climbs its reward and
-just as reliably fails to move rollout success
-(Fig.~\ref{fig:grpo_progress}). The decomposition is diagnostic: nearly all
+just as reliably fails to move rollout success --- flat across 240
+steps under the rank reward, declining in the final revision
+(Fig.~\ref{fig:v13_progress}). The decomposition is diagnostic: nearly all
 reward movement came through the learned-verifier channel
 ($+0.55$--$0.85$) while the gripper channel moved $0.005$; the
 calibrated success model's own coefficients predict $+6$\,pp from such
