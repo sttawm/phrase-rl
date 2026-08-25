@@ -95,9 +95,20 @@
    "stack the back black bowl on the striped plate",
    "put the rear dark bowl on the striped plate",
    "set the furthest black bowl on the red and white plate",
-   "place the back grey bowl on the red and white plate"
+   "place the back grey bowl on the red and white plate",
+   "set the furthest dark bowl on the red and white plate",
+   "put the back dark bowl on the red and white plate",
+   "place the rear dark bowl on the red and white plate",
+   "set the rear dark bowl on the striped plate",
+   "set the back grey bowl on the red and white plate",
+   "place the back dark bowl on the striped plate",
+   "stack the back dark bowl on the red and white plate",
+   "set the furthest grey bowl on the red and white plate",
+   "place the back dark bowl on the red and white plate",
+   "put the rear grey bowl on the red and white plate",
+   "stack the furthest dark bowl on the red and white plate"
   ],
-  "rounds_done": 2,
-  "converged": false
+  "rounds_done": 3,
+  "converged": true
  }
 }
