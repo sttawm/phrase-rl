@@ -1,0 +1,90 @@
+{
+ "libero_goal/3": {
+  "members": [
+   "open the top drawer and put the bowl inside",
+   "Grab the bowl and stick it in the top drawer.",
+   "Pull open the highest drawer and place the soup bowl in it.",
+   "Can you open up the top drawer and drop that bowl inside?",
+   "Open the uppermost drawer to store the ceramic bowl away.",
+   "Please open the first drawer from the top and put the bowl in there.",
+   "Open the top drawer and place the grey bowl inside.",
+   "Pull open the top drawer and put the bowl inside.",
+   "Open the top drawer and put the metal bowl inside.",
+   "Open the upper drawer and place the bowl inside.",
+   "Open the top drawer of the black cabinet and place the bowl inside.",
+   "Pull the top drawer open and put the grey bowl inside.",
+   "Open the top drawer and insert the grey bowl.",
+   "Open the upper drawer and put the grey bowl inside.",
+   "Open the top drawer and place the bowl in it.",
+   "Open the top drawer and store the bowl inside."
+  ],
+  "rounds_done": 0,
+  "converged": true
+ },
+ "libero_goal/4": {
+  "members": [
+   "put the bowl on top of the cabinet",
+   "Can you grab the bowl and set it up on the cabinet?",
+   "Move that bowl to the top of the cabinet.",
+   "Up on top of the cabinet is where the bowl needs to go.",
+   "Take the ceramic bowl and place it onto the cabinet.",
+   "Stick the bowl up there on top of the cabinet for me.",
+   "place the grey bowl on top of the black cabinet",
+   "put the grey bowl on the black cabinet",
+   "move the bowl onto the top of the black cabinet",
+   "set the bowl on top of the black cabinet",
+   "place the bowl on the top surface of the black cabinet",
+   "put the silver bowl on the black cabinet",
+   "move the grey bowl to the top of the black cabinet",
+   "set the grey bowl on the black cabinet",
+   "place the bowl on top of the black drawers",
+   "put the bowl on top of the black cabinet"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ },
+ "libero_goal/5": {
+  "members": [
+   "push the plate to the front of the stove",
+   "Slide that dish over to the front of the stove.",
+   "Move the ceramic plate directly in front of the stove.",
+   "Can you shove the plate forward so it rests in front of the stove?",
+   "Right in front of the stove is where the plate needs to be pushed.",
+   "Just push the flat dish until it reaches the front edge of the stovetop.",
+   "push the striped plate in front of the stove",
+   "slide the plate with red stripes to the front of the stove",
+   "move the red and white plate in front of the hot plate",
+   "push the white plate to the front of the burner",
+   "slide the plate to the front of the silver stove",
+   "push the red-rimmed plate in front of the stove",
+   "move the plate to the front of the stove",
+   "slide the plate to the front of the hot plate",
+   "push the striped plate to the space in front of the stove",
+   "slide the red-striped plate to the front of the stove"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ },
+ "libero_90/44": {
+  "members": [
+   "turn on the stove",
+   "Please switch the stove on.",
+   "Could you start the burners?",
+   "Power up the cooking range.",
+   "I need you to ignite the stovetop.",
+   "Go ahead and get the stove going.",
+   "Twist the black stove knob to turn it on",
+   "Rotate the black dial to turn on the stove",
+   "Turn the black knob to activate the burner",
+   "Switch on the stove burner on the table",
+   "Turn on the stove by twisting the black dial",
+   "Turn the burner dial to the on position",
+   "Rotate the black switch next to the burner",
+   "Activate the stove by turning the black knob",
+   "Twist the knob to turn on the burner",
+   "Turn on the stove burner on the left"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ }
+}

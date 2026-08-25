@@ -1,0 +1,46 @@
+{
+ "libero_goal/0": {
+  "members": [
+   "open the middle drawer of the cabinet",
+   "Pull open the center drawer of that cabinet.",
+   "I need you to slide out the middle cabinet drawer.",
+   "Open up the drawer in the middle of the cabinet.",
+   "Can you pop open that central drawer for me?",
+   "Get the middle drawer on the cabinet open.",
+   "open the middle drawer of the black cabinet",
+   "pull open the middle drawer of the cabinet",
+   "open the second drawer of the black cabinet",
+   "pull out the middle drawer of the black cabinet",
+   "slide open the middle drawer of the black cabinet",
+   "open the center drawer of the black cabinet",
+   "pull open the middle drawer of the black chest",
+   "open the middle drawer of the black drawer unit",
+   "pull the middle drawer of the black cabinet open",
+   "open the middle drawer of the small black cabinet"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ },
+ "libero_goal/1": {
+  "members": [
+   "put the bowl on the stove",
+   "Can you place the bowl onto the stove?",
+   "Move the soup bowl over to the stovetop.",
+   "Grab that bowl and set it down on the stove.",
+   "Please take the bowl and leave it on the stove.",
+   "Set the ceramic bowl on top of the stove.",
+   "place the grey bowl on the electric burner",
+   "put the bowl on top of the burner",
+   "move the grey bowl onto the stove",
+   "place the bowl on the silver stove",
+   "set the bowl on the burner",
+   "transfer the bowl to the electric stove",
+   "put the metal bowl on the stove",
+   "place the grey bowl on the hot plate",
+   "set the grey bowl onto the burner",
+   "move the bowl onto the electric stove top"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ }
+}

@@ -1,0 +1,79 @@
+{
+ "libero_goal/6": {
+  "members": [
+   "put the cream cheese in the bowl",
+   "Place the cream cheese into the bowl.",
+   "Grab the soft white cheese and drop it in the bowl.",
+   "Into the bowl goes the cream cheese.",
+   "Please transfer the cream cheese over to the bowl.",
+   "Set the cream cheese down inside the bowl.",
+   "place the blue cream cheese in the bowl",
+   "move the cream cheese into the grey bowl",
+   "put the blue box in the grey bowl",
+   "transfer the cream cheese to the bowl",
+   "put the cream cheese block inside the bowl",
+   "place the blue cream cheese package into the bowl",
+   "move the cream cheese block to the center bowl",
+   "drop the cream cheese into the bowl",
+   "put the blue rectangular cheese in the bowl",
+   "place the cream cheese in the center bowl"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ },
+ "libero_goal/7": {
+  "members": [
+   "turn on the stove",
+   "Please switch the stove on.",
+   "Could you start the burners?",
+   "Power up the cooking range.",
+   "I need you to ignite the stovetop.",
+   "Go ahead and get the stove going.",
+   "switch on the stove",
+   "turn on the burner",
+   "power on the hot plate",
+   "rotate the black knob to turn on the stove",
+   "activate the stove burner",
+   "turn on the single burner stove",
+   "switch on the hot plate",
+   "turn the black knob to start the burner",
+   "activate the stove",
+   "power on the stove burner"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ },
+ "libero_90/14": {
+  "members": [
+   "put the middle black bowl on the plate",
+   "Place that black bowl in the middle onto the plate.",
+   "Can you move the center black bowl over to the plate?",
+   "Set the black bowl from the middle directly onto the plate.",
+   "Grab the middle black bowl and put it on the plate.",
+   "Onto the plate, please transfer the black bowl located in the center.",
+   "place the middle black bowl on the plate",
+   "move the middle black bowl onto the plate",
+   "put the middle black bowl onto the red plate",
+   "place the central black bowl on the plate",
+   "put the middle bowl on the striped plate",
+   "move the center black bowl on the plate",
+   "set the middle black bowl onto the plate",
+   "place the middle black bowl onto the red and white plate",
+   "put the black bowl in the middle on the plate",
+   "pick up the middle black bowl and place it on the plate",
+   "grab the central black bowl and place it on the striped plate",
+   "move the black bowl in the middle onto the red plate",
+   "pick up the central black bowl and set it on the plate",
+   "grab the middle black bowl and place it on the red plate",
+   "set the middle black bowl on the striped plate",
+   "place the black bowl in the middle on the red plate",
+   "put the central black bowl onto the striped plate",
+   "move the middle black bowl to the red plate",
+   "pick up the middle black bowl and put it on the red plate",
+   "grab the central black bowl and set it on the red plate",
+   "place the middle black bowl onto the striped plate"
+  ],
+  "rounds_done": 2,
+  "converged": false
+ }
+}

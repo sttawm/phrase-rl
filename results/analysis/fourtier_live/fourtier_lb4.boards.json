@@ -1,0 +1,46 @@
+{
+ "libero_goal/8": {
+  "members": [
+   "put the bowl on the plate",
+   "Can you move the bowl over to the plate?",
+   "Place that soup bowl onto the plate.",
+   "Grab the bowl and set it down on top of the plate.",
+   "I need you to transfer this bowl to the plate.",
+   "Set the ceramic bowl on the plate, please.",
+   "place the grey bowl on the striped plate",
+   "put the bowl on top of the red-rimmed plate",
+   "move the silver bowl onto the white plate",
+   "stack the bowl on the plate",
+   "place the bowl on the striped plate",
+   "set the grey bowl onto the plate",
+   "put the metal bowl on the red-striped plate",
+   "move the bowl onto the striped plate",
+   "place the bowl on top of the plate",
+   "set the bowl on the white and red plate"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ },
+ "libero_goal/9": {
+  "members": [
+   "put the wine bottle on the rack",
+   "Place the wine bottle onto the storage rack.",
+   "Can you move the glass wine bottle over to the rack?",
+   "Store the bottle of wine in the rack.",
+   "Just set the wine down on the rack.",
+   "Grab the wine bottle and leave it on the rack.",
+   "place the black wine bottle on the wooden rack",
+   "put the dark bottle on the wooden rack",
+   "store the wine bottle in the wooden holder",
+   "place the wine bottle onto the wooden rack",
+   "put the black bottle on the wooden holder",
+   "move the wine bottle to the wooden rack",
+   "insert the wine bottle into the wooden rack",
+   "place the dark wine bottle on the rack",
+   "put the wine bottle in the wooden rack",
+   "move the black bottle to the wooden rack"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ }
+}
