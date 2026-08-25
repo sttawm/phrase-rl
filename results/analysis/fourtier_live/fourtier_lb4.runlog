@@ -1,0 +1,226 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 8: 'put the bowl on the plate' (50 inits)
+  orig 10/10
+  nat1 5/5  'Can you move the bowl over to the plate?'
+  nat2 5/5  'Place that soup bowl onto the plate.'
+  nat3 5/5  'Grab the bowl and set it down on top of the plate.'
+  nat4 5/5  'I need you to transfer this bowl to the plate.'
+  nat5 5/5  'Set the ceramic bowl on the plate, please.'
+  adv1 5/5  'If it is not too much trouble, I would greatly appreciate it'
+  adv2 4/5  'The object typically used for serving liquid courses must be'
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 45 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 8: 'put the bowl on the plate' (50 inits)
+  orig 10/10
+  nat1 5/5  'Can you move the bowl over to the plate?'
+  nat2 5/5  'Place that soup bowl onto the plate.'
+  nat3 5/5  'Grab the bowl and set it down on top of the plate.'
+  nat4 5/5  'I need you to transfer this bowl to the plate.'
+  nat5 5/5  'Set the ceramic bowl on the plate, please.'
+  adv1 5/5  'If it is not too much trouble, I would greatly appreciate it'
+  adv2 4/5  'The object typically used for serving liquid courses must be'
+  adv3 5/5  'Regarding the plate, your immediate objective is to acquire '
+  adv4 5/5  'Execute a spatial relocation of the bowl such that its base '
+  adv5 5/5  'Prior to any further operations, take hold of the bowl and d'
+  board r1: best 5/3  'put the bowl on the plate'
+  ORACLE libero_goal/8: winner 10/10 'Can you move the bowl over to the plate?' (canon 9/10)  [843s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 9: 'put the wine bottle on the rack' (50 inits)
+  orig 10/10
+  nat1 4/5  'Place the wine bottle onto the storage rack.'
+  nat2 5/5  'Can you move the glass wine bottle over to the rack?'
+  nat3 5/5  'Store the bottle of wine in the rack.'
+  nat4 5/5  'Just set the wine down on the rack.'
+  nat5 5/5  'Grab the wine bottle and leave it on the rack.'
+  adv1 0/5  'If it is not too much trouble, please relocate the vessel of'
+  adv2 3/5  'Provided your manipulators are available, the rack should be'
+  adv3 4/5  'The bottle of wine, which is currently situated within your '
+  adv4 0/5  'Take the tall glass container utilized for pouring merlot an'
+  adv5 1/5  'Be so kind as to convey the receptacle of wine to the framew'
+  board r1: best 5/3  'put the wine bottle on the rack'
+  ORACLE libero_goal/9: winner 10/10 'Store the bottle of wine in the rack.' (canon 9/10)  [2016s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 64: 'stack the right bowl on the left bowl and place them in the tray' (50 inits)
+  orig 3/10
+  nat1 3/5  'Put the bowl on the right on top of the one on the left, and'
+  nat2 2/5  'Grab the rightmost bowl, place it onto the left one, and set'
+  nat3 2/5  'The tray needs both bowls inside it, but make sure the right'
+  nat4 3/5  'Could you put the right dish onto the left dish and then tra'
+  nat5 1/5  'Set the right bowl down on the left bowl and slide the combi'
+  adv1 1/5  'If it would not be too much trouble, prior to depositing the'
+  adv2 3/5  'Proceed to elevate the rightmost hemispherical dish, superim'
+  adv3 2/5  'Into the tray you must eventually place the items, but only '
+  adv4 2/5  'The object you would typically eat soup out of on the right '
+  adv5 2/5  'Execute a maneuver wherein the right-hand bowl is conjoined '
+  board r1: best 4/3  'place the right bowl on the left bowl and put them in the wo'
+  board r2: best 4/3  'place the right bowl on the left bowl and put them in the wo'
+  ORACLE libero_90/64: winner 5/10 'Put the bowl on the right on top of the one on the left, and' (canon 3/10)  [4223s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 12: 'put the black bowl at the back on the plate' (50 inits)
+  orig 4/10
+  nat1 2/5  'Move the black bowl in the back onto the plate.'
+  nat2 4/5  'Can you place the rear dark bowl on the plate?'
+  nat3 3/5  'Grab the black bowl from the back and set it on top of the p'
+  nat4 3/5  'Transfer the furthest black bowl to the plate.'
+  nat5 4/5  'Set the black bowl that is in the back on the plate.'
+  adv1 3/5  "If it wouldn't be an imposition, kindly relocate the darkest"
+  adv2 2/5  'Taking the black bowl that is situated furthest away from yo'
+  adv3 4/5  'The plate requires an item; therefore, ensure the rearward b'
+  adv4 4/5  'Relocate the ebony bowl from the background to a stationary '
+  adv5 3/5  'Before doing anything else, see to it that the black-colored'
+  board r1: best 4/3  'Can you place the rear dark bowl on the plate?'
+  board r2: best 5/3  'set the back dark bowl on the red and white plate'
+  board r3: best 5/3  'set the back dark bowl on the red and white plate'
+  ORACLE libero_90/12: winner 10/10 'set the back grey bowl on the red and white plate' (canon 5/10)  [4673s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 28: 'close the top drawer of the cabinet' (50 inits)
+  orig 4/10
+  nat1 3/5  'Push the highest drawer shut.'
+  nat2 1/5  'Please shut the upper cabinet drawer.'
+  nat3 3/5  'Make sure the topmost drawer is completely closed.'
+  nat4 2/5  'Slide the top drawer all the way in.'
+  nat5 2/5  'Can you close up that top drawer for me?'
+  adv1 3/5  'If it would not be too much trouble, I would greatly appreci'
+  adv2 2/5  "The storage unit's highest receptacle currently stands open;"
+  adv3 4/5  'Provided you have clearance, execute a pushing maneuver on t'
+  adv4 3/5  'It is required that the drawer situated at the very peak of '
+  adv5 3/5  'Regarding the tiered storage cabinet, apply inward force to '
+  board r1: best 3/3  'Push the highest drawer shut.'
+  board r2: best 3/3  'Push the highest drawer shut.'
+  ORACLE libero_90/28: winner 7/10 'close the open drawer on the left' (canon 2/10)  [4724s]
+SHARD-COMPLETE lb4
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 960 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 8: 'put the bowl on the plate' (50 inits)
+  deepen orig +20 inits -> 19 succ
+  deepen confirm2 20/20  'Can you move the bowl over to the plate?'
+  deepen confirm2 20/20  'Grab the bowl and set it down on top of the plate.'
+  deepen confirm2 20/20  'Place that soup bowl onto the plate.'
+  deepen confirm2 18/20  'put the bowl on the plate'
+  DEEPEN done libero_goal/8  [1077s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 9: 'put the wine bottle on the rack' (50 inits)
+  deepen orig +20 inits -> 19 succ
+  deepen confirm2 18/20  'Can you move the glass wine bottle over to the rack?'
+  deepen confirm2 20/20  'Just set the wine down on the rack.'
+  deepen confirm2 20/20  'Store the bottle of wine in the rack.'
+  deepen confirm2 19/20  'put the wine bottle on the rack'
+  DEEPEN done libero_goal/9  [1815s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 64: 'stack the right bowl on the left bowl and place them in the tray' (50 inits)
+  deepen orig +20 inits -> 10 succ
+  deepen confirm2 11/20  'Could you put the right dish onto the left dish and then tra'
+  deepen confirm2 10/20  'Put the bowl on the right on top of the one on the left, and'
+  deepen confirm2 9/20  'place the right bowl on the left bowl and put them in the wo'
+  deepen confirm2 7/20  'put right bowl on left bowl and place them in the wooden cra'
+  deepen confirm2 11/20  'stack the right bowl on the left bowl and place them in the '
+  DEEPEN done libero_90/64  [3899s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 12: 'put the black bowl at the back on the plate' (50 inits)
+  deepen orig +20 inits -> 12 succ
+  deepen confirm2 5/20  'put the black bowl at the back on the plate'
+  deepen confirm2 16/20  'set the back dark bowl on the red and white plate'
+  deepen confirm2 16/20  'set the back grey bowl on the red and white plate'
+  deepen confirm2 14/20  'set the furthest dark bowl on the red and white plate'
+  deepen confirm2 12/20  'set the rear dark bowl on the striped plate'
+  DEEPEN done libero_90/12  [2826s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 28: 'close the top drawer of the cabinet' (50 inits)
+  deepen orig +20 inits -> 8 succ
+  deepen confirm2 5/20  'Make sure the topmost drawer is completely closed.'
+  deepen confirm2 4/20  'Push the highest drawer shut.'
+  deepen confirm2 8/20  'close the open drawer on the left'
+  deepen confirm2 9/20  'close the top drawer of the cabinet'
+  deepen confirm2 9/20  'push the open top drawer closed'
+  DEEPEN done libero_90/28  [3514s]
+SHARD-COMPLETE lb4
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 1720 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 60: 'pick up the black bowl on the left and put it in the tray' (50 inits)
+  orig 6/10
+  nat1 2/5  'Place the leftmost black bowl into the tray.'
+  nat2 4/5  'Can you move the black bowl on the left over to the tray?'
+  nat3 3/5  'Grab that dark dish on the left side and set it down in the '
+  nat4 3/5  'Transfer the black bowl from the left directly into the tray'
+  nat5 3/5  'Please take the black bowl located on your left and leave it'
+  adv1 4/5  'Regarding the dark-colored container on the left that one mi'
+  adv2 3/5  'If it is no trouble, I would greatly appreciate it if you co'
+  adv3 3/5  'It is requested that the black bowl occupying the leftmost p'
+  adv4 3/5  'Execute a grasp operation on the left-aligned black bowl, su'
+  adv5 3/5  'Without interacting with anything on the right, secure the b'
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 1786 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 60: 'pick up the black bowl on the left and put it in the tray' (50 inits)
+  orig 6/10
+  nat1 2/5  'Place the leftmost black bowl into the tray.'
+  nat2 4/5  'Can you move the black bowl on the left over to the tray?'
+  nat3 3/5  'Grab that dark dish on the left side and set it down in the '
+  nat4 3/5  'Transfer the black bowl from the left directly into the tray'
+  nat5 3/5  'Please take the black bowl located on your left and leave it'
+  adv1 4/5  'Regarding the dark-colored container on the left that one mi'
+  adv2 3/5  'If it is no trouble, I would greatly appreciate it if you co'
+  adv3 3/5  'It is requested that the black bowl occupying the leftmost p'
+  adv4 3/5  'Execute a grasp operation on the left-aligned black bowl, su'
+  adv5 3/5  'Without interacting with anything on the right, secure the b'
+  board r1: best 5/5  'pick up the grey bowl on the left and put it in the crate'
+  board r2: best 5/5  'pick up the grey bowl on the left and put it in the crate'
+  ORACLE libero_90/60: winner 7/10 'put the grey bowl on the left into the tray' (canon 5/10)  [2790s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 82: 'pick up the book and place it in the left compartment of the caddy' (50 inits)
+  orig 2/10
+  nat1 1/5  'Put the book into the left side of the caddy'
+  nat2 1/5  "Grab that paperback and drop it in the caddy's left bin"
+  nat3 1/5  'Can you just tuck the book into the left compartment of the '
+  nat4 1/5  'Into the left slot of the caddy, please place the book'
+  nat5 0/5  'Move the hardcover over to the left section of the caddy'
+  adv1 0/5  'The item filled with bound pages, which currently rests befo'
+  adv2 0/5  'If it is not too much trouble, I would be most grateful if y'
+  adv3 0/5  'It is required that the reading material be lifted from its '
+  adv4 2/5  'Rather than leaving it where it is, take the object one woul'
+  adv5 0/5  'Execute a grasp operation on the book, subsequently transpor'
+  board r1: best 3/5  'place the black book into the left slot of the brown caddy'
+  board r2: best 3/5  'place the black book into the left slot of the brown caddy'
+  ORACLE libero_90/82: winner 4/10 'pick up the black book and put it in the left compartment of' (canon 3/10)  [4841s]
+SHARD-COMPLETE lb4x

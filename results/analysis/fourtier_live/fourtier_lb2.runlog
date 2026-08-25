@@ -1,0 +1,434 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 3: 'open the top drawer and put the bowl inside' (50 inits)
+  orig 8/10
+  nat1 4/5  'Grab the bowl and stick it in the top drawer.'
+  nat2 4/5  'Pull open the highest drawer and place the soup bowl in it.'
+  nat3 3/5  'Can you open up the top drawer and drop that bowl inside?'
+  nat4 4/5  'Open the uppermost drawer to store the ceramic bowl away.'
+  nat5 4/5  'Please open the first drawer from the top and put the bowl i'
+  adv1 1/5  'Provided the topmost sliding compartment is currently shut, '
+  adv2 3/5  'Would you be so kind as to unseal the highest available draw'
+  adv3 5/5  'It is required that the uppermost drawer be drawn open, into'
+  adv4 3/5  'The receptacle meant for soup requires storage; facilitate t'
+  adv5 0/5  'Before you relinquish your grasp on the bowl, ensure that th'
+  board r1: best 3/3  'Grab the bowl and stick it in the top drawer.'
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 105 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 3: 'open the top drawer and put the bowl inside' (50 inits)
+  orig 8/10
+  nat1 4/5  'Grab the bowl and stick it in the top drawer.'
+  nat2 4/5  'Pull open the highest drawer and place the soup bowl in it.'
+  nat3 3/5  'Can you open up the top drawer and drop that bowl inside?'
+  nat4 4/5  'Open the uppermost drawer to store the ceramic bowl away.'
+  nat5 4/5  'Please open the first drawer from the top and put the bowl i'
+  adv1 1/5  'Provided the topmost sliding compartment is currently shut, '
+  adv2 3/5  'Would you be so kind as to unseal the highest available draw'
+  adv3 5/5  'It is required that the uppermost drawer be drawn open, into'
+  adv4 3/5  'The receptacle meant for soup requires storage; facilitate t'
+  adv5 0/5  'Before you relinquish your grasp on the bowl, ensure that th'
+  ORACLE libero_goal/3: winner 9/10 'open the top drawer and put the bowl inside' (canon 9/10)  [455s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 4: 'put the bowl on top of the cabinet' (50 inits)
+  orig 10/10
+  nat1 5/5  'Can you grab the bowl and set it up on the cabinet?'
+  nat2 5/5  'Move that bowl to the top of the cabinet.'
+  nat3 5/5  'Up on top of the cabinet is where the bowl needs to go.'
+  nat4 5/5  'Take the ceramic bowl and place it onto the cabinet.'
+  nat5 5/5  'Stick the bowl up there on top of the cabinet for me.'
+  adv1 2/5  'Assuming you are ready to proceed, I require you to elevate '
+  adv2 1/5  "If it wouldn't be too much trouble, could you kindly ensure "
+  adv3 1/5  'Given the current state of the workspace, it is imperative t'
+  adv4 3/5  'The physical placement of the bowl is to be immediately adju'
+  adv5 4/5  'Taking hold of the round dish one would typically use for se'
+  board r1: best 5/3  'put the bowl on top of the cabinet'
+  ORACLE libero_goal/4: winner 10/10 'put the bowl on top of the cabinet' (canon 10/10)  [818s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 5: 'push the plate to the front of the stove' (50 inits)
+  orig 10/10
+  nat1 0/5  'Slide that dish over to the front of the stove.'
+  nat2 4/5  'Move the ceramic plate directly in front of the stove.'
+  nat3 3/5  'Can you shove the plate forward so it rests in front of the '
+  nat4 2/5  'Right in front of the stove is where the plate needs to be p'
+  nat5 1/5  'Just push the flat dish until it reaches the front edge of t'
+  adv1 0/5  'I would be immensely grateful if you could see to it that th'
+  adv2 0/5  'Provided that the physical path remains unobstructed, applyi'
+  adv3 0/5  'Translocate the item from which one traditionally consumes a'
+  adv4 1/5  'To the frontward facing exterior of the range, the plate is '
+  adv5 3/5  'The space adjacent to the front of the stove currently lacks'
+  board r1: best 5/3  'push the plate to the front of the stove'
+  ORACLE libero_goal/5: winner 10/10 'push the plate to the front of the stove' (canon 10/10)  [1228s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 44: 'turn on the stove' (50 inits)
+  orig 0/10
+  nat1 5/5  'Please switch the stove on.'
+  nat2 5/5  'Could you start the burners?'
+  nat3 5/5  'Power up the cooking range.'
+  nat4 5/5  'I need you to ignite the stovetop.'
+  nat5 5/5  'Go ahead and get the stove going.'
+  adv1 5/5  'The large appliance used for boiling and frying needs its po'
+  adv2 5/5  'I would be most grateful if you could commence the ignition '
+  adv3 5/5  'Provided that you are ready to begin food preparation, proce'
+  adv4 5/5  'Cause the machinery upon which we place our cookware to tran'
+  adv5 5/5  'It is required that the thermal output device located in the'
+  board r1: best 5/3  'Please switch the stove on.'
+  ORACLE libero_90/44: winner 10/10 'Please switch the stove on.' (canon 0/10)  [876s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 77: 'pick up the book and place it in the back compartment of the caddy' (50 inits)
+  orig 4/10
+  nat1 3/5  'Grab the book and drop it into the rear compartment of the c'
+  nat2 1/5  "Move that paperback to the caddy's back slot."
+  nat3 2/5  'Can you put the book in the back part of the caddy for me?'
+  nat4 4/5  'Take the reading material and stow it in the back section of'
+  nat5 2/5  'Transfer the book into the furthest compartment of the caddy'
+  adv1 3/5  'The object primarily utilized for reading purposes must be h'
+  adv2 3/5  'I would greatly appreciate it if you could secure the bound '
+  adv3 3/5  'Assuming you are ready to proceed, kindly grasp the literary'
+  adv4 4/5  'Regarding the item composed of printed pages, please elevate'
+  adv5 1/5  'It is required that the book, which currently rests before y'
+  board r1: best 5/3  'Place the book in the rear slot of the brown organizer'
+  board r2: best 5/3  'Place the book in the rear slot of the brown organizer'
+  ORACLE libero_90/77: winner 8/10 'Place the book in the rear slot of the brown organizer' (canon 1/10)  [2003s]
+SHARD-COMPLETE lb2
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 835 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 3: 'open the top drawer and put the bowl inside' (50 inits)
+  deepen orig +20 inits -> 19 succ
+  deepen confirm2 18/20  'Grab the bowl and stick it in the top drawer.'
+  deepen confirm2 20/20  'Open the upper drawer and place the bowl inside.'
+  deepen confirm2 20/20  'Pull open the highest drawer and place the soup bowl in it.'
+  deepen confirm2 19/20  'Pull open the top drawer and put the bowl inside.'
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 986 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 3: 'open the top drawer and put the bowl inside' (50 inits)
+  deepen orig +20 inits -> 19 succ
+  deepen confirm2 18/20  'Grab the bowl and stick it in the top drawer.'
+  deepen confirm2 20/20  'Open the upper drawer and place the bowl inside.'
+  deepen confirm2 20/20  'Pull open the highest drawer and place the soup bowl in it.'
+  deepen confirm2 19/20  'Pull open the top drawer and put the bowl inside.'
+  deepen confirm2 17/20  'open the top drawer and put the bowl inside'
+  DEEPEN done libero_goal/3  [76s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 4: 'put the bowl on top of the cabinet' (50 inits)
+  deepen orig +20 inits -> 20 succ
+  deepen confirm2 20/20  'Can you grab the bowl and set it up on the cabinet?'
+  deepen confirm2 20/20  'Move that bowl to the top of the cabinet.'
+  deepen confirm2 20/20  'Up on top of the cabinet is where the bowl needs to go.'
+  deepen confirm2 19/20  'put the bowl on top of the cabinet'
+  DEEPEN done libero_goal/4  [742s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 5: 'push the plate to the front of the stove' (50 inits)
+  deepen orig +20 inits -> 20 succ
+  deepen confirm2 17/20  'move the plate to the front of the stove'
+  deepen confirm2 19/20  'push the plate to the front of the stove'
+  deepen confirm2 20/20  'push the red-rimmed plate in front of the stove'
+  deepen confirm2 19/20  'push the white plate to the front of the burner'
+  DEEPEN done libero_goal/5  [1102s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 44: 'turn on the stove' (50 inits)
+  deepen orig +20 inits -> 0 succ
+  deepen confirm2 20/20  'Could you start the burners?'
+  deepen confirm2 20/20  'I need you to ignite the stovetop.'
+  deepen confirm2 20/20  'Please switch the stove on.'
+  deepen confirm2 20/20  'Power up the cooking range.'
+  deepen confirm2 1/20  'turn on the stove'
+  DEEPEN done libero_90/44  [949s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 77: 'pick up the book and place it in the back compartment of the caddy' (50 inits)
+  deepen orig +20 inits -> 3 succ
+  deepen confirm2 15/20  'Move the black notebook to the back compartment of the organ'
+  deepen confirm2 13/20  'Place the black book in the rear slot of the brown organizer'
+  deepen confirm2 11/20  'Place the book in the rear slot of the brown organizer'
+  deepen confirm2 10/20  'Take the reading material and stow it in the back section of'
+  deepen confirm2 2/20  'pick up the book and place it in the back compartment of the'
+  DEEPEN done libero_90/77  [1549s]
+SHARD-COMPLETE lb2
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 1595 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 79: 'pick up the book and place it in the left compartment of the caddy' (50 inits)
+  orig 2/10
+  nat1 2/5  'Put the book into the left side of the caddy'
+  nat2 3/5  "Grab that paperback and drop it in the caddy's left bin"
+  nat3 0/5  'Can you just tuck the book into the left compartment of the '
+  nat4 2/5  'Into the left slot of the caddy, please place the book'
+  nat5 2/5  'Move the hardcover over to the left section of the caddy'
+  adv1 1/5  'The item filled with bound pages, which currently rests befo'
+  adv2 3/5  'If it is not too much trouble, I would be most grateful if y'
+  adv3 3/5  'It is required that the reading material be lifted from its '
+  adv4 3/5  'Rather than leaving it where it is, take the object one woul'
+  adv5 4/5  'Execute a grasp operation on the book, subsequently transpor'
+  board r1: best 3/5  "Grab that paperback and drop it in the caddy's left bin"
+  board r2: best 3/5  "Grab that paperback and drop it in the caddy's left bin"
+  ORACLE libero_90/79: winner 6/10 'Into the left slot of the caddy, please place the book' (canon 5/10)  [2782s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 2: 'put the black bowl in the top drawer of the cabinet' (50 inits)
+  orig 7/10
+  nat1 4/5  'Place the black bowl inside the highest cabinet drawer.'
+  nat2 3/5  'Can you stick that black bowl into the upper cabinet drawer '
+  nat3 2/5  'Open the top drawer of the cabinet and store the dark bowl i'
+  nat4 4/5  "Tuck the black bowl away in the cabinet's top drawer."
+  nat5 4/5  'Move the black bowl to the very top drawer of the cabinet.'
+  adv1 3/5  'Taking hold of the black dishware, ensure it is deposited wi'
+  adv2 3/5  'If it is not too much trouble, I would greatly appreciate it'
+  adv3 2/5  'Regarding the cabinet currently before you, its superior dra'
+  adv4 2/5  'The dark, open-topped vessel designed for soup needs to be r'
+  adv5 3/5  'Commence a grasp on the black bowl and subsequently transpor'
+  board r1: best 5/5  'put the bowl in the top drawer of the cabinet'
+  board r2: best 5/5  'put the bowl in the top drawer of the cabinet'
+  ORACLE libero_90/2: winner 7/10 'put the black bowl into the top drawer of the cabinet' (canon 5/10)  [2410s]
+SHARD-COMPLETE lb2x
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 2030 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 3: 'open the top drawer and put the bowl inside' (50 inits)
+  ORACLEPLUS skip libero_goal/3: confirmed winner already 90%
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 4: 'put the bowl on top of the cabinet' (50 inits)
+  ORACLEPLUS skip libero_goal/4: confirmed winner already 100%
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 5: 'push the plate to the front of the stove' (50 inits)
+  ORACLEPLUS skip libero_goal/5: confirmed winner already 100%
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 44: 'turn on the stove' (50 inits)
+  ORACLEPLUS skip libero_90/44: confirmed winner already 100%
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 77: 'pick up the book and place it in the back compartment of the caddy' (50 inits)
+  ORACLEPLUS r3: best 5/5  'Place the book in the rear slot of the brown organizer'
+  ORACLEPLUS r4: best 5/5  'Place the book in the rear slot of the brown organizer'
+  ORACLEPLUS converged (no gain over 2 rounds)
+  ORACLEPLUS confirm 8/10  'Place the book in the rear slot of the brown organizer'
+  ORACLEPLUS confirm 7/10  'Put the upright black book into the rear slot of the brown d'
+  ORACLEPLUS confirm 9/10  'Put the standing black notebook into the rear compartment of'
+  ORACLEPLUS confirm 3/10  'Move the black notebook from the table into the rear slot of'
+  ORACLEPLUS done libero_90/77  [1261s]
+SHARD-COMPLETE lb2
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 2175 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 79: 'pick up the book and place it in the left compartment of the caddy' (50 inits)
+  ORACLEPLUS r3: best 4/5  'Execute a grasp operation on the book, subsequently transpor'
+  ORACLEPLUS r4: best 4/5  'Execute a grasp operation on the book, subsequently transpor'
+  ORACLEPLUS converged (no gain over 2 rounds)
+  ORACLEPLUS confirm 5/10  'Execute a grasp operation on the book, subsequently transpor'
+  ORACLEPLUS confirm 2/10  'Grasp the upright black book and place it in the brown caddy'
+  ORACLEPLUS confirm 3/10  "Grab that paperback and drop it in the caddy's left bin"
+  ORACLEPLUS confirm 5/10  'If it is not too much trouble, I would be most grateful if y'
+  ORACLEPLUS done libero_90/79  [1441s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 2: 'put the black bowl in the top drawer of the cabinet' (50 inits)
+  ORACLEPLUS r3: best 5/5  'put the bowl in the top drawer of the cabinet'
+  ORACLEPLUS r3: top-4 saturated
+  ORACLEPLUS confirm 5/10  'put the bowl in the top drawer of the cabinet'
+  ORACLEPLUS confirm 7/10  'put the black bowl into the top drawer of the cabinet'
+  ORACLEPLUS confirm 3/10  'put the marbled bowl in the top drawer of the cabinet'
+  ORACLEPLUS confirm 6/10  'put the bowl with the gold rim in the top drawer of the cabi'
+  ORACLEPLUS done libero_90/2  [876s]
+SHARD-COMPLETE lb2x
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 2370 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== CROSS libero_goal task 7 (trained scene of 'turn on the stove'): 21 phrases from libero_90/44 board
+  cross 5/5  'turn on the stove'
+  cross 5/5  'Please switch the stove on.'
+  cross 4/5  'Could you start the burners?'
+  cross 2/5  'Power up the cooking range.'
+  cross 5/5  'I need you to ignite the stovetop.'
+  cross 5/5  'Go ahead and get the stove going.'
+  cross 2/5  'The large appliance used for boiling and frying needs its po'
+  cross 0/5  'I would be most grateful if you could commence the ignition '
+  cross 0/5  'Provided that you are ready to begin food preparation, proce'
+  cross 1/5  'Cause the machinery upon which we place our cookware to tran'
+  cross 1/5  'It is required that the thermal output device located in the'
+  cross 5/5  'Twist the black stove knob to turn it on'
+  cross 5/5  'Rotate the black dial to turn on the stove'
+  cross 2/5  'Turn the black knob to activate the burner'
+  cross 5/5  'Switch on the stove burner on the table'
+  cross 5/5  'Turn on the stove by twisting the black dial'
+  cross 2/5  'Turn the burner dial to the on position'
+  cross 1/5  'Rotate the black switch next to the burner'
+  cross 5/5  'Activate the stove by turning the black knob'
+  cross 5/5  'Twist the knob to turn on the burner'
+  cross 5/5  'Turn on the stove burner on the left'
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== CROSS libero_10 task 5 (trained scene of 'pick up the book and place it in the back compartment of the caddy'): 56 phrases from libero_90/77 board
+  cross 5/5  'pick up the book and place it in the back compartment of the'
+  cross 5/5  'Grab the book and drop it into the rear compartment of the c'
+  cross 5/5  "Move that paperback to the caddy's back slot."
+  cross 5/5  'Can you put the book in the back part of the caddy for me?'
+  cross 5/5  'Take the reading material and stow it in the back section of'
+  cross 5/5  'Transfer the book into the furthest compartment of the caddy'
+  cross 5/5  'The object primarily utilized for reading purposes must be h'
+  cross 5/5  'I would greatly appreciate it if you could secure the bound '
+  cross 5/5  'Assuming you are ready to proceed, kindly grasp the literary'
+  cross 5/5  'Regarding the item composed of printed pages, please elevate'
+  cross 5/5  'It is required that the book, which currently rests before y'
+  cross 5/5  'Put the black book in the back compartment of the brown cadd'
+  cross 5/5  'Place the book in the rear slot of the brown organizer'
+  cross 5/5  'Pick up the black book and put it in the back of the caddy'
+  cross 5/5  'Move the black notebook to the back compartment of the organ'
+  cross 5/5  'Put the black book into the back compartment of the desk org'
+  cross 5/5  'Place the black book in the back slot of the brown caddy'
+  cross 5/5  'Insert the black book into the back compartment of the brown'
+  cross 5/5  'Pick up the book and slide it into the back of the brown cad'
+  cross 5/5  'Put the black notebook into the rear slot of the brown organ'
+  cross 5/5  'Place the black book in the back section of the brown caddy'
+  cross 5/5  'Place the black book in the rear slot of the brown organizer'
+  cross 4/5  'Move the book to the rear slot of the brown organizer'
+  cross 5/5  'Put the book in the rear slot of the brown organizer'
+  cross 5/5  'Place the black notebook in the rear slot of the brown organ'
+  cross 5/5  'Move the black notebook into the rear slot of the brown orga'
+  cross 5/5  'Place the book into the rear compartment of the brown organi'
+  cross 5/5  'Move the black book to the rear slot of the brown organizer'
+  cross 5/5  'Place the book in the back compartment of the brown organize'
+  cross 5/5  'Move the book into the back slot of the brown organizer'
+  cross 5/5  'Place the black book in the back slot of the brown organizer'
+  cross 5/5  'Put the black book into the rear slot of the brown organizer'
+  cross 5/5  'Place the black notebook in the back compartment of the brow'
+  cross 5/5  'Place the standing black book in the rear slot of the brown '
+  cross 5/5  'Put the small black notebook into the back compartment of th'
+  cross 5/5  'Move the standing black book to the back slot of the brown c'
+  cross 5/5  'Place the black notebook on the table into the brown organiz'
+  cross 5/5  'Put the upright black book into the rear slot of the brown d'
+  cross 5/5  'Move the small black book to the back compartment of the bro'
+  cross 5/5  'Place the standing black notebook in the rearmost slot of th'
+  cross 5/5  'Put the black notebook into the rear slot of the brown desk '
+  cross 5/5  'Place the upright black notebook into the back compartment o'
+  cross 5/5  'Move the standing black book to the rear section of the brow'
+  cross 5/5  'Put the standing black notebook into the rear compartment of'
+  cross 5/5  'Put the upright black book from the desk into the brown orga'
+  cross 5/5  'Place the standing black book from the table into the organi'
+  cross 5/5  'Move the black notebook from the table into the rear slot of'
+  cross 5/5  'Place the standing book from the table into the brown organi'
+  cross 5/5  'Put the black book from the table into the rear compartment '
+  cross 5/5  'Move the upright black notebook from the desk into the organ'
+  cross 5/5  'Insert the upright black book from the table into the brown '
+  cross 5/5  "Place the black notebook from the desk in the organizer's re"
+  cross 5/5  'Put the standing black notebook from the table in the organi'
+  cross 5/5  'Insert the standing black book from the desk into the organi'
+  cross 5/5  "Move the black book from the table to the brown organizer's "
+  cross 4/5  'Place the upright black notebook from the table in the brown'
+SHARD-COMPLETE lb2
+Traceback (most recent call last):
+  File "/workspace/interactive-vlas/pi05_libero/eval/fourtier_eval.py", line 45, in <module>
+    from libero.libero import benchmark, get_libero_path
+ModuleNotFoundError: No module named 'libero'
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 2755 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 79: 'pick up the book and place it in the left compartment of the caddy' (50 inits)
+  deepen orig +20 inits -> 10 succ
+  deepen confirm2 7/20  'Execute a grasp operation on the book, subsequently transpor'
+  deepen confirm2 5/20  "Grab that paperback and drop it in the caddy's left bin"
+  deepen confirm2 7/20  'Grasp the upright black book and place it in the brown caddy'
+  deepen confirm2 10/20  'If it is not too much trouble, I would be most grateful if y'
+  deepen confirm2 6/20  'Into the left slot of the caddy, please place the book'
+  deepen confirm2 5/20  'Move the hardcover over to the left section of the caddy'
+  deepen confirm2 4/20  'Put the book into the left side of the caddy'
+  deepen confirm2 8/20  'pick up the book and place it in the left compartment of the'
+  DEEPEN done libero_90/79  [2797s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 2: 'put the black bowl in the top drawer of the cabinet' (50 inits)
+  deepen orig +20 inits -> 13 succ
+  deepen confirm2 10/20  'Place the black bowl inside the highest cabinet drawer.'
+  deepen confirm2 14/20  "Tuck the black bowl away in the cabinet's top drawer."
+  deepen confirm2 12/20  'put the black bowl in the top drawer of the cabinet'
+  deepen confirm2 13/20  'put the black bowl into the top drawer of the cabinet'
+  deepen confirm2 10/20  'put the bowl in the top drawer of the cabinet'
+  deepen confirm2 12/20  'put the bowl with the gold rim in the top drawer of the cabi'
+  deepen confirm2 11/20  'put the marbled bowl in the top drawer of the cabinet'
+  DEEPEN done libero_90/2  [2360s]
+SHARD-COMPLETE lb2x
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 3175 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 19: 'put the moka pot on the stove' (50 inits)
+  deepen orig +20 inits -> 19 succ
+  DEEPEN done libero_90/19  [703s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 57: 'pick up the cream cheese and put it in the tray' (50 inits)
+  deepen orig +20 inits -> 20 succ
+  DEEPEN done libero_90/57  [455s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 59: 'pick up the tomato sauce and put it in the tray' (50 inits)
+  deepen orig +20 inits -> 8 succ
+  DEEPEN done libero_90/59  [1011s]
+SHARD-COMPLETE lb3x

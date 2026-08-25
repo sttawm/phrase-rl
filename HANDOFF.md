@@ -224,7 +224,11 @@ repo `sttawm/interactive-vlas` (local clone `~/dev/interactive-pi`),
 `/workspace/fourtier_<shard>.jsonl` (+`.boards.json` sidecar) are pulled back
 over ssh and committed locally — pods hold NO git push token. SSH endpoints in
 the session scratchpad `lb_ssh.json` (re-derive per-pod ip/port from the API).
-Terminate when the four-tier analysis has landed in results/analysis/.
+TERMINATED 2026-08-25 23:55 after verified salvage — all four shard
+jsonls (row counts matched), boards sidecars, and runlogs are in
+results/analysis/fourtier_live/; analysis in FOURTIER-LIBERO.md +
+results/analysis/fourtier_summary.json. 10,700 episodes, 30 tasks. Fleet
+EMPTY (verified via API).
 
 **The old eight phrase-rl pods are DELETED** — ids in git history are dead. Everything
 canonical was salvaged first: all checkpoints/telemetry (v7 through v13

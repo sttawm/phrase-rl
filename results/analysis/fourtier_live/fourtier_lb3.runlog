@@ -1,0 +1,355 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 6: 'put the cream cheese in the bowl' (50 inits)
+  orig 10/10
+  nat1 4/5  'Place the cream cheese into the bowl.'
+  nat2 5/5  'Grab the soft white cheese and drop it in the bowl.'
+  nat3 3/5  'Into the bowl goes the cream cheese.'
+  nat4 5/5  'Please transfer the cream cheese over to the bowl.'
+  nat5 5/5  'Set the cream cheese down inside the bowl.'
+  adv1 5/5  'The cream cheese, which is currently sitting outside its pro'
+  adv2 1/5  'Take the soft dairy spread typically used for bagels and ens'
+  adv3 4/5  'I require you to relocate the aforementioned cream cheese su'
+  adv4 5/5  'If it would not be an inconvenience, would you kindly see to'
+  adv5 0/5  'Provided the bowl is ready to receive ingredients, proceed t'
+  board r1: best 3/3  'put the cream cheese in the bowl'
+  ORACLE libero_goal/6: winner 10/10 'put the cream cheese in the bowl' (canon 10/10)  [758s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 7: 'turn on the stove' (50 inits)
+  orig 10/10
+  nat1 5/5  'Please switch the stove on.'
+  nat2 2/5  'Could you start the burners?'
+  nat3 2/5  'Power up the cooking range.'
+  nat4 5/5  'I need you to ignite the stovetop.'
+  nat5 5/5  'Go ahead and get the stove going.'
+  adv1 3/5  'The large appliance used for boiling and frying needs its po'
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 173 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 6: 'put the cream cheese in the bowl' (50 inits)
+  orig 10/10
+  nat1 4/5  'Place the cream cheese into the bowl.'
+  nat2 5/5  'Grab the soft white cheese and drop it in the bowl.'
+  nat3 3/5  'Into the bowl goes the cream cheese.'
+  nat4 5/5  'Please transfer the cream cheese over to the bowl.'
+  nat5 5/5  'Set the cream cheese down inside the bowl.'
+  adv1 5/5  'The cream cheese, which is currently sitting outside its pro'
+  adv2 1/5  'Take the soft dairy spread typically used for bagels and ens'
+  adv3 4/5  'I require you to relocate the aforementioned cream cheese su'
+  adv4 5/5  'If it would not be an inconvenience, would you kindly see to'
+  adv5 0/5  'Provided the bowl is ready to receive ingredients, proceed t'
+  ORACLE libero_goal/6: winner 10/10 'put the cream cheese in the bowl' (canon 10/10)  [135s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 7: 'turn on the stove' (50 inits)
+  orig 10/10
+  nat1 5/5  'Please switch the stove on.'
+  nat2 2/5  'Could you start the burners?'
+  nat3 2/5  'Power up the cooking range.'
+  nat4 5/5  'I need you to ignite the stovetop.'
+  nat5 5/5  'Go ahead and get the stove going.'
+  adv1 3/5  'The large appliance used for boiling and frying needs its po'
+  adv2 0/5  'I would be most grateful if you could commence the ignition '
+  adv3 1/5  'Provided that you are ready to begin food preparation, proce'
+  adv4 2/5  'Cause the machinery upon which we place our cookware to tran'
+  adv5 1/5  'It is required that the thermal output device located in the'
+  board r1: best 5/3  'turn on the stove'
+  ORACLE libero_goal/7: winner 10/10 'turn on the stove' (canon 10/10)  [622s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 14: 'put the middle black bowl on the plate' (50 inits)
+  orig 3/10
+  nat1 1/5  'Place that black bowl in the middle onto the plate.'
+  nat2 1/5  'Can you move the center black bowl over to the plate?'
+  nat3 1/5  'Set the black bowl from the middle directly onto the plate.'
+  nat4 2/5  'Grab the middle black bowl and put it on the plate.'
+  nat5 1/5  'Onto the plate, please transfer the black bowl located in th'
+  adv1 0/5  'Of the black bowls, take the central one and deposit it atop'
+  adv2 1/5  'The plate is where the black bowl currently occupying the me'
+  adv3 0/5  'I would be most grateful if you were to transport the black '
+  adv4 0/5  'Provided the workspace is clear, ensure the black bowl locat'
+  adv5 0/5  'Execute a grasp on the middle black basin and release it onl'
+  board r1: best 2/3  'Grab the middle black bowl and put it on the plate.'
+  board r2: best 2/3  'Grab the middle black bowl and put it on the plate.'
+  ORACLE libero_90/14: winner 3/10 'put the middle black bowl on the plate' (canon 3/10)  [3172s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 54: 'pick up the tomato sauce and put it in the basket' (50 inits)
+  orig 7/10
+  nat1 5/5  'Grab the tomato sauce and place it into the basket.'
+  nat2 3/5  'Could you move the red sauce over to the basket?'
+  nat3 5/5  'Toss the tomato sauce in the basket for me.'
+  nat4 5/5  'Please take the bottle of tomato sauce and set it inside the'
+  nat5 4/5  'The basket needs the tomato sauce, so go ahead and drop it i'
+  adv1 4/5  'Proceed to elevate the red pasta condiment and deposit it wi'
+  adv2 5/5  'Assuming your manipulators are active, acquire the tomato-ba'
+  adv3 5/5  'I would be exceedingly grateful if you could see your way to'
+  adv4 5/5  'Let the tomato sauce be grasped from its current resting pla'
+  adv5 5/5  'Take hold of the pureed red fruit and release it inside the '
+  board r1: best 5/3  'Grab the tomato sauce and place it into the basket.'
+  ORACLE libero_90/54: winner 9/10 'Grab the tomato sauce and place it into the basket.' (canon 8/10)  [2048s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 70: 'put the chocolate pudding to the right of the plate' (50 inits)
+  orig 7/10
+  nat1 2/5  'Move the chocolate pudding over to the right side of the pla'
+  nat2 4/5  'Set the brown pudding down just to the right of that plate.'
+  nat3 3/5  'Can you slide the chocolate dessert next to the right edge o'
+  nat4 3/5  'Place the pudding on the right of the plate.'
+  nat5 4/5  'On the right-hand side of the plate, please put the chocolat'
+  adv1 5/5  'Would you be so kind as to relocate the cocoa-flavored desse'
+  adv2 4/5  'Assuming the plate is your primary point of reference, posit'
+  adv3 4/5  'The chocolate pudding, which is currently occupying its orig'
+  adv4 5/5  'Execute a spatial translation of the brown dairy treat, depo'
+  adv5 3/5  'It is strictly required that the chocolate pudding be situat'
+  board r1: best 4/3  'Set the brown pudding down just to the right of that plate.'
+  board r2: best 5/3  'Set the brown pudding down to the right of that plate.'
+  board r3: best 5/3  'Set the brown pudding down to the right of that plate.'
+  ORACLE libero_90/70: winner 8/10 'Set the brown pudding down to the right of that plate.' (canon 7/10)  [3156s]
+SHARD-COMPLETE lb3
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 965 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 6: 'put the cream cheese in the bowl' (50 inits)
+  deepen orig +20 inits -> 20 succ
+  deepen confirm2 19/20  'Grab the soft white cheese and drop it in the bowl.'
+  deepen confirm2 20/20  'Place the cream cheese into the bowl.'
+  deepen confirm2 19/20  'Please transfer the cream cheese over to the bowl.'
+  deepen confirm2 19/20  'Set the cream cheese down inside the bowl.'
+  deepen confirm2 19/20  'put the cream cheese in the bowl'
+  DEEPEN done libero_goal/6  [835s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 7: 'turn on the stove' (50 inits)
+  deepen orig +20 inits -> 20 succ
+  deepen confirm2 20/20  'Go ahead and get the stove going.'
+  deepen confirm2 20/20  'I need you to ignite the stovetop.'
+  deepen confirm2 20/20  'Please switch the stove on.'
+  deepen confirm2 20/20  'turn on the stove'
+  DEEPEN done libero_goal/7  [800s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 14: 'put the middle black bowl on the plate' (50 inits)
+  deepen orig +20 inits -> 5 succ
+  deepen confirm2 8/20  'Grab the middle black bowl and put it on the plate.'
+  deepen confirm2 10/20  'place the central black bowl on the plate'
+  deepen confirm2 11/20  'place the middle black bowl on the plate'
+  deepen confirm2 13/20  'put the middle black bowl on the plate'
+  deepen confirm2 9/20  'put the middle black bowl onto the red plate'
+  DEEPEN done libero_90/14  [2091s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 54: 'pick up the tomato sauce and put it in the basket' (50 inits)
+  deepen orig +20 inits -> 16 succ
+  deepen confirm2 18/20  'Grab the tomato sauce and place it into the basket.'
+  deepen confirm2 19/20  'Please take the bottle of tomato sauce and set it inside the'
+  deepen confirm2 20/20  'Toss the tomato sauce in the basket for me.'
+  deepen confirm2 19/20  'pick up the tomato sauce and put it in the basket'
+  deepen confirm2 18/20  'pick up the tomato sauce can and place it in the basket'
+  DEEPEN done libero_90/54  [1945s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 70: 'put the chocolate pudding to the right of the plate' (50 inits)
+  deepen orig +20 inits -> 14 succ
+  deepen confirm2 20/20  'On the right side of that plate, please put the brown puddin'
+  deepen confirm2 18/20  'On the right side of the plate, please set the brown pudding'
+  deepen confirm2 14/20  'Set the brown pudding down to the right of that plate.'
+  deepen confirm2 16/20  'Set the brown pudding down to the right of that striped plat'
+  deepen confirm2 17/20  'put the chocolate pudding to the right of the plate'
+  DEEPEN done libero_90/70  [1571s]
+SHARD-COMPLETE lb3
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 1745 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 19: 'put the moka pot on the stove' (50 inits)
+  orig 10/10
+  nat1 5/5  'Move the moka pot onto the stovetop.'
+  nat2 5/5  'Can you place that silver coffee pot on the burner?'
+  nat3 5/5  'Put that moka pot right on the stove for me.'
+  nat4 5/5  'Take the aluminum espresso pot and leave it on the stove.'
+  nat5 5/5  'Grab the moka pot and bring it over to the stove.'
+  adv1 5/5  'Kindly transport the octagonal metallic apparatus used for b'
+  adv2 4/5  'The moka pot, which is currently sitting out, needs to be re'
+  adv3 5/5  'Assuming the cooking area is clear, I would greatly apprecia'
+  adv4 5/5  'It is required that the Italian espresso vessel be deposited'
+  adv5 5/5  'To the stove is exactly where the device we use to make our '
+  board r1: best 5/5  'put the moka pot on the stove'
+  ORACLE libero_90/19: winner 10/10 'put the moka pot on the stove' (canon 10/10)  [1453s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 57: 'pick up the cream cheese and put it in the tray' (50 inits)
+  orig 10/10
+  nat1 5/5  'Can you place the cream cheese onto the tray?'
+  nat2 5/5  'Grab the block of white cheese and drop it in the tray.'
+  nat3 5/5  'Move that cream cheese over to the tray.'
+  nat4 5/5  'Please put the cream cheese in the tray for me.'
+  nat5 5/5  'Take the cream cheese and set it down inside the tray.'
+  adv1 5/5  'The dairy spread requires relocation; kindly deposit it into'
+  adv2 5/5  'Assuming your grippers are currently empty, grasp the soft b'
+  adv3 5/5  'You are hereby instructed to execute a transfer of the cream'
+  adv4 5/5  "If it wouldn't be too much trouble, I would greatly apprecia"
+  adv5 5/5  'The cream cheese, which is currently sitting out, must be pi'
+  board r1: best 5/5  'pick up the cream cheese and put it in the tray'
+  ORACLE libero_90/57: winner 10/10 'pick up the cream cheese and put it in the tray' (canon 10/10)  [991s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 59: 'pick up the tomato sauce and put it in the tray' (50 inits)
+  orig 1/10
+  nat1 1/5  'Grab the tomato sauce and set it inside the tray.'
+  nat2 1/5  'Could you move the red bottle of sauce into the tray for me?'
+  nat3 1/5  'Place the tomato sauce into the tray.'
+  nat4 1/5  'Put that tomato sauce right over there in the tray.'
+  nat5 1/5  'Transfer the tomato sauce to the tray.'
+  adv1 2/5  'Assuming you are ready to proceed, I would be most grateful '
+  adv2 0/5  'The tomato sauce, currently resting in your workspace, is to'
+  adv3 2/5  'Execute a grasping maneuver on the tomato-based liquid conta'
+  adv4 1/5  'Provided the path is clear, ensure that the red sauce used f'
+  adv5 1/5  'Be so kind as to take hold of the tomato sauce and bestow it'
+  board r1: best 3/5  'pick up the tomato sauce can and put it in the wooden tray'
+  board r2: best 3/5  'pick up the tomato sauce can and put it in the wooden tray'
+  ORACLE libero_90/59: winner 4/10 'pick up the tomato sauce and put it in the tray' (canon 4/10)  [2766s]
+SHARD-COMPLETE lb3x
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 2235 episodes already logged
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 6: 'put the cream cheese in the bowl' (50 inits)
+  ORACLEPLUS skip libero_goal/6: confirmed winner already 100%
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_goal task 7: 'turn on the stove' (50 inits)
+  ORACLEPLUS skip libero_goal/7: confirmed winner already 100%
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 14: 'put the middle black bowl on the plate' (50 inits)
+  ORACLEPLUS r3: best 2/5  'Grab the middle black bowl and put it on the plate.'
+  ORACLEPLUS r4: best 2/5  'Grab the middle black bowl and put it on the plate.'
+  ORACLEPLUS converged (no gain over 2 rounds)
+  ORACLEPLUS confirm 3/10  'Grab the middle black bowl and put it on the plate.'
+  ORACLEPLUS confirm 3/10  'place the middle black bowl on the plate'
+  ORACLEPLUS confirm 3/10  'put the middle black bowl onto the red plate'
+  ORACLEPLUS confirm 3/10  'place the central black bowl on the plate'
+  ORACLEPLUS done libero_90/14  [1852s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 54: 'pick up the tomato sauce and put it in the basket' (50 inits)
+  ORACLEPLUS skip libero_90/54: confirmed winner already 90%
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 70: 'put the chocolate pudding to the right of the plate' (50 inits)
+  ORACLEPLUS r3: top-4 saturated
+  ORACLEPLUS confirm 9/10  'Would you be so kind as to relocate the cocoa-flavored desse'
+  ORACLEPLUS confirm 7/10  'Execute a spatial translation of the brown dairy treat, depo'
+  ORACLEPLUS confirm 8/10  'Set the brown pudding down to the right of that plate.'
+  ORACLEPLUS confirm 8/10  'On the right side of the plate, please set the brown pudding'
+  ORACLEPLUS done libero_90/70  [206s]
+SHARD-COMPLETE lb3
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 2375 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 19: 'put the moka pot on the stove' (50 inits)
+  ORACLEPLUS skip libero_90/19: confirmed winner already 100%
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 57: 'pick up the cream cheese and put it in the tray' (50 inits)
+  ORACLEPLUS skip libero_90/57: confirmed winner already 100%
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 59: 'pick up the tomato sauce and put it in the tray' (50 inits)
+  ORACLEPLUS r3: best 4/5  'grasp the green and orange can and put it in the wooden tray'
+  ORACLEPLUS r4: best 4/5  'grasp the green and orange can and put it in the wooden tray'
+  ORACLEPLUS r5: best 4/5  'grasp the green and orange can and put it in the wooden tray'
+  ORACLEPLUS converged (no gain over 2 rounds)
+  ORACLEPLUS confirm 4/10  'grasp the green and orange can and put it in the wooden tray'
+  ORACLEPLUS confirm 4/10  'pick up the tomato sauce can and put it in the wooden tray'
+  ORACLEPLUS confirm 1/10  'pick up the orange and green can and put it in the tray'
+  ORACLEPLUS confirm 3/10  'pick up the green and orange can and put it in the tray'
+  ORACLEPLUS done libero_90/59  [1739s]
+SHARD-COMPLETE lb3x
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 2500 episodes already logged
+SHARD-COMPLETE lb3
+Traceback (most recent call last):
+  File "/workspace/interactive-vlas/pi05_libero/eval/fourtier_eval.py", line 45, in <module>
+    from libero.libero import benchmark, get_libero_path
+ModuleNotFoundError: No module named 'libero'
+Traceback (most recent call last):
+  File "/workspace/interactive-vlas/pi05_libero/eval/fourtier_eval.py", line 45, in <module>
+    from libero.libero import benchmark, get_libero_path
+ModuleNotFoundError: No module named 'libero'
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 2500 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 31: 'put the black bowl on top of the cabinet' (50 inits)
+  ORACLEPLUS r2: best 2/5  'Place the black bowl up onto the cabinet.'
+  ORACLEPLUS r3: best 2/5  'Place the black bowl up onto the cabinet.'
+  ORACLEPLUS converged (no gain over 2 rounds)
+  ORACLEPLUS confirm 1/10  'Place the black bowl up onto the cabinet.'
+  ORACLEPLUS confirm 2/10  'The dark concave receptacle from which one might eat cereal '
+  ORACLEPLUS confirm 0/10  'Move this black bowl to the very top of the cabinet.'
+  ORACLEPLUS confirm 1/10  'I would be exceedingly grateful if you could see fit to tran'
+  ORACLEPLUS done libero_90/31  [3402s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 35: 'open the microwave' (50 inits)
+  ORACLEPLUS r2: best 1/5  'Can you pull open the door on the stainless steel microwave?'
+  ORACLEPLUS r3: best 1/5  'Can you pull open the door on the stainless steel microwave?'
+  ORACLEPLUS converged (no gain over 2 rounds)
+  ORACLEPLUS confirm 1/10  'Can you pull open the door on the stainless steel microwave?'
+  ORACLEPLUS confirm 0/10  'By applying outward force to the handle, transition the appl'
+  ORACLEPLUS confirm 0/10  'Pull the grey handle to open the black microwave.'
+  ORACLEPLUS confirm 1/10  'Open the black microwave by pulling its grey handle.'
+  ORACLEPLUS done libero_90/35  [3226s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 28: 'close the top drawer of the cabinet' (50 inits)
+  ORACLEPLUS r2: best 4/5  'close the top drawer of the cabinet'
+  ORACLEPLUS r3: best 4/5  'close the top drawer of the cabinet'
+  ORACLEPLUS converged (no gain over 2 rounds)
+  ORACLEPLUS confirm 6/10  'close the top drawer of the cabinet'
+  ORACLEPLUS confirm 6/10  'If it would not be too much trouble, I would greatly appreci'
+  ORACLEPLUS confirm 4/10  'Provided you have clearance, execute a pushing maneuver on t'
+  ORACLEPLUS confirm 2/10  'Push in the open top drawer of the white cabinet on the left'
+  ORACLEPLUS done libero_90/28  [2891s]
+SHARD-COMPLETE lb1
