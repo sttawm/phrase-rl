@@ -65,5 +65,39 @@
   ],
   "rounds_done": 2,
   "converged": true
+ },
+ "libero_90/12": {
+  "members": [
+   "put the black bowl at the back on the plate",
+   "Move the black bowl in the back onto the plate.",
+   "Can you place the rear dark bowl on the plate?",
+   "Grab the black bowl from the back and set it on top of the plate.",
+   "Transfer the furthest black bowl to the plate.",
+   "Set the black bowl that is in the back on the plate.",
+   "place the back black bowl onto the plate",
+   "put the topmost black bowl on the striped plate",
+   "stack the furthest black bowl on the red and white plate",
+   "move the black bowl at the back onto the plate",
+   "place the upper black bowl on the plate",
+   "put the back grey bowl on the striped plate",
+   "place the furthest grey bowl on the plate",
+   "put the top black bowl on the plate",
+   "move the back bowl with the yellow rim onto the plate",
+   "stack the top-most grey bowl onto the plate",
+   "place the furthest black bowl on the striped plate",
+   "put the rear black bowl on the red and white plate",
+   "set the furthest grey bowl on the striped plate",
+   "stack the rear grey bowl on the red and white plate",
+   "place the back black bowl on the red and white plate",
+   "put the furthest dark bowl on the striped plate",
+   "set the back dark bowl on the red and white plate",
+   "place the rear grey bowl on the red and white plate",
+   "stack the back black bowl on the striped plate",
+   "put the rear dark bowl on the striped plate",
+   "set the furthest black bowl on the red and white plate",
+   "place the back grey bowl on the red and white plate"
+  ],
+  "rounds_done": 2,
+  "converged": false
  }
 }

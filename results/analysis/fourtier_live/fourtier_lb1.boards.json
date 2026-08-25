@@ -94,9 +94,19 @@
    "Pick up the black bowl and put it on the white cabinet.",
    "Put the black dish up onto the white cabinet.",
    "Place the black bowl up on the white cabinet.",
-   "Move the black bowl onto the top of the white cabinet."
+   "Move the black bowl onto the top of the white cabinet.",
+   "Pick up the black bowl and set it on top of the white cabinet.",
+   "Pick up the black bowl and place it onto the white cabinet.",
+   "Lift the black bowl and put it on top of the white cabinet.",
+   "Put the black bowl on top of the white cabinet.",
+   "Place the black bowl onto the top of the white cabinet.",
+   "Pick up the black bowl and put it on top of the white cabinet.",
+   "Pick up the black bowl and set it onto the white cabinet.",
+   "Move the black bowl to the top of the white cabinet.",
+   "Lift the black bowl and place it on the white cabinet.",
+   "Grab the black bowl and put it on top of the white cabinet."
   ],
-  "rounds_done": 2,
+  "rounds_done": 3,
   "converged": false
  }
 }

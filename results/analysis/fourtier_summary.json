@@ -1,17 +1,27 @@
 {
- "episodes": 2686,
+ "episodes": 3317,
  "tasks": {
   "libero_90/12": {
    "canonical": "put the black bowl at the back on the plate",
    "stratum": "l90_clean",
    "orig": {
-    "rate": 0.2857,
-    "lo": 0.0822,
-    "hi": 0.6411,
-    "n": 7
+    "rate": 0.4,
+    "lo": 0.1682,
+    "hi": 0.6873,
+    "n": 10
    },
-   "natural": null,
-   "adversarial": null
+   "natural": {
+    "rate": 0.64,
+    "lo": 0.4452,
+    "hi": 0.7975,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.64,
+    "lo": 0.4452,
+    "hi": 0.7975,
+    "n": 25
+   }
   },
   "libero_90/14": {
    "canonical": "put the middle black bowl on the plate",
@@ -220,9 +230,9 @@
    "stratum": "l90_clean",
    "orig": {
     "rate": 0.7,
-    "lo": 0.3968,
-    "hi": 0.8922,
-    "n": 10
+    "lo": 0.481,
+    "hi": 0.8545,
+    "n": 20
    },
    "natural": {
     "rate": 0.64,
@@ -235,6 +245,29 @@
     "lo": 0.6535,
     "hi": 0.936,
     "n": 25
+   },
+   "oracle": {
+    "winner": "On the right side of that plate, please put the brown pudding.",
+    "winner_is_canonical": false,
+    "confirm": {
+     "rate": 0.8,
+     "lo": 0.4902,
+     "hi": 0.9433,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.7,
+     "lo": 0.3968,
+     "hi": 0.8922,
+     "n": 10
+    }
    }
   },
   "libero_90/77": {
@@ -421,22 +454,22 @@
    "canonical": "open the top drawer and put the bowl inside",
    "stratum": "goal_in_finetune",
    "orig": {
-    "rate": 0.8636,
-    "lo": 0.6666,
-    "hi": 0.9525,
-    "n": 22
+    "rate": 0.9,
+    "lo": 0.7438,
+    "hi": 0.9654,
+    "n": 30
    },
    "natural": {
-    "rate": 0.76,
-    "lo": 0.5657,
-    "hi": 0.885,
-    "n": 25
+    "rate": 0.78,
+    "lo": 0.6476,
+    "hi": 0.8725,
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.48,
-    "lo": 0.3003,
-    "hi": 0.665,
-    "n": 25
+    "rate": 0.52,
+    "lo": 0.3851,
+    "hi": 0.652,
+    "n": 50
    },
    "oracle": {
     "winner": "open the top drawer and put the bowl inside",
@@ -453,7 +486,12 @@
      "hi": 0.9638,
      "n": 5
     },
-    "confirm2": null,
+    "confirm2": {
+     "rate": 0.85,
+     "lo": 0.6396,
+     "hi": 0.9476,
+     "n": 20
+    },
     "canon_confirm": {
      "rate": 0.9,
      "lo": 0.5958,
@@ -467,21 +505,21 @@
    "stratum": "goal_in_finetune",
    "orig": {
     "rate": 1.0,
-    "lo": 0.8389,
+    "lo": 0.8865,
     "hi": 1,
-    "n": 20
+    "n": 30
    },
    "natural": {
     "rate": 1.0,
-    "lo": 0.8668,
+    "lo": 0.9286,
     "hi": 1,
-    "n": 25
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.44,
-    "lo": 0.2667,
-    "hi": 0.6293,
-    "n": 25
+    "rate": 0.4,
+    "lo": 0.2761,
+    "hi": 0.5382,
+    "n": 50
    },
    "oracle": {
     "winner": "put the bowl on top of the cabinet",
@@ -557,9 +595,9 @@
    "stratum": "goal_in_finetune",
    "orig": {
     "rate": 1.0,
-    "lo": 0.8389,
-    "hi": 1,
-    "n": 20
+    "lo": 0.8454,
+    "hi": 1.0,
+    "n": 21
    },
    "natural": {
     "rate": 0.88,
@@ -737,22 +775,22 @@
   "goal_in_finetune": {
    "n_tasks": 10,
    "orig": {
-    "rate": 0.9604,
-    "lo": 0.9238,
-    "hi": 0.9798,
-    "n": 202
+    "rate": 0.9638,
+    "lo": 0.9302,
+    "hi": 0.9815,
+    "n": 221
    },
    "natural": {
-    "rate": 0.872,
-    "lo": 0.8249,
-    "hi": 0.9079,
-    "n": 250
+    "rate": 0.8767,
+    "lo": 0.8346,
+    "hi": 0.9092,
+    "n": 300
    },
    "adversarial": {
-    "rate": 0.488,
-    "lo": 0.4267,
-    "hi": 0.5497,
-    "n": 250
+    "rate": 0.4833,
+    "lo": 0.4274,
+    "hi": 0.5397,
+    "n": 300
    },
    "oracle_confirm": {
     "rate": 0.99,
@@ -765,30 +803,30 @@
   "l90_clean": {
    "n_tasks": 6,
    "orig": {
-    "rate": 0.4138,
-    "lo": 0.3161,
-    "hi": 0.5188,
-    "n": 87
+    "rate": 0.45,
+    "lo": 0.3561,
+    "hi": 0.5476,
+    "n": 100
    },
    "natural": {
-    "rate": 0.464,
-    "lo": 0.379,
-    "hi": 0.5512,
-    "n": 125
+    "rate": 0.4933,
+    "lo": 0.4145,
+    "hi": 0.5725,
+    "n": 150
    },
    "adversarial": {
-    "rate": 0.472,
-    "lo": 0.3866,
-    "hi": 0.559,
-    "n": 125
+    "rate": 0.5,
+    "lo": 0.421,
+    "hi": 0.579,
+    "n": 150
    },
    "oracle_confirm": {
-    "rate": 0.5667,
-    "lo": 0.392,
-    "hi": 0.7262,
-    "n": 30
+    "rate": 0.625,
+    "lo": 0.4703,
+    "hi": 0.7578,
+    "n": 40
    },
-   "oracle_n_tasks": 3
+   "oracle_n_tasks": 4
   },
   "l90_trained_string": {
    "n_tasks": 2,
@@ -820,10 +858,13 @@
   },
   "winners_curse": {
    "screen_minus_confirm": {
-    "mean_pp": 1.33,
-    "n_tasks": 15
+    "mean_pp": 2.5,
+    "n_tasks": 16
    },
-   "confirm_minus_confirm2": null
+   "confirm_minus_confirm2": {
+    "mean_pp": 5.0,
+    "n_tasks": 1
+   }
   }
  },
  "micro": {
@@ -859,7 +900,7 @@
    },
    {
     "task": "libero_goal/3",
-    "orig": 0.8636,
+    "orig": 0.9,
     "confirm": 0.9
    },
    {
@@ -893,7 +934,7 @@
    {
     "task": "libero_goal/4",
     "orig": 1.0,
-    "adversarial": 0.44,
+    "adversarial": 0.4,
     "stratum": "goal_in_finetune"
    },
    {

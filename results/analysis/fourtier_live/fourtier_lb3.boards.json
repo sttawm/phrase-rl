@@ -127,9 +127,21 @@
    "Put the chocolate pudding down just to the right of that plate.",
    "On the right side of the plate, please set the brown pudding.",
    "Please put the brown pudding just to the right of the plate.",
-   "Set the brown pudding on the right-hand side of the plate."
+   "Set the brown pudding on the right-hand side of the plate.",
+   "Please set the brown pudding down on the right of that plate.",
+   "On the right side of that plate, please place the brown pudding.",
+   "Move the brown pudding to the right side of that plate.",
+   "Set the brown pudding down to the right of that striped plate.",
+   "Set the chocolate pudding down to the right of that plate.",
+   "To the right side of the plate, please place the brown pudding.",
+   "On the right side of that plate, please put the brown pudding.",
+   "Set the brown pudding down on the right-hand side of that plate.",
+   "Please put the brown pudding down to the right of that plate.",
+   "On the right side of the plate, please set the chocolate pudding.",
+   "On the right side of that striped plate, please set the brown pudding.",
+   "Place the brown pudding down on the right side of that plate."
   ],
-  "rounds_done": 2,
-  "converged": false
+  "rounds_done": 3,
+  "converged": true
  }
 }
