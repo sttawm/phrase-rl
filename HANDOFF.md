@@ -213,8 +213,11 @@ layout reservation applies to rollout RL only.
 
 **NEW FLEET (2026-08-25, running the pi05_libero four-tier eval — see
 `results/experiments.json` id `pi05_libero_fourtier`):** four community pods
-`lb1 dvgajobn39jl9w` / `lb2 lslpteu0p5r7ql` / `lb3 p7499qcw2nx2z9` (RTX 4090)
-/ `lb4 xzaybguoege6m8` (RTX 3090), 60GB volumes. Stack = the SEPARATE public
+`lb1 dvgajobn39jl9w` / `lb2 lslpteu0p5r7ql` / `lb3 p7499qcw2nx2z9` /
+`lb5 r0mrc8r1pdo5ac` (all RTX 4090; lb5 runs SHARD `lb4` — the original lb4
+pod's GPU was wedged at the driver level, cuInit rc 999 with working
+nvidia-smi, terminated and replaced; preflight `cuInit` on any new pod),
+60GB volumes. Stack = the SEPARATE public
 repo `sttawm/interactive-vlas` (local clone `~/dev/interactive-pi`),
 `pi05_libero/setup.sh` → `eval/run_fourtier.sh <shard>`; tmux sessions
 `server` (OpenPI serve_policy :8000) + `fourtier`. Outputs
