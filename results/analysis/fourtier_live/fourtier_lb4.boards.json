@@ -128,9 +128,21 @@
    "slide the top cabinet drawer shut",
    "shut the open upper drawer",
    "push the top drawer all the way in",
-   "close the upper cabinet drawer"
+   "close the upper cabinet drawer",
+   "Push the topmost drawer closed.",
+   "Push the highest drawer of the cabinet shut.",
+   "Push the open top drawer on the left closed.",
+   "Push the highest drawer of the white cabinet shut.",
+   "Push the topmost open drawer shut.",
+   "Push the open upper drawer shut.",
+   "Push the highest drawer on the left closed.",
+   "Push the open topmost drawer closed.",
+   "Push the highest drawer until it is shut.",
+   "Push the upper cabinet drawer shut.",
+   "Push the top open drawer of the cabinet shut.",
+   "Push the topmost drawer back in."
   ],
-  "rounds_done": 0,
-  "converged": false
+  "rounds_done": 2,
+  "converged": true
  }
 }

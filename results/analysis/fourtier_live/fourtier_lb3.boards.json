@@ -143,5 +143,27 @@
   ],
   "rounds_done": 3,
   "converged": true
+ },
+ "libero_90/19": {
+  "members": [
+   "put the moka pot on the stove",
+   "Move the moka pot onto the stovetop.",
+   "Can you place that silver coffee pot on the burner?",
+   "Put that moka pot right on the stove for me.",
+   "Take the aluminum espresso pot and leave it on the stove.",
+   "Grab the moka pot and bring it over to the stove.",
+   "place the silver moka pot on the stove burner",
+   "put the coffee pot onto the electric burner",
+   "move the white moka pot to the hot plate",
+   "place the espresso maker on top of the burner",
+   "set the moka pot on the square stove",
+   "move the silver coffee maker onto the stove",
+   "place the moka pot on the heating element",
+   "put the espresso pot on the stove",
+   "place the silver espresso maker onto the burner",
+   "set the moka pot on the burner"
+  ],
+  "rounds_done": 0,
+  "converged": false
  }
 }
