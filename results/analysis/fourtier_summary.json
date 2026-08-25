@@ -1,0 +1,977 @@
+{
+ "episodes": 2686,
+ "tasks": {
+  "libero_90/12": {
+   "canonical": "put the black bowl at the back on the plate",
+   "stratum": "l90_clean",
+   "orig": {
+    "rate": 0.2857,
+    "lo": 0.0822,
+    "hi": 0.6411,
+    "n": 7
+   },
+   "natural": null,
+   "adversarial": null
+  },
+  "libero_90/14": {
+   "canonical": "put the middle black bowl on the plate",
+   "stratum": "l90_clean",
+   "orig": {
+    "rate": 0.3,
+    "lo": 0.1455,
+    "hi": 0.519,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.24,
+    "lo": 0.115,
+    "hi": 0.4343,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.04,
+    "lo": 0.0071,
+    "hi": 0.1954,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "put the middle black bowl on the plate",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 0.3,
+     "lo": 0.1078,
+     "hi": 0.6032,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 0.2,
+     "lo": 0.0362,
+     "hi": 0.6245,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.3,
+     "lo": 0.1078,
+     "hi": 0.6032,
+     "n": 10
+    }
+   }
+  },
+  "libero_90/31": {
+   "canonical": "put the black bowl on top of the cabinet",
+   "stratum": "l90_clean",
+   "orig": {
+    "rate": 0.0,
+    "lo": 0,
+    "hi": 0.2775,
+    "n": 10
+   },
+   "natural": {
+    "rate": 0.12,
+    "lo": 0.0417,
+    "hi": 0.2996,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.12,
+    "lo": 0.0417,
+    "hi": 0.2996,
+    "n": 25
+   }
+  },
+  "libero_90/44": {
+   "canonical": "turn on the stove",
+   "stratum": "l90_trained_string",
+   "orig": {
+    "rate": 0.0,
+    "lo": 0,
+    "hi": 0.1611,
+    "n": 20
+   },
+   "natural": {
+    "rate": 1.0,
+    "lo": 0.8668,
+    "hi": 1,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 1.0,
+    "lo": 0.8668,
+    "hi": 1,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "Could you start the burners?",
+    "winner_is_canonical": false,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.0,
+     "lo": 0,
+     "hi": 0.2775,
+     "n": 10
+    }
+   }
+  },
+  "libero_90/54": {
+   "canonical": "pick up the tomato sauce and put it in the basket",
+   "stratum": "l90_clean",
+   "orig": {
+    "rate": 0.75,
+    "lo": 0.5313,
+    "hi": 0.8881,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.88,
+    "lo": 0.7004,
+    "hi": 0.9583,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.96,
+    "lo": 0.8046,
+    "hi": 0.9929,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "Grab the tomato sauce and place it into the basket.",
+    "winner_is_canonical": false,
+    "confirm": {
+     "rate": 0.9,
+     "lo": 0.5958,
+     "hi": 0.9821,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.8,
+     "lo": 0.4902,
+     "hi": 0.9433,
+     "n": 10
+    }
+   }
+  },
+  "libero_90/64": {
+   "canonical": "stack the right bowl on the left bowl and place them in the tray",
+   "stratum": "l90_clean",
+   "orig": {
+    "rate": 0.3,
+    "lo": 0.1455,
+    "hi": 0.519,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.44,
+    "lo": 0.2667,
+    "hi": 0.6293,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.4,
+    "lo": 0.234,
+    "hi": 0.5926,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "Put the bowl on the right on top of the one on the left, and move the stack to the tray.",
+    "winner_is_canonical": false,
+    "confirm": {
+     "rate": 0.5,
+     "lo": 0.2366,
+     "hi": 0.7634,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 0.6,
+     "lo": 0.2307,
+     "hi": 0.8824,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.3,
+     "lo": 0.1078,
+     "hi": 0.6032,
+     "n": 10
+    }
+   }
+  },
+  "libero_90/70": {
+   "canonical": "put the chocolate pudding to the right of the plate",
+   "stratum": "l90_clean",
+   "orig": {
+    "rate": 0.7,
+    "lo": 0.3968,
+    "hi": 0.8922,
+    "n": 10
+   },
+   "natural": {
+    "rate": 0.64,
+    "lo": 0.4452,
+    "hi": 0.7975,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.84,
+    "lo": 0.6535,
+    "hi": 0.936,
+    "n": 25
+   }
+  },
+  "libero_90/77": {
+   "canonical": "pick up the book and place it in the back compartment of the caddy",
+   "stratum": "l90_trained_string",
+   "orig": {
+    "rate": 0.25,
+    "lo": 0.1119,
+    "hi": 0.4687,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.48,
+    "lo": 0.3003,
+    "hi": 0.665,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.56,
+    "lo": 0.3707,
+    "hi": 0.7333,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "Place the book in the rear slot of the brown organizer",
+    "winner_is_canonical": false,
+    "confirm": {
+     "rate": 0.8,
+     "lo": 0.4902,
+     "hi": 0.9433,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.1,
+     "lo": 0.0179,
+     "hi": 0.4042,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/0": {
+   "canonical": "open the middle drawer of the cabinet",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 0.85,
+    "lo": 0.6396,
+    "hi": 0.9476,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.96,
+    "lo": 0.8046,
+    "hi": 0.9929,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.24,
+    "lo": 0.115,
+    "hi": 0.4343,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "Get the middle drawer on the cabinet open.",
+    "winner_is_canonical": false,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.9,
+     "lo": 0.5958,
+     "hi": 0.9821,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/1": {
+   "canonical": "put the bowl on the stove",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 1.0,
+    "lo": 0.8389,
+    "hi": 1,
+    "n": 20
+   },
+   "natural": {
+    "rate": 1.0,
+    "lo": 0.8668,
+    "hi": 1,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.72,
+    "lo": 0.5242,
+    "hi": 0.8572,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "put the bowl on the stove",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/2": {
+   "canonical": "put the wine bottle on top of the cabinet",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 1.0,
+    "lo": 0.8389,
+    "hi": 1,
+    "n": 20
+   },
+   "natural": {
+    "rate": 1.0,
+    "lo": 0.8668,
+    "hi": 1,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.68,
+    "lo": 0.4841,
+    "hi": 0.828,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "put the wine bottle on top of the cabinet",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/3": {
+   "canonical": "open the top drawer and put the bowl inside",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 0.8636,
+    "lo": 0.6666,
+    "hi": 0.9525,
+    "n": 22
+   },
+   "natural": {
+    "rate": 0.76,
+    "lo": 0.5657,
+    "hi": 0.885,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.48,
+    "lo": 0.3003,
+    "hi": 0.665,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "open the top drawer and put the bowl inside",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 0.9,
+     "lo": 0.5958,
+     "hi": 0.9821,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 0.8,
+     "lo": 0.3755,
+     "hi": 0.9638,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.9,
+     "lo": 0.5958,
+     "hi": 0.9821,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/4": {
+   "canonical": "put the bowl on top of the cabinet",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 1.0,
+    "lo": 0.8389,
+    "hi": 1,
+    "n": 20
+   },
+   "natural": {
+    "rate": 1.0,
+    "lo": 0.8668,
+    "hi": 1,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.44,
+    "lo": 0.2667,
+    "hi": 0.6293,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "put the bowl on top of the cabinet",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/5": {
+   "canonical": "push the plate to the front of the stove",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 1.0,
+    "lo": 0.8389,
+    "hi": 1,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.4,
+    "lo": 0.234,
+    "hi": 0.5926,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.16,
+    "lo": 0.064,
+    "hi": 0.3465,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "push the plate to the front of the stove",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/6": {
+   "canonical": "put the cream cheese in the bowl",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 1.0,
+    "lo": 0.8389,
+    "hi": 1,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.88,
+    "lo": 0.7004,
+    "hi": 0.9583,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.6,
+    "lo": 0.4074,
+    "hi": 0.766,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "put the cream cheese in the bowl",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/7": {
+   "canonical": "turn on the stove",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 1.0,
+    "lo": 0.8389,
+    "hi": 1,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.76,
+    "lo": 0.5657,
+    "hi": 0.885,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.28,
+    "lo": 0.1428,
+    "hi": 0.4758,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "turn on the stove",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/8": {
+   "canonical": "put the bowl on the plate",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 0.95,
+    "lo": 0.7639,
+    "hi": 0.9911,
+    "n": 20
+   },
+   "natural": {
+    "rate": 1.0,
+    "lo": 0.8668,
+    "hi": 1,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.96,
+    "lo": 0.8046,
+    "hi": 0.9929,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "Can you move the bowl over to the plate?",
+    "winner_is_canonical": false,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.9,
+     "lo": 0.5958,
+     "hi": 0.9821,
+     "n": 10
+    }
+   }
+  },
+  "libero_goal/9": {
+   "canonical": "put the wine bottle on the rack",
+   "stratum": "goal_in_finetune",
+   "orig": {
+    "rate": 0.95,
+    "lo": 0.7639,
+    "hi": 0.9911,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.96,
+    "lo": 0.8046,
+    "hi": 0.9929,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.32,
+    "lo": 0.172,
+    "hi": 0.5159,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "Just set the wine down on the rack.",
+    "winner_is_canonical": false,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.9,
+     "lo": 0.5958,
+     "hi": 0.9821,
+     "n": 10
+    }
+   }
+  }
+ },
+ "macro": {
+  "goal_in_finetune": {
+   "n_tasks": 10,
+   "orig": {
+    "rate": 0.9604,
+    "lo": 0.9238,
+    "hi": 0.9798,
+    "n": 202
+   },
+   "natural": {
+    "rate": 0.872,
+    "lo": 0.8249,
+    "hi": 0.9079,
+    "n": 250
+   },
+   "adversarial": {
+    "rate": 0.488,
+    "lo": 0.4267,
+    "hi": 0.5497,
+    "n": 250
+   },
+   "oracle_confirm": {
+    "rate": 0.99,
+    "lo": 0.9455,
+    "hi": 0.9982,
+    "n": 100
+   },
+   "oracle_n_tasks": 10
+  },
+  "l90_clean": {
+   "n_tasks": 6,
+   "orig": {
+    "rate": 0.4138,
+    "lo": 0.3161,
+    "hi": 0.5188,
+    "n": 87
+   },
+   "natural": {
+    "rate": 0.464,
+    "lo": 0.379,
+    "hi": 0.5512,
+    "n": 125
+   },
+   "adversarial": {
+    "rate": 0.472,
+    "lo": 0.3866,
+    "hi": 0.559,
+    "n": 125
+   },
+   "oracle_confirm": {
+    "rate": 0.5667,
+    "lo": 0.392,
+    "hi": 0.7262,
+    "n": 30
+   },
+   "oracle_n_tasks": 3
+  },
+  "l90_trained_string": {
+   "n_tasks": 2,
+   "orig": {
+    "rate": 0.125,
+    "lo": 0.0546,
+    "hi": 0.2611,
+    "n": 40
+   },
+   "natural": {
+    "rate": 0.74,
+    "lo": 0.6045,
+    "hi": 0.8413,
+    "n": 50
+   },
+   "adversarial": {
+    "rate": 0.78,
+    "lo": 0.6476,
+    "hi": 0.8725,
+    "n": 50
+   },
+   "oracle_confirm": {
+    "rate": 0.9,
+    "lo": 0.699,
+    "hi": 0.9721,
+    "n": 20
+   },
+   "oracle_n_tasks": 2
+  },
+  "winners_curse": {
+   "screen_minus_confirm": {
+    "mean_pp": 1.33,
+    "n_tasks": 15
+   },
+   "confirm_minus_confirm2": null
+  }
+ },
+ "micro": {
+  "inversions": [
+   {
+    "task": "libero_90/44",
+    "canonical": "turn on the stove",
+    "orig": {
+     "rate": 0.0,
+     "lo": 0,
+     "hi": 0.1611,
+     "n": 20
+    },
+    "best_rephrase_tier_rate": 1.0,
+    "stratum": "l90_trained_string"
+   }
+  ],
+  "no_headroom": [
+   {
+    "task": "libero_90/14",
+    "orig": 0.3,
+    "confirm": 0.3
+   },
+   {
+    "task": "libero_goal/1",
+    "orig": 1.0,
+    "confirm": 1.0
+   },
+   {
+    "task": "libero_goal/2",
+    "orig": 1.0,
+    "confirm": 1.0
+   },
+   {
+    "task": "libero_goal/3",
+    "orig": 0.8636,
+    "confirm": 0.9
+   },
+   {
+    "task": "libero_goal/4",
+    "orig": 1.0,
+    "confirm": 1.0
+   },
+   {
+    "task": "libero_goal/5",
+    "orig": 1.0,
+    "confirm": 1.0
+   },
+   {
+    "task": "libero_goal/6",
+    "orig": 1.0,
+    "confirm": 1.0
+   },
+   {
+    "task": "libero_goal/7",
+    "orig": 1.0,
+    "confirm": 1.0
+   }
+  ],
+  "trained_scene_tightening": [
+   {
+    "task": "libero_goal/0",
+    "orig": 0.85,
+    "adversarial": 0.24,
+    "stratum": "goal_in_finetune"
+   },
+   {
+    "task": "libero_goal/4",
+    "orig": 1.0,
+    "adversarial": 0.44,
+    "stratum": "goal_in_finetune"
+   },
+   {
+    "task": "libero_goal/5",
+    "orig": 1.0,
+    "adversarial": 0.16,
+    "stratum": "goal_in_finetune"
+   },
+   {
+    "task": "libero_goal/6",
+    "orig": 1.0,
+    "adversarial": 0.6,
+    "stratum": "goal_in_finetune"
+   },
+   {
+    "task": "libero_goal/7",
+    "orig": 1.0,
+    "adversarial": 0.28,
+    "stratum": "goal_in_finetune"
+   },
+   {
+    "task": "libero_goal/9",
+    "orig": 0.95,
+    "adversarial": 0.32,
+    "stratum": "goal_in_finetune"
+   }
+  ],
+  "same_string_blocks": [
+   {
+    "canonical": "turn on the stove",
+    "cells": [
+     {
+      "task": "libero_90/44",
+      "stratum": "l90_trained_string",
+      "orig": {
+       "rate": 0.0,
+       "lo": 0,
+       "hi": 0.1611,
+       "n": 20
+      },
+      "natural": {
+       "rate": 1.0,
+       "lo": 0.8668,
+       "hi": 1,
+       "n": 25
+      },
+      "adversarial": {
+       "rate": 1.0,
+       "lo": 0.8668,
+       "hi": 1,
+       "n": 25
+      }
+     },
+     {
+      "task": "libero_goal/7",
+      "stratum": "goal_in_finetune",
+      "orig": {
+       "rate": 1.0,
+       "lo": 0.8389,
+       "hi": 1,
+       "n": 20
+      },
+      "natural": {
+       "rate": 0.76,
+       "lo": 0.5657,
+       "hi": 0.885,
+       "n": 25
+      },
+      "adversarial": {
+       "rate": 0.28,
+       "lo": 0.1428,
+       "hi": 0.4758,
+       "n": 25
+      }
+     }
+    ]
+   }
+  ],
+  "cross_scene": []
+ }
+}
