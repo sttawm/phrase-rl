@@ -108,5 +108,27 @@
   ],
   "rounds_done": 3,
   "converged": true
+ },
+ "libero_90/35": {
+  "members": [
+   "open the microwave",
+   "Open up the microwave oven.",
+   "Can you pull open the door on the stainless steel microwave?",
+   "Please swing the microwave door wide open.",
+   "Go ahead and unlatch the microwave for me.",
+   "Pop the microwave open.",
+   "Open the black microwave door",
+   "Pull open the microwave door",
+   "Open the black microwave",
+   "Pull the handle to open the microwave",
+   "Open the microwave on the right",
+   "Pull the grey handle of the black microwave",
+   "Open the door of the black microwave",
+   "Pull open the black microwave door",
+   "Open the microwave door on the right",
+   "Open the microwave using its handle"
+  ],
+  "rounds_done": 0,
+  "converged": false
  }
 }

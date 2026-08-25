@@ -110,5 +110,27 @@
   ],
   "rounds_done": 3,
   "converged": true
+ },
+ "libero_90/28": {
+  "members": [
+   "close the top drawer of the cabinet",
+   "Push the highest drawer shut.",
+   "Please shut the upper cabinet drawer.",
+   "Make sure the topmost drawer is completely closed.",
+   "Slide the top drawer all the way in.",
+   "Can you close up that top drawer for me?",
+   "close the top drawer of the white cabinet",
+   "push the open top drawer closed",
+   "slide the upper drawer shut",
+   "shut the top drawer of the cabinet",
+   "push the top white drawer closed",
+   "close the open drawer on the left",
+   "slide the top cabinet drawer shut",
+   "shut the open upper drawer",
+   "push the top drawer all the way in",
+   "close the upper cabinet drawer"
+  ],
+  "rounds_done": 0,
+  "converged": false
  }
 }
