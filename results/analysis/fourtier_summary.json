@@ -1,14 +1,14 @@
 {
- "episodes": 5713,
+ "episodes": 8379,
  "tasks": {
   "libero_90/2": {
    "canonical": "put the black bowl in the top drawer of the cabinet",
    "stratum": "l90_clean",
    "orig": {
-    "rate": 0.7,
-    "lo": 0.3968,
-    "hi": 0.8922,
-    "n": 10
+    "rate": 0.6,
+    "lo": 0.3866,
+    "hi": 0.7812,
+    "n": 20
    },
    "natural": {
     "rate": 0.68,
@@ -21,28 +21,51 @@
     "lo": 0.335,
     "hi": 0.6997,
     "n": 25
+   },
+   "oracle": {
+    "winner": "put the black bowl into the top drawer of the cabinet",
+    "winner_is_canonical": false,
+    "confirm": {
+     "rate": 0.7,
+     "lo": 0.3968,
+     "hi": 0.8922,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.5,
+     "lo": 0.2366,
+     "hi": 0.7634,
+     "n": 10
+    }
    }
   },
   "libero_90/12": {
    "canonical": "put the black bowl at the back on the plate",
    "stratum": "l90_clean",
    "orig": {
-    "rate": 0.45,
-    "lo": 0.2582,
-    "hi": 0.6579,
-    "n": 20
+    "rate": 0.5333,
+    "lo": 0.3614,
+    "hi": 0.6977,
+    "n": 30
    },
    "natural": {
-    "rate": 0.64,
-    "lo": 0.4452,
-    "hi": 0.7975,
-    "n": 25
+    "rate": 0.66,
+    "lo": 0.5215,
+    "hi": 0.7756,
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.64,
-    "lo": 0.4452,
-    "hi": 0.7975,
-    "n": 25
+    "rate": 0.78,
+    "lo": 0.6476,
+    "hi": 0.8725,
+    "n": 50
    },
    "oracle": {
     "winner": "set the back grey bowl on the red and white plate",
@@ -59,7 +82,12 @@
      "hi": 1,
      "n": 5
     },
-    "confirm2": null,
+    "confirm2": {
+     "rate": 0.8,
+     "lo": 0.584,
+     "hi": 0.9193,
+     "n": 20
+    },
     "canon_confirm": {
      "rate": 0.5,
      "lo": 0.2366,
@@ -123,9 +151,9 @@
    "stratum": "l90_clean",
    "orig": {
     "rate": 1.0,
-    "lo": 0.7225,
+    "lo": 0.8389,
     "hi": 1,
-    "n": 10
+    "n": 20
    },
    "natural": {
     "rate": 1.0,
@@ -138,22 +166,45 @@
     "lo": 0.8046,
     "hi": 0.9929,
     "n": 25
+   },
+   "oracle": {
+    "winner": "put the moka pot on the stove",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    }
    }
   },
   "libero_90/28": {
    "canonical": "close the top drawer of the cabinet",
    "stratum": "l90_clean",
    "orig": {
-    "rate": 0.3,
-    "lo": 0.1455,
-    "hi": 0.519,
-    "n": 20
+    "rate": 0.4,
+    "lo": 0.2459,
+    "hi": 0.5768,
+    "n": 30
    },
    "natural": {
-    "rate": 0.44,
-    "lo": 0.2667,
-    "hi": 0.6293,
-    "n": 25
+    "rate": 0.3636,
+    "lo": 0.2378,
+    "hi": 0.5113,
+    "n": 44
    },
    "adversarial": {
     "rate": 0.6,
@@ -189,22 +240,22 @@
    "canonical": "put the black bowl on top of the cabinet",
    "stratum": "l90_clean",
    "orig": {
-    "rate": 0.05,
-    "lo": 0.0089,
-    "hi": 0.2361,
-    "n": 20
+    "rate": 0.1,
+    "lo": 0.0346,
+    "hi": 0.2562,
+    "n": 30
    },
    "natural": {
-    "rate": 0.12,
-    "lo": 0.0417,
-    "hi": 0.2996,
-    "n": 25
+    "rate": 0.14,
+    "lo": 0.0695,
+    "hi": 0.2619,
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.12,
-    "lo": 0.0417,
-    "hi": 0.2996,
-    "n": 25
+    "rate": 0.14,
+    "lo": 0.0695,
+    "hi": 0.2619,
+    "n": 50
    },
    "oracle": {
     "winner": "put the black bowl on top of the cabinet",
@@ -221,7 +272,12 @@
      "hi": 0.4345,
      "n": 5
     },
-    "confirm2": null,
+    "confirm2": {
+     "rate": 0.1,
+     "lo": 0.0279,
+     "hi": 0.301,
+     "n": 20
+    },
     "canon_confirm": {
      "rate": 0.1,
      "lo": 0.0179,
@@ -234,22 +290,22 @@
    "canonical": "open the microwave",
    "stratum": "l90_clean",
    "orig": {
-    "rate": 0.0,
-    "lo": 0,
-    "hi": 0.1611,
-    "n": 20
+    "rate": 0.0333,
+    "lo": 0.0059,
+    "hi": 0.1667,
+    "n": 30
    },
    "natural": {
     "rate": 0.0,
     "lo": 0,
-    "hi": 0.1332,
-    "n": 25
+    "hi": 0.0714,
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.04,
-    "lo": 0.0071,
-    "hi": 0.1954,
-    "n": 25
+    "rate": 0.025,
+    "lo": 0.0044,
+    "hi": 0.1288,
+    "n": 40
    },
    "oracle": {
     "winner": "Pull on the microwave handle to open it.",
@@ -375,26 +431,116 @@
     }
    }
   },
+  "libero_90/57": {
+   "canonical": "pick up the cream cheese and put it in the tray",
+   "stratum": "l90_clean",
+   "orig": {
+    "rate": 1.0,
+    "lo": 0.8389,
+    "hi": 1,
+    "n": 20
+   },
+   "natural": {
+    "rate": 1.0,
+    "lo": 0.8668,
+    "hi": 1,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 1.0,
+    "lo": 0.8668,
+    "hi": 1,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "pick up the cream cheese and put it in the tray",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 1.0,
+     "lo": 0.5655,
+     "hi": 1,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 1.0,
+     "lo": 0.7225,
+     "hi": 1,
+     "n": 10
+    }
+   }
+  },
+  "libero_90/59": {
+   "canonical": "pick up the tomato sauce and put it in the tray",
+   "stratum": "l90_clean",
+   "orig": {
+    "rate": 0.25,
+    "lo": 0.1119,
+    "hi": 0.4687,
+    "n": 20
+   },
+   "natural": {
+    "rate": 0.2,
+    "lo": 0.0886,
+    "hi": 0.3913,
+    "n": 25
+   },
+   "adversarial": {
+    "rate": 0.24,
+    "lo": 0.115,
+    "hi": 0.4343,
+    "n": 25
+   },
+   "oracle": {
+    "winner": "pick up the tomato sauce and put it in the tray",
+    "winner_is_canonical": true,
+    "confirm": {
+     "rate": 0.4,
+     "lo": 0.1682,
+     "hi": 0.6873,
+     "n": 10
+    },
+    "screen_of_winner": {
+     "rate": 0.0,
+     "lo": 0,
+     "hi": 0.4345,
+     "n": 5
+    },
+    "confirm2": null,
+    "canon_confirm": {
+     "rate": 0.4,
+     "lo": 0.1682,
+     "hi": 0.6873,
+     "n": 10
+    }
+   }
+  },
   "libero_90/64": {
    "canonical": "stack the right bowl on the left bowl and place them in the tray",
    "stratum": "l90_clean",
    "orig": {
-    "rate": 0.3,
-    "lo": 0.1455,
-    "hi": 0.519,
-    "n": 20
+    "rate": 0.4333,
+    "lo": 0.2738,
+    "hi": 0.608,
+    "n": 30
    },
    "natural": {
-    "rate": 0.44,
-    "lo": 0.2667,
-    "hi": 0.6293,
-    "n": 25
+    "rate": 0.5,
+    "lo": 0.3664,
+    "hi": 0.6336,
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.4,
-    "lo": 0.234,
-    "hi": 0.5926,
-    "n": 25
+    "rate": 0.36,
+    "lo": 0.2414,
+    "hi": 0.4986,
+    "n": 50
    },
    "oracle": {
     "winner": "Put the bowl on the right on top of the one on the left, and move the stack to the tray.",
@@ -411,7 +557,12 @@
      "hi": 0.8824,
      "n": 5
     },
-    "confirm2": null,
+    "confirm2": {
+     "rate": 0.5,
+     "lo": 0.2993,
+     "hi": 0.7007,
+     "n": 20
+    },
     "canon_confirm": {
      "rate": 0.3,
      "lo": 0.1078,
@@ -442,12 +593,12 @@
     "n": 50
    },
    "oracle": {
-    "winner": "On the right side of that plate, please put the brown pudding.",
+    "winner": "Would you be so kind as to relocate the cocoa-flavored dessert so that it rests immediately adjacent to the plate's rightmost edge?",
     "winner_is_canonical": false,
     "confirm": {
-     "rate": 0.8,
-     "lo": 0.4902,
-     "hi": 0.9433,
+     "rate": 0.9,
+     "lo": 0.5958,
+     "hi": 0.9821,
      "n": 10
     },
     "screen_of_winner": {
@@ -456,12 +607,7 @@
      "hi": 1,
      "n": 5
     },
-    "confirm2": {
-     "rate": 1.0,
-     "lo": 0.8389,
-     "hi": 1,
-     "n": 20
-    },
+    "confirm2": null,
     "canon_confirm": {
      "rate": 0.7,
      "lo": 0.3968,
@@ -492,12 +638,12 @@
     "n": 50
    },
    "oracle": {
-    "winner": "Place the book in the rear slot of the brown organizer",
+    "winner": "Put the standing black notebook into the rear compartment of the",
     "winner_is_canonical": false,
     "confirm": {
-     "rate": 0.8,
-     "lo": 0.4902,
-     "hi": 0.9433,
+     "rate": 0.9,
+     "lo": 0.5958,
+     "hi": 0.9821,
      "n": 10
     },
     "screen_of_winner": {
@@ -506,12 +652,7 @@
      "hi": 1,
      "n": 5
     },
-    "confirm2": {
-     "rate": 0.55,
-     "lo": 0.3421,
-     "hi": 0.7418,
-     "n": 20
-    },
+    "confirm2": null,
     "canon_confirm": {
      "rate": 0.1,
      "lo": 0.0179,
@@ -569,22 +710,22 @@
    "canonical": "open the middle drawer of the cabinet",
    "stratum": "goal_in_finetune",
    "orig": {
-    "rate": 0.8571,
-    "lo": 0.6536,
-    "hi": 0.9502,
-    "n": 21
+    "rate": 0.9,
+    "lo": 0.7438,
+    "hi": 0.9654,
+    "n": 30
    },
    "natural": {
-    "rate": 0.96,
-    "lo": 0.8046,
-    "hi": 0.9929,
-    "n": 25
+    "rate": 0.94,
+    "lo": 0.8378,
+    "hi": 0.9794,
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.24,
-    "lo": 0.115,
-    "hi": 0.4343,
-    "n": 25
+    "rate": 0.16,
+    "lo": 0.0834,
+    "hi": 0.2851,
+    "n": 50
    },
    "oracle": {
     "winner": "Get the middle drawer on the cabinet open.",
@@ -601,7 +742,12 @@
      "hi": 1,
      "n": 5
     },
-    "confirm2": null,
+    "confirm2": {
+     "rate": 1.0,
+     "lo": 0.8389,
+     "hi": 1,
+     "n": 20
+    },
     "canon_confirm": {
      "rate": 0.9,
      "lo": 0.5958,
@@ -615,21 +761,21 @@
    "stratum": "goal_in_finetune",
    "orig": {
     "rate": 1.0,
-    "lo": 0.8389,
+    "lo": 0.8865,
     "hi": 1,
-    "n": 20
+    "n": 30
    },
    "natural": {
-    "rate": 1.0,
-    "lo": 0.8668,
-    "hi": 1,
-    "n": 25
+    "rate": 0.98,
+    "lo": 0.895,
+    "hi": 0.9965,
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.72,
-    "lo": 0.5242,
-    "hi": 0.8572,
-    "n": 25
+    "rate": 0.74,
+    "lo": 0.6045,
+    "hi": 0.8413,
+    "n": 50
    },
    "oracle": {
     "winner": "put the bowl on the stove",
@@ -646,7 +792,12 @@
      "hi": 1,
      "n": 5
     },
-    "confirm2": null,
+    "confirm2": {
+     "rate": 1.0,
+     "lo": 0.8389,
+     "hi": 1,
+     "n": 20
+    },
     "canon_confirm": {
      "rate": 1.0,
      "lo": 0.7225,
@@ -660,21 +811,21 @@
    "stratum": "goal_in_finetune",
    "orig": {
     "rate": 1.0,
-    "lo": 0.8389,
+    "lo": 0.8865,
     "hi": 1,
-    "n": 20
+    "n": 30
    },
    "natural": {
     "rate": 1.0,
-    "lo": 0.8668,
+    "lo": 0.9286,
     "hi": 1,
-    "n": 25
+    "n": 50
    },
    "adversarial": {
     "rate": 0.68,
-    "lo": 0.4841,
-    "hi": 0.828,
-    "n": 25
+    "lo": 0.5419,
+    "hi": 0.7924,
+    "n": 50
    },
    "oracle": {
     "winner": "put the wine bottle on top of the cabinet",
@@ -691,7 +842,12 @@
      "hi": 1,
      "n": 5
     },
-    "confirm2": null,
+    "confirm2": {
+     "rate": 1.0,
+     "lo": 0.8389,
+     "hi": 1,
+     "n": 20
+    },
     "canon_confirm": {
      "rate": 1.0,
      "lo": 0.7225,
@@ -910,15 +1066,15 @@
     "n": 30
    },
    "natural": {
-    "rate": 0.68,
-    "lo": 0.5419,
-    "hi": 0.7924,
+    "rate": 0.72,
+    "lo": 0.5833,
+    "hi": 0.8253,
     "n": 50
    },
    "adversarial": {
-    "rate": 0.2,
-    "lo": 0.1124,
-    "hi": 0.3304,
+    "rate": 0.14,
+    "lo": 0.0695,
+    "hi": 0.2619,
     "n": 50
    },
    "oracle": {
@@ -954,22 +1110,22 @@
    "canonical": "put the bowl on the plate",
    "stratum": "goal_in_finetune",
    "orig": {
-    "rate": 0.9583,
-    "lo": 0.7976,
-    "hi": 0.9926,
-    "n": 24
+    "rate": 0.9667,
+    "lo": 0.8333,
+    "hi": 0.9941,
+    "n": 30
    },
    "natural": {
     "rate": 1.0,
-    "lo": 0.8668,
+    "lo": 0.9286,
     "hi": 1,
-    "n": 25
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.96,
-    "lo": 0.8046,
-    "hi": 0.9929,
-    "n": 25
+    "rate": 0.98,
+    "lo": 0.895,
+    "hi": 0.9965,
+    "n": 50
    },
    "oracle": {
     "winner": "Can you move the bowl over to the plate?",
@@ -986,7 +1142,12 @@
      "hi": 1,
      "n": 5
     },
-    "confirm2": null,
+    "confirm2": {
+     "rate": 1.0,
+     "lo": 0.8389,
+     "hi": 1,
+     "n": 20
+    },
     "canon_confirm": {
      "rate": 0.9,
      "lo": 0.5958,
@@ -999,22 +1160,22 @@
    "canonical": "put the wine bottle on the rack",
    "stratum": "goal_in_finetune",
    "orig": {
-    "rate": 0.95,
-    "lo": 0.7639,
-    "hi": 0.9911,
-    "n": 20
+    "rate": 0.9667,
+    "lo": 0.8333,
+    "hi": 0.9941,
+    "n": 30
    },
    "natural": {
-    "rate": 0.96,
-    "lo": 0.8046,
-    "hi": 0.9929,
-    "n": 25
+    "rate": 0.9,
+    "lo": 0.7864,
+    "hi": 0.9565,
+    "n": 50
    },
    "adversarial": {
-    "rate": 0.32,
-    "lo": 0.172,
-    "hi": 0.5159,
-    "n": 25
+    "rate": 0.3,
+    "lo": 0.191,
+    "hi": 0.4375,
+    "n": 50
    },
    "oracle": {
     "winner": "Just set the wine down on the rack.",
@@ -1031,7 +1192,12 @@
      "hi": 1,
      "n": 5
     },
-    "confirm2": null,
+    "confirm2": {
+     "rate": 1.0,
+     "lo": 0.8389,
+     "hi": 1,
+     "n": 20
+    },
     "canon_confirm": {
      "rate": 0.9,
      "lo": 0.5958,
@@ -1045,22 +1211,22 @@
   "goal_in_finetune": {
    "n_tasks": 10,
    "orig": {
-    "rate": 0.9686,
-    "lo": 0.9393,
-    "hi": 0.984,
-    "n": 255
+    "rate": 0.9733,
+    "lo": 0.9483,
+    "hi": 0.9864,
+    "n": 300
    },
    "natural": {
-    "rate": 0.8293,
-    "lo": 0.788,
-    "hi": 0.864,
-    "n": 375
+    "rate": 0.862,
+    "lo": 0.829,
+    "hi": 0.8895,
+    "n": 500
    },
    "adversarial": {
-    "rate": 0.4507,
-    "lo": 0.4011,
-    "hi": 0.5013,
-    "n": 375
+    "rate": 0.472,
+    "lo": 0.4286,
+    "hi": 0.5158,
+    "n": 500
    },
    "oracle_confirm": {
     "rate": 0.99,
@@ -1071,32 +1237,32 @@
    "oracle_n_tasks": 10
   },
   "l90_clean": {
-   "n_tasks": 11,
+   "n_tasks": 13,
    "orig": {
-    "rate": 0.4261,
-    "lo": 0.3639,
-    "hi": 0.4907,
-    "n": 230
+    "rate": 0.4735,
+    "lo": 0.421,
+    "hi": 0.5266,
+    "n": 340
    },
    "natural": {
-    "rate": 0.5314,
-    "lo": 0.4791,
-    "hi": 0.5831,
-    "n": 350
+    "rate": 0.4933,
+    "lo": 0.4505,
+    "hi": 0.5362,
+    "n": 519
    },
    "adversarial": {
-    "rate": 0.5486,
-    "lo": 0.4962,
-    "hi": 0.5999,
-    "n": 350
+    "rate": 0.5265,
+    "lo": 0.4823,
+    "hi": 0.5704,
+    "n": 490
    },
    "oracle_confirm": {
-    "rate": 0.5556,
-    "lo": 0.4527,
-    "hi": 0.6538,
-    "n": 90
+    "rate": 0.6308,
+    "lo": 0.5452,
+    "hi": 0.7089,
+    "n": 130
    },
-   "oracle_n_tasks": 9
+   "oracle_n_tasks": 13
   },
   "l90_trained_string": {
    "n_tasks": 2,
@@ -1119,21 +1285,21 @@
     "n": 100
    },
    "oracle_confirm": {
-    "rate": 0.9,
-    "lo": 0.699,
-    "hi": 0.9721,
+    "rate": 0.95,
+    "lo": 0.7639,
+    "hi": 0.9911,
     "n": 20
    },
    "oracle_n_tasks": 2
   },
   "winners_curse": {
    "screen_minus_confirm": {
-    "mean_pp": 0.48,
-    "n_tasks": 21
+    "mean_pp": -0.8,
+    "n_tasks": 25
    },
    "confirm_minus_confirm2": {
-    "mean_pp": -1.0,
-    "n_tasks": 10
+    "mean_pp": 0.31,
+    "n_tasks": 16
    }
   }
  },
@@ -1159,9 +1325,19 @@
     "confirm": 0.3
    },
    {
+    "task": "libero_90/19",
+    "orig": 1.0,
+    "confirm": 1.0
+   },
+   {
     "task": "libero_90/31",
-    "orig": 0.05,
+    "orig": 0.1,
     "confirm": 0.1
+   },
+   {
+    "task": "libero_90/57",
+    "orig": 1.0,
+    "confirm": 1.0
    },
    {
     "task": "libero_goal/1",
@@ -1202,8 +1378,8 @@
   "trained_scene_tightening": [
    {
     "task": "libero_goal/0",
-    "orig": 0.8571,
-    "adversarial": 0.24,
+    "orig": 0.9,
+    "adversarial": 0.16,
     "stratum": "goal_in_finetune"
    },
    {
@@ -1221,13 +1397,13 @@
    {
     "task": "libero_goal/7",
     "orig": 1.0,
-    "adversarial": 0.2,
+    "adversarial": 0.14,
     "stratum": "goal_in_finetune"
    },
    {
     "task": "libero_goal/9",
-    "orig": 0.95,
-    "adversarial": 0.32,
+    "orig": 0.9667,
+    "adversarial": 0.3,
     "stratum": "goal_in_finetune"
    }
   ],
@@ -1267,21 +1443,431 @@
        "n": 30
       },
       "natural": {
-       "rate": 0.68,
-       "lo": 0.5419,
-       "hi": 0.7924,
+       "rate": 0.72,
+       "lo": 0.5833,
+       "hi": 0.8253,
        "n": 50
       },
       "adversarial": {
-       "rate": 0.2,
-       "lo": 0.1124,
-       "hi": 0.3304,
+       "rate": 0.14,
+       "lo": 0.0695,
+       "hi": 0.2619,
        "n": 50
       }
      }
     ]
    }
   ],
-  "cross_scene": []
+  "cross_scene": [
+   {
+    "trained_task": "libero_10/5",
+    "n_phrases": 56,
+    "pooled": {
+     "rate": 0.9929,
+     "lo": 0.9743,
+     "hi": 0.998,
+     "n": 280
+    },
+    "phrases": [
+     {
+      "phrase": "Place the upright black notebook from the table in the brown organizer's rear slot.",
+      "k": 4,
+      "n": 5
+     },
+     {
+      "phrase": "Move the book to the rear slot of the brown organizer",
+      "k": 4,
+      "n": 5
+     },
+     {
+      "phrase": "Assuming you are ready to proceed, kindly grasp the literary artifact and facilitate its transfer to the compartment situated at the very back of the caddy.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the book in the back compartment of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the book in the rear slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the book into the rear compartment of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the standing black book from the table into the organizer's rear compartment.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the standing black book in the rear slot of the brown organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the standing black notebook in the rearmost slot of the brown organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the standing book from the table into the brown organizer's rear slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the upright black notebook into the back compartment of the brown desk organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the black book from the table into the rear compartment of the organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the black book in the back compartment of the brown caddy",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the black book into the back compartment of the desk organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the black book into the rear slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the black notebook into the rear slot of the brown desk organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the black notebook into the rear slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the book in the rear slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the small black notebook into the back compartment of the brown organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the standing black notebook from the table in the organizer's rear slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the standing black notebook into the rear compartment of the",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the upright black book from the desk into the brown organizer's rear slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Put the upright black book into the rear slot of the brown desk organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Regarding the item composed of printed pages, please elevate it and execute a placement maneuver targeting the rearmost section of the storage caddy.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Take the reading material and stow it in the back section of the caddy.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "The object primarily utilized for reading purposes must be hoisted and subsequently deposited into the posterior subdivision of the caddy.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the black notebook on the table into the brown organizer's rear slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the black notebook in the rear slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the black notebook in the back compartment of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the black notebook from the desk in the organizer's rear slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Can you put the book in the back part of the caddy for me?",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Grab the book and drop it into the rear compartment of the caddy.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "I would greatly appreciate it if you could secure the bound volume and ensure it is stowed within the caddy's hindmost receptacle.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Insert the black book into the back compartment of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Insert the standing black book from the desk into the organizer's rear slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Insert the upright black book from the table into the brown organizer's rear slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "It is required that the book, which currently rests before you, be relocated to the compartment of the caddy located furthest from the front.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move that paperback to the caddy's back slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the black book from the table to the brown organizer's rear slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the black book to the rear slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the black notebook from the table into the rear slot of the organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Transfer the book into the furthest compartment of the caddy.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the black notebook into the rear slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the book into the back slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the small black book to the back compartment of the brown organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the standing black book to the back slot of the brown caddy.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the standing black book to the rear section of the brown desk organizer.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the upright black notebook from the desk into the organizer's rear slot.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Pick up the black book and put it in the back of the caddy",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Pick up the book and slide it into the back of the brown caddy",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the black book in the back section of the brown caddy",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the black book in the back slot of the brown caddy",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the black book in the back slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Place the black book in the rear slot of the brown organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Move the black notebook to the back compartment of the organizer",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "pick up the book and place it in the back compartment of the caddy",
+      "k": 5,
+      "n": 5
+     }
+    ]
+   },
+   {
+    "trained_task": "libero_goal/7",
+    "n_phrases": 21,
+    "pooled": {
+     "rate": 0.6667,
+     "lo": 0.572,
+     "hi": 0.7495,
+     "n": 105
+    },
+    "phrases": [
+     {
+      "phrase": "I would be most grateful if you could commence the ignition sequence for the primary cooking apparatus.",
+      "k": 0,
+      "n": 5
+     },
+     {
+      "phrase": "Provided that you are ready to begin food preparation, proceed to bring the heating elements to an active state.",
+      "k": 0,
+      "n": 5
+     },
+     {
+      "phrase": "Cause the machinery upon which we place our cookware to transition from a dormant to a functioning mode.",
+      "k": 1,
+      "n": 5
+     },
+     {
+      "phrase": "It is required that the thermal output device located in the kitchen be switched into its operational configuration.",
+      "k": 1,
+      "n": 5
+     },
+     {
+      "phrase": "Rotate the black switch next to the burner",
+      "k": 1,
+      "n": 5
+     },
+     {
+      "phrase": "Turn the burner dial to the on position",
+      "k": 2,
+      "n": 5
+     },
+     {
+      "phrase": "Turn the black knob to activate the burner",
+      "k": 2,
+      "n": 5
+     },
+     {
+      "phrase": "Power up the cooking range.",
+      "k": 2,
+      "n": 5
+     },
+     {
+      "phrase": "The large appliance used for boiling and frying needs its power activated immediately.",
+      "k": 2,
+      "n": 5
+     },
+     {
+      "phrase": "Could you start the burners?",
+      "k": 4,
+      "n": 5
+     },
+     {
+      "phrase": "Activate the stove by turning the black knob",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Twist the black stove knob to turn it on",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Turn on the stove by twisting the black dial",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Turn on the stove burner on the left",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Rotate the black dial to turn on the stove",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Twist the knob to turn on the burner",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Please switch the stove on.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "I need you to ignite the stovetop.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Go ahead and get the stove going.",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "Switch on the stove burner on the table",
+      "k": 5,
+      "n": 5
+     },
+     {
+      "phrase": "turn on the stove",
+      "k": 5,
+      "n": 5
+     }
+    ]
+   }
+  ]
  }
 }
