@@ -209,9 +209,21 @@ unverified — task #29). Layout halves 0–11 vs 12–23 differ +4.3pp
 (executor-dependent); treatment arms are flat across halves. The 0–17/18–23
 layout reservation applies to rollout RL only.
 
-## 7. RunPod workflow (FLEET TERMINATED 2026-08-15)
+## 7. RunPod workflow (phrase-rl fleet TERMINATED 2026-08-15; NEW pi0.5/LIBERO fleet 2026-08-25)
 
-**All eight pods are DELETED** — ids in git history are dead. Everything
+**NEW FLEET (2026-08-25, running the pi05_libero four-tier eval — see
+`results/experiments.json` id `pi05_libero_fourtier`):** four community pods
+`lb1 dvgajobn39jl9w` / `lb2 lslpteu0p5r7ql` / `lb3 p7499qcw2nx2z9` (RTX 4090)
+/ `lb4 xzaybguoege6m8` (RTX 3090), 60GB volumes. Stack = the SEPARATE public
+repo `sttawm/interactive-vlas` (local clone `~/dev/interactive-pi`),
+`pi05_libero/setup.sh` → `eval/run_fourtier.sh <shard>`; tmux sessions
+`server` (OpenPI serve_policy :8000) + `fourtier`. Outputs
+`/workspace/fourtier_<shard>.jsonl` (+`.boards.json` sidecar) are pulled back
+over ssh and committed locally — pods hold NO git push token. SSH endpoints in
+the session scratchpad `lb_ssh.json` (re-derive per-pod ip/port from the API).
+Terminate when the four-tier analysis has landed in results/analysis/.
+
+**The old eight phrase-rl pods are DELETED** — ids in git history are dead. Everything
 canonical was salvaged first: all checkpoints/telemetry (v7 through v13
 incl. v13_latest), all context-table archives (val8 + oov + oov5 + native in
 results/analysis/data_archive/), cells/judges, and the Mac data/ masters.
