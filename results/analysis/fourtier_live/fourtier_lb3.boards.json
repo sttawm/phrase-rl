@@ -74,6 +74,62 @@
    "place the middle black bowl onto the striped plate"
   ],
   "rounds_done": 2,
+  "converged": true
+ },
+ "libero_90/54": {
+  "members": [
+   "pick up the tomato sauce and put it in the basket",
+   "Grab the tomato sauce and place it into the basket.",
+   "Could you move the red sauce over to the basket?",
+   "Toss the tomato sauce in the basket for me.",
+   "Please take the bottle of tomato sauce and set it inside the basket.",
+   "The basket needs the tomato sauce, so go ahead and drop it in there.",
+   "pick up the tomato sauce can and place it in the basket",
+   "put the tomato sauce can inside the basket",
+   "grab the tomato sauce can and put it in the basket",
+   "place the tomato sauce can into the basket",
+   "pick up the tomato sauce and place it in the basket",
+   "take the tomato sauce can and put it in the basket",
+   "move the tomato sauce can into the basket",
+   "pick up the red and green can and put it in the basket",
+   "put the tomato sauce inside the white basket",
+   "grab the tomato sauce and put it in the basket"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ },
+ "libero_90/70": {
+  "members": [
+   "put the chocolate pudding to the right of the plate",
+   "Move the chocolate pudding over to the right side of the plate.",
+   "Set the brown pudding down just to the right of that plate.",
+   "Can you slide the chocolate dessert next to the right edge of the plate?",
+   "Place the pudding on the right of the plate.",
+   "On the right-hand side of the plate, please put the chocolate pudding.",
+   "place the chocolate pudding to the right of the plate",
+   "move the chocolate pudding to the right of the plate",
+   "put the chocolate pudding on the right side of the plate",
+   "place the chocolate pudding to the right of the striped plate",
+   "move the chocolate box to the right of the plate",
+   "put the chocolate bar to the right of the plate",
+   "place the chocolate box to the right of the striped plate",
+   "move the chocolate pudding to the right of the striped plate",
+   "put the chocolate bar to the right of the striped plate",
+   "place the chocolate pudding on the right side of the striped plate",
+   "Set the brown pudding down to the right of that plate.",
+   "Please put the chocolate pudding on the right-hand side of the plate.",
+   "Please place the brown pudding on the right-hand side of the plate.",
+   "Put the brown pudding just to the right of the plate.",
+   "On the right-hand side of that plate, please set the brown pudding.",
+   "Set the chocolate pudding down just to the right of the plate.",
+   "Place the brown pudding down just to the right of that plate.",
+   "To the right of the plate, please put the chocolate pudding.",
+   "Put the chocolate pudding down just to the right of that plate.",
+   "On the right side of the plate, please set the brown pudding.",
+   "Please put the brown pudding just to the right of the plate.",
+   "Set the brown pudding on the right-hand side of the plate."
+  ],
+  "rounds_done": 2,
   "converged": false
  }
 }

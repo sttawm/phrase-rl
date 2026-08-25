@@ -42,5 +42,28 @@
   ],
   "rounds_done": 0,
   "converged": true
+ },
+ "libero_90/64": {
+  "members": [
+   "stack the right bowl on the left bowl and place them in the tray",
+   "Put the bowl on the right on top of the one on the left, and move the stack to the tray.",
+   "Grab the rightmost bowl, place it onto the left one, and set the pair down in the tray.",
+   "The tray needs both bowls inside it, but make sure the right bowl is stacked on top of the left one first.",
+   "Could you put the right dish onto the left dish and then transfer them both into the tray?",
+   "Set the right bowl down on the left bowl and slide the combined stack into the tray.",
+   "stack the right bowl on the left bowl and put them in the tray",
+   "put the right bowl on the left bowl and move them to the tray",
+   "stack the right bowl onto the left bowl and place them in the tray",
+   "place the right bowl on the left bowl and put them in the wooden crate",
+   "stack the right bowl on the left bowl and put them in the crate",
+   "place right bowl on left bowl and put them in the wooden crate",
+   "put right bowl on left bowl and place them in the wooden crate",
+   "place the right bowl onto the left and put them in the wooden crate",
+   "put the right bowl onto the left and place them in the wooden crate",
+   "place the right bowl on the left and move them to the wooden crate",
+   "place the right bowl on the left"
+  ],
+  "rounds_done": 2,
+  "converged": true
  }
 }

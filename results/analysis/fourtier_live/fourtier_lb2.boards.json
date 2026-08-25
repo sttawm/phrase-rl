@@ -86,5 +86,39 @@
   ],
   "rounds_done": 0,
   "converged": true
+ },
+ "libero_90/77": {
+  "members": [
+   "pick up the book and place it in the back compartment of the caddy",
+   "Grab the book and drop it into the rear compartment of the caddy.",
+   "Move that paperback to the caddy's back slot.",
+   "Can you put the book in the back part of the caddy for me?",
+   "Take the reading material and stow it in the back section of the caddy.",
+   "Transfer the book into the furthest compartment of the caddy.",
+   "Put the black book in the back compartment of the brown caddy",
+   "Place the book in the rear slot of the brown organizer",
+   "Pick up the black book and put it in the back of the caddy",
+   "Move the black notebook to the back compartment of the organizer",
+   "Put the black book into the back compartment of the desk organizer",
+   "Place the black book in the back slot of the brown caddy",
+   "Insert the black book into the back compartment of the brown organizer",
+   "Pick up the book and slide it into the back of the brown caddy",
+   "Put the black notebook into the rear slot of the brown organizer",
+   "Place the black book in the back section of the brown caddy",
+   "Place the black book in the rear slot of the brown organizer",
+   "Move the book to the rear slot of the brown organizer",
+   "Put the book in the rear slot of the brown organizer",
+   "Place the black notebook in the rear slot of the brown organizer",
+   "Move the black notebook into the rear slot of the brown organizer",
+   "Place the book into the rear compartment of the brown organizer",
+   "Move the black book to the rear slot of the brown organizer",
+   "Place the book in the back compartment of the brown organizer",
+   "Move the book into the back slot of the brown organizer",
+   "Place the black book in the back slot of the brown organizer",
+   "Put the black book into the rear slot of the brown organizer",
+   "Place the black notebook in the back compartment of the brown organizer"
+  ],
+  "rounds_done": 2,
+  "converged": true
  }
 }

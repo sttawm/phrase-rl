@@ -42,5 +42,61 @@
   ],
   "rounds_done": 0,
   "converged": true
+ },
+ "libero_goal/2": {
+  "members": [
+   "put the wine bottle on top of the cabinet",
+   "Place that bottle of wine up on the cabinet.",
+   "Could you move the glass wine bottle to the top of the cabinet?",
+   "Grab the wine bottle and set it down on the cabinet's upper surface.",
+   "Please lift the wine bottle and leave it on the very top of the cabinet.",
+   "Transfer the bottle of wine onto the top of the cabinet.",
+   "Place the wine bottle on top of the cabinet",
+   "Move the wine bottle onto the black cabinet",
+   "Put the wine bottle on the top of the black cabinet",
+   "Set the wine bottle on top of the cabinet",
+   "Place the wine bottle on the black cabinet",
+   "Move the wine bottle to the top of the cabinet",
+   "Put the black bottle on top of the cabinet",
+   "Set the wine bottle on top of the black cabinet",
+   "Place the bottle of wine on top of the cabinet",
+   "Put the wine bottle on the cabinet top"
+  ],
+  "rounds_done": 0,
+  "converged": true
+ },
+ "libero_90/31": {
+  "members": [
+   "put the black bowl on top of the cabinet",
+   "Place the black bowl up onto the cabinet.",
+   "Can you set that black bowl on top of the cabinet?",
+   "The black bowl needs to go up on the cabinet.",
+   "Grab the black dish and put it on top of the cabinet.",
+   "Move this black bowl to the very top of the cabinet.",
+   "place the black bowl on top of the white cabinet",
+   "put the grey bowl on top of the cabinet",
+   "place the small black bowl on the white cabinet",
+   "put the dark bowl on top of the white cabinet",
+   "move the black bowl onto the top of the cabinet",
+   "place the bowl on top of the white cabinet",
+   "put the black bowl on the white cabinet top",
+   "set the black bowl on top of the cabinet",
+   "place the small bowl on top of the cabinet",
+   "put the black bowl on the top of the white cabinet",
+   "Pick up the black bowl and place it on top of the white cabinet.",
+   "Put the black bowl up onto the white cabinet.",
+   "Set the black bowl on top of the white cabinet.",
+   "Grab the black bowl and place it on top of the cabinet.",
+   "Place the black bowl up on top of the cabinet.",
+   "Place the black dish on top of the white cabinet.",
+   "Grab the black dish and set it on top of the cabinet.",
+   "Set the black dish on top of the cabinet.",
+   "Pick up the black bowl and put it on the white cabinet.",
+   "Put the black dish up onto the white cabinet.",
+   "Place the black bowl up on the white cabinet.",
+   "Move the black bowl onto the top of the white cabinet."
+  ],
+  "rounds_done": 2,
+  "converged": false
  }
 }
