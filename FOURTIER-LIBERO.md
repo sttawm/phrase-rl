@@ -10,9 +10,10 @@ about half of out-of-finetune tasks.
 
 Everything here is computed by `scripts/analyze_fourtier.py` from
 `results/analysis/fourtier_live/*.jsonl` →
-`results/analysis/fourtier_summary.json`. 10,700 rollout episodes, 30 tasks,
-2026-08-25, one day on four RunPod RTX-4090-class pods (all terminated after
-verified salvage). Experiment record: `results/experiments.json` id
+`results/analysis/fourtier_summary.json`. 13,025 unique rollout episodes
+(10,700 main corpus 2026-08-25 + the oracle-max addendum of §3.4b,
+2026-08-26), 30 tasks, on RunPod RTX-4090/3090-class pods (all terminated
+after verified salvage). Experiment record: `results/experiments.json` id
 `pi05_libero_fourtier`.
 
 ## 1. What was run

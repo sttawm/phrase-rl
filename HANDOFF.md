@@ -228,7 +228,10 @@ TERMINATED 2026-08-25 23:55 after verified salvage — all four shard
 jsonls (row counts matched), boards sidecars, and runlogs are in
 results/analysis/fourtier_live/; analysis in FOURTIER-LIBERO.md +
 results/analysis/fourtier_summary.json. 10,700 episodes, 30 tasks. Fleet
-EMPTY (verified via API).
+EMPTY (verified via API). The 2026-08-26 oracle-max follow-up used pods
+om1/om2/om3 (several dead-on-arrival community hosts documented in
+experiments.json); ALL terminated 2026-08-26 after verified salvage — fleet
+re-verified EMPTY.
 
 **The old eight phrase-rl pods are DELETED** — ids in git history are dead. Everything
 canonical was salvaged first: all checkpoints/telemetry (v7 through v13
