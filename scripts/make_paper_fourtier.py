@@ -137,12 +137,8 @@ b.set_ylabel("rollout success (%)", fontsize=11)
 b.spines["top"].set_visible(False)
 b.spines["right"].set_visible(False)
 b.grid(alpha=0.2, axis="y", zorder=0)
-b.set_title("(b)  The finetuned pairing misfires out of distribution", fontsize=11.5, pad=30)
+b.set_title("(b)  Overfitting caused by fine-tuning", fontsize=11.5, pad=30)
 
-fig.text(0.5, -0.155,
-         "Phrase sensitivity tracks the finetuning recipe, not the policy: each LIBERO task was finetuned with exactly one instruction string,\n"
-         "and that pairing over-fits \u2014 unbeatable in its training scene, it misfires in a novel scene where nearly any rephrasing succeeds.",
-         ha="center", fontsize=9.6, fontstyle="italic", color="#374151")
 fig.tight_layout()
 out = ROOT / "results/charts/paper_fourtier.png"
 fig.savefig(out, dpi=200, bbox_inches="tight", pad_inches=0.22)

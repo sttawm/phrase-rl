@@ -712,6 +712,39 @@ rather than its transferable one. Distillation into human-readable
 rules, gated on held-out measurement, appears to be the safer consumer
 of a noisy reward.
 
+\subsection{A Second Policy: $\pi_{0.5}$ on LIBERO}
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=\textwidth]{pi05_fourtier.png}
+    \caption{Four-tier phrasing evaluation of $\pi_{0.5}$ fine-tuned on
+LIBERO, where each task is paired with exactly one instruction string.
+(a) On tasks whose instruction was in the fine-tuning data, wording
+matters: adversarial rephrasings cost 50 points. On tasks outside the
+fine-tuning data, all phrasings perform the same. (b) The two
+instruction strings that appear verbatim in the fine-tuning data are
+over-fit to their training scenes: in a novel scene the fine-tuned
+string fails almost completely while nearly any rephrasing of it
+succeeds. Bars show pooled rollout success; error bars are Wilson 95\%
+intervals; per-bar episode counts as labeled.}
+    \label{fig:pi05_fourtier}
+\end{figure*}
+
+To check how much of this picture depends on the training recipe, we
+repeated the four-tier evaluation on a second policy and benchmark:
+$\pi_{0.5}$ fine-tuned by Physical Intelligence on LIBERO (over ten
+thousand rollout episodes across 30 tasks; natural and adversarial
+tiers generated with the same prompts as our SIMPLER tiers; the oracle
+is a rollout-driven phrase search whose winner is re-measured on
+held-out initial states). Figure~\ref{fig:pi05_fourtier} shows the
+result: phrase sensitivity depends on how the policy was fine-tuned,
+not on the policy. Tasks whose instruction string was in the
+fine-tuning data reproduce the SIMPLER picture --- the original wording
+is near-unbeatable and ornate rephrasings cost 50 points --- while
+tasks outside the fine-tuning data show no phrasing penalty at all.
+The fine-tuned pairing itself over-fits: evaluated in a new scene, the
+trained string fails almost completely while nearly any rephrasing of
+it succeeds.
+
 \section{Conclusions}
 
 A frozen $\pi_0$ executor's success rate depends heavily on instruction
