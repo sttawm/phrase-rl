@@ -1,0 +1,44 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 10700 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 64: 'stack the right bowl on the left bowl and place them in the tray' (50 inits)
+  OMAX r2: best 7/10  'place the right bowl on top of the left bowl and put them in'
+  OMAX r3: best 7/10  'place the right bowl on top of the left bowl and put them in'
+  OMAX r4: best 7/10  'place the right bowl on top of the left bowl and put them in'
+  OMAX converged (no gain over 2 rounds)
+  OMAX confirm 9/20  'place the right bowl on top of the left bowl and put them in'
+  OMAX confirm 11/20  'Could you put the right dish onto the left dish and then tra'
+  OMAX confirm 9/20  'place the right bowl on the left bowl and put them in the wo'
+  OMAX confirm 11/20  'place the right bowl on top of the left bowl and put them in'
+  OMAX confirm 11/20  'stack the right bowl on the left bowl and place them in the '
+  OMAX done libero_90/64  [4623s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 82: 'pick up the book and place it in the left compartment of the caddy' (50 inits)
+  OMAX r2: best 6/10  'place the black book into the left slot of the brown caddy'
+  OMAX r3: best 6/10  'place the black book into the left slot of the brown caddy'
+  OMAX converged (no gain over 2 rounds)
+  OMAX confirm 9/20  'place the black book into the left slot of the brown caddy'
+  OMAX confirm 5/20  'pick up the black book and put it in the left compartment of'
+  OMAX confirm 7/20  'insert the black book into the left compartment of the brown'
+  OMAX confirm 4/20  'place the black book into the left side of the brown caddy'
+  OMAX confirm 6/20  'pick up the book and place it in the left compartment of the'
+  OMAX done libero_90/82  [7247s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 28: 'close the top drawer of the cabinet' (50 inits)
+  OMAX r2: best 6/10  'If it would not be too much trouble, I would greatly appreci'
+  OMAX r3: best 6/10  'If it would not be too much trouble, I would greatly appreci'
+  OMAX converged (no gain over 2 rounds)
+  OMAX confirm 12/20  'If it would not be too much trouble, I would greatly appreci'
+  OMAX confirm 9/20  'Provided you have clearance, execute a pushing maneuver on t'
+  OMAX confirm 9/20  'It is required that the drawer situated at the very peak of '
+  OMAX confirm 4/20  "Shut the cabinet's top drawer."
+  OMAX confirm 9/20  'close the top drawer of the cabinet'
+  OMAX done libero_90/28  [7507s]
+SHARD-COMPLETE om2

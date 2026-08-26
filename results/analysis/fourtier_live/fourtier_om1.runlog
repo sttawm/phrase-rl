@@ -1,0 +1,41 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 10700 episodes already logged
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 2: 'put the black bowl in the top drawer of the cabinet' (50 inits)
+  OMAX r2: best 10/10  'put the black bowl into the top drawer of the cabinet'
+  OMAX r3: best 10/10  'put the black bowl into the top drawer of the cabinet'
+  OMAX converged (no gain over 2 rounds)
+  OMAX confirm 13/20  'put the black bowl into the top drawer of the cabinet'
+  OMAX confirm 14/20  'move the grey bowl in the top drawer of the'
+  OMAX confirm 16/20  'place the black bowl in the top drawer of the cabinet'
+  OMAX confirm 12/20  'move the black bowl into the top drawer of the cabinet'
+  OMAX confirm 12/20  'put the black bowl in the top drawer of the cabinet'
+  OMAX done libero_90/2  [5400s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 38: 'put the right moka pot on the stove' (50 inits)
+  OMAX r2: best 7/10  'pick up the right moka pot and place it on the stove'
+  OMAX confirm 10/20  'pick up the right moka pot and place it on the stove'
+  OMAX confirm 6/20  'place the moka pot on the right onto the stove'
+  OMAX confirm 8/20  'position the right moka pot on the stove'
+  OMAX confirm 8/20  'transfer the right moka pot to the stove'
+  OMAX confirm 10/20  'put the right moka pot on the stove'
+  OMAX done libero_90/38  [6490s]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+== libero_90 task 60: 'pick up the black bowl on the left and put it in the tray' (50 inits)
+  OMAX r2: best 9/10  'Regarding the dark-colored container on the left that one mi'
+  OMAX r3: best 9/10  'Regarding the dark-colored container on the left that one mi'
+  OMAX converged (no gain over 2 rounds)
+  OMAX confirm 19/20  'Regarding the dark-colored container on the left that one mi'
+  OMAX confirm 13/20  'pick up the grey bowl on the left and put it in the crate'
+  OMAX confirm 12/20  'put the grey bowl on the left into the wooden crate'
+  OMAX confirm 9/20  'Can you move the black bowl on the left over to the tray?'
+  OMAX confirm 11/20  'pick up the black bowl on the left and put it in the tray'
+  OMAX done libero_90/60  [4123s]
+SHARD-COMPLETE om1

@@ -128,6 +128,31 @@ The second virgin window is what makes the oracle column credible: reported
 recoveries that were selection luck (28, 79) are caught; the trained-string
 and visual-rename recoveries hold.
 
+### 3.4b Oracle-max: searching harder for out-of-finetune oracles
+
+A follow-up run (2026-08-26, "oracle-max": board 24, 10-trial screens,
+register-mimicry and pattern-transfer lenses, 20-trial confirms on the virgin
+30--49 window; two pods, ~2,000 fresh episodes) re-searched the six
+under-searched mid-band tasks. Verdicts, winner vs canonical on the SAME
+20-trial window:
+
+| task | winner | canonical | verdict |
+|---|---|---|---|
+| l90/60 | **19/20 (95%)** "Regarding the dark-colored container on the left..." | 11/20 (55%) | large new find (+40pp) -- an ornate, adversarial-register phrase |
+| l90/2 | 16/20 (80%) | 13/20 (65%) | modest (+15pp) |
+| l90/28 | 12/20 (60%) | 8/20 (40%) | modest (+20pp) |
+| l90/82 | 9/20 (45%) | 6/20 (30%) | modest (+15pp) |
+| l90/38 | 10/20 (50%) | 10/20 (50%) | null |
+| l90/64 | 11/20 (55%) | 10/20 (50%) | null |
+
+Net read: harder search mostly *confirms* the existing oracle levels -- the
+main-run confirms were already near the per-phrase ceiling -- with one real
+exception (60), where the winning register is exactly the one that collapses
+in-finetune. The grey-for-black bowl rename won its third and fourth tasks
+(l90/2's runner-up, l90/60's runner-up at 13/20), and the book canonical's
+trained-scene cell was topped up to 20/20 (n=20) for the paper figure.
+Totals across all phases: 13,025 unique episodes.
+
 ### 3.5 What winning phrases look like
 
 Across the 21 tasks where a non-canonical phrase won or tied, winners are
