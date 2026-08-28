@@ -146,10 +146,14 @@ under-searched mid-band tasks. Verdicts, winner vs canonical on the SAME
 | l90/38 | 10/20 (50%) | 10/20 (50%) | null |
 | l90/64 | 11/20 (55%) | 10/20 (50%) | null |
 
-Net read: harder search mostly *confirms* the existing oracle levels -- the
-main-run confirms were already near the per-phrase ceiling -- with one real
-exception (60), where the winning register is exactly the one that collapses
-in-finetune. The grey-for-black bowl rename won its third and fourth tasks
+Net read: pooled over all l90-clean tasks with 20-trial windows, the oracle
+is **unchanged: 65.6% -> 65.5%**. New finds (60: 70->95; 2: 70->80) are offset
+almost exactly by lucky main-run confirms that deflate under more trials
+(12: 100->80; 28: 70->60; 79: 60->50). Individual tasks swing +-25-35pp in
+both directions; the pool does not move. ~66% is the real searched-phrasing
+ceiling for out-of-finetune tasks -- the rest is capability, not wording. The
+one qualitative novelty is 60's winner: the ornate register that collapses
+in-finetune winning big abroad. The grey-for-black bowl rename won its third and fourth tasks
 (l90/2's runner-up, l90/60's runner-up at 13/20), and the book canonical's
 trained-scene cell was topped up to 20/20 (n=20) for the paper figure.
 Totals across all phases: 13,025 unique episodes.
