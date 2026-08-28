@@ -106,6 +106,14 @@ The cross-scene cells split the binding into two separable symptoms:
 in-finetune task: canonical 95%, naturals 64%, adversarials **0%**. String
 proximity alone reproduces the trained-task signature in a novel scene.
 
+The gradient generalizes (post-hoc split, inits 0-9 only): the four l90-clean
+tasks one modifier from a trained string (2, 10, 14, 29) show orig 62 / nat 47
+/ adv **23** -- the in-finetune adversarial collapse, abroad -- while the 14
+truly-novel-vocabulary tasks show orig 43 / nat 51 / adv **53**: ornate
+phrasing mildly HELPS where no string shortcut exists. The stratum's flat
+pooled tiers (52/51/48) are these two opposite effects canceling. Caveats:
+4-task subgroup, post-hoc, +10pp with borderline CI separation.
+
 ### 3.3 Phrasing failures vs capability failures
 
 The same string, two novel scenes: "put the black bowl on top of the cabinet"
