@@ -472,6 +472,14 @@ def bases_for(target_pp, per=None):
 # ===========================================================================
 
 DECISIONS = [
+    ("2026-08-30", "rules loop reads/optimizes the LOGIT, sigmoid removed from every "
+     "surface the distiller or early-stopper sees",
+     "on training frames grip~0.1 sits outside the calibration's fitted range "
+     "[0.30,0.95]; the sigmoid pins 73% of bank phrases above 0.99 and rulebook "
+     "deltas compress into the 3rd decimal. The frozen weights are kept (they "
+     "bridge the channels' scales; held-out 78.2% pair ordering beats either "
+     "channel alone and every refit); only the squash goes. evidence.csv now "
+     "shows score/logit/z/grip; proxy+calibrated_ok columns removed."),
     ("2026-08-09", "Every evaluated phrase is measured at BANK GRADE",
      "Sim at n=36, train at F*C=64. Evaluation and bank-building become one act "
      "instead of two budgets, and no separate gt-subset pass has to be "

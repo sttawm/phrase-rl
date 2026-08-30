@@ -16,17 +16,17 @@ best/worst/median, spread, how much rests on real rollouts versus thin sampling,
 sorted by spread) as a starting point, but compute whatever else you need.
 
   {{evidence_file}}
-      Every phrase measured so far, with its estimated success rate, grouped by
-      task. This is the full spread, not a summary — read enough of it to see
-      within-task variation, not just the extremes. Where a phrase has a
-      real-rollout number it is marked; those are more reliable than estimates.
+      Every phrase measured so far, grouped by task. This is the full spread,
+      not a summary — read enough of it to see within-task variation, not just
+      the extremes. Where a phrase has a real-rollout number (`gt_success`) it
+      is marked; those are more reliable than estimates.
       Rank by the `score` column, which is normalised WITHIN each task: 1.0 is
-      that task's best measured phrase, 0.0 its worst. Do not compare scores
-      across tasks, and do not read the `proxy` column as a success rate unless
-      that row's `calibrated_ok` is True — on the training instructions it is
-      normally False, where `proxy` sits pinned near 1.0 and carries no
-      information. A column of 0.999s is not evidence that the phrasing is
-      already perfect; the discrimination lives in `score`.
+      that task's best measured phrase, 0.0 its worst; do not compare it across
+      tasks. `logit` is the same estimator un-normalised, on one common scale
+      across tasks — differences are meaningful, levels are not probabilities
+      and not success rates. `z` and `grip` are the two raw measured channels
+      behind it (z: higher is better; grip: LOWER is better) — a phrase strong
+      on one channel and weak on the other is a real, reportable pattern.
 
   {{new_file}}
       Only what has been measured SINCE your last rulebook: the probe phrases you

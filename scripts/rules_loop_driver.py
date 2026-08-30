@@ -778,13 +778,13 @@ def write_new_measurements(run, bank, tasks, path, since_iter):
     here is what came back. They stay in the bank either way; only the
     presentation separates them, and only until the next iteration."""
     if "iter_added" not in bank:
-        Path(path).write_text("task,phrase,kind,base_kind,score,proxy,n_ctx,source\n")
+        Path(path).write_text("task,phrase,kind,base_kind,score,logit,z,grip,n_ctx,source\n")
         return 0
     fresh = bank[bank.task.isin(tasks)
                  & (pd.to_numeric(bank.iter_added, errors="coerce") >= since_iter)].copy()
-    fresh["score"], _ = within_task_score(fresh)
-    cols = [c for c in ("task", "phrase", "kind", "base_kind", "score", "proxy",
-                        "n_ctx", "source") if c in fresh]
+    fresh["score"], fresh["logit"] = within_task_score(fresh)
+    cols = [c for c in ("task", "phrase", "kind", "base_kind", "score", "logit",
+                        "z", "grip", "n_ctx", "source") if c in fresh]
     fresh.sort_values("score", ascending=False)[cols].to_csv(path, index=False)
     return len(fresh)
 
@@ -796,15 +796,17 @@ def write_evidence_file(run, bank, tasks, path):
     group beats a structure it must parse by eye. A short README sits beside it."""
     sub = bank[bank.task.isin(tasks)].copy()
     sub["score"], sub["logit"] = within_task_score(sub)
-    sub["calibrated_ok"] = in_calibration_range(sub.grip)
     sub = sub.sort_values(["task", "score"])
     if "n_ctx" not in sub:
         sub["n_ctx"] = FALLBACK_NCTX
     # a phrase measured on few contexts is a weak claim; the reader needs to see
     # that to decide whether a gap is real or worth re-measuring
     sub["n_ctx"] = sub.n_ctx.fillna(FALLBACK_NCTX).round().astype(int)
-    cols = ["task", "phrase", "kind", "base_kind", "score", "proxy",
-            "calibrated_ok", "proxy_imputed", "n_ctx", "gt_success", "source"]
+    for c in ("logit", "z", "grip"):
+        if c in sub:
+            sub[c] = pd.to_numeric(sub[c], errors="coerce").round(4)
+    cols = ["task", "phrase", "kind", "base_kind", "score", "logit", "z", "grip",
+            "proxy_imputed", "n_ctx", "gt_success", "source"]
     sub[[c for c in cols if c in sub.columns]].to_csv(path, index=False)
     # per-task summary: the aggregation an agent would otherwise need a shell for
     agg = sub.groupby("task").agg(
@@ -814,7 +816,6 @@ def write_evidence_file(run, bank, tasks, path):
         # plan.md selects on. The logit is one common scale across tasks.
         best=("logit", "max"), worst=("logit", "min"),
         median=("logit", "median"),
-        calibrated=("calibrated_ok", lambda s: bool(s.any())),
         rollout_measured=("gt_success", lambda s: int(s.notna().sum())),
         thin_evidence=("n_ctx", lambda s: int((pd.to_numeric(s, errors="coerce") < 40).sum())),
     ).reset_index()
@@ -828,21 +829,23 @@ def write_evidence_file(run, bank, tasks, path):
         "Columns:\n"
         "  task       the instruction/task the phrase was measured on\n"
         "  phrase     the exact wording measured\n"
-        "  score      THE COLUMN TO RANK BY. 0-1 WITHIN ITS TASK: 1.0 is the\n"
-        "             best phrase measured for that task, 0.0 the worst. It is\n"
-        "             NOT comparable across tasks, and it is not a success rate.\n"
-        "             Blank when a task has only one measured phrase.\n"
-        "  proxy      the calibrated success-rate estimate, 0-1. Trustworthy as\n"
-        "             an absolute number ONLY where calibrated_ok is True.\n"
-        "  calibrated_ok  False means this row sits outside the range the\n"
-        "             estimator was fitted on, so `proxy` is pinned near 1.0 and\n"
-        "             says nothing. This is the NORMAL case for the training\n"
-        "             instructions: the estimator was fitted against simulator\n"
-        "             rollouts, whose scenes are much harder than the frames\n"
-        "             these phrases are scored on. The ordering inside a task is\n"
-        "             still meaningful -- that is what `score` is for. Do not\n"
-        "             read `proxy` as a success rate on those rows, and do not\n"
-        "             conclude a phrase is near-perfect because it reads 0.999.\n"
+        "  score      THE COLUMN TO RANK BY WITHIN A TASK. 0-1 within its task:\n"
+        "             1.0 is the best phrase measured for that task, 0.0 the\n"
+        "             worst. NOT comparable across tasks, and not a success\n"
+        "             rate. Blank when a task has only one measured phrase.\n"
+        "  logit      the raw proxy value that `score` normalises: a fixed\n"
+        "             linear mixture of the two measured channels below, on one\n"
+        "             common scale across tasks. Higher is better. It is NOT a\n"
+        "             probability and NOT a success rate; treat differences,\n"
+        "             not levels, as meaningful.\n"
+        "  z          raw verifier-ensemble channel (higher = the trajectory\n"
+        "             matches the instruction better, as judged by a frozen\n"
+        "             learned verifier).\n"
+        "  grip       raw gripper-error channel (LOWER is better: mean distance\n"
+        "             between the policy's gripper action and the demonstrated\n"
+        "             one). The two channels are independent measurements; a\n"
+        "             phrase strong on one and weak on the other is a real\n"
+        "             pattern worth noting, not an error.\n"
         "  kind       what the phrase IS. Five kinds:\n"
         "               original     the task's own canonical instruction -- the\n"
         "                            wording the policy was trained on\n"
@@ -854,10 +857,9 @@ def write_evidence_file(run, bank, tasks, path):
         "               search       surfaced by automated phrasing search, or\n"
         "                            proposed as a probe; exploratory wordings\n"
         "             plus `unknown` for measurements that predate labelling.\n"
-        "  proxy_imputed  True when one reward channel was missing for this row\n"
-        "             and was filled with the column mean. Those estimates are\n"
-        "             driven by the surviving channel alone -- weaker evidence\n"
-        "             than a row with both.\n"
+        "  proxy_imputed  True when one channel was missing for this row and\n"
+        "             was filled with the column mean. Those rows are driven by\n"
+        "             the surviving channel alone -- weaker evidence.\n"
         "  base_kind  for `rephrased` rows only: the kind of the instruction it\n"
         "             was rewritten FROM. Blank otherwise. This is the column that\n"
         "             says what a rewrite was REPAIRING.\n\n"
@@ -874,14 +876,14 @@ def write_evidence_file(run, bank, tasks, path):
         "             n_ctx, the difference may be noise -- you can propose\n"
         "             re-measuring them (see the experiment format).\n"
         "  gt_success real measured success rate, 0-100, blank if never rolled.\n"
-        "             Where present, trust this over `proxy`.\n"
+        "             Where present, trust this over every estimated column.\n"
         "  source     where the measurement came from\n\n"
         "\nevidence_summary.csv sits beside it: one row per task with phrase count,\n"
-        "best/worst/median estimate, SPREAD (best-worst), how many phrases carry a\n"
-        "real rollout number, and how many rest on thin sampling. Sorted by spread,\n"
-        "descending -- the tasks where wording matters most are at the top. Read it\n"
-        "first, then go into evidence.csv for the tasks it points you to. The\n"
-        "within-task spread is the signal, not the extremes.\n")
+        "best/worst/median logit, SPREAD (best-worst, in logit units), how many\n"
+        "phrases carry a real rollout number, and how many rest on thin sampling.\n"
+        "Sorted by spread, descending -- the tasks where wording matters most are\n"
+        "at the top. Read it first, then go into evidence.csv for the tasks it\n"
+        "points you to. The within-task spread is the signal, not the extremes.\n")
     return len(sub)
 
 
@@ -892,9 +894,10 @@ def write_eval_file(run, path, rules, pairs, base_mean, rules_mean):
                                "delta": rules_mean - base_mean},
             "samples": pairs})
     lines = ["# Previous rulebook: measured performance", "",
-             f"Whole rulebook applied: estimated success {rules_mean:.3f} vs "
+             f"Whole rulebook applied: mean proxy logit {rules_mean:.3f} vs "
              f"{base_mean:.3f} for the unrephrased instruction "
-             f"({rules_mean - base_mean:+.3f}).", ""]
+             f"({rules_mean - base_mean:+.3f}; higher is better, not a "
+             f"probability).", ""]
     lines += ["## Sample rewrites from the whole rulebook", ""]
     for p in pairs:
         lines.append(f"  [{p['task']}]")
@@ -1014,16 +1017,18 @@ def parse_rules(rules_text):
 
 
 def baseline_proxy(run, cfg, bases, tag):
-    """Mean proxy of the UNREPHRASED base phrases -- scored once per split and
-    cached, since the bases are fixed for the whole run."""
+    """Mean LOGIT of the UNREPHRASED base phrases -- scored once per split and
+    cached, since the bases are fixed for the whole run. Cache name carries
+    _logit so a resumed pre-change run can never mix units."""
     bh = hashlib.sha1(pd.util.hash_pandas_object(
         bases[["task", "phrase"]]).values.tobytes()).hexdigest()[:8]
-    cache = run.dir / f"baseline_{tag}_{bh}.json"
+    cache = run.dir / f"baseline_{tag}_{bh}_logit.json"
     if cache.exists():
         return jread(cache)["mean"]
     sc = score_phrases(run, cfg, bases[["task", "phrase"]], f"baseline_{tag}")
-    jwrite(cache, {"mean": float(sc.proxy.mean()), "n": int(len(sc))})
-    return float(sc.proxy.mean())
+    mean = float(np.nanmean(proxy_logit(sc.z.astype(float), sc.grip.astype(float))))
+    jwrite(cache, {"mean": mean, "n": int(len(sc))})
+    return mean
 
 
 def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
@@ -1045,7 +1050,11 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
     rewrites = apply_rules(run, cfg, rephraser, rules, bases, f"{tag}")
     rw = rewrites.rename(columns={"phrase": "base", "rewrite": "phrase"})[["task", "phrase", "base"]]
     scored = score_phrases(run, cfg, rw, f"{tag}_sc")
-    score = float(scored.proxy.mean())
+    # mean LOGIT, not mean sigmoid (user 2026-08-30): on training frames the
+    # sigmoid pins 73% of phrases above 0.99 and rulebook differences compress
+    # into the third decimal; the linear mixture keeps full dynamic range and
+    # the frozen weights already bridge the two channels' scales.
+    score = float(np.nanmean(proxy_logit(scored.z.astype(float), scored.grip.astype(float))))
     summary = None
     if judge:
         eval_file = itdir / "rules_eval.md"
@@ -1089,10 +1098,10 @@ def plot_progress(run, pdir, rephraser):
         if all(y is not None for y in ys):
             ax2.plot(xs, ys, "o-", color=col, lw=1.6, label=key)
     ax2.axhline(0, ls="--", color="#718096", lw=1)
-    ax2.set_xlabel("iteration"); ax2.set_ylabel("proxy gain over unrephrased")
+    ax2.set_xlabel("iteration"); ax2.set_ylabel("logit gain over unrephrased")
     ax2.set_title("do the rules beat saying nothing?", fontsize=10)
     ax2.legend(fontsize=8); ax2.grid(alpha=0.25)
-    ax.set_xlabel("iteration"); ax.set_ylabel("mean proxy success (estimated rate)")
+    ax.set_xlabel("iteration"); ax.set_ylabel("mean proxy logit")
     ax.set_title(f"{run.id} / {rephraser} -- early stop on val_avg")
     ax.legend(fontsize=8); ax.grid(alpha=0.25)
     fig.tight_layout()
