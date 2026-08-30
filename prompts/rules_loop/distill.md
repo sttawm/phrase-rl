@@ -28,13 +28,20 @@ sorted by spread) as a starting point, but compute whatever else you need.
       behind it (z: higher is better; grip: LOWER is better) — a phrase strong
       on one channel and weak on the other is a real, reportable pattern.
 
-  {{new_file}}
-      Only what has been measured SINCE your last rulebook: the probe phrases you
-      asked for, and the rewrites your own rulebook produced. These rows are also
-      in the evidence file -- they are split out here because the answers to your
-      own experiments would otherwise be a handful of rows among thousands. If you
-      proposed an experiment last time, this is what it returned. Read it before
-      the full table.
+  {{probe_file}}
+      Answers to YOUR OWN experiments: the probe phrases you asked for last
+      iteration, now measured. These rows are also in the evidence file -- they
+      are split out because the answers to your questions would otherwise be a
+      handful of rows among thousands. Read this before the full table.
+
+  {{rewrites_file}}
+      What your last rulebook actually did, phrase by phrase: each base
+      instruction PAIRED with the rewrite the rulebook produced for it, both
+      measured, with the delta (rewrite_logit - base_logit; positive = the
+      rewrite scored better than leaving the instruction alone) and base_kind
+      (which input regime was being repaired). The whole-book mean says whether
+      the book gained; this file says WHERE it gained and lost. Sorted worst
+      delta first within each regime.
 
   {{best_eval_file}}
       The auditor's read on the BEST rulebook: whether each rule was actually

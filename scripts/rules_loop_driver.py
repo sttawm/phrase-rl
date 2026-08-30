@@ -768,25 +768,59 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag):
     return pd.DataFrame(rows)
 
 
-def write_new_measurements(run, bank, tasks, path, since_iter):
-    """Just what has been measured since the last distillation: the probes the
-    distiller asked for, and the rewrites its own rulebook produced.
-
-    Without this the answers to its experiments arrive as ~20 new rows inside a
-    table of thousands and are effectively invisible. Splitting them out for one
-    iteration closes the loop on plan.md -- the distiller proposed a question and
-    here is what came back. They stay in the bank either way; only the
-    presentation separates them, and only until the next iteration."""
-    if "iter_added" not in bank:
-        Path(path).write_text("task,phrase,kind,base_kind,score,logit,z,grip,n_ctx,source\n")
+def write_probe_results(run, bank, tasks, path, since_iter):
+    """Answers to the distiller's own experiments: probe phrases proposed via
+    plan.md, measured since the last distillation. Split from the rewrite
+    outcomes -- "what did my questions return" and "what did my rulebook do"
+    are different registers and are read differently."""
+    hdr = "task,phrase,kind,score,logit,z,grip,n_ctx\n"
+    if "iter_added" not in bank or "source" not in bank:
+        Path(path).write_text(hdr)
         return 0
     fresh = bank[bank.task.isin(tasks)
+                 & bank.source.eq("probe")
                  & (pd.to_numeric(bank.iter_added, errors="coerce") >= since_iter)].copy()
+    if not len(fresh):
+        Path(path).write_text(hdr)
+        return 0
     fresh["score"], fresh["logit"] = within_task_score(fresh)
-    cols = [c for c in ("task", "phrase", "kind", "base_kind", "score", "logit",
-                        "z", "grip", "n_ctx", "source") if c in fresh]
-    fresh.sort_values("score", ascending=False)[cols].to_csv(path, index=False)
+    cols = [c for c in ("task", "phrase", "kind", "score", "logit", "z", "grip",
+                        "n_ctx") if c in fresh]
+    fresh.sort_values(["task", "logit"], ascending=[True, False])[cols].to_csv(
+        path, index=False)
     return len(fresh)
+
+
+def write_rewrite_outcomes(run, bank, path, since_iter):
+    """The rulebook's own rewrites, PAIRED with the bases they rewrote: one row
+    per (base -> rewrite) with both measured logits and the delta. This is the
+    per-phrase outcome record of the distiller's last move -- the scalar delta
+    says whether the book gained; these rows say WHERE, and base_kind says on
+    which input regime."""
+    hdr = ("task,base_kind,base,base_logit,rewrite,rewrite_logit,delta,n_ctx\n")
+    if "iter_added" not in bank or "source" not in bank:
+        Path(path).write_text(hdr)
+        return 0
+    rw = bank[bank.source.astype(str).str.startswith("loop_")
+              & (pd.to_numeric(bank.iter_added, errors="coerce") >= since_iter)].copy()
+    if not len(rw) or "base" not in rw:
+        Path(path).write_text(hdr)
+        return 0
+    rw["rewrite_logit"] = proxy_logit(rw.z.astype(float), rw.grip.astype(float))
+    base_lg = bank.dropna(subset=["z", "grip"]).copy()
+    base_lg["base_logit"] = proxy_logit(base_lg.z.astype(float), base_lg.grip.astype(float))
+    base_lg = base_lg.drop_duplicates(["task", "phrase"], keep="last")[
+        ["task", "phrase", "base_logit"]].rename(columns={"phrase": "base"})
+    rw = rw.merge(base_lg, on=["task", "base"], how="left")
+    rw["delta"] = rw.rewrite_logit - rw.base_logit
+    out = rw.rename(columns={"phrase": "rewrite"})
+    cols = [c for c in ("task", "base_kind", "base", "base_logit", "rewrite",
+                        "rewrite_logit", "delta", "n_ctx") if c in out]
+    for c in ("base_logit", "rewrite_logit", "delta"):
+        out[c] = pd.to_numeric(out[c], errors="coerce").round(4)
+    out.sort_values(["base_kind", "delta"], ascending=[True, True])[cols].to_csv(
+        path, index=False)
+    return len(out)
 
 
 def write_evidence_file(run, bank, tasks, path):
@@ -1283,9 +1317,12 @@ def main():
             else:
                 bank = pd.read_parquet(run.dir / "bank.parquet")
                 n_ev = write_evidence_file(run, bank, train_tasks, ev_file)
-                new_file = itdir / "new_measurements.csv"
-                n_new = write_new_measurements(run, bank, train_tasks, new_file,
-                                               since_iter=it - 1)
+                probe_file = itdir / "probe_results.csv"
+                rw_file = itdir / "rewrite_outcomes.csv"
+                n_new = write_probe_results(run, bank, train_tasks, probe_file,
+                                            since_iter=it - 1)
+                n_new += write_rewrite_outcomes(run, bank, rw_file,
+                                                since_iter=it - 1)
                 # Two matched (rulebook, measurements) pairs -- never a rulebook paired
                 # with another rulebook's numbers. The best pair is what to build from;
                 # the regressed pair, when there is one, is what to avoid.
@@ -1322,7 +1359,7 @@ def main():
                 dp = prompt_from("distill.md", best_rules=best_rules,
                                  regressed_block=regressed_block,
                                  corpus_file=rel(corpus_file), evidence_file=rel(ev_file),
-                                 new_file=rel(new_file),
+                                 probe_file=rel(probe_file), rewrites_file=rel(rw_file),
                                  best_eval_file=rel(best_eval),
                                  regressed_eval_file=rel(regressed_eval))
                 print(f"    distilling over {n_ev} measured phrases "
