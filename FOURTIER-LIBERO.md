@@ -191,6 +191,18 @@ understanding. Rephrasing is a *repair* exactly where a shortcut exists
 (in-finetune ornate inputs; trained strings abroad) and a lottery where none
 does.
 
+## 4b. Deferred: SARL-protocol oracle comparison
+
+If a direct comparison to SARL (arXiv 2606.31958, prompt-space RL against a
+frozen VLA, no held-out split) is ever needed: their number equals the UNSPLIT
+estimator max-over-phrases of mean-over-all-layouts, selection and evaluation
+pooled. Decision 2026-08-30: deferred. When revived -- report it alongside
+(never instead of) the held-out oracle with the selection-bias footnote our
+confirm2 data quantifies (+2pp pooled, +-25-35pp per task); LIBERO is
+computable from banked data, SIMPLER needs a top-K full-grid re-roll
+(~K x 288 eps/task) since only confirmed winners have full coverage; the
+fairer axis is oracle-vs-interaction-budget curves from the board-search logs.
+
 ## 5. Reproduction
 
 - Harness (in `sttawm/interactive-vlas`): `pi05_libero/eval/fourtier_eval.py`
