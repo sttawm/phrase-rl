@@ -922,7 +922,18 @@ def write_evidence_file(run, bank, tasks, path):
 
 
 def write_eval_file(run, path, rules, pairs, base_mean, rules_mean):
-    # machine-readable twin: small and structured, so JSON is the right shape here
+    """Each sample pair carries its measured numbers (judge.md promises them):
+    the rewrite's logit, the base's logit from the bank where measured, and the
+    per-pair delta. A pair whose base was never measured shows the rewrite
+    number alone rather than a fabricated delta."""
+    bank = pd.read_parquet(run.dir / "bank.parquet")
+    bank = bank.dropna(subset=["z", "grip"]).drop_duplicates(["task", "phrase"], keep="last")
+    bl = {(str(r.task), str(r.phrase)): float(proxy_logit(r.z, r.grip))
+          for r in bank.itertuples()}
+    for p in pairs:
+        p["base_logit"] = bl.get((str(p["task"]), str(p["base"])))
+        if p.get("rewrite_logit") is not None and p["base_logit"] is not None:
+            p["delta"] = round(p["rewrite_logit"] - p["base_logit"], 4)
     jwrite(Path(str(path).replace(".md", ".json")),
            {"whole_rulebook": {"with_rules": rules_mean, "unrephrased": base_mean,
                                "delta": rules_mean - base_mean},
@@ -932,11 +943,20 @@ def write_eval_file(run, path, rules, pairs, base_mean, rules_mean):
              f"{base_mean:.3f} for the unrephrased instruction "
              f"({rules_mean - base_mean:+.3f}; higher is better, not a "
              f"probability).", ""]
-    lines += ["## Sample rewrites from the whole rulebook", ""]
+    lines += ["## Sample rewrites from the whole rulebook",
+              "(logit: higher is better; delta = rewrite - base, positive means",
+              "the rewrite beat leaving the instruction alone)", ""]
     for p in pairs:
+        rl = p.get("rewrite_logit")
+        blg = p.get("base_logit")
+        d = p.get("delta")
+        num = "    logit: " + (f"{rl:.3f}" if rl is not None else "unmeasured")
+        if blg is not None:
+            num += f"  (base {blg:.3f}" + (f", delta {d:+.3f})" if d is not None else ")")
         lines.append(f"  [{p['task']}]")
         lines.append(f"    in : {p['base']!r}")
         lines.append(f"    out: {p['rewrite']!r}")
+        lines.append(num)
     Path(path).write_text("\n".join(lines))
 
 
@@ -1092,8 +1112,11 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
     summary = None
     if judge:
         eval_file = itdir / "rules_eval.md"
+        rlg = {(str(r.task), str(r.phrase)): float(proxy_logit(r.z, r.grip))
+               for r in scored.dropna(subset=["z", "grip"]).itertuples()}
         write_eval_file(run, eval_file, rules,
-                        [{"task": r.task, "base": r.phrase, "rewrite": r.rewrite}
+                        [{"task": r.task, "base": r.phrase, "rewrite": r.rewrite,
+                          "rewrite_logit": rlg.get((str(r.task), str(r.rewrite)))}
                          for r in rewrites.head(40).itertuples()],
                         baseline_proxy(run, cfg, bases, tag), score)
         judge_p = prompt_from("judge.md", rules=rules_only(rules), eval_file=eval_file)
