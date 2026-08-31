@@ -867,7 +867,7 @@ def write_probe_results(run, bank, tasks, path, since_iter):
     return len(fresh)
 
 
-def write_rewrite_outcomes(run, bank, path, since_iter):
+def write_rewrite_outcomes(run, bank, path, since_iter, same_draw=None):
     """The rulebook's own rewrites, PAIRED with the bases they rewrote: one row
     per (base -> rewrite) with both measured logits and the delta. This is the
     per-phrase outcome record of the distiller's last move -- the scalar delta
@@ -888,10 +888,14 @@ def write_rewrite_outcomes(run, bank, path, since_iter):
     base_lg = base_lg.drop_duplicates(["task", "phrase"], keep="last")[
         ["task", "phrase", "base_logit"]].rename(columns={"phrase": "base"})
     rw = rw.merge(base_lg, on=["task", "base"], how="left")
+    if same_draw:   # same-draw baseline beats bank history where available
+        sd = rw.apply(lambda r: same_draw.get((str(r.task), str(r.base))), axis=1)
+        rw["base_logit"] = sd.combine_first(rw.base_logit)
+        rw["same_draw"] = sd.notna()
     rw["delta"] = rw.rewrite_logit - rw.base_logit
     out = rw.rename(columns={"phrase": "rewrite"})
     cols = [c for c in ("task", "base_kind", "base", "base_logit", "rewrite",
-                        "rewrite_logit", "delta", "n_ctx") if c in out]
+                        "rewrite_logit", "delta", "same_draw", "n_ctx") if c in out]
     for c in ("base_logit", "rewrite_logit", "delta"):
         out[c] = pd.to_numeric(out[c], errors="coerce").round(4)
     out.sort_values(["base_kind", "delta"], ascending=[True, True])[cols].to_csv(
@@ -1494,8 +1498,10 @@ def main():
                 rw_file = itdir / "rewrite_outcomes.csv"
                 n_new = write_probe_results(run, bank, train_tasks, probe_file,
                                             since_iter=it - 1)
-                n_new += write_rewrite_outcomes(run, bank, rw_file,
-                                                since_iter=it - 1)
+                n_new += write_rewrite_outcomes(
+                    run, bank, rw_file, since_iter=it - 1,
+                    same_draw=baseline_rows(run, "train",
+                                            bases_for(train_tasks, cfg["sample_n"], seed=0)))
                 # Two matched (rulebook, measurements) pairs -- never a rulebook paired
                 # with another rulebook's numbers. The best pair is what to build from;
                 # the regressed pair, when there is one, is what to avoid.
