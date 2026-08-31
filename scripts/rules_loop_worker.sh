@@ -101,11 +101,16 @@ while true; do
     if IPC_DIR="$IPC_DIR" .venv-gen/bin/python scripts/rules_loop_jobs.py "$specf" \
          > "/workspace/rljob_$jid.log" 2>&1; then
       git add "$JOBS/$jid.result.parquet"
-      rm -f "$JOBS/$jid.failed.txt"
+      # stage the marker deletion too: an unstaged rm leaves a stale committed
+      # failed.txt on origin, which killed a driver mid-wait (2026-08-31)
+      git rm -q -f --ignore-unmatch "$JOBS/$jid.failed.txt"
     else
-      # retryable marker: a transient scoring timeout must not poison the job id
-      tail -c 2000 "/workspace/rljob_$jid.log" > "$JOBS/$jid.failed.txt"
-      git add "$JOBS/$jid.failed.txt" "$JOBS/$jid.attempt-$((att + 1))"
+      # retryable marker: only the 3rd failure is FINAL (drivers ignore the rest)
+      { [ "$((att + 1))" -ge 3 ] && echo "FINAL attempt $((att + 1))/3"; } \
+        > "$JOBS/$jid.failed.txt" || true
+      tail -c 2000 "/workspace/rljob_$jid.log" >> "$JOBS/$jid.failed.txt"
+      git add "$JOBS/$jid.failed.txt" "$JOBS/$jid.attempt-$((att + 1))" 2>/dev/null \
+        || git add "$JOBS/$jid.failed.txt"
       mark "FAILED $jid (attempt $((att + 1))/3)"
     fi
     if ! git commit -q -m "rules-loop result $jid"; then

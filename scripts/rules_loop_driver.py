@@ -778,7 +778,10 @@ def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=2880
         if result.exists():
             return pd.read_parquet(result)
         fail = jdir / f"{jid}.failed.txt"
-        if fail.exists():
+        # a failed marker is only fatal when the worker declared it FINAL (3rd
+        # attempt): attempt-1 markers race the retry that later succeeds, and a
+        # driver that dies on one orphans the whole pass (qwen, 2026-08-31)
+        if fail.exists() and "FINAL" in fail.read_text()[:2000]:
             raise RuntimeError(f"job {jid} failed on worker: {fail.read_text()[:400]}")
     raise TimeoutError(f"job {jid} ({kind}) not returned in {timeout}s")
 
