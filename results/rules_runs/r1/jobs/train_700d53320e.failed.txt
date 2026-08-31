@@ -1,22 +1,0 @@
-[00:01<00:01, 183.46it/s]Loading weights:  60%|██████    | 257/427 [00:01<00:00, 172.24it/s]Loading weights:  65%|██████▌   | 278/427 [00:01<00:00, 175.64it/s]Loading weights:  69%|██████▉   | 296/427 [00:02<00:00, 172.66it/s]Loading weights:  74%|███████▎  | 314/427 [00:02<00:00, 163.57it/s]Loading weights:  80%|███████▉  | 340/427 [00:02<00:00, 187.02it/s]Loading weights:  84%|████████▍ | 360/427 [00:02<00:00, 178.12it/s]Loading weights:  89%|████████▉ | 379/427 [00:02<00:00, 179.75it/s]Loading weights:  93%|█████████▎| 398/427 [00:02<00:00, 177.83it/s]Loading weights:  97%|█████████▋| 416/427 [00:02<00:00, 171.33it/s]Loading weights: 100%|██████████| 427/427 [00:02<00:00, 152.95it/s]
-Traceback (most recent call last):
-  File "/workspace/phrase-rl/.venv-gen/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 287, in __getattr__
-    return self.data[item]
-           ~~~~~~~~~^^^^^^
-KeyError: 'shape'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/workspace/phrase-rl/scripts/rules_loop_jobs.py", line 220, in <module>
-    g = model.generate(inp, do_sample=False, max_new_tokens=48)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/workspace/phrase-rl/.venv-gen/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
-    return func(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/workspace/phrase-rl/.venv-gen/lib/python3.11/site-packages/transformers/generation/utils.py", line 2521, in generate
-    batch_size = inputs_tensor.shape[0]
-                 ^^^^^^^^^^^^^^^^^^^
-  File "/workspace/phrase-rl/.venv-gen/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 289, in __getattr__
-    raise AttributeError
-AttributeError
