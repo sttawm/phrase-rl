@@ -40,7 +40,9 @@ grep -q PYTORCH_CUDA_ALLOC_CONF ~/.bashrc || echo 'export PYTORCH_CUDA_ALLOC_CON
 export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_POD_ID=')" || true
 export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_API_KEY=')" || true
 runpodctl config --apiKey "$RUNPOD_API_KEY" 2>&1 | tail -1 || true
-setsid bash -c "sleep $((22*3600)); runpodctl stop pod $RUNPOD_POD_ID >> /workspace/autostop.log 2>&1" < /dev/null > /dev/null 2>&1 &
+if [ "${SKIP_AUTOSTOP:-0}" != "1" ]; then
+  setsid bash -c "sleep $((22*3600)); runpodctl stop pod $RUNPOD_POD_ID >> /workspace/autostop.log 2>&1" < /dev/null > /dev/null 2>&1 &
+fi
 
 if [ "${SKIP_LAUNCH:-0}" = "1" ]; then
   echo "BOOTSTRAP-ENV-DONE-$ARM (launch deferred)"
