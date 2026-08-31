@@ -250,7 +250,7 @@ via API was refused on full hosts — the console button is the fallback.
   e1=g820s2yb35nggu, e4=xlnjfghj5v9j0o, e6=0gx0ylavw0ofzp, L40S=8u4ljy4ddrgoki.
 - Pods sync via GitHub (scripts + git pulls), never scp of commands. Pod git
   remotes embed a GitHub token — **never print a pod remote URL**; the user
-  still needs to rotate a previously leaked token.
+  leaked token ROTATED + revoked 2026-08-31 (verified 401); pods now use a 30-day fine-grained PAT scoped to this repo only (POD_GIT_TOKEN in ~/.zshrc).
 - Long jobs: `setsid nohup ... &` (tmux-session-scoped jobs die when the tmux
   server tears down; when stopping a pod from inside tmux, run the stop
   FOREGROUND). Verify every push landed with
@@ -351,5 +351,5 @@ via API was refused on full hosts — the console button is the fallback.
    `custom_scenes/put_on_in_new.py`) — needed for 0–17×2 vs 0–35×1
    comparability claims.
 6. Paper long tail: page-1 teaser only via `\twocolumn[]` (needs user opt-in);
-   192 sealed traces pending PREREG Amendment 3; user must rotate the leaked
+   192 sealed traces pending PREREG Amendment 3; leaked token rotated+revoked 2026-08-31 (was: user must rotate the leaked
    GitHub token.
