@@ -1566,6 +1566,14 @@ def main():
                       "as iteration 0 so every distilled rulebook has an anchor to beat.\n")}
         # iteration 0 measures whatever we start from -- the no-rules scaffold in
         # round 1, the round-1 rulebook in round 2 -- so the anchor is always real
+        def rel(p):
+            # used by distill (iter>=1) AND probe planning (every iteration):
+            # defining it inside the distill branch crashed iteration 0
+            try:
+                return str(Path(p).resolve().relative_to(run.dir.resolve()))
+            except ValueError:
+                return str(p)
+
         while st["since_best"] < cfg["patience"] and st["iter"] < cfg["max_iters"]:
             it = st["iter"]
             itdir = pdir / f"iter_{it:02d}"
@@ -1618,12 +1626,6 @@ def main():
                         f"{st['best_val']:.4f}). Do NOT build from this one -- diff it "
                         f"against the best rulebook above and work out which change cost "
                         f"the ground:\n{rr}\n")
-
-                def rel(p):
-                    try:
-                        return str(Path(p).resolve().relative_to(run.dir.resolve()))
-                    except ValueError:
-                        return str(p)
 
                 dp = prompt_from("distill.md", best_rules=best_rules,
                                  regressed_block=regressed_block,
