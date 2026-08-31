@@ -19,6 +19,9 @@ Guidelines:
 
 ---
 
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
 {{rules}}
 
 ---
