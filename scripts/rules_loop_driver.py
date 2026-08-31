@@ -235,16 +235,25 @@ def sh(cmd, timeout=240, check=False):
 
 
 def gitsync(push_paths=None, msg=""):
-    for _ in range(3):
+    paths = " ".join(str(p) for p in push_paths) if push_paths else ""
+    for _ in range(6):
         sh("git -c rebase.autoStash=true pull --rebase -q origin main", timeout=200)
         if not push_paths:
             return True
-        sh("git add " + " ".join(str(p) for p in push_paths))
+        sh("git add " + paths)
         sh(f"git commit -q -m {json.dumps(msg)}")
-        if sh("git push -q origin HEAD:main", timeout=200).returncode == 0:
+        if sh("git push -q origin HEAD:main", timeout=200).returncode != 0:
+            sh("git rebase --abort")
+            time.sleep(2)
+            continue
+        # verify the paths actually landed: concurrent drivers share this tree,
+        # and an index.lock race can fail add/commit silently while the push
+        # trivially "succeeds" with nothing new (stranded current_rules_qwen.md,
+        # 2026-08-31). Untracked/modified here means our write never committed.
+        if not sh("git status --porcelain -- " + paths).stdout.strip():
             return True
-        sh("git rebase --abort")
-    raise RuntimeError("git push failed 3x")
+        time.sleep(3)
+    raise RuntimeError("git push failed/unverified 6x")
 
 
 def jread(p):
