@@ -1013,10 +1013,13 @@ def write_eval_file(run, path, rules, pairs, base_mean, rules_mean):
     number alone rather than a fabricated delta."""
     bank = pd.read_parquet(run.dir / "bank.parquet")
     bank = bank.dropna(subset=["z", "grip"]).drop_duplicates(["task", "phrase"], keep="last")
-    bl = {(str(r.task), str(r.phrase)): float(proxy_logit(r.z, r.grip))
-          for r in bank.itertuples()}
+    bank_bl = {(str(r.task), str(r.phrase)): float(proxy_logit(r.z, r.grip))
+               for r in bank.itertuples()}
+    same_draw = getattr(write_eval_file, "_same_draw", {})
     for p in pairs:
-        p["base_logit"] = bl.get((str(p["task"]), str(p["base"])))
+        key = (str(p["task"]), str(p["base"]))
+        p["base_logit"] = same_draw.get(key, bank_bl.get(key))
+        p["base_logit_same_draw"] = key in same_draw
         if p.get("rewrite_logit") is not None and p["base_logit"] is not None:
             p["delta"] = round(p["rewrite_logit"] - p["base_logit"], 4)
     jwrite(Path(str(path).replace(".md", ".json")),
@@ -1168,12 +1171,31 @@ def baseline_proxy(run, cfg, bases, tag):
     bh = hashlib.sha1(pd.util.hash_pandas_object(
         bases[["task", "phrase"]]).values.tobytes()).hexdigest()[:8]
     cache = run.dir / f"baseline_{tag}_{bh}_logit.json"
-    if cache.exists():
+    rows = run.dir / f"baseline_{tag}_{bh}_rows.parquet"
+    if cache.exists() and rows.exists():
         return jread(cache)["mean"]
     sc = score_phrases(run, cfg, bases[["task", "phrase"]], f"baseline_{tag}")
+    # per-phrase rows persist so pair deltas compare SAME-DRAW measurements
+    # (baseline and eval rewrites both score at draw 0): the bank's historical
+    # values were measured under unrecorded, heterogeneous draws and mixing
+    # them into a pair delta puts several logit units of context-set offset
+    # into a number that should reflect only the text change.
+    sc.to_parquet(rows, index=False)
     mean = eval_metric(cfg, sc)
     jwrite(cache, {"mean": mean, "n": int(len(sc))})
     return mean
+
+
+def baseline_rows(run, tag, bases):
+    """(task, phrase) -> same-draw base logit from the cached baseline job."""
+    bh = hashlib.sha1(pd.util.hash_pandas_object(
+        bases[["task", "phrase"]]).values.tobytes()).hexdigest()[:8]
+    p = run.dir / f"baseline_{tag}_{bh}_rows.parquet"
+    if not p.exists():
+        return {}
+    d = pd.read_parquet(p).dropna(subset=["z", "grip"])
+    return {(str(r.task), str(r.phrase)): float(proxy_logit(r.z, r.grip))
+            for r in d.itertuples()}
 
 
 def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
@@ -1204,6 +1226,7 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
         eval_file = itdir / "rules_eval.md"
         rlg = {(str(r.task), str(r.phrase)): float(proxy_logit(r.z, r.grip))
                for r in scored.dropna(subset=["z", "grip"]).itertuples()}
+        write_eval_file._same_draw = baseline_rows(run, tag, bases)
         write_eval_file(run, eval_file, rules,
                         [{"task": r.task, "base": r.phrase, "rewrite": r.rewrite,
                           "rewrite_logit": rlg.get((str(r.task), str(r.rewrite)))}
