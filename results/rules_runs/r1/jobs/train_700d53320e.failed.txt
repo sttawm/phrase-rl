@@ -1,11 +1,22 @@
+ 33.40it/s]Loading weights:  86%|████████▌ | 367/427 [00:12<00:02, 29.23it/s]Loading weights:  87%|████████▋ | 373/427 [00:13<00:01, 34.52it/s]Loading weights:  90%|████████▉ | 383/427 [00:13<00:00, 46.56it/s]Loading weights:  91%|█████████ | 389/427 [00:13<00:01, 35.90it/s]Loading weights:  93%|█████████▎| 397/427 [00:13<00:00, 43.52it/s]Loading weights:  94%|█████████▍| 403/427 [00:13<00:00, 34.18it/s]Loading weights:  96%|█████████▌| 410/427 [00:13<00:00, 35.50it/s]Loading weights:  97%|█████████▋| 415/427 [00:14<00:00, 33.68it/s]Loading weights:  98%|█████████▊| 419/427 [00:14<00:00, 27.02it/s]Loading weights: 100%|██████████| 427/427 [00:14<00:00, 29.48it/s]
 Traceback (most recent call last):
-  File "/workspace/phrase-rl/scripts/rules_loop_jobs.py", line 177, in <module>
-    rules = (REPO / spec["rules_file"]).read_text()
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/pathlib.py", line 1058, in read_text
-    with self.open(mode='r', encoding=encoding, errors=errors) as f:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/pathlib.py", line 1044, in open
-    return io.open(self, mode, buffering, encoding, errors, newline)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/workspace/phrase-rl/results/rules_runs/r1/current_rules_qwen.md'
+  File "/workspace/phrase-rl/.venv-gen/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 287, in __getattr__
+    return self.data[item]
+           ~~~~~~~~~^^^^^^
+KeyError: 'shape'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/phrase-rl/scripts/rules_loop_jobs.py", line 220, in <module>
+    g = model.generate(inp, do_sample=False, max_new_tokens=48)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/phrase-rl/.venv-gen/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/phrase-rl/.venv-gen/lib/python3.11/site-packages/transformers/generation/utils.py", line 2521, in generate
+    batch_size = inputs_tensor.shape[0]
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/phrase-rl/.venv-gen/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 289, in __getattr__
+    raise AttributeError
+AttributeError
