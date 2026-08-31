@@ -1,6 +1,0 @@
-{
- "job_id": "train_700d53320e",
- "kind": "apply",
- "rules_file": "results/rules_runs/r1/current_rules_qwen.md",
- "rules_sha": "dbce4e474e5d"
-}
