@@ -261,7 +261,9 @@ def jread(p):
 
 
 def jwrite(p, obj):
-    tmp = Path(str(p) + ".tmp")
+    # per-process tmp name: concurrent drivers rewriting the same shared file
+    # raced on one ".tmp" and crashed at startup (2026-09-01)
+    tmp = Path(f"{p}.tmp.{os.getpid()}")
     tmp.write_text(json.dumps(obj, indent=1, default=str))
     os.replace(tmp, p)
 
