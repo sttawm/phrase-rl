@@ -17,6 +17,10 @@ RUN_ID="${RUN_ID:?set RUN_ID}"
 JOBS="results/rules_runs/$RUN_ID/jobs"
 export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_POD_ID=')" 2>/dev/null || true
 POD="${RUNPOD_POD_ID:-$(hostname)}"
+# identity must live in the repo config, not the launching session's env: a
+# worker relaunched in a fresh tmux lost it and wedged on an un-committable result
+git config user.email >/dev/null 2>&1 || git config user.email "worker@phrase-rl.local"
+git config user.name  >/dev/null 2>&1 || git config user.name "phrase-rl worker $POD"
 mark() { echo "[rlworker $(date -u +%H:%M)] $*" >> /workspace/rules_worker.log; }
 
 IPC_DIR="${IPC_DIR:-/workspace/ipc_rules}"
@@ -104,12 +108,19 @@ while true; do
       git add "$JOBS/$jid.failed.txt" "$JOBS/$jid.attempt-$((att + 1))"
       mark "FAILED $jid (attempt $((att + 1))/3)"
     fi
-    git commit -q -m "rules-loop result $jid"
+    if ! git commit -q -m "rules-loop result $jid"; then
+      # a silent commit failure wedged a finished 4h job on 2026-08-31 (lost git
+      # identity): fail LOUDLY and leave the loop so the stall is visible
+      mark "COMMIT FAILED for $jid -- worker halting (fix git state, restart)"
+      exit 1
+    fi
+    pushed=0
     for i in 1 2 3; do
       timeout 300 bash -c "git -c rebase.autoStash=true pull -q --rebase && git push -q" \
-        && break
+        && { pushed=1; break; }
       git rebase --abort 2>/dev/null; sleep 20
     done
+    [ "$pushed" = 1 ] || mark "PUSH FAILED 3x for $jid -- result committed locally, will retry on next pass"
     did=1
   done
   [ "$did" = 0 ] && sleep 60
