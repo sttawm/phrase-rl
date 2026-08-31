@@ -861,6 +861,15 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag):
             "rules_file": str((run.dir / f"current_rules_{rephraser}.md").relative_to(REPO)),
             "rules_sha": hashlib.sha1(rules.encode()).hexdigest()[:12]}, tag)
     rules = rules_only(rules)
+    # persistent apply cache: a restarted driver must reuse rewrites, not
+    # regenerate them -- temperature makes regenerated rewrites differ, which
+    # re-keys the score job and orphans hours of scoring (2026-08-31)
+    ck = hashlib.sha1((rephraser + "\x00" + rules + "\x00"
+                       + "\x00".join(f"{r.task}\x01{r.phrase}"
+                                     for r in bases.itertuples())).encode()).hexdigest()[:12]
+    cache_p = run.dir / f"apply_cache_{rephraser}_{tag}_{ck}.parquet"
+    if cache_p.exists():
+        return pd.read_parquet(cache_p)
     traces = load_traces()
     jobs = []
     for r in bases.itertuples():
@@ -879,7 +888,9 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag):
     with cf.ThreadPoolExecutor(max_workers=1 if run.dry else APPLY_WORKERS) as ex:
         for i, rec in ex.map(one, range(len(jobs))):
             rows[i] = rec
-    return pd.DataFrame(rows)
+    out = pd.DataFrame(rows)
+    out.to_parquet(cache_p, index=False)
+    return out
 
 
 def write_probe_results(run, bank, tasks, path, since_iter):
