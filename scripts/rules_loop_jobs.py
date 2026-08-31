@@ -215,6 +215,7 @@ elif spec["kind"] == "apply":
                       .replace("{{task}}", str(r.task)))
         inp = tok.apply_chat_template([{"role": "user", "content": prompt}],
                                       add_generation_prompt=True,
+                                      enable_thinking=False,
                                       return_tensors="pt")
         # newer transformers returns a BatchEncoding here, older a bare tensor;
         # generate() needs the tensor (BatchEncoding.shape -> AttributeError)
@@ -223,10 +224,16 @@ elif spec["kind"] == "apply":
         inp = inp.to(model.device)
         with torch.no_grad():
             g = model.generate(inp, attention_mask=torch.ones_like(inp),
-                               do_sample=False, max_new_tokens=48)
+                               do_sample=False, max_new_tokens=64)
         text = tok.decode(g[0][inp.shape[1]:], skip_special_tokens=True)
+        # thinking-model guard: without it, every "rewrite" was the literal
+        # preamble "Thinking Process:" (r1 iter 0, judge caught 0% adherence)
+        if "</think>" in text:
+            text = text.split("</think>", 1)[1]
+        lines = [l.strip() for l in text.strip().split("\n")
+                 if l.strip() and not l.strip().lower().startswith(("thinking", "<think"))]
         rows.append({"task": r.task, "phrase": r.phrase,
-                     "rewrite": text.strip().split("\n")[0].strip()})
+                     "rewrite": lines[0] if lines else str(r.phrase)})
     pd.DataFrame(rows).to_parquet(result_path, index=False)
     print(f"applied to {len(rows)} phrases")
 
