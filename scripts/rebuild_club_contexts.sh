@@ -14,7 +14,7 @@ set -euo pipefail
 cd /workspace/phrase-rl
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 
-META="${META:-$HF_HOME/datasets--IPEC-COMMUNITY--bridge_orig_lerobot/snapshots}"
+META="${META:-$HF_HOME/hub/datasets--IPEC-COMMUNITY--bridge_orig_lerobot/snapshots}"
 META_FILE=$(find "$META" -name episodes.jsonl 2>/dev/null | head -1)
 if [ -z "$META_FILE" ]; then
   echo "episodes.jsonl not found under $META -- set META=<dir> or pre-fetch the dataset" >&2
