@@ -215,9 +215,15 @@ elif spec["kind"] == "apply":
                       .replace("{{task}}", str(r.task)))
         inp = tok.apply_chat_template([{"role": "user", "content": prompt}],
                                       add_generation_prompt=True,
-                                      return_tensors="pt").to(model.device)
+                                      return_tensors="pt")
+        # newer transformers returns a BatchEncoding here, older a bare tensor;
+        # generate() needs the tensor (BatchEncoding.shape -> AttributeError)
+        if hasattr(inp, "input_ids"):
+            inp = inp["input_ids"]
+        inp = inp.to(model.device)
         with torch.no_grad():
-            g = model.generate(inp, do_sample=False, max_new_tokens=48)
+            g = model.generate(inp, attention_mask=torch.ones_like(inp),
+                               do_sample=False, max_new_tokens=48)
         text = tok.decode(g[0][inp.shape[1]:], skip_special_tokens=True)
         rows.append({"task": r.task, "phrase": r.phrase,
                      "rewrite": text.strip().split("\n")[0].strip()})
