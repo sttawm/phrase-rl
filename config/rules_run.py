@@ -49,7 +49,7 @@ APPLIERS = {
     # rephraser=claude applies with claude_model; effort is its lever
     "claude": dict(apply_effort="max"),
     # rephraser=gemini applies via the API; thinking budget is its lever
-    "gemini": dict(gemini_model="gemini-pro-latest", gemini_thinking_budget=0),
+    "gemini": dict(gemini_model="gemini-pro-latest", gemini_thinking_budget=128),
     # rephraser=qwen runs pod-side: Qwen3.5-9B greedy (rules_loop_jobs.py); no knob here
     "qwen": dict(),
 }
@@ -108,6 +108,8 @@ def main():
                     help="launch the driver after printing")
     ap.add_argument("--dry-run", action="store_true",
                     help="append --dry-run (plumbing only, no LLMs/pod)")
+    ap.add_argument("--mock-scoring", action="store_true",
+                    help="append --mock-scoring (real LLMs, synthetic scores, no pod)")
     args = ap.parse_args()
 
     p = {**P, **APPLIERS[args.applier], "rephrasers": args.applier,
@@ -122,6 +124,8 @@ def main():
         cmd += [f"--{k.replace('_', '-')}", str(v)]
     if args.dry_run:
         cmd.append("--dry-run")
+    if args.mock_scoring:
+        cmd.append("--mock-scoring")
 
     mode = "QUICK RUN" if args.quick else "REAL RUN"
     print(f"# rules loop launch config -- {mode} -- applier: {args.applier} "

@@ -400,12 +400,18 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
                 prompt = prompt.replace(f"  {m}",
                                         f"  {m} (contents below)\n\n```\n{body}\n```\n")
         client = genai.Client()
+        # thinking_budget > 0 is sent verbatim; <= 0 means "model default" --
+        # pro-class Gemini models are thinking-only and reject an explicit 0
+        # (400 INVALID_ARGUMENT), while flash-class models accept it. Minimum
+        # explicit budget on pro models is 128.
+        gcfg = dict(temperature=0.0,
+                    http_options=types.HttpOptions(timeout=timeout * 1000))
+        if run.gemini_thinking > 0:
+            gcfg["thinking_config"] = types.ThinkingConfig(
+                thinking_budget=run.gemini_thinking)
         resp = client.models.generate_content(
             model=run.gemini_model, contents=prompt,
-            config=types.GenerateContentConfig(
-                temperature=0.0,
-                thinking_config=types.ThinkingConfig(thinking_budget=run.gemini_thinking),
-                http_options=types.HttpOptions(timeout=timeout * 1000)))
+            config=types.GenerateContentConfig(**gcfg))
         response = (resp.text or "").strip()
     else:
         raise ValueError(f"no local backend for {backend} (qwen goes through pod jobs)")
@@ -1290,9 +1296,10 @@ def main():
                     help="effort for rephraser=claude apply calls")
     ap.add_argument("--gemini-model", default="gemini-pro-latest",
                     help="model for rephraser=gemini")
-    ap.add_argument("--gemini-thinking-budget", type=int, default=0,
-                    help="thinking budget for rephraser=gemini apply calls "
-                         "(0 = no thinking; the Gemini analog of effort)")
+    ap.add_argument("--gemini-thinking-budget", type=int, default=128,
+                    help="thinking budget for rephraser=gemini apply calls -- the "
+                         "Gemini analog of effort. <=0 = model default; explicit "
+                         "minimum on pro-class models is 128 (they reject 0)")
     ap.add_argument("--max-probes", type=int, default=20)
     ap.add_argument("--max-train-tasks", type=int, default=0,
                     help="cap the training pool (0 = all); the val splits are "
