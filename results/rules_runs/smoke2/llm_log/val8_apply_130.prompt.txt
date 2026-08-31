@@ -1,9 +1,0 @@
-[dry-run:claude] 441524a60cda
-
----
-
-Apply the rules above.
-
-Incoming instruction: place the carrot on top of the plate
-
-Reply with ONLY the rewritten instruction.

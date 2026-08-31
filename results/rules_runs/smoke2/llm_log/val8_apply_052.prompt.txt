@@ -1,9 +1,0 @@
-[dry-run:claude] 34c45a1531bc
-
----
-
-Apply the rules above.
-
-Incoming instruction: pick up the red cola can and place it inside the white bowl
-
-Reply with ONLY the rewritten instruction.

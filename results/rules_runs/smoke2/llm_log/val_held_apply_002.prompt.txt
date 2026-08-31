@@ -1,9 +1,0 @@
-[dry-run:claude] f53efc44d5a9
-
----
-
-Apply the rules above.
-
-Incoming instruction: move carrot onto the green plate
-
-Reply with ONLY the rewritten instruction.

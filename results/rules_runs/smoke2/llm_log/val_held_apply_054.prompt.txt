@@ -1,9 +1,0 @@
-[dry-run:claude] 34c45a1531bc
-
----
-
-Apply the rules above.
-
-Incoming instruction: place the metal lid on the silver pot
-
-Reply with ONLY the rewritten instruction.

@@ -1,9 +1,0 @@
-[dry-run:claude] 34c45a1531bc
-
----
-
-Apply the rules above.
-
-Incoming instruction: reorient the pot upright in the sink
-
-Reply with ONLY the rewritten instruction.

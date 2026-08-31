@@ -49,7 +49,7 @@ Each phrase must be a plausible instruction for its task — a real thing someon
 might say — not a nonsense string. Vary one thing at a time where you can, so the
 resulting measurement is interpretable: two phrases differing in a single word
 tell you what that word does, while two differing in five tell you nothing in
-particular.
+particular. However, you may submit multiple variants for a single task.
 
 You may also re-list a phrase that is ALREADY in the evidence. Doing so measures
 it again on fresh contexts and the two measurements combine, so a phrase with a

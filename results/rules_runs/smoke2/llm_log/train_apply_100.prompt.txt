@@ -1,9 +1,0 @@
-[dry-run:claude] 441524a60cda
-
----
-
-Apply the rules above.
-
-Incoming instruction: pull open the drawer using the handle
-
-Reply with ONLY the rewritten instruction.

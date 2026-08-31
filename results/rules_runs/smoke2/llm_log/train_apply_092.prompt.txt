@@ -1,9 +1,0 @@
-[dry-run:claude] 34c45a1531bc
-
----
-
-Apply the rules above.
-
-Incoming instruction: put corn in pan which is on stove
-
-Reply with ONLY the rewritten instruction.

@@ -1,9 +1,0 @@
-[dry-run:claude] f53efc44d5a9
-
----
-
-Apply the rules above.
-
-Incoming instruction: lift the silver pot off the front left burner
-
-Reply with ONLY the rewritten instruction.
