@@ -361,7 +361,9 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
         resp = client.models.generate_content(
             model=run.gemini_model, contents=prompt,
             config=types.GenerateContentConfig(
-                temperature=0.0, http_options=types.HttpOptions(timeout=timeout * 1000)))
+                temperature=0.0,
+                thinking_config=types.ThinkingConfig(thinking_budget=run.gemini_thinking),
+                http_options=types.HttpOptions(timeout=timeout * 1000)))
         response = (resp.text or "").strip()
     else:
         raise ValueError(f"no local backend for {backend} (qwen goes through pod jobs)")
@@ -452,6 +454,7 @@ class Run:
         self.claude_effort = "high"
         self.apply_effort = "medium"
         self.gemini_model = "gemini-pro-latest"
+        self.gemini_thinking = 0
         (self.dir / "jobs").mkdir(parents=True, exist_ok=True)
         self.cfg_path = self.dir / "config.json"
 
@@ -473,6 +476,7 @@ class Run:
             "claude_effort": args.claude_effort,
             "apply_effort": args.apply_effort,
             "gemini_model": args.gemini_model,
+            "gemini_thinking_budget": args.gemini_thinking_budget,
             "max_probes": args.max_probes,
             "init_rules_from": args.init_rules_from,
             "rollback_on_regress": not args.no_rollback,
@@ -1208,13 +1212,16 @@ def main():
                     help="model for the distiller/judge/planner and for "
                          "rephraser=claude")
     ap.add_argument("--claude-effort", default="high",
-                    choices=["low", "medium", "high"],
+                    choices=["low", "medium", "high", "max"],
                     help="reasoning effort for the distiller/judge/planner/corpus")
     ap.add_argument("--apply-effort", default="medium",
-                    choices=["low", "medium", "high"],
+                    choices=["low", "medium", "high", "max"],
                     help="effort for rephraser=claude apply calls")
     ap.add_argument("--gemini-model", default="gemini-pro-latest",
                     help="model for rephraser=gemini")
+    ap.add_argument("--gemini-thinking-budget", type=int, default=0,
+                    help="thinking budget for rephraser=gemini apply calls "
+                         "(0 = no thinking; the Gemini analog of effort)")
     ap.add_argument("--max-probes", type=int, default=20)
     ap.add_argument("--max-train-tasks", type=int, default=0,
                     help="cap the training pool (0 = all); the val splits are "
@@ -1234,6 +1241,7 @@ def main():
     run.claude_effort = cfg.get("claude_effort", "high")
     run.apply_effort = cfg.get("apply_effort", "medium")
     run.gemini_model = cfg.get("gemini_model", "gemini-pro-latest")
+    run.gemini_thinking = int(cfg.get("gemini_thinking_budget", 0))
     rng = np.random.default_rng(cfg["seed"])
     bank = seed_bank(run)
     sb = sandbox_wrapper(run)
@@ -1317,7 +1325,11 @@ def main():
     corpus_file = ensure_corpus_file(run, cfg)
     rules_per_model = {}
 
-    for rephraser in cfg["rephrasers"]:
+    passes = [r for r in args.rephrasers.split(",") if r.strip()]
+    cfg.setdefault("invocations", []).append(
+        {"when": time.strftime("%Y-%m-%d %H:%M"), "rephrasers": passes})
+    jwrite(run.cfg_path, cfg)
+    for rephraser in passes:
         pdir = run.dir / f"pass_{rephraser}"
         pdir.mkdir(exist_ok=True)
         # one conversation per pass: the distiller/judge/planner see their own

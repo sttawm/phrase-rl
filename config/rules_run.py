@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 """Launch configuration for the rules loop -- the single place run parameters
-live. Prints the resolved parameter table and the exact driver command;
---exec runs it.
+live. One applier per invocation (run them separately for qwen, gemini,
+claude); all invocations share run_id "r1", so they share one bank and later
+appliers inherit earlier passes' measurements (ALGORITHM note 2: run the
+strongest applier last).
 
-    .venv/bin/python config/rules_run.py            # real-run params + command
-    .venv/bin/python config/rules_run.py --quick    # quick-run overrides
-    .venv/bin/python config/rules_run.py --exec     # print, then launch
-
-Real-run defaults target ~1 h per iteration (user 2026-08-30): sample_n=96
-sits near the noise/cost knee -- SE halves twice vs 24, while the scoring
-fixed cost (per distinct task touched) stays at ~half the task pool.
+    .venv/bin/python config/rules_run.py claude             # print real-run params
+    .venv/bin/python config/rules_run.py gemini --quick     # quick-run overrides
+    .venv/bin/python config/rules_run.py qwen --exec        # print, then launch
 """
 import argparse
 import shlex
@@ -19,23 +17,17 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
-# --- real-run parameters -----------------------------------------------------
+# --- real-run parameters (applier-independent) -------------------------------
 P = dict(
     run_id="r1",
 
-    # passes: one rulebook per applier, weakest applier first so the strongest
-    # distills against the fullest bank (ALGORITHM note 2)
-    rephrasers="qwen,gemini,claude",
-
     # reasoning stack (distiller / judge / planner / corpus): always Claude
     distiller="claude",
-    claude_model="claude-opus-5",
-    claude_effort="high",       # reasoning roles
-    apply_effort="medium",      # rephraser=claude apply calls (stateless, parallel)
-    gemini_model="gemini-pro-latest",   # rephraser=gemini apply calls
-    # rephraser=qwen runs pod-side: Qwen3.5-9B (rules_loop_jobs.py, not a knob here)
+    claude_model="claude-fable-5",
+    claude_effort="max",        # reasoning roles
 
-    # evaluation sample: 96 bases per eval set (train / val_held / val8)
+    # evaluation sample: 96 bases per eval set (train / val_held / val8);
+    # targets ~1 h per iteration
     sample_n=96,
 
     # loop control
@@ -51,16 +43,27 @@ P = dict(
 
     seed=7,
 )
+
+# --- per-applier knobs -------------------------------------------------------
+APPLIERS = {
+    # rephraser=claude applies with claude_model; effort is its lever
+    "claude": dict(apply_effort="max"),
+    # rephraser=gemini applies via the API; thinking budget is its lever
+    "gemini": dict(gemini_model="gemini-pro-latest", gemini_thinking_budget=0),
+    # rephraser=qwen runs pod-side: Qwen3.5-9B greedy (rules_loop_jobs.py); no knob here
+    "qwen": dict(),
+}
+
 ENV = dict(
     RULES_APPLY_WORKERS="8",    # parallel claude/gemini apply calls
 )
 
 # --- quick-run: end-to-end shakeout with real LLMs + pod, minutes not hours --
-def quick_overrides(p):
+def quick_overrides(p, applier):
     p = dict(p)
     p.update(
         run_id="quick",
-        rephrasers="gemini",    # one cheap pass exercises every stage
+        claude_model="claude-sonnet-5",
         claude_effort="medium",
         sample_n=12,
         patience=1,
@@ -68,18 +71,14 @@ def quick_overrides(p):
         max_probes=6,
         max_train_tasks=20,     # cap the pool so evidence files stay small
     )
+    if applier == "claude":
+        p["apply_effort"] = "medium"
     return p
-
-
-def build(p):
-    cmd = [".venv/bin/python", "scripts/rules_loop_driver.py"]
-    for k, v in p.items():
-        cmd += [f"--{k.replace('_', '-')}", str(v)]
-    return cmd
 
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("applier", choices=sorted(APPLIERS))
     ap.add_argument("--quick", action="store_true", help="quick-run overrides")
     ap.add_argument("--exec", dest="run", action="store_true",
                     help="launch the driver after printing")
@@ -87,17 +86,22 @@ def main():
                     help="append --dry-run (plumbing only, no LLMs/pod)")
     args = ap.parse_args()
 
-    p = quick_overrides(P) if args.quick else dict(P)
-    cmd = build(p)
+    p = {**P, **APPLIERS[args.applier], "rephrasers": args.applier}
+    if args.quick:
+        p = quick_overrides(p, args.applier)
+
+    cmd = [".venv/bin/python", "scripts/rules_loop_driver.py"]
+    for k, v in p.items():
+        cmd += [f"--{k.replace('_', '-')}", str(v)]
     if args.dry_run:
         cmd.append("--dry-run")
 
     mode = "QUICK RUN" if args.quick else "REAL RUN"
-    print(f"# rules loop launch config -- {mode}\n")
+    print(f"# rules loop launch config -- {mode} -- applier: {args.applier}\n")
     for k, v in p.items():
-        print(f"  {k:20s} {v}")
+        print(f"  {k:22s} {v}")
     for k, v in ENV.items():
-        print(f"  {k:20s} {v}   (env)")
+        print(f"  {k:22s} {v}   (env)")
     print("\n  " + " ".join(shlex.quote(c) for c in cmd) + "\n")
     if not args.run:
         print("(--exec to launch; a pod worker must be consuming jobs unless --dry-run)")
