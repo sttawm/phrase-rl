@@ -725,7 +725,9 @@ def bank_add(run, df):
 
 
 # --- pod jobs (score / apply) ----------------------------------------------
-def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=7200):
+def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=28800):
+    # 8h: a score job runs ~4h and can queue behind another on the shared
+    # worker fleet (7200 killed the gemini driver on 2026-08-31)
     """Submit a job through git; block until the worker commits the result.
     Resume-safe: if the result already exists, return it without resubmitting.
 
