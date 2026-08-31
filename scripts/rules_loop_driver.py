@@ -642,6 +642,9 @@ def seed_bank(run):
     return bank
 
 
+import fcntl
+
+
 def bank_add(run, df):
     """Accumulate measurements for a phrase rather than discarding either copy.
 
@@ -650,6 +653,10 @@ def bank_add(run, df):
     drop_duplicates(keep="first") silently threw away every re-measurement, which
     made re-scoring for significance impossible.)"""
     bank_path = run.dir / "bank.parquet"
+    # concurrent applier passes (user 2026-08-31) share one bank: serialize the
+    # read-modify-write or simultaneous passes silently drop each other's rows
+    lockf = open(run.dir / ".bank.lock", "w")
+    fcntl.flock(lockf, fcntl.LOCK_EX)
     bank = pd.read_parquet(bank_path)
     both = pd.concat([bank, df], ignore_index=True)
     for c in ("n_ctx", "n_meas"):
@@ -685,6 +692,8 @@ def bank_add(run, df):
     merged = label_kinds(merged)
     merged["proxy"] = recompute_proxy(merged)
     merged.to_parquet(bank_path, index=False)
+    fcntl.flock(lockf, fcntl.LOCK_UN)
+    lockf.close()
     return merged
 
 
@@ -820,7 +829,7 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag):
         # rules travel as a file for the pod, but their hash goes in the spec so
         # the job id changes when the rulebook does
         return run_job(run, "apply", bases[["task", "phrase"]], {
-            "rules_file": str((run.dir / "current_rules.md").relative_to(REPO)),
+            "rules_file": str((run.dir / f"current_rules_{rephraser}.md").relative_to(REPO)),
             "rules_sha": hashlib.sha1(rules.encode()).hexdigest()[:12]}, tag)
     rules = rules_only(rules)
     traces = load_traces()
@@ -1569,7 +1578,7 @@ def main():
                           f"{len(prev_ids - new_ids)} dropped "
                           f"(unchanged rules reuse cached measurements)")
             (pdir / f"rules_{it:02d}.md").write_text(rules)   # flat, browsable history
-            cur = run.dir / "current_rules.md"
+            cur = run.dir / f"current_rules_{rephraser}.md"
             cur.write_text(rules)
             if not run.dry and "qwen" in cfg["rephrasers"]:
                 # the pod reads this file; it must exist on origin before any
