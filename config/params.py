@@ -472,6 +472,16 @@ def bases_for(target_pp, per=None):
 # ===========================================================================
 
 DECISIONS = [
+    ("2026-08-30", "rules loop abstracted over (policy,dataset) environments and a "
+     "train|sim phase flag",
+     "ENVIRONMENTS registry holds every benchmark-specific fact (bank sources, "
+     "sealed stems, sim tasks, traces, corpus, rollout recipe); pi0.5/LIBERO = a "
+     "second entry, not a refactor. phase=train scores by proxy with "
+     "val_held+val8 early stopping; phase=sim trains ON the sim tasks by real "
+     "rollout (phase0c_rollout, n=18/phrase), seeds rules from the training run "
+     "(--init-rules-from), and has NO validation split -- overfitting bounded by "
+     "max_iters 2-3 (user decision). Metric: mean logit (train) / mean measured "
+     "success (sim)."),
     ("2026-08-30", "rules loop reads/optimizes the LOGIT, sigmoid removed from every "
      "surface the distiller or early-stopper sees",
      "on training frames grip~0.1 sits outside the calibration's fitted range "

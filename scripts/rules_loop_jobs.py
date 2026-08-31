@@ -58,7 +58,39 @@ def proxy_success(z, grip, P):
     return 1.0 / (1.0 + np.exp(-np.clip(x, -30, 30)))
 
 
-if spec["kind"] == "score":
+if spec["kind"] == "score" and spec.get("method") == "rollout":
+    # --phase sim: REAL rollouts on a render pod (SIMPLER + INT-ACT stack).
+    # Shells to phase0c_rollout.py with the env's recipe; every phrase rolls the
+    # same episode_ids (shared initial states = the CRN analog for rollouts).
+    import subprocess
+    ro = spec["rollout"]
+    int_act = os.environ.get("INT_ACT_ROOT", "/workspace/INT-ACT")
+    phr_path = jdir / f"{jid}.rollphrases.parquet"
+    pl = payload[["task", "phrase"]].drop_duplicates().assign(arm="rules_loop")
+    pl.to_parquet(phr_path, index=False)
+    out_path = jdir / f"{jid}.rollraw.parquet"
+    cmd = [f"{int_act}/.venv/bin/python",
+           str(REPO / "src/phrase_rl/phase0c_rollout.py"),
+           "--int-act-root", int_act,
+           "--config", ro["config"], "--ckpt", ro["ckpt"],
+           "--phrases", str(phr_path),
+           "--episode-ids", *[str(i) for i in ro["episode_ids"]],
+           "--seed", str(ro.get("seed", 42)),
+           "--out", str(out_path)]
+    print("rollout:", " ".join(cmd), flush=True)
+    subprocess.run(cmd, check=True, cwd=int_act)
+    raw = pd.read_parquet(out_path)
+    agg = raw.groupby(["task", "phrase"]).success.agg(["mean", "size"]).reset_index()
+    res = pl[["task", "phrase"]].merge(agg, on=["task", "phrase"], how="left")
+    res["gt_success"] = 100.0 * res["mean"]
+    res["n_ctx"] = res["size"]
+    res["z"] = np.nan
+    res["grip"] = np.nan
+    res[["task", "phrase", "z", "grip", "gt_success", "n_ctx"]].to_parquet(
+        result_path, index=False)
+    print(f"rolled {len(res)} phrases x {len(ro['episode_ids'])} episodes")
+
+elif spec["kind"] == "score":
     from phrase_rl.phase2_train import score_phrases
 
     bank_files = [REPO / "data/contexts_train_multit16.parquet",

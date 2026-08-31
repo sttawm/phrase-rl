@@ -58,6 +58,24 @@ ENV = dict(
     RULES_APPLY_WORKERS="8",    # parallel claude/gemini apply calls
 )
 
+# --- phase: train (proxy on the training corpus) vs sim (rollouts) -----------
+# The plan (user 2026-08-30): converge on training data first, then re-run on
+# the sim tasks with rules seeded from the training run. The sim phase has no
+# validation data -- overfitting is bounded by max_iters (2-3), not a val split.
+def sim_overrides(p):
+    p = dict(p)
+    p.update(
+        run_id=p["run_id"] + "_sim",
+        phase="sim",
+        init_rules_from=p["run_id"],   # seed from the training-phase rulebook
+        max_iters=3,                   # "run the loop twice or three times"
+        patience=99,                   # unused: no validation to stop on
+        sample_n=16,                   # 16 bases x 18 episodes = 288 rollouts/eval
+        max_probes=6,                  # probes cost rollouts here
+    )
+    return p
+
+
 # --- quick-run: end-to-end shakeout with real LLMs + pod, minutes not hours --
 def quick_overrides(p, applier):
     p = dict(p)
@@ -79,6 +97,12 @@ def quick_overrides(p, applier):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("applier", choices=sorted(APPLIERS))
+    ap.add_argument("--phase", default="train", choices=["train", "sim"],
+                    help="train: proxy-scored on the training corpus. "
+                         "sim: rollout-scored on the sim tasks, rules seeded "
+                         "from the training run, no validation split")
+    ap.add_argument("--env", default="bridge_pi0",
+                    help="which (policy, dataset) pair (see driver ENVIRONMENTS)")
     ap.add_argument("--quick", action="store_true", help="quick-run overrides")
     ap.add_argument("--exec", dest="run", action="store_true",
                     help="launch the driver after printing")
@@ -86,9 +110,12 @@ def main():
                     help="append --dry-run (plumbing only, no LLMs/pod)")
     args = ap.parse_args()
 
-    p = {**P, **APPLIERS[args.applier], "rephrasers": args.applier}
+    p = {**P, **APPLIERS[args.applier], "rephrasers": args.applier,
+         "env": args.env, "phase": "train"}
     if args.quick:
         p = quick_overrides(p, args.applier)
+    if args.phase == "sim":
+        p = sim_overrides(p)
 
     cmd = [".venv/bin/python", "scripts/rules_loop_driver.py"]
     for k, v in p.items():
@@ -97,7 +124,8 @@ def main():
         cmd.append("--dry-run")
 
     mode = "QUICK RUN" if args.quick else "REAL RUN"
-    print(f"# rules loop launch config -- {mode} -- applier: {args.applier}\n")
+    print(f"# rules loop launch config -- {mode} -- applier: {args.applier} "
+          f"-- phase: {args.phase} -- env: {args.env}\n")
     for k, v in p.items():
         print(f"  {k:22s} {v}")
     for k, v in ENV.items():

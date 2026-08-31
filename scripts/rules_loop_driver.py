@@ -62,6 +62,48 @@ VAL8_TASKS = [
     "widowx_carrot_on_wheel_clean", "widowx_coke_can_on_ramekin_clean",
     "widowx_coke_can_on_plate_clean",
 ]
+# --- environment registry (user 2026-08-30): the (policy, dataset) pair the
+# loop runs against, abstracted from the loop itself. Everything
+# benchmark-specific lives here: bank seed sources, sealed tasks, the sim task
+# list, context banks, traces, corpus inputs, and the rollout recipe for
+# --phase sim. Adding pi0.5/LIBERO = filling in a second entry (+ worker-side
+# data), not touching the loop.
+ENVIRONMENTS = {
+    "bridge_pi0": dict(
+        sealed_stems="SEALED_STEMS",          # resolved below (module constants)
+        sim_tasks="VAL8_TASKS",
+        fine_exam_features=["results/analysis/fine_exam_features_native.parquet",
+                            "results/analysis/fine_exam_features_oov.parquet"],
+        fine_exam_panel="results/analysis/fine_exam_phrases.parquet",
+        boards="results/analysis/search_boards.jsonl",
+        worklist="results/analysis/bank_to_score.parquet",
+        bank_scores_glob="bank_scores_*.parquet",
+        support_bank="data/contexts_train_multit16.parquet",
+        corpus_inputs="results/analysis/b4_rules_inputs",
+        traces_per_base="results/phrase_artifacts/traces_rules_v1.parquet",
+        traces_legacy="results/phrase_artifacts/cover35_teacher_train.parquet",
+        # --phase sim scoring: phase0c_rollout.py on a render pod. episode_ids
+        # 0-17 x 1 rep = n=18/phrase, the loop's historical sim-eval budget.
+        rollout=dict(config="config/experiment/simpler/pi0_finetune_bridge_ev.yaml",
+                     ckpt="juexzz/INTACT-pi0-finetune-rephrase-bridge",
+                     episode_ids=list(range(18)), seed=42),
+    ),
+    "pi05_libero": None,   # TODO: banks + traces + rollout recipe (fourtier stack)
+}
+
+
+def resolve_env(name):
+    e = ENVIRONMENTS.get(name)
+    if e is None:
+        raise SystemExit(f"environment {name!r} is not wired yet -- fill in its "
+                         f"ENVIRONMENTS entry (banks, traces, corpus, rollout recipe) "
+                         f"and the worker-side data first")
+    e = dict(e)
+    e["sealed_stems"] = SEALED_STEMS if e["sealed_stems"] == "SEALED_STEMS" else e["sealed_stems"]
+    e["sim_tasks"] = VAL8_TASKS if e["sim_tasks"] == "VAL8_TASKS" else e["sim_tasks"]
+    return e
+
+
 # calibrated proxy (fit_simple_success_reward.py): success = sigmoid(C + bz*z + bg*(-grip))
 PROXY = {"C": 8.123, "bz": 0.4445, "bg": 11.3193}
 # measurements imported from the historical banks predate n_ctx bookkeeping;
@@ -372,11 +414,9 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
 
 
 _TRACES = {}
-PER_BASE_TRACES = REPO / "results/phrase_artifacts/traces_rules_v1.parquet"
-LEGACY_TRACES = REPO / "results/phrase_artifacts/cover35_teacher_train.parquet"
 
 
-def load_traces():
+def load_traces(env=None):
     """Scene descriptions for rule application. Expensive to generate, so they
     are loaded once and reused.
 
@@ -397,14 +437,16 @@ def load_traces():
     global _TRACES
     if _TRACES:
         return _TRACES
+    legacy = REPO / (env or ENVIRONMENTS["bridge_pi0"])["traces_legacy"]
+    per_base = REPO / (env or ENVIRONMENTS["bridge_pi0"])["traces_per_base"]
     out = {}
-    if LEGACY_TRACES.exists():
-        t = pd.read_parquet(LEGACY_TRACES, columns=["instruction", "trace"])
+    if legacy.exists():
+        t = pd.read_parquet(legacy, columns=["instruction", "trace"])
         t = t.drop_duplicates("instruction")
         out.update(dict(zip(t.instruction, t.trace)))
     n_legacy = len(out)
-    if PER_BASE_TRACES.exists():
-        p = pd.read_parquet(PER_BASE_TRACES, columns=["task", "phrase", "trace"])
+    if per_base.exists():
+        p = pd.read_parquet(per_base, columns=["task", "phrase", "trace"])
         p = p.drop_duplicates(["task", "phrase"])
         out.update({(str(r.task), str(r.phrase)): r.trace for r in p.itertuples()})
         print(f"[traces] {len(p)} per-base + {n_legacy} legacy-by-instruction")
@@ -455,6 +497,7 @@ class Run:
         self.apply_effort = "medium"
         self.gemini_model = "gemini-pro-latest"
         self.gemini_thinking = 0
+        self.env = None            # resolved ENVIRONMENTS entry, set at run start
         (self.dir / "jobs").mkdir(parents=True, exist_ok=True)
         self.cfg_path = self.dir / "config.json"
 
@@ -470,6 +513,7 @@ class Run:
             "frames_per_episode": args.frames_per_episode,
             "min_eps_per_task": args.min_eps_per_task,
 
+            "env": args.env, "phase": args.phase,
             "rephrasers": args.rephrasers.split(","),
             "distiller": args.distiller, "judge": args.distiller,
             "claude_model": args.claude_model,
@@ -501,8 +545,8 @@ def seed_bank(run):
         # inputs have moved on -- but SILENTLY doing so is how live1 nearly
         # distilled from a two-day-old bank with zero natural/adversarial
         # phrases. Warn loudly; deleting the file (fresh run) is the remedy.
-        srcs = [REPO / "results/analysis/bank_to_score.parquet",
-                *sorted((REPO / "results/analysis").glob("bank_scores_*.parquet"))]
+        srcs = [REPO / run.env["worklist"],
+                *sorted((REPO / "results/analysis").glob(run.env["bank_scores_glob"]))]
         newest = max((f.stat().st_mtime for f in srcs if f.exists()), default=0)
         stale = bank_path.stat().st_mtime < newest
         missing_kinds = "kind" in cached and not \
@@ -515,15 +559,15 @@ def seed_bank(run):
                   + " -- fine mid-run, wrong for a new run. Delete "
                   f"{bank_path} (or use a fresh run id) to rebuild.")
         return cached
+    env = run.env
     frames = []
-    fe = pd.concat([pd.read_parquet(REPO / "results/analysis/fine_exam_features_native.parquet"),
-                    pd.read_parquet(REPO / "results/analysis/fine_exam_features_oov.parquet")])
+    fe = pd.concat([pd.read_parquet(REPO / f) for f in env["fine_exam_features"]])
     agg = fe.groupby(["task", "phrase"]).agg(z=("z_row", "mean"), grip=("grip_row", "mean")).reset_index()
-    pan = pd.read_parquet(REPO / "results/analysis/fine_exam_phrases.parquet")
+    pan = pd.read_parquet(REPO / env["fine_exam_panel"])
     agg = agg.merge(pan[["task", "phrase", "gt_success"]], on=["task", "phrase"], how="left")
     agg["source"] = "fine_exam"
     frames.append(agg)
-    boards = REPO / "results/analysis/search_boards.jsonl"
+    boards = REPO / env["boards"]
     if boards.exists():
         rows = []
         for line in boards.open():
@@ -548,12 +592,14 @@ def seed_bank(run):
     # scoring worklist (task, phrase, source); appended LAST so the richer
     # fine_exam/search rows above win the dedup, and the bank_scores merge
     # below attaches z/grip to whatever is measured.
-    wl = REPO / "results/analysis/bank_to_score.parquet"
+    wl = REPO / env["worklist"]
     if wl.exists():
         w = pd.read_parquet(wl)[["task", "phrase", "source"]]
         frames.append(w.assign(z=np.nan, grip=np.nan, gt_success=np.nan))
     bank = pd.concat(frames, ignore_index=True)
-    bank = bank[~bank.task.map(is_sealed)].drop_duplicates(["task", "phrase"])
+    sealed = env["sealed_stems"]
+    bank = bank[~bank.task.map(lambda t: any(x in str(t) for x in sealed))] \
+        .drop_duplicates(["task", "phrase"])
 
     # Freshly measured channels supersede the seeded ones. The search boards
     # recorded grip ONLY, so 87% of the seed's z was imputed from a column mean
@@ -561,7 +607,7 @@ def seed_bank(run):
     # bank_scores_*.parquet carries both channels, measured at F=4 C=16 -- the
     # same aggregation the calibration was fitted on.
     meas = [pd.read_parquet(f) for f in
-            sorted((REPO / "results/analysis").glob("bank_scores_*.parquet"))]
+            sorted((REPO / "results/analysis").glob(env["bank_scores_glob"]))]
     if meas:
         m = (pd.concat(meas, ignore_index=True)
              .dropna(subset=["z", "grip"])
@@ -655,7 +701,12 @@ def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=7200
     if run.dry or run.mock_scoring:
         out = payload.copy()
         h = payload.phrase.map(lambda p: int(hashlib.sha1(p.encode()).hexdigest()[:6], 16) / 0xFFFFFF)
-        if kind == "score":
+        if kind == "score" and spec.get("method") == "rollout":
+            out["z"] = np.nan
+            out["grip"] = np.nan
+            out["gt_success"] = (100 * h).round(1)
+            out["n_ctx"] = len(spec.get("rollout", {}).get("episode_ids", [])) or 18
+        elif kind == "score":
             out["z"] = -8 + 3 * h
             out["grip"] = 0.55 - 0.25 * h
             out["proxy"] = proxy_success(out.z, out.grip)
@@ -730,21 +781,27 @@ def check_reward_vs_gripper(run, out, tag):
 
 
 def score_phrases(run, cfg, df, tag, draw=0):
-    """df: [task, phrase] -> adds z, grip, proxy. CRN: the worker samples
-    cfg['contexts_per_task'] contexts per task with seed cfg['seed'] -- same
-    contexts for every phrase, all run."""
-    out = run_job(run, "score", df[["task", "phrase"]].drop_duplicates(), {
-        "score_budget": cfg.get("score_budget", 64),
-        "draw": draw,          # distinct draw -> different CRN contexts, so a
-                               # re-measurement adds information instead of
-                               # reproducing the first measurement exactly
-        "contexts_per_task": cfg["contexts_per_task"],
-        "frames_per_episode": cfg["frames_per_episode"],
-        "pool_val8_stems": True, "seed": cfg["seed"] + 1009 * draw,
-        "proxy": PROXY}, tag)
+    """df: [task, phrase] -> measured channels. Method rides the phase:
+    train -> proxy (adds z, grip; CRN contexts, worker samples
+    cfg['contexts_per_task'] per task with seed cfg['seed']);
+    sim   -> real rollouts via the env's rollout recipe (adds gt_success 0-100,
+    n_ctx = episodes; z/grip stay NaN)."""
+    method = "rollout" if cfg.get("phase") == "sim" else "proxy"
+    spec = {"method": method, "draw": draw, "seed": cfg["seed"] + 1009 * draw,
+            "proxy": PROXY}
+    if method == "proxy":
+        spec.update({"score_budget": cfg.get("score_budget", 64),
+                     "contexts_per_task": cfg["contexts_per_task"],
+                     "frames_per_episode": cfg["frames_per_episode"],
+                     "pool_val8_stems": True})
+    else:
+        spec.update({"rollout": run.env["rollout"]})
+    out = run_job(run, "score", df[["task", "phrase"]].drop_duplicates(), spec, tag)
     check_reward_vs_gripper(run, out, tag)
-    keep = [c for c in ("task", "phrase", "z", "grip", "proxy", "n_ctx") if c in out]
-    res = df.drop(columns=[c for c in ("z", "grip", "proxy", "n_ctx") if c in df],
+    keep = [c for c in ("task", "phrase", "z", "grip", "proxy", "gt_success",
+                        "n_ctx") if c in out]
+    res = df.drop(columns=[c for c in ("z", "grip", "proxy", "gt_success", "n_ctx")
+                           if c in df],
                   errors="ignore").merge(out[keep], on=["task", "phrase"], how="left")
     res["n_meas"] = 1
     res["draw"] = draw
@@ -843,6 +900,15 @@ def write_evidence_file(run, bank, tasks, path):
     group beats a structure it must parse by eye. A short README sits beside it."""
     sub = bank[bank.task.isin(tasks)].copy()
     sub["score"], sub["logit"] = within_task_score(sub)
+    # rollout-measured rows have no channels: rank them by gt within the task
+    if "gt_success" in sub and sub.score.isna().any():
+        gt = pd.to_numeric(sub.gt_success, errors="coerce")
+        def mmgt(x):
+            lo, hi = x.min(), x.max()
+            return (x - lo) / (hi - lo) if pd.notna(lo) and pd.notna(hi) and hi > lo \
+                else pd.Series(np.nan, index=x.index)
+        gtr = gt.groupby(sub.task).transform(mmgt)
+        sub["score"] = sub.score.fillna(gtr)
     sub = sub.sort_values(["task", "score"])
     if "n_ctx" not in sub:
         sub["n_ctx"] = FALLBACK_NCTX
@@ -1007,7 +1073,7 @@ def ensure_corpus_file(run, cfg):
     out = run.dir / "corpus_stats.md"
     if out.exists():
         return out
-    src_dir = REPO / "results/analysis/b4_rules_inputs"
+    src_dir = REPO / run.env["corpus_inputs"]
     if run.dry or not src_dir.exists():
         out.write_text("# Corpus vocabulary\n\n(dry-run placeholder)\n")
         return out
@@ -1083,6 +1149,12 @@ def parse_rules(rules_text):
         r"^[ \t]*\d+[.)][ \t]+(.*(?:\n(?![ \t]*\d+[.)]|===)[ \t]+\S.*)*)", body, re.M)]
 
 
+def eval_metric(cfg, scored):
+    if cfg.get("phase") == "sim":
+        return float(np.nanmean(pd.to_numeric(scored.gt_success, errors="coerce"))) / 100.0
+    return float(np.nanmean(proxy_logit(scored.z.astype(float), scored.grip.astype(float))))
+
+
 def baseline_proxy(run, cfg, bases, tag):
     """Mean LOGIT of the UNREPHRASED base phrases -- scored once per split and
     cached, since the bases are fixed for the whole run. Cache name carries
@@ -1093,7 +1165,7 @@ def baseline_proxy(run, cfg, bases, tag):
     if cache.exists():
         return jread(cache)["mean"]
     sc = score_phrases(run, cfg, bases[["task", "phrase"]], f"baseline_{tag}")
-    mean = float(np.nanmean(proxy_logit(sc.z.astype(float), sc.grip.astype(float))))
+    mean = eval_metric(cfg, sc)
     jwrite(cache, {"mean": mean, "n": int(len(sc))})
     return mean
 
@@ -1117,11 +1189,10 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
     rewrites = apply_rules(run, cfg, rephraser, rules, bases, f"{tag}")
     rw = rewrites.rename(columns={"phrase": "base", "rewrite": "phrase"})[["task", "phrase", "base"]]
     scored = score_phrases(run, cfg, rw, f"{tag}_sc")
-    # mean LOGIT, not mean sigmoid (user 2026-08-30): on training frames the
-    # sigmoid pins 73% of phrases above 0.99 and rulebook differences compress
-    # into the third decimal; the linear mixture keeps full dynamic range and
-    # the frozen weights already bridge the two channels' scales.
-    score = float(np.nanmean(proxy_logit(scored.z.astype(float), scored.grip.astype(float))))
+    # phase train: mean LOGIT, not mean sigmoid (user 2026-08-30) -- on training
+    # frames the sigmoid pins 73% of phrases above 0.99. phase sim: the metric
+    # IS measured success (0-1); no proxy anywhere.
+    score = eval_metric(cfg, scored)
     summary = None
     if judge:
         eval_file = itdir / "rules_eval.md"
@@ -1233,10 +1304,19 @@ def main():
                     help="keep revising the latest rulebook even after a "
                          "validation regression (default: revise the best)")
     ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--env", default="bridge_pi0", choices=sorted(ENVIRONMENTS),
+                    help="which (policy, dataset) pair to run against")
+    ap.add_argument("--phase", default="train", choices=["train", "sim"],
+                    help="train: proxy-scored on the training corpus, val_held+val8 "
+                         "splits, early stop on their mean. sim: ROLLOUT-scored on "
+                         "the env's sim tasks, no validation split -- runs to "
+                         "max_iters (seed rules via --init-rules-from)")
     args = ap.parse_args()
 
     run = Run(args.run_id, args.dry_run, mock_scoring=args.mock_scoring)
     cfg = run.config(args)
+    run.env = resolve_env(cfg.get("env", "bridge_pi0"))
+    phase = cfg.get("phase", "train")
     run.claude_model = cfg.get("claude_model", "claude-opus-5")
     run.claude_effort = cfg.get("claude_effort", "high")
     run.apply_effort = cfg.get("apply_effort", "medium")
@@ -1276,8 +1356,9 @@ def main():
                                             int(b.get("club_eps", 0)))
     # only tasks we hold a scene description for: traces are expensive and we are
     # reusing the existing bank rather than generating more (187 of the 213)
-    have_trace = set(load_traces())
-    tasks = sorted(t for t in bank.task.unique() if t not in VAL8_TASKS
+    have_trace = set(load_traces(run.env))
+    sim_tasks = run.env["sim_tasks"]
+    tasks = sorted(t for t in bank.task.unique() if t not in sim_tasks
                    and support.get(t, 0) >= cfg["min_eps_per_task"]
                    and (t in have_trace or run.dry))
     dropped = bank.task.nunique() - len(tasks) - len(VAL8_TASKS)
@@ -1299,8 +1380,15 @@ def main():
     if args.max_train_tasks:
         train_tasks = train_tasks[:args.max_train_tasks]
         print(f"[{run.id}] training pool capped to {len(train_tasks)} tasks")
+    if phase == "sim":
+        # sim phase: TRAIN on the sim tasks by rollout; there is no held-out
+        # split (user 2026-08-30) -- overfitting is bounded by max_iters, not by
+        # validation. The sealed set stays the only certifier.
+        train_tasks, val_held_tasks = list(sim_tasks), []
+        print(f"[{run.id}] PHASE=sim: training on {len(train_tasks)} sim tasks "
+              f"by ROLLOUT; no validation split; runs to max_iters={cfg['max_iters']}")
     jwrite(run.dir / "splits.json", {"train": train_tasks, "val_held": val_held_tasks,
-                                     "val8": VAL8_TASKS,
+                                     "val8": list(sim_tasks), "phase": phase,
                                      "support_floor": cfg["min_eps_per_task"],
                                      "support": {t: int(support.get(t, 0)) for t in train_tasks + val_held_tasks}})
 
@@ -1469,17 +1557,27 @@ def main():
                 st["bank_applied"] = [list(x) for x in applied | {akey}]
                 jwrite(state_p, st)      # record the mutation BEFORE the long val evals
 
-            # 3. eval on both validation sets
-            vh, _, _ = eval_rules(run, cfg, itdir, rephraser, rules,
-                                  bases_for(val_held_tasks, cfg["sample_n"], seed=1), "val_held")
-            v8, _, _ = eval_rules(run, cfg, itdir, rephraser, rules,
-                                  bases_for(VAL8_TASKS, cfg["sample_n"], seed=2), "val8")
-            val = (vh + v8) / 2
-            deltas = {k: jread(itdir / f"eval_{k}.json").get("delta")
-                      for k in ("train", "val_held", "val8")}
-            print(f"    train={train_score:.3f} val_held={vh:.3f} val8={v8:.3f} avg={val:.3f}"
-                  f"   | delta vs unrephrased: train {deltas['train']:+.3f} "
-                  f"val_held {deltas['val_held']:+.3f} val8 {deltas['val8']:+.3f}")
+            # 3. eval on both validation sets (train phase). The sim phase has
+            # no validation data: its "val" IS the train score, and stopping is
+            # governed by max_iters alone.
+            if phase == "sim":
+                vh = v8 = val = train_score
+                deltas = {"train": jread(itdir / "eval_train.json").get("delta"),
+                          "val_held": None, "val8": None}
+                print(f"    [sim] rollout success={train_score:.3f} "
+                      f"(delta vs unrephrased {deltas['train']:+.3f}); "
+                      f"iter cap {cfg['max_iters']}")
+            else:
+                vh, _, _ = eval_rules(run, cfg, itdir, rephraser, rules,
+                                      bases_for(val_held_tasks, cfg["sample_n"], seed=1), "val_held")
+                v8, _, _ = eval_rules(run, cfg, itdir, rephraser, rules,
+                                      bases_for(list(sim_tasks), cfg["sample_n"], seed=2), "val8")
+                val = (vh + v8) / 2
+                deltas = {k: jread(itdir / f"eval_{k}.json").get("delta")
+                          for k in ("train", "val_held", "val8")}
+                print(f"    train={train_score:.3f} val_held={vh:.3f} val8={v8:.3f} avg={val:.3f}"
+                      f"   | delta vs unrephrased: train {deltas['train']:+.3f} "
+                      f"val_held {deltas['val_held']:+.3f} val8 {deltas['val8']:+.3f}")
 
             # 4. early-stopping bookkeeping
             st["last_val"] = val
