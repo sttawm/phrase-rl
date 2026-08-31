@@ -1,7 +1,9 @@
 #!/bin/bash
 # Pod-side worker for the rules loop: polls the run's jobs/ directory on origin,
-# executes score/apply jobs, commits results back. One worker per run (v1: no
-# claim arbitration -- do not point two workers at the same run).
+# executes score/apply jobs, commits results back. Multiple workers may share a
+# run: each job is claimed by committing <jid>.claim and pushing -- the push is
+# the atomic arbiter (a lost race conflicts on rebase and the loser skips). A
+# claim older than 6h with no result is treated as dead and may be stolen.
 #
 #   RUN_ID=r1 bash scripts/rules_loop_worker.sh
 #
@@ -13,6 +15,8 @@ export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 cd /workspace/phrase-rl
 RUN_ID="${RUN_ID:?set RUN_ID}"
 JOBS="results/rules_runs/$RUN_ID/jobs"
+export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_POD_ID=')" 2>/dev/null || true
+POD="${RUNPOD_POD_ID:-$(hostname)}"
 mark() { echo "[rlworker $(date -u +%H:%M)] $*" >> /workspace/rules_worker.log; }
 
 IPC_DIR="${IPC_DIR:-/workspace/ipc_rules}"
@@ -53,6 +57,29 @@ while true; do
     [ -e "$specf" ] || continue
     jid=$(basename "$specf" .spec.json)
     [ -f "$JOBS/$jid.result.parquet" ] && continue
+
+    # --- claim arbitration (multi-pod) ------------------------------------
+    clm="$JOBS/$jid.claim"
+    if [ -f "$clm" ]; then
+      owner=$(awk '{print $1}' "$clm")
+      age=$(( $(date +%s) - $(awk '{print $2}' "$clm" 2>/dev/null || echo 0) ))
+      if [ "$owner" != "$POD" ] && [ "$age" -lt 21600 ]; then continue; fi
+    fi
+    if [ ! -f "$clm" ] || [ "$(awk '{print $1}' "$clm")" != "$POD" ]; then
+      echo "$POD $(date +%s)" > "$clm"
+      git add "$clm"
+      git commit -q -m "rules-loop claim $jid ($POD)"
+      # pull --rebase: if another pod's claim landed first, replaying ours
+      # conflicts on the same file -- that conflict IS losing the race
+      if ! timeout 180 bash -c "git -c rebase.autoStash=true pull -q --rebase && git push -q"; then
+        git rebase --abort 2>/dev/null
+        git reset --hard -q origin/main
+        mark "lost claim race on $jid"
+        continue
+      fi
+      mark "claimed $jid"
+    fi
+    # ----------------------------------------------------------------------
 
     kind=$(grep -o '"kind": *"[a-z]*"' "$specf" | grep -o '[a-z]*"$' | tr -d '"')
     if [ "$kind" = "apply" ]; then
