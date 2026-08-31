@@ -286,12 +286,14 @@ def sandbox_wrapper(run):
 
 
 def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
-             effort="high"):
+             effort=None):
     """session: a uuid to pin/resume a conversation. Reasoning roles (distill,
     judge, plan) share ONE session per pass so the distiller can refer back to
     everything it has already seen and concluded. Apply calls pass session=None
     deliberately -- they must not see each other's phrases (cross-contamination),
     and being stateless is what lets them run in parallel."""
+    if effort is None:
+        effort = run.claude_effort
     if run.dry:
         response = f"[dry-run:{backend}] " + hashlib.sha1(prompt.encode()).hexdigest()[:12]
         if tag.endswith("distill") or "distill" in tag:
@@ -357,7 +359,7 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
                                         f"  {m} (contents below)\n\n```\n{body}\n```\n")
         client = genai.Client()
         resp = client.models.generate_content(
-            model="gemini-pro-latest", contents=prompt,
+            model=run.gemini_model, contents=prompt,
             config=types.GenerateContentConfig(
                 temperature=0.0, http_options=types.HttpOptions(timeout=timeout * 1000)))
         response = (resp.text or "").strip()
@@ -447,6 +449,9 @@ class Run:
             "RULES_AGENT_DIR", "/tmp/rules_loop_agent")) / run_id
         self.session = None
         self.claude_model = "claude-opus-5"   # set from config at run start
+        self.claude_effort = "high"
+        self.apply_effort = "medium"
+        self.gemini_model = "gemini-pro-latest"
         (self.dir / "jobs").mkdir(parents=True, exist_ok=True)
         self.cfg_path = self.dir / "config.json"
 
@@ -465,6 +470,9 @@ class Run:
             "rephrasers": args.rephrasers.split(","),
             "distiller": args.distiller, "judge": args.distiller,
             "claude_model": args.claude_model,
+            "claude_effort": args.claude_effort,
+            "apply_effort": args.apply_effort,
+            "gemini_model": args.gemini_model,
             "max_probes": args.max_probes,
             "init_rules_from": args.init_rules_from,
             "rollback_on_regress": not args.no_rollback,
@@ -758,7 +766,8 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag):
 
     def one(i):
         task, phrase, p = jobs[i]
-        out = call_llm(run, rephraser, p, f"{tag}_apply", session=None, effort="medium")
+        out = call_llm(run, rephraser, p, f"{tag}_apply", session=None,
+                       effort=run.apply_effort)
         return i, {"task": task, "phrase": phrase, "rewrite": out.split("\n")[0].strip()}
 
     # stateless -> safe to run concurrently; this is the loop's dominant cost
@@ -1025,7 +1034,7 @@ def ensure_corpus_file(run, cfg):
                     n_instructions=n_instr, sample=sample)
     try:
         qual = call_llm(run, cfg.get("distiller", "claude"), p, "corpus",
-                        effort="high", timeout=900)
+                        timeout=900)
     except Exception as e:
         print(f"[{run.id}] corpus commentary failed ({type(e).__name__}); "
               f"vocabulary table still written")
@@ -1121,7 +1130,7 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
                         baseline_proxy(run, cfg, bases, tag), score)
         judge_p = prompt_from("judge.md", rules=rules_only(rules), eval_file=eval_file)
         judgement = call_llm(run, cfg["judge"], judge_p, f"{tag}_judge",
-                             session=run.session, add_dir=run.dir, effort="high")
+                             session=run.session, add_dir=run.dir)
         (itdir / "judge.md").write_text(judgement)
         summary = {"judge": judgement,
                    "rule_notes": section(judgement, "RULE NOTES"),
@@ -1198,6 +1207,14 @@ def main():
     ap.add_argument("--claude-model", default="claude-opus-5",
                     help="model for the distiller/judge/planner and for "
                          "rephraser=claude")
+    ap.add_argument("--claude-effort", default="high",
+                    choices=["low", "medium", "high"],
+                    help="reasoning effort for the distiller/judge/planner/corpus")
+    ap.add_argument("--apply-effort", default="medium",
+                    choices=["low", "medium", "high"],
+                    help="effort for rephraser=claude apply calls")
+    ap.add_argument("--gemini-model", default="gemini-pro-latest",
+                    help="model for rephraser=gemini")
     ap.add_argument("--max-probes", type=int, default=20)
     ap.add_argument("--max-train-tasks", type=int, default=0,
                     help="cap the training pool (0 = all); the val splits are "
@@ -1214,6 +1231,9 @@ def main():
     run = Run(args.run_id, args.dry_run, mock_scoring=args.mock_scoring)
     cfg = run.config(args)
     run.claude_model = cfg.get("claude_model", "claude-opus-5")
+    run.claude_effort = cfg.get("claude_effort", "high")
+    run.apply_effort = cfg.get("apply_effort", "medium")
+    run.gemini_model = cfg.get("gemini_model", "gemini-pro-latest")
     rng = np.random.default_rng(cfg["seed"])
     bank = seed_bank(run)
     sb = sandbox_wrapper(run)
@@ -1390,7 +1410,7 @@ def main():
                 rules = None
                 for attempt in range(3):
                     cand = call_llm(run, cfg["distiller"], dp, f"{rephraser}_distill",
-                                    session=run.session, add_dir=run.dir, effort="high",
+                                    session=run.session, add_dir=run.dir,
                                     timeout=1800)
                     try:
                         if parse_rules(cand):
@@ -1476,7 +1496,7 @@ def main():
                                      "evidence.csv", "evidence_summary.csv"),
                                  max_probes=cfg.get("max_probes", 20))
                 planned = call_llm(run, cfg["distiller"], pp, f"{rephraser}_plan",
-                                   session=run.session, add_dir=run.dir, effort="high")
+                                   session=run.session, add_dir=run.dir)
                 allowed = set(train_tasks)
                 new, rejected = [], []
                 for m in re.finditer(r"^\s*\[([^\]]+)\]\s+(.+)$", planned, re.M):
