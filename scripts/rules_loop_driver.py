@@ -436,6 +436,18 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
 _TRACES = {}
 
 
+def _sanitize_trace(t):
+    """Cut the trailing 'Original Instruction:' block that the trace-generation
+    template appended (user-found leak, 2026-08-31): for LEGACY traces that
+    block restates the CANONICAL instruction -- a verbatim answer key sitting
+    inside the scene analysis, which the applier demonstrably copies from.
+    Applied to both sources; on per-base traces it only removes a harmless
+    echo of the base."""
+    t = str(t)
+    i = t.rfind("Original Instruction:")
+    return t[:i].rstrip() if i >= 0 else t
+
+
 def load_traces(env=None):
     """Scene descriptions for rule application. Expensive to generate, so they
     are loaded once and reused.
@@ -463,12 +475,13 @@ def load_traces(env=None):
     if legacy.exists():
         t = pd.read_parquet(legacy, columns=["instruction", "trace"])
         t = t.drop_duplicates("instruction")
-        out.update(dict(zip(t.instruction, t.trace)))
+        out.update({i: _sanitize_trace(tr) for i, tr in zip(t.instruction, t.trace)})
     n_legacy = len(out)
     if per_base.exists():
         p = pd.read_parquet(per_base, columns=["task", "phrase", "trace"])
         p = p.drop_duplicates(["task", "phrase"])
-        out.update({(str(r.task), str(r.phrase)): r.trace for r in p.itertuples()})
+        out.update({(str(r.task), str(r.phrase)): _sanitize_trace(r.trace)
+                    for r in p.itertuples()})
         print(f"[traces] {len(p)} per-base + {n_legacy} legacy-by-instruction")
     else:
         print(f"[traces] {n_legacy} legacy-by-instruction ONLY -- every base will "

@@ -192,7 +192,10 @@ elif spec["kind"] == "apply":
     tf = REPO / "results/phrase_artifacts/cover35_teacher_train.parquet"
     if tf.exists():
         t = pd.read_parquet(tf, columns=["instruction", "trace"]).drop_duplicates("instruction")
-        traces = dict(zip(t.instruction.astype(str), t.trace.astype(str)))
+        def _san(x):
+            i = str(x).rfind("Original Instruction:")
+            return str(x)[:i].rstrip() if i >= 0 else str(x)
+        traces = {str(k): _san(v) for k, v in zip(t.instruction, t.trace)}
 
     tok = AutoTokenizer.from_pretrained("Qwen/Qwen3.5-9B")
     model = AutoModelForCausalLM.from_pretrained(
