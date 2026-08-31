@@ -1,9 +1,0 @@
-[dry-run:claude] f53efc44d5a9
-
----
-
-Apply the rules above.
-
-Incoming instruction: place the carrot flat on the black keyboard
-
-Reply with ONLY the rewritten instruction.

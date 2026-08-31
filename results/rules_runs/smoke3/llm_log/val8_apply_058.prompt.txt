@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: place the carrot on top of the black tire
-
-Reply with ONLY the rewritten instruction.

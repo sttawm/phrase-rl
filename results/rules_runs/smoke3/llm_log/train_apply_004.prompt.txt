@@ -1,9 +1,0 @@
-[dry-run:claude] f53efc44d5a9
-
----
-
-Apply the rules above.
-
-Incoming instruction: wipe the stove by moving the orange rag to the left
-
-Reply with ONLY the rewritten instruction.

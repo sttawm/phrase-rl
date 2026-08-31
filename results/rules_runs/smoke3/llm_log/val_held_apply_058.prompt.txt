@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: take the red object out of the pot and put it on the left burner
-
-Reply with ONLY the rewritten instruction.

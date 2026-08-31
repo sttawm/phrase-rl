@@ -1,9 +1,0 @@
-[dry-run:claude] f53efc44d5a9
-
----
-
-Apply the rules above.
-
-Incoming instruction: move the corn into blue bowl
-
-Reply with ONLY the rewritten instruction.

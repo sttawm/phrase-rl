@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: shift the orange rag to the left part of the table
-
-Reply with ONLY the rewritten instruction.

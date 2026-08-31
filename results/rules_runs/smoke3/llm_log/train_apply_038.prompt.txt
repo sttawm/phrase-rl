@@ -1,9 +1,0 @@
-[dry-run:claude] f53efc44d5a9
-
----
-
-Apply the rules above.
-
-Incoming instruction: put big spoon from basket to tray
-
-Reply with ONLY the rewritten instruction.

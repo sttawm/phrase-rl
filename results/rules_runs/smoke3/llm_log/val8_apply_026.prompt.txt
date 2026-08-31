@@ -1,9 +1,0 @@
-[dry-run:claude] f53efc44d5a9
-
----
-
-Apply the rules above.
-
-Incoming instruction: put the carrot in the wheel
-
-Reply with ONLY the rewritten instruction.

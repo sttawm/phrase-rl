@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: [dry-run:gemini] 8c703b6d4777
-
-Reply with ONLY the rewritten instruction.

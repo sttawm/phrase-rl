@@ -1,9 +1,0 @@
-[dry-run:claude] f53efc44d5a9
-
----
-
-Apply the rules above.
-
-Incoming instruction: pull the grey dish basket out of the sink
-
-Reply with ONLY the rewritten instruction.

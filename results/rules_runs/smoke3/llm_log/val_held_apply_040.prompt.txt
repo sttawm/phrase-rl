@@ -1,9 +1,0 @@
-[dry-run:claude] f53efc44d5a9
-
----
-
-Apply the rules above.
-
-Incoming instruction: put the jar into the metal pot
-
-Reply with ONLY the rewritten instruction.

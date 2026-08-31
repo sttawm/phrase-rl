@@ -1,7 +1,0 @@
-{
- "iter": 2,
- "best_val": 0.6135366738885024,
- "best_iter": 0,
- "since_best": 1,
- "rules": "[dry-run:claude] 440078f50936"
-}

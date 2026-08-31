@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: put the red block in the pan and put the pan on the stove burner
-
-Reply with ONLY the rewritten instruction.

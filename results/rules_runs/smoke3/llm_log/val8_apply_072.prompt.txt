@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: drop the coke can on the plate
-
-Reply with ONLY the rewritten instruction.

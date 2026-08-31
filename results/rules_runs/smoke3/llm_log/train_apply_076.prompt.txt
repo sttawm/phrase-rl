@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: place the blue cup inside the metal pot
-
-Reply with ONLY the rewritten instruction.

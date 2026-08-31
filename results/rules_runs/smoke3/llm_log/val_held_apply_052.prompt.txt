@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: remove the grapes from the plate inside the sink
-
-Reply with ONLY the rewritten instruction.

@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: lift the blue bowl off the green saucer
-
-Reply with ONLY the rewritten instruction.

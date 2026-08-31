@@ -1,9 +1,0 @@
-[dry-run:claude] 440078f50936
-
----
-
-Apply the rules above.
-
-Incoming instruction: turn the faucet switch to the right
-
-Reply with ONLY the rewritten instruction.
