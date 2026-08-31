@@ -55,6 +55,13 @@ while true; do
     [ -f "$JOBS/$jid.result.parquet" ] && continue
 
     kind=$(grep -o '"kind": *"[a-z]*"' "$specf" | grep -o '[a-z]*"$' | tr -d '"')
+    if [ "$kind" = "apply" ]; then
+      # Qwen apply needs the whole GPU: 9B bf16 cannot fit beside the resident
+      # score server on 24GB. Stop it; the next score job reboots it.
+      tmux kill-session -t rlscore 2>/dev/null || true
+      pkill -f '[p]hase2_score_server' 2>/dev/null || true
+      sleep 8
+    fi
     [ "$kind" = "score" ] && ensure_score_server
     mark "running $jid ($kind)"
     att=$(ls "$JOBS/$jid".attempt-* 2>/dev/null | wc -l | tr -d " ")
