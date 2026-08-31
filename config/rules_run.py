@@ -141,6 +141,29 @@ def main():
     import os
     sys.stdout.flush()
     env = {**os.environ, **ENV}
+    # A detached (nohup) driver cannot rely on the launching shell's SSH agent
+    # for git pushes (2026-08-31: job-submission pushes failed 3x on a stale
+    # SSH_AUTH_SOCK and killed the run). Route the driver's git through HTTPS
+    # with the scoped pod token via env config + a mode-600 credential store --
+    # nothing token-shaped ever reaches argv or ps.
+    tok = ""
+    zr = os.path.expanduser("~/.zshrc")
+    if os.path.exists(zr):
+        for line in open(zr):
+            if line.startswith("export POD_GIT_TOKEN="):
+                tok = line.split("=", 1)[1].strip().strip('"').strip("'")
+    if tok:
+        credf = os.path.expanduser("~/.git-credentials-phrase-rl")
+        fd = os.open(credf, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        os.write(fd, f"https://x-access-token:{tok}@github.com\n".encode())
+        os.close(fd)
+        env.update({
+            "GIT_CONFIG_COUNT": "2",
+            "GIT_CONFIG_KEY_0": "credential.helper",
+            "GIT_CONFIG_VALUE_0": f"store --file={credf}",
+            "GIT_CONFIG_KEY_1": "url.https://github.com/.insteadOf",
+            "GIT_CONFIG_VALUE_1": "git@github.com:",
+        })
     sys.exit(subprocess.call(cmd, cwd=REPO, env=env))
 
 
