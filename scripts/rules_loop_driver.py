@@ -400,6 +400,20 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
                 prompt = prompt.replace(f"  {m}",
                                         f"  {m} (contents below)\n\n```\n{body}\n```\n")
         client = genai.Client()
+        # transient network/server errors must not kill a multi-hour run: the
+        # 2026-08-31 r1 launch died on a single unretried httpx.ReadTimeout
+        def _gen_with_retry(**kw):
+            import time as _t
+            for attempt in range(6):
+                try:
+                    return client.models.generate_content(**kw)
+                except Exception as e:
+                    name = type(e).__name__
+                    retryable = any(x in name for x in ("Timeout", "ServerError",
+                                                        "ConnectError", "ReadError"))                         or "429" in str(e) or "500" in str(e) or "503" in str(e)
+                    if attempt == 5 or not retryable:
+                        raise
+                    _t.sleep(min(5 * 2 ** attempt, 60))
         # thinking_budget > 0 is sent verbatim; <= 0 means "model default" --
         # pro-class Gemini models are thinking-only and reject an explicit 0
         # (400 INVALID_ARGUMENT), while flash-class models accept it. Minimum
@@ -409,7 +423,7 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
         if run.gemini_thinking > 0:
             gcfg["thinking_config"] = types.ThinkingConfig(
                 thinking_budget=run.gemini_thinking)
-        resp = client.models.generate_content(
+        resp = _gen_with_retry(
             model=run.gemini_model, contents=prompt,
             config=types.GenerateContentConfig(**gcfg))
         response = (resp.text or "").strip()
@@ -1090,10 +1104,31 @@ def build_vocabulary(src_dir, floor=5):
                               "common": len(common), "present": len(present)}
 
 
+CORPUS_CACHE = REPO / "results/analysis/corpus_cache"
+
+
+def corpus_cache_key(staged_dir):
+    h = hashlib.sha1((PROMPTS / "corpus.md").read_bytes())
+    for f in sorted(staged_dir.iterdir()):
+        if f.is_file():
+            h.update(f.name.encode())
+            h.update(f.read_bytes())
+    return h.hexdigest()[:12]
+
+
 def ensure_corpus_file(run, cfg):
-    """Deterministic vocabulary table + an agent-written qualitative section."""
+    """Deterministic vocabulary table + an agent-written qualitative section.
+    The commentary is REUSED across runs (user 2026-08-31): cached under
+    results/analysis/corpus_cache keyed on the staged inputs + prompt, so a new
+    run (or the sim phase) pays zero LLM calls unless the corpus changed."""
     out = run.dir / "corpus_stats.md"
     if out.exists():
+        staged = run.dir / "corpus_inputs"
+        if staged.exists() and not run.dry:   # backfill the shared cache
+            CORPUS_CACHE.mkdir(parents=True, exist_ok=True)
+            c = CORPUS_CACHE / f"corpus_stats_{corpus_cache_key(staged)}.md"
+            if not c.exists():
+                c.write_bytes(out.read_bytes())
         return out
     src_dir = REPO / run.env["corpus_inputs"]
     if run.dry or not src_dir.exists():
@@ -1111,6 +1146,13 @@ def ensure_corpus_file(run, cfg):
     jwrite(run.dir / "corpus_inputs_manifest.json",
            {"copied": copied,
             "excluded": [f.name for f in sorted(src_dir.iterdir()) if f.name not in copied]})
+
+    CORPUS_CACHE.mkdir(parents=True, exist_ok=True)
+    cached = CORPUS_CACHE / f"corpus_stats_{corpus_cache_key(staged)}.md"
+    if cached.exists():
+        out.write_bytes(cached.read_bytes())
+        print(f"[{run.id}] corpus commentary reused from cache ({cached.name})")
+        return out
 
     vocab, n_instr, stats = build_vocabulary(staged)
     if vocab is None:
@@ -1132,6 +1174,7 @@ def ensure_corpus_file(run, cfg):
               f"vocabulary table still written")
         qual = "(commentary unavailable)"
     out.write_text(vocab + "\n---\n\n" + qual + "\n")
+    cached.write_bytes(out.read_bytes())
     return out
 
 
@@ -1628,6 +1671,10 @@ def main():
             st["last_val"] = val
             if val > st["best_val"]:
                 st.update(best_val=val, best_iter=it, since_best=0)
+                # eagerly: the current-best rulebook is always readable at
+                # pass_<applier>/best_rules.md, even mid-run -- this is the
+                # artifact the sim phase seeds from (--init-rules-from)
+                (pdir / "best_rules.md").write_text(rules)
             else:
                 st["since_best"] += 1
             st["rules"] = rules
