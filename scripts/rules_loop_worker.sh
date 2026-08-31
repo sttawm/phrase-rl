@@ -27,8 +27,11 @@ ensure_score_server() {
   tmux kill-session -t rlscore 2>/dev/null
   mkdir -p "$IPC_DIR"
   # verifier mode needs the ensemble + stats contexts, or every grip comes back NaN
+  # secrets INSIDE the tmux command: a new tmux session inherits the tmux
+  # server's original env, not this shell's exports -- the score server booted
+  # without HF_TOKEN and died on the gated PaliGemma repo (2026-08-31)
   tmux new-session -d -s rlscore \
-    "cd /workspace/phrase-rl && .venv/bin/python -m phrase_rl.phase2_score_server \
+    "cd /workspace/phrase-rl && eval \"\$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc || true)\" && export HF_HOME=\${HF_HOME:-/workspace/hf_cache} && .venv/bin/python -m phrase_rl.phase2_score_server \
        --ipc-dir \"$IPC_DIR\" \
        --stats-contexts results/phrase_artifacts/chunk_stats.parquet \
        --verifier-ensemble results/checkpoints/verifier_reward_ensemble_4f.json \
