@@ -49,6 +49,8 @@ ap.add_argument("--run", default="live1", help="rules run whose splits.json defi
 ap.add_argument("--workers", type=int, default=6)
 ap.add_argument("--limit", type=int, default=0)
 ap.add_argument("--frames-val8", default="results/phrase_artifacts/val8_canonical_frames.parquet")
+ap.add_argument("--bases-parquet", default=None,
+                help="explicit (task, phrase) list to trace; skips split-derived selection")
 args = ap.parse_args()
 if not (args.go or args.preflight):
     ap.error("pass --preflight or --go")
@@ -91,6 +93,13 @@ def load_bases():
     return pd.concat(frames, ignore_index=True).drop_duplicates(["task", "phrase"])
 
 
+def load_bases_explicit():
+    d = pd.read_parquet(args.bases_parquet)[["task", "phrase"]].drop_duplicates()
+    d["split"] = "explicit"
+    d["tier"] = "explicit"
+    return d
+
+
 # ------------------------------------------------------- canonical frames
 def load_frames(bases):
     """One canonical frame per task. Arbitrary but RECORDED -- the previous
@@ -114,7 +123,7 @@ def load_frames(bases):
     return out
 
 
-bases = load_bases()
+bases = load_bases_explicit() if args.bases_parquet else load_bases()
 if args.limit:
     bases = bases.head(args.limit)
 frames = load_frames(bases)

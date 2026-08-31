@@ -190,20 +190,26 @@ elif spec["kind"] == "apply":
     # scene descriptions are expensive to generate: load once, reuse per phrase
     traces = {}
     tf = REPO / "results/phrase_artifacts/cover35_teacher_train.parquet"
+    def _san(x):
+        i = str(x).rfind("Original Instruction:")
+        return str(x)[:i].rstrip() if i >= 0 else str(x)
     if tf.exists():
         t = pd.read_parquet(tf, columns=["instruction", "trace"]).drop_duplicates("instruction")
-        def _san(x):
-            i = str(x).rfind("Original Instruction:")
-            return str(x)[:i].rstrip() if i >= 0 else str(x)
         traces = {str(k): _san(v) for k, v in zip(t.instruction, t.trace)}
+    pbf = REPO / "results/phrase_artifacts/traces_rules_v1.parquet"
+    if pbf.exists():   # per-base traces take precedence, same as the driver
+        p = pd.read_parquet(pbf, columns=["task", "phrase", "trace"]).drop_duplicates(["task", "phrase"])
+        traces.update({(str(r.task), str(r.phrase)): _san(r.trace) for r in p.itertuples()})
 
     tok = AutoTokenizer.from_pretrained("Qwen/Qwen3.5-9B")
     model = AutoModelForCausalLM.from_pretrained(
         "Qwen/Qwen3.5-9B", torch_dtype=torch.bfloat16, device_map="cuda")
     rows = []
     for r in payload.itertuples():
-        trace = traces.get(str(r.task), traces.get(str(r.phrase),
-                                                   "(no scene description available)"))
+        trace = (traces.get((str(r.task), str(r.phrase)))
+                 or traces.get(str(r.task))
+                 or traces.get(str(r.phrase))
+                 or "(no scene description available)")
         prompt = (tmpl.replace("{{trace}}", trace)
                       .replace("{{phrase}}", str(r.phrase))
                       .replace("{{task}}", str(r.task)))
