@@ -49,7 +49,7 @@ APPLIERS = {
     # rephraser=claude applies with claude_model; effort is its lever
     "claude": dict(apply_effort="high"),   # applying a fixed rulebook is mechanical; high is lossless here
     # rephraser=gemini applies via the API; thinking budget is its lever
-    "gemini": dict(gemini_model="gemini-pro-latest", gemini_thinking_budget=128),
+    "gemini": dict(gemini_model="gemini-pro-latest", gemini_thinking_budget=1024),  # 128->1024 2026-09-01: smart applier
     # rephraser=qwen runs pod-side: Qwen3.5-9B greedy (rules_loop_jobs.py); no knob here
     "qwen": dict(),
 }
