@@ -250,7 +250,10 @@ def gitsync(push_paths=None, msg=""):
         # and an index.lock race can fail add/commit silently while the push
         # trivially "succeeds" with nothing new (stranded current_rules_qwen.md,
         # 2026-08-31). Untracked/modified here means our write never committed.
-        if not sh("git status --porcelain -- " + paths).stdout.strip():
+        chk = sh("git status --porcelain -- " + paths)
+        # status must SUCCEED and be clean: under an index.lock race it fails
+        # with empty stdout, which must not count as verified (2026-09-01)
+        if chk.returncode == 0 and not chk.stdout.strip():
             return True
         time.sleep(3)
     raise RuntimeError("git push failed/unverified 6x")
@@ -873,6 +876,7 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag):
         # the job id changes when the rulebook does
         return run_job(run, "apply", bases[["task", "phrase"]], {
             "rules_file": str((run.dir / f"current_rules_{rephraser}.md").relative_to(REPO)),
+            "rules_text": rules_only(rules),
             "rules_sha": hashlib.sha1(rules.encode()).hexdigest()[:12]}, tag)
     rules = rules_only(rules)
     # persistent apply cache: a restarted driver must reuse rewrites, not

@@ -174,7 +174,9 @@ elif spec["kind"] == "apply":
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
-    rules = (REPO / spec["rules_file"]).read_text()
+    # rules_text in the spec is authoritative: reading the repo file raced a
+    # lost rulebook push and silently applied a stale book (2026-09-01)
+    rules = spec.get("rules_text") or (REPO / spec["rules_file"]).read_text()
     # strip the rationale: it is written for us, not for the applier, and feeding
     # a model commentary about rules it must follow literally is a live hazard
     if "===RULES===" in rules:
