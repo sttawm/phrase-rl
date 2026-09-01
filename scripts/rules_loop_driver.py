@@ -394,6 +394,14 @@ def call_llm(run, backend, prompt, tag, timeout=900, session=None, add_dir=None,
             cmd = [c for c in cmd if c not in ("--resume", session)] + ["--session-id", session]
             r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout,
                                cwd=str(run.agent_dir), stdin=subprocess.DEVNULL)
+        elif r.returncode != 0 and session and "already in use" in (r.stderr or "") + (r.stdout or ""):
+            # the mirror failure: the session EXISTS but the marker was lost (a
+            # crash between create and marker write) -- resume instead
+            cmd = [c for c in cmd if c not in ("--session-id", session)] + ["--resume", session]
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout,
+                               cwd=str(run.agent_dir), stdin=subprocess.DEVNULL)
+            if r.returncode == 0:
+                marker.write_text("")
         blob = (r.stdout or "") + (r.stderr or "")
         if "Not logged in" in blob or "/login" in blob:
             raise RuntimeError(
