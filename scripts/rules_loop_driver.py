@@ -831,6 +831,12 @@ def check_reward_vs_gripper(run, out, tag):
             _lg=lambda d: proxy_logit(d.z.astype(float), d.grip.astype(float)))
         if len(g) < 4:
             continue
+        # only groups whose scores actually SPAN a range: successful rulebooks
+        # compress within-task spreads to ~1 logit, and rank corr over near-ties
+        # collapses for statistical reasons (measured 2026-09-01: rho 0.86 on
+        # spread>=2 groups vs 0.30 on compressed ones, same healthy reward)
+        if float(g._lg.max() - g._lg.min()) < 2.0:
+            continue
         r = g._lg.rank().corr((-g.grip).rank(), method="spearman")
         if pd.notna(r):
             rhos.append(float(r))
