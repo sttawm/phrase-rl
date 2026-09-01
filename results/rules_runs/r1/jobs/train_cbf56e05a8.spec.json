@@ -1,0 +1,7 @@
+{
+ "job_id": "train_cbf56e05a8",
+ "kind": "apply",
+ "rules_file": "results/rules_runs/r1/current_rules_qwen.md",
+ "rules_text": "1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.",
+ "rules_sha": "dbce4e474e5d"
+}
