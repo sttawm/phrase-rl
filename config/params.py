@@ -472,6 +472,9 @@ def bases_for(target_pp, per=None):
 # ===========================================================================
 
 DECISIONS = [
+    ("2026-09-01", "rules-loop fable effort: reasoning max->xhigh, claude-applier max->high",
+     "credit runway; applying a fixed rulebook is mechanical (volume cost), "
+     "rulebook quality lives in the ~6 reasoning calls/iteration (xhigh suffices)"),
     ("2026-08-30", "rules loop abstracted over (policy,dataset) environments and a "
      "train|sim phase flag",
      "ENVIRONMENTS registry holds every benchmark-specific fact (bank sources, "

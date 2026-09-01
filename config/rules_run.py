@@ -24,7 +24,7 @@ P = dict(
     # reasoning stack (distiller / judge / planner / corpus): always Claude
     distiller="claude",
     claude_model="claude-fable-5",
-    claude_effort="max",        # reasoning roles
+    claude_effort="xhigh",      # reasoning roles (max -> xhigh 2026-09-01: fable credit runway; DECISIONS)
 
     # evaluation sample: 96 bases per eval set (train / val_held / val8);
     # targets ~1 h per iteration
@@ -47,7 +47,7 @@ P = dict(
 # --- per-applier knobs -------------------------------------------------------
 APPLIERS = {
     # rephraser=claude applies with claude_model; effort is its lever
-    "claude": dict(apply_effort="max"),
+    "claude": dict(apply_effort="high"),   # applying a fixed rulebook is mechanical; high is lossless here
     # rephraser=gemini applies via the API; thinking budget is its lever
     "gemini": dict(gemini_model="gemini-pro-latest", gemini_thinking_budget=128),
     # rephraser=qwen runs pod-side: Qwen3.5-9B greedy (rules_loop_jobs.py); no knob here
