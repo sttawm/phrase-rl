@@ -19,7 +19,62 @@ import matplotlib.pyplot as plt
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 COLORS = {"gemini": "#2563eb", "claude": "#d97706", "qwen": "#059669"}
 PANELS = [("train", "train (96 bases)"), ("val_held", "val_held (held-out tasks)"),
-          ("val8", "val8 (classic 8)")]
+          ("val8", "val8 (classic 8)"),
+          ("val8r", "val8 recomposed (31 nat / 13 adv / 10 unk)")]
+
+
+def val8_recomposed_subset(run):
+    """Fixed (task, base) subset: all natural + all adversarial + a seeded 10
+    of the legacy 'unknown' phrases. The full val8 draw is 52 unknown -- mostly
+    search-era phrases with no rewrite headroom -- which drowns the regimes we
+    actually care about."""
+    import pandas as pd
+    bank = pd.read_parquet(run / "bank.parquet")
+    kinds = bank.drop_duplicates(["task", "phrase"])[["task", "phrase", "kind"]]
+    ev = None
+    for f in sorted(run.glob("pass_*/iter_*/eval_val8_*.parquet")):
+        ev = pd.read_parquet(f, columns=["task", "base"]); break
+    if ev is None:
+        return None
+    m = ev.drop_duplicates().rename(columns={"base": "phrase"}).merge(
+        kinds, on=["task", "phrase"], how="left")
+    m["kind"] = m.kind.fillna("unknown")
+    keep = m[m.kind.isin(["natural", "adversarial"])]
+    unk = m[~m.kind.isin(["natural", "adversarial"])].sample(
+        n=min(10, (~m.kind.isin(["natural", "adversarial"])).sum()), random_state=17)
+    sub = pd.concat([keep, unk])
+    return set(zip(sub.task, sub.phrase))
+
+
+def val8_recomposed_series(run):
+    """pass -> [(iter, mean delta on the recomposed subset)]."""
+    import pandas as pd
+    sub = val8_recomposed_subset(run)
+    if not sub:
+        return {}
+    rows = list(run.glob("baseline_val8_*_rows.parquet"))
+    if not rows:
+        return {}
+    b = pd.read_parquet(rows[0]).dropna(subset=["z", "grip"])
+    b["lg"] = 8.123 + 0.4445 * b.z.astype(float) + 11.3193 * (-b.grip.astype(float))
+    base_lg = {(t, p): v for t, p, v in zip(b.task, b.phrase, b.lg)}
+    out = {}
+    for pdir in sorted(run.glob("pass_*")):
+        name = pdir.name.split("_", 1)[1]
+        pts = []
+        for f in sorted(pdir.glob("iter_*/eval_val8_*.parquet")):
+            it = int(f.parent.parts[-1].split("_")[1])
+            e = pd.read_parquet(f).dropna(subset=["z", "grip"])
+            e = e[[(t, bp) in sub for t, bp in zip(e.task, e.base)]]
+            if not len(e):
+                continue
+            e["lg"] = 8.123 + 0.4445 * e.z.astype(float) + 11.3193 * (-e.grip.astype(float))
+            d = [lg - base_lg[(t, bp)] for t, bp, lg in zip(e.task, e.base, e.lg)
+                 if (t, bp) in base_lg]
+            if d:
+                pts.append((it, sum(d) / len(d)))
+        out[name] = pts
+    return out
 
 
 def main():
@@ -31,12 +86,12 @@ def main():
     series = {}   # pass -> metric -> [(iter, delta)]
     for pdir in sorted(run.glob("pass_*")):
         name = pdir.name.split("_", 1)[1]
-        s = {m: [] for m, _ in PANELS}
+        s = {m: [] for m, _ in PANELS if m != "val8r"}
         for f in sorted(pdir.glob("iter_*/scores.json")):
             it = int(f.parent.name.split("_")[1])
             d = json.load(open(f))["delta"]
             for m, _ in PANELS:
-                if d.get(m) is not None:
+                if m != "val8r" and d.get(m) is not None:
                     s[m].append((it, d[m]))
         # partial iterations: train-only points
         for f in sorted(pdir.glob("iter_*/eval_train.json")):
@@ -44,8 +99,11 @@ def main():
             if not (f.parent / "scores.json").exists():
                 s["train"].append((it, json.load(open(f))["delta"]))
         series[name] = s
+    v8r = val8_recomposed_series(run)
+    for name in series:
+        series[name]["val8r"] = v8r.get(name, [])
 
-    fig, axes = plt.subplots(1, 3, figsize=(12.5, 4.2), sharex=True)
+    fig, axes = plt.subplots(1, 4, figsize=(15.5, 4.2), sharex=True)
     for ax, (m, title) in zip(axes, PANELS):
         for name, s in series.items():
             pts = sorted(s[m])
