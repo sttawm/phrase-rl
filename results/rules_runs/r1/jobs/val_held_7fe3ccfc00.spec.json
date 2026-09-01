@@ -1,0 +1,6 @@
+{
+ "job_id": "val_held_7fe3ccfc00",
+ "kind": "apply",
+ "rules_file": "results/rules_runs/r1/current_rules_qwen.md",
+ "rules_sha": "baec5a98a401"
+}
