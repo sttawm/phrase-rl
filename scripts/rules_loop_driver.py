@@ -1432,10 +1432,10 @@ def main():
                     help="model for the distiller/judge/planner and for "
                          "rephraser=claude")
     ap.add_argument("--claude-effort", default="high",
-                    choices=["low", "medium", "high", "max"],
+                    choices=["low", "medium", "high", "xhigh", "max"],
                     help="reasoning effort for the distiller/judge/planner/corpus")
     ap.add_argument("--apply-effort", default="medium",
-                    choices=["low", "medium", "high", "max"],
+                    choices=["low", "medium", "high", "xhigh", "max"],
                     help="effort for rephraser=claude apply calls")
     ap.add_argument("--gemini-model", default="gemini-pro-latest",
                     help="model for rephraser=gemini")
