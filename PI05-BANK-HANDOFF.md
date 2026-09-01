@@ -45,3 +45,21 @@ A parallel session ("the r1 operator") is babysitting the bridge_pi0 rules
 loop on worker pods rw1–rw3 and pushes to main frequently — pull-rebase before
 pushing, avoid touching results/rules_runs/r1/ and scripts/rules_loop_worker.sh
 without coordinating.
+
+## Split decision (agreed 2026-09-01, build splits.json from this before any new generation)
+- Universe: l90 = 90 tasks (20 touched by four-tier: 18 l90_clean + 2 l90_trained_string);
+  in-finetune = 40 tasks (10 goal touched, 30 spatial/object/long untouched).
+- TRAIN (70): 10 goal + all 20 touched l90 + 40 fresh l90. All existing four-tier
+  scores land here — nothing discarded. l90_trained_string tasks pinned to train.
+- VAL (10): untouched l90. Small on purpose: evaluated every iteration by rollout.
+- SEALED TEST (20): untouched l90, PREREG discipline (no generation, FINAL_EVAL=1,
+  preflight print), first measurement at >=20 virgin inits.
+- RESERVE: 30 untouched in-finetune tasks (spatial/object/long) for a later
+  in-finetune sealed strand. Not assigned now.
+- Assignment: uniform random, committed seed, stratified ONLY by the free
+  vocab label (in-vocab = every content word of the task string appears in the
+  40 finetune strings; computed from text, no rollouts). No pre-measurement.
+- Loop reporting: fixed seed-pinned sample of ~48 train bases, rerolled every
+  iteration on the SAME screen-window init indices (episode-level same-draw
+  pairing); val = the 10 val tasks per iteration; screens inits 0-9, confirm
+  20-29, sealed windows 30+.
