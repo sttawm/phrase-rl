@@ -954,7 +954,8 @@ def write_probe_results(run, bank, tasks, path, since_iter):
     return len(fresh)
 
 
-def write_rewrite_outcomes(run, bank, path, since_iter, same_draw=None):
+def write_rewrite_outcomes(run, bank, path, since_iter, same_draw=None,
+                           rephraser=None):
     """The rulebook's own rewrites, PAIRED with the bases they rewrote: one row
     per (base -> rewrite) with both measured logits and the delta. This is the
     per-phrase outcome record of the distiller's last move -- the scalar delta
@@ -964,7 +965,11 @@ def write_rewrite_outcomes(run, bank, path, since_iter, same_draw=None):
     if "iter_added" not in bank or "source" not in bank:
         Path(path).write_text(hdr)
         return 0
-    rw = bank[bank.source.astype(str).str.startswith("loop_")
+    # ONLY this pass's rewrites: presenting another applier's output as "what
+    # my rulebook did" misattributed qwen's leak rows to gemini's book (2026-09-01)
+    src = f"loop_{rephraser}" if rephraser else "loop_"
+    rw = bank[(bank.source.astype(str) == src if rephraser
+               else bank.source.astype(str).str.startswith("loop_"))
               & (pd.to_numeric(bank.iter_added, errors="coerce") >= since_iter)].copy()
     if not len(rw) or "base" not in rw:
         Path(path).write_text(hdr)
@@ -1623,7 +1628,7 @@ def main():
                 n_new = write_probe_results(run, bank, train_tasks, probe_file,
                                             since_iter=it - 1)
                 n_new += write_rewrite_outcomes(
-                    run, bank, rw_file, since_iter=it - 1,
+                    run, bank, rw_file, since_iter=it - 1, rephraser=rephraser,
                     same_draw=baseline_rows(run, "train",
                                             bases_for(train_tasks, cfg["sample_n"], seed=0)))
                 # Two matched (rulebook, measurements) pairs -- never a rulebook paired
