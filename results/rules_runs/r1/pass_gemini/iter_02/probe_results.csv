@@ -1,0 +1,6 @@
+task,phrase,kind,score,logit,z,grip,n_ctx
+end effector transition from object to object,end effector transition from one object to the other,search,1.0,8.671355885902926,1.4098756817395042,0.0069203797611407936,64.0
+end effector transition from object to object,Move the hand from the first piece to the second one.,search,0.0,0.2675726873457842,-8.44846499711275,0.3622206869185902,64.0
+pick up bowl and put in small4fbox,Pick up the bowl and put it into the small box.,search,,7.544301058976765,0.2391524133301573,0.06051630301772093,64.0
+put pan in sink,Pick up the pan and put it in the sink.,search,,7.34165072743479,0.26347026484072555,0.07937432573453407,64.0
+put spatula on plate sink,Put the spatula on top of the plate in the sink.,search,,7.97545188375967,0.8417844627518208,0.046091305110167013,64.0

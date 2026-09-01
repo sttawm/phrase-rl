@@ -1,0 +1,16 @@
+{
+ "copied": [
+  "01_bridge_gt_instructions.txt",
+  "02_oxe_paraphrases_SAMPLE60keys.csv",
+  "03_contrast_pairs_139.json",
+  "04_greedy_cells_all_arms.csv",
+  "05_sampled_pools_per_draw.csv",
+  "06_mechanism_cases.md",
+  "07_selftraces_val8.md",
+  "08_phrase_search.md"
+ ],
+ "excluded": [
+  "09_rules_v1_failures.md",
+  "README.md"
+ ]
+}

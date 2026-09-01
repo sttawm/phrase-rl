@@ -1,0 +1,17 @@
+task,phrase,kind,score,logit,z,grip,n_ctx
+close small4fbox flaps,Close the top of the small cardboard box.,search,,4.779946597675879,-5.6391256702365355,0.07389697612961754,64.0
+end effector transition from object to object,end effector transition from one object to the other,search,1.0,8.671355885902926,1.4098756817395042,0.0069203797611407936,64.0
+end effector transition from object to object,end effector transition from the first piece to the second one,search,0.9473841493252801,8.229183684024925,0.4703305327231647,0.009088745573535562,64.0
+end effector transition from object to object,Move the hand from the first piece to the second one.,search,0.0,0.2675726873457842,-8.44846499711275,0.3622206869185902,64.0
+fold the cloth from the top left to the bottom right,Fold the top left part of the textile down to the bottom right.,search,,7.321195071256345,-0.29919261125469343,0.05908614605505136,64.0
+pick up bowl and put in small4fbox,Pick up the bowl and put it into the small box.,search,1.0,7.544301058976765,0.2391524133301573,0.06051630301772093,64.0
+pick up bowl and put in small4fbox,"If the small box is empty, pick up the bowl and put it in the box.",search,0.0,6.104291018695703,-2.3214398120908295,0.08718109643086791,64.0
+pick up pot from sink,Pick up the pot from the sink.,search,,6.125748389926765,-0.2693776688203797,0.16586831661697943,64.0
+put beet in pot sink,Put the beet in the pot in the sink.,search,1.0,7.8386507806261925,0.5394414743932431,0.04630418442320661,64.0
+put beet in pot sink,Put the beet in the red pot.,search,0.6777732993006012,7.5829591064605975,0.11295042214769647,0.05214521712332498,64.0
+put beet in pot sink,Put the purple beet in the pot.,search,0.0,7.0451359241273,-0.7402927745832129,0.06615284845975111,64.0
+put cup on plate,Put the cup on the plate.,search,,7.598415824022492,0.9095513718493748,0.08206159044857486,64.0
+put lid on pot or pan,Put the lid on the pot or the pan.,search,,7.490518408466528,1.0293998716770147,0.09630010994442273,64.0
+put pan in sink,Pick up the pan and put it in the sink.,search,,7.34165072743479,0.26347026484072555,0.07937432573453407,64.0
+put spatula on plate sink,Put the spatula on top of the plate in the sink.,search,,7.97545188375967,0.8417844627518208,0.046091305110167013,64.0
+put the blue figure on the top edge of the cloth,Place the blue figure on the top edge of the cloth.,search,,7.899059695786929,0.8784777426695656,0.054281065156828845,64.0

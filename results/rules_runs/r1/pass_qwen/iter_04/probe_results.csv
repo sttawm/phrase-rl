@@ -1,0 +1,15 @@
+task,phrase,kind,score,logit,z,grip,n_ctx
+close brown1fbox flap,close the box flap,search,,8.0867316570681,0.05457509891689369,0.005347236525267363,64.0
+end effector reaching corn,end effector reaching the corn,search,1.0,8.444607727213514,0.9591913909447611,0.009254357253666967,64.0
+end effector reaching corn,end effector reaching the piece of corn,search,0.6020844960335082,8.230418623277576,0.4299666315775541,0.007394586631562561,64.0
+end effector reaching corn,move the end effector to the corn,search,0.0,7.906329872239622,0.0010885892625083111,0.019184402364771813,64.0
+flip orange pot upright in sink,Flip the orange pot upright in the sink.,search,1.0,6.764818645314959,0.3228168022146746,0.13266486649081344,64.0
+flip orange pot upright in sink,Flip the pot upright in the sink.,search,0.0,6.526877917764407,-0.11847128415865883,0.13635662951128324,64.0
+fold the cloth from the top left to the bottom right,Fold the top left part of the cloth down to the bottom right.,search,,7.181969992006888,-0.34726479263899823,0.06949818519387918,128.0
+put carrot on cutting board,Put the vegetable on the cutting board.,search,,7.105631242824937,-0.10346754754593807,0.0858160338793823,64.0
+put cup on plate,move the cup on the green plate,search,,6.456968157503405,-1.4228418508006142,0.09131118000368588,64.0
+put pan in sink,pick up the pot and put it in the sink,search,,5.890839236448844,-0.5255041074251492,0.17656340832036221,64.0
+put small spoon from basket to tray,Move the spoon out of the basket and onto the tray.,search,,6.493345829578622,-0.4952866116349469,0.12452177003433462,64.0
+put spatula on plate sink,pick up the spatula and put it on top of the plate in the sink,search,1.0,7.358723565484462,0.340681709870114,0.08089806388670695,64.0
+put spatula on plate sink,pick up the spatula and put it on the plate that is in the sink,search,0.0,7.169749580963328,0.053627680793943006,0.08632052539905999,64.0
+take the red object out of the pot and put it on the left burner,Take the red object out of the pot and put it atop the left burner.,search,,6.630075892155732,-1.071567990998301,0.08981227954427595,64.0

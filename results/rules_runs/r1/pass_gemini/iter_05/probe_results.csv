@@ -1,0 +1,3 @@
+task,phrase,kind,score,logit,z,grip,n_ctx
+end effector reaching corn,end effector reaching the piece of corn,search,,8.230418623277576,0.4299666315775541,0.007394586631562561,64.0
+put pan in sink,pick up the pot and put it in the sink,search,,5.890839236448844,-0.5255041074251492,0.17656340832036221,64.0

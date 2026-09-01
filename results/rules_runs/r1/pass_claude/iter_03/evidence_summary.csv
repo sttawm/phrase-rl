@@ -1,0 +1,157 @@
+task,phrases,best,worst,median,rollout_measured,thin_evidence,spread
+take bowl off plate,21,8.5992,-1.2645,6.8475,0,0,9.8637
+end effector transition from object to object,34,8.7231,-0.8503,3.7903000000000002,0,0,9.573400000000001
+put knife on cutting board,22,7.5766,-1.519,6.5306999999999995,0,0,9.0956
+pick up glass cup,26,7.342,-1.5844,5.9731,0,0,8.9264
+take sushi off plate,20,8.0572,-0.8363,7.589499999999999,0,0,8.8935
+Fold the cloth from bottom left to top right,17,7.8242,-0.9997,5.1696,0,0,8.8239
+take clothes out of laundry machine,28,8.1055,-0.3897,7.239800000000001,0,0,8.495199999999999
+take spatula off plate sink,27,7.587,-0.6718,6.1831,0,0,8.258799999999999
+take bowl off plate cardboard fence,25,8.6199,0.6745,6.6956,0,0,7.945399999999999
+fold the cloth from bottom to top,23,8.0147,0.1064,5.428,0,0,7.9083
+take the red object out of the pot and put it on the left burner,29,7.7971,-0.0338,1.3212,0,0,7.830900000000001
+topple basil bottle cardboard fence,19,7.8921,0.5879,4.7759,0,0,7.3042
+pick up pot from sink,28,6.8246,-0.3638,4.96685,0,0,7.188400000000001
+fold cloth in half,21,7.8803,0.7708,7.082,0,0,7.1095
+topple hot sauce bottle cardboard fence,18,8.0554,0.9751,6.15755,0,0,7.0803
+put cup on plate,31,7.7249,0.6858,6.313,0,0,7.0390999999999995
+put bowl on plate cardboard fence,21,8.5432,1.5311,8.1183,0,0,7.0121
+unfold the cloth from right to left,26,7.348,0.3462,5.7574000000000005,0,0,7.0018
+take carrot out of pot cardboard fence,24,8.3525,1.4132,7.66595,0,0,6.939299999999999
+fold the cloth from left to right,27,8.2436,1.3557,6.2686,0,0,6.887900000000001
+unfold the cloth from bottom to top,25,7.5662,0.6923,3.9819,0,0,6.8739
+put spatula on plate sink,34,7.9755,1.1812,6.38015,0,0,6.7943
+put beet in pot sink,27,8.1552,1.454,6.8592,0,0,6.701200000000001
+unfold the cloth from bottom left to top right,23,7.8767,1.25,5.1739,0,0,6.6267
+put blueberries on plate sink,20,8.1576,1.6758,7.4852,0,0,6.481800000000001
+put banana in colander,25,8.4922,2.0268,7.7367,0,0,6.465400000000001
+put pan from sink into drying rack,24,7.8271,1.3862,7.3496,0,0,6.440899999999999
+put clothes in laundry machine,26,8.0531,1.6213,7.7387,0,0,6.431800000000001
+put the yellow duck in the drawer,24,7.6698,1.2414,3.15745,0,0,6.4284
+fold the cloth from bottom left to top right,28,7.88,1.4536,6.4235500000000005,0,0,6.4264
+put potato in pot cardboard fence,19,8.3666,2.0235,6.2549,0,0,6.3431
+right pepper shaker,19,7.4548,1.1299,2.8969,0,0,6.3248999999999995
+put sushi in pot cardboard fence,19,8.3975,2.0788,7.3231,0,0,6.318700000000001
+open cabinet,19,7.9554,1.6728,7.719,0,0,6.2826
+put lid on pot or pan,27,7.6396,1.3593,6.2566,0,0,6.2802999999999995
+take corn out of bowl sink,18,7.5751,1.32,6.76275,0,0,6.2551
+put lid on pot,20,7.8892,1.6352,6.2677499999999995,0,0,6.254
+take broccoli out of pan,20,7.8163,1.5942,7.0176,0,0,6.2221
+move drying rack out of sink,21,8.1011,1.8855,6.4394,0,0,6.2156
+put knife in pot cardboard fence,23,8.455,2.276,6.6242,0,0,6.179
+take the eggplant and put it between the two right burners,19,8.0608,1.985,3.1003,0,0,6.0758
+put the blue figure on the top edge of the cloth,25,7.8628,1.8894,3.598,0,0,5.9734
+put bowl on plate,21,8.6589,2.752,8.4009,0,0,5.906899999999999
+put cup from sink to drying rack,25,7.3728,1.6027,6.6199,0,0,5.770099999999999
+turn faucet right,20,7.9087,2.2706,6.1362000000000005,0,0,5.6381
+upright basil bottle cardboard fence,26,7.8703,2.2712,6.4281,0,0,5.5991
+Close the drawer,17,8.1128,2.5492,7.4024,0,0,5.5636
+put pan on stove from sink,19,7.2149,1.6759,6.8363,0,0,5.539
+zip zipper bag,21,7.7704,2.3012,7.0723,0,0,5.469200000000001
+take sushi out of pot cardboard fence,20,8.1595,2.741,6.386699999999999,0,0,5.4185
+open large4fbox flaps,25,8.0935,2.6796,7.9303,0,0,5.4139
+put brush into pot or pan,24,7.1382,1.735,5.981400000000001,0,0,5.4032
+put pot or pan in sink,18,7.5317,2.2067,6.7094000000000005,0,0,5.324999999999999
+put pot on stove which is near stove,20,7.658,2.3945,5.71555,0,0,5.2635000000000005
+turn faucet front to left,22,7.9278,2.6959,7.070600000000001,0,0,5.2319
+fold the cloth from the top left to the bottom right,28,8.1659,3.049,6.46985,0,0,5.116900000000001
+pick up bowl and put in small4fbox,35,8.0349,2.9653,6.7061,0,0,5.0696
+put broccoli in pot,25,8.0293,2.9814,6.461,0,0,5.047899999999999
+take spoon out of bowl sink,20,7.2008,2.2037,5.68715,0,0,4.9971
+unfold the cloth from bottom right to top left,23,7.9757,2.993,6.6041,0,0,4.9826999999999995
+open brown1fbox flap,20,8.0659,3.2618,7.7714,0,0,4.804099999999999
+put potato on plate,23,7.9652,3.1822,7.5715,0,0,4.783
+wipe pot with sponge,23,7.7657,3.008,7.35,0,0,4.7577
+closed the drawer,19,8.2454,3.4949,7.5313,0,0,4.750500000000001
+put the ball in the cup,16,7.4387,2.6947,4.182449999999999,0,0,4.744
+unfold the cloth from top to bottom,33,8.1918,3.4491,5.5403,0,0,4.742700000000001
+put sushi in pot or pan,28,7.9627,3.2749,7.0314,0,0,4.687799999999999
+pick up violet Allen key,23,7.841,3.2079,6.7678,0,0,4.633100000000001
+unfold the cloth from top right to bottom left,18,8.1875,3.5662,5.647,0,0,4.6213
+open fridge,25,7.93,3.3518,7.7559,0,0,4.5782
+put sushi on plate,22,8.0374,3.4864,7.1525,0,0,4.551
+pour almonds in pot,20,8.1768,3.6269,7.9963,0,0,4.5499
+put cup from counter or drying rack into sink,19,6.0962,1.5635,5.3046,0,0,4.5327
+put pot in sink,23,7.8998,3.3779,7.1014,0,0,4.5219000000000005
+put carrot in pot cardboard fence,20,8.3616,3.9125,6.3668499999999995,0,0,4.4491
+put banana in pot cardboard fence,20,8.3901,3.9462,7.18005,0,0,4.4439
+turn faucet left,25,7.634,3.2217,6.7628,0,0,4.4123
+put banana in pot or pan,26,8.5068,4.1069,6.20525,0,0,4.3999
+put detergent in sink,17,8.077,3.7111,7.1265,0,0,4.3659
+put pan in sink,28,7.7068,3.4182,7.009399999999999,0,0,4.288600000000001
+put cup from anywhere into sink,23,6.9155,2.638,6.3679,0,0,4.2775
+pick up sponge and wipe plate,20,8.3044,4.0804,8.1402,0,0,4.223999999999999
+close small4fbox flaps,32,8.3072,4.1017,7.3544,0,0,4.2055
+unfold the cloth from left to right,19,7.5712,3.4023,5.7546,0,0,4.168900000000001
+flip orange pot upright in sink,24,6.7742,2.6109,6.096550000000001,0,0,4.1633000000000004
+put corn in pan which is on stove,30,7.2702,3.1436,5.876049999999999,0,0,4.1266
+unfold the cloth from top left to bottom right,23,7.6678,3.5591,5.5588,0,0,4.1087
+unzip zipper bag,19,7.5128,3.4626,6.9515,0,0,4.0502
+flip cup upright,29,7.1609,3.1156,6.6528,0,0,4.045299999999999
+open oven,24,8.533,4.5114,8.398299999999999,0,0,4.021599999999999
+close the drawer,22,8.5851,4.591,7.7126,0,0,3.9941000000000004
+take lid off pot,19,7.7718,3.7996,6.9244,0,0,3.9722
+open low fridge,20,8.1584,4.2173,7.92365,0,0,3.9411000000000005
+end effector reaching pot or pan,19,8.4079,4.4782,5.0096,0,0,3.9296999999999995
+turn lever vertical to front,23,7.2268,3.3055,6.072,0,0,3.9213
+open white1fbox flap,20,8.1722,4.2539,7.69305,0,0,3.9183000000000003
+put cap on container,18,7.7742,3.8889,6.6159,0,0,3.8853000000000004
+put green squash in pot or pan,25,7.2816,3.4234,6.124,0,0,3.8582
+take lid off pot or pan,19,7.1585,3.3058,5.3788,0,0,3.8527
+move the cloth from left to right,25,8.3822,4.5372,6.0804,0,0,3.844999999999999
+move the cloth to the left of the table,25,7.775,3.939,4.8115,0,0,3.8360000000000003
+fold the cloth from bottom right to top left,20,8.1773,4.3652,6.8621,0,0,3.812100000000001
+pick up any cup,20,7.6006,3.8162,6.8133,0,0,3.7844
+end effector reaching corn,20,8.381,4.6195,6.7719000000000005,0,0,3.7615
+pick up blue pen and put into drawer,21,8.1297,4.3907,7.2844,0,0,3.739
+put lid on stove,21,7.2365,3.5027,5.5078,0,0,3.7338000000000005
+turn faucet front to right,27,8.5638,4.8308,8.2292,0,0,3.7330000000000005
+put red bottle in sink,19,8.0949,4.4083,7.8952,0,0,3.686600000000001
+put sweet potato in pot,21,7.1946,3.5093,6.8686,0,0,3.6853000000000002
+end effector reaching salmon,20,8.4935,4.8088,6.39215,0,0,3.6846999999999994
+close large4fbox flaps,20,8.3944,4.7612,8.241299999999999,0,0,3.6331999999999995
+fold the cloth from top right to bottom left,19,8.3713,4.7478,6.7498,0,0,3.6235
+put pear in bowl,17,8.1192,4.5191,7.6746,0,0,3.6000999999999994
+close brown1fbox flap,23,8.177,4.6248,7.9107,0,0,3.5522
+put eggplant into pot or pan,32,7.2845,3.7427,6.3636,0,0,3.5418000000000003
+pick up box cutter and put into drawer,21,8.078,4.572,7.7691,0,0,3.5059999999999993
+put pan from stove to sink,29,6.4253,2.9218,5.7135,0,0,3.5035
+pick up scissors and put into drawer,18,7.7956,4.3006,7.6289,0,0,3.495
+put pepper in pot or pan,24,6.7076,3.2249,6.244149999999999,0,0,3.4827000000000004
+put corn in bowl sink,18,7.6314,4.1572,6.97075,0,0,3.4742000000000006
+put broccoli in pot or pan,25,7.8128,4.339,7.3681,0,0,3.4737999999999998
+put eggplant into pan,25,6.5877,3.1215,5.525,0,0,3.4661999999999997
+put corn in pot which is in sink,26,7.1788,3.7321,6.21475,0,0,3.4467
+put carrot on plate,18,7.8441,4.4375,7.5266,0,0,3.4066
+put broccoli in bowl,20,7.8242,4.4578,7.0992,0,0,3.3664000000000005
+lever vertical to front,29,7.0235,3.6598,5.6023,0,0,3.3637
+close cabinet,18,8.8279,5.4778,8.532,0,0,3.3500999999999994
+close white1fbox flap,23,8.3773,5.0556,8.0528,0,0,3.3217
+put fork from basket to tray,25,6.879,3.5768,6.5806,0,0,3.3021999999999996
+put spoon into pan,17,6.7201,3.4219,5.5098,0,0,3.2982000000000005
+put carrot on cutting board,36,7.8907,4.6077,7.6235,0,0,3.2829999999999995
+put corn on plate,21,8.0461,4.771,7.1385,0,0,3.2750999999999992
+put stuffedduck in pan,20,7.8164,4.6177,6.28955,0,0,3.1986999999999997
+lift bowl,29,7.3445,4.1559,6.2978,0,0,3.1886
+take sushi out of pan,19,7.8953,4.7748,7.0518,0,0,3.1205
+put potato in pot or pan,25,7.2968,4.1843,6.7158,0,0,3.1125
+open drawer of box,19,8.3505,5.2596,7.8276,0,0,3.0909000000000004
+put small spoon from basket to tray,25,7.425,4.36,7.1457,0,0,3.0649999999999995
+open the drawer,19,8.1085,5.0717,7.4637,0,0,3.0367999999999995
+close fridge,24,8.4532,5.4374,8.2003,0,0,3.0158000000000005
+put pepper in pan,20,8.2064,5.1921,6.94295,0,0,3.0143000000000004
+put strawberry in pot,31,7.1525,4.2106,6.4123,0,0,2.9418999999999995
+put lemon on plate,19,7.2571,4.4075,6.884,0,0,2.8496000000000006
+put sweet potato in pot which is in sink,25,6.853,4.0135,5.967,0,0,2.8395
+put knife in pot or pan,19,7.2427,4.4342,5.9841,0,0,2.8085000000000004
+close oven,23,8.42,5.6204,8.1565,0,0,2.7996
+close microwave,26,8.5805,5.8067,8.39395,0,0,2.7738000000000005
+put eggplant on plate,31,6.807,4.0342,6.4854,0,0,2.7728
+put detergent from sink into drying rack,20,7.6701,4.9177,6.8476,0,0,2.7523999999999997
+put big spoon from basket to tray,22,7.3176,4.7171,7.229699999999999,0,0,2.6004999999999994
+put redcube in pan and put pan on stove,23,7.7431,5.2336,7.6017,0,0,2.5095
+put corn into bowl,19,7.9718,5.5032,7.2709,0,0,2.4686000000000003
+sweep into pile,19,8.4721,6.4596,7.5455,0,0,2.0124999999999993
+put green squash into pot or pan,22,7.4187,5.5676,6.7975,0,0,1.8511000000000006
+pick up red srewdriver,19,7.7804,6.0834,7.1529,0,0,1.697
+put sweet potato in pan which is on stove,23,6.6792,5.434,6.3695,0,0,1.2451999999999996

@@ -1,0 +1,198 @@
+{
+ "run_id": "r1",
+ "created": "2026-08-31 15:34",
+ "seed": 7,
+ "patience": 3,
+ "max_iters": 12,
+ "sample_n": 96,
+ "score_budget": 64,
+ "contexts_per_task": 16,
+ "frames_per_episode": 4,
+ "min_eps_per_task": 8,
+ "env": "bridge_pi0",
+ "phase": "train",
+ "rephrasers": [
+  "gemini"
+ ],
+ "distiller": "claude",
+ "judge": "claude",
+ "claude_model": "claude-fable-5",
+ "claude_effort": "max",
+ "apply_effort": "medium",
+ "gemini_model": "gemini-pro-latest",
+ "gemini_thinking_budget": 128,
+ "max_probes": 20,
+ "init_rules_from": null,
+ "rollback_on_regress": true,
+ "proxy": {
+  "C": 8.123,
+  "bz": 0.4445,
+  "bg": 11.3193
+ },
+ "prompt_hashes": {
+  "apply.md": "0bc4fc615551",
+  "corpus.md": "f41740270bf6",
+  "distill.md": "b87067b900ed",
+  "generate.md": "fbee2a116678",
+  "judge.md": "7dfce1d53650",
+  "plan.md": "02d1146034c3"
+ },
+ "invocations": [
+  {
+   "when": "2026-08-31 15:34",
+   "rephrasers": [
+    "gemini"
+   ]
+  },
+  {
+   "when": "2026-08-31 16:47",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-08-31 17:58",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-08-31 18:09",
+   "rephrasers": [
+    "gemini"
+   ]
+  },
+  {
+   "when": "2026-08-31 18:10",
+   "rephrasers": [
+    "gemini"
+   ]
+  },
+  {
+   "when": "2026-08-31 19:19",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-08-31 19:33",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-08-31 23:28",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-01 01:38",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-09-01 01:39",
+   "rephrasers": [
+    "gemini"
+   ]
+  },
+  {
+   "when": "2026-09-01 04:26",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-01 04:51",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-01 05:10",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-01 07:30",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-01 08:23",
+   "rephrasers": [
+    "gemini"
+   ]
+  },
+  {
+   "when": "2026-09-01 09:09",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-09-01 09:15",
+   "rephrasers": [
+    "gemini"
+   ]
+  },
+  {
+   "when": "2026-09-01 10:20",
+   "rephrasers": [
+    "gemini"
+   ]
+  },
+  {
+   "when": "2026-09-01 10:24",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-09-01 10:25",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-01 14:56",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-01 15:03",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-09-01 15:04",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-09-01 17:32",
+   "rephrasers": [
+    "gemini"
+   ]
+  },
+  {
+   "when": "2026-09-01 17:53",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-09-01 17:53",
+   "rephrasers": [
+    "claude"
+   ]
+  }
+ ]
+}

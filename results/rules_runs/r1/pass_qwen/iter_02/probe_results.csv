@@ -1,0 +1,33 @@
+task,phrase,kind,score,logit,z,grip,n_ctx
+close brown1fbox flap,close the brown box flap,search,,8.075986167297394,0.030526549892965722,0.005352175852749497,64.0
+close small4fbox flaps,Fold down the four flaps on the box.,search,1.0,7.712619022084237,-0.7919182934883793,0.005156970524694771,64.0
+close small4fbox flaps,Close the top of the small cardboard box.,search,0.0,4.816208937578766,-5.538739682528101,0.07463546982035041,128.0
+close white1fbox flap,close the flap on the box,search,,8.144176698581225,0.18345791773754172,0.00533339922549203,64.0
+end effector transition from object to object,end effector transition from one object to the other,search,1.0,8.671355885902926,1.4098756817395042,0.0069203797611407936,64.0
+end effector transition from object to object,end effector transition from the first piece to the second one,search,0.9500954398619363,8.251968781883283,0.5218363301813953,0.009098395385080948,128.0
+end effector transition from object to object,end effector transition from the first piece to the second piece,search,0.9354972620764986,8.129288860680472,0.2288016799112029,0.008429274428635836,128.0
+end effector transition from object to object,Move the hand from the first piece to the second one.,search,0.0,0.2675726873457842,-8.44846499711275,0.3622206869185902,64.0
+fold the cloth from the top left to the bottom right,Fold the top left part of the textile down to the bottom right.,search,,7.321195071256345,-0.29919261125469343,0.05908614605505136,64.0
+lift bowl,pick up the bowl,search,,6.657252632084658,-0.26254542262759073,0.11918103836433147,64.0
+open fridge,Open the fridge.,search,,7.756371341738993,0.7633314731676364,0.06236511958195479,128.0
+pick up bowl and put in small4fbox,Pick up the bowl and put it into the small box.,search,1.0,7.544301058976765,0.2391524133301573,0.06051630301772093,64.0
+pick up bowl and put in small4fbox,"If the small box is empty, pick up the bowl and put it in the box.",search,0.0,6.104291018695703,-2.3214398120908295,0.08718109643086791,64.0
+pick up pot from sink,Pick up the pot from the sink.,search,,5.928627490299341,-0.2861769162420387,0.18262320730354986,64.0
+put beet in pot sink,Put the beet in the pot in the sink.,search,1.0,7.8386507806261925,0.5394414743932431,0.04630418442320661,64.0
+put beet in pot sink,Put the beet in the red pot.,search,0.6777732993006012,7.5829591064605975,0.11295042214769647,0.05214521712332498,64.0
+put beet in pot sink,Put the purple beet in the pot.,search,0.0,7.0451359241273,-0.7402927745832129,0.06615284845975111,64.0
+put carrot on cutting board,put the orange carrot on the cutting board,search,,7.725286282944377,1.1968178319825713,0.08213398738189426,128.0
+put clothes in laundry machine,put the clothes in the laundry machine,search,,7.68662730818011,0.7010989577596775,0.06608281241278746,64.0
+put cup on plate,Put the cup on the plate.,search,,7.598415824022492,0.9095513718493748,0.08206159044857486,64.0
+put lid on pot or pan,Put the lid on the pot or the pan.,search,1.0,7.425631545388325,0.9698751921776421,0.09969503216052544,128.0
+put lid on pot or pan,Put the silver lid on the pot or the pan.,search,0.0,7.3918675556158115,0.8188253857231756,0.09674629423534498,64.0
+put pan in sink,Pick up the pan and put it in the sink.,search,,7.34165072743479,0.26347026484072555,0.07937432573453407,64.0
+put spatula on plate sink,Put the spatula on top of the plate in the sink.,search,,7.97545188375967,0.8417844627518208,0.046091305110167013,64.0
+put the blue figure on the top edge of the cloth,Place the blue figure on the top edge of the cloth.,search,1.0,7.80371266907576,0.7756064743587558,0.05866479453470674,128.0
+put the blue figure on the top edge of the cloth,Put the figure on the top edge of the cloth.,search,0.0,5.627274671801711,-1.8059278631259073,0.14956670403989847,64.0
+take carrot out of pot cardboard fence,Pull the carrot from the pot in the cardboard fence.,search,,8.334784865649228,1.234405416221125,0.0297640615463024,64.0
+take the red object out of the pot and put it on the left burner,Take the red object from the pot and put it on the left burner.,search,1.0,5.088498705636562,-2.8591989955501056,0.15580356919963378,64.0
+take the red object out of the pot and put it on the left burner,Pick up the red object and place it on the left burner.,search,0.16764598559020252,1.8014370011064074,-7.470158191863082,0.265129264407733,64.0
+take the red object out of the pot and put it on the left burner,Take the red spatula out of the pot and put it on the left burner.,search,0.0,1.13938372856646,-8.035973400318653,0.30139903483359376,64.0
+unfold the cloth from top to bottom,flatten the cloth from top to bottom,search,,6.99545235593737,-0.6452199703737278,0.07427556184848072,64.0
+zip zipper bag,Zip the zipper bag shut.,search,,7.615059285774763,0.24906114657969738,0.054654297870001756,64.0

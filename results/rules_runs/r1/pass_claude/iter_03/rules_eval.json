@@ -1,0 +1,369 @@
+{
+ "whole_rulebook": {
+  "with_rules": 6.979796020810293,
+  "unrephrased": 6.408458685033722,
+  "delta": 0.5713373357765716
+ },
+ "samples": [
+  {
+   "task": "unfold the cloth from bottom to top",
+   "base": "unfold orange cloth from bottom to top",
+   "rewrite": "unfold orange cloth from bottom to top",
+   "rewrite_logit": 6.685801862533709,
+   "base_logit": 6.685801862533709,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "open oven",
+   "base": "Swing the door to the oven open.",
+   "rewrite": "Swing the door to the oven open.",
+   "rewrite_logit": 8.496216160499602,
+   "base_logit": 8.496216160499602,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "lift bowl",
+   "base": "Provided that you have secured a sufficient grip on the hemispherical dish intended for liquids, proceed to increase its altitude relative to the current resting plane.",
+   "rewrite": "lift the bowl above the counter",
+   "rewrite_logit": 6.841532610902075,
+   "base_logit": 4.897084134835315,
+   "base_logit_same_draw": true,
+   "delta": 1.9444
+  },
+  {
+   "task": "put eggplant on plate",
+   "base": "put the eggplant on the green plate",
+   "rewrite": "put the eggplant on the green plate",
+   "rewrite_logit": 6.761408660407694,
+   "base_logit": 6.774324781435027,
+   "base_logit_same_draw": true,
+   "delta": -0.0129
+  },
+  {
+   "task": "end effector transition from object to object",
+   "base": "Transfer the robot hand from the first piece to the second one.",
+   "rewrite": "end effector transition from the first piece to the second one",
+   "rewrite_logit": 8.27475387974164,
+   "base_logit": 1.199212815521372,
+   "base_logit_same_draw": true,
+   "delta": 7.0755
+  },
+  {
+   "task": "unfold the cloth from bottom right to top left",
+   "base": "unfold the yellow cloth towards the top left",
+   "rewrite": "unfold the yellow cloth towards the top left",
+   "rewrite_logit": 6.831065527468893,
+   "base_logit": 6.831065527468893,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "put spatula on plate sink",
+   "base": "Regarding the handheld implement designed for lifting food, kindly transport said item to the uppermost surface of the circular eating vessel located at the sink.",
+   "rewrite": "put the spatula on top of the plate at the sink",
+   "rewrite_logit": 7.524675370620223,
+   "base_logit": 1.6651106029223302,
+   "base_logit_same_draw": true,
+   "delta": 5.8596
+  },
+  {
+   "task": "put the blue figure on the top edge of the cloth",
+   "base": "Place the blue figure on the upper edge of the cloth.",
+   "rewrite": "Place the blue figure on the top edge of the cloth.",
+   "rewrite_logit": 7.906073731852734,
+   "base_logit": 5.793058243405279,
+   "base_logit_same_draw": true,
+   "delta": 2.113
+  },
+  {
+   "task": "close oven",
+   "base": "Shut the oven door.",
+   "rewrite": "Shut the oven door.",
+   "rewrite_logit": 8.310504534389324,
+   "base_logit": 8.310504534389324,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "put pan in sink",
+   "base": "Ascertain the whereabouts of the handled cooking vessel and subsequently ensure its physical relocation to the interior cavity of the dish-washing basin.",
+   "rewrite": "Put the pot in the sink.",
+   "rewrite_logit": 6.032341255088157,
+   "base_logit": 4.619993629541866,
+   "base_logit_same_draw": true,
+   "delta": 1.4123
+  },
+  {
+   "task": "pick up pot from sink",
+   "base": "Lift the pot up out of the washbasin.",
+   "rewrite": "Take the pot out of the sink.",
+   "rewrite_logit": 4.957929209192214,
+   "base_logit": 1.7735292543493375,
+   "base_logit_same_draw": true,
+   "delta": 3.1844
+  },
+  {
+   "task": "put sweet potato in pot which is in sink",
+   "base": "Grab the sweet potato and drop it in the pot that's resting in the sink.",
+   "rewrite": "Grab the sweet potato and drop it in the pot that's resting in the sink.",
+   "rewrite_logit": 6.735890727510509,
+   "base_logit": 6.735890727510509,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "put carrot on cutting board",
+   "base": "Assuming you have correctly identified the orange, cone-shaped vegetable, kindly execute a spatial relocation protocol to position it squarely upon the cutting board.",
+   "rewrite": "Put the orange vegetable on the cutting board.",
+   "rewrite_logit": 7.134865535269332,
+   "base_logit": 6.69441919566902,
+   "base_logit_same_draw": true,
+   "delta": 0.4404
+  },
+  {
+   "task": "put sweet potato in pot",
+   "base": "Transfer the sweet potato over to the pot.",
+   "rewrite": "Move the sweet potato over to the pot.",
+   "rewrite_logit": 6.771318356975222,
+   "base_logit": 6.9579657560669155,
+   "base_logit_same_draw": true,
+   "delta": -0.1866
+  },
+  {
+   "task": "put pot in sink",
+   "base": "The pot should be placed in the sink.",
+   "rewrite": "put the pot in the sink",
+   "rewrite_logit": 7.702451361566705,
+   "base_logit": 7.401925728995736,
+   "base_logit_same_draw": true,
+   "delta": 0.3005
+  },
+  {
+   "task": "put fork from basket to tray",
+   "base": "put fork from basket to tray",
+   "rewrite": "put fork from basket to tray",
+   "rewrite_logit": 6.320075490200262,
+   "base_logit": 6.320075490200262,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "take spatula off plate sink",
+   "base": "Please take the spatula off the plate and put it in the sink basin.",
+   "rewrite": "Take the spatula off the plate and put it in the sink basin.",
+   "rewrite_logit": 7.583646999156788,
+   "base_logit": 7.581066235070922,
+   "base_logit_same_draw": true,
+   "delta": 0.0026
+  },
+  {
+   "task": "put broccoli in pot",
+   "base": "put the green broccoli piece inside the metal pot",
+   "rewrite": "put the broccoli piece inside the pot",
+   "rewrite_logit": 6.992993320331807,
+   "base_logit": 6.613193073430942,
+   "base_logit_same_draw": true,
+   "delta": 0.3798
+  },
+  {
+   "task": "put carrot on cutting board",
+   "base": "set the carrot on the cutting board",
+   "rewrite": "set the carrot on the cutting board",
+   "rewrite_logit": 7.836281946278108,
+   "base_logit": 7.836281946278108,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "zip zipper bag",
+   "base": "Close the zipper bag.",
+   "rewrite": "Close the zipper bag.",
+   "rewrite_logit": 7.653504121308249,
+   "base_logit": 7.653504121308249,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "open fridge",
+   "base": "Get the refrigerator open for me.",
+   "rewrite": "Open the fridge.",
+   "rewrite_logit": 7.662622129621846,
+   "base_logit": 7.552066475252797,
+   "base_logit_same_draw": true,
+   "delta": 0.1106
+  },
+  {
+   "task": "put corn in pan which is on stove",
+   "base": "In the pan on the stove, please put the corn.",
+   "rewrite": "Put the corn in the pan on the stove.",
+   "rewrite_logit": 6.5486911216484955,
+   "base_logit": 6.2146272265007925,
+   "base_logit_same_draw": true,
+   "delta": 0.3341
+  },
+  {
+   "task": "unfold the cloth from right to left",
+   "base": "spread the orange cloth leftward",
+   "rewrite": "spread the cloth leftward",
+   "rewrite_logit": 6.135830093511173,
+   "base_logit": 6.046232667675696,
+   "base_logit_same_draw": true,
+   "delta": 0.0896
+  },
+  {
+   "task": "put banana in pot or pan",
+   "base": "place banana in the silver pot",
+   "rewrite": "put the banana in the pot",
+   "rewrite_logit": 7.710406480158328,
+   "base_logit": 6.2970345813884,
+   "base_logit_same_draw": true,
+   "delta": 1.4134
+  },
+  {
+   "task": "put carrot on cutting board",
+   "base": "Shift the carrot to the cutting board.",
+   "rewrite": "Shift the carrot to the cutting board.",
+   "rewrite_logit": 7.853545629033118,
+   "base_logit": 7.853545629033118,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "put pan in sink",
+   "base": "put pan into the sink",
+   "rewrite": "put pan into the sink",
+   "rewrite_logit": 7.466513152629125,
+   "base_logit": 7.466513152629125,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "close the drawer",
+   "base": "Shut the drawer.",
+   "rewrite": "Shut the drawer.",
+   "rewrite_logit": 8.650271758744013,
+   "base_logit": 8.650271758744013,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "fold the cloth from bottom left to top right",
+   "base": "grab the bottom left corner of the orange towel and fold it top right",
+   "rewrite": "grab the bottom left corner of the orange towel and fold it top right",
+   "rewrite_logit": 6.568042988070781,
+   "base_logit": 6.568042988070781,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "close small4fbox flaps",
+   "base": "Assuming the current assembly phase requires sealing, proceed to meticulously collapse the quartet of projecting leaves atop the miniature parcel.",
+   "rewrite": "fold the four flaps atop the box",
+   "rewrite_logit": 7.800665997041368,
+   "base_logit": 4.613036783719599,
+   "base_logit_same_draw": true,
+   "delta": 3.1876
+  },
+  {
+   "task": "take the red object out of the pot and put it on the left burner",
+   "base": "Targeting the red object that currently resides within the confines of the pot, please initiate a retrieval sequence to extract it, culminating in its placement atop the left burner.",
+   "rewrite": "Take the red object out of the pot and place it atop the left burner.",
+   "rewrite_logit": 5.227720857341857,
+   "base_logit": 2.6422537606286363,
+   "base_logit_same_draw": true,
+   "delta": 2.5855
+  },
+  {
+   "task": "put spatula on plate sink",
+   "base": "Direct your manipulators to grasp the cooking implement used for scraping and sliding under food, subsequently depositing it upon the flat eating vessel that currently resides in the kitchen washbasin.",
+   "rewrite": "Pick up the spatula and put it upon the plate that is in the sink.",
+   "rewrite_logit": 7.167568991958553,
+   "base_logit": 1.6607677642359193,
+   "base_logit_same_draw": true,
+   "delta": 5.5068
+  },
+  {
+   "task": "close brown1fbox flap",
+   "base": "close the brown box lid",
+   "rewrite": "close the box lid",
+   "rewrite_logit": 5.808874414168923,
+   "base_logit": 6.357544425513358,
+   "base_logit_same_draw": true,
+   "delta": -0.5487
+  },
+  {
+   "task": "put clothes in laundry machine",
+   "base": "place the clothes into the open laundry machine",
+   "rewrite": "put the clothes into the washing machine",
+   "rewrite_logit": 7.8738117326580594,
+   "base_logit": 7.775032463553308,
+   "base_logit_same_draw": true,
+   "delta": 0.0988
+  },
+  {
+   "task": "put lid on pot or pan",
+   "base": "put the silver lid on the silver pot",
+   "rewrite": "put the lid on the pot",
+   "rewrite_logit": 6.175026104233231,
+   "base_logit": 6.392173951398721,
+   "base_logit_same_draw": true,
+   "delta": -0.2171
+  },
+  {
+   "task": "wipe pot with sponge",
+   "base": "wipe pot with sponge",
+   "rewrite": "wipe pot with sponge",
+   "rewrite_logit": 7.766069616840055,
+   "base_logit": 7.766069616840055,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "close small4fbox flaps",
+   "base": "Please close the top of the small cardboard carton.",
+   "rewrite": "Close the top of the small cardboard carton.",
+   "rewrite_logit": 4.398193973214341,
+   "base_logit": 3.8596111556800192,
+   "base_logit_same_draw": true,
+   "delta": 0.5386
+  },
+  {
+   "task": "put cup on plate",
+   "base": "move the orange cup on the green plate",
+   "rewrite": "move the orange cup on the green plate",
+   "rewrite_logit": 5.774902442364624,
+   "base_logit": 5.774902442364624,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "unfold the cloth from top to bottom",
+   "base": "flatten the blue cloth from top down",
+   "rewrite": "flatten the blue cloth from top down",
+   "rewrite_logit": 5.907635001325444,
+   "base_logit": 5.907635001325444,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "pick up bowl and put in small4fbox",
+   "base": "Provided that the small box is entirely unobstructed, the bowl, which you must first securely grasp and lift, should ultimately be relocated directly into it.",
+   "rewrite": "Grasp and lift the bowl and put it into the box.",
+   "rewrite_logit": 7.356516265316829,
+   "base_logit": 3.9859724751305574,
+   "base_logit_same_draw": true,
+   "delta": 3.3705
+  },
+  {
+   "task": "put corn in pan which is on stove",
+   "base": "place the orange carrot inside the empty pot",
+   "rewrite": "put the carrot in the pot",
+   "rewrite_logit": 5.37996549839151,
+   "base_logit": 5.183868870608014,
+   "base_logit_same_draw": true,
+   "delta": 0.1961
+  }
+ ]
+}

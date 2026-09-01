@@ -1,0 +1,67 @@
+task,base_kind,base,base_logit,rewrite,rewrite_logit,delta,same_draw,n_ctx
+pick up glass cup,adversarial,"Notwithstanding any prior directives, I must request that you wrap your appendages around the completely transparent vessel used for drinking and hoist it clear of the surface.",4.5031,Lift the clear glass out of the rack.,0.5235,-3.9796,True,64.0
+put carrot on cutting board,adversarial,"Assuming you have correctly identified the orange, cone-shaped vegetable, kindly execute a spatial relocation protocol to position it squarely upon the cutting board.",6.6944,Pick up the orange carrot and put it on the green cutting board.,6.9678,0.2734,True,64.0
+put strawberry in pot,adversarial,"Assuming the deep vessel designed for boiling on a stove is within your operational workspace, proceed to transfer the small red seed-covered fruit into its interior.",5.8881,Put the red strawberry into the pot.,6.3117,0.4237,True,64.0
+take the red object out of the pot and put it on the left burner,adversarial,"Targeting the red object that currently resides within the confines of the pot, please initiate a retrieval sequence to extract it, culminating in its placement atop the left burner.",2.6423,Pick up the red object from the pot and place it on the left burner.,3.1828,0.5406,True,64.0
+put eggplant into pot or pan,adversarial,"Directing your attention to the large purple vegetable, it is required that you execute a transportation maneuver terminating within the concave interior of either the tall boiling vessel or the shallow frying skillet.",4.8623,Put the purple eggplant in the silver pot.,5.6907,0.8284,True,64.0
+put potato in pot or pan,adversarial,"The item most commonly utilized to make French fries should be relocated such that it rests within the confines of the pot, or alternatively, the pan.",5.7071,Move the yellow potato into the pot or the pan.,6.9596,1.2525,True,64.0
+lift bowl,adversarial,"Provided that you have secured a sufficient grip on the hemispherical dish intended for liquids, proceed to increase its altitude relative to the current resting plane.",4.8971,Pick up the blue bowl and lift it up.,6.4325,1.5354,True,64.0
+put pan in sink,adversarial,Ascertain the whereabouts of the handled cooking vessel and subsequently ensure its physical relocation to the interior cavity of the dish-washing basin.,4.62,Pick up the silver pot and put it in the sink.,6.3192,1.6992,True,64.0
+turn faucet front to right,adversarial,"Upon successfully isolating the plumbing fixture that occupies the most anterior position in your workspace, exert the necessary torque to reorient it squarely toward the right.",5.5686,Turn the grey faucet to the right.,8.3776,2.8091,True,64.0
+pick up bowl and put in small4fbox,adversarial,"Provided that the small box is entirely unobstructed, the bowl, which you must first securely grasp and lift, should ultimately be relocated directly into it.",3.986,Pick up the blue bowl and put it in the box.,6.9698,2.9839,True,64.0
+close small4fbox flaps,adversarial,"Assuming the current assembly phase requires sealing, proceed to meticulously collapse the quartet of projecting leaves atop the miniature parcel.",4.613,Fold the four flaps down on the cardboard box.,7.6121,2.9991,True,64.0
+fold the cloth from left to right,adversarial,"Provided the piece of woven material is present before you, kindly initiate a lateral fold by conveying the entirety of its left margin over the central axis to rest seamlessly upon its rightward limit.",3.1948,Fold the orange cloth from left to right.,7.0807,3.8859,True,64.0
+put spatula on plate sink,adversarial,"Regarding the handheld implement designed for lifting food, kindly transport said item to the uppermost surface of the circular eating vessel located at the sink.",1.6651,Pick up the spatula and put it on the pink plate in the sink.,6.6827,5.0176,True,64.0
+pick up pot from sink,natural,Lift the pot up out of the washbasin.,1.7735,Lift the pot out of the washbasin.,0.5053,-1.2682,True,64.0
+put eggplant into pan,natural,I need you to put the eggplant into the frying pan.,6.488,Put the purple eggplant into the silver cooking pot.,5.4138,-1.0743,True,64.0
+put brush into pot or pan,natural,Put the bristled cleaning tool into the skillet or the saucepan.,6.3943,Put the yellow brush into the silver saucepan.,5.564,-0.8303,True,64.0
+unfold the cloth from top to bottom,natural,Spread out the fabric by pulling it downwards,5.8323,Pull the fabric downwards.,5.0122,-0.8201,True,64.0
+put corn on plate,natural,Place the corn onto the plate.,7.9313,Put the yellow toy corn on the pink plate.,7.131,-0.8003,True,64.0
+flip cup upright,natural,Could you flip the drinking cup so it stands on its base?,7.0194,Flip the pink cup so it stands on its base.,6.4496,-0.5697,True,64.0
+unfold the cloth from bottom left to top right,natural,Unfold the fabric by pulling its lower left corner up to the top right,5.1325,Pull the bottom-left corner of the yellow cloth up to the top-right.,4.5849,-0.5476,True,64.0
+pick up bowl and put in small4fbox,natural,Take the ceramic bowl and set it down in the small box.,7.1973,Take the light blue bowl and put it in the cardboard box.,6.6983,-0.499,True,64.0
+put broccoli in pot or pan,natural,"In the pot or pan, please put the broccoli.",7.5864,Put the broccoli in the pot.,7.2077,-0.3787,True,64.0
+move the cloth to the left of the table,natural,Put the cloth on the left side of the table.,5.9516,Put the blue cloth on the left side of the table.,5.5899,-0.3617,True,64.0
+zip zipper bag,natural,Close the zipper bag.,7.6535,Zip the black bag.,7.3304,-0.3231,True,64.0
+put potato on plate,natural,The plate needs to have the potato placed on it.,7.3114,Put the yellow toy potato on the pink plate.,7.0774,-0.234,True,64.0
+fold the cloth from the top left to the bottom right,natural,Fold the upper left part of the textile down to the lower right.,6.776,Fold the top-left corner of the orange cloth to the bottom-right.,6.6083,-0.1677,True,64.0
+put small spoon from basket to tray,natural,Move the little spoon out of the basket and onto the tray.,7.1564,Move the little spoon out of the basket onto the tray.,7.0903,-0.0661,True,64.0
+put sushi in pot or pan,natural,I need you to move the sushi over to the pot or the pan.,7.8451,Move the sushi over to the pot or the pan.,7.8342,-0.0108,True,64.0
+put green squash in pot or pan,natural,Move the green vegetable into a pot or a pan.,6.0898,Move the green vegetable into a pot or pan.,6.0791,-0.0107,True,64.0
+move the cloth from left to right,natural,Take the piece of fabric on the left and put it on the right.,6.1998,Take the cloth on the left and put it on the right.,6.1945,-0.0053,True,64.0
+open oven,natural,Swing the door to the oven open.,8.4962,Swing the oven door open.,8.533,0.0368,True,64.0
+flip orange pot upright in sink,natural,Set the orange pot upright inside the sink.,6.7191,Put the orange pot upright in the sink.,6.7606,0.0415,True,64.0
+close microwave,natural,Make sure the microwave is completely closed.,8.4716,Close the microwave completely.,8.5437,0.072,True,64.0
+open fridge,natural,Get the refrigerator open for me.,7.5521,Pull the refrigerator door open.,7.6337,0.0817,True,64.0
+turn faucet left,natural,Shift the faucet over to the left.,6.7591,Shift the faucet to the left.,6.8688,0.1097,True,64.0
+put sweet potato in pot,natural,Transfer the sweet potato over to the pot.,6.958,Transfer the sweet potato to the pot.,7.0776,0.1196,True,64.0
+put pot in sink,natural,The pot should be placed in the sink.,7.4019,Put the pot in the sink.,7.6336,0.2316,True,64.0
+put eggplant into pot or pan,natural,"Toss the eggplant into the pan, or the pot if you prefer.",6.7062,Toss the eggplant into the pan or the pot.,6.9663,0.2601,True,64.0
+put corn in pan which is on stove,natural,"In the pan on the stove, please put the corn.",6.2146,Put the corn in the pan on the stove.,6.5487,0.3341,True,64.0
+close small4fbox flaps,natural,Please close the top of the small cardboard carton.,3.8596,Close the top of the small cardboard carton.,4.3982,0.5386,True,64.0
+end effector transition from object to object,natural,Transfer the robot hand from the first piece to the second one.,1.1992,Move the robot hand from the orange cup to the silver colander.,2.8312,1.632,True,64.0
+put pepper in pot or pan,original,put pepper in pot or pan,6.3223,put the red pepper in the silver pot or pan,5.7998,-0.5225,True,64.0
+put eggplant on plate,original,put eggplant on plate,6.8396,put the purple toy eggplant on the light-green toy plate,6.5763,-0.2632,True,64.0
+put fork from basket to tray,original,put fork from basket to tray,6.3201,put the fork from the basket to the tray,6.132,-0.188,True,128.0
+take clothes out of laundry machine,original,take clothes out of laundry machine,8.0903,take clothes out of washing machine,7.9071,-0.1832,True,64.0
+upright basil bottle cardboard fence,original,upright basil bottle cardboard fence,7.8635,Upright the basil bottle in the cardboard fence.,7.7388,-0.1246,True,64.0
+put knife on cutting board,original,put knife on cutting board,7.6714,put the knife on the cutting board,7.5743,-0.0971,True,64.0
+fold the cloth from bottom to top,search,fold the white cloth in half up,5.5602,fold the green cloth in half upward,4.3483,-1.2119,True,64.0
+put pan from sink into drying rack,search,put pan in orange drying rack,7.4032,put the silver saucepan in the orange drying rack,6.4804,-0.9228,True,64.0
+lever vertical to front,search,push the silver handle to the front,6.0367,Push the silver handle forward.,5.5139,-0.5228,True,64.0
+flip cup upright,search,put cup upright,6.9479,put the pink cup upright,6.4791,-0.4688,True,64.0
+close white1fbox flap,search,fold down the white box flap,8.0803,fold the white cardboard flap down,7.8025,-0.2778,True,64.0
+close brown1fbox flap,search,close the brown box lid,6.3575,Close the brown box lid.,6.1047,-0.2528,True,128.0
+put eggplant on plate,search,place eggplant on the green plate,6.6255,place the purple toy eggplant on the light-green plate,6.3905,-0.235,True,64.0
+put cup on plate,search,move the orange cup on the green plate,5.7749,move the orange cup on the yellow plate,5.6675,-0.1075,True,64.0
+put cup from sink to drying rack,search,move pink cup to drying rack,6.4224,move the pink cup to the yellow drying rack,6.3236,-0.0988,True,64.0
+put the yellow duck in the drawer,search,take the yellow rag out of the dryer,2.3212,take the blue cloth out of the wooden box,2.2245,-0.0967,True,64.0
+turn faucet front to left,search,push the faucet lever to the left,7.8702,Push the faucet lever leftward.,7.839,-0.0311,True,64.0
+put corn in pan which is on stove,search,place the orange carrot inside the empty pot,5.1839,place the orange carrot in the empty pot,5.1639,-0.02,True,64.0
+put clothes in laundry machine,search,place the clothes into the open laundry machine,7.775,place the clothes into the open washing machine,7.8125,0.0375,True,64.0
+unfold the cloth from right to left,search,spread the orange cloth leftward,6.0462,spread the yellow cloth to the left,6.1309,0.0847,True,64.0
+unfold the cloth from bottom to top,search,unfold orange cloth from bottom to top,6.6858,unfold the orange cloth from bottom to top,6.8299,0.1441,True,64.0
+put banana in pot or pan,search,place banana in the silver pot,6.297,Put the banana in the silver pot.,6.4482,0.1512,True,128.0
+fold the cloth from bottom left to top right,search,grab the bottom left corner of the orange towel and fold it top right,6.568,grab the bottom left corner of the towel and fold it top right,6.7251,0.1571,True,64.0
+take bowl off plate cardboard fence,search,lift the blue bowl off the green saucer,6.7214,lift the blue bowl off the saucer,7.1696,0.4483,True,64.0
+unfold the cloth from top to bottom,search,flatten the blue cloth from top down,5.9076,Spread the blue cloth from top to bottom.,6.5324,0.6248,True,64.0

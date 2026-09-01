@@ -1,0 +1,13 @@
+task,phrase,kind,score,logit,z,grip,n_ctx
+close brown1fbox flap,close the brown box flap,search,,8.075986167297394,0.030526549892965722,0.005352175852749497,64.0
+close white1fbox flap,close the flap on the box,search,,8.144176698581225,0.18345791773754172,0.00533339922549203,64.0
+end effector transition from object to object,end effector transition from the first piece to the second piece,search,,8.162682664486162,0.2945271327983392,0.008060096122790128,64.0
+lift bowl,pick up the bowl,search,,6.657252632084658,-0.26254542262759073,0.11918103836433147,64.0
+open fridge,Open the fridge.,search,,7.824205896058217,0.8448156538936018,0.05957211683562491,64.0
+put carrot on cutting board,put the orange carrot on the cutting board,search,,7.737801803434829,1.1863235874758178,0.08061620693842997,64.0
+put clothes in laundry machine,put the clothes in the laundry machine,search,,7.68662730818011,0.7010989577596775,0.06608281241278746,64.0
+put lid on pot or pan,Put the silver lid on the pot or the pan.,search,,7.3918675556158115,0.8188253857231756,0.09674629423534498,64.0
+put the blue figure on the top edge of the cloth,Put the figure on the top edge of the cloth.,search,,5.627274671801711,-1.8059278631259073,0.14956670403989847,64.0
+take carrot out of pot cardboard fence,Pull the carrot from the pot in the cardboard fence.,search,,8.334784865649228,1.234405416221125,0.0297640615463024,64.0
+take the red object out of the pot and put it on the left burner,Take the red object from the pot and put it on the left burner.,search,,5.088498705636562,-2.8591989955501056,0.15580356919963378,64.0
+unfold the cloth from top to bottom,flatten the cloth from top to bottom,search,,6.99545235593737,-0.6452199703737278,0.07427556184848072,64.0

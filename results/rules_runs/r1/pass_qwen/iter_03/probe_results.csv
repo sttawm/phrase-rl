@@ -1,0 +1,28 @@
+task,phrase,kind,score,logit,z,grip,n_ctx
+close brown1fbox flap,close the box flap,search,1.0,8.0867316570681,0.05457509891689369,0.005347236525267363,64.0
+close brown1fbox flap,close the brown box flap,search,0.0,8.075986167297394,0.030526549892965722,0.005352175852749497,64.0
+close white1fbox flap,close the flap on the box,search,,8.144176698581225,0.18345791773754172,0.00533339922549203,64.0
+end effector reaching corn,end effector reaching the corn,search,1.0,8.444607727213514,0.9591913909447611,0.009254357253666967,64.0
+end effector reaching corn,move the end effector to the corn,search,0.0,7.906329872239622,0.0010885892625083111,0.019184402364771813,64.0
+end effector transition from object to object,end effector transition from the first piece to the second piece,search,,8.118157592745241,0.2068931956154908,0.008552333863917738,192.0
+flip orange pot upright in sink,Flip the orange pot upright in the sink.,search,1.0,6.764818645314959,0.3228168022146746,0.13266486649081344,64.0
+flip orange pot upright in sink,Flip the pot upright in the sink.,search,0.0,6.526877917764407,-0.11847128415865883,0.13635662951128324,64.0
+fold the cloth from bottom left to top right,grab the lower left corner of the towel and fold it top right,search,,6.6644001247223486,-1.5757151088051613,0.06698245557709015,64.0
+fold the cloth from the top left to the bottom right,Fold the top left part of the cloth down to the bottom right.,search,,7.321595327101041,-0.20094018116051302,0.06290908115988714,64.0
+lift bowl,pick up the bowl,search,,6.661433216061662,-0.4327354917775666,0.11212847595197672,128.0
+open fridge,Open the fridge.,search,,7.7251216043666115,0.7499104336412074,0.06459883414936485,192.0
+put carrot on cutting board,put the orange carrot on the cutting board,search,1.0,7.721114442780892,1.2003159134848225,0.08263991419638235,192.0
+put carrot on cutting board,Put the vegetable on the cutting board.,search,0.0,7.105631242824937,-0.10346754754593807,0.0858160338793823,64.0
+put clothes in laundry machine,put the clothes in the laundry machine,search,,7.68662730818011,0.7010989577596775,0.06608281241278746,64.0
+put cup on plate,move the cup on the green plate,search,,6.456968157503405,-1.4228418508006142,0.09131118000368588,64.0
+put lid on pot or pan,Put the silver lid on the pot or the pan.,search,,7.3918675556158115,0.8188253857231756,0.09674629423534498,64.0
+put small spoon from basket to tray,Move the spoon out of the basket and onto the tray.,search,,6.493345829578622,-0.4952866116349469,0.12452177003433462,64.0
+put spatula on plate sink,pick up the spatula and put it on top of the plate in the sink,search,1.0,7.358723565484462,0.340681709870114,0.08089806388670695,64.0
+put spatula on plate sink,pick up the spatula and put it on the plate that is in the sink,search,0.0,7.169749580963328,0.053627680793943006,0.08632052539905999,64.0
+put the blue figure on the top edge of the cloth,Put the figure on the top edge of the cloth.,search,,5.627274671801711,-1.8059278631259073,0.14956670403989847,64.0
+take carrot out of pot cardboard fence,Pull the carrot from the pot in the cardboard fence.,search,,8.334784865649228,1.234405416221125,0.0297640615463024,64.0
+take the red object out of the pot and put it on the left burner,Take the red object out of the pot and put it atop the left burner.,search,1.0,6.630075892155732,-1.071567990998301,0.08981227954427595,64.0
+take the red object out of the pot and put it on the left burner,Take the red object from the pot and put it on the left burner.,search,0.0,5.088498705636562,-2.8591989955501056,0.15580356919963378,64.0
+unfold the cloth from bottom right to top left,unfold the yellow cloth to the upper left,search,,6.278210135938231,-1.3731597777790747,0.10905447711775196,64.0
+unfold the cloth from top to bottom,flatten the cloth from top to bottom,search,,6.99545235593737,-0.6452199703737278,0.07427556184848072,64.0
+zip zipper bag,Zip the bag.,search,,7.587824239492068,-0.1417266657517758,0.04171443972518318,64.0

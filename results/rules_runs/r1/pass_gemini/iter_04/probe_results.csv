@@ -1,0 +1,4 @@
+task,phrase,kind,score,logit,z,grip,n_ctx
+end effector reaching corn,end effector reaching the corn,search,1.0,8.444607727213514,0.9591913909447611,0.009254357253666967,64.0
+end effector reaching corn,move the end effector to the corn,search,0.0,7.906329872239622,0.0010885892625083111,0.019184402364771813,64.0
+put spatula on plate sink,pick up the spatula and put it on top of the plate in the sink,search,,7.358723565484462,0.340681709870114,0.08089806388670695,64.0
