@@ -305,15 +305,22 @@ def stage_for_agent(run):
 
 
 def collect_from_agent(run):
-    """Copy back anything the agent wrote (it authors corpus_stats.md itself)."""
+    """Copy back ONLY what the agent legitimately authors (corpus_stats.md and
+    agent_notes/). Copying back everything resurrected driver-owned artifacts:
+    stale eval jsons staged into the workspace kept reappearing after every
+    purge, replaying a dead iteration (the 2026-09-01 pass_qwen haunting)."""
     if not run.agent_dir.exists():
         return
     for f in run.agent_dir.rglob("*"):
-        if f.is_file() and f.suffix in (".csv", ".md", ".json"):
-            dst = run.dir / f.relative_to(run.agent_dir)
-            if not dst.exists() or dst.stat().st_mtime < f.stat().st_mtime:
-                dst.parent.mkdir(parents=True, exist_ok=True)
-                dst.write_bytes(f.read_bytes())
+        if not (f.is_file() and f.suffix in (".csv", ".md", ".json")):
+            continue
+        rel = f.relative_to(run.agent_dir)
+        if not (f.name == "corpus_stats.md" or str(rel).startswith("agent_notes")):
+            continue
+        dst = run.dir / rel
+        if not dst.exists() or dst.stat().st_mtime < f.stat().st_mtime:
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            dst.write_bytes(f.read_bytes())
 
 
 def sandbox_wrapper(run):
