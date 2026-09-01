@@ -648,6 +648,12 @@
   "libero_object",
   "libero_10"
  ],
+ "reserve_exclusions": [
+  [
+   "libero_10",
+   5
+  ]
+ ],
  "in_vocab_labels": [
   {
    "task_id": 0,

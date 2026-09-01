@@ -100,6 +100,7 @@ out = {
                      "in_vocab": r["in_vocab"]}
                     for r in rows if assign.get(r["task_id"]) == "test"],
     "reserve_in_finetune_suites": ["libero_spatial", "libero_object", "libero_10"],
+    "reserve_exclusions": [["libero_10", 5]],  # 855 probe episodes exist -- contaminated
     "in_vocab_labels": rows,
 }
 (D / "splits.json").write_text(json.dumps(out, indent=1))
