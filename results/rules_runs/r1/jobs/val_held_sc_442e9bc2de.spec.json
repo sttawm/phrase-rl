@@ -1,0 +1,16 @@
+{
+ "job_id": "val_held_sc_442e9bc2de",
+ "kind": "score",
+ "method": "proxy",
+ "draw": 0,
+ "seed": 7,
+ "proxy": {
+  "C": 8.123,
+  "bz": 0.4445,
+  "bg": 11.3193
+ },
+ "score_budget": 64,
+ "contexts_per_task": 16,
+ "frames_per_episode": 4,
+ "pool_val8_stems": true
+}
