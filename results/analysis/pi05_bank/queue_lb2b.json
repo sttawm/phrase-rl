@@ -1,0 +1,2111 @@
+[
+ {
+  "suite": "libero_90",
+  "task_id": 21,
+  "canonical": "turn on the stove and put the frying pan on it",
+  "phrase": "turn on the stove and put the frying pan on it",
+  "arm": "orig",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 41,
+  "canonical": "put the frying pan on top of the cabinet",
+  "phrase": "put the frying pan on top of the cabinet",
+  "arm": "orig",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 74,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "pick up the book and place it in the left compartment of the caddy",
+  "arm": "orig",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 6,
+  "canonical": "open the bottom drawer of the cabinet",
+  "phrase": "open the bottom drawer of the cabinet",
+  "arm": "orig",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 75,
+  "canonical": "pick up the book and place it in the right compartment of the caddy",
+  "phrase": "pick up the book and place it in the right compartment of the caddy",
+  "arm": "orig",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 8,
+  "canonical": "put the bowl on the plate",
+  "phrase": "Place the bowl onto the plate.",
+  "arm": "nat1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 9,
+  "canonical": "put the black bowl on the plate",
+  "phrase": "transfer the dark-colored vessel typically used for soup so that it rests entirely atop the plate",
+  "arm": "adv1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 21,
+  "canonical": "turn on the stove and put the frying pan on it",
+  "phrase": "Switch the burner on and place the skillet onto it.",
+  "arm": "nat1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 25,
+  "canonical": "put the black bowl on top of the cabinet",
+  "phrase": "The bowl, specifically the one that is black, needs to be relocated so that it rests upon the uppermost surface of the cabinet.",
+  "arm": "adv1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 36,
+  "canonical": "put the white bowl on the plate",
+  "phrase": "please put the white bowl on the plate",
+  "arm": "nat1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 41,
+  "canonical": "put the frying pan on top of the cabinet",
+  "phrase": "The flat metal cookware used for searing meat needs to be relocated to the uppermost surface of the cabinet.",
+  "arm": "adv1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 52,
+  "canonical": "pick up the milk and put it in the basket",
+  "phrase": "Can you put the milk into the basket",
+  "arm": "nat1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 60,
+  "canonical": "pick up the black bowl on the left and put it in the tray",
+  "phrase": "I would be most grateful if you could see your way to relocating the ebony vessel situated on your leftmost side into the confines of the tray.",
+  "arm": "adv1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 74,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "Put the book into the left side of the caddy.",
+  "arm": "nat1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 79,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "If it wouldn't be too much trouble, I would greatly appreciate it if you could secure the bound volume and deposit it into the caddy's leftmost subdivision.",
+  "arm": "adv1",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 3,
+  "canonical": "open the top drawer and put the bowl inside",
+  "phrase": "Place the bowl in the highest drawer.",
+  "arm": "nat2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 8,
+  "canonical": "put the bowl on the plate",
+  "phrase": "I would be exceedingly grateful if you were to transition the bowl such that it is supported by the plate.",
+  "arm": "adv2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 12,
+  "canonical": "put the black bowl at the back on the plate",
+  "phrase": "Move the rear black bowl onto the plate",
+  "arm": "nat2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 21,
+  "canonical": "turn on the stove and put the frying pan on it",
+  "phrase": "Assuming the heating element is currently inactive, initiate its power sequence and subsequently position the skillet atop it.",
+  "arm": "adv2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 29,
+  "canonical": "put the black bowl in the top drawer of the cabinet",
+  "phrase": "Store the black bowl in the highest drawer of the cabinet",
+  "arm": "nat2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 36,
+  "canonical": "put the white bowl on the plate",
+  "phrase": "If it wouldn't be an inconvenience, I would be most grateful if you could see to it that the white bowl ends up sitting on the plate.",
+  "arm": "adv2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 44,
+  "canonical": "turn on the stove",
+  "phrase": "please start the stove",
+  "arm": "nat2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 52,
+  "canonical": "pick up the milk and put it in the basket",
+  "phrase": "If it isn't too much trouble, I would greatly appreciate it if you could ensure the milk finds its way into the basket",
+  "arm": "adv2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 66,
+  "canonical": "put the red mug on the right plate",
+  "phrase": "Can you move the red mug over to the right plate?",
+  "arm": "nat2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 74,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "Given that the caddy has multiple sections, ensure that the object filled with readable pages is securely transferred into the one situated on the far left.",
+  "arm": "adv2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 84,
+  "canonical": "pick up the red mug and place it to the right of the caddy",
+  "phrase": "Grab that red coffee cup and set it down just to the right of the caddy",
+  "arm": "nat2",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 3,
+  "canonical": "open the top drawer and put the bowl inside",
+  "phrase": "Provided you can reach it, unlatch the drawer situated at the absolute peak of the unit and relocate the hemispherical dish into its confines.",
+  "arm": "adv3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 9,
+  "canonical": "put the black bowl on the plate",
+  "phrase": "set the black bowl down on the plate",
+  "arm": "nat3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 12,
+  "canonical": "put the black bowl at the back on the plate",
+  "phrase": "I would be exceedingly grateful if you could see your way to transferring the rearmost black bowl onto the surface of the plate",
+  "arm": "adv3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 25,
+  "canonical": "put the black bowl on top of the cabinet",
+  "phrase": "Move the black bowl to the top of the cabinet.",
+  "arm": "nat3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 29,
+  "canonical": "put the black bowl in the top drawer of the cabinet",
+  "phrase": "Regarding the onyx basin currently before you, ensure it comes to rest within the superior drawer of the cabinetry",
+  "arm": "adv3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 41,
+  "canonical": "put the frying pan on top of the cabinet",
+  "phrase": "Grab the cast iron pan and set it up on top of the cabinet.",
+  "arm": "nat3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 44,
+  "canonical": "turn on the stove",
+  "phrase": "Be so kind as to toggle the active state of the stovetop from off to on",
+  "arm": "adv3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 60,
+  "canonical": "pick up the black bowl on the left and put it in the tray",
+  "phrase": "Grab the dark bowl on the left side and set it down in the tray.",
+  "arm": "nat3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 66,
+  "canonical": "put the red mug on the right plate",
+  "phrase": "If it is not too much trouble, would you be so kind as to facilitate the transfer of the red mug onto the plate occupying the right-hand position?",
+  "arm": "adv3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 79,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "In the left compartment of the caddy, please place the book.",
+  "arm": "nat3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 84,
+  "canonical": "pick up the red mug and place it to the right of the caddy",
+  "phrase": "If it pleases you, grasp the red mug and ensure its final resting place is strictly on the right hand side of the caddy",
+  "arm": "adv3",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 8,
+  "canonical": "put the bowl on the plate",
+  "phrase": "Grab the round bowl and put it on the flat plate.",
+  "arm": "nat4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 9,
+  "canonical": "put the black bowl on the plate",
+  "phrase": "assuming the plate is ready to receive an item, position the black bowl directly on top of it",
+  "arm": "adv4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 21,
+  "canonical": "turn on the stove and put the frying pan on it",
+  "phrase": "Please get the stove running and move the frying pan over to it.",
+  "arm": "nat4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 25,
+  "canonical": "put the black bowl on top of the cabinet",
+  "phrase": "If it wouldn't be too much trouble, would you kindly ensure the black bowl finds its way to the top of the cabinet?",
+  "arm": "adv4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 36,
+  "canonical": "put the white bowl on the plate",
+  "phrase": "grab the white bowl and place it onto the plate",
+  "arm": "nat4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 41,
+  "canonical": "put the frying pan on top of the cabinet",
+  "phrase": "It is required that the cabinet's top be made the new resting place for the frying pan.",
+  "arm": "adv4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 52,
+  "canonical": "pick up the milk and put it in the basket",
+  "phrase": "Take the white milk carton and move it to the basket",
+  "arm": "nat4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 60,
+  "canonical": "pick up the black bowl on the left and put it in the tray",
+  "phrase": "Convey the leftmost obsidian-hued basin from its current resting place to the surface of the serving platter.",
+  "arm": "adv4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 74,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "Grab the reading material and set it down in the caddy's left section.",
+  "arm": "nat4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 79,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "The book, which is currently resting before you, must be picked up and, without delay, placed into the compartment of the caddy that is located on the left.",
+  "arm": "adv4",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 3,
+  "canonical": "open the top drawer and put the bowl inside",
+  "phrase": "Pop the bowl into the top drawer for me, please.",
+  "arm": "nat5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 8,
+  "canonical": "put the bowl on the plate",
+  "phrase": "Execute a grasp-and-place maneuver transferring the bowl to the upper surface of the plate.",
+  "arm": "adv5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 12,
+  "canonical": "put the black bowl at the back on the plate",
+  "phrase": "Take the dark bowl from the back and put it on the plate",
+  "arm": "nat5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 21,
+  "canonical": "turn on the stove and put the frying pan on it",
+  "phrase": "Commence the ignition of the culinary heating range and deposit the frying pan atop the aforementioned apparatus.",
+  "arm": "adv5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 29,
+  "canonical": "put the black bowl in the top drawer of the cabinet",
+  "phrase": "Please drop the black bowl in the top drawer of the cabinet",
+  "arm": "nat5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 36,
+  "canonical": "put the white bowl on the plate",
+  "phrase": "It is strictly required that the white-colored bowl be situated such that it is entirely supported by the plate.",
+  "arm": "adv5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 44,
+  "canonical": "turn on the stove",
+  "phrase": "turn the stove on for me",
+  "arm": "nat5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 52,
+  "canonical": "pick up the milk and put it in the basket",
+  "phrase": "It is hereby requested that the milk be elevated and subsequently deposited inside the basket",
+  "arm": "adv5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 66,
+  "canonical": "put the red mug on the right plate",
+  "phrase": "Take the red coffee mug and leave it on the plate to the right.",
+  "arm": "nat5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 74,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "Let the object used for reading be grasped, whereupon it should find its new home inside the left partition of the provided caddy.",
+  "arm": "adv5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 84,
+  "canonical": "pick up the red mug and place it to the right of the caddy",
+  "phrase": "Relocate the red cup so it sits to the right of the caddy",
+  "arm": "nat5",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 3,
+  "canonical": "open the top drawer and put the bowl inside",
+  "phrase": "It is strictly required that the top drawer be transitioned to an open state in order for the bowl to experience placement within its boundaries.",
+  "arm": "adv6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 9,
+  "canonical": "put the black bowl on the plate",
+  "phrase": "grab the black bowl and set it on the plate",
+  "arm": "nat6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 12,
+  "canonical": "put the black bowl at the back on the plate",
+  "phrase": "It is required that the plate receives the black bowl currently occupying the background space",
+  "arm": "adv6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 25,
+  "canonical": "put the black bowl on top of the cabinet",
+  "phrase": "Put that black bowl up there on top of the cabinet.",
+  "arm": "nat6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 29,
+  "canonical": "put the black bowl in the top drawer of the cabinet",
+  "phrase": "Assuming you are ready to proceed, you must tuck the ebony dishware into the number one drawer from the top of the cabinet",
+  "arm": "adv6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 41,
+  "canonical": "put the frying pan on top of the cabinet",
+  "phrase": "Just stick the frying pan on top of the cabinet.",
+  "arm": "nat6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 44,
+  "canonical": "turn on the stove",
+  "phrase": "If it is within your present capabilities, bring the cooktop out of standby mode",
+  "arm": "adv6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 60,
+  "canonical": "pick up the black bowl on the left and put it in the tray",
+  "phrase": "Transfer the left black bowl to the tray.",
+  "arm": "nat6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 66,
+  "canonical": "put the red mug on the right plate",
+  "phrase": "Do not leave the red mug where it is, but rather ensure it ends up supported by the plate that is positioned on the right.",
+  "arm": "adv6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 79,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "Drop the book in the left part of the organizer caddy.",
+  "arm": "nat6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 84,
+  "canonical": "pick up the red mug and place it to the right of the caddy",
+  "phrase": "Taking care not to drop it, lift the red cup-like object and deposit it securely to the caddy's right",
+  "arm": "adv6",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 8,
+  "canonical": "put the bowl on the plate",
+  "phrase": "Stick the bowl on the plate.",
+  "arm": "nat7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 9,
+  "canonical": "put the black bowl on the plate",
+  "phrase": "grasp the deep circular container lacking any lightness in hue and deposit it upon the shallow dining ware",
+  "arm": "adv7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 21,
+  "canonical": "turn on the stove and put the frying pan on it",
+  "phrase": "Turn the cooktop on and rest the frying pan on it.",
+  "arm": "nat7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 25,
+  "canonical": "put the black bowl on top of the cabinet",
+  "phrase": "The top of the cabinet should be made the new resting location for the black bowl.",
+  "arm": "adv7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 36,
+  "canonical": "put the white bowl on the plate",
+  "phrase": "put the white bowl right on top of the plate",
+  "arm": "nat7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 41,
+  "canonical": "put the frying pan on top of the cabinet",
+  "phrase": "That heavy pan with the long handle is to be deposited on the upper exterior of the cabinet.",
+  "arm": "adv7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 52,
+  "canonical": "pick up the milk and put it in the basket",
+  "phrase": "Could you grab the milk and stick it in the basket",
+  "arm": "nat7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 60,
+  "canonical": "pick up the black bowl on the left and put it in the tray",
+  "phrase": "It is required that the tray becomes the new location for the black bowl that is currently occupying the left side of the area.",
+  "arm": "adv7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 74,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "Take that book and stick it in the left compartment of the caddy.",
+  "arm": "nat7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 79,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "Take hold of the tome and bestow it unto the leftmost chamber of the carrying caddy.",
+  "arm": "adv7",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 3,
+  "canonical": "open the top drawer and put the bowl inside",
+  "phrase": "Grab the soup bowl and set it inside the top drawer.",
+  "arm": "nat8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 8,
+  "canonical": "put the bowl on the plate",
+  "phrase": "The bowl, which is currently sitting by itself, needs to be moved so that it rests entirely on the plate.",
+  "arm": "adv8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 12,
+  "canonical": "put the black bowl at the back on the plate",
+  "phrase": "Could you put the black bowl in the back onto the plate",
+  "arm": "nat8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 21,
+  "canonical": "turn on the stove and put the frying pan on it",
+  "phrase": "Execute a state change to powered on for the stove, followed by a spatial translation of the frying pan to the stove's upper plane.",
+  "arm": "adv8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 29,
+  "canonical": "put the black bowl in the top drawer of the cabinet",
+  "phrase": "Put that black colored bowl away in the top drawer",
+  "arm": "nat8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 36,
+  "canonical": "put the white bowl on the plate",
+  "phrase": "What you need to do is acquire the bowl lacking any pigment and make sure the plate is holding it.",
+  "arm": "adv8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 44,
+  "canonical": "turn on the stove",
+  "phrase": "can you turn on the stovetop",
+  "arm": "nat8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 52,
+  "canonical": "pick up the milk and put it in the basket",
+  "phrase": "Execute a grasp operation on the milk entity and release said entity within the spatial bounds of the basket",
+  "arm": "adv8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 66,
+  "canonical": "put the red mug on the right plate",
+  "phrase": "Could you transfer the red mug to the right plate for me?",
+  "arm": "nat8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 74,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "Regarding the physical book, please elevate it from its surface and subsequently guide it downwards into the caddy, ensuring it occupies solely the compartment on the left.",
+  "arm": "adv8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 84,
+  "canonical": "pick up the red mug and place it to the right of the caddy",
+  "phrase": "Put the red mug next to the caddy on the right",
+  "arm": "nat8",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 3,
+  "canonical": "open the top drawer and put the bowl inside",
+  "phrase": "The highest sliding box needs to be laid bare; once that is achieved, take the curved dish we eat cereal from and sequester it inside.",
+  "arm": "adv9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 9,
+  "canonical": "put the black bowl on the plate",
+  "phrase": "put the black one on the plate",
+  "arm": "nat9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 12,
+  "canonical": "put the black bowl at the back on the plate",
+  "phrase": "Execute a spatial translation of the furthest black hemispherical container, terminating with it supported by the plate",
+  "arm": "adv9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 25,
+  "canonical": "put the black bowl on top of the cabinet",
+  "phrase": "The black bowl goes on the very top of the cabinet.",
+  "arm": "nat9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 29,
+  "canonical": "put the black bowl in the top drawer of the cabinet",
+  "phrase": "Convey the black soup receptacle to the cabinet, depositing it specifically into the drawer occupying the highest elevation",
+  "arm": "adv9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 41,
+  "canonical": "put the frying pan on top of the cabinet",
+  "phrase": "Take that metal frying pan and leave it on top of the cabinet.",
+  "arm": "nat9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 44,
+  "canonical": "turn on the stove",
+  "phrase": "It is of utmost importance that you switch the stove's current status to active",
+  "arm": "adv9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 60,
+  "canonical": "pick up the black bowl on the left and put it in the tray",
+  "phrase": "Shift the black bowl on the left over to the tray.",
+  "arm": "nat9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 66,
+  "canonical": "put the red mug on the right plate",
+  "phrase": "Relocate the red mug so that it sits on the flat circular eating surface located on the right side of the workspace.",
+  "arm": "adv9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 79,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "I need you to lift the book and deposit it into the left-hand slot of the caddy.",
+  "arm": "nat9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 84,
+  "canonical": "pick up the red mug and place it to the right of the caddy",
+  "phrase": "It is imperative that the red mug be transferred to the area flanking the right side of the organizer caddy",
+  "arm": "adv9",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_goal",
+  "task_id": 8,
+  "canonical": "put the bowl on the plate",
+  "phrase": "Just drop the bowl onto the plate.",
+  "arm": "nat10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 9,
+  "canonical": "put the black bowl on the plate",
+  "phrase": "bring about a state of affairs where the plate serves as the supporting base for the black bowl",
+  "arm": "adv10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 21,
+  "canonical": "turn on the stove and put the frying pan on it",
+  "phrase": "Power on the stove and set the frying pan down on the element.",
+  "arm": "nat10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 25,
+  "canonical": "put the black bowl on top of the cabinet",
+  "phrase": "Execute a spatial translation of the black bowl such that its final resting place corresponds to the superior horizontal plane of the cabinet.",
+  "arm": "adv10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 36,
+  "canonical": "put the white bowl on the plate",
+  "phrase": "shift the white bowl onto the plate",
+  "arm": "nat10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 41,
+  "canonical": "put the frying pan on top of the cabinet",
+  "phrase": "Ascend the frying pan to a higher altitude so that it is supported entirely by the top of the cabinet.",
+  "arm": "adv10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 52,
+  "canonical": "pick up the milk and put it in the basket",
+  "phrase": "Toss the milk in the basket",
+  "arm": "nat10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 60,
+  "canonical": "pick up the black bowl on the left and put it in the tray",
+  "phrase": "Do not leave the left black bowl where it is; instead, elevate it and transfer its mass into the awaiting tray.",
+  "arm": "adv10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 74,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "Relocate the book to the caddy's left compartment.",
+  "arm": "nat10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "suite": "libero_90",
+  "task_id": 79,
+  "canonical": "pick up the book and place it in the left compartment of the caddy",
+  "phrase": "The item containing printed chapters requires relocation; kindly deposit it into the specific section of the handled organizer that sits to your left.",
+  "arm": "adv10",
+  "inits": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ }
+]
