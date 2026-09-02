@@ -69,15 +69,13 @@ if [ ! -d /workspace/INT-ACT ]; then
   git clone https://github.com/ai4ce/INT-ACT.git /workspace/INT-ACT
 fi
 cd /workspace/INT-ACT
-if [ ! -x .venv/bin/python ]; then
-  uv venv --python 3.11 .venv
-  # the project pins its own deps; sync via uv using its lock/pyproject
-  uv sync --python .venv/bin/python || uv pip install -p .venv/bin/python -e . || true
+if ! .venv/bin/python -c "import simpler_env" 2>/dev/null; then
+  rm -rf .venv
+  uv venv --python 3.10.12 .venv        # INT-ACT pins ==3.10.12 exactly
+  uv sync --extra simpler --python .venv/bin/python
 fi
-# simpler extra (SimplerEnv + ManiSkill2 real2sim): required for the evaluator
-.venv/bin/python -c "import simpler_env" 2>/dev/null || \
-  uv sync --extra simpler --python .venv/bin/python || true
-.venv/bin/python -c "import simpler_env; print('simpler-ok')"
+.venv/bin/python -c "import simpler_env; print('simpler-ok')" \
+  || { echo "SIMPLER-IMPORT-FAILED"; exit 8; }
 
 # --- 5. models ---------------------------------------------------------------
 .venv/bin/python - <<'PY'
