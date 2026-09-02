@@ -86,6 +86,9 @@ while true; do
     # ----------------------------------------------------------------------
 
     kind=$(grep -o '"kind": *"[a-z]*"' "$specf" | grep -o '[a-z]*"$' | tr -d '"')
+    # apply jobs need the LLM stack (torch/transformers); only pods marked
+    # apply-capable take them (render pods' venv-gen is deliberately light)
+    if [ "$kind" = "apply" ] && [ ! -f /workspace/.can_apply ]; then continue; fi
     if [ "$kind" = "apply" ]; then
       # Qwen apply needs the whole GPU: 9B bf16 cannot fit beside the resident
       # score server on 24GB. Stop it; the next score job reboots it.
