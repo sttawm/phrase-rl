@@ -69,6 +69,7 @@ if [ ! -d /workspace/INT-ACT ]; then
   git clone https://github.com/ai4ce/INT-ACT.git /workspace/INT-ACT
 fi
 cd /workspace/INT-ACT
+git submodule update --init --recursive   # third_party/lerobot etc. are submodules
 if ! .venv/bin/python -c "import simpler_env" 2>/dev/null; then
   rm -rf .venv
   uv venv --python 3.10.12 .venv        # INT-ACT pins ==3.10.12 exactly
