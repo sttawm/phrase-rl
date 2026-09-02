@@ -68,6 +68,17 @@ while true; do
   # graceful drain: touch /workspace/.worker_stop and the worker exits between
   # jobs (rolling restarts without orphaning a claim)
   [ -f /workspace/.worker_stop ] && { mark "stop file -- worker exiting"; exit 0; }
+  # in-loop orphan salvage: a result written by a prior worker's child AFTER
+  # this worker's startup pass (drain race, 2026-09-02) would otherwise sit
+  # uncommitted forever -- the startup-only pass skips files <60s old
+  for orph in "$JOBS"/*.result.parquet; do
+    [ -e "$orph" ] || continue
+    git ls-files --error-unmatch "$orph" >/dev/null 2>&1 && continue
+    [ "$(( $(date +%s) - $(stat -c %Y "$orph") ))" -gt 60 ] || continue
+    git add "$orph" && mark "salvaged orphan $(basename "$orph")"
+    git commit -q -m "rules-loop orphan result salvage ($POD)" 2>/dev/null \
+      && timeout 300 bash -c "git -c rebase.autoStash=true pull -q --rebase && git push -q"
+  done
   timeout 240 git -c rebase.autoStash=true pull -q --rebase 2>/dev/null \
     || { git rebase --abort 2>/dev/null; git reset --hard -q origin/main; }
   did=0
