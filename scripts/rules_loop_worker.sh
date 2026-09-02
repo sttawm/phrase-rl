@@ -93,7 +93,9 @@ while true; do
       pkill -f '[p]hase2_score_server' 2>/dev/null || true
       sleep 8
     fi
-    [ "$kind" = "score" ] && ensure_score_server
+    if [ "$kind" = "score" ] && ! grep -q '"method": "rollout"' "$specf"; then
+      ensure_score_server
+    fi
     mark "running $jid ($kind)"
     att=$(ls "$JOBS/$jid".attempt-* 2>/dev/null | wc -l | tr -d " ")
     if [ "$att" -ge 3 ]; then mark "giving up on $jid after $att attempts"; continue; fi

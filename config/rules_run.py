@@ -70,7 +70,8 @@ def sim_overrides(p):
         init_rules_from=p["run_id"],   # seed from the training-phase rulebook
         max_iters=3,                   # "run the loop twice or three times"
         patience=99,                   # unused: no validation to stop on
-        sample_n=16,                   # 16 bases x 18 episodes = 288 rollouts/eval
+        sample_n=24,                   # 24 bases stratified 12nat/8adv/4canon (2026-09-02)
+        rollout_episodes=12,           # 12 seeded episodes/phrase for loop evals
         max_probes=6,                  # probes cost rollouts here
     )
     return p

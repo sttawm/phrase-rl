@@ -828,6 +828,49 @@ def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=2880
     raise TimeoutError(f"job {jid} ({kind}) not returned in {timeout}s")
 
 
+def run_jobs_sharded(run, kind, payload, spec, tag):
+    """Rollout evals shard per task so a pod fleet drains them in parallel:
+    all specs are committed in ONE gitsync, then one poll loop waits for every
+    result (serial submit avoids concurrent-gitsync races)."""
+    parts = {t: g for t, g in payload.groupby("task")}
+    jids, waiting = {}, {}
+    to_push = []
+    jdir = run.dir / "jobs"
+    for t, g in sorted(parts.items()):
+        g = g[["task", "phrase"]].drop_duplicates()
+        key = pd.util.hash_pandas_object(g).values.tobytes() +             json.dumps(spec, sort_keys=True, default=str).encode()
+        jid = f"{tag}_{hashlib.sha1(key).hexdigest()[:10]}"
+        result = jdir / f"{jid}.result.parquet"
+        jids[t] = jid
+        if result.exists():
+            continue
+        if run.dry or run.mock_scoring:
+            run_job(run, kind, g, spec, tag)   # mock path writes the result
+            continue
+        g.to_parquet(jdir / f"{jid}.payload.parquet", index=False)
+        jwrite(jdir / f"{jid}.spec.json", {"job_id": jid, "kind": kind, **spec})
+        to_push += [jdir / f"{jid}.payload.parquet", jdir / f"{jid}.spec.json"]
+        waiting[t] = jid
+    if to_push:
+        gitsync(to_push, f"rules-loop sharded jobs {tag} ({len(to_push)//2} shards)")
+    deadline = time.time() + 28800
+    while waiting and time.time() < deadline:
+        time.sleep(60)
+        sh("git -c rebase.autoStash=true pull --rebase -q origin main", timeout=200)
+        for t in list(waiting):
+            jid = waiting[t]
+            if (jdir / f"{jid}.result.parquet").exists():
+                del waiting[t]
+            else:
+                fail = jdir / f"{jid}.failed.txt"
+                if fail.exists() and "FINAL" in fail.read_text()[:2000]:
+                    raise RuntimeError(f"shard {jid} failed: {fail.read_text()[:300]}")
+    if waiting:
+        raise TimeoutError(f"shards not returned: {sorted(waiting.values())}")
+    return pd.concat([pd.read_parquet(jdir / f"{jids[t]}.result.parquet")
+                      for t in sorted(parts)], ignore_index=True)
+
+
 _RVG = {"n": 0, "rhos": [], "groups": 0}
 # measured previously: the two-channel formula and gripper-only agree at rank
 # correlation 0.645 within groups of 16 (76.3% pair agreement). A live run that
@@ -904,8 +947,15 @@ def score_phrases(run, cfg, df, tag, draw=0):
                      "frames_per_episode": cfg["frames_per_episode"],
                      "pool_val8_stems": True})
     else:
-        spec.update({"rollout": run.env["rollout"]})
-    out = run_job(run, "score", df[["task", "phrase"]].drop_duplicates(), spec, tag)
+        ro = dict(run.env["rollout"])
+        n_ep = int(cfg.get("rollout_episodes", 0) or len(ro.get("episode_ids", [])) or 18)
+        ro["episode_ids"] = list(ro.get("episode_ids", list(range(18))))[:n_ep]
+        spec.update({"rollout": ro})
+    if method == "rollout":
+        out = run_jobs_sharded(run, "score", df[["task", "phrase"]].drop_duplicates(),
+                               spec, tag)
+    else:
+        out = run_job(run, "score", df[["task", "phrase"]].drop_duplicates(), spec, tag)
     check_reward_vs_gripper(run, out, tag)
     keep = [c for c in ("task", "phrase", "z", "grip", "proxy", "gt_success",
                         "n_ctx") if c in out]
@@ -1591,6 +1641,28 @@ def main():
 
     def bases_for(task_list, n=None, seed=0):
         d = base_pool[base_pool.task.isin(task_list)]
+        if n and phase == "sim" and "kind" in d:
+            # stratified sim sample (user 2026-09-02): 1/2 natural, 1/3
+            # adversarial, remainder canonical. Legacy 'unknown' kinds are
+            # overlaid from the classifier relabels (analysis artifact) so a
+            # fresh run dir keeps the labels.
+            d = d.copy()
+            rel = REPO / "results/analysis/val8_kind_relabels.parquet"
+            if rel.exists():
+                rl = pd.read_parquet(rel)
+                m = {(t, p): k for t, p, k in zip(rl.task, rl.phrase, rl.new_kind)}
+                d["kind"] = [m.get((t, p), k) for t, p, k in
+                             zip(d.task, d.phrase, d.kind)]
+            quota = {"natural": n // 2, "adversarial": n // 3}
+            quota["original"] = n - sum(quota.values())
+            parts = []
+            for k, q in quota.items():
+                g = d[d.kind == k].drop_duplicates(["task", "phrase"])
+                parts.append(g.sample(min(q, len(g)), random_state=seed))
+            out = pd.concat(parts, ignore_index=True)
+            print(f"    stratified sim sample: " +
+                  ", ".join(f"{k}={len(p)}" for k, p in zip(quota, parts)))
+            return out
         return d.sample(min(n, len(d)), random_state=seed) if n else d
 
     corpus_file = ensure_corpus_file(run, cfg)

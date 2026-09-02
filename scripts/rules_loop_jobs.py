@@ -69,6 +69,7 @@ if spec["kind"] == "score" and spec.get("method") == "rollout":
     pl = payload[["task", "phrase"]].drop_duplicates().assign(arm="rules_loop")
     pl.to_parquet(phr_path, index=False)
     out_path = jdir / f"{jid}.rollraw.parquet"
+    out_path.unlink(missing_ok=True)   # phase0c ACCUMULATES on an existing --out
     cmd = [f"{int_act}/.venv/bin/python",
            str(REPO / "src/phrase_rl/phase0c_rollout.py"),
            "--int-act-root", int_act,
