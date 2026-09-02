@@ -1,4 +1,4 @@
-2 10:28:45.248957: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2 10:32:05.194757: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
 Traceback (most recent call last):
   File "/workspace/phrase-rl/src/phrase_rl/phase0c_rollout.py", line 182, in <module>
     main()
