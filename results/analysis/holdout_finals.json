@@ -75,5 +75,19 @@
   "adversarial": 43.1,
   "original": 54.5,
   "n": 143
+ },
+ "qwen_x_claude_book": {
+  "mean": 34.5,
+  "n": 143,
+  "vs_own_book_pp": -0.5,
+  "ci95": [
+   -5.8,
+   4.9
+  ]
+ },
+ "A29_book_selection": {
+  "claude": "pass_claude/best_rules.md (own, 39.2)",
+  "gemini": "pass_claude/best_rules.md (cross, 43.1 vs own 30.1)",
+  "qwen": "pass_qwen/best_rules.md"
  }
 }
