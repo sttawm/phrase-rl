@@ -88,7 +88,25 @@ ENVIRONMENTS = {
                      ckpt="juexzz/INTACT-pi0-finetune-rephrase-bridge",
                      episode_ids=list(range(18)), seed=42),
     ),
-    "pi05_libero": None,   # TODO: banks + traces + rollout recipe (fourtier stack)
+    "pi05_libero": dict(
+        # task-level splits + sealed set live in splits.json (seed 20260901);
+        # sealed_stems/sim_tasks are resolved from it below
+        splits_file="results/analysis/pi05_bank/splits.json",
+        sealed_stems="PI05_SEALED",           # resolved in resolve_env
+        sim_tasks="PI05_TRAIN",               # rollout-scored loop trains on these
+        bank="results/analysis/pi05_bank/bank.parquet",
+        val_canonicals="results/analysis/pi05_bank/val_canonicals.parquet",
+        corpus_inputs="results/analysis/pi05_bank/corpus_inputs",
+        traces_per_base="results/phrase_artifacts/traces_pi05_v1.parquet",
+        traces_legacy=None,                   # no canonical-derived legacy pool
+        # rollout scoring: bank_eval.py (interactive-vlas pi05_libero/eval) against
+        # a live serve_policy --env LIBERO server; screen window inits 0-9,
+        # episode-level same-draw pairing (identical init indices for base+rewrite)
+        rollout=dict(method="libero_bank_eval",
+                     harness="pi05_libero/eval/bank_eval.py",
+                     ckpt="pi05_libero (openpi serve_policy --env LIBERO)",
+                     inits=list(range(10)), seed=7, res=256),
+    ),
 }
 
 
@@ -101,6 +119,10 @@ def resolve_env(name):
     e = dict(e)
     e["sealed_stems"] = SEALED_STEMS if e["sealed_stems"] == "SEALED_STEMS" else e["sealed_stems"]
     e["sim_tasks"] = VAL8_TASKS if e["sim_tasks"] == "VAL8_TASKS" else e["sim_tasks"]
+    if e.get("splits_file") and e["sealed_stems"] == "PI05_SEALED":
+        sp = json.loads(Path(REPO / e["splits_file"]).read_text())
+        e["sealed_stems"] = [t["lang"] for t in sp["sealed_test"]]
+        e["sim_tasks"] = [t.get("lang") for t in sp["train"] if t.get("lang")]
     return e
 
 

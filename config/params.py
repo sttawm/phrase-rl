@@ -472,6 +472,10 @@ def bases_for(target_pp, per=None):
 # ===========================================================================
 
 DECISIONS = [
+    ("2026-09-02", "pi05_libero ENVIRONMENTS entry wired (bank/splits/traces/corpus/rollout recipe)",
+     "bank v1 = 2,429 rollout-scored (task,phrase) pairs over 65 train tasks; sealed 20 l90 "
+     "tasks untouched; traces image-conditioned per-base with a hard canonical-leak gate; "
+     "sim_tasks resolves to the 55 l90 train langs (goal langs live in the bank/corpus)"),
     ("2026-09-01", "rules-loop fable effort: reasoning max->xhigh, claude-applier max->high",
      "credit runway; applying a fixed rulebook is mechanical (volume cost), "
      "rulebook quality lives in the ~6 reasoning calls/iteration (xhigh suffices)"),
