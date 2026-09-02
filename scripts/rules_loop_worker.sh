@@ -76,6 +76,12 @@ while true; do
     jid=$(basename "$specf" .spec.json)
     [ -f "$JOBS/$jid.result.parquet" ] && continue
 
+    kind=$(grep -o '"kind": *"[a-z]*"' "$specf" | grep -o '[a-z]*"$' | tr -d '"')
+    # apply jobs need the LLM stack (torch/transformers); only pods marked
+    # apply-capable take them. This check must precede the claim: claiming a
+    # job this pod then skips wedges it for the 6h stale window (rv2, 2026-09-02)
+    if [ "$kind" = "apply" ] && [ ! -f /workspace/.can_apply ]; then continue; fi
+
     # --- claim arbitration (multi-pod) ------------------------------------
     clm="$JOBS/$jid.claim"
     if [ -f "$clm" ]; then
@@ -99,10 +105,6 @@ while true; do
     fi
     # ----------------------------------------------------------------------
 
-    kind=$(grep -o '"kind": *"[a-z]*"' "$specf" | grep -o '[a-z]*"$' | tr -d '"')
-    # apply jobs need the LLM stack (torch/transformers); only pods marked
-    # apply-capable take them (render pods' venv-gen is deliberately light)
-    if [ "$kind" = "apply" ] && [ ! -f /workspace/.can_apply ]; then continue; fi
     if [ "$kind" = "apply" ]; then
       # Qwen apply needs the whole GPU: 9B bf16 cannot fit beside the resident
       # score server on 24GB. Stop it; the next score job reboots it.
