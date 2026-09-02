@@ -1,0 +1,24 @@
+{
+ "bases": 20.5,
+ "gemini_scaffold": 28.4,
+ "qwen_scaffold": 28.0,
+ "n": 143,
+ "eps_per_phrase": 3,
+ "strata": {
+  "bases": {
+   "natural": 25.0,
+   "adversarial": 9.7,
+   "original": 33.3
+  },
+  "gemini": {
+   "natural": 29.0,
+   "adversarial": 25.7,
+   "original": 36.4
+  },
+  "qwen": {
+   "natural": 31.3,
+   "adversarial": 20.8,
+   "original": 33.3
+  }
+ }
+}
