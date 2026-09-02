@@ -20,7 +20,7 @@ esac
 # --- 1. system deps + vulkan loader stack ------------------------------------
 apt-get update -qq
 apt-get install -y -qq git-lfs ffmpeg tmux libgl1 libegl1 libgles2 \
-  libvulkan1 vulkan-tools libglvnd0 libglvnd-dev
+  libvulkan1 vulkan-tools libglvnd0 libglvnd-dev python3.10-dev build-essential
 # loader only reads /usr/share/vulkan/icd.d (memory: /etc copy is ignored)
 mkdir -p /usr/share/vulkan/icd.d
 if [ ! -f /usr/share/vulkan/icd.d/nvidia_icd.json ]; then
