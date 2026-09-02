@@ -1,0 +1,22 @@
+{
+ "job_id": "ladder_scaffold_d3ccec6d58",
+ "kind": "score",
+ "method": "rollout",
+ "draw": 0,
+ "seed": 7,
+ "proxy": {
+  "C": 8.123,
+  "bz": 0.4445,
+  "bg": 11.3193
+ },
+ "rollout": {
+  "config": "config/experiment/simpler/pi0_finetune_bridge_ev.yaml",
+  "ckpt": "juexzz/INTACT-pi0-finetune-rephrase-bridge",
+  "episode_ids": [
+   0,
+   1,
+   2
+  ],
+  "seed": 42
+ }
+}
