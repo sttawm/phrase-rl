@@ -53,7 +53,21 @@ ensure_score_server() {
 }
 
 mark "worker up for run $RUN_ID"
+# salvage: a worker killed mid-job leaves its finished child's result parquet
+# uncommitted in the tree. Commit any settled (>60s old) orphan on startup so
+# the claimed job completes instead of sitting until the 6h stale-steal.
+for orph in "$JOBS"/*.result.parquet; do
+  [ -e "$orph" ] || continue
+  git ls-files --error-unmatch "$orph" >/dev/null 2>&1 && continue
+  [ "$(( $(date +%s) - $(stat -c %Y "$orph") ))" -gt 60 ] || continue
+  git add "$orph" && mark "salvaged orphan $(basename "$orph")"
+done
+git commit -q -m "rules-loop orphan result salvage ($POD)" 2>/dev/null \
+  && timeout 300 bash -c "git -c rebase.autoStash=true pull -q --rebase && git push -q"
 while true; do
+  # graceful drain: touch /workspace/.worker_stop and the worker exits between
+  # jobs (rolling restarts without orphaning a claim)
+  [ -f /workspace/.worker_stop ] && { mark "stop file -- worker exiting"; exit 0; }
   timeout 240 git -c rebase.autoStash=true pull -q --rebase 2>/dev/null \
     || { git rebase --abort 2>/dev/null; git reset --hard -q origin/main; }
   did=0
