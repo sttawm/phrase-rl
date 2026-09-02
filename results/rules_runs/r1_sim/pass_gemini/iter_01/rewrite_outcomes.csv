@@ -1,0 +1,18 @@
+# NOTE (sim phase): base_logit / rewrite_logit / delta here are REAL rollout success rates in percent (0-100), not proxy logits.
+task,base_kind,base,base_logit,rewrite,rewrite_logit,delta,same_draw,n_ctx
+widowx_carrot_on_plate,adversarial,Proceed to grasp the carrot and subsequently establish its position atop the dining plate.,33.3333,pick up the carrot and put it on the dining plate,16.6667,-16.6667,True,6.0
+widowx_put_eggplant_in_basket,adversarial,Deposit the bulbous purple vegetable directly into the confines of the yellow woven basket.,100.0,put the purple eggplant into the yellow basket,83.3333,-16.6667,True,6.0
+widowx_coke_can_on_ramekin_clean,adversarial,"Should you be capable of manipulating the cylindrical cola container, proceed to hoist it and guide it downward until it is securely housed in the ramekin.",0.0,pick up the can and put it down in the ramekin,0.0,0.0,True,6.0
+widowx_carrot_on_plate,adversarial,"Given the current arrangement of objects, ensure that the carrot is swiftly conveyed to the surface of the plate.",16.6667,put the carrot on the surface of the plate,16.6667,0.0,True,6.0
+widowx_coke_can_on_plate_clean,adversarial,Ensure that the plate is made to bear the weight of the red aluminum beverage cylinder without delay.,0.0,Put the red aluminum can on the plate.,16.6667,16.6667,True,6.0
+widowx_carrot_on_plate,adversarial,"The carrot, which is presently situated in its initial starting location, must be lifted and maneuvered until it occupies the plate.",16.6667,pick up the carrot and put it on the plate,33.3333,16.6667,True,6.0
+widowx_spoon_on_towel,adversarial,Let the spoon be taken up by your manipulators and carried across the workspace until it is ultimately situated on the towel.,0.0,pick up the spoon and put it on the towel,16.6667,16.6667,True,6.0
+widowx_spoon_on_towel,adversarial,It would be highly appreciated if you could relocate the concave piece of silverware so that it resides atop the woven textile.,50.0,put the spoon on the woven cloth,66.6667,16.6667,True,18.0
+widowx_stack_cube,adversarial,"Assuming the yellow block is currently clear, elevate the green block until it can be deposited directly upon its upper surface.",0.0,pick up the green block and put it on the yellow block,16.6667,16.6667,True,18.0
+widowx_spoon_on_towel,adversarial,"Rather than leaving it where it currently sits, take the device we use to eat cereal and leave it securely upon the towel.",0.0,take the spoon and put it on the towel,33.3333,33.3333,True,6.0
+widowx_carrot_on_wheel_clean,adversarial,The elongated orange taproot must be elevated from its current location and meticulously positioned such that it is fully supported by the wheel.,0.0,pick up the orange carrot and put it on the wheel,33.3333,33.3333,True,6.0
+widowx_coke_can_on_plate_clean,adversarial,"Assuming the plate is readily accessible, proceed to transport the red tin of cola directly onto its surface.",0.0,put the red can on the plate,66.6667,66.6667,True,18.0
+widowx_stack_cube,natural,Can you place the green block onto the yellow block for me?,33.3333,place the green block onto the yellow block,0.0,-33.3333,True,6.0
+widowx_spoon_on_towel,natural,Could you grab that spoon and set it on the cloth for me?,50.0,pick up that spoon and put it on the cloth,50.0,0.0,True,6.0
+widowx_carrot_on_plate,natural,Please shift the carrot onto the plate.,16.6667,put the carrot onto the plate,16.6667,0.0,True,6.0
+widowx_carrot_on_wheel_clean,natural,Move the orange vegetable to the wheel.,0.0,Move the orange carrot to the wheel.,0.0,0.0,True,18.0

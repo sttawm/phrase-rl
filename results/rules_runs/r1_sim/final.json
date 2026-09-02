@@ -1,6 +1,27 @@
 {
  "note": "per-model rulebooks -- deliberately NOT merged; each is tuned to its applier's rule-following capacity",
  "rulebooks": {
+  "claude": "pass_claude/best_rules.md",
+  "gemini": "pass_gemini/best_rules.md",
   "qwen": "pass_qwen/best_rules.md"
- }
+ },
+ "train48_n6_rollout": {
+  "baseline_unrephrased": 0.229,
+  "claude": {
+   "best_iter": 1,
+   "success": 0.378,
+   "delta": 0.149
+  },
+  "qwen": {
+   "best_iter": 2,
+   "success": 0.333,
+   "delta": 0.104
+  },
+  "gemini": {
+   "best_iter": 2,
+   "success": 0.312,
+   "delta": 0.083
+  }
+ },
+ "fixed": "2026-09-02: concurrent drivers each overwrote final.json with only their own pass; reassembled"
 }

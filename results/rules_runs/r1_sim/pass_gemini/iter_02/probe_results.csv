@@ -1,0 +1,11 @@
+task,phrase,kind,score,logit,z,grip,gt_success,n_ctx
+widowx_carrot_on_keyboard_clean,lay the orange carrot across the black keyboard,search,0.33333333333333326,33.33333333333333,,,33.33333333333333,12.0
+widowx_carrot_on_plate,put the carrot on the dining plate,search,0.5,50.0,,,50.0,12.0
+widowx_carrot_on_plate,take the carrot off the table and put it on the plate,search,0.16666666666666663,16.666666666666664,,,16.666666666666664,12.0
+widowx_coke_can_on_plate_clean,Grab that red aluminum can and place it on the plate.,search,0.5833333333333334,58.333333333333336,,,58.333333333333336,12.0
+widowx_coke_can_on_plate_clean,put the coke can on the light green plate,search,0.41666666666666674,41.66666666666667,,,41.66666666666667,12.0
+widowx_coke_can_on_ramekin_clean,put the coke can in the bowl,search,0.6666666666666665,66.66666666666666,,,66.66666666666666,12.0
+widowx_coke_can_on_ramekin_clean,pick up the red can and put it in the white bowl,search,0.25,25.0,,,25.0,12.0
+widowx_coke_can_on_ramekin_clean,pick up the red can and put it in the ramekin,search,0.0,0.0,,,0.0,12.0
+widowx_spoon_on_towel,put the spoon atop the towel,search,0.75,75.0,,,75.0,12.0
+widowx_spoon_on_towel,put the silver spoon on the towel,search,0.5,50.0,,,50.0,12.0
