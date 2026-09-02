@@ -74,6 +74,7 @@ if ! .venv/bin/python -c "import simpler_env" 2>/dev/null; then
   rm -rf .venv
   uv venv --python 3.10.12 .venv        # INT-ACT pins ==3.10.12 exactly
   uv sync --python .venv/bin/python
+  uv pip install -p .venv/bin/python 'setuptools<81'   # pkg_resources (removed in 81+)
   .venv/bin/python -c "import simpler_env" 2>/dev/null ||     uv pip install -p .venv/bin/python -e third_party/SimplerEnv -e third_party/ManiSkill2_real2sim
 fi
 .venv/bin/python -c "import simpler_env; print('simpler-ok')" \
