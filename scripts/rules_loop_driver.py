@@ -120,9 +120,13 @@ def resolve_env(name):
     e["sealed_stems"] = SEALED_STEMS if e["sealed_stems"] == "SEALED_STEMS" else e["sealed_stems"]
     e["sim_tasks"] = VAL8_TASKS if e["sim_tasks"] == "VAL8_TASKS" else e["sim_tasks"]
     if e.get("splits_file") and e["sealed_stems"] == "PI05_SEALED":
+        # split entries are {suite, task_id}; the loop's task key is "suite:tid"
+        # (the bank/jobs sides synthesize the same key)
         sp = json.loads(Path(REPO / e["splits_file"]).read_text())
-        e["sealed_stems"] = [t["lang"] for t in sp["sealed_test"]]
-        e["sim_tasks"] = [t.get("lang") for t in sp["train"] if t.get("lang")]
+        key = lambda t: f"{t['suite']}:{t['task_id']}"
+        e["sealed_stems"] = [key(t) for t in sp["sealed_test"]]
+        e["sim_tasks"] = [key(t) for t in sp["train"]]
+        e["val_tasks"] = [key(t) for t in sp["val"]]
     return e
 
 
@@ -520,10 +524,11 @@ def load_traces(env=None):
     global _TRACES
     if _TRACES:
         return _TRACES
-    legacy = REPO / (env or ENVIRONMENTS["bridge_pi0"])["traces_legacy"]
-    per_base = REPO / (env or ENVIRONMENTS["bridge_pi0"])["traces_per_base"]
+    e = env or ENVIRONMENTS["bridge_pi0"]
+    legacy = (REPO / e["traces_legacy"]) if e.get("traces_legacy") else None
+    per_base = REPO / e["traces_per_base"]
     out = {}
-    if legacy.exists():
+    if legacy is not None and legacy.exists():
         t = pd.read_parquet(legacy, columns=["instruction", "trace"])
         t = t.drop_duplicates("instruction")
         out.update({i: _sanitize_trace(tr) for i, tr in zip(t.instruction, t.trace)})
@@ -624,6 +629,28 @@ def seed_bank(run):
     (proxy channels + real-rollout gt) and the search boards (213 training
     instructions x ~30 proxy-scored phrases)."""
     bank_path = run.dir / "bank.parquet"
+    if run.env.get("bank"):
+        # environment ships a ready rollout-scored bank (pi05_libero): task key
+        # synthesized as "suite:tid"; gt-only rows (no proxy channels).
+        if bank_path.exists():
+            return pd.read_parquet(bank_path)
+        b = pd.read_parquet(REPO / run.env["bank"])
+        if "task" not in b and {"suite", "task_id"} <= set(b.columns):
+            b["task"] = b.suite.astype(str) + ":" + b.task_id.astype(str)
+        if "gt_success" not in b and "succ" in b and "n" in b:
+            b["gt_success"] = 100.0 * b.succ / b.n
+        if "n_ctx" not in b:
+            b["n_ctx"] = b["n"] if "n" in b else FALLBACK_NCTX
+        for c in ("z", "grip"):
+            if c not in b:
+                b[c] = np.nan
+        sealed = set(run.env.get("sealed_stems") or [])
+        b = b[~b.task.isin(sealed)].copy()
+        b = b.drop_duplicates(["task", "phrase"], keep="last")
+        b.to_parquet(bank_path, index=False)
+        print(f"[{run.id}] seeded pi05 bank: {len(b)} rows, "
+              f"{b.task.nunique()} tasks (sealed excluded)")
+        return b
     if bank_path.exists():
         cached = pd.read_parquet(bank_path)
         # The freeze is deliberate (iteration N's bases must not be iteration
@@ -950,10 +977,18 @@ def score_phrases(run, cfg, df, tag, draw=0):
                      "pool_val8_stems": True})
     else:
         ro = dict(run.env["rollout"])
-        n_ep = int(cfg.get("rollout_episodes", 0) or len(ro.get("episode_ids", [])) or 18)
-        ro["episode_ids"] = list(ro.get("episode_ids", list(range(18))))[:n_ep]
+        if ro.get("method") == "libero_bank_eval":
+            # pi05_libero: the job branch drives bank_eval.py; the episode knob
+            # is the init list (screen window), trimmed by rollout_episodes
+            method = "libero_bank_eval"
+            spec["method"] = method
+            n_ep = int(cfg.get("rollout_episodes", 0) or len(ro.get("inits", [])) or 10)
+            ro["inits"] = list(ro.get("inits", list(range(10))))[:n_ep]
+        else:
+            n_ep = int(cfg.get("rollout_episodes", 0) or len(ro.get("episode_ids", [])) or 18)
+            ro["episode_ids"] = list(ro.get("episode_ids", list(range(18))))[:n_ep]
         spec.update({"rollout": ro})
-    if method == "rollout":
+    if method in ("rollout", "libero_bank_eval"):
         out = run_jobs_sharded(run, "score", df[["task", "phrase"]].drop_duplicates(),
                                spec, tag)
     else:
@@ -988,7 +1023,7 @@ def apply_rules(run, cfg, rephraser, rules, bases: pd.DataFrame, tag):
     cache_p = run.dir / f"apply_cache_{rephraser}_{tag}_{ck}.parquet"
     if cache_p.exists():
         return pd.read_parquet(cache_p)
-    traces = load_traces()
+    traces = load_traces(run.env)
     jobs = []
     for r in bases.itertuples():
         jobs.append((r.task, r.phrase, prompt_from(
@@ -1687,7 +1722,10 @@ def main():
         # sim phase: TRAIN on the sim tasks by rollout; there is no held-out
         # split (user 2026-08-30) -- overfitting is bounded by max_iters, not by
         # validation. The sealed set stays the only certifier.
-        train_tasks, val_held_tasks = list(sim_tasks), []
+        train_tasks = list(sim_tasks)
+        # environments with a real val split (pi05_libero) validate per
+        # iteration on those tasks; bridge sim keeps the no-val behavior
+        val_held_tasks = list(run.env.get("val_tasks") or [])
         print(f"[{run.id}] PHASE=sim: training on {len(train_tasks)} sim tasks "
               f"by ROLLOUT; no validation split; runs to max_iters={cfg['max_iters']}")
     jwrite(run.dir / "splits.json", {"train": train_tasks, "val_held": val_held_tasks,
@@ -1887,10 +1925,31 @@ def main():
                 st["bank_applied"] = [list(x) for x in applied | {akey}]
                 jwrite(state_p, st)      # record the mutation BEFORE the long val evals
 
-            # 3. eval on both validation sets (train phase). The sim phase has
-            # no validation data: its "val" IS the train score, and stopping is
-            # governed by max_iters alone.
-            if phase == "sim":
+            # 3. eval on both validation sets (train phase). The sim phase
+            # historically had no validation data (bridge: val IS the train
+            # score, stopping by max_iters). Environments that DO carry a val
+            # split (pi05_libero: val_canonicals + splits.json val tasks) get a
+            # real per-iteration rollout val: apply the book to the val
+            # canonicals and roll them at the env's inits.
+            if phase == "sim" and run.env.get("val_canonicals") and \
+                    (REPO / run.env["val_canonicals"]).exists() and val_held_tasks:
+                vc = pd.read_parquet(REPO / run.env["val_canonicals"])
+                if "task" not in vc and {"suite", "task_id"} <= set(vc.columns):
+                    vc["task"] = vc.suite.astype(str) + ":" + vc.task_id.astype(str)
+                vb = vc[vc.task.isin(val_held_tasks)][["task", "phrase"]] \
+                    if "phrase" in vc else \
+                    vc[vc.task.isin(val_held_tasks)].rename(
+                        columns={"canonical": "phrase"})[["task", "phrase"]]
+                vh, _, _ = eval_rules(run, cfg, itdir, rephraser, rules,
+                                      vb.drop_duplicates(), "val_held")
+                v8, val = vh, vh
+                deltas = {"train": jread(itdir / "eval_train.json").get("delta"),
+                          "val_held": jread(itdir / "eval_val_held.json").get("delta"),
+                          "val8": None}
+                print(f"    [sim+val] train={train_score:.3f} val={vh:.3f} "
+                      f"(deltas: train {deltas['train']:+.3f} "
+                      f"val {deltas['val_held']:+.3f})")
+            elif phase == "sim":
                 vh = v8 = val = train_score
                 deltas = {"train": jread(itdir / "eval_train.json").get("delta"),
                           "val_held": None, "val8": None}

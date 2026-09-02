@@ -92,6 +92,47 @@ if spec["kind"] == "score" and spec.get("method") == "rollout":
         result_path, index=False)
     print(f"rolled {len(res)} phrases x {len(ro['episode_ids'])} episodes")
 
+elif spec["kind"] == "score" and spec.get("method") == "libero_bank_eval":
+    # pi05_libero: drive interactive-vlas bank_eval.py against a live
+    # serve_policy --env LIBERO server. Task key convention: "suite:task_id".
+    # Queue items roll each (suite, task_id, phrase, init) once; bank_eval is
+    # resume-safe on its jsonl, so retries continue rather than re-roll.
+    import subprocess
+    ro = spec["rollout"]
+    ipi = os.environ.get("INTERACTIVE_PI_ROOT", "/workspace/interactive-pi")
+    py38 = os.environ.get("LIBERO_PY", f"{ipi}/.venv38/bin/python")
+    pl = payload[["task", "phrase"]].drop_duplicates()
+    items = []
+    for r in pl.itertuples():
+        suite, tid = str(r.task).rsplit(":", 1)
+        for init in ro["inits"]:
+            items.append({"suite": suite, "task_id": int(tid),
+                          "phrase": str(r.phrase), "init": int(init)})
+    qpath = (jdir / f"{jid}.queue.json").resolve()
+    json.dump(items, open(qpath, "w"))
+    out_jsonl = (jdir / f"{jid}.bankeval.jsonl").resolve()
+    cmd = [py38, f"{ipi}/pi05_libero/eval/bank_eval.py",
+           "--queue", str(qpath), "--out", str(out_jsonl),
+           "--port", str(ro.get("port", 8000)),
+           "--seed", str(ro.get("seed", 7))]
+    env = dict(os.environ, MUJOCO_GL="egl")
+    print("libero_bank_eval:", " ".join(cmd), flush=True)
+    subprocess.run(cmd, check=True, cwd=f"{ipi}/pi05_libero/eval", env=env)
+    rows = [json.loads(x) for x in open(out_jsonl) if x.strip()]
+    raw = pd.DataFrame(rows)
+    raw["task"] = raw.suite.astype(str) + ":" + raw.task_id.astype(str)
+    want = {(str(r.task), str(r.phrase)) for r in pl.itertuples()}
+    raw = raw[[((t, p) in want) for t, p in zip(raw.task, raw.phrase.astype(str))]]
+    agg = raw.groupby(["task", "phrase"]).success.agg(["mean", "size"]).reset_index()
+    res = pl.merge(agg, on=["task", "phrase"], how="left")
+    res["gt_success"] = 100.0 * res["mean"]
+    res["n_ctx"] = res["size"]
+    res["z"] = np.nan
+    res["grip"] = np.nan
+    res[["task", "phrase", "z", "grip", "gt_success", "n_ctx"]].to_parquet(
+        result_path, index=False)
+    print(f"bank-eval rolled {len(res)} phrases x {len(ro['inits'])} inits")
+
 elif spec["kind"] == "score":
     from phrase_rl.phase2_train import score_phrases
 
