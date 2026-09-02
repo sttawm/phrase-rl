@@ -13,3 +13,9 @@ before FINAL_EVAL=1.
 - No policy episodes were run on sealed tasks; no generated phrases exist for
   them. The human-written rephrases will constitute the sealed natural tier at
   final evaluation.
+
+## 2026-09-02 — ground-truth end states added to the handout
+- Extracted the final agentview frame of a HUMAN teleop demonstration (HF
+  yifengzhu-hf/LIBERO-datasets, libero_90) for each sealed task -> end_frames/.
+  Dataset content only; the policy never ran on sealed tasks.
+- rephrase_sheets.html v2 shows start + successful end state per task.
