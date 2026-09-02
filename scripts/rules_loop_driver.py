@@ -1016,7 +1016,7 @@ def write_probe_results(run, bank, tasks, path, since_iter):
     plan.md, measured since the last distillation. Split from the rewrite
     outcomes -- "what did my questions return" and "what did my rulebook do"
     are different registers and are read differently."""
-    hdr = "task,phrase,kind,score,logit,z,grip,n_ctx\n"
+    hdr = "task,phrase,kind,score,logit,z,grip,gt_success,n_ctx\n"
     if "iter_added" not in bank or "source" not in bank:
         Path(path).write_text(hdr)
         return 0
@@ -1027,8 +1027,14 @@ def write_probe_results(run, bank, tasks, path, since_iter):
         Path(path).write_text(hdr)
         return 0
     fresh["score"], fresh["logit"] = within_task_score(fresh)
+    if "gt_success" in fresh:
+        # sim probes have no z/grip: surface the measured success rate in the
+        # logit slot (0-100, marked by the gt_success column beside it)
+        gt = pd.to_numeric(fresh.gt_success, errors="coerce")
+        fresh["logit"] = fresh.logit.combine_first(gt)
+        fresh["score"] = fresh.score.combine_first(gt / 100.0)
     cols = [c for c in ("task", "phrase", "kind", "score", "logit", "z", "grip",
-                        "n_ctx") if c in fresh]
+                        "gt_success", "n_ctx") if c in fresh]
     fresh.sort_values(["task", "logit"], ascending=[True, False])[cols].to_csv(
         path, index=False)
     return len(fresh)
@@ -1054,9 +1060,19 @@ def write_rewrite_outcomes(run, bank, path, since_iter, same_draw=None,
     if not len(rw) or "base" not in rw:
         Path(path).write_text(hdr)
         return 0
-    rw["rewrite_logit"] = proxy_logit(rw.z.astype(float), rw.grip.astype(float))
-    base_lg = bank.dropna(subset=["z", "grip"]).copy()
-    base_lg["base_logit"] = proxy_logit(base_lg.z.astype(float), base_lg.grip.astype(float))
+    # phase sim: rollout rows have no z/grip; both sides of the pair live on
+    # the MEASURED success scale (0-100). Never mix scales inside one delta:
+    # in sim mode proxy-only bank rows are excluded from the base side.
+    sim = jread(run.cfg_path).get("phase") == "sim" if run else False
+    if sim:
+        rw["rewrite_logit"] = pd.to_numeric(rw.get("gt_success"), errors="coerce")
+        base_lg = bank[pd.to_numeric(bank.get("gt_success"),
+                                     errors="coerce").notna()].copy()
+        base_lg["base_logit"] = pd.to_numeric(base_lg.gt_success, errors="coerce")
+    else:
+        rw["rewrite_logit"] = proxy_logit(rw.z.astype(float), rw.grip.astype(float))
+        base_lg = bank.dropna(subset=["z", "grip"]).copy()
+        base_lg["base_logit"] = proxy_logit(base_lg.z.astype(float), base_lg.grip.astype(float))
     base_lg = base_lg.drop_duplicates(["task", "phrase"], keep="last")[
         ["task", "phrase", "base_logit"]].rename(columns={"phrase": "base"})
     rw = rw.merge(base_lg, on=["task", "base"], how="left")
@@ -1072,6 +1088,12 @@ def write_rewrite_outcomes(run, bank, path, since_iter, same_draw=None,
         out[c] = pd.to_numeric(out[c], errors="coerce").round(4)
     out.sort_values(["base_kind", "delta"], ascending=[True, True])[cols].to_csv(
         path, index=False)
+    if sim:
+        txt = Path(path).read_text()
+        Path(path).write_text(
+            "# NOTE (sim phase): base_logit / rewrite_logit / delta here are "
+            "REAL rollout success rates in percent (0-100), not proxy logits.\n"
+            + txt)
     return len(out)
 
 
@@ -1381,6 +1403,18 @@ def eval_metric(cfg, scored):
     return float(np.nanmean(proxy_logit(scored.z.astype(float), scored.grip.astype(float))))
 
 
+def _bank_baseline(run, sc, bases):
+    """sim phase only: bank the baseline's REAL gt on the training bases (48 x
+    n=6) so the distiller's evidence surfaces it. Sim has no held-out split, so
+    this cannot leak; draw=0 makes re-banking idempotent (bank_add dedups
+    identical draws)."""
+    add = sc.assign(source="baseline", iter_added=-1, draw=0)
+    if "kind" in bases and "kind" not in add:
+        add = add.merge(bases[["task", "phrase", "kind"]].drop_duplicates(),
+                        on=["task", "phrase"], how="left")
+    bank_add(run, add)
+
+
 def baseline_proxy(run, cfg, bases, tag):
     """Mean LOGIT of the UNREPHRASED base phrases -- scored once per split and
     cached, since the bases are fixed for the whole run. Cache name carries
@@ -1390,8 +1424,12 @@ def baseline_proxy(run, cfg, bases, tag):
     cache = run.dir / f"baseline_{tag}_{bh}_logit.json"
     rows = run.dir / f"baseline_{tag}_{bh}_rows.parquet"
     if cache.exists() and rows.exists():
+        if cfg.get("phase") == "sim":
+            _bank_baseline(run, pd.read_parquet(rows), bases)
         return jread(cache)["mean"]
     sc = score_phrases(run, cfg, bases[["task", "phrase"]], f"baseline_{tag}")
+    if cfg.get("phase") == "sim":
+        _bank_baseline(run, sc, bases)
     # per-phrase rows persist so pair deltas compare SAME-DRAW measurements
     # (baseline and eval rewrites both score at draw 0): the bank's historical
     # values were measured under unrecorded, heterogeneous draws and mixing
@@ -1410,9 +1448,18 @@ def baseline_rows(run, tag, bases):
     p = run.dir / f"baseline_{tag}_{bh}_rows.parquet"
     if not p.exists():
         return {}
-    d = pd.read_parquet(p).dropna(subset=["z", "grip"])
-    return {(str(r.task), str(r.phrase)): float(proxy_logit(r.z, r.grip))
-            for r in d.itertuples()}
+    d = pd.read_parquet(p)
+    out = {}
+    for r in d.itertuples():
+        z, gp = getattr(r, "z", np.nan), getattr(r, "grip", np.nan)
+        if pd.notna(z) and pd.notna(gp):
+            out[(str(r.task), str(r.phrase))] = float(proxy_logit(z, gp))
+        elif pd.notna(getattr(r, "gt_success", np.nan)):
+            # sim phase: rollout rows have no z/grip -- the same-draw base
+            # number IS the measured success rate (same 0-100 scale the
+            # rewrite rows carry there)
+            out[(str(r.task), str(r.phrase))] = float(r.gt_success)
+    return out
 
 
 def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
@@ -1443,6 +1490,11 @@ def eval_rules(run, cfg, itdir, rephraser, rules, bases, tag, judge=False):
         eval_file = itdir / "rules_eval.md"
         rlg = {(str(r.task), str(r.phrase)): float(proxy_logit(r.z, r.grip))
                for r in scored.dropna(subset=["z", "grip"]).itertuples()}
+        if "gt_success" in scored:     # sim rows have no z/grip: gt is the number
+            for r in scored.itertuples():
+                k = (str(r.task), str(r.phrase))
+                if k not in rlg and pd.notna(r.gt_success):
+                    rlg[k] = float(r.gt_success)
         write_eval_file._same_draw = baseline_rows(run, tag, bases)
         write_eval_file(run, eval_file, rules,
                         [{"task": r.task, "base": r.phrase, "rewrite": r.rewrite,
