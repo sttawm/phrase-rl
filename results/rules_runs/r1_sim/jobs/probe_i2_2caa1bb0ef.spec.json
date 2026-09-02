@@ -1,0 +1,31 @@
+{
+ "job_id": "probe_i2_2caa1bb0ef",
+ "kind": "score",
+ "method": "rollout",
+ "draw": 3,
+ "seed": 3034,
+ "proxy": {
+  "C": 8.123,
+  "bz": 0.4445,
+  "bg": 11.3193
+ },
+ "rollout": {
+  "config": "config/experiment/simpler/pi0_finetune_bridge_ev.yaml",
+  "ckpt": "juexzz/INTACT-pi0-finetune-rephrase-bridge",
+  "episode_ids": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11
+  ],
+  "seed": 42
+ }
+}
