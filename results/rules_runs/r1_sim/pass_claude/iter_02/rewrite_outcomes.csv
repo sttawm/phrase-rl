@@ -1,0 +1,34 @@
+# NOTE (sim phase): base_logit / rewrite_logit / delta here are REAL rollout success rates in percent (0-100), not proxy logits.
+task,base_kind,base,base_logit,rewrite,rewrite_logit,delta,same_draw,n_ctx
+widowx_spoon_on_towel,adversarial,It would be highly appreciated if you could relocate the concave piece of silverware so that it resides atop the woven textile.,50.0,Put the spoon atop the towel.,33.3333,-16.6667,True,6.0
+widowx_carrot_on_plate,adversarial,Proceed to grasp the carrot and subsequently establish its position atop the dining plate.,33.3333,Pick up the orange carrot and put it atop the plate.,33.3333,0.0,True,6.0
+widowx_put_eggplant_in_basket,adversarial,Deposit the bulbous purple vegetable directly into the confines of the yellow woven basket.,100.0,Put the purple eggplant into the yellow basket.,100.0,0.0,True,6.0
+widowx_carrot_on_plate,adversarial,"The carrot, which is presently situated in its initial starting location, must be lifted and maneuvered until it occupies the plate.",16.6667,Pick up the orange carrot and place it on the plate.,33.3333,16.6667,True,6.0
+widowx_stack_cube,adversarial,"Avoiding all other objects, ensure that the highest point of the yellow block becomes the new foundation for the green block.",0.0,"Stack the green block on the yellow block, avoiding all other objects.",16.6667,16.6667,True,6.0
+widowx_stack_cube,adversarial,"Without disturbing the surrounding items, it is required that the block of green coloration be made to rest atop its yellow counterpart.",0.0,Place the green block atop the yellow block without disturbing the surrounding items.,16.6667,16.6667,True,6.0
+widowx_stack_cube,adversarial,"Unto the yellow block, provided it remains stationary, arrange for the green block to be vertically superimposed.",0.0,Stack the green block on the yellow block without moving the yellow block.,16.6667,16.6667,True,6.0
+widowx_carrot_on_plate,adversarial,"You are hereby instructed to commence the relocation of the carrot, terminating said motion only when it makes contact with the plate.",16.6667,Move the carrot onto the plate.,33.3333,16.6667,True,6.0
+widowx_carrot_on_plate,adversarial,"Given the current arrangement of objects, ensure that the carrot is swiftly conveyed to the surface of the plate.",16.6667,Put the carrot on the plate.,33.3333,16.6667,True,18.0
+widowx_spoon_on_towel,adversarial,It is hereby requested that the spoon be promptly elevated from its current station and subsequently lowered onto the surface of the towel.,0.0,Lift the spoon and put it down onto the towel.,33.3333,33.3333,True,6.0
+widowx_coke_can_on_plate_clean,adversarial,Ensure that the plate is made to bear the weight of the red aluminum beverage cylinder without delay.,0.0,Put the red coke can on the plate.,33.3333,33.3333,True,6.0
+widowx_spoon_on_towel,adversarial,Let the spoon be taken up by your manipulators and carried across the workspace until it is ultimately situated on the towel.,0.0,"Pick up the spoon, carry it across the table, and place it on the towel.",33.3333,33.3333,True,6.0
+widowx_carrot_on_keyboard_clean,adversarial,"Assuming you have grasped the orange root vegetable, please transport it such that it rests atop the device used for typing.",0.0,Put the carrot on the black keyboard.,33.3333,33.3333,True,6.0
+widowx_spoon_on_towel,adversarial,"Rather than leaving it where it currently sits, take the device we use to eat cereal and leave it securely upon the towel.",0.0,Put the spoon on the towel.,33.3333,33.3333,True,6.0
+widowx_coke_can_on_ramekin_clean,adversarial,"Should you be capable of manipulating the cylindrical cola container, proceed to hoist it and guide it downward until it is securely housed in the ramekin.",0.0,Put the red coke can in the white bowl.,50.0,50.0,True,6.0
+widowx_coke_can_on_plate_clean,adversarial,"Assuming the plate is readily accessible, proceed to transport the red tin of cola directly onto its surface.",0.0,Put the red coke can onto the light green plate.,66.6667,66.6667,True,6.0
+widowx_stack_cube,adversarial,"Assuming the yellow block is currently clear, elevate the green block until it can be deposited directly upon its upper surface.",0.0,Stack the green block on the yellow block.,66.6667,66.6667,True,18.0
+widowx_coke_can_on_plate_clean,natural,place coke can on plate,50.0,place red coke can on plate,0.0,-50.0,True,18.0
+widowx_coke_can_on_plate_clean,natural,Grab that red aluminum can and set it on the plate.,66.6667,Pick up the red coke can and put it on the plate.,33.3333,-33.3333,True,6.0
+widowx_coke_can_on_ramekin_clean,natural,Pick up the red cola can and place it upright inside the white bowl.,50.0,Pick up the red coke can and place it upright in the white bowl.,33.3333,-16.6667,True,6.0
+widowx_carrot_on_plate,natural,Please shift the carrot onto the plate.,16.6667,Shift the orange carrot onto the plate.,16.6667,0.0,True,6.0
+widowx_coke_can_on_ramekin_clean,natural,place the cola can standing up inside the white bowl,50.0,place the coke can standing up inside the white bowl,50.0,0.0,True,6.0
+widowx_spoon_on_towel,natural,Could you grab that spoon and set it on the cloth for me?,50.0,Grab the spoon and set it on the cloth.,50.0,0.0,True,6.0
+widowx_carrot_on_wheel_clean,natural,place the carrot in the black wheel,33.3333,put the carrot in the black wheel,33.3333,0.0,True,6.0
+widowx_stack_cube,natural,Can you place the green block onto the yellow block for me?,33.3333,Place the green block onto the yellow block.,33.3333,0.0,True,6.0
+widowx_carrot_on_keyboard_clean,natural,Lay the carrot across the keyboard.,0.0,Lay the orange carrot across the black keyboard.,0.0,0.0,True,6.0
+widowx_carrot_on_keyboard_clean,natural,place the carrot across the black keyboard,0.0,place the orange carrot across the black keyboard,16.6667,16.6667,True,6.0
+widowx_carrot_on_wheel_clean,natural,Move the orange vegetable to the wheel.,0.0,Put the orange carrot on the wheel.,16.6667,16.6667,True,6.0
+widowx_carrot_on_keyboard_clean,natural,Pick up the carrot and set it down on the keyboard.,0.0,Pick up the orange carrot and set it down on the black keyboard.,33.3333,33.3333,True,6.0
+widowx_carrot_on_wheel_clean,natural,Transfer the carrot over to the wheel.,0.0,Transfer the orange carrot over to the black wheel.,50.0,50.0,True,18.0
+widowx_carrot_on_keyboard_clean,original,carrot on keyboard,33.3333,Put the orange carrot on the black keyboard.,16.6667,-16.6667,True,6.0
+widowx_carrot_on_wheel_clean,original,carrot on wheel,0.0,Put the orange carrot on the black wheel.,50.0,50.0,True,6.0

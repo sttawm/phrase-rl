@@ -1,0 +1,9 @@
+task,phrases,best,worst,median,rollout_measured,thin_evidence,spread
+widowx_carrot_on_wheel_clean,71,-1.3178,-6.9018,-2.6776,48,16,5.584
+widowx_coke_can_on_ramekin_clean,90,0.8747,-3.3729,0.3822,65,13,4.2476
+widowx_coke_can_on_plate_clean,85,0.497,-3.4055,-0.08975,62,15,3.9025
+widowx_spoon_on_towel,66,2.8575,-0.6952,1.7645,46,15,3.5526999999999997
+widowx_carrot_on_plate,68,2.5181,-0.665,2.2277,47,14,3.1831
+widowx_carrot_on_keyboard_clean,62,0.0326,-2.9534,-0.9575,40,5,2.9859999999999998
+widowx_stack_cube,74,-1.7856,-4.7033,-2.569,55,18,2.9176999999999995
+widowx_put_eggplant_in_basket,48,3.4969,1.4058,2.7959500000000004,24,6,2.0911
