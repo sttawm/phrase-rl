@@ -3,7 +3,7 @@ widowx_carrot_on_plate,widowx_carrot_on_plate__ep0.mp4,0,put carrot on plate,can
 widowx_spoon_on_towel,widowx_spoon_on_towel__ep0.mp4,0,put the spoon on the towel,canonical,2/6 canonical
 widowx_stack_cube,widowx_stack_cube__ep0.mp4,0,stack the green block on the yellow block,canonical,2/6 canonical
 widowx_put_eggplant_in_basket,widowx_put_eggplant_in_basket__ep0.mp4,0,put eggplant into yellow basket,canonical,5/6 canonical
-widowx_carrot_on_keyboard_clean,widowx_carrot_on_keyboard_clean__ep2.mp4,2,put carrot on keyboard,canonical,1/6 canonical
+widowx_carrot_on_keyboard_clean,widowx_carrot_on_keyboard_clean__ep0_naturalphrase.mp4,0,Can you shift the carrot onto the keyboard?,"bank_natural (canonical only ""success"" was a detector false-positive: carrot still held in gripper)",2/3 this phrase in selection run
 widowx_coke_can_on_plate_clean,widowx_coke_can_on_plate_clean__ep3.mp4,3,put coke can on plate,canonical,2/6 canonical
 widowx_carrot_on_wheel_clean,widowx_carrot_on_wheel_clean__ep12.mp4,12,put carrot on wheel,canonical,1/18 canonical
 widowx_coke_can_on_ramekin_clean,widowx_coke_can_on_ramekin_clean__ep10_bankphrase.mp4,10,place the red coke can inside the white bowl,bank_best (canonical scored 0/18),9/12 bank phrase
