@@ -606,6 +606,7 @@ class Run:
             "gemini_model": args.gemini_model,
             "gemini_thinking_budget": args.gemini_thinking_budget,
             "max_probes": args.max_probes,
+            "rollout_episodes": args.rollout_episodes,
             "init_rules_from": args.init_rules_from,
             "rollback_on_regress": not args.no_rollback,
             "proxy": PROXY,
