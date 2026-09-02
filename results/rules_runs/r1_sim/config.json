@@ -4,7 +4,7 @@
  "seed": 7,
  "patience": 99,
  "max_iters": 3,
- "sample_n": 24,
+ "sample_n": 48,
  "score_budget": 64,
  "contexts_per_task": 16,
  "frames_per_episode": 4,
@@ -21,7 +21,7 @@
  "apply_effort": "medium",
  "gemini_model": "gemini-pro-latest",
  "gemini_thinking_budget": 1024,
- "max_probes": 6,
+ "max_probes": 24,
  "init_rules_from": "r1",
  "rollback_on_regress": true,
  "proxy": {
@@ -43,7 +43,26 @@
    "rephrasers": [
     "gemini"
    ]
+  },
+  {
+   "when": "2026-09-02 14:57",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-02 16:12",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-09-02 16:21",
+   "rephrasers": [
+    "qwen"
+   ]
   }
  ],
- "rollout_episodes": 12
+ "rollout_episodes": 6,
+ "probe_episodes": 12
 }

@@ -607,6 +607,7 @@ class Run:
             "gemini_thinking_budget": args.gemini_thinking_budget,
             "max_probes": args.max_probes,
             "rollout_episodes": args.rollout_episodes,
+            "probe_episodes": args.probe_episodes,
             "init_rules_from": args.init_rules_from,
             "rollback_on_regress": not args.no_rollback,
             "proxy": PROXY,
@@ -1116,10 +1117,22 @@ def write_evidence_file(run, bank, tasks, path):
     agg["spread"] = agg.best - agg.worst
     agg = agg.sort_values("spread", ascending=False)
     agg.to_csv(str(path).replace("evidence.csv", "evidence_summary.csv"), index=False)
+    sim_note = ""
+    if "gt_success" in sub and sub.gt_success.notna().any():
+        n_sim = int(sub.gt_success.notna().sum())
+        sim_note = (
+            f"\nPRIORITY: {n_sim} rows carry gt_success -- REAL rollout success "
+            "rates (0-100), many at n_ctx 44-88 episodes. These are GROUND TRUTH; "
+            "rows with only z/grip/logit are proxy estimates (ranking signal, "
+            "known ~78% pair fidelity). When they disagree, trust gt_success, "
+            "weighted by n_ctx. Build rules from rollout-measured contrasts "
+            "first; use proxy rows to fill coverage gaps.\n"
+        )
     Path(str(path) + ".README.md").write_text(
         "# evidence.csv\n\n"
         f"{len(sub)} measured phrases across {sub.task.nunique()} tasks, sorted by\n"
-        "task then estimated success.\n\n"
+        "task then estimated success.\n"
+        + sim_note + "\n"
         "Columns:\n"
         "  task       the instruction/task the phrase was measured on\n"
         "  phrase     the exact wording measured\n"
@@ -1530,6 +1543,8 @@ def main():
     ap.add_argument("--max-probes", type=int, default=20)
     ap.add_argument("--rollout-episodes", type=int, default=0,
                     help="phase=sim: episodes per phrase for loop evals (0 = env default)")
+    ap.add_argument("--probe-episodes", type=int, default=0,
+                    help="phase=sim: episodes per probe phrase (0 = rollout-episodes)")
     ap.add_argument("--max-train-tasks", type=int, default=0,
                     help="cap the training pool (0 = all); the val splits are "
                          "unaffected")
@@ -1656,7 +1671,8 @@ def main():
                 m = {(t, p): k for t, p, k in zip(rl.task, rl.phrase, rl.new_kind)}
                 d["kind"] = [m.get((t, p), k) for t, p, k in
                              zip(d.task, d.phrase, d.kind)]
-            quota = {"natural": n // 2, "adversarial": n // 3}
+            quota = {"natural": 26, "adversarial": 18} if n == 48 else \
+                {"natural": n // 2, "adversarial": n // 3}
             quota["original"] = n - sum(quota.values())
             parts = []
             for k, q in quota.items():
@@ -1888,7 +1904,10 @@ def main():
                     print(f"    dropped {len(rejected)} probe(s) naming tasks "
                           f"outside the training split")
                 if new:
-                    nd = score_phrases(run, cfg, pd.DataFrame(new), f"probe_i{it}",
+                    pcfg = dict(cfg)
+                    if cfg.get("probe_episodes"):
+                        pcfg["rollout_episodes"] = cfg["probe_episodes"]
+                    nd = score_phrases(run, pcfg, pd.DataFrame(new), f"probe_i{it}",
                                        draw=it + 1)
                     bank = bank_add(run, nd.assign(source="probe", iter_added=it))
 

@@ -70,9 +70,10 @@ def sim_overrides(p):
         init_rules_from=p["run_id"],   # seed from the training-phase rulebook
         max_iters=3,                   # "run the loop twice or three times"
         patience=99,                   # unused: no validation to stop on
-        sample_n=24,                   # 24 bases stratified 12nat/8adv/4canon (2026-09-02)
-        rollout_episodes=12,           # 12 seeded episodes/phrase for loop evals
-        max_probes=6,                  # probes cost rollouts here
+        sample_n=48,                   # 48 bases stratified ~26nat/18adv/4canon (2026-09-02 v2)
+        rollout_episodes=6,            # wide-shallow: phrase variance dominates rep noise
+        probe_episodes=12,             # probes need per-phrase precision
+        max_probes=24,                 # probe episode budget ~= training set's (288)
     )
     return p
 
