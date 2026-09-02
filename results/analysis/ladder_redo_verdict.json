@@ -1,0 +1,68 @@
+{
+ "date": "2026-09-02",
+ "design": "selection-60, n=3 eps/phrase, CRN, all applies WITH traces (redo of trace-less 2026-09-01 run)",
+ "arms": {
+  "bases": {
+   "mean": 25.6,
+   "natural": 38.9,
+   "adversarial": 5.6
+  },
+  "scaffold": {
+   "mean": 43.9,
+   "natural": 42.6,
+   "adversarial": 45.8,
+   "delta_vs_bases": 18.3
+  },
+  "it3": {
+   "mean": 37.8,
+   "natural": 37.0,
+   "adversarial": 38.9,
+   "delta_vs_bases": 12.2
+  },
+  "challenger": {
+   "mean": 37.8,
+   "natural": 38.9,
+   "adversarial": 36.1,
+   "delta_vs_bases": 12.2
+  }
+ },
+ "paired_bootstrap_scaffold_minus": {
+  "bases": {
+   "mean_pp": 18.3,
+   "ci95": [
+    9.4,
+    27.8
+   ],
+   "won_lost_tied": [
+    27,
+    7,
+    26
+   ]
+  },
+  "it3": {
+   "mean_pp": 6.1,
+   "ci95": [
+    0.0,
+    12.8
+   ],
+   "won_lost_tied": [
+    14,
+    7,
+    39
+   ]
+  },
+  "challenger": {
+   "mean_pp": 6.1,
+   "ci95": [
+    -1.1,
+    13.9
+   ],
+   "won_lost_tied": [
+    14,
+    8,
+    38
+   ]
+  }
+ },
+ "verdict": "With full traces the no-rules scaffold beats both distilled rulebooks by ~6pp (vs a three-way tie in the trace-less run): scaffold-it3 CI touches 0, scaffold-challenger CI spans 0, so 'rulebooks provide no gain over fable instincts and trend harmful' is the supported claim. Adversarial repair is the whole story: 5.6% -> 45.8% (scaffold). Pre-redo tie was a trace-coverage confound: scaffold gained +5pp from traces, the books did not."
+}
