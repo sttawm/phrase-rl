@@ -10,7 +10,7 @@
 # score jobs need the phase2 score server up; this boots one if absent (same
 # session pattern as run_arm: tmux 'score', IPC dir /workspace/ipc).
 set -uo pipefail
-eval "$(grep -E '^export (HF_TOKEN|HF_HOME)' ~/.bashrc || true)"
+eval "$(grep -E '^export (HF_TOKEN|HF_HOME|VLA_DATA_DIR|VLA_LOG_DIR|WANDB_MODE)' ~/.bashrc || true)"
 export HF_HOME="${HF_HOME:-/workspace/hf_cache}"
 cd /workspace/phrase-rl
 RUN_ID="${RUN_ID:?set RUN_ID}"
