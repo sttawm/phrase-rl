@@ -63,3 +63,31 @@ without coordinating.
   iteration on the SAME screen-window init indices (episode-level same-draw
   pairing); val = the 10 val tasks per iteration; screens inits 0-9, confirm
   20-29, sealed windows 30+.
+
+## Loop readiness (2026-09-02, bank-thread handoff to the loop operator)
+DONE (all committed, push-verified):
+- bank.parquet: 2,429 rollout-scored (task,phrase) pairs, 65 train tasks
+  (799 nat / 800 adv / 1,109 oracle-board / 68 orig / 21 cross-scene).
+- splits.json (seed 20260901): train 65+goal, val 15, sealed 20 (untouched;
+  PREREG.md logs all sealed-set contact -- human-demo media only, no policy).
+- val_canonicals.parquet (15 tasks, screen-window baselines).
+- traces_pi05_v1.parquet: 2,424 image-conditioned per-base traces, canonical-
+  leak audit 0. corpus_inputs/ staged. ENVIRONMENTS["pi05_libero"] resolves.
+- human_eval/assets/task_NN/{clip,start,done} + manifest for the sealed
+  human-rephrase form (external process).
+
+NOT DONE -- required before iteration 0 (est. half a day):
+1. jobs.py: a "libero_bank_eval" rollout branch (drive
+   interactive-vlas/pi05_libero/eval/bank_eval.py against a live
+   serve_policy --env LIBERO server; row format already matches).
+2. driver: rollout-scored-WITH-validation mode for pi05 (existing phase=sim
+   assumes no val); eval_metric = mean gt_success; evidence columns from
+   rollout rows; iter-0 baselines come FREE from the bank (the 48-base eval
+   sample already has screen-window scores at the same init indices -- no
+   baseline job).
+3. one worker pod with the FULL pi05 stack (setup.sh WITH checkpoint,
+   ~40 min) running rules_loop_worker with the LIBERO job branch.
+
+Agreed launch config: distiller/judge/planner = claude-opus-5 at high effort;
+single gemini pass first (applies via Gemini API); sample_n ~48 at inits 0-9;
+~480 episodes/iteration ~= 1.5-2h on one 4090.
