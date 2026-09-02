@@ -1,0 +1,691 @@
+task,phrase,kind,base_kind,score,logit,z,grip,proxy_imputed,n_ctx,gt_success,source
+widowx_carrot_on_keyboard_clean,"Onto the peripheral device used for entering text, ensure that the elongated orange vegetable is carefully deposited.",adversarial,,0.0,-2.9534,-8.5645,0.6422,False,60,,generated_adversarial
+widowx_carrot_on_keyboard_clean,Put the carrot on the keyboard.,rephrased,original,0.0,,,,True,6,0.0,loop_claude
+widowx_carrot_on_keyboard_clean,Place the carrot across the black keyboard.,rephrased,natural,0.0,,,,True,6,0.0,loop_qwen
+widowx_carrot_on_keyboard_clean,"Without causing damage to the electronics, convey the beta-carotene-rich vegetable from its current coordinates to a static position atop the keyboard.",adversarial,,0.03707616317803396,-2.8427,-8.0585,0.6523,False,60,,generated_adversarial
+widowx_carrot_on_keyboard_clean,"Taking the long, tapered vegetable that grows underground, guide its trajectory until it comes to rest on the board of typing keys.",adversarial,,0.18398366865842092,-2.404,-7.1536,0.6491,False,60,,generated_adversarial
+widowx_carrot_on_keyboard_clean,"Provided the workspace is clear, the target end state for the carrot is absolute physical contact with the top side of the keyboard.",adversarial,,0.22770004247823722,-2.2735,-8.4407,0.587,False,60,,generated_adversarial
+widowx_carrot_on_keyboard_clean,"Assuming you have grasped the orange root vegetable, please transport it such that it rests atop the device used for typing.",adversarial,,0.25573581025814307,-2.1898,-7.8127,0.6043,False,192,0.0,generated_adversarial
+widowx_carrot_on_keyboard_clean,"If it is within your capabilities, take the item usually fed to rabbits and situate it upon the QWERTY interface.",adversarial,,0.27286472925669575,-2.1386,-7.232,0.6226,False,60,,generated_adversarial
+widowx_carrot_on_keyboard_clean,"Execute a transfer of the raw orange produce, terminating the motion only when it is supported by the text-entry hardware.",adversarial,,0.33869344044497696,-1.9421,-8.1325,0.5698,False,60,,generated_adversarial
+widowx_carrot_on_keyboard_clean,It is required that the orange taproot be conveyed to the surface of the computer's primary input accessory.,adversarial,,0.3911414779820369,-1.7855,-6.8655,0.6058,False,60,,generated_adversarial
+widowx_carrot_on_keyboard_clean,place the carrot across the keyboard,rephrased,natural,0.46168051708217905,,,,True,6,16.666666666666664,loop_qwen
+widowx_carrot_on_keyboard_clean,set the orange carrot on the black keyboard,rephrased,natural,0.46168051708217905,,,,True,6,16.666666666666664,loop_claude
+widowx_carrot_on_keyboard_clean,Place the orange carrot atop the black keyboard.,rephrased,adversarial,0.46168051708217905,,,,True,6,16.666666666666664,loop_claude
+widowx_carrot_on_keyboard_clean,Put the orange carrot on the black keyboard,rephrased,original,0.46168051708217905,,,,True,6,16.666666666666664,loop_claude
+widowx_carrot_on_keyboard_clean,Pick up the orange carrot and set it down on the black keyboard.,rephrased,natural,0.46168051708217905,,,,True,6,16.666666666666664,loop_claude
+widowx_carrot_on_keyboard_clean,place the orange carrot across the black keyboard,rephrased,natural,0.46168051708217905,,,,True,6,16.666666666666664,loop_claude
+widowx_carrot_on_keyboard_clean,Lay the orange carrot across the black keyboard.,rephrased,natural,0.46168051708217905,,,,True,6,16.666666666666664,loop_claude
+widowx_carrot_on_keyboard_clean,Put the orange carrot on top of the black keyboard.,rephrased,adversarial,0.46168051708217905,,,,True,6,16.666666666666664,loop_qwen
+widowx_carrot_on_keyboard_clean,Place the carrot on top of the keyboard.,rephrased,natural,0.46168051708217905,,,,True,6,16.666666666666664,loop_qwen
+widowx_carrot_on_keyboard_clean,Put the orange carrot on the black keyboard.,rephrased,original,0.46168051708217905,,,,True,6,16.666666666666664,loop_qwen
+widowx_carrot_on_keyboard_clean,"The carrot, which is currently located in your workspace, needs to be relocated to the surface of the keyboard immediately.",adversarial,,0.4742763112016044,-1.5372,-6.945,0.5807,False,60,,generated_adversarial
+widowx_carrot_on_keyboard_clean,move the carrot to the keyboard,unknown,,0.4978524621722128,-1.4668,-6.381,0.5966,False,60,0.0,fine_exam
+widowx_carrot_on_keyboard_clean,drop the carrot on the keyboard,unknown,,0.5041965567076596,-1.4479,-7.4397,0.5534,False,60,5.6,fine_exam
+widowx_carrot_on_keyboard_clean,put carrot on keyboard,unknown,,0.5351473161190718,-1.3555,-7.3951,0.547,False,66,16.7,fine_exam
+widowx_carrot_on_keyboard_clean,The carrot needs to go on the keyboard.,natural,,0.5541570860912058,-1.2987,-6.6587,0.5709,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,carrot on keyboard,unknown,,0.5590695133593745,-1.284,-6.9015,0.56,False,234,11.1,fine_exam
+widowx_carrot_on_keyboard_clean,Pick up the carrot and set it down on the keyboard.,natural,,0.5766123435072742,-1.2316,-6.3969,0.5752,False,234,0.0,generated_natural
+widowx_carrot_on_keyboard_clean,pick up the carrot and place it on the keyboard,unknown,,0.5885090089224193,-1.1961,-6.7323,0.5589,False,60,5.6,fine_exam
+widowx_carrot_on_keyboard_clean,Grab the carrot and leave it right on the keyboard.,natural,,0.599082718865063,-1.1645,-6.3838,0.5698,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,Transfer the carrot to the keyboard.,natural,,0.6008152062978691,-1.1594,-6.5458,0.563,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,Set the crunchy orange snack on the keyboard.,natural,,0.6009879445565366,-1.1589,-7.0841,0.5418,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,set the carrot on the keyboard,unknown,,0.6077502202266196,-1.1387,-6.9649,0.5447,False,246,13.9,fine_exam
+widowx_carrot_on_keyboard_clean,lay the carrot across the keyboard,unknown,,0.6174321718102054,-1.1098,-6.8868,0.5452,False,60,5.6,fine_exam
+widowx_carrot_on_keyboard_clean,Just pop the carrot onto the keyboard.,natural,,0.6280208990632529,-1.0781,-6.4419,0.5599,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,put the carrot on the keyboard,unknown,,0.6394331211590495,-1.0441,-7.0907,0.5314,False,66,13.9,fine_exam
+widowx_carrot_on_keyboard_clean,Put the orange veggie on the keyboard for me.,natural,,0.6457971474529128,-1.0251,-6.0748,0.5696,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,Could you just drop the carrot over on the keyboard?,natural,,0.6484003906686906,-1.0173,-6.9099,0.5361,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,I need the carrot resting on the keyboard.,natural,,0.6642231614248091,-0.97,-6.3996,0.552,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,Stick the carrot on the keyboard.,natural,,0.665831099810315,-0.9652,-6.2089,0.5591,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,place the carrot on the keyboard,unknown,,0.6665487220842128,-0.9631,-6.5419,0.5458,False,78,13.9,fine_exam
+widowx_carrot_on_keyboard_clean,put the carrot down on the keyboard,unknown,,0.668415475578929,-0.9575,-6.9858,0.5279,False,60,13.9,fine_exam
+widowx_carrot_on_keyboard_clean,Place the carrot on the keyboard.,natural,,0.6857654717139217,-0.9057,-6.4728,0.5435,False,96,0.0,generated_natural
+widowx_carrot_on_keyboard_clean,Lay the carrot across the keyboard.,natural,,0.6893497075815477,-0.895,-6.3668,0.5467,False,228,0.0,generated_natural
+widowx_carrot_on_keyboard_clean,put the orange carrot on the black keyboard,search,,0.6925207756232686,,,,True,18,25.0,probe
+widowx_carrot_on_keyboard_clean,Take that carrot and rest it on top of the computer keyboard.,natural,,0.6927277269418685,-0.8849,-6.8036,0.5286,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,Can you shift the carrot onto the keyboard?,natural,,0.711251875840769,-0.8296,-6.3855,0.5402,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,Please position the carrot right on top of the keyboard.,natural,,0.7224118093308212,-0.7963,-6.2922,0.5409,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,put the carrot on the keys,unknown,,0.7950679741384905,-0.5793,-6.1646,0.5267,False,60,2.8,fine_exam
+widowx_carrot_on_keyboard_clean,place the orange carrot on the keyboard,unknown,,0.7977316973217897,-0.5714,-6.0969,0.5287,False,60,19.4,fine_exam
+widowx_carrot_on_keyboard_clean,I would be exceedingly grateful if you were to deposit the carrot directly upon the keys of the keyboard.,adversarial,,0.8034117952354927,-0.5544,-6.0572,0.5287,False,60,,generated_adversarial
+widowx_carrot_on_keyboard_clean,carrot on black keyboard,unknown,,0.8061919090817232,-0.5461,-6.3875,0.515,False,60,16.7,fine_exam
+widowx_carrot_on_keyboard_clean,Move the orange vegetable onto the keyboard.,natural,,0.820331747446006,-0.5039,-5.0903,0.5622,False,60,,generated_natural
+widowx_carrot_on_keyboard_clean,place the carrot on the computer keyboard,unknown,,0.8483828624623385,-0.4201,-5.97,0.5203,False,60,22.2,fine_exam
+widowx_carrot_on_keyboard_clean,put the orange carrot on the keyboard,unknown,,0.8524147169240716,-0.4081,-5.9024,0.5219,False,78,11.1,fine_exam
+widowx_carrot_on_keyboard_clean,put the carrot on top of the keyboard,unknown,,0.8547896770875866,-0.401,-6.0799,0.5143,False,60,13.9,fine_exam
+widowx_carrot_on_keyboard_clean,drop the carrot on the black keyboard,unknown,,0.8577934474760526,-0.392,-6.3341,0.5035,False,60,16.7,fine_exam
+widowx_carrot_on_keyboard_clean,lay the carrot on the black keyboard,unknown,,0.883988539112753,-0.3138,-6.2703,0.4991,False,60,22.2,fine_exam
+widowx_carrot_on_keyboard_clean,place the carrot on the keyboard keys,unknown,,0.8970371373539946,-0.2748,-6.0971,0.5025,False,60,36.1,fine_exam
+widowx_carrot_on_keyboard_clean,rest the carrot on the black keyboard,unknown,,0.9072718289115214,-0.2443,-5.9252,0.5065,False,60,19.4,fine_exam
+widowx_carrot_on_keyboard_clean,set the carrot on the black keyboard,unknown,,0.9191738016341447,-0.2087,-6.2367,0.4912,False,60,30.6,fine_exam
+widowx_carrot_on_keyboard_clean,Put the carrot on the black keyboard.,rephrased,adversarial,0.9233610341643581,,,,True,6,33.33333333333333,loop_claude
+widowx_carrot_on_keyboard_clean,put the orange carrot on top of the keyboard,rephrased,adversarial,0.9233610341643581,,,,True,6,33.33333333333333,loop_gemini
+widowx_carrot_on_keyboard_clean,lay the orange carrot across the black keyboard,search,,0.9233610341643581,,,,True,12,33.33333333333333,probe
+widowx_carrot_on_keyboard_clean,put the orange carrot on top of the keyboard.,rephrased,adversarial,0.9233610341643581,,,,True,6,33.33333333333333,loop_gemini
+widowx_carrot_on_keyboard_clean,set the carrot down on the keyboard.,rephrased,natural,0.9233610341643581,,,,True,6,33.33333333333333,loop_gemini
+widowx_carrot_on_keyboard_clean,place the carrot on the black keyboard,unknown,,0.9240238887368047,-0.1943,-5.8493,0.5051,False,60,25.0,fine_exam
+widowx_carrot_on_keyboard_clean,place the carrot down on the black keyboard,unknown,,0.9432012365620851,-0.137,-5.6825,0.5066,False,60,19.4,fine_exam
+widowx_carrot_on_keyboard_clean,place the carrot onto the black keyboard,unknown,,0.9545912837296203,-0.103,-5.9452,0.4933,False,60,22.2,fine_exam
+widowx_carrot_on_keyboard_clean,place the carrot on the black computer keyboard,unknown,,0.9584016033930465,-0.0916,-5.4705,0.5109,False,60,25.0,fine_exam
+widowx_carrot_on_keyboard_clean,place the carrot on the black keys,unknown,,0.9810193633743076,-0.0241,-5.6514,0.4978,False,60,22.2,fine_exam
+widowx_carrot_on_keyboard_clean,place the carrot on top of the black keyboard,unknown,,0.9816021954548789,-0.0223,-5.6268,0.4986,False,60,25.0,fine_exam
+widowx_carrot_on_keyboard_clean,place the carrot across the black keyboard,unknown,,0.9824081757585632,-0.0199,-5.7423,0.4939,False,234,22.2,fine_exam
+widowx_carrot_on_keyboard_clean,put the carrot on the black keyboard,unknown,,0.9878348758949241,-0.0037,-5.9347,0.4849,False,60,27.8,fine_exam
+widowx_carrot_on_keyboard_clean,place the carrot flat on the black keyboard,unknown,,0.9928501223805432,0.0113,-5.6286,0.4956,False,60,19.4,fine_exam
+widowx_carrot_on_keyboard_clean,place the orange carrot on the black keyboard,unknown,,1.0,0.0326,-5.5593,0.4964,False,60,19.4,fine_exam
+widowx_carrot_on_plate,"Identifying the tapering orange crop, initiate a physical trajectory that consigns it exclusively to the flat serving dish.",adversarial,,0.0,-0.665,-7.9521,0.4641,False,60,,generated_adversarial
+widowx_carrot_on_plate,pick up the carrot and put it on the dining plate,rephrased,adversarial,0.0,,,,True,6,16.666666666666664,loop_gemini
+widowx_carrot_on_plate,put the carrot onto the plate,rephrased,natural,0.0,,,,True,6,16.666666666666664,loop_gemini
+widowx_carrot_on_plate,take the carrot off the table and put it on the plate,search,,0.0,,,,True,12,16.666666666666664,probe
+widowx_carrot_on_plate,Pick up the carrot and put it on the plate.,rephrased,adversarial,0.0,,,,True,18,16.666666666666664,loop_qwen
+widowx_carrot_on_plate,Shift the orange carrot onto the plate.,rephrased,natural,0.0,,,,True,6,16.666666666666664,loop_claude
+widowx_carrot_on_plate,Pick up the orange carrot and place it on the yellow plate.,rephrased,adversarial,0.0,,,,True,6,16.666666666666664,loop_qwen
+widowx_carrot_on_plate,Pick up the orange carrot and place it on the green plate.,rephrased,adversarial,0.0,,,,True,18,16.666666666666664,loop_claude
+widowx_carrot_on_plate,put the carrot on the surface of the plate,rephrased,adversarial,0.0,,,,True,18,16.666666666666664,loop_gemini
+widowx_carrot_on_plate,put the carrot on top of the dining plate,rephrased,adversarial,0.0,,,,True,18,16.666666666666664,loop_gemini
+widowx_carrot_on_plate,"I require the elongated, beta-carotene-rich item to be deposited directly onto the flat eating receptacle.",adversarial,,0.11370395447027642,-0.3031,-7.1752,0.4626,False,60,,generated_adversarial
+widowx_carrot_on_plate,pick up the carrot and put it atop the dining plate,rephrased,adversarial,0.18754688672168046,,,,True,12,25.0,pre_redo_loop_gemini
+widowx_carrot_on_plate,put the carrot on the plate or the dish,search,,0.18754688672168046,,,,True,12,25.0,probe
+widowx_carrot_on_plate,It is absolutely paramount that the plate becomes the new resting environment for the aforementioned carrot.,adversarial,,0.3034648335352334,0.301,-7.3165,0.4037,False,60,,generated_adversarial
+widowx_carrot_on_plate,Take the long orange item typically eaten by rabbits and ensure it ends up supported by the circular dishware.,adversarial,,0.36294010654716813,0.4903,-6.4942,0.4193,False,60,,generated_adversarial
+widowx_carrot_on_plate,pick up the carrot and put it on the plate,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_gemini
+widowx_carrot_on_plate,Pick up the carrot and place it on top of the green plate.,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_plate,Shift the carrot onto the plate.,rephrased,natural,0.37509377344336076,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_plate,Pick up the carrot and place it on the plate.,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_plate,Pick up the orange carrot and put it atop the plate.,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_claude
+widowx_carrot_on_plate,Move the carrot onto the plate.,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_claude
+widowx_carrot_on_plate,Pick up the orange carrot and place it on the plate.,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_claude
+widowx_carrot_on_plate,Put the orange carrot on the green plate.,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_plate,Pick up the carrot and place it on top of the dining plate.,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_plate,Put the orange carrot on the light green plate.,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_plate,Put the carrot on the plate.,rephrased,natural,0.37509377344336076,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_plate,put the carrot on top of the dining plate.,rephrased,adversarial,0.37509377344336076,,,,True,6,33.33333333333333,loop_gemini
+widowx_carrot_on_plate,put the carrot atop the plate,search,,0.37509377344336076,,,,True,48,33.33333333333333,probe
+widowx_carrot_on_plate,"The carrot, which is presently situated in its initial starting location, must be lifted and maneuvered until it occupies the plate.",adversarial,,0.39962278457203854,0.607,-7.3881,0.3739,False,192,16.666666666666664,generated_adversarial
+widowx_carrot_on_plate,The orange root vegetable that you see before you should be relocated such that it rests upon the plate.,adversarial,,0.48203251339764774,0.8694,-7.7582,0.3362,False,60,,generated_adversarial
+widowx_carrot_on_plate,"You are hereby instructed to commence the relocation of the carrot, terminating said motion only when it makes contact with the plate.",adversarial,,0.49269001998624146,0.9033,-7.8157,0.3309,False,192,16.666666666666664,generated_adversarial
+widowx_carrot_on_plate,move the carrot from the table to the plate,search,,0.5626406601650413,,,,True,12,41.66666666666667,probe
+widowx_carrot_on_plate,put the carrot on the yellow plate,search,,0.5626406601650413,,,,True,12,41.66666666666667,probe
+widowx_carrot_on_plate,Proceed to grasp the carrot and subsequently establish its position atop the dining plate.,adversarial,,0.6194575296871935,1.3068,-6.9477,0.3293,False,192,33.33333333333333,generated_adversarial
+widowx_carrot_on_plate,"If it is not too much trouble, would you be so kind as to deposit the carrot directly onto the plate?",adversarial,,0.6528996148713847,1.4133,-6.9325,0.3205,False,60,,generated_adversarial
+widowx_carrot_on_plate,put the carrot on the dish,unknown,,0.6673665787566504,1.4593,-6.3142,0.3407,False,60,38.9,fine_exam
+widowx_carrot_on_plate,"Given the current arrangement of objects, ensure that the carrot is swiftly conveyed to the surface of the plate.",adversarial,,0.6916221869477288,1.5365,-6.7255,0.3178,False,192,16.666666666666664,generated_adversarial
+widowx_carrot_on_plate,Pop the carrot on the plate for me.,natural,,0.7410579869403198,1.6939,-6.2817,0.3213,False,60,,generated_natural
+widowx_carrot_on_plate,Convey the carrot to the plate.,rephrased,adversarial,0.7501875468867216,,,,True,18,50.0,loop_qwen
+widowx_carrot_on_plate,Put the orange carrot on the plate.,rephrased,adversarial,0.7501875468867216,,,,True,6,50.0,loop_claude
+widowx_carrot_on_plate,Move the orange carrot to the plate.,rephrased,adversarial,0.7501875468867216,,,,True,6,50.0,loop_claude
+widowx_carrot_on_plate,put the carrot on the plate.,rephrased,adversarial,0.7501875468867216,,,,True,6,50.0,loop_gemini
+widowx_carrot_on_plate,put the carrot on the dining plate,search,,0.7501875468867216,,,,True,24,50.0,probe
+widowx_carrot_on_plate,Just leave the carrot on the empty plate.,natural,,0.7768237932786923,1.8077,-5.7507,0.3321,False,60,,generated_natural
+widowx_carrot_on_plate,carrot on plate,unknown,,0.8034483723293985,1.8925,-5.8644,0.3201,False,60,38.9,fine_exam
+widowx_carrot_on_plate,I would like you to lay the carrot on the plate.,natural,,0.8251866965214226,1.9617,-5.7398,0.3189,False,60,,generated_natural
+widowx_carrot_on_plate,move the carrot to the plate,unknown,,0.8276932876828504,1.9697,-5.6897,0.3202,False,60,44.4,fine_exam
+widowx_carrot_on_plate,Set the carrot down on the flat ceramic plate.,natural,,0.8455533219741794,2.0265,-5.4076,0.3262,False,60,,generated_natural
+widowx_carrot_on_plate,Transfer the carrot over to the plate.,natural,,0.8587213572045224,2.0684,-5.5202,0.3181,False,60,,generated_natural
+widowx_carrot_on_plate,Grab the carrot and set it on the plate.,natural,,0.8694342527923609,2.1025,-5.3125,0.3233,False,60,,generated_natural
+widowx_carrot_on_plate,The carrot needs to go on the plate.,natural,,0.874531689411013,2.1188,-5.5469,0.3126,False,60,,generated_natural
+widowx_carrot_on_plate,Put the orange vegetable on the plate.,natural,,0.8897444621099541,2.1672,-5.0947,0.3261,False,60,,generated_natural
+widowx_carrot_on_plate,Could you move the carrot to the plate?,natural,,0.8930119116894809,2.1776,-5.3355,0.3157,False,60,,generated_natural
+widowx_carrot_on_plate,Bring the carrot over and rest it on the plate.,natural,,0.8930714981714101,2.1778,-5.3568,0.3149,False,60,,generated_natural
+widowx_carrot_on_plate,drop the orange carrot on the green plate,unknown,,0.8944694094416088,2.1822,-5.1739,0.3217,False,60,38.9,fine_exam
+widowx_carrot_on_plate,Drop the carrot onto that plate.,natural,,0.8967923198756976,2.1896,-5.3211,0.3152,False,60,,generated_natural
+widowx_carrot_on_plate,Please shift the carrot onto the plate.,natural,,0.8995746345617348,2.1985,-5.1885,0.3197,False,192,16.666666666666664,generated_natural
+widowx_carrot_on_plate,place the carrot on the green plate,unknown,,0.9083630632894967,2.2264,-5.3202,0.312,False,60,41.7,fine_exam
+widowx_carrot_on_plate,put the carrot on the green plate,unknown,,0.9091721976915159,2.229,-5.1945,0.3167,False,60,38.9,fine_exam
+widowx_carrot_on_plate,Slide that carrot onto the plate.,natural,,0.9140397165630222,2.2445,-5.1792,0.316,False,60,,generated_natural
+widowx_carrot_on_plate,lay the orange carrot on the green plate,unknown,,0.9156393045178627,2.2496,-5.039,0.321,False,60,47.2,fine_exam
+widowx_carrot_on_plate,put the orange carrot on top of the plate,unknown,,0.9157895551072252,2.2501,-4.9656,0.3238,False,72,61.1,fine_exam
+widowx_carrot_on_plate,Position the carrot right on top of the plate.,natural,,0.9191217669468854,2.2607,-5.211,0.3133,False,60,,generated_natural
+widowx_carrot_on_plate,set the orange carrot on the plate,unknown,,0.9198127067624955,2.2629,-4.9137,0.3248,False,60,47.2,fine_exam
+widowx_carrot_on_plate,place the orange carrot on the plate,unknown,,0.9230709832789179,2.2733,-4.9214,0.3235,False,60,47.2,fine_exam
+widowx_carrot_on_plate,drop the carrot on the plate,unknown,,0.9245054052427236,2.2778,-5.1046,0.3159,False,60,38.9,fine_exam
+widowx_carrot_on_plate,put the orange carrot on the plate,unknown,,0.9246547172393169,2.2783,-4.9085,0.3236,False,60,52.8,fine_exam
+widowx_carrot_on_plate,Make sure the carrot ends up on the plate.,natural,,0.9266042250031593,2.2845,-5.1344,0.3142,False,60,,generated_natural
+widowx_carrot_on_plate,set the carrot on the plate,unknown,,0.9297002082825345,2.2944,-5.0795,0.3155,False,60,52.8,fine_exam
+widowx_carrot_on_plate,place the carrot on the plate,unknown,,0.9363022161225136,2.3154,-5.0538,0.3146,False,60,41.7,fine_exam
+widowx_carrot_on_plate,set the orange carrot on the green plate,unknown,,0.941103461072263,2.3307,-4.7902,0.3236,False,60,61.1,fine_exam
+widowx_carrot_on_plate,place the orange carrot on the green dish,unknown,,0.9429884018066107,2.3367,-4.7709,0.3238,False,60,50.0,fine_exam
+widowx_carrot_on_plate,pick up the orange carrot and place it on the green plate,unknown,,0.9518121237591015,2.3647,-4.6031,0.328,False,60,47.2,fine_exam
+widowx_carrot_on_plate,pick up the carrot and place it on the plate,unknown,,0.9536856437017187,2.3707,-4.9188,0.315,False,60,41.7,fine_exam
+widowx_carrot_on_plate,Place the carrot onto the plate.,natural,,0.9550945117819459,2.3752,-4.9488,0.3135,False,60,,generated_natural
+widowx_carrot_on_plate,place the carrot on top of the plate,unknown,,0.9614370958080346,2.3954,-4.8698,0.3148,False,60,33.3,fine_exam
+widowx_carrot_on_plate,lay the carrot on the plate,unknown,,0.9666618074346851,2.412,-4.9109,0.3117,False,60,47.2,fine_exam
+widowx_carrot_on_plate,put the carrot down on the plate,unknown,,0.9720327307418515,2.4291,-4.8013,0.3145,False,60,44.4,fine_exam
+widowx_carrot_on_plate,put the carrot on the plate,unknown,,0.9738603942001307,2.4349,-4.826,0.313,False,132,38.9,fine_exam
+widowx_carrot_on_plate,place the orange carrot on top of the green plate,unknown,,0.9825847273068211,2.4627,-4.6459,0.3176,False,60,38.9,fine_exam
+widowx_carrot_on_plate,put the orange carrot on the green plate,unknown,,0.985983924020463,2.4735,-4.5425,0.3207,False,60,47.2,fine_exam
+widowx_carrot_on_plate,place the orange carrot on the green plate,unknown,,0.9931081835727968,2.4962,-4.5498,0.3184,False,60,58.3,fine_exam
+widowx_carrot_on_plate,put the orange carrot onto the green plate,unknown,,0.9942072505983731,2.4997,-4.4581,0.3217,False,60,52.8,fine_exam
+widowx_carrot_on_plate,put carrot on plate,unknown,,0.9942499067286215,2.4998,-4.6842,0.3128,False,60,41.7,fine_exam
+widowx_carrot_on_plate,put the carrot on top of the plate,unknown,,1.0,2.5181,-4.6854,0.3112,False,246,52.8,fine_exam
+widowx_carrot_on_wheel_clean,"Utilizing your gripping mechanism, separate the crunchy orange snack from its starting point and conclude the motion by leaving it on the wheel.",adversarial,,0.0,-6.9018,-13.399,0.8012,False,66,,generated_adversarial
+widowx_carrot_on_wheel_clean,Put the carrot in the center of the wheel.,rephrased,natural,0.0,,,,True,6,0.0,loop_claude
+widowx_carrot_on_wheel_clean,Pick up the carrot and place it on the wheel.,rephrased,adversarial,0.0,,,,True,6,0.0,loop_claude
+widowx_carrot_on_wheel_clean,Put the carrot on the wheel.,rephrased,original,0.0,,,,True,6,0.0,loop_claude
+widowx_carrot_on_wheel_clean,put the carrot in the center of the wheel,search,,0.0,,,,True,12,0.0,probe
+widowx_carrot_on_wheel_clean,Move the orange carrot to the wheel.,rephrased,natural,0.0,,,,True,6,0.0,loop_gemini
+widowx_carrot_on_wheel_clean,take the orange carrot from its current location and put it on the wheel,rephrased,adversarial,0.0,,,,True,18,0.0,loop_gemini
+widowx_carrot_on_wheel_clean,Place the orange vegetable on the wheel.,rephrased,natural,0.0,,,,True,6,0.0,loop_qwen
+widowx_carrot_on_wheel_clean,Put the orange carrot on the wheel.,rephrased,natural,0.0,,,,True,6,0.0,loop_qwen
+widowx_carrot_on_wheel_clean,Place the elongated orange taproot on the wheel.,rephrased,adversarial,0.0,,,,True,18,0.0,loop_qwen
+widowx_carrot_on_wheel_clean,"The wheel, currently lacking any cargo, is the precise location to which you must now deliver the carrot.",adversarial,,0.0385615281700599,-6.6865,-12.4785,0.8183,False,66,,generated_adversarial
+widowx_carrot_on_wheel_clean,It is requested that the carrot be hoisted and subsequently introduced to the top surface of the wheel.,adversarial,,0.08817399635095523,-6.4095,-12.5365,0.7916,False,66,,generated_adversarial
+widowx_carrot_on_wheel_clean,"If it pleases you to begin, extract the carrot from wherever it currently resides and deposit it onto the upper face of the wheel.",adversarial,,0.08913683457938489,-6.4041,-12.2518,0.8023,False,66,,generated_adversarial
+widowx_carrot_on_wheel_clean,The elongated orange taproot must be elevated from its current location and meticulously positioned such that it is fully supported by the wheel.,adversarial,,0.08983072207908718,-6.4002,-11.965,0.8132,False,198,0.0,generated_adversarial
+widowx_carrot_on_wheel_clean,"Would you be so kind as to facilitate the transfer of the carrot, ensuring its final destination is securely situated atop the wheel?",adversarial,,0.09402201879204507,-6.3768,-12.7602,0.7799,False,66,,generated_adversarial
+widowx_carrot_on_wheel_clean,"Assuming it is within your operational grasp, I require you to relocate the long orange root vegetable so that it rests directly upon the wheel.",adversarial,,0.11337038633476276,-6.2688,-12.8205,0.768,False,66,,generated_adversarial
+widowx_carrot_on_wheel_clean,"Before doing anything else, identify the orange taproot, acquire it securely, and do not release it until it is situated on the wheel.",adversarial,,0.12133810207416568,-6.2243,-11.1637,0.8291,False,66,,generated_adversarial
+widowx_carrot_on_wheel_clean,Put the carrot in the wheel.,rephrased,natural,0.16666666666666663,,,,True,12,8.333333333333332,pre_redo_loop_claude
+widowx_carrot_on_wheel_clean,place the orange carrot on the black wheel,search,,0.16666666666666663,,,,True,12,8.333333333333332,probe
+widowx_carrot_on_wheel_clean,"Regarding the vegetable commonly associated with rabbits, your primary objective is to convey it until it rests directly atop the wheel.",adversarial,,0.17941564384477496,-5.9,-12.585,0.7447,False,66,,generated_adversarial
+widowx_carrot_on_wheel_clean,"It is now strictly required of you, without making any sudden movements, to see to it that the carrot is deposited onto the surface of the wheel.",adversarial,,0.24579252348223402,-5.5293,-11.1893,0.7667,False,66,,generated_adversarial
+widowx_carrot_on_wheel_clean,move the carrot to the wheel,search,,0.33333333333333326,,,,True,12,16.666666666666664,probe
+widowx_carrot_on_wheel_clean,Set the carrot on the wheel.,rephrased,natural,0.33333333333333326,,,,True,6,16.666666666666664,loop_claude
+widowx_carrot_on_wheel_clean,Put the carrot on the toy wheel.,rephrased,natural,0.33333333333333326,,,,True,6,16.666666666666664,loop_claude
+widowx_carrot_on_wheel_clean,Please shift the carrot over to the wheel.,natural,,0.4012134710645539,-4.6614,-10.9282,0.7003,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,Grab the carrot and place it down on the wheel.,natural,,0.4201040754361734,-4.5559,-10.0958,0.7237,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,Take the carrot and leave it resting on the wheel.,natural,,0.4796899737912585,-4.2232,-10.2909,0.6866,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,Transfer the carrot over to the wheel.,natural,,0.48929941731759174,-4.1695,-10.4538,0.6755,False,276,0.0,generated_natural
+widowx_carrot_on_wheel_clean,put the carrot on the toy wheel,search,,0.5,,,,True,12,25.0,probe
+widowx_carrot_on_wheel_clean,Go ahead and drop the carrot onto the wheel.,natural,,0.5731124461532493,-3.7015,-10.0212,0.6511,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,drop the carrot on the wheel,unknown,,0.603796570941369,-3.5302,-10.7253,0.6083,False,66,13.9,fine_exam
+widowx_carrot_on_wheel_clean,put the carrot on the rim,unknown,,0.604399553643093,-3.5268,-9.807,0.6441,False,66,5.6,fine_exam
+widowx_carrot_on_wheel_clean,I need the carrot sitting on the wheel.,natural,,0.6186073795469867,-3.4475,-9.9622,0.631,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,put carrot on wheel,unknown,,0.6264211524052562,-3.4039,-10.3403,0.6123,False,72,16.7,fine_exam
+widowx_carrot_on_wheel_clean,Put the carrot in the black wheel.,rephrased,natural,0.6666666666666665,,,,True,6,33.33333333333333,loop_claude
+widowx_carrot_on_wheel_clean,put the carrot on the red wheel,search,,0.6666666666666665,,,,True,12,33.33333333333333,probe
+widowx_carrot_on_wheel_clean,put the carrot in the black wheel,rephrased,natural,0.6666666666666665,,,,True,6,33.33333333333333,loop_claude
+widowx_carrot_on_wheel_clean,pick up the orange carrot and put it on the wheel,rephrased,adversarial,0.6666666666666665,,,,True,18,33.33333333333333,loop_gemini
+widowx_carrot_on_wheel_clean,place the orange carrot in the black wheel,rephrased,natural,0.6666666666666665,,,,True,6,33.33333333333333,loop_claude
+widowx_carrot_on_wheel_clean,Place the orange carrot in the black wheel.,rephrased,natural,0.6666666666666665,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_wheel_clean,Place the carrot on the wheel.,rephrased,natural,0.6666666666666665,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_wheel_clean,Put the orange carrot on the black wheel.,rephrased,original,0.6666666666666665,,,,True,6,33.33333333333333,loop_qwen
+widowx_carrot_on_wheel_clean,Place the orange carrot on the wheel.,rephrased,adversarial,0.6666666666666665,,,,True,18,33.33333333333333,loop_qwen
+widowx_carrot_on_wheel_clean,put the orange carrot on the wheel,rephrased,adversarial,0.6666666666666665,,,,True,6,33.33333333333333,loop_gemini
+widowx_carrot_on_wheel_clean,put the carrot on the wheel,unknown,,0.6745710562957767,-3.135,-10.0031,0.6018,False,318,16.7,fine_exam
+widowx_carrot_on_wheel_clean,Move the orange vegetable to the wheel.,natural,,0.6860177679667364,-3.0711,-8.6918,0.6476,False,234,0.0,generated_natural
+widowx_carrot_on_wheel_clean,pick up the carrot and place it on the wheel,unknown,,0.700406827129026,-2.9907,-9.7291,0.5998,False,66,8.3,fine_exam
+widowx_carrot_on_wheel_clean,carrot on wheel,unknown,,0.7179867023254284,-2.8925,-10.5401,0.5593,False,240,16.7,fine_exam
+widowx_carrot_on_wheel_clean,set the carrot on the wheel,unknown,,0.7258017032327058,-2.8489,-10.114,0.5721,False,240,22.2,fine_exam
+widowx_carrot_on_wheel_clean,move the carrot onto the wheel,unknown,,0.7292860370423908,-2.8294,-9.702,0.5866,False,66,16.7,fine_exam
+widowx_carrot_on_wheel_clean,put the carrot on top of the wheel,unknown,,0.7372988076373875,-2.7847,-10.1137,0.5665,False,78,19.4,fine_exam
+widowx_carrot_on_wheel_clean,lay the carrot on the wheel,unknown,,0.7474182446939382,-2.7282,-10.1695,0.5593,False,66,8.3,fine_exam
+widowx_carrot_on_wheel_clean,Place the carrot onto the wheel.,natural,,0.7564710816306037,-2.6776,-9.0763,0.5978,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,Just lay the carrot on the wheel.,natural,,0.7576744344562827,-2.6709,-9.5238,0.5796,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,place the carrot on the wheel,unknown,,0.7595338420600393,-2.6605,-10.2301,0.5509,False,72,22.2,fine_exam
+widowx_carrot_on_wheel_clean,Stick the carrot onto the wheel.,natural,,0.7604250198682971,-2.6556,-8.7828,0.6073,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,lay the carrot across the black tire,unknown,,0.7636569701047804,-2.6375,-10.2438,0.5484,False,66,13.9,fine_exam
+widowx_carrot_on_wheel_clean,Pick up that carrot and rest it on the wheel.,natural,,0.7638109785835939,-2.6367,-9.1237,0.5923,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,Can you put the carrot on the wheel for me?,natural,,0.764418492471292,-2.6333,-9.7637,0.5668,False,78,0.0,generated_natural
+widowx_carrot_on_wheel_clean,put the carrot on the tire,unknown,,0.7790525472500691,-2.5515,-9.6278,0.565,False,66,8.3,fine_exam
+widowx_carrot_on_wheel_clean,Make sure the orange vegetable ends up on the wheel.,natural,,0.7950438388757288,-2.4622,-8.9085,0.5853,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,put the carrot in the wheel,unknown,,0.7953417234770062,-2.4606,-9.2555,0.5715,False,66,11.1,fine_exam
+widowx_carrot_on_wheel_clean,Set that carrot on top of the wheel.,natural,,0.8008898436643065,-2.4296,-9.4453,0.5614,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,Pop the orange root on top of the wheel.,natural,,0.819515218545147,-2.3256,-9.2799,0.5587,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,place the orange carrot on the wheel,unknown,,0.8275471015787935,-2.2807,-9.7067,0.5379,False,66,16.7,fine_exam
+widowx_carrot_on_wheel_clean,Position the carrot right on the wheel.,natural,,0.8521860197370917,-2.1432,-9.5291,0.5328,False,66,,generated_natural
+widowx_carrot_on_wheel_clean,place the carrot on the black rubber tire,unknown,,0.8956483615952329,-1.9005,-9.0856,0.5287,False,66,16.7,fine_exam
+widowx_carrot_on_wheel_clean,place the carrot in the black wheel,unknown,,0.9119777272024051,-1.8093,-8.7953,0.5321,False,234,30.6,fine_exam
+widowx_carrot_on_wheel_clean,set the carrot on the black wheel,unknown,,0.9227587732380013,-1.7491,-9.352,0.5049,False,66,25.0,fine_exam
+widowx_carrot_on_wheel_clean,set the carrot on the black tire,unknown,,0.9328553246911275,-1.6927,-9.2965,0.5021,False,66,19.4,fine_exam
+widowx_carrot_on_wheel_clean,place the carrot on the black wheel,unknown,,0.9356308940275505,-1.6772,-9.2048,0.5043,False,66,27.8,fine_exam
+widowx_carrot_on_wheel_clean,drop the carrot on the black tire,unknown,,0.9396514195880361,-1.6547,-9.3849,0.4953,False,66,33.3,fine_exam
+widowx_carrot_on_wheel_clean,place the carrot onto the black tire,unknown,,0.9441375504520123,-1.6297,-8.9929,0.5085,False,66,36.1,fine_exam
+widowx_carrot_on_wheel_clean,place the orange carrot on the black tire,unknown,,0.9506378979945956,-1.5934,-8.8565,0.5106,False,66,19.4,fine_exam
+widowx_carrot_on_wheel_clean,put the carrot on the black wheel,unknown,,0.952168236409783,-1.5849,-9.0313,0.503,False,66,38.9,fine_exam
+widowx_carrot_on_wheel_clean,put the carrot down on the black tire,unknown,,0.9532136887392608,-1.579,-9.129,0.4986,False,66,19.4,fine_exam
+widowx_carrot_on_wheel_clean,place the carrot on the black tire,unknown,,0.9533156909306065,-1.5784,-8.818,0.5108,False,66,16.7,fine_exam
+widowx_carrot_on_wheel_clean,put the carrot on the black tire,unknown,,0.9629967998133188,-1.5244,-9.0391,0.4973,False,66,19.4,fine_exam
+widowx_carrot_on_wheel_clean,place the carrot on top of the black tire,unknown,,0.9961857657778836,-1.3391,-8.6444,0.4965,False,66,30.6,fine_exam
+widowx_carrot_on_wheel_clean,put the orange carrot on top of the black wheel,search,,1.0,,,,True,12,50.0,probe
+widowx_carrot_on_wheel_clean,Move the orange carrot to the black wheel.,rephrased,natural,1.0,,,,True,6,50.0,loop_claude
+widowx_carrot_on_wheel_clean,Transfer the orange carrot over to the black wheel.,rephrased,natural,1.0,,,,True,6,50.0,loop_claude
+widowx_carrot_on_wheel_clean,put the orange carrot on the black wheel,unknown,,1.0,-1.3178,-8.6357,0.4949,False,90,30.6,fine_exam
+widowx_carrot_on_wheel_clean,set the orange carrot on the black wheel,rephrased,natural,1.0,,,,True,18,50.0,loop_claude
+widowx_coke_can_on_plate_clean,Pick up the red tin of cola and put it on the plate.,rephrased,adversarial,0.0,,,,True,6,0.0,loop_qwen
+widowx_coke_can_on_plate_clean,Grab the red soda can and put it on the plate.,rephrased,natural,0.0,,,,True,18,0.0,loop_qwen
+widowx_coke_can_on_plate_clean,Put the coke can on the dish.,rephrased,natural,0.0,,,,True,6,0.0,loop_claude
+widowx_coke_can_on_plate_clean,Move the red can of cola onto the green plate.,rephrased,adversarial,0.0,,,,True,6,0.0,loop_claude
+widowx_coke_can_on_plate_clean,Pick up the red can of cola and put it on the green plate.,rephrased,adversarial,0.0,,,,True,6,0.0,loop_qwen
+widowx_coke_can_on_plate_clean,place red coke can on plate,rephrased,natural,0.0,,,,True,18,0.0,loop_claude
+widowx_coke_can_on_plate_clean,put the red coke can on the dish,rephrased,natural,0.0,,,,True,6,0.0,loop_qwen
+widowx_coke_can_on_plate_clean,"Assuming the plate is readily accessible, proceed to transport the red tin of cola directly onto its surface.",adversarial,,0.0,-3.4055,-9.1488,0.6592,False,196,0.0,generated_adversarial
+widowx_coke_can_on_plate_clean,Put the red aluminum can on the plate.,rephrased,adversarial,0.16666666666666663,,,,True,6,16.666666666666664,loop_gemini
+widowx_coke_can_on_plate_clean,Grab the red soda can and place it on the light green plate.,rephrased,natural,0.16666666666666663,,,,True,6,16.666666666666664,loop_qwen
+widowx_coke_can_on_plate_clean,Place the red soda can on the plate.,rephrased,adversarial,0.16666666666666663,,,,True,6,16.666666666666664,loop_qwen
+widowx_coke_can_on_plate_clean,put the red can of cola directly onto the plate,rephrased,adversarial,0.16666666666666663,,,,True,18,16.666666666666664,loop_gemini
+widowx_coke_can_on_plate_clean,Grab the red aluminum can and put it on the light green plate.,rephrased,natural,0.16666666666666663,,,,True,6,16.666666666666664,loop_qwen
+widowx_coke_can_on_plate_clean,put the red can of cola on the plate,rephrased,adversarial,0.16666666666666663,,,,True,6,16.666666666666664,loop_gemini
+widowx_coke_can_on_plate_clean,"Having acquired the can of coke, navigate it toward the shallow ceramic platter and relinquish your grip such that it remains there.",adversarial,,0.17959990178993537,-2.7046,-11.2563,0.5145,False,64,,generated_adversarial
+widowx_coke_can_on_plate_clean,It is required that the plate becomes the new resting location for the red aluminum can of cola currently occupying the workspace.,adversarial,,0.31122867785098296,-2.1909,-10.2874,0.5072,False,64,,generated_adversarial
+widowx_coke_can_on_plate_clean,Ensure that the plate is made to bear the weight of the red aluminum beverage cylinder without delay.,adversarial,,0.3160338360369173,-2.1722,-9.3051,0.5441,False,196,0.0,generated_adversarial
+widowx_coke_can_on_plate_clean,Put the red soda can on the plate.,rephrased,adversarial,0.33333333333333326,,,,True,6,33.33333333333333,loop_qwen
+widowx_coke_can_on_plate_clean,Pick up the red can and place it on the green plate.,rephrased,natural,0.33333333333333326,,,,True,6,33.33333333333333,loop_claude
+widowx_coke_can_on_plate_clean,Put the red can on the plate.,rephrased,adversarial,0.33333333333333326,,,,True,6,33.33333333333333,loop_claude
+widowx_coke_can_on_plate_clean,Put the coke can on the plate.,rephrased,original,0.33333333333333326,,,,True,6,33.33333333333333,loop_claude
+widowx_coke_can_on_plate_clean,Pick up the red coke can and put it on the plate.,rephrased,natural,0.33333333333333326,,,,True,6,33.33333333333333,loop_claude
+widowx_coke_can_on_plate_clean,Put the red coke can on the plate.,rephrased,adversarial,0.33333333333333326,,,,True,6,33.33333333333333,loop_claude
+widowx_coke_can_on_plate_clean,Put the red tin of cola on the green plate.,rephrased,adversarial,0.33333333333333326,,,,True,6,33.33333333333333,loop_qwen
+widowx_coke_can_on_plate_clean,Place the red aluminum soda can on the yellow-green plate.,rephrased,adversarial,0.33333333333333326,,,,True,6,33.33333333333333,loop_qwen
+widowx_coke_can_on_plate_clean,put the red aluminum can on the plate,rephrased,adversarial,0.33333333333333326,,,,True,6,33.33333333333333,loop_gemini
+widowx_coke_can_on_plate_clean,"If it is at all possible for you to do so, please relocate the cylindrical red object containing the sugary carbonated beverage so that it rests entirely upon the flat dining crockery.",adversarial,,0.34048667516309095,-2.0768,-9.4711,0.5292,False,64,,generated_adversarial
+widowx_coke_can_on_plate_clean,pick up the red soda can and put it on the plate,search,,0.41666666666666674,,,,True,12,41.66666666666667,probe
+widowx_coke_can_on_plate_clean,put the coke can on the green plate,search,,0.41666666666666674,,,,True,24,41.66666666666667,probe
+widowx_coke_can_on_plate_clean,put the coke can on the light green plate,search,,0.41666666666666674,,,,True,12,41.66666666666667,probe
+widowx_coke_can_on_plate_clean,Put the coke down on the plate.,search,,0.41666666666666674,,,,True,12,41.66666666666667,probe
+widowx_coke_can_on_plate_clean,put the coke can on the plate or the dish,search,,0.41666666666666674,,,,True,36,41.66666666666667,probe
+widowx_coke_can_on_plate_clean,set that red aluminum can on the plate.,rephrased,natural,0.5,,,,True,18,50.0,loop_gemini
+widowx_coke_can_on_plate_clean,"Provided you can firmly grasp the cola can, initiate a trajectory that terminates with the object being safely deposited on the dish.",adversarial,,0.5015850672720882,-1.4481,-9.3995,0.4764,False,64,,generated_adversarial
+widowx_coke_can_on_plate_clean,Place the coke can on the plate.,rephrased,natural,0.5833333333333334,,,,True,12,58.333333333333336,pre_redo_loop_claude
+widowx_coke_can_on_plate_clean,rest the coke can on the plate,search,,0.5833333333333334,,,,True,12,58.333333333333336,probe
+widowx_coke_can_on_plate_clean,Grab that red aluminum can and place it on the plate.,search,,0.5833333333333334,,,,True,12,58.333333333333336,probe
+widowx_coke_can_on_plate_clean,"The carbonated beverage container, which is branded with the Coca-Cola logo, must be deposited atop the circular piece of diningware.",adversarial,,0.5901916155502648,-1.1023,-8.5789,0.4781,False,64,,generated_adversarial
+widowx_coke_can_on_plate_clean,Move the coke to the dish.,natural,,0.6074279262589023,-1.035,-8.8942,0.4598,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,put the coke can on the dish,unknown,,0.6094590238239028,-1.0271,-9.231,0.4459,False,244,30.6,fine_exam
+widowx_coke_can_on_plate_clean,I would appreciate it if you could take the red thing you would drink from when thirsty and see to it that it is placed squarely onto the dish.,adversarial,,0.6283685105545125,-0.9533,-9.5324,0.4275,False,64,,generated_adversarial
+widowx_coke_can_on_plate_clean,Put the coke on the plate.,rephrased,natural,0.6666666666666665,,,,True,6,66.66666666666666,loop_claude
+widowx_coke_can_on_plate_clean,Put the red coke can onto the light green plate.,rephrased,adversarial,0.6666666666666665,,,,True,6,66.66666666666666,loop_claude
+widowx_coke_can_on_plate_clean,put the red can on the plate,rephrased,adversarial,0.6666666666666665,,,,True,30,66.66666666666666,loop_gemini
+widowx_coke_can_on_plate_clean,Could I kindly request that you physically convey the item associated with a popular fizzy drink until it is fully supported by the plate?,adversarial,,0.6752368494850393,-0.7704,-8.3987,0.4559,False,64,,generated_adversarial
+widowx_coke_can_on_plate_clean,move the can to the plate,unknown,,0.707453778883455,-0.6447,-9.0206,0.4203,False,64,16.7,fine_exam
+widowx_coke_can_on_plate_clean,put the can on the plate,unknown,,0.7663433820839567,-0.4148,-8.5909,0.4169,False,64,30.6,fine_exam
+widowx_coke_can_on_plate_clean,take the coke can and place it on the plate,unknown,,0.7696811175072097,-0.4018,-8.6905,0.4119,False,64,36.1,fine_exam
+widowx_coke_can_on_plate_clean,take the coke can and put it on the plate,unknown,,0.7713715600163418,-0.3952,-8.6713,0.412,False,64,30.6,fine_exam
+widowx_coke_can_on_plate_clean,Your objective entails separating the Coca-Cola can from its current resting place and ultimately situating it upon the plate.,adversarial,,0.776592495681471,-0.3748,-8.259,0.4264,False,64,,generated_adversarial
+widowx_coke_can_on_plate_clean,Transfer the can of coke over to the plate.,natural,,0.7915238402455019,-0.3166,-8.8354,0.3986,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,put the pepsi can on the plate,unknown,,0.7967667276332289,-0.2961,-8.554,0.4079,False,64,58.3,fine_exam
+widowx_coke_can_on_plate_clean,coke on plate,unknown,,0.7994334516545615,-0.2857,-7.5715,0.4455,False,64,50.0,fine_exam
+widowx_coke_can_on_plate_clean,put the coke down on the plate,unknown,,0.811993509276482,-0.2367,-7.9387,0.4268,False,256,66.7,fine_exam
+widowx_coke_can_on_plate_clean,put a coke can on the plate,unknown,,0.8125950913976113,-0.2343,-8.3661,0.4098,False,64,61.1,fine_exam
+widowx_coke_can_on_plate_clean,lay the coke on the plate,unknown,,0.8146724892775946,-0.2262,-7.7635,0.4327,False,64,63.9,fine_exam
+widowx_coke_can_on_plate_clean,place the coke on the plate,unknown,,0.8152286636508121,-0.2241,-7.8432,0.4294,False,64,63.9,fine_exam
+widowx_coke_can_on_plate_clean,set the pepsi can on the plate,unknown,,0.8198709617588746,-0.2059,-8.2995,0.4099,False,64,47.2,fine_exam
+widowx_coke_can_on_plate_clean,move the coke can to the plate,unknown,,0.8225754783394803,-0.1954,-8.1913,0.4132,False,64,41.7,fine_exam
+widowx_coke_can_on_plate_clean,put the coke can down on the plate,unknown,,0.823655444042599,-0.1912,-8.2662,0.4099,False,64,58.3,fine_exam
+widowx_coke_can_on_plate_clean,set the coke on the plate,unknown,,0.8260569927252422,-0.1818,-7.7637,0.4288,False,64,75.0,fine_exam
+widowx_coke_can_on_plate_clean,drop the coke can on the plate,unknown,,0.8277948458607107,-0.175,-8.153,0.4129,False,64,52.8,fine_exam
+widowx_coke_can_on_plate_clean,set the coke can down on the plate,unknown,,0.8323118947129576,-0.1574,-8.1037,0.4133,False,64,61.1,fine_exam
+widowx_coke_can_on_plate_clean,put the red can on the yellow plate,unknown,,0.8349368901022116,-0.1472,-8.4783,0.3977,False,64,33.3,fine_exam
+widowx_coke_can_on_plate_clean,put the coke on the plate,unknown,,0.8373091463542552,-0.1379,-7.7406,0.4258,False,76,63.9,fine_exam
+widowx_coke_can_on_plate_clean,drop the coke can onto the plate,unknown,,0.8411515437007546,-0.1229,-8.0069,0.4141,False,64,63.9,fine_exam
+widowx_coke_can_on_plate_clean,pick up the coke can and place it on the plate,unknown,,0.8461538603501827,-0.1034,-8.2694,0.402,False,64,55.6,fine_exam
+widowx_coke_can_on_plate_clean,put the coke onto the plate,unknown,,0.8476708573313564,-0.0975,-7.5759,0.4287,False,64,66.7,fine_exam
+widowx_coke_can_on_plate_clean,put the cola can on the plate,unknown,,0.8490339471140885,-0.0921,-7.934,0.4142,False,64,44.4,fine_exam
+widowx_coke_can_on_plate_clean,put the red coke can on the plate,unknown,,0.8502594166220073,-0.0874,-8.0482,0.4093,False,94,61.1,fine_exam
+widowx_coke_can_on_plate_clean,place the red can on the plate,unknown,,0.850578548845206,-0.0861,-7.9725,0.4122,False,64,41.7,fine_exam
+widowx_coke_can_on_plate_clean,pick up the coke can and put it on the plate,unknown,,0.8511099420158622,-0.084,-8.1125,0.4065,False,64,38.9,fine_exam
+widowx_coke_can_on_plate_clean,put the soda can on the plate,unknown,,0.8553356915790824,-0.0675,-8.1093,0.4051,False,64,47.2,fine_exam
+widowx_coke_can_on_plate_clean,lay the coke can on the plate,unknown,,0.8568851410025428,-0.0615,-7.9219,0.412,False,64,61.1,fine_exam
+widowx_coke_can_on_plate_clean,stick the coke can on the plate,unknown,,0.8621159612142946,-0.0411,-7.7666,0.4163,False,64,55.6,fine_exam
+widowx_coke_can_on_plate_clean,Just pop the coke onto the plate for me.,natural,,0.8628231672328659,-0.0383,-7.7458,0.4168,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,place coke can on plate,unknown,,0.8631355502214311,-0.0371,-7.6232,0.4215,False,262,61.1,fine_exam
+widowx_coke_can_on_plate_clean,put the coke can on top of the plate,unknown,,0.8641051344245465,-0.0333,-7.993,0.4067,False,64,38.9,fine_exam
+widowx_coke_can_on_plate_clean,put the coke can on the plate.,unknown,,0.864806045709501,-0.0306,-8.0366,0.4047,False,64,47.2,fine_exam
+widowx_coke_can_on_plate_clean,Take the coke can and leave it on the plate.,natural,,0.8657806482701392,-0.0268,-8.3037,0.3939,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,please put the coke can on the plate,unknown,,0.866892957706508,-0.0224,-7.853,0.4112,False,64,61.1,fine_exam
+widowx_coke_can_on_plate_clean,place the coke can on the plate,unknown,,0.8675253839465896,-0.02,-7.7837,0.4137,False,64,52.8,fine_exam
+widowx_coke_can_on_plate_clean,Set the Coca-Cola down on the plate.,natural,,0.8675856858141804,-0.0197,-7.1621,0.4381,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,Shift the cola can over to the plate.,natural,,0.8677009738119172,-0.0193,-7.8351,0.4117,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,place the coke can on the yellow plate,unknown,,0.8714747866522963,-0.0046,-7.8422,0.4101,False,64,33.3,fine_exam
+widowx_coke_can_on_plate_clean,Put the cola on the dish.,natural,,0.8728177752988029,0.0007,-7.6505,0.4171,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,set the coke can on the plate,unknown,,0.8736210180954133,0.0038,-7.7783,0.4118,False,64,63.9,fine_exam
+widowx_coke_can_on_plate_clean,put the coke can on the yellow plate,unknown,,0.8759320995460985,0.0128,-8.0054,0.4021,False,64,41.7,fine_exam
+widowx_coke_can_on_plate_clean,put the coke can on the plate,unknown,,0.8838666921406789,0.0438,-7.8338,0.4061,False,286,61.1,fine_exam
+widowx_coke_can_on_plate_clean,Put the coke can on the plate,unknown,,0.8854332712971458,0.0499,-7.7137,0.4103,False,64,58.3,fine_exam
+widowx_coke_can_on_plate_clean,put the coke can on plate,unknown,,0.8874367848059418,0.0577,-7.5969,0.4142,False,64,47.2,fine_exam
+widowx_coke_can_on_plate_clean,Would you mind moving the can of Coca-Cola onto the plate?,natural,,0.8877577063655334,0.059,-7.7683,0.4074,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,Grab that red aluminum can and set it on the plate.,natural,,0.8922254696446303,0.0764,-7.9664,0.398,False,250,66.66666666666666,generated_natural
+widowx_coke_can_on_plate_clean,put coke can on plate,unknown,,0.8939627441404187,0.0832,-7.5815,0.4126,False,64,61.1,fine_exam
+widowx_coke_can_on_plate_clean,put the coke can onto the plate,unknown,,0.8956813226872907,0.0899,-7.6558,0.409,False,64,44.4,fine_exam
+widowx_coke_can_on_plate_clean,coke can on plate,unknown,,0.8969456205926672,0.0948,-7.4288,0.4175,False,64,55.6,fine_exam
+widowx_coke_can_on_plate_clean,set coke can on plate,unknown,,0.9011170531452366,0.1111,-7.3843,0.4178,False,64,52.8,fine_exam
+widowx_coke_can_on_plate_clean,Lift the Coke can up and set it down on the plate.,natural,,0.9046152842606003,0.1248,-7.885,0.397,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,Can you place the soda can onto the plate?,natural,,0.91207951300564,0.1539,-7.7651,0.3991,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,Position the Coca-Cola can on top of the plate.,natural,,0.9121410659015617,0.1541,-7.5823,0.4063,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,"On the plate, please put the coke can.",natural,,0.9293509357191683,0.2213,-7.4884,0.404,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,Stick the Coke on the plate.,natural,,0.9577262537815695,0.332,-6.8959,0.4175,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,Drop the Coke can onto that plate.,natural,,0.9901375089662205,0.4585,-7.2407,0.3928,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,Pick up the red soda can and rest it on the plate.,natural,,1.0,0.497,-7.3671,0.3844,False,64,,generated_natural
+widowx_coke_can_on_plate_clean,Put the red coke can onto the plate.,rephrased,adversarial,1.0,,,,True,6,100.0,loop_claude
+widowx_coke_can_on_ramekin_clean,"Taking care to grasp the object from which one might drink a sweet carbonated beverage, kindly relocate it entirely inside the ramekin.",adversarial,,0.0,-3.3729,-8.3761,0.6867,False,64,,generated_adversarial
+widowx_coke_can_on_ramekin_clean,pick up the can and put it down in the ramekin,rephrased,adversarial,0.0,,,,True,6,0.0,loop_gemini
+widowx_coke_can_on_ramekin_clean,Place the cola can upright in the white bowl.,rephrased,natural,0.0,,,,True,6,0.0,loop_claude
+widowx_coke_can_on_ramekin_clean,Pick up the red can and put it in the ramekin.,rephrased,adversarial,0.0,,,,True,6,0.0,loop_qwen
+widowx_coke_can_on_ramekin_clean,pick up the red can and put it in the ramekin,search,,0.0,,,,True,12,0.0,probe
+widowx_coke_can_on_ramekin_clean,pick up the red can and put it in the white ramekin,search,,0.0,,,,True,12,0.0,probe
+widowx_coke_can_on_ramekin_clean,"It is strictly required that the Coca-Cola vessel be grasped, conveyed to, and finally released within the interior volume of the ramekin.",adversarial,,0.01720175137535587,-3.2998,-9.2882,0.6444,False,64,,generated_adversarial
+widowx_coke_can_on_ramekin_clean,"Provided that you have successfully identified the red can of cola, your objective is to elevate it and subsequently deposit it directly into the center of the ramekin.",adversarial,,0.09276845454251088,-2.9788,-9.4282,0.6105,False,64,,generated_adversarial
+widowx_coke_can_on_ramekin_clean,Move the Coca-Cola can over to the ramekin.,natural,,0.14768958480432243,-2.7455,-8.8988,0.6107,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,Put the cola can inside the white bowl.,rephrased,natural,0.21422450728363324,,,,True,6,16.666666666666664,loop_claude
+widowx_coke_can_on_ramekin_clean,put the coke can in the ramekin,search,,0.21422450728363324,,,,True,12,16.666666666666664,probe
+widowx_coke_can_on_ramekin_clean,pick up the cola can and put it down in the bowl,rephrased,adversarial,0.21422450728363324,,,,True,6,16.666666666666664,loop_gemini
+widowx_coke_can_on_ramekin_clean,Pick up the red can and put it in the white ramekin.,rephrased,adversarial,0.21422450728363324,,,,True,6,16.666666666666664,loop_qwen
+widowx_coke_can_on_ramekin_clean,place the red cola can upright inside the white bowl.,rephrased,natural,0.21422450728363324,,,,True,6,16.666666666666664,loop_gemini
+widowx_coke_can_on_ramekin_clean,put the cola can down in the bowl,rephrased,adversarial,0.21422450728363324,,,,True,6,16.666666666666664,loop_gemini
+widowx_coke_can_on_ramekin_clean,"As soon as you are ready to begin, navigate the Coke can through the air such that its trajectory ends exclusively inside the ramekin.",adversarial,,0.3024651410387371,-2.0881,-8.6911,0.5608,False,64,,generated_adversarial
+widowx_coke_can_on_ramekin_clean,I would be most grateful if you were to transport the cylindrical aluminum soda container so that it comes to rest within the confines of the ramekin.,adversarial,,0.30625399200260295,-2.072,-7.6744,0.5993,False,64,,generated_adversarial
+widowx_coke_can_on_ramekin_clean,put the can in the white bowl,search,,0.3213367609254499,,,,True,12,25.0,probe
+widowx_coke_can_on_ramekin_clean,pick up the red can and put it in the white bowl,search,,0.3213367609254499,,,,True,24,25.0,probe
+widowx_coke_can_on_ramekin_clean,Coke can into the ramekin.,natural,,0.3673500594834624,-1.8125,-8.3671,0.5492,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,Can you put the can of Coke in the ramekin for me?,natural,,0.37733357965496983,-1.7701,-8.0426,0.5582,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,"Regardless of the current arrangement of the workspace, your sole priority is to see that the Coca-Cola can ends up situated inside the ramekin.",adversarial,,0.37993810965622205,-1.759,-8.3654,0.5445,False,64,,generated_adversarial
+widowx_coke_can_on_ramekin_clean,Set the soda can down inside the little ceramic ramekin.,natural,,0.42304618738760846,-1.5759,-8.232,0.5336,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,put the red can upright in the white bowl,rephrased,natural,0.4284490145672665,,,,True,6,33.33333333333333,loop_qwen
+widowx_coke_can_on_ramekin_clean,place the red cola can standing up inside the white bowl,rephrased,natural,0.4284490145672665,,,,True,6,33.33333333333333,loop_qwen
+widowx_coke_can_on_ramekin_clean,Pick up the red coke can and place it upright in the white bowl.,rephrased,natural,0.4284490145672665,,,,True,6,33.33333333333333,loop_claude
+widowx_coke_can_on_ramekin_clean,Place the red cola can standing up inside the white bowl.,rephrased,natural,0.4284490145672665,,,,True,6,33.33333333333333,loop_qwen
+widowx_coke_can_on_ramekin_clean,put the cola can in the bowl,rephrased,adversarial,0.4284490145672665,,,,True,6,33.33333333333333,loop_gemini
+widowx_coke_can_on_ramekin_clean,Drop the red aluminum can into the ramekin.,natural,,0.44129319085464036,-1.4984,-8.086,0.5325,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,Grab the Coke and stick it in the ramekin.,natural,,0.4440346994386204,-1.4868,-6.9779,0.575,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,Please transfer the Coke into the ramekin.,natural,,0.4664745117456208,-1.3915,-7.1876,0.5583,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,"Should you be capable of manipulating the cylindrical cola container, proceed to hoist it and guide it downward until it is securely housed in the ramekin.",adversarial,,0.47805440428061474,-1.3423,-7.1675,0.5547,False,196,0.0,generated_adversarial
+widowx_coke_can_on_ramekin_clean,Identify the object containing the carbonated cola and ensure its complete containment within the walls of the ramekin.,adversarial,,0.488475726947676,-1.298,-7.5981,0.5339,False,64,,generated_adversarial
+widowx_coke_can_on_ramekin_clean,"You are hereby authorized and directed to execute a spatial translation of the red soda can, terminating only when it is nestled within the ramekin.",adversarial,,0.5300462849381128,-1.1214,-7.552,0.5201,False,64,,generated_adversarial
+widowx_coke_can_on_ramekin_clean,Put the cola can upright in the white bowl.,rephrased,natural,0.5355612682090832,,,,True,12,41.66666666666667,pre_redo_loop_claude
+widowx_coke_can_on_ramekin_clean,put coke can on ramekin,unknown,,0.5385496528937966,-1.0853,-7.7329,0.5098,False,64,0.0,fine_exam
+widowx_coke_can_on_ramekin_clean,Take the can of soda and put it in the ramekin.,natural,,0.5888602623476988,-0.8716,-8.3167,0.468,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,"The ramekin is to serve as the final receptacle for the branded red beverage cylinder, so please orchestrate its immediate insertion.",adversarial,,0.6087232652377011,-0.7873,-6.9251,0.5152,False,64,,generated_adversarial
+widowx_coke_can_on_ramekin_clean,Go ahead and seat the Coke can in the ramekin.,natural,,0.6220336368300979,-0.7307,-8.0723,0.4652,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,pick up the can and place it upright inside the white dish,unknown,,0.6259364421713366,-0.7141,-7.5912,0.4826,False,64,2.8,fine_exam
+widowx_coke_can_on_ramekin_clean,Place the Coke can inside the ramekin.,natural,,0.627393719398621,-0.708,-7.5842,0.4823,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,place the red soda can upright in the white bowl,rephrased,natural,0.6426735218508998,,,,True,6,50.0,loop_qwen
+widowx_coke_can_on_ramekin_clean,Grab the red cola can and set it upright in the white bowl.,rephrased,natural,0.6426735218508998,,,,True,6,50.0,loop_claude
+widowx_coke_can_on_ramekin_clean,place the coke can standing up inside the white bowl,rephrased,natural,0.6426735218508998,,,,True,6,50.0,loop_claude
+widowx_coke_can_on_ramekin_clean,place the red can in the white bowl,rephrased,natural,0.6426735218508998,,,,True,18,50.0,loop_qwen
+widowx_coke_can_on_ramekin_clean,Put the red coke can in the white bowl.,rephrased,adversarial,0.6426735218508998,,,,True,6,50.0,loop_claude
+widowx_coke_can_on_ramekin_clean,Place the cola can in the white bowl.,search,,0.6426735218508998,,,,True,12,50.0,probe
+widowx_coke_can_on_ramekin_clean,Pick up the red can and leave it inside the ramekin.,natural,,0.6508147525797049,-0.6085,-8.2942,0.4457,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white ramekin,unknown,,0.6784548352756093,-0.4911,-7.0699,0.4834,False,64,22.2,fine_exam
+widowx_coke_can_on_ramekin_clean,place the coke can inside the white ramekin,unknown,,0.6986882374567716,-0.4051,-7.2222,0.4698,False,64,22.2,fine_exam
+widowx_coke_can_on_ramekin_clean,I need the Coke resting in the ramekin.,natural,,0.7615431891285223,-0.1381,-6.7588,0.4644,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,The Coke can goes in the ramekin.,natural,,0.7731091010026854,-0.089,-8.0373,0.4099,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,Insert the soda can into the ramekin.,natural,,0.7787870417565657,-0.0649,-7.7215,0.4201,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,pick up the red can and place it vertically inside the white bowl,unknown,,0.7798383368273641,-0.0604,-7.1827,0.4409,False,64,33.3,fine_exam
+widowx_coke_can_on_ramekin_clean,Shift the cola into the ramekin.,natural,,0.8134546657355265,0.0824,-6.7146,0.4467,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,place the cola can standing up inside the white bowl,unknown,,0.8157082550573944,0.0919,-6.0918,0.4703,False,256,41.7,fine_exam
+widowx_coke_can_on_ramekin_clean,put the soda can upright in the white bowl,unknown,,0.8217176800775146,0.1175,-6.4635,0.4534,False,64,27.8,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the soda can and place it upright inside the ceramic bowl.,unknown,,0.8378853638253273,0.1861,-6.2619,0.4553,False,64,27.8,fine_exam
+widowx_coke_can_on_ramekin_clean,put the red can in the white bowl standing vertical,rephrased,natural,0.856898029134533,,,,True,6,66.66666666666666,loop_claude
+widowx_coke_can_on_ramekin_clean,Pick up the red cola can and put it in the white bowl.,rephrased,adversarial,0.856898029134533,,,,True,6,66.66666666666666,loop_claude
+widowx_coke_can_on_ramekin_clean,put the coke can in the bowl,search,,0.856898029134533,,,,True,12,66.66666666666666,probe
+widowx_coke_can_on_ramekin_clean,place the red coke can upright inside the white bowl,rephrased,natural,0.856898029134533,,,,True,6,66.66666666666666,loop_claude
+widowx_coke_can_on_ramekin_clean,Place the red can in the white bowl.,rephrased,natural,0.856898029134533,,,,True,18,66.66666666666666,loop_qwen
+widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it inside the white cup,unknown,,0.8585746081256418,0.274,-6.2077,0.4496,False,64,44.4,fine_exam
+widowx_coke_can_on_ramekin_clean,put the red can in the bowl,unknown,,0.8587347939009062,0.2747,-6.6236,0.4333,False,64,55.6,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red can upright inside the white bowl,unknown,,0.8660680695203072,0.3058,-6.5897,0.4318,False,232,52.8,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white cup,unknown,,0.8764268144749626,0.3498,-6.0154,0.4505,False,64,63.9,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can upright inside the white bowl,unknown,,0.8837772731953062,0.3811,-6.1472,0.4426,False,88,50.0,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the coke can and put it in the white cup,unknown,,0.884048767447046,0.3822,-6.1704,0.4416,False,64,52.8,fine_exam
+widowx_coke_can_on_ramekin_clean,move the red can into the white bowl,unknown,,0.8875802393054889,0.3972,-6.2167,0.4384,False,64,22.2,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it inside the small white bowl,unknown,,0.8924685225764588,0.418,-5.7125,0.4564,False,64,61.1,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it in the white bowl,unknown,,0.8928577628326804,0.4196,-5.605,0.4604,False,64,58.3,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it inside the bowl,unknown,,0.8948154975189759,0.4279,-5.9167,0.4475,False,64,52.8,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it upright inside the white bowl,unknown,,0.8960099636235295,0.433,-5.8,0.4516,False,64,58.3,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the red cola can and set it in the white bowl,unknown,,0.9000599873129913,0.4502,-5.5191,0.4611,False,64,63.9,fine_exam
+widowx_coke_can_on_ramekin_clean,put the cola can in the white bowl,unknown,,0.9004100910870654,0.4517,-5.5778,0.4587,False,64,41.7,fine_exam
+widowx_coke_can_on_ramekin_clean,set the coke can in the white bowl,unknown,,0.9080622969538569,0.4842,-5.6848,0.4516,False,64,41.7,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it upright inside the small white bowl,unknown,,0.9091926607239237,0.489,-5.8014,0.4466,False,64,52.8,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the red cola can and put it in the white bowl,unknown,,0.9135434069735153,0.5075,-5.523,0.4559,False,64,44.4,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the ceramic bowl,unknown,,0.9144124206143283,0.5112,-5.5924,0.4529,False,64,69.4,fine_exam
+widowx_coke_can_on_ramekin_clean,move the red cola can inside the white bowl,unknown,,0.9189782249423772,0.5306,-5.6042,0.4507,False,64,52.8,fine_exam
+widowx_coke_can_on_ramekin_clean,put the coke can in the white bowl,unknown,,0.9197338118119289,0.5338,-5.6924,0.4469,False,64,58.3,fine_exam
+widowx_coke_can_on_ramekin_clean,stick the red cola can in the white bowl,unknown,,0.9205736592043953,0.5374,-5.5789,0.4511,False,64,50.0,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white dish,unknown,,0.9207838989894805,0.5382,-5.655,0.448,False,64,52.8,fine_exam
+widowx_coke_can_on_ramekin_clean,Pick up the red cola can and place it upright inside the white bowl.,unknown,,0.9215492195720482,0.5415,-5.5207,0.453,False,274,55.6,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the bowl,unknown,,0.9268083576923087,0.5638,-5.6959,0.4441,False,64,61.1,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the red cola can and place it inside the white bowl,unknown,,0.9288198559208648,0.5724,-5.4284,0.4539,False,64,61.1,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the small white bowl,unknown,,0.9295776256099033,0.5756,-5.4545,0.4526,False,64,63.9,fine_exam
+widowx_coke_can_on_ramekin_clean,place the cola can inside the white bowl,unknown,,0.9301996395436606,0.5782,-5.3388,0.4569,False,238,44.4,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white pot,unknown,,0.932756684556633,0.5891,-5.5716,0.4468,False,64,50.0,fine_exam
+widowx_coke_can_on_ramekin_clean,drop the red cola can into the white bowl,unknown,,0.9339055202254176,0.594,-5.6569,0.443,False,64,58.3,fine_exam
+widowx_coke_can_on_ramekin_clean,Put the red drink can in the ramekin.,natural,,0.9391351512593038,0.6162,-6.6376,0.4025,False,64,,generated_natural
+widowx_coke_can_on_ramekin_clean,pick up the coke can and place it inside the white bowl,unknown,,0.9394652516762868,0.6176,-5.5052,0.4469,False,64,47.2,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside white bowl,unknown,,0.9440051631990775,0.6369,-5.2009,0.4571,False,64,58.3,fine_exam
+widowx_coke_can_on_ramekin_clean,set the red cola can inside the white bowl,unknown,,0.9469996190729839,0.6496,-5.3584,0.4498,False,64,66.7,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white bowl,unknown,,0.9513708886577805,0.6682,-5.2724,0.4516,False,70,61.1,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white basin,unknown,,0.9514475553682674,0.6685,-5.4109,0.4461,False,64,77.8,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can in the white bowl,unknown,,0.9519976519283118,0.6708,-5.2312,0.4529,False,64,63.9,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can into the white bowl,unknown,,0.9548425082692358,0.6829,-5.345,0.4474,False,64,72.2,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white container,unknown,,0.9634735170190649,0.7196,-5.2956,0.4461,False,64,72.2,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red soda can inside the white bowl,unknown,,0.9703490721477673,0.7488,-5.013,0.4546,False,64,55.6,fine_exam
+widowx_coke_can_on_ramekin_clean,put the red cola can in the white bowl,unknown,,0.9723450705339309,0.7573,-5.2413,0.4449,False,64,55.6,fine_exam
+widowx_coke_can_on_ramekin_clean,put the red cola can inside the white bowl,unknown,,0.980196077788901,0.7906,-5.1261,0.4465,False,64,63.9,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white bowl.,unknown,,0.983566851996904,0.8049,-4.9879,0.4506,False,64,41.7,fine_exam
+widowx_coke_can_on_ramekin_clean,pick up the red coke can and place it inside the white bowl,unknown,,0.9887837345615927,0.8271,-5.2698,0.4376,False,64,63.9,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red cola can on the white bowl,unknown,,0.999283315099144,0.8717,-5.3745,0.4296,False,64,69.4,fine_exam
+widowx_coke_can_on_ramekin_clean,place the red coke can inside the white bowl,unknown,,1.0,0.8747,-5.1574,0.4378,False,64,72.2,fine_exam
+widowx_put_eggplant_in_basket,Take the eggplant and set it down in the yellow basket.,natural,,0.0,1.4058,-8.8956,0.2441,False,64,,generated_natural
+widowx_put_eggplant_in_basket,Make the yellow basket the final resting place for the eggplant that is currently situated in the workspace.,adversarial,,0.01838433527789232,1.4442,-6.0602,0.3521,False,64,,generated_adversarial
+widowx_put_eggplant_in_basket,The yellow basket is where the eggplant should go.,natural,,0.09513824590214215,1.6047,-6.8271,0.3078,False,64,,generated_natural
+widowx_put_eggplant_in_basket,Move the eggplant over to the yellow basket.,natural,,0.15547680263429328,1.7309,-8.1567,0.2444,False,64,,generated_natural
+widowx_put_eggplant_in_basket,The basket whose hue resembles a lemon is the designated destination for the eggplant currently before you.,adversarial,,0.17428037309026898,1.7702,-6.2232,0.3169,False,64,,generated_adversarial
+widowx_put_eggplant_in_basket,Deposit the bulbous purple vegetable directly into the confines of the yellow woven basket.,adversarial,,0.1839738882967981,1.7905,-7.3829,0.2695,False,196,100.0,generated_adversarial
+widowx_put_eggplant_in_basket,"If it is not too much trouble, would you be so kind as to relocate the eggplant such that it rests within the yellow basket?",adversarial,,0.19726905211371362,1.8183,-7.8601,0.2483,False,64,,generated_adversarial
+widowx_put_eggplant_in_basket,I need you to pick up the eggplant and put it in the yellow basket.,natural,,0.31452127932671936,2.0635,-7.7905,0.2294,False,64,,generated_natural
+widowx_put_eggplant_in_basket,Grab that purple vegetable and drop it into the yellow basket.,natural,,0.4066203099720422,2.2561,-6.6375,0.2577,False,64,,generated_natural
+widowx_put_eggplant_in_basket,"Assuming all operational parameters are met, initiate a trajectory that concludes with the eggplant resting inside the yellow basket.",adversarial,,0.46524067970117206,2.3786,-5.8583,0.2774,False,64,,generated_adversarial
+widowx_put_eggplant_in_basket,eggplant in yellow basket,unknown,,0.46771893792022984,2.3838,-7.1031,0.2281,False,64,61.1,fine_exam
+widowx_put_eggplant_in_basket,"By applying the necessary manipulative force, compel the eggplant to leave its current location and enter the yellow basket.",adversarial,,0.4844358568303427,2.4188,-6.1777,0.2613,False,64,,generated_adversarial
+widowx_put_eggplant_in_basket,put the aubergine in the yellow basket,unknown,,0.48804177113855185,2.4263,-6.9824,0.2291,False,64,91.7,fine_exam
+widowx_put_eggplant_in_basket,It is required that the eggplant be swiftly transitioned from its current resting place into the interior of the yellow-colored basket.,adversarial,,0.5542196017324218,2.5647,-6.4427,0.238,False,64,,generated_adversarial
+widowx_put_eggplant_in_basket,put the eggplant in the yellow bin,unknown,,0.5845593521892277,2.6282,-5.4173,0.2727,False,64,58.3,fine_exam
+widowx_put_eggplant_in_basket,I'd like the purple vegetable inside the yellow basket.,natural,,0.5959900100429869,2.6521,-6.2664,0.2373,False,64,,generated_natural
+widowx_put_eggplant_in_basket,Transfer the eggplant into the yellow basket.,natural,,0.5998476965584811,2.6601,-6.2075,0.2389,False,64,,generated_natural
+widowx_put_eggplant_in_basket,put the purple eggplant into the yellow basket,rephrased,adversarial,0.6003197442046365,,,,True,6,83.33333333333334,loop_gemini
+widowx_put_eggplant_in_basket,Please place the eggplant in the yellow basket.,natural,,0.6034156814686308,2.6676,-6.2402,0.2369,False,64,,generated_natural
+widowx_put_eggplant_in_basket,"The large, glossy purple fruit of the nightshade family is to be enclosed entirely by the yellow basket.",adversarial,,0.6298938006843346,2.723,-5.7849,0.2499,False,64,,generated_adversarial
+widowx_put_eggplant_in_basket,Carry the eggplant to the yellow basket.,natural,,0.6329780787861545,2.7294,-6.5121,0.2208,False,64,,generated_natural
+widowx_put_eggplant_in_basket,It would bring me immense satisfaction to see the eggplant securely tucked away inside the yellow basket.,adversarial,,0.6470958579185331,2.7589,-6.5243,0.2177,False,64,,generated_adversarial
+widowx_put_eggplant_in_basket,place the eggplant inside the yellow basket,unknown,,0.6825030555932233,2.833,-6.1265,0.2268,False,64,91.7,fine_exam
+widowx_put_eggplant_in_basket,Could you put the eggplant inside the yellow basket for me?,natural,,0.6955685209121646,2.8603,-5.6416,0.2434,False,64,,generated_natural
+widowx_put_eggplant_in_basket,put the eggplant into the yellow basket,unknown,,0.7062869013767242,2.8827,-6.0772,0.2243,False,64,97.2,fine_exam
+widowx_put_eggplant_in_basket,Make sure the eggplant ends up in the yellow basket.,natural,,0.7154512142938362,2.9019,-6.4533,0.2078,False,64,,generated_natural
+widowx_put_eggplant_in_basket,That eggplant belongs in the yellow basket.,natural,,0.7182478122389608,2.9077,-6.1809,0.218,False,64,,generated_natural
+widowx_put_eggplant_in_basket,"Regardless of its current orientation, the eggplant must be physically introduced into the yellow basket without delay.",adversarial,,0.729588301442734,2.9314,-6.0731,0.2202,False,64,,generated_adversarial
+widowx_put_eggplant_in_basket,Toss the eggplant in that yellow basket.,natural,,0.7702490888480682,3.0165,-5.8497,0.2214,False,64,,generated_natural
+widowx_put_eggplant_in_basket,Load the eggplant into the yellow basket.,natural,,0.7850344257523316,3.0474,-5.8623,0.2182,False,64,,generated_natural
+widowx_put_eggplant_in_basket,put the eggplant down in the yellow basket,unknown,,0.7935825560192897,3.0652,-5.751,0.221,False,64,94.4,fine_exam
+widowx_put_eggplant_in_basket,put the eggplant in the yellow basket,unknown,,0.7947331941656576,3.0677,-5.7585,0.2205,False,64,97.2,fine_exam
+widowx_put_eggplant_in_basket,lay the eggplant in the yellow basket,unknown,,0.8080388299194771,3.0955,-5.6243,0.2233,False,64,91.7,fine_exam
+widowx_put_eggplant_in_basket,set the eggplant in the yellow basket,unknown,,0.8098794887329845,3.0993,-5.9025,0.212,False,64,94.4,fine_exam
+widowx_put_eggplant_in_basket,drop the eggplant in the yellow basket,unknown,,0.8121686269991931,3.1041,-5.7019,0.2195,False,64,88.9,fine_exam
+widowx_put_eggplant_in_basket,place the purple eggplant into the yellow basket,unknown,,0.83358978868014,3.1489,-5.7534,0.2135,False,64,97.2,fine_exam
+widowx_put_eggplant_in_basket,place the eggplant in the yellow basket,unknown,,0.8375803503354297,3.1573,-5.3429,0.2289,False,64,94.4,fine_exam
+widowx_put_eggplant_in_basket,put the eggplant in the basket,unknown,,0.8481662910831672,3.1794,-5.0625,0.2379,False,64,80.6,fine_exam
+widowx_put_eggplant_in_basket,Pop the eggplant into the yellow basket.,natural,,0.8538755243784605,3.1913,-5.7173,0.2112,False,64,,generated_natural
+widowx_put_eggplant_in_basket,put the purple eggplant in the yellow basket,unknown,,0.8545940924110372,3.1928,-5.9168,0.2032,False,70,97.2,fine_exam
+widowx_put_eggplant_in_basket,Slide the eggplant into the yellow basket.,natural,,0.8757683192762371,3.2371,-5.5118,0.2152,False,268,91.66666666666666,generated_natural
+widowx_put_eggplant_in_basket,put eggplant into yellow basket,unknown,,0.94692585069382,3.3859,-5.3357,0.209,False,64,91.7,fine_exam
+widowx_put_eggplant_in_basket,put the eggplant in the yellow dish rack,unknown,,1.0,3.4969,-4.9201,0.2155,False,64,94.4,fine_exam
+widowx_put_eggplant_in_basket,put the eggplant in the dish rack,search,,1.0,,,,True,12,100.0,probe
+widowx_put_eggplant_in_basket,place the eggplant in the yellow dish rack,search,,1.0,,,,True,12,100.0,probe
+widowx_put_eggplant_in_basket,Put the purple vegetable in the yellow basket.,rephrased,adversarial,1.0,,,,True,6,100.0,loop_qwen
+widowx_put_eggplant_in_basket,Put the purple eggplant into the yellow basket.,rephrased,adversarial,1.0,,,,True,6,100.0,loop_claude
+widowx_put_eggplant_in_basket,Put the eggplant into the yellow basket.,rephrased,adversarial,1.0,,,,True,6,100.0,loop_claude
+widowx_put_eggplant_in_basket,Put the bulbous purple vegetable in the yellow basket.,rephrased,adversarial,1.0,,,,True,6,100.0,loop_qwen
+widowx_put_eggplant_in_basket,Slide the purple eggplant into the yellow basket.,rephrased,natural,1.0,,,,True,6,100.0,loop_qwen
+widowx_put_eggplant_in_basket,put the purple eggplant in the yellow woven basket.,rephrased,adversarial,1.0,,,,True,6,100.0,loop_gemini
+widowx_put_eggplant_in_basket,put the purple eggplant in the yellow woven basket,rephrased,adversarial,1.0,,,,True,6,100.0,loop_gemini
+widowx_spoon_on_towel,"With the towel serving as your designated target location, you must execute a grasping maneuver on the spoon in order to deposit the latter onto the former.",adversarial,,0.0,-0.6952,-8.2635,0.4545,False,64,,generated_adversarial
+widowx_spoon_on_towel,"Rather than leaving it where it currently sits, take the device we use to eat cereal and leave it securely upon the towel.",adversarial,,0.0681419196957156,-0.4531,-8.1255,0.4386,False,196,0.0,generated_adversarial
+widowx_spoon_on_towel,"Before proceeding to any other task, ensure that the tool utilized for stirring coffee finds its final resting place atop the towel.",adversarial,,0.15654432769577578,-0.139,-8.3068,0.4037,False,64,,generated_adversarial
+widowx_spoon_on_towel,Let the spoon be taken up by your manipulators and carried across the workspace until it is ultimately situated on the towel.,adversarial,,0.17894151783315596,-0.0595,-8.0602,0.4064,False,196,0.0,generated_adversarial
+widowx_spoon_on_towel,pick up the spoon and put it on the towel,rephrased,adversarial,0.22222222222222218,,,,True,6,16.666666666666664,loop_gemini
+widowx_spoon_on_towel,Place the green-handled spoon on top of the blue cloth.,rephrased,adversarial,0.22222222222222218,,,,True,6,16.666666666666664,loop_qwen
+widowx_spoon_on_towel,"Provided the towel remains unobstructed, proceed to lift the metallic scooping implement and arrange it carefully upon said towel.",adversarial,,0.2706049467244388,0.2662,-7.3642,0.4049,False,64,,generated_adversarial
+widowx_spoon_on_towel,"Assuming the towel is within your physical reach, please acquire the implement typically used for eating soup and ensure it comes to rest directly upon that fabric.",adversarial,,0.328988503005084,0.4736,-7.9411,0.3639,False,64,,generated_adversarial
+widowx_spoon_on_towel,It is hereby requested that the spoon be promptly elevated from its current station and subsequently lowered onto the surface of the towel.,adversarial,,0.3389937070025319,0.5092,-7.9414,0.3608,False,196,0.0,generated_adversarial
+widowx_spoon_on_towel,I would be immensely grateful if the instrument featuring an oval bowl at one end were gently transitioned to rest upon the drying cloth.,adversarial,,0.3825591357950097,0.6639,-7.5784,0.3614,False,64,,generated_adversarial
+widowx_spoon_on_towel,Pick up the spoon and move it to the towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_qwen
+widowx_spoon_on_towel,take the spoon and put it on the towel,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_gemini
+widowx_spoon_on_towel,Pick up the green spoon and place it on the blue cloth.,rephrased,natural,0.44444444444444436,,,,True,6,33.33333333333333,loop_claude
+widowx_spoon_on_towel,Put the spoon on the blue cloth.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_claude
+widowx_spoon_on_towel,Grasp the green-handled spoon and place it on the blue cloth.,rephrased,natural,0.44444444444444436,,,,True,6,33.33333333333333,loop_qwen
+widowx_spoon_on_towel,Take the spoon and place it on the blue towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_qwen
+widowx_spoon_on_towel,Pick up the green-handled spoon and place it on the blue towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_qwen
+widowx_spoon_on_towel,Lift the spoon and put it down onto the towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_claude
+widowx_spoon_on_towel,Put the spoon on the towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_claude
+widowx_spoon_on_towel,put the spoon on top of the cloth,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_gemini
+widowx_spoon_on_towel,take the spoon from its current station and put it on the surface of the towel,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_gemini
+widowx_spoon_on_towel,leave the spoon on the towel,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_gemini
+widowx_spoon_on_towel,Put the spoon atop the towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_claude
+widowx_spoon_on_towel,Pick up the green-handled spoon and place it on the light blue towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_qwen
+widowx_spoon_on_towel,Pick up the green spoon and put it on the blue towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_qwen
+widowx_spoon_on_towel,Grab that spoon and set it on the cloth.,rephrased,natural,0.44444444444444436,,,,True,18,33.33333333333333,loop_claude
+widowx_spoon_on_towel,set that spoon on the cloth,rephrased,natural,0.44444444444444436,,,,True,6,33.33333333333333,loop_gemini
+widowx_spoon_on_towel,leave the spoon securely on the towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_gemini
+widowx_spoon_on_towel,leave the spoon on the towel.,rephrased,adversarial,0.44444444444444436,,,,True,6,33.33333333333333,loop_gemini
+widowx_spoon_on_towel,Position the spoon right on top of the towel.,natural,,0.5092247063657492,1.1139,-7.1944,0.3367,False,64,,generated_natural
+widowx_spoon_on_towel,It would be highly appreciated if you could relocate the concave piece of silverware so that it resides atop the woven textile.,adversarial,,0.5141616267406346,1.1315,-7.007,0.3425,False,196,50.0,generated_adversarial
+widowx_spoon_on_towel,Carry the spoon over to the towel.,natural,,0.514700108099263,1.1334,-7.3061,0.3306,False,64,,generated_natural
+widowx_spoon_on_towel,Please bring the spoon to the towel.,natural,,0.5148854679049293,1.134,-7.5859,0.3195,False,64,,generated_natural
+widowx_spoon_on_towel,Shift the spoon over to the towel.,natural,,0.5148856189755483,1.134,-7.2455,0.3329,False,64,,generated_natural
+widowx_spoon_on_towel,Take that spoon and rest it on the towel.,natural,,0.521158705962225,1.1563,-7.3938,0.3251,False,64,,generated_natural
+widowx_spoon_on_towel,Pop the spoon onto the towel for me.,natural,,0.541257131715042,1.2277,-7.1052,0.3301,False,64,,generated_natural
+widowx_spoon_on_towel,Leave the spoon on the towel.,natural,,0.5490624890603948,1.2554,-7.0658,0.3292,False,64,,generated_natural
+widowx_spoon_on_towel,I want the spoon resting on the towel.,natural,,0.587277912715525,1.3912,-6.909,0.3234,False,64,,generated_natural
+widowx_spoon_on_towel,Move the silver utensil over to the hand towel.,natural,,0.5928698374696623,1.4111,-7.3824,0.3031,False,64,,generated_natural
+widowx_spoon_on_towel,"Transfer the spoon to the towel, please.",natural,,0.6186975954274714,1.5028,-7.3424,0.2965,False,64,,generated_natural
+widowx_spoon_on_towel,Go ahead and drop the spoon on the towel.,natural,,0.6286290038389211,1.5381,-7.5027,0.2871,False,64,,generated_natural
+widowx_spoon_on_towel,"If it is not too much of a burden, kindly convey the spoon from its present coordinates and deposit it squarely onto the absorbent cloth.",adversarial,,0.6304909535224349,1.5447,-6.9952,0.3065,False,64,,generated_adversarial
+widowx_spoon_on_towel,Take the spoon and place it on the blue cloth.,rephrased,adversarial,0.6666666666666666,,,,True,6,50.0,loop_qwen
+widowx_spoon_on_towel,put the green-handled spoon on the blue cloth,search,,0.6666666666666666,,,,True,12,50.0,probe
+widowx_spoon_on_towel,Pick up the green-handled spoon and put it on the blue cloth.,rephrased,adversarial,0.6666666666666666,,,,True,18,50.0,loop_qwen
+widowx_spoon_on_towel,pick up that spoon and put it on the cloth,rephrased,natural,0.6666666666666666,,,,True,6,50.0,loop_gemini
+widowx_spoon_on_towel,"Pick up the spoon with your gripper, carry it across the table, and place it on the towel.",rephrased,adversarial,0.6666666666666666,,,,True,6,50.0,loop_claude
+widowx_spoon_on_towel,put the green spoon on the towel,search,,0.6666666666666666,,,,True,12,50.0,probe
+widowx_spoon_on_towel,Grab the spoon and set it on the cloth.,rephrased,natural,0.6666666666666666,,,,True,6,50.0,loop_claude
+widowx_spoon_on_towel,put the silver spoon on the towel,search,,0.6666666666666666,,,,True,12,50.0,probe
+widowx_spoon_on_towel,Pick up the spoon and put it onto the towel.,rephrased,adversarial,0.6666666666666666,,,,True,6,50.0,loop_claude
+widowx_spoon_on_towel,Place the spoon upon the towel.,rephrased,adversarial,0.6666666666666666,,,,True,6,50.0,loop_claude
+widowx_spoon_on_towel,"Pick up the spoon, carry it across the table, and place it on the towel.",rephrased,adversarial,0.6666666666666666,,,,True,6,50.0,loop_claude
+widowx_spoon_on_towel,Pick up the green-handled spoon and place it on the blue cloth.,rephrased,natural,0.6666666666666666,,,,True,6,50.0,loop_qwen
+widowx_spoon_on_towel,Place the spoon on the blue towel.,rephrased,adversarial,0.6666666666666666,,,,True,6,50.0,loop_qwen
+widowx_spoon_on_towel,put the spoon on top of the woven cloth.,rephrased,adversarial,0.6666666666666666,,,,True,6,50.0,loop_gemini
+widowx_spoon_on_towel,put the spoon on the towel.,rephrased,adversarial,0.6666666666666666,,,,True,6,50.0,loop_gemini
+widowx_spoon_on_towel,put the spoon on top of the woven cloth,rephrased,adversarial,0.6666666666666666,,,,True,6,50.0,loop_gemini
+widowx_spoon_on_towel,Lay the spoon down on the towel.,natural,,0.6745051146136442,1.7011,-6.9981,0.2925,False,64,,generated_natural
+widowx_spoon_on_towel,Place the spoon onto the towel.,natural,,0.6877118998121268,1.748,-6.8634,0.2937,False,64,,generated_natural
+widowx_spoon_on_towel,spoon on towel,unknown,,0.6886783289503426,1.7515,-6.9554,0.2898,False,76,58.3,fine_exam
+widowx_spoon_on_towel,lay the spoon flat on the towel,unknown,,0.6921942479746025,1.7639,-7.0754,0.2839,False,64,55.6,fine_exam
+widowx_spoon_on_towel,The spoon needs to go on the towel.,natural,,0.6923610873905841,1.7645,-6.7856,0.2953,False,64,,generated_natural
+widowx_spoon_on_towel,pick up the spoon and place it on the towel,unknown,,0.7042703906178962,1.8068,-6.3837,0.3073,False,64,44.4,fine_exam
+widowx_spoon_on_towel,Pick up the spoon and put it on the towel.,natural,,0.7092261836320204,1.8244,-6.9704,0.2827,False,76,16.666666666666664,generated_natural
+widowx_spoon_on_towel,lay the spoon down on the towel,unknown,,0.7101657544365125,1.8278,-6.9344,0.2838,False,64,58.3,fine_exam
+widowx_spoon_on_towel,put the metal spoon on the towel,unknown,,0.7111618765638631,1.8313,-6.8734,0.2859,False,64,52.8,fine_exam
+widowx_spoon_on_towel,Could you grab that spoon and set it on the cloth for me?,natural,,0.7181714134412783,1.8562,-6.5328,0.2971,False,208,50.0,generated_natural
+widowx_spoon_on_towel,set the spoon down on the towel,unknown,,0.7221474026514012,1.8704,-6.8309,0.2841,False,64,72.2,fine_exam
+widowx_spoon_on_towel,put the spoon down on top of the towel,unknown,,0.7240194165422391,1.877,-6.7897,0.2852,False,64,61.1,fine_exam
+widowx_spoon_on_towel,move the spoon to the towel,unknown,,0.7307189902955877,1.9008,-6.6908,0.287,False,64,41.7,fine_exam
+widowx_spoon_on_towel,lay the spoon on top of the towel,unknown,,0.735289651798717,1.917,-6.6398,0.2875,False,64,63.9,fine_exam
+widowx_spoon_on_towel,place the spoon on top of the towel,unknown,,0.7361435479211963,1.9201,-6.6344,0.2875,False,64,52.8,fine_exam
+widowx_spoon_on_towel,lay the spoon on the towel,unknown,,0.7425245703009317,1.9427,-6.7069,0.2826,False,64,63.9,fine_exam
+widowx_spoon_on_towel,set the spoon on top of the towel,unknown,,0.744194252638659,1.9487,-6.5675,0.2876,False,64,66.7,fine_exam
+widowx_spoon_on_towel,put the spoon down on the towel,unknown,,0.7468165777818168,1.958,-6.6201,0.2847,False,64,50.0,fine_exam
+widowx_spoon_on_towel,drop the spoon on the towel,unknown,,0.7485081548356871,1.964,-6.6277,0.2839,False,64,41.7,fine_exam
+widowx_spoon_on_towel,place the spoon down on the towel,unknown,,0.7489809641425536,1.9657,-6.7445,0.2791,False,64,63.9,fine_exam
+widowx_spoon_on_towel,rest the spoon on the towel,unknown,,0.7531340213681067,1.9804,-6.6326,0.2822,False,64,55.6,fine_exam
+widowx_spoon_on_towel,set the spoon on the towel,unknown,,0.7655689533916405,2.0246,-6.5173,0.2828,False,64,58.3,fine_exam
+widowx_spoon_on_towel,put the spoon on top of the towel,unknown,,0.7665746577142274,2.0282,-6.4574,0.2849,False,64,58.3,fine_exam
+widowx_spoon_on_towel,put the spoon on the towel or the cloth,search,,0.7777777777777778,,,,True,12,58.333333333333336,probe
+widowx_spoon_on_towel,place the spoon on the towel,unknown,,0.7792273818957558,2.0731,-6.4366,0.2817,False,64,44.4,fine_exam
+widowx_spoon_on_towel,put the spoon on the cloth,unknown,,0.7903699035500089,2.1127,-5.8672,0.3006,False,100,44.4,fine_exam
+widowx_spoon_on_towel,put the spoon onto the towel,unknown,,0.8011444893661807,2.151,-6.1862,0.2847,False,64,55.6,fine_exam
+widowx_spoon_on_towel,put the spoon on the towel,unknown,,0.8082334202713575,2.1762,-6.1696,0.2831,False,100,44.4,fine_exam
+widowx_spoon_on_towel,put the spoon on the blue cloth,unknown,,0.8659234408893522,2.3811,-5.8476,0.2776,False,256,41.7,fine_exam
+widowx_spoon_on_towel,put the green-handled spoon on the blue towel,search,,0.8888888888888887,,,,True,12,66.66666666666666,probe
+widowx_spoon_on_towel,put the spoon on the woven cloth,rephrased,adversarial,0.8888888888888887,,,,True,30,66.66666666666666,loop_gemini
+widowx_spoon_on_towel,grab that spoon and set it on the cloth,rephrased,natural,0.8888888888888887,,,,True,18,66.66666666666666,loop_gemini
+widowx_spoon_on_towel,place the spoon on the blue towel,unknown,,0.9736009350168494,2.7637,-5.0407,0.2755,False,64,58.3,fine_exam
+widowx_spoon_on_towel,put the spoon on the blue towel,unknown,,1.0,2.8575,-4.8725,0.2738,False,64,38.9,fine_exam
+widowx_spoon_on_towel,put the spoon atop the towel,search,,1.0,,,,True,60,75.0,probe
+widowx_stack_cube,Pick up the green block and stack it on top of the yellow block.,rephrased,adversarial,0.0,,,,True,6,0.0,loop_claude
+widowx_stack_cube,place the green block onto the yellow block,rephrased,natural,0.0,,,,True,18,0.0,loop_gemini
+widowx_stack_cube,Place the green block atop the yellow block without disturbing the other objects.,rephrased,adversarial,0.0,,,,True,6,0.0,loop_claude
+widowx_stack_cube,Stack the green block on the yellow block without moving the yellow block.,rephrased,adversarial,0.0,,,,True,6,0.0,loop_claude
+widowx_stack_cube,"Avoiding all other objects, ensure that the highest point of the yellow block becomes the new foundation for the green block.",adversarial,,0.0,-4.7033,-11.7642,0.6712,False,176,0.0,generated_adversarial
+widowx_stack_cube,stack the cubes,unknown,,0.03728875116354636,-4.5945,-11.3455,0.678,False,44,0.0,fine_exam
+widowx_stack_cube,"Execute a grasp on the block matching the color of a lime, translating it through space until its bottom face mates with the top face of the banana-colored block.",adversarial,,0.07834553251945452,-4.4747,-12.2212,0.633,False,44,,generated_adversarial
+widowx_stack_cube,"Unto the yellow block, provided it remains stationary, arrange for the green block to be vertically superimposed.",adversarial,,0.12576428393548966,-4.3364,-11.8468,0.6355,False,176,0.0,generated_adversarial
+widowx_stack_cube,Your objective involves the vertical alignment of the two specified entities such that the green object is ultimately physically supported by the yellow object.,adversarial,,0.15117347808566226,-4.2622,-11.5134,0.642,False,44,,generated_adversarial
+widowx_stack_cube,cube on cube,unknown,,0.16201104577073583,-4.2306,-10.9556,0.6612,False,44,8.3,fine_exam
+widowx_stack_cube,"Given the current arrangement of the workspace, initiate a sequence of movements to situate the emerald-colored cube directly above the canary-colored cube.",adversarial,,0.19813247194575206,-4.1252,-12.5436,0.5895,False,44,,generated_adversarial
+widowx_stack_cube,"Assuming the yellow block is currently clear, elevate the green block until it can be deposited directly upon its upper surface.",adversarial,,0.20685526716167416,-4.0998,-11.9226,0.6116,False,176,0.0,generated_adversarial
+widowx_stack_cube,The object reminiscent of a forest canopy must be relocated to the upper face of the one that shares its shade with a sunflower.,adversarial,,0.23040663363976394,-4.0311,-11.0593,0.6395,False,44,,generated_adversarial
+widowx_stack_cube,Proceed to transfer the block colored like grass so that it rests entirely upon the block possessing the hue of a lemon.,adversarial,,0.2419528316750128,-3.9974,-11.1312,0.6337,False,44,,generated_adversarial
+widowx_stack_cube,Stack the green cube on top of the yellow cube without moving the other objects.,rephrased,adversarial,0.25,,,,True,6,16.666666666666664,loop_claude
+widowx_stack_cube,"Stack the green block on top of the yellow block, keeping the yellow block in place.",rephrased,adversarial,0.25,,,,True,6,16.666666666666664,loop_claude
+widowx_stack_cube,pick up the green block and put it on the yellow block,rephrased,adversarial,0.25,,,,True,18,16.666666666666664,loop_gemini
+widowx_stack_cube,put the green block on the yellow one,rephrased,natural,0.25,,,,True,6,16.666666666666664,loop_qwen
+widowx_stack_cube,Place the green block atop the yellow block without disturbing the surrounding items.,rephrased,adversarial,0.25,,,,True,6,16.666666666666664,loop_claude
+widowx_stack_cube,"Stack the green block on the yellow block, avoiding all other objects.",rephrased,adversarial,0.25,,,,True,6,16.666666666666664,loop_claude
+widowx_stack_cube,Stack the green block on top of the yellow block.,rephrased,adversarial,0.25,,,,True,6,16.666666666666664,loop_qwen
+widowx_stack_cube,Put the green block on top of the yellow block.,rephrased,natural,0.25,,,,True,18,16.666666666666664,loop_qwen
+widowx_stack_cube,put the green block on top of the yellow block,rephrased,adversarial,0.25,,,,True,6,16.666666666666664,loop_gemini
+widowx_stack_cube,The yellow block needs the green block stacked on top of it.,natural,,0.30410129490102816,-3.8161,-11.5207,0.6023,False,44,,generated_natural
+widowx_stack_cube,I would be exceedingly grateful if you could see your way to positioning the green cube such that it is supported by the yellow one.,adversarial,,0.3656235485546035,-3.6366,-11.2041,0.5989,False,44,,generated_adversarial
+widowx_stack_cube,"Without disturbing the surrounding items, it is required that the block of green coloration be made to rest atop its yellow counterpart.",adversarial,,0.38656470087862027,-3.5755,-11.3193,0.589,False,176,0.0,generated_adversarial
+widowx_stack_cube,put green block on yellow block,rephrased,natural,0.5,,,,True,6,33.33333333333333,loop_qwen
+widowx_stack_cube,Pick up the green block and place it on the yellow block.,rephrased,adversarial,0.5,,,,True,6,33.33333333333333,loop_qwen
+widowx_stack_cube,Put the green cube on the yellow cube.,rephrased,natural,0.5,,,,True,6,33.33333333333333,loop_claude
+widowx_stack_cube,put the green block directly on top of the yellow block,search,,0.5,,,,True,12,33.33333333333333,probe
+widowx_stack_cube,Place the green cube on the yellow cube.,rephrased,natural,0.5,,,,True,6,33.33333333333333,loop_qwen
+widowx_stack_cube,put the green block directly on the yellow block,rephrased,adversarial,0.5,,,,True,6,33.33333333333333,loop_gemini
+widowx_stack_cube,Place the green block onto the yellow block.,rephrased,natural,0.5,,,,True,6,33.33333333333333,loop_claude
+widowx_stack_cube,Pick up the green block and place it on top of the yellow block.,rephrased,adversarial,0.5,,,,True,6,33.33333333333333,loop_qwen
+widowx_stack_cube,Put the green block on the yellow block.,rephrased,natural,0.5,,,,True,18,33.33333333333333,loop_qwen
+widowx_stack_cube,put the green box on the yellow box,unknown,,0.5020978580869693,-3.2384,-10.5248,0.5904,False,44,44.4,fine_exam
+widowx_stack_cube,Leave the green toy block resting upon the yellow block.,natural,,0.6086307890367434,-2.9275,-9.9868,0.5841,False,44,,generated_natural
+widowx_stack_cube,put the small teal-green cube on the yellow cube,unknown,,0.6204112299972344,-2.8932,-10.5906,0.5573,False,44,19.4,fine_exam
+widowx_stack_cube,grab the green block and place it on top of the yellow block,search,,0.6250000000000001,,,,True,12,41.66666666666667,probe
+widowx_stack_cube,put the teal-green cube on the yellow cube,unknown,,0.6500994418734274,-2.8065,-10.4203,0.5564,False,44,22.2,fine_exam
+widowx_stack_cube,Bring the green block over to the yellow block and leave it on top.,natural,,0.6515047914931597,-2.8024,-10.5509,0.5509,False,44,,generated_natural
+widowx_stack_cube,place the small green cube on the yellow cube,unknown,,0.6623936058448427,-2.7707,-10.2457,0.5601,False,44,47.2,fine_exam
+widowx_stack_cube,put the green cube on the yellow block,unknown,,0.6686772027769436,-2.7523,-9.9106,0.5716,False,44,27.8,fine_exam
+widowx_stack_cube,green cube on yellow cube,unknown,,0.7035513925526892,-2.6506,-10.6163,0.5349,False,56,58.3,fine_exam
+widowx_stack_cube,put the small green cube on the yellow cube,unknown,,0.7045447881130787,-2.6477,-10.1473,0.5531,False,44,52.8,fine_exam
+widowx_stack_cube,put the green cube on the yellow cube,unknown,,0.7088235040706463,-2.6352,-9.9812,0.5585,False,68,38.9,fine_exam
+widowx_stack_cube,place the green cube on the yellow cube,unknown,,0.71941051113262,-2.6043,-10.3321,0.542,False,44,36.1,fine_exam
+widowx_stack_cube,the green cube on the yellow cube,unknown,,0.722918294837054,-2.5941,-9.7595,0.5635,False,44,36.1,fine_exam
+widowx_stack_cube,put the green cube on top of the yellow block,unknown,,0.7250231210250767,-2.5879,-9.778,0.5623,False,44,25.0,fine_exam
+widowx_stack_cube,Just pop the green block onto the yellow one.,natural,,0.7269442216656452,-2.5823,-9.6761,0.5658,False,44,,generated_natural
+widowx_stack_cube,place the green cube onto the yellow cube,unknown,,0.7311130735962253,-2.5702,-10.5195,0.5316,False,44,52.8,fine_exam
+widowx_stack_cube,stack the small green cube on the yellow cube,unknown,,0.7319133935732721,-2.5678,-10.0948,0.5481,False,44,33.3,fine_exam
+widowx_stack_cube,Can you place the green block onto the yellow block for me?,natural,,0.7461132912087773,-2.5264,-9.5756,0.5648,False,206,33.33333333333333,generated_natural
+widowx_stack_cube,set the green cube on the yellow cube,unknown,,0.7467855012881777,-2.5244,-10.0987,0.5441,False,44,44.4,fine_exam
+widowx_stack_cube,Pick up the green block and put it on the yellow block.,rephrased,adversarial,0.7500000000000001,,,,True,6,50.0,loop_qwen
+widowx_stack_cube,place the green block on top of the yellow block,search,,0.7500000000000001,,,,True,12,50.0,probe
+widowx_stack_cube,place the green block directly on top of the yellow block,search,,0.7500000000000001,,,,True,12,50.0,probe
+widowx_stack_cube,Pick up the green cube and place it on top of the yellow cube.,rephrased,adversarial,0.7500000000000001,,,,True,6,50.0,loop_qwen
+widowx_stack_cube,place the green block on the yellow block,rephrased,natural,0.7500000000000001,,,,True,18,50.0,loop_qwen
+widowx_stack_cube,Stack the green cube on the yellow cube.,rephrased,natural,0.7500000000000001,,,,True,18,50.0,loop_qwen
+widowx_stack_cube,small green cube on yellow cube,unknown,,0.7545450347497714,-2.5018,-10.1761,0.539,False,44,33.3,fine_exam
+widowx_stack_cube,Construct a small stack with the green block sitting on the yellow one.,natural,,0.7564720453835391,-2.4962,-9.798,0.5534,False,44,,generated_natural
+widowx_stack_cube,Take the green piece and set it on the yellow piece.,natural,,0.7589896061764511,-2.4888,-9.9016,0.5487,False,44,,generated_natural
+widowx_stack_cube,put the green cube on top of the yellow cube,unknown,,0.7653616248267882,-2.4702,-10.2226,0.5344,False,44,50.0,fine_exam
+widowx_stack_cube,put the small green block on the yellow block,unknown,,0.7692990795538125,-2.4588,-10.0641,0.5396,False,44,27.8,fine_exam
+widowx_stack_cube,Set the green item down onto the yellow item.,natural,,0.7698451522297783,-2.4572,-9.4571,0.5633,False,44,,generated_natural
+widowx_stack_cube,Make sure the green block ends up resting on the yellow block.,natural,,0.775229611939368,-2.4414,-9.6675,0.5537,False,44,,generated_natural
+widowx_stack_cube,stack the green cube on the yellow cube,unknown,,0.7872913525720112,-2.4063,-9.8992,0.5415,False,44,25.0,fine_exam
+widowx_stack_cube,put the green cube onto the yellow cube,unknown,,0.7973458969616913,-2.3769,-9.8298,0.5416,False,44,30.6,fine_exam
+widowx_stack_cube,put the green cube on the yellow one,unknown,,0.8022316038552765,-2.3627,-9.051,0.5709,False,218,33.3,fine_exam
+widowx_stack_cube,stack the green block on the yellow block,unknown,,0.827587500331769,-2.2887,-9.3105,0.5542,False,44,22.2,fine_exam
+widowx_stack_cube,put green cube on yellow cube,unknown,,0.8297302970059593,-2.2824,-10.0327,0.5253,False,44,36.1,fine_exam
+widowx_stack_cube,green block on yellow block,unknown,,0.8300729650413222,-2.2814,-9.167,0.5592,False,206,25.0,fine_exam
+widowx_stack_cube,pick up the green cube and place it on the yellow cube,unknown,,0.8331925476253621,-2.2723,-9.6721,0.5386,False,44,30.6,fine_exam
+widowx_stack_cube,put the green block on the yellow block,unknown,,0.848765641298688,-2.2269,-9.4206,0.5444,False,104,25.0,fine_exam
+widowx_stack_cube,stack the green cube on top of the yellow cube,unknown,,0.8510065871766732,-2.2204,-9.738,0.5314,False,44,38.9,fine_exam
+widowx_stack_cube,green cube on top of yellow cube,unknown,,0.8526025977199292,-2.2157,-9.5906,0.5368,False,44,38.9,fine_exam
+widowx_stack_cube,set the green cube on top of the yellow cube,unknown,,0.8571681957020648,-2.2024,-9.8938,0.5237,False,44,52.8,fine_exam
+widowx_stack_cube,Pick up the green block and drop it on the yellow one.,natural,,0.8668854906144111,-2.174,-8.8205,0.5633,False,44,,generated_natural
+widowx_stack_cube,Put the green cube on top of the yellow cube.,search,,0.8750000000000001,,,,True,12,58.333333333333336,probe
+widowx_stack_cube,Stack the green on the yellow.,natural,,0.889596762600438,-2.1078,-8.5545,0.5679,False,206,50.0,generated_natural
+widowx_stack_cube,Rest the green block on the yellow block.,natural,,0.9115364634127394,-2.0437,-8.9098,0.5483,False,44,,generated_natural
+widowx_stack_cube,Move the green cube onto the yellow cube.,natural,,0.9211662034804894,-2.0157,-8.959,0.5439,False,44,,generated_natural
+widowx_stack_cube,Lift the green block and set it down on the yellow block.,natural,,0.9215174847264282,-2.0146,-9.3331,0.5291,False,44,,generated_natural
+widowx_stack_cube,Put the green one on top of the yellow one.,natural,,0.9329088790994188,-1.9814,-9.0505,0.5373,False,212,33.33333333333333,generated_natural
+widowx_stack_cube,Grab that green block and place it directly on top of the yellow block.,natural,,1.0,-1.7856,-8.8746,0.5269,False,44,,generated_natural
+widowx_stack_cube,Stack the green block on the yellow block.,rephrased,natural,1.0,,,,True,6,66.66666666666666,loop_claude
+widowx_stack_cube,Place the green cube on top of the yellow cube.,rephrased,natural,1.0,,,,True,6,66.66666666666666,loop_qwen
+widowx_stack_cube,Stack the green cube on top of the yellow cube.,rephrased,adversarial,1.0,,,,True,6,66.66666666666666,loop_qwen

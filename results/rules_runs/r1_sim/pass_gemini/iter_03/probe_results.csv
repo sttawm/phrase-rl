@@ -1,0 +1,7 @@
+task,phrase,kind,score,logit,z,grip,gt_success,n_ctx
+widowx_carrot_on_plate,put the carrot on the yellow plate,search,0.41666666666666674,41.66666666666667,,,41.66666666666667,12.0
+widowx_coke_can_on_plate_clean,Put the coke down on the plate.,search,0.41666666666666674,41.66666666666667,,,41.66666666666667,12.0
+widowx_coke_can_on_plate_clean,put the coke can on the plate or the dish,search,0.41666666666666674,41.66666666666667,,,41.66666666666667,12.0
+widowx_coke_can_on_ramekin_clean,Place the cola can in the white bowl.,search,0.5,50.0,,,50.0,12.0
+widowx_coke_can_on_ramekin_clean,pick up the red can and put it in the white ramekin,search,0.0,0.0,,,0.0,12.0
+widowx_stack_cube,Put the green cube on top of the yellow cube.,search,0.5833333333333334,58.333333333333336,,,58.333333333333336,12.0

@@ -20,8 +20,13 @@
   "gemini": {
    "best_iter": 2,
    "success": 0.312,
-   "delta": 0.083
+   "delta": 0.083,
+   "extension_iters_3_5": [
+    0.309,
+    0.306,
+    0.288
+   ],
+   "extension_verdict": "plateaued; best remains iter 2"
   }
- },
- "fixed": "2026-09-02: concurrent drivers each overwrote final.json with only their own pass; reassembled"
+ }
 }
