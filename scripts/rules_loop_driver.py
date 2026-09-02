@@ -1527,6 +1527,8 @@ def main():
                          "Gemini analog of effort. <=0 = model default; explicit "
                          "minimum on pro-class models is 128 (they reject 0)")
     ap.add_argument("--max-probes", type=int, default=20)
+    ap.add_argument("--rollout-episodes", type=int, default=0,
+                    help="phase=sim: episodes per phrase for loop evals (0 = env default)")
     ap.add_argument("--max-train-tasks", type=int, default=0,
                     help="cap the training pool (0 = all); the val splits are "
                          "unaffected")
