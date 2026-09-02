@@ -3,7 +3,7 @@
  "created": "2026-09-02 12:31",
  "seed": 7,
  "patience": 99,
- "max_iters": 3,
+ "max_iters": 6,
  "sample_n": 48,
  "score_budget": 64,
  "contexts_per_task": 16,
@@ -60,6 +60,42 @@
    "when": "2026-09-02 16:21",
    "rephrasers": [
     "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-02 16:51",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-02 16:56",
+   "rephrasers": [
+    "claude"
+   ]
+  },
+  {
+   "when": "2026-09-02 17:03",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-02 17:16",
+   "rephrasers": [
+    "gemini"
+   ]
+  },
+  {
+   "when": "2026-09-02 17:38",
+   "rephrasers": [
+    "qwen"
+   ]
+  },
+  {
+   "when": "2026-09-02 17:41",
+   "rephrasers": [
+    "claude"
    ]
   }
  ],

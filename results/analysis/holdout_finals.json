@@ -68,5 +68,12 @@
    1.9,
    11.9
   ]
+ },
+ "gemini_x_claude_book": {
+  "mean": 43.1,
+  "natural": 41.7,
+  "adversarial": 43.1,
+  "original": 54.5,
+  "n": 143
  }
 }
