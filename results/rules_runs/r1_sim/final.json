@@ -1,6 +1,6 @@
 {
  "note": "per-model rulebooks -- deliberately NOT merged; each is tuned to its applier's rule-following capacity",
  "rulebooks": {
-  "claude": "pass_claude/best_rules.md"
+  "qwen": "pass_qwen/best_rules.md"
  }
 }

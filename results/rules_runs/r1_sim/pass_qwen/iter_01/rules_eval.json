@@ -1,0 +1,369 @@
+{
+ "whole_rulebook": {
+  "with_rules": 0.31597222222222215,
+  "unrephrased": 0.22916666666666669,
+  "delta": 0.08680555555555547
+ },
+ "samples": [
+  {
+   "task": "widowx_coke_can_on_plate_clean",
+   "base": "put the coke down on the plate",
+   "rewrite": "put the coke down on the plate",
+   "rewrite_logit": 66.66666666666666,
+   "base_logit": 83.33333333333334,
+   "base_logit_same_draw": true,
+   "delta": -16.6667
+  },
+  {
+   "task": "widowx_carrot_on_wheel_clean",
+   "base": "Transfer the carrot over to the wheel.",
+   "rewrite": "Place the carrot on the wheel.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 33.3333
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "base": "put the carrot on top of the plate",
+   "rewrite": "put the carrot on top of the plate",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 33.33333333333333,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_carrot_on_keyboard_clean",
+   "base": "set the carrot on the keyboard",
+   "rewrite": "set the carrot on the keyboard",
+   "rewrite_logit": 0.0,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_carrot_on_wheel_clean",
+   "base": "set the carrot on the wheel",
+   "rewrite": "place the carrot on the wheel",
+   "rewrite_logit": 16.666666666666664,
+   "base_logit": 16.666666666666664,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "base": "Slide the eggplant into the yellow basket.",
+   "rewrite": "Slide the purple eggplant into the yellow basket.",
+   "rewrite_logit": 100.0,
+   "base_logit": 83.33333333333334,
+   "base_logit_same_draw": true,
+   "delta": 16.6667
+  },
+  {
+   "task": "widowx_coke_can_on_plate_clean",
+   "base": "place coke can on plate",
+   "rewrite": "place coke can on plate",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 50.0,
+   "base_logit_same_draw": true,
+   "delta": -16.6667
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "base": "Please shift the carrot onto the plate.",
+   "rewrite": "Shift the carrot onto the plate.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 16.666666666666664,
+   "base_logit_same_draw": true,
+   "delta": 16.6667
+  },
+  {
+   "task": "widowx_carrot_on_keyboard_clean",
+   "base": "Pick up the carrot and set it down on the keyboard.",
+   "rewrite": "Pick up the carrot and set it down on the keyboard.",
+   "rewrite_logit": 0.0,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_carrot_on_keyboard_clean",
+   "base": "place the carrot across the black keyboard",
+   "rewrite": "Place the carrot across the black keyboard.",
+   "rewrite_logit": 0.0,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "base": "Pick up the red cola can and place it upright inside the white bowl.",
+   "rewrite": "Pick up the red cola can and place it upright inside the white bowl.",
+   "rewrite_logit": 50.0,
+   "base_logit": 50.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "base": "place the cola can standing up inside the white bowl",
+   "rewrite": "place the red cola can standing up inside the white bowl",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 50.0,
+   "base_logit_same_draw": true,
+   "delta": -16.6667
+  },
+  {
+   "task": "widowx_coke_can_on_plate_clean",
+   "base": "Grab that red aluminum can and set it on the plate.",
+   "rewrite": "Grab the red soda can and place it on the light green plate.",
+   "rewrite_logit": 16.666666666666664,
+   "base_logit": 66.66666666666666,
+   "base_logit_same_draw": true,
+   "delta": -50.0
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "base": "Could you grab that spoon and set it on the cloth for me?",
+   "rewrite": "Grasp the green-handled spoon and place it on the blue cloth.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 50.0,
+   "base_logit_same_draw": true,
+   "delta": -16.6667
+  },
+  {
+   "task": "widowx_stack_cube",
+   "base": "Stack the green on the yellow.",
+   "rewrite": "Stack the green cube on the yellow cube.",
+   "rewrite_logit": 66.66666666666666,
+   "base_logit": 50.0,
+   "base_logit_same_draw": true,
+   "delta": 16.6667
+  },
+  {
+   "task": "widowx_stack_cube",
+   "base": "green block on yellow block",
+   "rewrite": "place the green block on the yellow block",
+   "rewrite_logit": 50.0,
+   "base_logit": 16.666666666666664,
+   "base_logit_same_draw": true,
+   "delta": 33.3333
+  },
+  {
+   "task": "widowx_stack_cube",
+   "base": "Can you place the green block onto the yellow block for me?",
+   "rewrite": "Place the green cube on the yellow cube.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 33.33333333333333,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_coke_can_on_plate_clean",
+   "base": "put the coke can on the dish",
+   "rewrite": "put the red coke can on the dish",
+   "rewrite_logit": 16.666666666666664,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 16.6667
+  },
+  {
+   "task": "widowx_stack_cube",
+   "base": "put the green cube on the yellow one",
+   "rewrite": "put the green block on the yellow one",
+   "rewrite_logit": 16.666666666666664,
+   "base_logit": 33.33333333333333,
+   "base_logit_same_draw": true,
+   "delta": -16.6667
+  },
+  {
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "base": "place the cola can inside the white bowl",
+   "rewrite": "place the red cola can inside the white bowl",
+   "rewrite_logit": 66.66666666666666,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 66.6667
+  },
+  {
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "base": "place the red can upright inside the white bowl",
+   "rewrite": "place the red can in the white bowl",
+   "rewrite_logit": 50.0,
+   "base_logit": 50.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "base": "put the spoon on the blue cloth",
+   "rewrite": "put the spoon on the blue cloth",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 50.0,
+   "base_logit_same_draw": true,
+   "delta": -16.6667
+  },
+  {
+   "task": "widowx_carrot_on_wheel_clean",
+   "base": "place the carrot in the black wheel",
+   "rewrite": "place the orange carrot in the black wheel",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 33.33333333333333,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_stack_cube",
+   "base": "Put the green one on top of the yellow one.",
+   "rewrite": "Put the green block on top of the yellow block.",
+   "rewrite_logit": 16.666666666666664,
+   "base_logit": 33.33333333333333,
+   "base_logit_same_draw": true,
+   "delta": -16.6667
+  },
+  {
+   "task": "widowx_carrot_on_keyboard_clean",
+   "base": "Lay the carrot across the keyboard.",
+   "rewrite": "Lay the orange carrot across the black keyboard.",
+   "rewrite_logit": 0.0,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_carrot_on_wheel_clean",
+   "base": "Move the orange vegetable to the wheel.",
+   "rewrite": "Place the orange vegetable on the wheel.",
+   "rewrite_logit": 0.0,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "base": "It would be highly appreciated if you could relocate the concave piece of silverware so that it resides atop the woven textile.",
+   "rewrite": "Place the green-handled spoon on top of the blue cloth.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 50.0,
+   "base_logit_same_draw": true,
+   "delta": -16.6667
+  },
+  {
+   "task": "widowx_carrot_on_keyboard_clean",
+   "base": "Assuming you have grasped the orange root vegetable, please transport it such that it rests atop the device used for typing.",
+   "rewrite": "Place the carrot on top of the keyboard.",
+   "rewrite_logit": 16.666666666666664,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 16.6667
+  },
+  {
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "base": "Should you be capable of manipulating the cylindrical cola container, proceed to hoist it and guide it downward until it is securely housed in the ramekin.",
+   "rewrite": "Pick up the red can and put it in the ramekin.",
+   "rewrite_logit": 0.0,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "base": "You are hereby instructed to commence the relocation of the carrot, terminating said motion only when it makes contact with the plate.",
+   "rewrite": "Pick up the carrot and put it on the plate.",
+   "rewrite_logit": 16.666666666666664,
+   "base_logit": 16.666666666666664,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "base": "Proceed to grasp the carrot and subsequently establish its position atop the dining plate.",
+   "rewrite": "Pick up the carrot and place it on top of the green plate.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 33.33333333333333,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "base": "The carrot, which is presently situated in its initial starting location, must be lifted and maneuvered until it occupies the plate.",
+   "rewrite": "Pick up the carrot and place it on the plate.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 16.666666666666664,
+   "base_logit_same_draw": true,
+   "delta": 16.6667
+  },
+  {
+   "task": "widowx_carrot_on_plate",
+   "base": "Given the current arrangement of objects, ensure that the carrot is swiftly conveyed to the surface of the plate.",
+   "rewrite": "Put the carrot on the plate.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 16.666666666666664,
+   "base_logit_same_draw": true,
+   "delta": 16.6667
+  },
+  {
+   "task": "widowx_carrot_on_wheel_clean",
+   "base": "The elongated orange taproot must be elevated from its current location and meticulously positioned such that it is fully supported by the wheel.",
+   "rewrite": "Place the orange carrot on the wheel.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 33.3333
+  },
+  {
+   "task": "widowx_stack_cube",
+   "base": "Avoiding all other objects, ensure that the highest point of the yellow block becomes the new foundation for the green block.",
+   "rewrite": "Stack the green cube on the yellow cube.",
+   "rewrite_logit": 66.66666666666666,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 66.6667
+  },
+  {
+   "task": "widowx_coke_can_on_plate_clean",
+   "base": "Assuming the plate is readily accessible, proceed to transport the red tin of cola directly onto its surface.",
+   "rewrite": "Pick up the red can of cola and put it on the green plate.",
+   "rewrite_logit": 0.0,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_stack_cube",
+   "base": "Assuming the yellow block is currently clear, elevate the green block until it can be deposited directly upon its upper surface.",
+   "rewrite": "Pick up the green block and place it on top of the yellow block.",
+   "rewrite_logit": 33.33333333333333,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 33.3333
+  },
+  {
+   "task": "widowx_stack_cube",
+   "base": "Without disturbing the surrounding items, it is required that the block of green coloration be made to rest atop its yellow counterpart.",
+   "rewrite": "Pick up the green cube and place it on top of the yellow cube.",
+   "rewrite_logit": 50.0,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 50.0
+  },
+  {
+   "task": "widowx_put_eggplant_in_basket",
+   "base": "Deposit the bulbous purple vegetable directly into the confines of the yellow woven basket.",
+   "rewrite": "Put the purple vegetable in the yellow basket.",
+   "rewrite_logit": 100.0,
+   "base_logit": 100.0,
+   "base_logit_same_draw": true,
+   "delta": 0.0
+  },
+  {
+   "task": "widowx_spoon_on_towel",
+   "base": "It is hereby requested that the spoon be promptly elevated from its current station and subsequently lowered onto the surface of the towel.",
+   "rewrite": "Pick up the green spoon and put it on the blue towel.",
+   "rewrite_logit": 50.0,
+   "base_logit": 0.0,
+   "base_logit_same_draw": true,
+   "delta": 50.0
+  }
+ ]
+}
