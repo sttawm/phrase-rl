@@ -534,8 +534,10 @@ def load_traces(env=None):
         out.update({i: _sanitize_trace(tr) for i, tr in zip(t.instruction, t.trace)})
     n_legacy = len(out)
     if per_base.exists():
-        p = pd.read_parquet(per_base, columns=["task", "phrase", "trace"])
-        p = p.drop_duplicates(["task", "phrase"])
+        p = pd.read_parquet(per_base)
+        if "task" not in p and {"suite", "task_id"} <= set(p.columns):
+            p["task"] = p.suite.astype(str) + ":" + p.task_id.astype(str)
+        p = p[["task", "phrase", "trace"]].drop_duplicates(["task", "phrase"])
         out.update({(str(r.task), str(r.phrase)): _sanitize_trace(r.trace)
                     for r in p.itertuples()})
         print(f"[traces] {len(p)} per-base + {n_legacy} legacy-by-instruction")
@@ -825,11 +827,12 @@ def run_job(run, kind, payload: pd.DataFrame, spec: dict, tag: str, timeout=2880
     if run.dry or run.mock_scoring:
         out = payload.copy()
         h = payload.phrase.map(lambda p: int(hashlib.sha1(p.encode()).hexdigest()[:6], 16) / 0xFFFFFF)
-        if kind == "score" and spec.get("method") == "rollout":
+        if kind == "score" and spec.get("method") in ("rollout", "libero_bank_eval"):
             out["z"] = np.nan
             out["grip"] = np.nan
             out["gt_success"] = (100 * h).round(1)
-            out["n_ctx"] = len(spec.get("rollout", {}).get("episode_ids", [])) or 18
+            ro = spec.get("rollout", {})
+            out["n_ctx"] = len(ro.get("episode_ids", []) or ro.get("inits", [])) or 18
         elif kind == "score":
             out["z"] = -8 + 3 * h
             out["grip"] = 0.55 - 0.25 * h
