@@ -18,7 +18,7 @@
  "judge": "claude",
  "claude_model": "claude-fable-5",
  "claude_effort": "xhigh",
- "apply_effort": "medium",
+ "apply_effort": "high",
  "gemini_model": "gemini-pro-latest",
  "gemini_thinking_budget": 1024,
  "max_probes": 24,
