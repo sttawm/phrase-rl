@@ -77,6 +77,7 @@ if spec["kind"] == "score" and spec.get("method") == "rollout":
            "--phrases", str(phr_path),
            "--episode-ids", *[str(i) for i in ro["episode_ids"]],
            "--seed", str(ro.get("seed", 42)),
+           "--repeats", str(ro.get("repeats", 1)),
            "--out", str(out_path)]
     print("rollout:", " ".join(cmd), flush=True)
     subprocess.run(cmd, check=True, cwd=int_act)
