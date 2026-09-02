@@ -1,0 +1,7 @@
+{
+ "job_id": "hold_qwensc_apply_cfb83e4897",
+ "kind": "apply",
+ "rules_file": "results/rules_runs/r1_sim/current_rules_qwen.md",
+ "rules_text": "===RULES===\n1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.\n",
+ "rules_sha": "570ca4a39283"
+}
