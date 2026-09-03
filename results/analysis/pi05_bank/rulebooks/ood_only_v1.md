@@ -322,3 +322,225 @@ confirmation — at these n a single `libero_90:44`-style task landing in the dr
 Always stratify by measured canonical band. Pooled across bands the effect is diluted by the ~half of
 sealed tasks that cannot move in either direction, and a pooled rulebook-vs-canonical mean will come
 back indistinguishable from zero — a result fully consistent with this rulebook being correct.
+
+---
+
+## Independent audit of rule 1
+
+Three auditors re-derived the head-noun feature independently (purely lexical head-final NP parse;
+task-definition-derived closed lexicon; determiner-span parse with matched pairs), and this section
+adjudicates them against a fourth, independent re-derivation of my own. Scripts:
+`results/analysis/pi05_bank/audit_rule1_adjudication/` (`feat.py` = determiner-span head-noun
+extractor built from the 48 canonical strings alone, `est.py` = estimator, `r1`-`r9` = the contrasts).
+Nothing in this audit changes any number above it; the arithmetic in the rule-1 section reproduces.
+
+**Estimator, held fixed everywhere below.** Every contrast is computed inside a (`kind` x `canon_band`)
+cell; inside a task the two arms are episode-weighted by `n`; the task is the unit and tasks are
+weighted equally; CIs are a 20,000-draw cluster bootstrap over tasks; the noise floor is a
+3,000-draw permutation of the feature label **within task** (weights stay glued to rows).
+`oracle_board` is reported for corroboration only and never in a headline, because those rows were
+searched against these same rollouts.
+
+### 1. What reproduces exactly
+
+Running the rulebook's own feature (all canonical content tokens minus verbs, determiners,
+prepositions, spatial words and colour words) through my estimator:
+
+| quantity | rulebook | this audit |
+|---|---|---|
+| pooled | +3.19 [+0.65, +6.10] | +2.97 [+0.55, +5.97] |
+| high band | +10.34 [+3.51, +18.52] | +10.86 [+4.00, +19.04] |
+| adversarial-only, high band | +11.19 [+4.13, +19.78], 16 tasks | **+11.19** [+3.97, +19.58], 16 tasks |
+| natural-only, high band | +3.43 [-0.15, +7.24], 12 tasks | **+3.43** [-0.12, +7.19], 12 tasks |
+| high-band collapse rate (delta <= -40) | 14.3% dropping vs 6.4% keeping | **14.3% vs 6.4%** |
+
+The rule-1 section is arithmetically correct. Everything in dispute is interpretation.
+
+### 2. What is established (four independent feature implementations agree)
+
+**Prevalence — the confound the reader flagged is real and large.** Violation rate is
+**45.4% in `adversarial` vs 21.1% in `natural`**: renaming is 2.1x more frequent in the tier that was
+generated to be indirect. Rows that actually vary on the feature, per cell (head-noun feature):
+
+| kind | band | rows | violations | tasks varying / tasks | episodes keep vs viol |
+|---|---|---|---|---|---|
+| adversarial | floor | 285 | 130 (45.6%) | 26/27 | 1690 / 1460 |
+| adversarial | mid | 180 | 103 (57.2%) | 12/12 | 1085 / 1615 |
+| adversarial | high | 185 | 62 (33.5%) | 16/16 | 1465 / 810 |
+| natural | floor | 285 | 59 (20.7%) | 19/27 | 2480 / 670 |
+| natural | mid | 180 | 55 (30.6%) | 10/12 | 1875 / 825 |
+| natural | **high** | 185 | **23 (12.4%)** | **8/16** | 1980 / **295** |
+| oracle_board | mid | 536 | 262 (48.9%) | 11/12 | 6835 / 5945 |
+| oracle_board | floor / high | 137 / 91 | 15 / 20 | 3/3, 4/5 | — (searched, ignore) |
+
+`natural` x high is the cell the claimed replication rests on and it is **underpowered by
+construction**: 8 of 16 tasks vary, 23 violation rows, 295 episodes, permutation noise floor
+SD 3.17pp. It cannot resolve anything below roughly 6.4pp.
+
+**Keep-all minus violation, within kind x band** (episode-weighted, task-clustered, head-noun feature):
+
+| kind | band | effect | median task | sign | tasks vary | null SD | perm p |
+|---|---|---|---|---|---|---|---|
+| natural | floor | -0.22 [-1.56, +1.05] | +0.00 | 1+/2- | 19/27 | 0.55 | 0.71 |
+| natural | **mid** | **-7.38 [-13.72, -1.96]** | -7.12 | 2+/8- | 10/12 | 3.15 | **0.021** |
+| natural | high | +4.25 [+0.20, +8.70] | +1.83 | 5+/2- | 8/16 | 3.17 | 0.184 |
+| natural | all | -1.19 [-3.71, +1.04] | +0.00 | 8+/12- | 37/55 | 1.15 | 0.30 |
+| adversarial | floor | +0.65 [-0.18, +1.73] | +0.00 | 4+/1- | 26/27 | 0.44 | 0.14 |
+| adversarial | mid | +1.23 [-5.49, +9.82] | -3.74 | 4+/8- | 12/12 | 2.66 | 0.66 |
+| adversarial | **high** | **+13.58 [+4.63, +24.42]** | +3.72 | 10+/3- | 16/16 | 2.53 | **0.0003** |
+| adversarial | all | +4.61 [+1.17, +8.75] | +0.00 | 18+/12- | 54/55 | 0.97 | 0.0003 |
+| oracle_board | high | +10.02 [+1.29, +24.38] | +4.40 | 3+/0- | 4/5 | 4.09 | 0.019 (searched) |
+
+Established: **the effect is high-band only.** The floor band is flat in both unsearched tiers and the
+`natural` x mid cell runs the **wrong way** at -7.38pp, p=0.021, on 10 of 12 tasks — a significant
+counterexample to a rule written as "never", and one the pooled mid row (+0.01) above conceals.
+
+### 3. Settling the auditors' disagreements
+
+**(a) "natural-only pooled is -1.19, which contradicts the claimed +3.43" — mis-mapped, withdrawn.**
+The rule-1 section's +3.43 is the natural-only **high-band** figure on 12 tasks, which I reproduce to
+two decimals with the same feature and the same task count. The -1.19 is natural-only **pooled over
+bands**, which I also reproduce. Both are true; they are different quantities and there is no
+contradiction. What is fair to say instead is that "it replicates inside one prompt family" is too
+strong: the adversarial arm clears on its own, the natural arm is a same-sign point estimate with
+permutation p=0.18 against a 3.17pp noise floor and a bootstrap CI that a 8-cluster bootstrap cannot
+be trusted to place.
+
+**(b) "The tail-risk payload does not survive matching" — rests on the one threshold where it vanishes.**
+That auditor tested P(score == 0). Unmatched, `adversarial` x high gives 4.9% (keep) vs 6.5% (viol) on
+that outcome — a near-null. On the outcome the rulebook actually claims (`delta_vs_canon` below a
+threshold) the gap is large at every threshold tested:
+
+| threshold | keep | violation |
+|---|---|---|
+| delta <= -20 | 15.4% | 30.6% |
+| delta <= -40 | 9.8% | **24.2%** |
+| delta <= -50 | 7.3% | 17.7% |
+| delta <= -60 | 6.5% | 12.9% |
+
+Task-clustered, `adversarial` x high, delta <= -40: **+0.23 [+0.07, +0.42]**, 6 tasks positive /
+1 negative, null SD 0.05, p=0.0005. The payload stands — **within the adversarial family only**. In
+`natural` x high it is -0.04 (keep 3.1%, renamed 0.0% over 23 rows — no information), and
+`oracle_board` x high has zero collapses at any level. The quoted 14.3% -> 6.4% is a cross-family
+mixture: 65% of the violation rows are adversarial against 44% of the keep rows.
+
+**(c) Is it a tier artifact? No — the noun effect is real inside the adversarial family.**
+Four controls, all inside `adversarial` x high, none of which can be a tier effect because the tier
+is held constant:
+
+- 16 of 16 tasks vary on the feature; the contrast is never computed across families.
+- Task x kind fixed effects plus `n_words` and `n_oov` as distortion controls: `beta_viol` =
+  **-10.36 [-18.89, -4.26]** (natural x high -5.45 [-9.86, -1.55]; nat+adv high -8.42 [-15.42, -4.18]).
+- 1:1 length-caliper matching within task (|delta n_words| <= 3, 46 pairs, 16 tasks) moves the estimate
+  **up**, to **+16.34 [+5.89, +28.60]**.
+- Splitting adversarial-high at each task's median `n_oov`, the effect is as large in the **less**
+  distorted half (+15.66 [+5.69, +26.85], 15 tasks) as in the more distorted half
+  (+13.37 [+3.02, +27.97], 11 tasks). Placebo: among noun-**keeping** adversarial-high rows the
+  demeaned slope of success on `n_oov` is -0.27pp/word and on `n_words` -0.07pp/word — renaming is
+  not simply an index of how mangled the sentence is.
+
+**(d) `libero_90:10` does not drive rule 1.** Dropping it leaves adversarial-high at +13.67 (from
++13.58) and the collapse difference at +0.24 (from +0.23). It *does* inflate the raw rates: without
+it the keep-side collapse rate falls from 6.0% to 1.5% while the violation side stays at 12.8%
+(adversarial: 2.7% vs 17.5%). The task-clustered difference is unaffected; the raw proportions in the
+headline are not a safe way to quote it.
+
+**(e) The mean is heavy-tailed; quote the median.** adversarial-high mean +13.58 but median task
+effect **+3.72**, 10+/3- (exact sign test p=0.092), 10%-trimmed +10.79, drop-three-most-influential
++5.36, leave-one-out range [+9.74, +14.82]. Four tasks supply most of the mass (`libero_90:55` +71.3
+on 2 rows, `:50` +38.9 on 1 row, `:56` +37.5, `:33` +31.7). A permutation test on the **median**
+statistic still rejects (+3.72, null SD 0.92, p=0.012; nat+adv high +3.79, null SD 0.84, p=0.001),
+so a real ~4pp median effect survives the robustness pass even though the ~14pp mean does not.
+
+### 4. Deleting vs replacing, and mild vs aggressive renaming
+
+**Deletion is untested, not null.** Classifying each missing head noun by anchoring on the canonical
+tokens that survived and inspecting the phrase span between the flanking anchors: of 1,300 unsearched
+rows, **11 are pure deletions** (a looser classifier used by one auditor finds 62) and **zero of them
+are in the high band; zero are in `adversarial` x high**. The "reuse unchanged / never drop" half of
+rule 1 has no evidence behind it in either direction.
+
+**In the tier where the effect lives, there is no such thing as a mild rename.** Counting the novel
+content words that occupy the replaced noun's slot:
+
+| tier, high band | one-word swap | >= 3 words | median novel words |
+|---|---|---|---|
+| adversarial | **0%** | 89% | **8** |
+| natural | 43% | 26% | 2 |
+
+Every one of the 62 adversarial-high violations is a multi-word definite description
+("the dark concave receptacle from which one might eat cereal", "the canned item that helps children
+learn their letters", "the appliance we use to quickly heat up leftovers"). Every natural-high
+violation is a near-synonym in register (bowl -> dish, mug -> cup, stove -> burner/hob/stovetop,
+moka pot -> espresso maker, cabinet -> cupboard, chocolate pudding -> chocolate dessert). The
+severity axis is therefore perfectly confounded with the tier axis and the corpus cannot separate them
+cleanly. Every gradient that is visible points the same way:
+
+- natural-high renames (all mild): mean 90.4% vs 91.5% for keepers, contrast +4.50 [-1.05, +10.59]
+  for one-word swaps (p=0.49, 10 rows, 6 tasks), and **0 of 23 collapse**. Corpus-wide, `natural`
+  renames collapse on 0.0% of rows vs 1.9% for keepers; `adversarial` renames on 7.5% vs 3.4%.
+- inside adversarial-high, collapse rate by substitution size: keepers 9.8%, 2 novel words 14.3%,
+  3-4 words 10.0%, **5+ words 28.9%**.
+
+So the answer is "aggressive renaming is costly", with the caveat that this evidence never observes a
+mild rename inside an ornate sentence or an aggressive one inside a plain sentence.
+
+**Only the manipulated object's noun is tested.** Restricting violations to the target noun versus to
+landmark/destination nouns only:
+
+| contrast | effect | tasks vary | rows |
+|---|---|---|---|
+| adversarial high, TARGET replaced | **+13.47 [+4.50, +24.09]** | 16/16 | 57 |
+| adversarial high, LANDMARK only | +2.32 [+0.00, +3.64], p=0.60 | 3/16 | 5 |
+| natural high, TARGET replaced | +4.99 [+0.16, +10.29], p=0.26 | 6/16 | 11 |
+| high band, LANDMARK only (nat+adv) | +0.91 [-1.11, +3.69], p=0.57 | 4/16 | 17 |
+| **all bands, LANDMARK only (nat+adv)** | **+1.18 [-1.77, +4.17], p=0.42** | 23/55 | 117 |
+
+The last row has real power (23 tasks, 117 rows, 985 rows in the comparison) and is null. "Every
+physical thing the instruction names — the thing to be moved **and the place it goes**" is not
+supported for the second half.
+
+### 5. Verdict
+
+Rule 1 is **a real noun effect, not a tier artifact — inside a scope roughly one quarter the size of
+the one it claims.** What survives: replacing the head noun of the *object being manipulated* with a
+*multi-word description* costs roughly +4pp (median task effect, the robust number) to +14pp (mean,
+tail-driven) on tasks whose canonical already exceeds 70%, and roughly doubles-to-triples the rate of
+catastrophic collapse there. What does not survive as written: the pooled framing (a mixture of one
+band that moves and 39 tasks that do not, with one cell running the wrong way), the destination-noun
+half, the never-drop half, and "replicates within one prompt family".
+
+One further structural caveat, since rule 1 and rule 2 are sold as mutually reinforcing: the rule-1
+section notes that conditioning rule 2 on rule 1 shrinks rule 2's gap. The reverse conditioning is
+the more damaging one. **Conditional on the rewrite already being plain (`natural`), rule 1 buys
++4.25 [+0.20, +8.70] (p=0.18) on the high band and -1.19 [-3.71, +1.04] pooled.** A rephraser that
+already obeys rule 2 is being asked to obey a rule whose measured payload lives almost entirely inside
+the register rule 2 has already forbidden.
+
+### 6. PROPOSED narrowing (rule 1 above is left as written; this is for the user to decide)
+
+Band-conditional wording is not executable — rule 6 above is right that difficulty is invisible from
+the text — so the narrowing is on the linguistic axis instead. Tested as a feature, the narrowed rule
+captures the entire measured payload while binding on **one third as many plain rewrites**:
+
+| feature | high band effect | high band collapse diff | violated by plain rewrites | by ornate |
+|---|---|---|---|---|
+| rule 1 as written (any head noun missing) | +15.22 [+5.58, +26.64] | +0.23 [+0.07, +0.42] | 21.1% | 45.4% |
+| **narrowed (target noun expanded into >= 2 novel words)** | **+15.66 [+5.62, +27.06]** | **+0.24 [+0.08, +0.43]** | **7.7%** | 38.3% |
+
+> **PROPOSED replacement for rule 1:**
+>
+> Carry the instruction's own head noun for the object being moved or acted on straight into the
+> rewrite ("bowl", "book", "butter", "pot", "soup", "drawer"), and never expand that one noun into a
+> multi-word description of what it looks like, what it is made of, what it is for or what category
+> it belongs to ("the dark concave receptacle from which one might eat cereal", "the canned item that
+> helps children learn their letters", "the appliance we use to quickly heat up leftovers"); a
+> single-word near-synonym in the same plain register ("bowl" -> "dish", "mug" -> "cup", "stove" ->
+> "burner") carries no measured penalty, and the noun naming *where* the object goes is not measured
+> at all.
+
+Executable from instruction plus scene alone: take the head noun of the instruction's first noun
+phrase, keep it or swap a single word for it, and never replace it with a phrase. If this narrowing
+is adopted, the two "honest limits" stated under rule 1 should be joined by a third: on mid-band
+tasks under plain phrasing the measured sign is negative (-7.38 [-13.72, -1.96], p=0.021), so
+"never" is contradicted somewhere in this population.
