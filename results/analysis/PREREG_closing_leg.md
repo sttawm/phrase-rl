@@ -663,3 +663,24 @@ all 72 attacks, 24 layouts x 2 reps (n=3,456/arm). No new phrase generation --
 the attacks and traces are the A29 assets. Prediction P6: each applier's A29
 book arm beats its scaffold arm on the full 72-attack set (paired), but by
 LESS than the holdout gap (book specialization to loop vocabulary).
+
+## Amendment 31 (2026-09-03) — v2 one-shot ultracode distillations, three evidence diets, sealed 3x3
+
+Three books, each distilled ONE-SHOT by a Fable multi-agent panel (3 lens-
+distillers -> adversarial critic -> synthesizer per arm), no iterative loop:
+  T  train-only: gripper-proxy evidence (4,544 rows, 220 tasks; val8/sim and
+     sealed tasks EXCLUDED from context, gt columns stripped) + corpus
+     statistics + mining artifacts. Critic verifies zero sim/val8/sealed leakage.
+  S  sim-only: the 516 rollout-scored bank rows (8 sim tasks) ONLY; no corpus
+     artifacts, no proxy rows; black-box-VLA framing. Critic attacks overfit.
+  B  both: full 5,236-row bank + corpus artifacts; synthesis of both registers.
+Applier for ALL sealed arms: gemini-pro-latest (thinking 1024, temp 0.0), the
+strongest measured executor -- one applier so the 3 bars per condition compare
+books, not appliers. Apply protocol = loop apply.md + A29 traces (matched
+naturals; per-attack; nominal traces from sealed_assets for originals).
+Sealed exposure: 3 books x 3 conditions; layouts 0-11 x 1 rep for adversarial
+(72 phrases) and natural (192); original = 12 nominals x 24 layouts x 2.
+Episodes: 3 x (864 + 2,304 + 576) = 11,232.
+Predictions: P7 B >= T and B >= S on every condition pooled. P8 T > S on
+sealed OOV strata (corpus knowledge travels; sim specifics do not). P9 S > T
+on the original-12 attacks (sim data saw that register's difficulty directly).
