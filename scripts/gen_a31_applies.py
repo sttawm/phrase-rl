@@ -15,6 +15,7 @@ import pathlib
 import rules_loop_driver as d
 
 book_path, applier, tag = sys.argv[1], sys.argv[2], sys.argv[3]
+only_conds = sys.argv[4].split(",") if len(sys.argv) > 4 else ["adv", "nat", "orig"]
 REPO = pathlib.Path.home() / "dev/robotics/phrase-rl"
 rules = (REPO / book_path).read_text()
 
@@ -35,6 +36,8 @@ nat = pd.read_parquet(REPO / "results/sealed/ph_sealed_rephrase16.parquet")[["ta
 orig = orig12.rename(columns={"nominal": "phrase"})[["task", "phrase"]].drop_duplicates()
 
 for cond, bases in (("adv", adv), ("nat", nat), ("orig", orig)):
+    if cond not in only_conds:
+        continue
     rw = d.apply_rules(run, cfg, applier, rules, bases[["task", "phrase"]],
                        f"a31{tag}{applier[:2]}_{cond}")
     rw = rw.rename(columns={"phrase": "base", "rewrite": "phrase"})
