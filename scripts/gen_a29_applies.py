@@ -26,7 +26,13 @@ applier = sys.argv[1]
 BOOKS = {"claude": "results/rules_runs/r1_sim/pass_claude/best_rules.md",
          "gemini": "results/rules_runs/r1_sim/pass_claude/best_rules.md"}
 REPO = pathlib.Path.home() / "dev/robotics/phrase-rl"
-rules = (REPO / BOOKS[applier]).read_text()
+SCAFFOLD = ("===RULES===\n1. Rewrite the instruction as a short, plain "
+            "imperative that keeps the same objects and goal.\n")
+# A30: "<applier>_sc" applies the no-rules scaffold instead of the locked book
+if applier.endswith("_sc"):
+    applier, rules = applier[:-3], SCAFFOLD
+else:
+    rules = (REPO / BOOKS[applier]).read_text()
 
 run = d.Run("r1_sim", dry=False)
 cfg = d.jread(run.cfg_path)
@@ -44,19 +50,21 @@ nat = pd.read_parquet(REPO / "results/sealed/ph_sealed_rephrase16.parquet")[
     ["task", "k", "phrase"]].reset_index(drop=True)
 print(f"[{applier}] adv bases={len(adv)} nat bases={len(nat)}", flush=True)
 
-for cond, bases in (("adv", adv), ("nat", nat)):
+arm = applier + ("sc" if rules.startswith("===RULES===\n1. Rewrite") else "")
+conds = (("adv", adv),) if arm.endswith("sc") else (("adv", adv), ("nat", nat))
+for cond, bases in conds:
     rw = d.apply_rules(run, cfg, applier, rules, bases[["task", "phrase"]],
-                       f"a29{applier[:2]}_{cond}")
+                       f"a29{arm[:4]}_{cond}")
     rw = rw.rename(columns={"phrase": "base", "rewrite": "phrase"})
     rw["phrase"] = rw.phrase.fillna("").astype(str)
     rw.loc[rw.phrase.str.strip() == "", "phrase"] = rw.base
     if cond == "nat":
         rw = bases[["task", "k", "phrase"]].rename(columns={"phrase": "base"}).merge(
             rw, on=["task", "base"], how="left").drop_duplicates(["task", "k"])
-    out = REPO / f"results/sealed/ph_a29_{applier}_{cond}.parquet"
+    out = REPO / f"results/sealed/ph_a29_{arm}_{cond}.parquet"
     rw.to_parquet(out, index=False)
-    print(f"[{applier}/{cond}] applied {len(rw)}, changed "
+    print(f"[{arm}/{cond}] applied {len(rw)}, changed "
           f"{(rw.phrase != rw.base).mean():.0%} -> {out.name}", flush=True)
     for r in rw.head(3).itertuples():
         print(f"  PREFLIGHT {r.task} | {str(r.base)[:60]} -> {str(r.phrase)[:60]}", flush=True)
-print(f"A29-APPLIES-DONE {applier}", flush=True)
+print(f"A29-APPLIES-DONE {arm}", flush=True)
