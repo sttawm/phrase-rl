@@ -14,5 +14,6 @@
  "both|Original|gemini": 39.9,
  "both|Adversarial|qwen": 26.7,
  "both|Natural|qwen": 31.7,
- "both|Original|qwen": 37.0
+ "both|Original|qwen": 37.0,
+ "sim_only|Adversarial|claude": 30.7
 }
