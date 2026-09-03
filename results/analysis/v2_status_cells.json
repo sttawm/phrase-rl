@@ -4,5 +4,8 @@
  "scaffold|Natural|qwen": "28.3 (v1)",
  "scaffold|Adversarial|claude": 24.3,
  "scaffold|Adversarial|gemini": 24.0,
- "scaffold|Adversarial|qwen": 24.7
+ "scaffold|Adversarial|qwen": 24.7,
+ "scaffold|Original|claude": "X",
+ "scaffold|Original|gemini": "X",
+ "scaffold|Original|qwen": "X"
 }
