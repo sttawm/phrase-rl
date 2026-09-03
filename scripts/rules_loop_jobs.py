@@ -73,8 +73,11 @@ if spec["kind"] == "score" and spec.get("method") == "rollout":
     nw = int(os.environ.get("ROLLOUT_NW", ro.get("nw", 3)))
     nw = max(1, min(nw, len(pl)))
     chunks = [pl.iloc[i::nw] for i in range(nw)]
+    import time as _time
     procs, outs = [], []
     for ci, ch in enumerate(chunks):
+        if ci:
+            _time.sleep(45)   # stagger model-load memory spikes (run_sealed_leg.sh pattern)
         phr_path = (jdir / f"{jid}.rollphrases.{ci}.parquet").resolve()
         ch.to_parquet(phr_path, index=False)
         out_path = (jdir / f"{jid}.rollraw.{ci}.parquet").resolve()
