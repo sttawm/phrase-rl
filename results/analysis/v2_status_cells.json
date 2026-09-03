@@ -7,5 +7,7 @@
  "scaffold|Adversarial|qwen": 24.7,
  "scaffold|Original|claude": "X",
  "scaffold|Original|gemini": "X",
- "scaffold|Original|qwen": "X"
+ "scaffold|Original|qwen": "X",
+ "both|Adversarial|claude": 29.2,
+ "both|Adversarial|gemini": 30.0
 }
