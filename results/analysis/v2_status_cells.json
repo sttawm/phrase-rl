@@ -18,5 +18,7 @@
  "sim_only|Adversarial|claude": 30.7,
  "sim_only|Natural|claude": 32.4,
  "sim_only|Original|claude": 39.2,
- "sim_only|Adversarial|gemini": 30.4
+ "sim_only|Adversarial|gemini": 30.4,
+ "sim_only|Natural|gemini": 32.7,
+ "sim_only|Adversarial|qwen": 28.4
 }
