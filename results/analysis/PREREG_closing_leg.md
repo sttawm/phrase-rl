@@ -684,3 +684,11 @@ Episodes: 3 x (864 + 2,304 + 576) = 11,232.
 Predictions: P7 B >= T and B >= S on every condition pooled. P8 T > S on
 sealed OOV strata (corpus knowledge travels; sim specifics do not). P9 S > T
 on the original-12 attacks (sim data saw that register's difficulty directly).
+
+### A31 correction (user, 2026-09-03 11:00): all THREE appliers (claude fable
+effort high / gemini thinking-1024 / qwen greedy pod-side) apply each book ->
+3 books x 3 appliers x 3 conditions on sealed; ALL 24 layouts (adversarial
+72x24x1 n=1,728; natural 192x24x1 n=4,608; original 12x24x2 n=576 per arm;
+~62k episodes total). Queue order: adversarial, original, then natural.
+Arm-T note: the contrast-pairs file emptied under the val8 leak scrub (all
+139 pairs reference val8-family tasks) and is dropped from arm T's inputs.

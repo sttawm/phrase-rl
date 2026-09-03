@@ -1,5 +1,0 @@
-{
- "rule": "n>=200/phrase, |delta|>=6pp, z>1.96, layout-clustered SE",
- "n_pairs": 0,
- "pairs": []
-}
