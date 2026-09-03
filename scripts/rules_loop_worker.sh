@@ -123,7 +123,7 @@ while true; do
       pkill -f '[p]hase2_score_server' 2>/dev/null || true
       sleep 8
     fi
-    if [ "$kind" = "score" ] && ! grep -q '"method": "rollout"' "$specf"; then
+    if [ "$kind" = "score" ] && ! grep -qE '"method": "(rollout|libero_bank_eval)"' "$specf"; then
       ensure_score_server
     fi
     mark "running $jid ($kind)"
