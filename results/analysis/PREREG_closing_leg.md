@@ -692,3 +692,10 @@ effort high / gemini thinking-1024 / qwen greedy pod-side) apply each book ->
 ~62k episodes total). Queue order: adversarial, original, then natural.
 Arm-T note: the contrast-pairs file emptied under the val8 leak scrub (all
 139 pairs reference val8-family tasks) and is dropped from arm T's inputs.
+
+### A30/A31 addendum (2026-09-03): scaffold NATURAL controls, same protocol.
+The v1 promptB natural cells are not protocol-matched (different no-rules
+prompt, ERT-derived traces). Re-run: loop scaffold rule, matched traces, all
+three appliers, the same 192 naturals, 24 layouts x 1 (n=4,608/arm). Queued
+after the A31 book arms (leg prefix c32*). These replace the v1 numbers in the
+scaffold|Natural row.
