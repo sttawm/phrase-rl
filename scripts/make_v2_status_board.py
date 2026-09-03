@@ -70,7 +70,7 @@ for ri, (rk, rlabel) in enumerate(ROWS):
                         fontsize=10, fontweight="bold", color="white")
 fig.text(0.5, 0.97, "A31 v2 grid -- sealed suite success % (grey = in progress)",
          ha="center", fontsize=12.5)
-fig.text(0.99, 0.01, "scaffold naturals from v1 promptB where marked; all book cells roll at 24 layouts",
+fig.text(0.99, 0.01, "v1* = PRELIMINARY prior-era promptB numbers (different no-rules prompt + ERT traces); same-protocol re-runs in flight and will replace them. All v2 cells: 24 layouts.",
          ha="right", fontsize=7, color="#718096")
 fig.tight_layout(rect=[0, 0.02, 1, 0.93])
 out = REPO / "results/charts/v2_status_board.png"
