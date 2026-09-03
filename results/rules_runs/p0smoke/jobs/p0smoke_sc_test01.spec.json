@@ -1,0 +1,14 @@
+{
+ "job_id": "p0smoke_sc_test01",
+ "kind": "score",
+ "method": "libero_bank_eval",
+ "rollout": {
+  "inits": [
+   0,
+   1,
+   2
+  ],
+  "seed": 7,
+  "port": 8000
+ }
+}
