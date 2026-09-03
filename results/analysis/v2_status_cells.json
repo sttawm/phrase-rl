@@ -12,5 +12,6 @@
  "both|Adversarial|gemini": 30.0,
  "both|Natural|gemini": 29.1,
  "both|Original|gemini": 39.9,
- "both|Adversarial|qwen": 26.7
+ "both|Adversarial|qwen": 26.7,
+ "both|Natural|qwen": 31.7
 }
