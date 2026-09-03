@@ -1,5 +1,8 @@
 {
  "scaffold|Natural|claude": "30.8 (v1)",
  "scaffold|Natural|gemini": "31.1 (v1)",
- "scaffold|Natural|qwen": "28.3 (v1)"
+ "scaffold|Natural|qwen": "28.3 (v1)",
+ "scaffold|Adversarial|claude": 24.3,
+ "scaffold|Adversarial|gemini": 24.0,
+ "scaffold|Adversarial|qwen": 24.7
 }
