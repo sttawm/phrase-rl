@@ -22,5 +22,7 @@
  "sim_only|Natural|gemini": 32.7,
  "sim_only|Adversarial|qwen": 28.4,
  "sim_only|Natural|qwen": 31.7,
- "sim_only|Original|qwen": 28.5
+ "sim_only|Original|qwen": 28.5,
+ "train_only|Natural|claude": 29.0,
+ "train_only|Original|claude": 36.5
 }
