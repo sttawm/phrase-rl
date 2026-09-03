@@ -649,3 +649,17 @@ attacks + their traces + 192 matched natural traces, (b) applies of the three
 selected books to sealed phrases, (c) rollout legs listed above. Nothing else
 touches the sealed grid. Estimated episodes: 3 x 3,456 (adv books) + 2,880
 (new-attack passthrough) + 3 x 4,608 (natural books) = 27,072.
+
+## Amendment 30 (2026-09-03) — no-rules (scaffold) controls on the FULL widened adversarial set
+
+A29 declined new scaffold arms, leaving the widened 72-attack adversarial
+condition without a same-protocol no-rules control (the paper's prompt-B arms
+cover only the original 12 attacks, under a different no-rules prompt and no
+per-attack traces). User directive 2026-09-03: run them. Three arms, one per
+applier, applying the loop scaffold rule ("Rewrite the instruction as a short,
+plain imperative that keeps the same objects and goal.") via the same apply
+protocol as A29 (apply.md wrap, per-attack traces, frozen applier configs), on
+all 72 attacks, 24 layouts x 2 reps (n=3,456/arm). No new phrase generation --
+the attacks and traces are the A29 assets. Prediction P6: each applier's A29
+book arm beats its scaffold arm on the full 72-attack set (paired), but by
+LESS than the holdout gap (book specialization to loop vocabulary).
