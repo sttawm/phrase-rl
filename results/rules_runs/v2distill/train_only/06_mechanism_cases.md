@@ -15,18 +15,6 @@ preferred word for an object, which is not always the word its training data
 — or the nominal instruction — uses. Both candidates here are short,
 concrete nouns.
 
-## Case 2: an object the training data has no word for (a ramekin)
-Nominal instruction: "put coke can on ramekin" → 11% (n=864). The word
-"ramekin" never appears in the training data, and the nominal fails badly.
-- "Pick up the red cola can and place it upright inside the white bowl." → 64%
-- Repeating a long input description unchanged ("...hollow white ceramic
-  cup-like container...") → 42%
-- "...place it in the white object" → 4%
-Lesson: for an unfamiliar object, the best phrasing NAMES it with the
-closest familiar concrete noun ("bowl") — beating the nominal instruction
-itself by ~53 points. Repeating a rich description works moderately. A vague
-category word like "object" is a disaster.
-
 ## Case 3: another unfamiliar object (a computer keyboard) — the opposite echo result
 Nominal instruction: "put carrot on keyboard" → 18%. ("keyboard" also never
 appears in the training data, but here the nominal is roughly the ceiling.)
