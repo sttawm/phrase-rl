@@ -1,0 +1,21 @@
+on3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+/workspace/INT-ACT/.venv/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+[20] widowx_eggplant_on_sponge_clean ep9 success=False phrase='Put the purple vegetable on the yellow a'
+[40] widowx_eggplant_on_sponge_clean ep19 success=False phrase='Put the purple vegetable on the yellow a'
+[60] widowx_eggplant_on_sponge_clean ep5 success=True phrase='Place the purple vegetable on the green '
+[80] widowx_eggplant_on_sponge_clean ep15 success=True phrase='Place the purple vegetable on the green '
+done: 96 new episodes (96 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/a30geadv_be9bf6d577.rollraw.1.parquet
+task
+widowx_eggplant_on_sponge_clean    0.239583
+Name: success, dtype: float64
+[20] widowx_eggplant_on_sponge_clean ep9 success=False phrase='Put the purple vegetable on the yellow a'
+[40] widowx_eggplant_on_sponge_clean ep19 success=False phrase='Put the purple vegetable on the yellow a'
+[60] widowx_eggplant_on_sponge_clean ep5 success=True phrase='Place the purple vegetable on the double'
+[80] widowx_eggplant_on_sponge_clean ep15 success=True phrase='Place the purple vegetable on the double'
+done: 96 new episodes (96 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/a30geadv_be9bf6d577.rollraw.0.parquet
+task
+widowx_eggplant_on_sponge_clean    0.552083
+Name: success, dtype: float64
+rollout chunks failed: [2]
