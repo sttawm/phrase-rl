@@ -65,23 +65,36 @@ if spec["kind"] == "score" and spec.get("method") == "rollout":
     import subprocess
     ro = spec["rollout"]
     int_act = os.environ.get("INT_ACT_ROOT", "/workspace/INT-ACT")
-    phr_path = (jdir / f"{jid}.rollphrases.parquet").resolve()
     pl = payload[["task", "phrase"]].drop_duplicates().assign(arm="rules_loop")
-    pl.to_parquet(phr_path, index=False)
-    out_path = (jdir / f"{jid}.rollraw.parquet").resolve()
-    out_path.unlink(missing_ok=True)   # phase0c ACCUMULATES on an existing --out
-    cmd = [f"{int_act}/.venv/bin/python",
-           str(REPO / "src/phrase_rl/phase0c_rollout.py"),
-           "--int-act-root", int_act,
-           "--config", ro["config"], "--ckpt", ro["ckpt"],
-           "--phrases", str(phr_path),
-           "--episode-ids", *[str(i) for i in ro["episode_ids"]],
-           "--seed", str(ro.get("seed", 42)),
-           "--repeats", str(ro.get("repeats", 1)),
-           "--out", str(out_path)]
-    print("rollout:", " ".join(cmd), flush=True)
-    subprocess.run(cmd, check=True, cwd=int_act)
-    raw = pd.read_parquet(out_path)
+    # NW concurrent phase0c processes per job (the paper's sealed legs ran
+    # NW=3 on the same GPU; one process leaves 2/3 of throughput unused).
+    # Phrases are chunked; CRN determinism is per (task, episode, rep), so
+    # chunking cannot change any episode's noise.
+    nw = int(os.environ.get("ROLLOUT_NW", ro.get("nw", 3)))
+    nw = max(1, min(nw, len(pl)))
+    chunks = [pl.iloc[i::nw] for i in range(nw)]
+    procs, outs = [], []
+    for ci, ch in enumerate(chunks):
+        phr_path = (jdir / f"{jid}.rollphrases.{ci}.parquet").resolve()
+        ch.to_parquet(phr_path, index=False)
+        out_path = (jdir / f"{jid}.rollraw.{ci}.parquet").resolve()
+        out_path.unlink(missing_ok=True)   # phase0c ACCUMULATES on an existing --out
+        outs.append(out_path)
+        cmd = [f"{int_act}/.venv/bin/python",
+               str(REPO / "src/phrase_rl/phase0c_rollout.py"),
+               "--int-act-root", int_act,
+               "--config", ro["config"], "--ckpt", ro["ckpt"],
+               "--phrases", str(phr_path),
+               "--episode-ids", *[str(i) for i in ro["episode_ids"]],
+               "--seed", str(ro.get("seed", 42)),
+               "--repeats", str(ro.get("repeats", 1)),
+               "--out", str(out_path)]
+        print(f"rollout[{ci}/{nw}]:", " ".join(cmd), flush=True)
+        procs.append(subprocess.Popen(cmd, cwd=int_act))
+    fails = [ci for ci, pr in enumerate(procs) if pr.wait() != 0]
+    if fails:
+        raise SystemExit(f"rollout chunks failed: {fails}")
+    raw = pd.concat([pd.read_parquet(o) for o in outs], ignore_index=True)
     agg = raw.groupby(["task", "phrase"]).success.agg(["mean", "size"]).reset_index()
     res = pl[["task", "phrase"]].merge(agg, on=["task", "phrase"], how="left")
     res["gt_success"] = 100.0 * res["mean"]
