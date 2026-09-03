@@ -26,5 +26,11 @@
  "train_only|Natural|claude": 29.0,
  "train_only|Original|claude": 36.5,
  "train_only|Adversarial|gemini": 27.6,
- "train_only|Adversarial|qwen": 27.3
+ "train_only|Adversarial|qwen": 27.3,
+ "train_only|Natural|qwen": 30.3,
+ "train_only|Original|qwen": 38.0,
+ "sim_only|Original|gemini": 38.9,
+ "train_only|Adversarial|claude": 26.9,
+ "train_only|Natural|gemini": 28.6,
+ "train_only|Original|gemini": 37.5
 }
