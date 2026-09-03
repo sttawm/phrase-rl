@@ -78,6 +78,25 @@ def sim_overrides(p):
     return p
 
 
+# --- pi0.5/LIBERO: rollout-scored loop WITH validation (env val_tasks) -------
+# Credit-lean reasoning stack (user 2026-09-02): opus at high effort; single
+# gemini pass first. Rollout cost dominates; iter-0 baselines come from the
+# bank (same screen-window inits), so no baseline job.
+def pi05_overrides(p):
+    p = dict(p)
+    p.update(
+        run_id="p1",
+        phase="sim",
+        claude_model="claude-opus-5",
+        claude_effort="high",
+        sample_n=48,                   # stratified ~26nat/18adv/4canon
+        patience=3,                    # real val split exists for pi05
+        max_iters=8,
+        max_probes=16,                 # 16 probes x 10 inits ~= 160 eps
+    )
+    return p
+
+
 # --- quick-run: end-to-end shakeout with real LLMs + pod, minutes not hours --
 def quick_overrides(p, applier):
     p = dict(p)
@@ -118,7 +137,9 @@ def main():
          "env": args.env, "phase": "train"}
     if args.quick:
         p = quick_overrides(p, args.applier)
-    if args.phase == "sim":
+    if args.env == "pi05_libero":
+        p = pi05_overrides(p)          # pi05 is sim-mode by construction
+    elif args.phase == "sim":
         p = sim_overrides(p)
 
     cmd = [".venv/bin/python", "scripts/rules_loop_driver.py"]
