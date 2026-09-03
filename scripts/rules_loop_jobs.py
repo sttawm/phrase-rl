@@ -102,12 +102,15 @@ elif spec["kind"] == "score" and spec.get("method") == "libero_bank_eval":
     ipi = os.environ.get("INTERACTIVE_PI_ROOT", "/workspace/interactive-pi")
     py38 = os.environ.get("LIBERO_PY", f"{ipi}/.venv38/bin/python")
     pl = payload[["task", "phrase"]].drop_duplicates()
+    # bank_eval.py's queue schema: ONE item per (task, phrase) carrying the
+    # full inits list, plus canonical/arm bookkeeping fields it logs verbatim
     items = []
     for r in pl.itertuples():
         suite, tid = str(r.task).rsplit(":", 1)
-        for init in ro["inits"]:
-            items.append({"suite": suite, "task_id": int(tid),
-                          "phrase": str(r.phrase), "init": int(init)})
+        items.append({"suite": suite, "task_id": int(tid),
+                      "canonical": "", "arm": "loop",
+                      "phrase": str(r.phrase),
+                      "inits": [int(i) for i in ro["inits"]]})
     qpath = (jdir / f"{jid}.queue.json").resolve()
     json.dump(items, open(qpath, "w"))
     out_jsonl = (jdir / f"{jid}.bankeval.jsonl").resolve()
@@ -115,7 +118,8 @@ elif spec["kind"] == "score" and spec.get("method") == "libero_bank_eval":
            "--queue", str(qpath), "--out", str(out_jsonl),
            "--port", str(ro.get("port", 8000)),
            "--seed", str(ro.get("seed", 7))]
-    env = dict(os.environ, MUJOCO_GL="egl")
+    env = dict(os.environ, MUJOCO_GL="egl", PYOPENGL_PLATFORM="egl",
+               PYTHONPATH=os.environ.get("LIBERO_PYTHONPATH", ""))
     print("libero_bank_eval:", " ".join(cmd), flush=True)
     subprocess.run(cmd, check=True, cwd=f"{ipi}/pi05_libero/eval", env=env)
     rows = [json.loads(x) for x in open(out_jsonl) if x.strip()]
