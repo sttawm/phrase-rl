@@ -221,7 +221,42 @@ A31's stager was never committed. Everything needed to write one:
 
 ---
 
-## 9. Corrections to the repo's own record, found while reconstructing
+## 9. Loose ends left on the new Mac
+
+**Only this file was pushed.** Everything in §7 is local-only on the replacement
+Mac. In particular `results/sealed/ph_a34_s_gemini_nat.parquet` (+ its
+`apply_cache_gemini_a34sge_nat_977d9faf3f49.parquet` and the 186 prompt/response
+pairs in `results/rules_runs/r1_sim/llm_log/`) represents **186 paid Gemini
+calls**. Re-running gemini × sim_only will re-bill it. Ask for the file if you
+want it; otherwise just re-run.
+
+**Two independent CLAUDE.md reconstructions now exist.** The new Mac has +307
+uncommitted lines appended to `CLAUDE.md` (original 45 lines untouched: project
+framing, the two experiment lines, design decisions, experiment naming
+conventions, glossary, how to run, where work stopped, stale-doc warnings).
+Separately you pushed `b8eacf56` "pi0.5/LIBERO: screen findings + eval-design
+implications; CLAUDE.md project context". **These were written independently and
+should be reconciled deliberately, not blind-merged.**
+
+**~428 MB of `results/` blobs are sitting in the new Mac's `.git`** (1.4 GB
+total) from the `ls-tree -l` accident described in §8. Harmless but wasteful;
+`git repack -a -d --filter=blob:none` drops them. Not run.
+
+**Git identity on the new Mac** was set repo-locally (not `--global`) to
+`sttawm <sttawm@users.noreply.github.com>` so this commit could be made. The
+global config is still unset there.
+
+**Pod fleet:** 18 running at $12.52/hr. They sat idle on a fully drained queue
+for ~3 hours before your `91c41ee9` leg push gave them work; they are busy now.
+
+**Task state at handoff:** applies 5/12 done (qwen ×4 free, gemini × sim_only
+paid); 7 remain (gemini × t/b/sc, claude × t/s/b/sc). Leg staging: you have
+already done it for the 186 set. The un-rephrased passthrough baseline arm (§5)
+was still missing as of this writing.
+
+---
+
+## 10. Corrections to the repo's own record, found while reconstructing
 
 - **`HANDOFF.md:194` says v10 checkpoints 0040–0220 are lost. They are not** —
   they're on the unmerged branch `origin/ckpt-l40s`, 19 `ckpt-sync` commits.
