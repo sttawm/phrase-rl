@@ -1,0 +1,32 @@
+{
+ "job_id": "seal_screen_canon_w50",
+ "kind": "score",
+ "method": "libero_bank_eval",
+ "prereg": "2026-09-03 amendment: canonical-only screen, window 50-69, drop at 0/20",
+ "rollout": {
+  "inits": [
+   50,
+   51,
+   52,
+   53,
+   54,
+   55,
+   56,
+   57,
+   58,
+   59,
+   60,
+   61,
+   62,
+   63,
+   64,
+   65,
+   66,
+   67,
+   68,
+   69
+  ],
+  "seed": 7,
+  "port": 8000
+ }
+}
