@@ -1,0 +1,23 @@
+ing
+[2026-09-04 13:11:51.126] [svulkan2] [warning] Continue without GLFW.
+/workspace/INT-ACT/.venv/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+[20] widowx_small_plate_on_green_cube_clean ep19 success=False phrase='Put the small pale-yellow plate on the g'
+[40] widowx_small_plate_on_green_cube_clean ep15 success=False phrase='Put the small plate on the green block.'
+[60] widowx_small_plate_on_green_cube_clean ep11 success=False phrase='Pick up the plate and set it on the gree'
+[80] widowx_small_plate_on_green_cube_clean ep7 success=False phrase='Balance the green-yellow dish on the cub'
+done: 96 new episodes (96 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/d34sccln_bb169203c0.rollraw.2.parquet
+task
+widowx_small_plate_on_green_cube_clean    0.0
+Name: success, dtype: float64
+[20] widowx_small_plate_on_green_cube_clean ep19 success=False phrase='Put the small yellow plate on top of the'
+[40] widowx_small_plate_on_green_cube_clean ep15 success=False phrase='Put the small saucer on the green block.'
+[60] widowx_small_plate_on_green_cube_clean ep11 success=False phrase='Put the little yellow dish on top of the'
+[80] widowx_small_plate_on_green_cube_clean ep7 success=False phrase='put the small plate on the cube'
+[100] widowx_small_plate_on_green_cube_clean ep3 success=False phrase='Put the small plate on the block.'
+[120] widowx_small_plate_on_green_cube_clean ep23 success=False phrase='Put the small plate on the block.'
+done: 120 new episodes (120 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/d34sccln_bb169203c0.rollraw.0.parquet
+task
+widowx_small_plate_on_green_cube_clean    0.0
+Name: success, dtype: float64
+rollout chunks failed: [1]
