@@ -1,7 +1,8 @@
-ero/eval/bank_eval.py --queue /workspace/phrase-rl/results/rules_runs/p_seal/jobs/seal_screen_canon_w50.queue.json --out /workspace/phrase-rl/results/rules_runs/p_seal/jobs/seal_screen_canon_w50.bankeval.jsonl --port 8000 --seed 7
+space/phrase-rl/results/rules_runs/p_seal/jobs/seal_screen_canon_w50.queue.json --out /workspace/phrase-rl/results/rules_runs/p_seal/jobs/seal_screen_canon_w50.bankeval.jsonl --port 8000 --seed 7
 [robosuite WARNING] No private macro file found! (macros.py:53)
 [robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
 [robosuite WARNING] To setup, run: python /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[resume] 0 episodes already logged
 /workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
   @overload(np.MachAr)
 [Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
