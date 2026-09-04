@@ -808,16 +808,39 @@ than instruction phrasing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Appendix}
-\section{Natural-Rephrase Generation Prompt}
+\section{Natural-Rephrase Generation Prompts}
 \label{app:natural-prompt}
 
-Natural rephrases are generated with Gemini Pro
-(\texttt{gemini-pro-latest}, accessed August 2026) at temperature 1.0,
-two sampled calls of 8 rephrases per instruction, deduplicated
-(case-insensitive) to $K{=}16$. The scene image is attached to each
-call. The prompt deliberately contains no information about the
-executor, its training data, or any phrasing heuristics; the only
-register target is natural human phrasing.
+Natural rephrases appear in three roles in this work, and each role uses
+its own generator. Because the register of a natural set is a property of
+the generator and its prompt --- not of the policy being measured --- we
+state all three explicitly.
+
+\begin{itemize}\itemsep2pt
+\item \textbf{Scored phrase bank} --- the evidence the rule distillation
+reads. Gemini Pro (\texttt{gemini-pro-latest}) at temperature 1.0;
+1{,}888 rephrases over 228 training tasks, median 8 per task; text-only,
+no image; anti-repetition block on top-up calls (\S\ref{app:nat-bank}).
+\item \textbf{Policy-training inputs} --- the naturals the executor is
+trained against. Qwen3.5-9B at temperature 1.0; 4{,}083 rephrases,
+$K{=}3$ for each of 1{,}361 unique training instructions; conditioned on
+a scene-description trace rather than an image (\S\ref{app:nat-train}).
+\item \textbf{Sealed evaluation set} --- the natural condition reported
+in our results. Gemini Pro at temperature 1.0; $K{=}16$ per sealed task
+(192 total) from two sampled calls of 8, deduplicated; scene image
+attached (\S\ref{app:nat-sealed}).
+\end{itemize}
+
+None of the three prompts contains information about the executor, its
+training data, or any phrasing heuristic; the only register target is
+natural human phrasing.
+
+\subsection{Sealed evaluation set}
+\label{app:nat-sealed}
+
+Two sampled calls of 8 rephrases per instruction, deduplicated
+(case-insensitive) to $K{=}16$, with the scene image attached to each
+call.
 
 \vspace{4pt}
 \noindent\textit{System prompt:}
@@ -857,6 +880,76 @@ Reworded Instructions:\\
 Original Instruction:\\
 \{src\}
 \end{quote}
+
+\subsection{Scored phrase bank}
+\label{app:nat-bank}
+
+The bank prompt asks for natural and adversarial rewordings in one
+response, which keeps the natural block anchored as the easy end of a
+contrast. It names the axes along which the set should vary, and on
+top-up calls it appends every phrase already written for that task under
+the heading \texttt{ALREADY WRITTEN for this task}, so later calls
+cannot re-cover ground. No image is attached; the generator sees only the
+task's own instruction. The natural half of the prompt reads:
+
+\begin{quote}\small\ttfamily
+You are producing test instructions for a robot manipulation task, to
+measure how sensitive a policy is to the way a request is worded.\\[3pt]
+THE TASK'S OWN INSTRUCTION (the wording the policy was trained on):\\
+\{instruction\}\\[3pt]
+Write two sets of rewordings that keep the goal EXACTLY the same. The
+object, the destination, and the action must be identical in every line
+--- only the wording changes. A line that changes which object is moved,
+or where it goes, is useless to us and worse than no line at all.\\[3pt]
+\#\# NATURAL (\{n\_natural\} lines)\\
+What a person would actually say to a robot in a kitchen or on a
+workbench: fluent, unremarkable, varied in structure. Vary the verb, the
+article, the word order and the level of detail across the set --- not
+\{n\_natural\} versions of one sentence. Some may name the object by
+colour or material if that is unambiguous. These should be EASY.
+\end{quote}
+
+\subsection{Policy-training inputs}
+\label{app:nat-train}
+
+The naturals the executor is trained against are written by a local
+Qwen3.5-9B, conditioned on the scene-description trace rather than on the
+image, three per training instruction. The prompt carries no phrasing
+knowledge, so the training inputs are not shaped by any rule the method
+later derives:
+
+\begin{quote}\small\ttfamily
+You are helping reword instructions for a tabletop robot task.\\[3pt]
+Scene analysis (what is in the scene and what the instruction refers
+to):\\
+\{trace\}\\[3pt]
+Original instruction: "\{src\}"\\[3pt]
+Write 3 different rewordings of this instruction, the way three different
+people might naturally say it when asking for the task to be done.\\
+- Each rewording must keep the same objects and the same goal.\\
+- Natural, everyday phrasing --- the way real people talk.\\
+- You may refer to objects the way the scene analysis describes them.\\
+Output exactly 3 lines, one rewording per line, no numbering, no quotes.
+\end{quote}
+
+\subsection{Register breadth of a natural set}
+\label{app:nat-breadth}
+
+The three generators do not produce the same register, and the difference
+is large enough to matter when reading the natural condition. Over the
+192 sealed rephrases the generator writes 18 distinct sentence-initial
+words and lengths of 6--12 words (mean 7.8), with 2\% politeness markers
+and 5\% questions; over the 1{,}888 bank rephrases the same model under
+the bank prompt writes 137 distinct sentence-initial words and lengths of
+3--20 words (mean 9.8), with 10\% politeness markers and 10\% questions.
+The sealed natural condition therefore measures robustness to
+synonym and word-order variation within one narrow register, rather than
+to the full breadth of human phrasing; its compressed spread across
+methods should be read in that light. A replacement sealed natural set,
+generated under the bank prompt by three authors (Gemini Pro,
+Claude Sonnet, and Qwen3.5-9B, balanced 6/5/5 per task, with and without
+the scene image, and with the anti-repetition block carried across
+authors) is under evaluation.
 
 \section{Adversarial Instruction Generation Prompt}
 \label{app:ert-prompt}
