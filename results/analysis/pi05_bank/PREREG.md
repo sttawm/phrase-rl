@@ -80,3 +80,18 @@ CORRECTED PROTOCOL (everything else in the amendment stands unchanged):
 - This matches historical practice in the four-tier program (screens drawn low, reporting drawn
   high) and preserves the amendment's core requirement: screening numbers are never reused as the
   evaluation's canonical baseline, and both arms at final eval are measured fresh on 30-49.
+
+## 2026-09-04 — val tasks screened on the same protocol (user-approved)
+
+WHY. Partial sealed screening showed 5 of the first 9 completed tasks at 0/20 canonical and two more
+at 5%, i.e. roughly half the sealed 20 may carry no dynamic range. That would leave ~6-9 usable
+tasks, at which point even a 10-rewrite x 20-init design has an MDE near 5-6pp against a predicted
+rulebook-vs-unconstrained effect of ~1.6pp. The 15 val tasks are the same population, untouched, and
+were only being held back because human rephrasings exist for the sealed 20 alone.
+
+PROTOCOL. Identical to the sealed screen: canonical-only, screening window inits 0-19, reporting
+window 30-49, drop at 0/20, floor stratum reported separately. 15 tasks x 20 inits = 300 episodes.
+
+STATUS OF VAL AFTER THIS. Screening does not promote val into the test set by itself. Whether
+surviving val tasks JOIN the evaluation (with human rephrasings collected for them) is a separate
+decision to be recorded here before any rephrasing of val tasks is generated or rolled.
