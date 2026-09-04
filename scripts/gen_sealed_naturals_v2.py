@@ -30,8 +30,10 @@ sys.path.insert(0, "scripts")
 from build_sealed_assets import SEALED  # task -> canonical instruction
 
 REPO = pathlib.Path.home() / "dev/robotics/phrase-rl"
-OUT = REPO / "results/sealed/ph_sealed_natural_v2.parquet"
-PART = REPO / "results/sealed/natural_v2_parts"
+VARIANT = os.environ.get("NATV2_VARIANT", "text")   # "text" or "image"
+SUF = "" if VARIANT == "text" else "_img"
+OUT = REPO / f"results/sealed/ph_sealed_natural_v2{SUF}.parquet"
+PART = REPO / f"results/sealed/natural_v2_parts{SUF}"
 PART.mkdir(parents=True, exist_ok=True)
 QUOTA = {"gemini": 6, "claude": 5, "qwen": 5}
 TEMPLATE = (REPO / "prompts/rules_loop/generate.md").read_text()
@@ -56,10 +58,27 @@ def keeps_meaning(cand, canonical):
     return len(missing) == 0, missing
 
 
+_FRAMES = None
+
+
+def frame_for(task):
+    """Sealed first-frame PNG bytes (A33 image variant only)."""
+    global _FRAMES
+    if _FRAMES is None:
+        f = pd.read_parquet(REPO / "results/sealed/sealed_frames.parquet")
+        _FRAMES = {r.task: bytes(r.image_png) for r in f.itertuples()}
+    return _FRAMES[task]
+
+
 def build_prompt(task, n, existing):
     p = (TEMPLATE.replace("{{instruction}}", SEALED[task])
                  .replace("{{n_natural}}", str(n))
                  .replace("{{n_adversarial}}", "0"))
+    if VARIANT == "image":
+        p = p.replace("THE TASK'S OWN INSTRUCTION",
+                      "An image of the scene is attached; you may refer to objects the\n"
+                      "way they appear in it, but never contradict the instruction or\n"
+                      "mention anything you cannot see.\n\nTHE TASK'S OWN INSTRUCTION")
     if existing:
         p += ("\n\nALREADY WRITTEN for this task — do NOT repeat these, and do not\n"
               "produce close variants of them:\n"
@@ -99,16 +118,26 @@ def run_author(author):
             from google import genai
             from google.genai import types
             cl = genai.Client()
+            contents = [prompt]
+            if VARIANT == "image":
+                contents = [types.Part.from_bytes(data=frame_for(task),
+                                                  mime_type="image/png"), prompt]
             r = cl.models.generate_content(
-                model="gemini-pro-latest", contents=prompt,
+                model="gemini-pro-latest", contents=contents,
                 config=types.GenerateContentConfig(
                     temperature=1.0, http_options=types.HttpOptions(timeout=180_000)))
             text = (r.text or "")
         else:
             import subprocess
-            r = subprocess.run(["claude", "-p", prompt, "--output-format", "text",
-                                "--model", "claude-sonnet-5"],
-                               capture_output=True, text=True, timeout=600)
+            argv = ["claude", "-p", prompt, "--output-format", "text",
+                    "--model", "claude-sonnet-5"]
+            if VARIANT == "image":
+                # the CLI reads an image from a path referenced in the prompt
+                imgp = PART / f"frame_{task}.png"
+                imgp.write_bytes(frame_for(task))
+                argv[2] = (f"An image of the scene is at {imgp}. Read it first.\n\n"
+                           + prompt)
+            r = subprocess.run(argv, capture_output=True, text=True, timeout=600)
             text = r.stdout or ""
         seen = {h.lower() for h in have}
         for cand in parse(text):
