@@ -9,6 +9,7 @@ The mechanical content-word gate rejects legitimate synonyms, so it is the judge
   FINAL_EVAL=1 .venv/bin/python scripts/judge_pi05_naturals.py
   -> results/sealed/ph_pi05_natural_v2_img_judged.parquet
 """
+import concurrent.futures as cf
 import json
 import os
 import pathlib
@@ -53,21 +54,31 @@ print(f"judging {len(allc)} candidates "
 from google import genai
 from google.genai import types
 cl = genai.Client()
-verdicts = []
-for r in allc.itertuples():
+
+
+def _judge_one(r):
+    """One verdict. Model/config UNCHANGED from the A33 judge this ports -- the
+    instrument must stay identical because the two natural sets get compared."""
     p = PROMPT.format(ref=SEALED[r.task], cand=r.phrase)
-    ok = False
     for attempt in range(3):
         try:
             resp = cl.models.generate_content(
                 model="gemini-pro-latest", contents=p,
                 config=types.GenerateContentConfig(
                     temperature=0.0, http_options=types.HttpOptions(timeout=120_000)))
-            ok = (resp.text or "").strip().upper().startswith("YES")
-            break
+            return (resp.text or "").strip().upper().startswith("YES")
         except Exception as e:
             print(f"  judge retry {attempt} on {r.phrase!r}: {type(e).__name__}", flush=True)
-    verdicts.append(ok)
+    return False
+
+
+# Parallel only -- verdicts are independent and temperature is 0.0, so this
+# changes wall-clock, not results. Serial, 351 candidates took ~30-60 min.
+# Worker count follows the RULES_APPLY_WORKERS precedent.
+JUDGE_WORKERS = int(os.environ.get("JUDGE_WORKERS", "8"))
+rows = list(allc.itertuples())
+with cf.ThreadPoolExecutor(max_workers=JUDGE_WORKERS) as ex:
+    verdicts = list(ex.map(_judge_one, rows))
 allc["meaning_ok"] = verdicts
 allc.to_parquet(OUT, index=False)
 kept = allc[allc.meaning_ok]
