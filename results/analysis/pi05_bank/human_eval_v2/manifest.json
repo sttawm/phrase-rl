@@ -1,0 +1,249 @@
+{
+ "prereg": "2026-09-04 FINAL_EVAL design",
+ "n_tasks": 22,
+ "note": "start = first frame the policy sees; done = human demo end state; clip = human demonstration video",
+ "tasks": [
+  {
+   "task": "libero_spatial:0",
+   "slug": "libero_spatial_00",
+   "instruction": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+   "stratum": "A_in_finetune",
+   "origin": "reserve",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_spatial_00/clip.mp4",
+   "start": "assets/libero_spatial_00/start.png",
+   "done": "assets/libero_spatial_00/done.png"
+  },
+  {
+   "task": "libero_spatial:5",
+   "slug": "libero_spatial_05",
+   "instruction": "pick up the black bowl on the ramekin and place it on the plate",
+   "stratum": "A_in_finetune",
+   "origin": "reserve",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_spatial_05/clip.mp4",
+   "start": "assets/libero_spatial_05/start.png",
+   "done": "assets/libero_spatial_05/done.png"
+  },
+  {
+   "task": "libero_spatial:7",
+   "slug": "libero_spatial_07",
+   "instruction": "pick up the black bowl on the stove and place it on the plate",
+   "stratum": "A_in_finetune",
+   "origin": "reserve",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_spatial_07/clip.mp4",
+   "start": "assets/libero_spatial_07/start.png",
+   "done": "assets/libero_spatial_07/done.png"
+  },
+  {
+   "task": "libero_spatial:8",
+   "slug": "libero_spatial_08",
+   "instruction": "pick up the black bowl next to the plate and place it on the plate",
+   "stratum": "A_in_finetune",
+   "origin": "reserve",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_spatial_08/clip.mp4",
+   "start": "assets/libero_spatial_08/start.png",
+   "done": "assets/libero_spatial_08/done.png"
+  },
+  {
+   "task": "libero_object:1",
+   "slug": "libero_object_01",
+   "instruction": "pick up the cream cheese and place it in the basket",
+   "stratum": "A_in_finetune",
+   "origin": "reserve",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_object_01/clip.mp4",
+   "start": "assets/libero_object_01/start.png",
+   "done": "assets/libero_object_01/done.png"
+  },
+  {
+   "task": "libero_object:2",
+   "slug": "libero_object_02",
+   "instruction": "pick up the salad dressing and place it in the basket",
+   "stratum": "A_in_finetune",
+   "origin": "reserve",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_object_02/clip.mp4",
+   "start": "assets/libero_object_02/start.png",
+   "done": "assets/libero_object_02/done.png"
+  },
+  {
+   "task": "libero_object:6",
+   "slug": "libero_object_06",
+   "instruction": "pick up the butter and place it in the basket",
+   "stratum": "A_in_finetune",
+   "origin": "reserve",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_object_06/clip.mp4",
+   "start": "assets/libero_object_06/start.png",
+   "done": "assets/libero_object_06/done.png"
+  },
+  {
+   "task": "libero_object:9",
+   "slug": "libero_object_09",
+   "instruction": "pick up the orange juice and place it in the basket",
+   "stratum": "A_in_finetune",
+   "origin": "reserve",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_object_09/clip.mp4",
+   "start": "assets/libero_object_09/start.png",
+   "done": "assets/libero_object_09/done.png"
+  },
+  {
+   "task": "libero_90:51",
+   "slug": "libero_90_51",
+   "instruction": "pick up the butter and put it in the basket",
+   "stratum": "B_ood_range",
+   "origin": "sealed",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_90_51/clip.mp4",
+   "start": "assets/libero_90_51/start.png",
+   "done": "assets/libero_90_51/done.png"
+  },
+  {
+   "task": "libero_90:30",
+   "slug": "libero_90_30",
+   "instruction": "put the black bowl on the plate",
+   "stratum": "B_ood_range",
+   "origin": "sealed",
+   "canonical_screen_pct": 85.0,
+   "clip": "assets/libero_90_30/clip.mp4",
+   "start": "assets/libero_90_30/start.png",
+   "done": "assets/libero_90_30/done.png"
+  },
+  {
+   "task": "libero_90:47",
+   "slug": "libero_90_47",
+   "instruction": "pick up the cream cheese box and put it in the basket",
+   "stratum": "B_ood_range",
+   "origin": "val",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_90_47/clip.mp4",
+   "start": "assets/libero_90_47/start.png",
+   "done": "assets/libero_90_47/done.png"
+  },
+  {
+   "task": "libero_90:67",
+   "slug": "libero_90_67",
+   "instruction": "put the white mug on the left plate",
+   "stratum": "B_ood_range",
+   "origin": "val",
+   "canonical_screen_pct": 100.0,
+   "clip": "assets/libero_90_67/clip.mp4",
+   "start": "assets/libero_90_67/start.png",
+   "done": "assets/libero_90_67/done.png"
+  },
+  {
+   "task": "libero_90:20",
+   "slug": "libero_90_20",
+   "instruction": "turn on the stove",
+   "stratum": "B_ood_range",
+   "origin": "val",
+   "canonical_screen_pct": 80.0,
+   "clip": "assets/libero_90_20/clip.mp4",
+   "start": "assets/libero_90_20/start.png",
+   "done": "assets/libero_90_20/done.png"
+  },
+  {
+   "task": "libero_90:7",
+   "slug": "libero_90_07",
+   "instruction": "open the top drawer of the cabinet",
+   "stratum": "C_ood_marginal",
+   "origin": "sealed",
+   "canonical_screen_pct": 5.0,
+   "clip": "assets/libero_90_07/clip.mp4",
+   "start": "assets/libero_90_07/start.png",
+   "done": "assets/libero_90_07/done.png"
+  },
+  {
+   "task": "libero_90:43",
+   "slug": "libero_90_43",
+   "instruction": "put the white bowl on top of the cabinet",
+   "stratum": "C_ood_marginal",
+   "origin": "sealed",
+   "canonical_screen_pct": 5.0,
+   "clip": "assets/libero_90_43/clip.mp4",
+   "start": "assets/libero_90_43/start.png",
+   "done": "assets/libero_90_43/done.png"
+  },
+  {
+   "task": "libero_90:53",
+   "slug": "libero_90_53",
+   "instruction": "pick up the orange juice and put it in the basket",
+   "stratum": "C_ood_marginal",
+   "origin": "sealed",
+   "canonical_screen_pct": 5.0,
+   "clip": "assets/libero_90_53/clip.mp4",
+   "start": "assets/libero_90_53/start.png",
+   "done": "assets/libero_90_53/done.png"
+  },
+  {
+   "task": "libero_90:0",
+   "slug": "libero_90_00",
+   "instruction": "close the top drawer of the cabinet",
+   "stratum": "C_ood_marginal",
+   "origin": "val",
+   "canonical_screen_pct": 5.0,
+   "clip": "assets/libero_90_00/clip.mp4",
+   "start": "assets/libero_90_00/start.png",
+   "done": "assets/libero_90_00/done.png"
+  },
+  {
+   "task": "libero_90:13",
+   "slug": "libero_90_13",
+   "instruction": "put the black bowl at the front on the plate",
+   "stratum": "C_ood_marginal",
+   "origin": "val",
+   "canonical_screen_pct": 5.0,
+   "clip": "assets/libero_90_13/clip.mp4",
+   "start": "assets/libero_90_13/start.png",
+   "done": "assets/libero_90_13/done.png"
+  },
+  {
+   "task": "libero_90:45",
+   "slug": "libero_90_45",
+   "instruction": "turn on the stove and put the frying pan on it",
+   "stratum": "D_ood_floor",
+   "origin": "sealed",
+   "canonical_screen_pct": 0.0,
+   "clip": "assets/libero_90_45/clip.mp4",
+   "start": "assets/libero_90_45/start.png",
+   "done": "assets/libero_90_45/done.png"
+  },
+  {
+   "task": "libero_90:49",
+   "slug": "libero_90_49",
+   "instruction": "pick up the tomato sauce and put it in the basket",
+   "stratum": "D_ood_floor",
+   "origin": "val",
+   "canonical_screen_pct": 0.0,
+   "clip": "assets/libero_90_49/clip.mp4",
+   "start": "assets/libero_90_49/start.png",
+   "done": "assets/libero_90_49/done.png"
+  },
+  {
+   "task": "libero_90:73",
+   "slug": "libero_90_73",
+   "instruction": "pick up the book and place it in the front compartment of the caddy",
+   "stratum": "D_ood_floor",
+   "origin": "sealed",
+   "canonical_screen_pct": 0.0,
+   "clip": "assets/libero_90_73/clip.mp4",
+   "start": "assets/libero_90_73/start.png",
+   "done": "assets/libero_90_73/done.png"
+  },
+  {
+   "task": "libero_90:27",
+   "slug": "libero_90_27",
+   "instruction": "put the wine bottle on the wine rack",
+   "stratum": "D_ood_floor",
+   "origin": "val",
+   "canonical_screen_pct": 0.0,
+   "clip": "assets/libero_90_27/clip.mp4",
+   "start": "assets/libero_90_27/start.png",
+   "done": "assets/libero_90_27/done.png"
+  }
+ ]
+}
