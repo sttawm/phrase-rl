@@ -1,0 +1,24 @@
+- [RunPod Vulkan/graphics check](runpod-vulkan-rendering.md) — verify NVIDIA_DRIVER_CAPABILITIES includes graphics before building render stacks; recreate pod if not
+- [RunPod pod-state backup](runpod-podstate-backup.md) — stops wipe container disk; /workspace/.podstate + restore.sh before shutting pods
+- [pkill self-match footgun](pkill-self-match-footgun.md) — pkill -f in ssh commands kills its own session; bracket first char [p]attern
+- [RunPod tmux self-stop footgun](runpod-tmux-selfstop.md) — foreground the stop; nohup'd stop dies with tmux server teardown
+- [RunPod vulkan ICD two-tier repair](runpod-vulkan-icd-manifest.md) — manifest fix vs unfixable missing-graphics-capability; resize restarts can drop it; THIRD variant: manifest in /etc/vulkan/icd.d ignored, loader only reads /usr/share/vulkan/icd.d → cp manifest there (ErrorExtensionNotPresent = llvmpipe fallback)
+- [RunPod Vulkan needs libegl1](runpod-vulkan-libegl1.md) — NVIDIA ICD returns NULL without the glvnd EGL dispatcher; add libegl1 libgles2 to every render-pod apt line
+- [Gitignored data payload footgun](gitignored-data-payload.md) — archive data/ parquets before pod retirement; seeded regen + chunk_stats verification
+- [Pod-clone venv symlink audit](pod-clone-venv-symlink-audit.md) — tar ships dangling /root venv links; audit links pre-clone, restore to same path
+- [Checkpoint archive discipline](checkpoint-archive-discipline.md) — ALWAYS archive checkpoints immediately (user order); ckpt_archive.sh split-tars to git; never scratchpad
+- [PHRASE-SEARCH doc sync](phrase-search-doc-sync.md) — update Method/Purification sections in the same commit as any protocol change; plain english
+- [Checkpoint sync liveness](checkpoint-sync-liveness.md) — mirror died silently at step 40, v7 weights 60-280 lost; verify newest-archived vs newest-trained at every status pass and before any shutdown blessing
+- [Pod untracked-collision wedge](pod-untracked-collision-wedge.md) — scp-before-commit causes rebase-blocking collisions + silent PUSH-DEFERRED; backup-diff-rm repair; check origin/main..HEAD every status pass
+- [phase0c out-parquet resume](phase0c-out-parquet-resume.md) — rollout script accumulates on existing --out parquet; rm before each roll; n≠design(192) is the contamination tell
+- [Pod relaunch process verification](pod-relaunch-process-verification.md) — verify pgrep + log mtime + progress line, never tmux session existence; empty-session = dangling-venv signature
+- [Checkpoint drain branch silent failure](ckpt-drain-branch-silent-failure.md) — drain logs count attempts, not arrivals; verify with git ls-tree on the remote branch; 1800s push timeouts
+- [Aggressive git gc interrupt](git-gc-aggressive-interrupt.md) — .git GROWS mid-repack; kill once it drops, never chain GPU work behind it
+- [Score server batches over phrases](score-server-batches-over-phrases.md) — ~173s fixed per context + ~12.8s/phrase; one-phrase-per-call costs a factor of P at 10% GPU
+- [Pod .git fills with checkpoint archives](pod-git-fills-with-checkpoint-archives.md) — quota-exceeded pull looks like a hung worker; partial clone is the fix; never ps a URL with a token
+- [Base-volume reset checklist](base-volume-reset-checklist.md) — wipes /root: train-pod venvs (symlinked there), tmux, git-lfs hook fails closed, git identity
+- [Paper Overleaf workflow](paper-overleaf-workflow.md) — canonical clone at ../phrase-rl-paper; pull before edit, push after, mirror to paper/main.tex; abstract 25/30% numbers unverified
+- [tmux session env inheritance](tmux-session-env-inheritance.md) — tmux sessions get the server's env, not the shell's exports; secrets/identity go inside the command or repo config
+- [macOS bash 3.2 assoc-array footgun](macos-bash32-assoc-array.md) — declare -A silently collapses to last value; wrong-pod stop risk; use case fns
+- [bankdistill deliverable staged](bankdistill-deliverable-staged.md) — 2026-09-03 rulebook finished but session write-blocked; content in scratchpad + transcript; cp to results/rules_runs/bankdistill/rules_bank.md
+- [RunPod stop wipes /workspace](runpod-stop-loses-volume.md) — volume loss on restart for some pods (community cloud?); verify du -sh before launching workers
