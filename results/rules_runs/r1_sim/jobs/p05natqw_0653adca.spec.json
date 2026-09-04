@@ -1,0 +1,6 @@
+{
+ "job_id": "p05natqw_0653adca",
+ "kind": "generate",
+ "n_per_task": 5,
+ "note": "retry of p_eval a00qwnatgen_1e86ca45 (FINAL-failed on pe5: no torch). Staged in r1_sim because only the rv* pods carry the Qwen stack (.can_apply). Result must be copied back to the pi05 eval naturals pipeline."
+}
