@@ -699,3 +699,39 @@ prompt, ERT-derived traces). Re-run: loop scaffold rule, matched traces, all
 three appliers, the same 192 naturals, 24 layouts x 1 (n=4,608/arm). Queued
 after the A31 book arms (leg prefix c32*). These replace the v1 numbers in the
 scaffold|Natural row.
+
+## Amendment 33 (2026-09-04) — sealed NATURAL set regenerated: bank prompt, three authors
+
+Audit finding (2026-09-04): the sealed K=16 naturals (A19) occupy one narrow
+register -- 18 distinct sentence-initial words over 192 phrases, length 6-12
+(mean 7.8), 7-16 template shapes per 16, 2% politeness, 5% questions, zero
+conditional/constraint clauses. The bank naturals, generated from a DIFFERENT
+prompt, span 137 distinct first words and 3-20 words. The A19 prompt asks for
+natural variation but names no variation axes and carries no anti-repetition
+memory across its two calls; the bank prompt (prompts/rules_loop/generate.md)
+names axes ("vary the verb, the article, the word order and the level of
+detail ... not N versions of one sentence") and passes back everything already
+written for the task. The narrow set compresses the natural condition (all arms
+within ~4pp) and is a stimulus-side artifact, not a policy property.
+
+REGENERATION. New sealed natural set, K=16 per task (192 phrases), replacing
+nothing -- the A19 set is retained and both remain reportable.
+ - Prompt: the bank's generate.md NATURAL block verbatim (text-only, NO image,
+   matching the bank's channel), plus its anti-repetition block carrying every
+   phrase already written for that task ACROSS authors.
+ - Three authors, balanced per task (6/5/5): gemini-pro-latest (matches the
+   bank generator), claude-sonnet-5 (NOT fable -- fable is reserved for the
+   claude applier per user directive 2026-09-03), Qwen3.5-9B pod-side. Author
+   recorded per phrase, enabling a generator x applier self-match analysis.
+ - Temperature 1.0 for all three, one call per author per task.
+ - Meaning-preservation gate (mechanical): a candidate is rejected if it drops
+   the task's head object noun or its goal noun (stem match against the
+   canonical), if it is empty/multi-line, or if it duplicates (casefold) an
+   existing phrase for that task. Rejections logged with reasons; preflight
+   print of every kept line (prereg requirement).
+ - Diversity acceptance check BEFORE any rollout: the new set must beat the A19
+   set on distinct sentence-initial words and length range; reported alongside
+   the bank's numbers.
+Rollout scope is NOT authorized by this amendment -- generation and the
+diversity report only. Arms will be pre-registered separately once the set is
+inspected.
