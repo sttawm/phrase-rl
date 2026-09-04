@@ -95,3 +95,82 @@ window 30-49, drop at 0/20, floor stratum reported separately. 15 tasks x 20 ini
 STATUS OF VAL AFTER THIS. Screening does not promote val into the test set by itself. Whether
 surviving val tasks JOIN the evaluation (with human rephrasings collected for them) is a separate
 decision to be recorded here before any rephrasing of val tasks is generated or rolled.
+
+## 2026-09-04 — val n=20 re-screen COMPLETE (salvaged from pod; supersedes "unknown" in PI05-SCREEN-FINDINGS.md)
+
+The 3-shard direct run on ps1 did NOT die. All 15 val tasks completed at n=20
+(300 episodes). Raw episodes committed to results/analysis/pi05_bank/screens/
+(val_screen_shard{0,1,2}.jsonl, plus sealed_screen.jsonl for the sealed 20) so the
+data no longer lives only on a pod. PI05-SCREEN-FINDINGS.md section 2 recorded the
+state as unknown/possibly-OOM'd; that was correct from the machine that wrote it
+(no pod SSH) but is superseded here.
+
+VAL n=20 result: 47=100%, 67=100%, 20=80%, 0=5%, 13=5%, and TEN tasks at 0/20
+(3, 4, 5, 6, 27, 42, 49, 63, 75, 87). This closely reproduces the n=10 prior in
+val_canonicals.parquet (20 was 90% at n=10, 80% at n=20; 0 and 13 were 10% at
+n=10, 5% at n=20) — no task changed stratum.
+
+COMBINED OOD PICTURE (sealed 20 + val 15, both screened canonical-only, inits 0-19):
+- dynamic range (>=80%): 51 (sealed, 100), 47 (val, 100), 67 (val, 100),
+  30 (sealed, 85), 20 (val, 80)  -> 5 tasks
+- 1/20 = 5%: 7, 43, 53 (sealed), 0, 13 (val)                                -> 5 tasks
+- hard zero 0/20: 25 tasks (15 sealed, 10 val)
+Floor rate is 75% sealed / 67% val — statistically indistinguishable, which
+supports the split having been drawn fairly even though the yield is poor.
+
+## 2026-09-04 — FINAL_EVAL design, fixed before any sealed generation runs
+
+All three rulebooks are frozen and committed (in_only_v1 a3731fbb, ood_only_v1
+cc0fd77e/6c783a15, in_plus_ood_v2 = rules_bank_v1). Screens are complete for the
+sealed 20, val 15, and (running) the in-finetune reserve. Nothing below was chosen
+after seeing any rephrasing measurement, because none exists yet.
+
+WHY THE COMPOSITION CHANGES. The sealed-20 alone yields 2 tasks with dynamic range
+(75% of it is 0/20 floor). All 90 libero_90 tasks are already allocated and every
+train task carries generated phrases, so NO additional held-out OOD task exists.
+Held-out range can therefore only come from the untouched in-finetune reserve.
+
+EVALUATION SET (final; each task's stratum fixed by its canonical screen at n=20,
+inits 0-19):
+  A. IN-FINETUNE, canonical >=90%      -- up to 12 from the 29-task reserve
+  B. OOD with range (>=80%)            -- 51, 30 (sealed); 47, 67, 20 (val)
+  C. OOD marginal (1/20 = 5%)          -- 7, 43, 53 (sealed); 0, 13 (val)
+  D. OOD hard floor (0/20)             -- 5 tasks, seeded random sample, kept
+     deliberately as a negative control: train evidence says ~1 in 5 floor tasks
+     is ever moved by any phrasing, so this stratum tests whether rules rescue
+     the unrescuable. It is reported separately and never pooled into a headline.
+Val tasks join the evaluation. Justification: with no loop there is no selection
+for val to protect, both sets were screened under one protocol, and their floor
+rates (75% sealed / 67% val) are statistically indistinguishable. Sealed and val
+origin is recorded per task so any analysis can split on it.
+
+MEASUREMENT
+- Reporting window: inits 30-49 (n=20). DISJOINT from the screening window 0-19.
+  Screen numbers are never used as a baseline; the canonical is re-measured fresh.
+- Grid: {claude-opus-5, gemini, qwen} x {adversarial, natural, original}
+  x {no rules, in_only_v1, ood_only_v1, in_plus_ood_v2}, plus the un-rephrased
+  base of every tier as the baseline row.
+- Bases per task: 4 natural + 3 adversarial + 1 original on strata A and B;
+  4 total on strata C and D (they carry little information per episode).
+- Identical rewrite strings are rolled ONCE and shared across arms (key is
+  (task, phrase, init)); dedup is recorded so arm composition stays auditable.
+
+GENERATION (recipe per PHRASE-GENERATION-RECIPE.md, unchanged from the pi0 work)
+- Naturals: generate.md NATURAL block, IMAGE attached, three authors balanced per
+  task (gemini-pro-latest / claude-sonnet-5 / Qwen3.5-9B), temp 1.0,
+  anti-repetition carried ACROSS authors, then the SEMANTIC judge
+  (judge_naturals_v2.py) -- never a lexical/word-overlap gate.
+- Adversarials: ERT_PROMPT (build_sealed_assets.py), gemini-3.5-flash, temp 0.8,
+  IMAGE attached, CoVer release few-shots. Distinct generator from the training
+  attacks (which came from generate.md text-only), preserving held-out discipline.
+- Traces: per (task, phrase), image-conditioned, generated FROM THE BASE PHRASE,
+  canonical-leak gate enforced (gen_pi05_traces.py).
+- Every kept line is preflight-printed and committed before rollouts begin.
+
+PRIMARY ANALYSES (fixed now)
+1. Per-stratum mean success by grid cell (the A31-style table).
+2. Paired rulebook-vs-no-rules within (task, base, applier).
+3. Catastrophic-collapse rate: fraction of rewrites >=40pp below their own
+   canonical, by stratum -- the metric the rulebooks' own evidence predicts.
+A pooled mean across strata is NOT a headline: strata C and D cannot move, and
+including them would dilute any effect toward zero by construction.
