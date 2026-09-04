@@ -735,3 +735,29 @@ nothing -- the A19 set is retained and both remain reportable.
 Rollout scope is NOT authorized by this amendment -- generation and the
 diversity report only. Arms will be pre-registered separately once the set is
 inspected.
+
+## Amendment 34 (2026-09-04) — sealed NATURAL condition re-evaluated on the A33 image-conditioned set
+
+The A33 audit established that the A19 natural set occupies one narrow register
+(18 distinct sentence-initial words, 5.1 templates per 16, 7% politeness) and
+that its compressed spread across methods is a stimulus artifact. The A33
+image-conditioned set (bank prompt, scene image attached, three authors --
+Gemini Pro / Claude Sonnet / Qwen3.5-9B, no meaning filter) reaches 12.6
+templates per 16, lengths 5-16, 15% politeness, and carries object descriptions
+and spatial references the A19 set lacks. User selection 2026-09-04: the natural
+condition is re-evaluated on the image-conditioned set; the text-only variant is
+retained as an artifact but not rolled.
+
+ARMS (natural condition only; adversarial and original columns stand):
+  3 books (train-only / rollout-only / combined) x 3 appliers
+  + 3 no-rules scaffold controls = 12 arms.
+Appliers unchanged and as used throughout: claude-fable-5 effort high,
+gemini-pro-latest thinking 1024 temp 0, Qwen3.5-9B greedy pod-side; apply.md
+wrap over matched per-phrase traces (generated for the new set before applies).
+Protocol unchanged: 192 phrases x 24 layouts x 1 rep = 4,608 episodes/arm,
+55,296 total. Leg prefix d34*.
+The A19-based natural cells are retained and reportable; both sets appear in the
+record, and the comparison of the two IS a result (does a wider natural register
+change the ranking, or only the level?).
+Prediction P10: the level drops for every arm (a wider register is harder) and
+the spread between arms widens; the rollout-only book keeps its lead.
