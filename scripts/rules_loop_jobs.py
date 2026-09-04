@@ -20,6 +20,7 @@ every phrase in a run faces identical contexts.
 """
 import json
 import os
+import re
 import sys
 import types
 import uuid
@@ -107,6 +108,53 @@ if spec["kind"] == "score" and spec.get("method") == "rollout":
     res[["task", "phrase", "z", "grip", "gt_success", "n_ctx"]].to_parquet(
         result_path, index=False)
     print(f"rolled {len(res)} phrases x {len(ro['episode_ids'])} episodes")
+
+elif spec["kind"] == "generate":
+    # A33: Qwen3.5-9B writes natural rephrases from a per-task prompt carried in
+    # the payload (prompt column). Text-only unless the payload carries an
+    # image_png column, in which case the frame is attached (image variant).
+    import torch
+    from transformers import AutoModelForImageTextToText, AutoProcessor
+    mid = spec.get("model", "Qwen/Qwen3.5-9B")
+    proc = AutoProcessor.from_pretrained(mid)
+    model = AutoModelForImageTextToText.from_pretrained(
+        mid, dtype=torch.bfloat16, device_map="cuda").eval()
+    has_img = "image_png" in payload.columns
+    rows = []
+    for r in payload.itertuples():
+        content = [{"type": "text", "text": str(r.prompt)}]
+        images = None
+        if has_img and r.image_png is not None:
+            import io
+            from PIL import Image
+            images = [Image.open(io.BytesIO(bytes(r.image_png))).convert("RGB")]
+            content = [{"type": "image"}, {"type": "text", "text": str(r.prompt)}]
+        msgs = [{"role": "user", "content": content}]
+        text = proc.apply_chat_template(msgs, tokenize=False,
+                                        add_generation_prompt=True, enable_thinking=False)
+        kw = {"text": [text], "return_tensors": "pt"}
+        if images is not None:
+            kw["images"] = images
+        inp = proc(**kw).to(model.device)
+        with torch.no_grad():
+            g = model.generate(**inp, do_sample=True, temperature=1.0, max_new_tokens=256)
+        out = proc.decode(g[0][inp["input_ids"].shape[1]:], skip_special_tokens=True)
+        if "</think>" in out:
+            out = out.split("</think>")[-1]
+        kind = None
+        for line in out.splitlines():
+            ln = line.strip().strip('"').strip()
+            up = ln.upper()
+            if up.startswith("NATURAL"):
+                kind = "natural"; continue
+            if up.startswith("ADVERSARIAL"):
+                kind = None; continue
+            ln = re.sub(r"^\s*\d+[.)]\s*", "", ln).strip()
+            if kind == "natural" and len(ln) > 3:
+                rows.append({"task": r.task, "phrase": ln, "author": "qwen"})
+        print(f"[gen] {r.task}: {len([x for x in rows if x['task']==r.task])} lines", flush=True)
+    pd.DataFrame(rows).to_parquet(result_path, index=False)
+    print(f"generated {len(rows)} phrases over {payload.task.nunique()} tasks")
 
 elif spec["kind"] == "score" and spec.get("method") == "libero_bank_eval":
     # pi05_libero: drive interactive-vlas bank_eval.py against a live
