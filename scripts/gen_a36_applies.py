@@ -15,7 +15,7 @@ import pathlib
 import rules_loop_driver as d
 
 book_path, tag = sys.argv[1], sys.argv[2]
-applier = "gemini"
+applier = sys.argv[3] if len(sys.argv) > 3 else "gemini"
 
 REPO = pathlib.Path.home() / "dev/robotics/phrase-rl"
 rules = (REPO / book_path).read_text()
@@ -38,14 +38,14 @@ orig = orig12.rename(columns={"nominal": "phrase"})[["task", "phrase"]].drop_dup
 
 for cond, bases in (("adv", adv), ("nat", nat), ("orig", orig)):
     rw = d.apply_rules(run, cfg, applier, rules, bases[["task", "phrase"]],
-                       f"a36{tag}_{cond}")
+                       f"a36{tag}{applier[:2]}_{cond}")
     rw = rw.rename(columns={"phrase": "base", "rewrite": "phrase"})
     rw["phrase"] = rw.phrase.fillna("").astype(str)
     rw.loc[rw.phrase.str.strip() == "", "phrase"] = rw.base
     if cond == "nat":
         rw = bases.rename(columns={"phrase": "base"}).merge(
             rw, on=["task", "base"], how="left").drop_duplicates(["task", "k"])
-    out = REPO / f"results/sealed/ph_a36_{tag}_{cond}.parquet"
+    out = REPO / f"results/sealed/ph_a36_{tag}_{applier}_{cond}.parquet"
     rw.to_parquet(out, index=False)
     print(f"[{tag}/{applier}/{cond}] applied {len(rw)}, changed "
           f"{(rw.phrase != rw.base).mean():.0%}", flush=True)
