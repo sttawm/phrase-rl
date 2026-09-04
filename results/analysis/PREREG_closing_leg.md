@@ -803,3 +803,29 @@ re-evaluating them at 16384 is deferred, not abandoned. A35's probe is therefore
 reframed: it no longer chooses the forward setting (that is decided) but still
 answers whether the 1024-era cells understate gemini, i.e. whether the existing
 grid needs a budget-matched re-run before any applier claim is published.
+
+## Amendment 36 (2026-09-04) — replicate books evaluated on all three sealed conditions
+
+Rulebook distillation is stochastic; A31/A34 report ONE draw per evidence diet,
+so a diet difference cannot be separated from a lucky draw. Two further
+independent draws per diet were distilled by an Opus panel (lens order permuted,
+explicit independence instruction, same evidence files) giving n=3 per diet.
+
+ARMS: 6 replicate books (train_only/sim_only/both x r2,r3) x 3 conditions,
+applied by gemini-pro-latest at thinking_budget=16384 (the new standing setting)
+and temperature 0. ONE applier by design: the question is between-DRAW variance,
+and holding the applier fixed isolates it; applier x draw interaction is a
+separate question not funded here.
+  adversarial  72 attacks x 24 layouts x 2 reps = 3,456/book
+  natural      the A34 judged set x 24 x 1      = ~4,464/book
+  original     12 nominals x 24 x 2             =   576/book
+Total ~51,000 episodes. Leg prefix f36*.
+
+CAVEAT that must travel with these numbers: the r1 books in the A31 grid were
+applied at thinking_budget=1024, these replicates at 16384. Comparing a
+replicate against its own r1 draw therefore confounds draw with budget. The
+within-set comparison that IS clean is replicate-vs-replicate (r2 vs r3, same
+budget), which is what the variance estimate uses; A35 separately measures the
+budget effect so the r1 cells can be placed on the same scale later.
+Prediction P12: between-draw spread within a diet is smaller than the
+train_only-vs-sim_only gap measured in A31 (i.e. the diet effect survives).
