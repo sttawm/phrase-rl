@@ -1,7 +1,7 @@
  rebuild TensorFlow with the appropriate compiler flags.
-2026-09-04 19:17:44.874015: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
-[2026-09-04 19:19:24.637] [svulkan2] [error] GLFW error: X11: The DISPLAY environment variable is missing
-[2026-09-04 19:19:24.638] [svulkan2] [warning] Continue without GLFW.
+2026-09-04 21:25:00.972689: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+[2026-09-04 21:26:49.980] [svulkan2] [error] GLFW error: X11: The DISPLAY environment variable is missing
+[2026-09-04 21:26:49.980] [svulkan2] [warning] Continue without GLFW.
 /workspace/INT-ACT/.venv/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
   logger.warn(
 [20] widowx_coke_can_on_wheel_clean ep9 success=False phrase='set the red coke can inside the center o'
