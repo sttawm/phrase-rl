@@ -7,6 +7,8 @@
 6. Apply rules 1-5 identically to every instruction, because nothing in the wording tells you whether the task is easy, hard or impossible; and if you cannot produce a rewrite that satisfies rules 1-3, return the instruction unchanged rather than reaching for a bolder one.
 
 
+===RATIONALE===
+
 > **RULE 1 NARROWED, 2026-09-04 (distiller decision).** The independent audit below showed the
 > as-written rule was over-scoped: banning *any* renaming binds on 21.1% of plain rewrites while the
 > narrowed form (ban only multi-word expansion) captures the entire measured payload (+15.66 vs
@@ -19,8 +21,6 @@
 > multi-word expansion is costly in both populations; single-word synonyms are costly only on
 > language the policy was finetuned on. A deployed rephraser that cannot tell the populations apart
 > should use the STRICT form — the ban costs ~0 out of finetune and saves a great deal in it.
-
-===RATIONALE===
 
 ## Scope and method
 
