@@ -65,3 +65,18 @@ PROTOCOL (fixed before the run; deviations must be logged as a further amendment
 EXPECTED. 9 of 20 tasks have same-scene neighbours below 20% canonical; the STUDY_SCENE cluster
 (73, 80, 83, 85, 86, 88) is the most at risk, and sealed 86/88's only neighbour (task 89) scored 0%
 canonical and 0% best over 21 searched phrasings.
+
+### 2026-09-03 — CORRECTION to the screening amendment (window 50-69 does not exist)
+
+The amendment above specified screening on init states 50-69. LIBERO tasks expose exactly 50 init
+states (indices 0-49) — verified on all 20 sealed tasks, every one reports 50. The first screening
+attempt therefore failed with IndexError before rolling ANY episode; zero sealed episodes were
+executed under the impossible window, so nothing is contaminated and no sealed measurement exists.
+
+CORRECTED PROTOCOL (everything else in the amendment stands unchanged):
+- Screening window: init states 0-19 (n=20 per task).
+- Final evaluation reporting window: init states 30-49 (n=20 per task). DISJOINT from screening;
+  20-29 is left unused as spare.
+- This matches historical practice in the four-tier program (screens drawn low, reporting drawn
+  high) and preserves the amendment's core requirement: screening numbers are never reused as the
+  evaluation's canonical baseline, and both arms at final eval are measured fresh on 30-49.
