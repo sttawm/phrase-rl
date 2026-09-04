@@ -88,10 +88,15 @@ while true; do
     [ -f "$JOBS/$jid.result.parquet" ] && continue
 
     kind=$(grep -o '"kind": *"[a-z]*"' "$specf" | grep -o '[a-z]*"$' | tr -d '"')
-    # apply jobs need the LLM stack (torch/transformers); only pods marked
-    # apply-capable take them. This check must precede the claim: claiming a
-    # job this pod then skips wedges it for the 6h stale window (rv2, 2026-09-02)
-    if [ "$kind" = "apply" ] && [ ! -f /workspace/.can_apply ]; then continue; fi
+    # apply AND generate jobs need the LLM stack (torch/transformers); only pods
+    # marked apply-capable take them. This check must precede the claim: claiming a
+    # job this pod then skips wedges it for the 6h stale window (rv2, 2026-09-02).
+    # generate was added later (234fd8e6) and was NOT covered here: a LIBERO
+    # rollout pod (pe5) claimed the qwen naturals job and burned all 3 attempts on
+    # ModuleNotFoundError: torch, FINAL-failing it (a00qwnatgen, 2026-09-04).
+    case "$kind" in
+      apply|generate) [ -f /workspace/.can_apply ] || continue ;;
+    esac
 
     # --- claim arbitration (multi-pod) ------------------------------------
     clm="$JOBS/$jid.claim"
