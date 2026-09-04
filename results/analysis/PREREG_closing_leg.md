@@ -829,3 +829,14 @@ budget), which is what the variance estimate uses; A35 separately measures the
 budget effect so the r1 cells can be placed on the same scale later.
 Prediction P12: between-draw spread within a diet is smaller than the
 train_only-vs-sim_only gap measured in A31 (i.e. the diet effect survives).
+
+### A36 revision (2026-09-04, user): all three appliers, r2 before r3
+Scope widened from gemini-only to the full grid, sequenced by replicate so the
+first complete replicate lands early:
+  PHASE 1 (r2): 3 diets x 3 appliers x 3 conditions = 9 arms x 8,496 = 76,464 eps
+  PHASE 2 (r3): same again = 76,464 eps
+Appliers as standing: claude-opus-5 effort high, gemini-pro-latest @16384 temp 0,
+Qwen3.5-9B greedy pod-side. Leg prefixes f36* (r2) and g36* (r3) so phase 2 can
+be queued or dropped independently after phase 1 is read.
+With n=3 draws per (diet, applier, condition) the published table can carry
+between-draw error bars on EVERY cell rather than only the gemini row.
