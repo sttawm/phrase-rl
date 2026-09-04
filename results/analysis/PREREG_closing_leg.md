@@ -782,3 +782,15 @@ Prediction P11: no condition moves by more than 2pp -- the applier ranking
 reflects rule-following fidelity, not thinking budget. A larger move would mean
 the A31 gemini cells understate what that applier can do, and the grid needs a
 budget-matched re-run before any applier claim is made in the paper.
+
+### A34 addendum (2026-09-04): claude applier switched to claude-opus-5
+Fable credits are insufficient for the A34 applies (768 calls), so the claude
+applier for the natural re-evaluation is claude-opus-5 at effort high; every
+other applier setting is unchanged. CONSEQUENCE, stated so it is never silently
+compared: the A34 natural claude cells use a DIFFERENT applier than the A31
+adversarial and original claude cells (claude-fable-5). The claude row of the
+final grid is therefore not internally comparable across conditions until the
+adversarial and original claude arms are re-run under opus-5 (4 books x 3,456 +
+576 episodes ~= 16k), which is not authorized here. Any applier claim in the
+paper must either restrict itself to gemini and qwen (whose appliers are
+constant across all conditions) or carry this caveat explicitly.
