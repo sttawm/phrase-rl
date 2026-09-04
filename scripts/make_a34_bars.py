@@ -44,10 +44,10 @@ BOOKS = [("s", "rollout-only"), ("b", "combined"), ("t", "train-only")]
 APPS = [("cl", "Claude"), ("ge", "Gemini"), ("qw", "Qwen")]
 C_RULES, C_BASE = "#7fb3a6", "#9aa3a0"
 C_IV, C_OOV = "#b2f5ea", "#fed7aa"
-YMIN, YMAX = 15, 42
+YMIN, YMAX = 15, 62
 
-fig, axes = plt.subplots(1, 4, figsize=(17.5, 5.2), sharey=True,
-                         gridspec_kw={"width_ratios": [1.5, 3, 3, 3]})
+fig, axes = plt.subplots(1, 4, figsize=(18.6, 5.2), sharey=True,
+                         gridspec_kw={"width_ratios": [2.6, 3, 3, 3]})
 
 def triplet(ax, x, trip, color, label_n=True):
     p, iv, oo = trip
@@ -59,21 +59,41 @@ def triplet(ax, x, trip, color, label_n=True):
     ax.text(x, p + 0.45, f"{p:.1f}", ha="center", fontsize=9.5, fontweight="bold", zorder=4)
 
 base = cell("d34basen")
-axB = axes[0]
-refs, ticks, tlabels = [], [], []
-if base:
-    refs.append(("un-rephrased", base))
+
+def oracle():
+    """Per-task best natural phrase, measured on the un-rephrased arm.
+    NAIVE (selection and estimate on the same episodes): an optimistic ceiling,
+    not a held-out oracle -- the per-layout data needed for a split-half
+    protocol lives on the pods and is not committed. Marked * on the chart."""
+    fs = groups.get("d34basen", [])
+    if len(fs) < 12:
+        return None
+    d = pd.concat([pd.read_parquet(x) for x in fs]).dropna(subset=["gt_success"]).copy()
+    best = d.loc[d.groupby("task").gt_success.idxmax()].copy()
+    best["s"] = best.task.map(STRAT)
+    return (best.gt_success.mean(),
+            best[best.s == "IV"].gt_success.mean(),
+            best[best.s == "OOV"].gt_success.mean())
+
 sc = [cell(f"d34sc{ak}n") for ak, _ in APPS]
 sc_ok = [s for s in sc if s]
-if sc_ok:
-    refs.append(("no rules\n(mean)", tuple(sum(s[i] for s in sc_ok) / len(sc_ok) for i in range(3))))
-for i, (nm, trip) in enumerate(refs):
-    triplet(axB, float(i), trip, C_BASE)
+sc_mean = tuple(sum(s[i] for s in sc_ok) / len(sc_ok) for i in range(3)) if sc_ok else None
+
+REFS = [("oracle*\n(best phrase)", oracle(), "#2f855a"),
+        ("no rephraser\n(raw naturals)", base, "#4a5568"),
+        ("no rules\n(scaffold)", sc_mean, C_BASE)]
+axB = axes[0]
+ticks, tlabels = [], []
+for i, (nm, trip, col) in enumerate(REFS):
+    if trip:
+        triplet(axB, float(i), trip, col)
+    else:
+        n = len(groups.get("d34basen", []))
+        axB.bar(float(i), YMIN + 1.2, 0.42, color="#d9d9d4", edgecolor="#bcbcb5", zorder=3)
+        axB.text(i, YMIN + 1.6, f"{n}/12", ha="center", fontsize=8, color="#82827b", zorder=4)
     ticks.append(i); tlabels.append(nm)
-if not refs:
-    axB.text(0.5, 28, "baseline\nrolling", ha="center", color="#8a8a83", fontsize=10)
-axB.set_xticks(ticks); axB.set_xticklabels(tlabels, fontsize=9)
-axB.set_xlim(-0.7, max(len(refs) - 0.3, 1.0))
+axB.set_xticks(ticks); axB.set_xticklabels(tlabels, fontsize=8.5)
+axB.set_xlim(-0.7, len(REFS) - 0.3)
 axB.set_title("References", fontsize=11.5, pad=10)
 axB.set_ylabel("sealed natural success %", fontsize=11)
 
@@ -100,7 +120,7 @@ axes[0].set_ylim(YMIN, YMAX)
 fig.text(0.5, 0.965, "Sealed natural condition — wider-register set (A34)", ha="center", fontsize=13.5)
 fig.text(0.5, 0.925,
          "186 phrases, 3 authors, image-conditioned  ·  24 layouts × 1 rep  ·  "
-         "narrow bars: in-vocab (teal) / out-of-vocab (orange)  ·  grey = rolling",
+         "narrow bars: in-vocab (teal) / out-of-vocab (orange)  ·  grey = rolling  ·  *oracle selects and scores on the same episodes (optimistic ceiling)",
          ha="center", fontsize=8.6, color="#6b7370")
 fig.tight_layout(rect=[0, 0.01, 1, 0.90])
 out = R / "results/charts/a34_natural_bars.png"
