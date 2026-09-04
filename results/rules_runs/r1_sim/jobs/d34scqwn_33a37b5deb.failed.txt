@@ -1,0 +1,23 @@
+be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+[20] widowx_small_plate_on_green_cube_clean ep19 success=False phrase='Place the small yellow-ish plate on top '
+[40] widowx_small_plate_on_green_cube_clean ep15 success=False phrase='Place the small saucer on the green bloc'
+[60] widowx_small_plate_on_green_cube_clean ep11 success=False phrase='Place the small yellow dish on top of th'
+[80] widowx_small_plate_on_green_cube_clean ep7 success=False phrase='Pick up the yellow dish and put it on th'
+[100] widowx_small_plate_on_green_cube_clean ep3 success=False phrase='Place the light green saucer on the teal'
+[120] widowx_small_plate_on_green_cube_clean ep23 success=False phrase='Place the light green saucer on the teal'
+done: 120 new episodes (120 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/d34scqwn_33a37b5deb.rollraw.0.parquet
+task
+widowx_small_plate_on_green_cube_clean    0.0
+Name: success, dtype: float64
+[20] widowx_small_plate_on_green_cube_clean ep19 success=False phrase='Place the small light-yellow dish on top'
+[40] widowx_small_plate_on_green_cube_clean ep15 success=False phrase='Place the small plate on top of the gree'
+[60] widowx_small_plate_on_green_cube_clean ep11 success=False phrase='Place the small dish on top of the green'
+[80] widowx_small_plate_on_green_cube_clean ep7 success=False phrase='place the small plate on top of the cube'
+[100] widowx_small_plate_on_green_cube_clean ep3 success=False phrase='Put the small dish on top of the cube.'
+[120] widowx_small_plate_on_green_cube_clean ep23 success=False phrase='Put the small dish on top of the cube.'
+done: 120 new episodes (120 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/d34scqwn_33a37b5deb.rollraw.2.parquet
+task
+widowx_small_plate_on_green_cube_clean    0.0
+Name: success, dtype: float64
+rollout chunks failed: [1]
