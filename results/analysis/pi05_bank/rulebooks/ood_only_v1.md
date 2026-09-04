@@ -1,10 +1,24 @@
 ===RULES===
-1. Reuse unchanged the head noun of every physical thing the instruction names — the thing to be moved and the place it goes ("bowl", "book", "caddy", "cabinet", "microwave", "butter", "alphabet soup") — and never replace one with a category word, an appearance description or a function description ("vessel", "basin", "the dark concave thing", "the fat used for baking", "the radiation oven").
+1. Carry the instruction's own head noun for the object being moved or acted on straight into the rewrite ("bowl", "book", "butter", "pot", "soup", "drawer"), and never expand that noun into a multi-word description of what it looks like, what it is made of, what it is for or what category it belongs to ("the dark concave receptacle from which one might eat cereal", "the canned item that helps children learn their letters", "the appliance we use to quickly heat up leftovers"); a single-word near-synonym in the same plain register ("bowl" -> "dish", "mug" -> "cup", "stove" -> "burner") carries no measured penalty out of finetune, and the noun naming *where* the object goes is not measured at all here.
 2. Write the rewrite in the same plain, spoken register and at roughly the same length as the instruction you were given, and never turn it into formal, ceremonial or padded prose.
 3. Say only what the instruction already said: do not narrate the scene, do not explain what an object is for, do not introduce an object or a location the instruction never mentioned, and do not add a position word ("on the left", "at the back") the instruction did not contain.
 4. Use the scene description only to confirm that the instruction's own nouns name real objects, never as a licence to swap one of those nouns for whatever the scene calls it instead.
 5. Change word order, voice, politeness, question form, punctuation, clause count and contractions as freely as you like — every one of these is measured to have no effect — and in particular do not force the sentence to begin with its verb.
 6. Apply rules 1-5 identically to every instruction, because nothing in the wording tells you whether the task is easy, hard or impossible; and if you cannot produce a rewrite that satisfies rules 1-3, return the instruction unchanged rather than reaching for a bolder one.
+
+
+> **RULE 1 NARROWED, 2026-09-04 (distiller decision).** The independent audit below showed the
+> as-written rule was over-scoped: banning *any* renaming binds on 21.1% of plain rewrites while the
+> narrowed form (ban only multi-word expansion) captures the entire measured payload (+15.66 vs
+> +15.22pp high band; identical collapse-rate benefit) binding on 7.7%. The original text was:
+> "Reuse unchanged the head noun of every physical thing the instruction names ... and never replace
+> one with a category word, an appearance description or a function description."
+> This narrowing is applied HERE ONLY. `in_only_v1.md` keeps the strict synonym ban because
+> in-finetune evidence supports it directly (+18.8pp in the plain register, 10/10 tasks), and
+> `in_plus_ood_v2.md` keeps its own strict rule 1 for the same reason. Union of the three books:
+> multi-word expansion is costly in both populations; single-word synonyms are costly only on
+> language the policy was finetuned on. A deployed rephraser that cannot tell the populations apart
+> should use the STRICT form — the ban costs ~0 out of finetune and saves a great deal in it.
 
 ===RATIONALE===
 
