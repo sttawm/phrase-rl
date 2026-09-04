@@ -69,7 +69,7 @@ def frame_for(task):
     if _FRAMES is None:
         import glob
         _FRAMES = {}
-        for d in ("frames", "test_frames", "reserve_frames"):
+        for d in ("eval_frames", "test_frames", "frames", "reserve_frames"):
             for p in glob.glob(str(REPO / f"results/analysis/pi05_bank/{d}/*.png")):
                 stem = pathlib.Path(p).stem            # e.g. libero_90__07
                 suite, tid = stem.rsplit("__", 1)
@@ -169,12 +169,18 @@ def run_author(author):
 
 def queue_qwen():
     import hashlib
-    jd = REPO / "results/rules_runs/p_seal/jobs"; jd.mkdir(parents=True, exist_ok=True)
+    jd = REPO / "results/rules_runs/p_eval/jobs"; jd.mkdir(parents=True, exist_ok=True)
     specs = []
     for task in SEALED:
-        specs.append({"task": task, "prompt": build_prompt(task, QUOTA["qwen"],
-                                                           existing_for(task))})
-    jid = "a00qwnatgen_" + hashlib.sha1(json.dumps(specs).encode()).hexdigest()[:8]
+        row = {"task": task, "prompt": build_prompt(task, QUOTA["qwen"],
+                                                    existing_for(task))}
+        # image variant: the third author sees the same frame the other two did
+        if VARIANT != "text":
+            row["image_png"] = frame_for(task)
+        specs.append(row)
+    jid = "a00qwnatgen_" + hashlib.sha1(
+        json.dumps([{k: v for k, v in d.items() if k != "image_png"}
+                    for d in specs]).encode()).hexdigest()[:8]
     pd.DataFrame(specs).to_parquet(jd / f"{jid}.payload.parquet", index=False)
     json.dump({"job_id": jid, "kind": "generate", "n_per_task": QUOTA["qwen"]},
               open(jd / f"{jid}.spec.json", "w"), indent=1)

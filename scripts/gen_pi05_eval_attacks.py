@@ -56,9 +56,20 @@ for task, canon in ev.items():
                 r = cl.models.generate_content(
                     model="gemini-3.5-flash",
                     contents=[types.Part.from_bytes(data=frames[task], mime_type="image/png"), prompt],
-                    config=types.GenerateContentConfig(temperature=0.8, max_output_tokens=400))
-                text = (r.text or "").strip().strip('"').splitlines()
-                cand = next((l.strip().strip('"') for l in text if len(l.strip()) > 5), "")
+                    # 400 was the bridge budget for a non-thinking model; on
+                    # gemini-3.5-flash the thinking tokens are charged to the
+                    # same budget and the instruction came back cut mid-clause.
+                    # The cap is a truncation guard, not a sampling parameter.
+                    config=types.GenerateContentConfig(temperature=0.8, max_output_tokens=2000))
+                if getattr(r.candidates[0], "finish_reason", None) is not None \
+                        and "MAX_TOKENS" in str(r.candidates[0].finish_reason):
+                    print("   truncated (MAX_TOKENS), retrying", flush=True)
+                    continue
+                # the model wraps its one-sentence answer across lines; taking
+                # the first line truncated attacks mid-clause ("...inside the").
+                # The prompt asks for exactly one instruction, so collapse the
+                # whole reply to a single whitespace-normalised line.
+                cand = " ".join((r.text or "").split()).strip().strip('"')
                 if cand and cand.lower() not in {g.lower() for g in got}:
                     got.append(cand); break
             except Exception as e:
