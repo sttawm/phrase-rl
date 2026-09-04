@@ -761,3 +761,24 @@ record, and the comparison of the two IS a result (does a wider natural register
 change the ranking, or only the level?).
 Prediction P10: the level drops for every arm (a wider register is harder) and
 the spread between arms widens; the rollout-only book keeps its lead.
+
+## Amendment 35 (2026-09-04) — Gemini applier thinking-budget probe (1024 vs 16384)
+
+Every A29/A31/A34 apply runs gemini-pro-latest at thinking_budget=1024 (raised
+from 128 on 2026-09-01). The paper-era sealed arms used 16384. If gemini's
+applier performance is thinking-limited rather than book-limited, the whole
+applier ranking is confounded by a knob, not a capability.
+
+PROBE (queued after A34, lower priority; leg prefix e35*): the SAME book gemini
+already applied -- the rollout-only book, its strongest A31 arm -- re-applied by
+gemini-pro-latest at thinking_budget=16384, everything else identical (temp 0,
+apply.md wrap, same traces, same phrases), on all three conditions:
+  adversarial 72 attacks x 24 layouts x 2 (n=3,456)
+  natural     the A34 image-conditioned set, 192 x 24 x 1 (n=4,608)
+  original    12 nominals x 24 x 2 (n=576)
+A34 keeps 1024 so its cells stay comparable with the A31 grid; this probe is
+reported separately as a knob check, never merged into the main grid.
+Prediction P11: no condition moves by more than 2pp -- the applier ranking
+reflects rule-following fidelity, not thinking budget. A larger move would mean
+the A31 gemini cells understate what that applier can do, and the grid needs a
+budget-matched re-run before any applier claim is made in the paper.
