@@ -1,0 +1,62 @@
+[
+ {
+  "suite": "libero_spatial",
+  "task_id": 0,
+  "lang": "pick up the black bowl between the plate and the ramekin and place it on the plate"
+ },
+ {
+  "suite": "libero_spatial",
+  "task_id": 5,
+  "lang": "pick up the black bowl on the ramekin and place it on the plate"
+ },
+ {
+  "suite": "libero_spatial",
+  "task_id": 7,
+  "lang": "pick up the black bowl on the stove and place it on the plate"
+ },
+ {
+  "suite": "libero_spatial",
+  "task_id": 8,
+  "lang": "pick up the black bowl next to the plate and place it on the plate"
+ },
+ {
+  "suite": "libero_object",
+  "task_id": 1,
+  "lang": "pick up the cream cheese and place it in the basket"
+ },
+ {
+  "suite": "libero_object",
+  "task_id": 2,
+  "lang": "pick up the salad dressing and place it in the basket"
+ },
+ {
+  "suite": "libero_object",
+  "task_id": 6,
+  "lang": "pick up the butter and place it in the basket"
+ },
+ {
+  "suite": "libero_object",
+  "task_id": 9,
+  "lang": "pick up the orange juice and place it in the basket"
+ },
+ {
+  "suite": "libero_10",
+  "task_id": 1,
+  "lang": "put both the cream cheese box and the butter in the basket"
+ },
+ {
+  "suite": "libero_10",
+  "task_id": 3,
+  "lang": "put the black bowl in the bottom drawer of the cabinet and close it"
+ },
+ {
+  "suite": "libero_10",
+  "task_id": 4,
+  "lang": "put the white mug on the left plate and put the yellow and white mug on the right plate"
+ },
+ {
+  "suite": "libero_10",
+  "task_id": 7,
+  "lang": "put both the alphabet soup and the cream cheese box in the basket"
+ }
+]
