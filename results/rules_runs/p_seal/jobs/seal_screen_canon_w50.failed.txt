@@ -1,3 +1,4 @@
+FINAL attempt 3/3
 space/phrase-rl/results/rules_runs/p_seal/jobs/seal_screen_canon_w50.queue.json --out /workspace/phrase-rl/results/rules_runs/p_seal/jobs/seal_screen_canon_w50.bankeval.jsonl --port 8000 --seed 7
 [robosuite WARNING] No private macro file found! (macros.py:53)
 [robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
