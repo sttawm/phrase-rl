@@ -20,7 +20,7 @@
  "claude_effort": "xhigh",
  "apply_effort": "high",
  "gemini_model": "gemini-pro-latest",
- "gemini_thinking_budget": 1024,
+ "gemini_thinking_budget": 16384,
  "max_probes": 24,
  "init_rules_from": "r1",
  "rollback_on_regress": true,

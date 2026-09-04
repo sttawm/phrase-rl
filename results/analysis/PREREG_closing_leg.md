@@ -794,3 +794,12 @@ adversarial and original claude arms are re-run under opus-5 (4 books x 3,456 +
 576 episodes ~= 16k), which is not authorized here. Any applier claim in the
 paper must either restrict itself to gemini and qwen (whose appliers are
 constant across all conditions) or carry this caveat explicitly.
+
+### A35 addendum (2026-09-04): gemini applier moves to thinking_budget=16384 GOING FORWARD
+User directive: every gemini apply from here uses the full 16384 budget (the
+paper-era setting), not 1024. Applies already run at 1024 -- the whole A31 grid
+and A34's gemini column -- keep their measured values and are labelled as such;
+re-evaluating them at 16384 is deferred, not abandoned. A35's probe is therefore
+reframed: it no longer chooses the forward setting (that is decided) but still
+answers whether the 1024-era cells understate gemini, i.e. whether the existing
+grid needs a budget-matched re-run before any applier claim is published.
