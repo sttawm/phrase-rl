@@ -139,12 +139,13 @@ def run_author(author):
                            + prompt)
             r = subprocess.run(argv, capture_output=True, text=True, timeout=600)
             text = r.stdout or ""
+        # NO meaning gate (user 2026-09-04): the generators are instructed to
+        # preserve the goal and we trust them. The previous lexical gate rejected
+        # legitimate synonyms ("ramekin" -> "the white dish") and cut the
+        # image-conditioned variant ~2x harder than the text one, biasing the
+        # comparison the two variants exist to settle. Only exact duplicates go.
         seen = {h.lower() for h in have}
         for cand in parse(text):
-            ok, missing = keeps_meaning(cand, SEALED[task])
-            if not ok:
-                rejects.append({"task": task, "author": author, "phrase": cand,
-                                "reason": f"lost {missing}"}); continue
             if cand.lower() in seen:
                 rejects.append({"task": task, "author": author, "phrase": cand,
                                 "reason": "duplicate"}); continue

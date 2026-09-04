@@ -1,0 +1,22 @@
+task,author,phrase,reason
+widowx_carrot_on_ramekin_clean,claude,Drop the carrot into that white dish.,lost ['ramekin']
+widowx_carrot_on_ramekin_clean,claude,Can you put the carrot in the little white bowl.,lost ['ramekin']
+widowx_coke_can_on_keyboard_clean,claude,Grab the red can and set it down on top of the keyboard.,lost ['coke']
+widowx_coke_can_on_keyboard_clean,claude,Can you put the soda can on the keyboard for me?,lost ['coke']
+widowx_coke_can_on_keyboard_clean,claude,Set the coca-cola can down right on the keyboard.,lost ['coke']
+widowx_coke_can_on_keyboard_clean,claude,Take that can sitting near the arm and put it on top of the keyboard.,lost ['coke']
+widowx_coke_can_on_wheel_clean,claude,Move the soda can over onto the toy tire.,"lost ['coke', 'wheel']"
+widowx_cube_on_plate_clean,claude,"Move the cube over to the plate, please.",lost ['green']
+widowx_cube_on_plate_clean,claude,Get the cube onto that plate.,lost ['green']
+widowx_cube_on_plate_clean,claude,Take the cube and drop it onto the plate.,lost ['green']
+widowx_orange_juice_on_plate_clean,claude,Grab that juice box and put it on the plate.,lost ['orange']
+widowx_orange_juice_on_plate_clean,claude,Take the juice sitting near the arm and place it onto the yellow plate.,lost ['orange']
+widowx_pepsi_on_plate_clean,claude,Move the soda can over to the plate.,lost ['pepsi']
+widowx_pepsi_on_plate_clean,claude,"Set the Pepsi down on top of the plate, please.",lost ['can']
+widowx_pepsi_on_plate_clean,claude,Can you place that blue can on the plate?,lost ['pepsi']
+widowx_pepsi_on_plate_clean,claude,Take the can near the robot's gripper and put it onto the plate.,lost ['pepsi']
+widowx_pepsi_on_plate_clean,claude,The Pepsi needs to end up on the plate.,lost ['can']
+widowx_small_plate_on_green_cube_clean,claude,Set the little pale-yellow plate on top of the green cube.,lost ['small']
+widowx_small_plate_on_green_cube_clean,claude,Can you move the small saucer over onto the green block?,"lost ['plate', 'cube']"
+widowx_small_plate_on_green_cube_clean,claude,"Grab the tiny plate and put it on the green cube, please.",lost ['small']
+widowx_small_plate_on_green_cube_clean,claude,Stack the small plate onto the green block.,lost ['cube']

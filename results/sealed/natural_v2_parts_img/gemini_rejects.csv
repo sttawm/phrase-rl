@@ -1,0 +1,37 @@
+task,author,phrase,reason
+widowx_carrot_on_ramekin_clean,gemini,Place the orange vegetable in the small white bowl.,"lost ['carrot', 'ramekin']"
+widowx_carrot_on_ramekin_clean,gemini,Drop the carrot inside the white dish.,lost ['ramekin']
+widowx_carrot_on_ramekin_clean,gemini,Set the carrot down in the little bowl.,lost ['ramekin']
+widowx_carrot_on_ramekin_clean,gemini,Transfer the carrot to the white dish.,lost ['ramekin']
+widowx_carrot_on_sponge_clean,gemini,Set the orange vegetable on the green and yellow sponge.,lost ['carrot']
+widowx_coke_can_on_keyboard_clean,gemini,Move the red soda can to the black keyboard.,lost ['coke']
+widowx_coke_can_on_keyboard_clean,gemini,Set the Coca-Cola on top of the keyboard.,"lost ['coke', 'can']"
+widowx_coke_can_on_keyboard_clean,gemini,Grab the soda and place it on the computer keyboard.,"lost ['coke', 'can']"
+widowx_coke_can_on_keyboard_clean,gemini,Shift the red can over so it rests on the keyboard.,lost ['coke']
+widowx_coke_can_on_keyboard_clean,gemini,Please drop the Coke on the keyboard.,lost ['can']
+widowx_coke_can_on_wheel_clean,gemini,Move the red soda can onto the black tire.,"lost ['coke', 'wheel']"
+widowx_coke_can_on_wheel_clean,gemini,Set the red can down onto the toy wheel.,lost ['coke']
+widowx_coke_can_on_wheel_clean,gemini,Pick up the Coke and put it on the wheel.,lost ['can']
+widowx_coke_can_on_wheel_clean,gemini,Transfer the soda can to the black wheel.,lost ['coke']
+widowx_eggplant_on_keyboard_clean,gemini,Set the purple vegetable down on top of the black keyboard.,lost ['eggplant']
+widowx_eggplant_on_keyboard_clean,gemini,Put the purple object onto the keyboard.,lost ['eggplant']
+widowx_eggplant_on_sponge_clean,gemini,Put the purple vegetable onto the green and yellow sponge.,lost ['eggplant']
+widowx_eggplant_on_sponge_clean,gemini,Move the eggplant onto the green and yellow block.,lost ['sponge']
+widowx_eggplant_on_sponge_clean,gemini,Drop the small purple item onto the sponge.,lost ['eggplant']
+widowx_cube_on_plate_clean,gemini,Move the green block to the yellow plate.,lost ['cube']
+widowx_cube_on_plate_clean,gemini,Set the green object down on the plate.,lost ['cube']
+widowx_cube_on_plate_clean,gemini,Drop the green block onto the plate.,lost ['cube']
+widowx_nut_on_plate_clean,gemini,Take the little nut and set it on the dish.,lost ['plate']
+widowx_orange_juice_on_plate_clean,gemini,Put the juice carton onto the yellow dish.,"lost ['orange', 'plate']"
+widowx_orange_juice_on_plate_clean,gemini,Move the small box of juice to the plate.,lost ['orange']
+widowx_orange_juice_on_plate_clean,gemini,Transfer the juice box onto the plate.,lost ['orange']
+widowx_orange_juice_on_plate_clean,gemini,Put the carton of orange juice on the dish.,lost ['plate']
+widowx_pepsi_on_plate_clean,gemini,Move the blue can over to the plate.,lost ['pepsi']
+widowx_pepsi_on_plate_clean,gemini,Place the soda can onto the dish.,"lost ['pepsi', 'plate']"
+widowx_pepsi_on_plate_clean,gemini,Set the Pepsi down on the plate.,lost ['can']
+widowx_pepsi_on_plate_clean,gemini,Can you put the blue soda on the plate?,lost ['pepsi']
+widowx_small_plate_on_green_cube_clean,gemini,Move the little yellow dish to the top of the green block.,"lost ['small', 'plate', 'cube']"
+widowx_small_plate_on_green_cube_clean,gemini,Set the tiny plate on the green cube.,lost ['small']
+widowx_small_plate_on_green_cube_clean,gemini,Put the small dish on top of the green block.,"lost ['plate', 'cube']"
+widowx_small_plate_on_green_cube_clean,gemini,Take the plate and place it on the green cube.,lost ['small']
+widowx_small_plate_on_green_cube_clean,gemini,Stack the small plate on the green block.,lost ['cube']

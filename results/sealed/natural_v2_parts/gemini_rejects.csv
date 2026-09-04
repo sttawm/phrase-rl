@@ -1,0 +1,25 @@
+task,author,phrase,reason
+widowx_carrot_on_ramekin_clean,gemini,Move the carrot into the small ceramic dish.,lost ['ramekin']
+widowx_carrot_on_ramekin_clean,gemini,Could you put the orange vegetable in the ramekin?,lost ['carrot']
+widowx_carrot_on_sponge_clean,gemini,Set the orange vegetable on top of the cleaning sponge.,lost ['carrot']
+widowx_coke_can_on_keyboard_clean,gemini,Move the red soda can over to the keyboard.,lost ['coke']
+widowx_coke_can_on_keyboard_clean,gemini,Grab the Coke and set it down on the keyboard.,lost ['can']
+widowx_coke_can_on_keyboard_clean,gemini,I need you to put the aluminum can on top of the keyboard.,lost ['coke']
+widowx_coke_can_on_keyboard_clean,gemini,Shift the cola can onto the keyboard.,lost ['coke']
+widowx_coke_can_on_wheel_clean,gemini,Grab the red soda can and put it on top of the wheel.,lost ['coke']
+widowx_coke_can_on_wheel_clean,gemini,Move the Coca-Cola over to the wheel.,"lost ['coke', 'can']"
+widowx_coke_can_on_wheel_clean,gemini,Could you set the aluminum can down onto the wheel?,lost ['coke']
+widowx_eggplant_on_keyboard_clean,gemini,Could you move the purple vegetable over to the keyboard?,lost ['eggplant']
+widowx_eggplant_on_sponge_clean,gemini,Move the purple vegetable to the cleaning pad.,"lost ['eggplant', 'sponge']"
+widowx_cube_on_plate_clean,gemini,Can you move the green block onto the plate for me?,lost ['cube']
+widowx_cube_on_plate_clean,gemini,Put the green square block on the plate.,lost ['cube']
+widowx_cube_on_plate_clean,gemini,The green block goes on the plate.,lost ['cube']
+widowx_orange_juice_on_plate_clean,gemini,Please place the juice on the dish.,"lost ['orange', 'plate']"
+widowx_orange_juice_on_plate_clean,gemini,Transfer the orange drink onto that plate.,lost ['juice']
+widowx_orange_juice_on_plate_clean,gemini,Put the orange liquid onto the empty plate.,lost ['juice']
+widowx_pepsi_on_plate_clean,gemini,Move the blue soda can over to the plate.,lost ['pepsi']
+widowx_pepsi_on_plate_clean,gemini,Grab the Pepsi and set it down on the plate.,lost ['can']
+widowx_pepsi_on_plate_clean,gemini,Transfer that blue aluminum can to the plate.,lost ['pepsi']
+widowx_pepsi_on_plate_clean,gemini,Put the Pepsi over on the plate.,lost ['can']
+widowx_small_plate_on_green_cube_clean,gemini,Could you move the little dish onto the green block?,"lost ['small', 'plate', 'cube']"
+widowx_small_plate_on_green_cube_clean,gemini,Pick up the small saucer and rest it on the green block.,"lost ['plate', 'cube']"

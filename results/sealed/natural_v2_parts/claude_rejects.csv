@@ -1,0 +1,8 @@
+task,author,phrase,reason
+widowx_coke_can_on_keyboard_clean,claude,Move the coca-cola can over onto the keyboard.,lost ['coke']
+widowx_coke_can_on_keyboard_clean,claude,Can you put that soda can up on the keyboard?,lost ['coke']
+widowx_coke_can_on_keyboard_clean,claude,Pick up the red can and rest it on the keyboard.,lost ['coke']
+widowx_cube_on_plate_clean,claude,Take the green block and put it on the plate.,lost ['cube']
+widowx_cube_on_plate_clean,claude,Pick up the green one and place it on the plate.,lost ['cube']
+widowx_orange_juice_on_plate_clean,claude,Set the OJ down on the plate.,"lost ['orange', 'juice']"
+widowx_pepsi_on_plate_clean,claude,Set the red and blue can down on the plate.,lost ['pepsi']
