@@ -62,10 +62,17 @@ def call_gemini(prompt):
     cl = call_gemini.cl = getattr(call_gemini, "cl", None) or genai.Client()
     for attempt in range(5):
         try:
+            # thinking_budget pinned to 16384, matching the bridge applier
+            # (r1_sim config.json gemini_thinking_budget, decision 48b0384c).
+            # Sending nothing here left pi0.5 on the MODEL DEFAULT, so the two
+            # benchmarks' gemini arms were not the same instrument. pro-class
+            # models are thinking-only and reject an explicit 0 (rules_loop_driver
+            # :472-476); minimum explicit budget on pro is 128.
             r = cl.models.generate_content(
                 model="gemini-pro-latest", contents=prompt,
                 config=types.GenerateContentConfig(
                     temperature=1.0,
+                    thinking_config=types.ThinkingConfig(thinking_budget=16384),
                     http_options=types.HttpOptions(timeout=180_000)))
             if (r.text or "").strip():
                 return r.text.strip()
