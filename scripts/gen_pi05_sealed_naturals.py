@@ -32,7 +32,7 @@ SEALED = __import__("json").load(open(
     pathlib.Path.home() / "dev/robotics/phrase-rl/results/analysis/pi05_bank/eval_set.json"))["tasks"]
 
 REPO = pathlib.Path.home() / "dev/robotics/phrase-rl"
-VARIANT = os.environ.get("NATV2_VARIANT", "text")   # "text" or "image"
+VARIANT = os.environ.get("NATV2_VARIANT", "image")   # A33 chose image; recipe default   # "text" or "image"
 SUF = "" if VARIANT == "text" else "_img"
 OUT = REPO / f"results/sealed/ph_pi05_natural_v2{SUF}.parquet"
 PART = REPO / f"results/sealed/pi05_natural_v2_parts{SUF}"
@@ -169,7 +169,7 @@ def run_author(author):
 
 def queue_qwen():
     import hashlib
-    jd = REPO / "results/rules_runs/r1_sim/jobs"
+    jd = REPO / "results/rules_runs/p_seal/jobs"; jd.mkdir(parents=True, exist_ok=True)
     specs = []
     for task in SEALED:
         specs.append({"task": task, "prompt": build_prompt(task, QUOTA["qwen"],
@@ -185,7 +185,7 @@ def assemble():
     parts = [pd.read_parquet(f) for f in sorted(PART.glob("*.parquet"))]
     d = pd.concat(parts, ignore_index=True).drop_duplicates(["task", "phrase"])
     d["k"] = d.groupby("task").cumcount()
-    d = d[d.k < 16]
+    d = d[d.k < 16]   # keep up to 16/task; eval samples 4 per PREREG
     d.to_parquet(OUT, index=False)
     print(f"assembled {len(d)} phrases over {d.task.nunique()} tasks -> {OUT.name}")
     print(d.author.value_counts().to_dict())
