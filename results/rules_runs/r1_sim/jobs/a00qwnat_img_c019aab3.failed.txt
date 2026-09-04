@@ -1,3 +1,4 @@
+FINAL attempt 3/3
 .venv-gen/lib/python3.11/site-packages/transformers/models/auto/processing_auto.py", line 330, in from_pretrained
     return processor_class.from_pretrained(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
