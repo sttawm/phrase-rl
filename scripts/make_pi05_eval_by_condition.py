@@ -164,3 +164,56 @@ fig2.subplots_adjust(left=0.125, right=0.99, top=0.895, bottom=0.085, hspace=0.3
 o2 = "results/charts/pi05_eval_success_levels.png"
 fig2.savefig(o2, dpi=165, facecolor=SURF)
 print("wrote", o2)
+
+# ============ FIGURE 3: effect split by APPLIER (composite encoding) ==========
+# Colour carries the book, marker shape carries the applier. Pooling the two
+# appliers is misleading for three of the four books: gemini edits 0% of bases
+# under `none` and `in_only_v1` (structurally pinned at 0.00) and only 14% under
+# `both`, against claude's 13/2/66% -- so a pooled row halves whatever claude did.
+APPS = [("claude", "o", 1.0), ("gemini", "D", 0.62)]
+fig3, axes3 = plt.subplots(3, 4, figsize=(14.6, 9.8), sharex="row")
+for ri, cond in enumerate(CONDS):
+    for ci_, (skey, slabel) in enumerate(STRATA):
+        ax = axes3[ri][ci_]
+        g0 = A[(A.kind == cond) & (A.stratum == skey)]
+        ax.axvline(0, color=MUTED, lw=1.2, zorder=1)
+        for bi, (bkey, blabel, col) in enumerate(BOOKS):
+            for ai, (app, mk, sz) in enumerate(APPS):
+                g = g0[(g0.book == bkey) & (g0.applier == app)]
+                if g.empty:
+                    continue
+                per = g.groupby("task").delta.mean()
+                y = len(BOOKS) - 1 - bi + (0.19 if ai == 0 else -0.19)
+                if len(per) > 1 and per.std() > 0:
+                    lo, hi = ci(per.values)
+                    ax.plot([lo, hi], [y, y], color=col, lw=1.6, alpha=sz,
+                            solid_capstyle="round", zorder=2)
+                ax.plot([per.mean()], [y], mk, ms=7.5 if ai == 0 else 6,
+                        color=col, mec=SURF, mew=1.6, alpha=sz, zorder=3)
+        ax.set_ylim(-0.62, len(BOOKS) - 0.2)
+        ax.set_yticks(range(len(BOOKS)))
+        ax.set_yticklabels([b[1] for b in BOOKS][::-1] if ci_ == 0 else [],
+                           fontsize=8.5, color=INK)
+        if ri == 0:
+            ax.set_title(slabel, fontsize=9.5, color=INK, pad=8)
+        ax.grid(axis="x", color=GRID, lw=0.7)
+        style(ax)
+    axes3[ri][0].set_ylabel(cond.upper(), fontsize=10.5, color=INK,
+                            fontweight="bold", labelpad=14)
+    axes3[ri][3].set_xlabel("effect vs own base (pp)", fontsize=8, color=MUTED)
+
+fig3.suptitle("pi0.5 / LIBERO sealed eval — effect by rulebook AND applier",
+              fontsize=13.5, color=INK, y=0.975, fontweight="bold")
+fig3.text(0.5, 0.938, "Colour = rulebook, shape = applier (circle claude, "
+          "diamond gemini). qwen never ran. x-scale differs per row.",
+          ha="center", fontsize=9, color=MUTED)
+fig3.legend(handles=LEG + [
+    Line2D([], [], marker="o", ls="", ms=7.5, mfc="#6f6e6a", mec=SURF, label="claude"),
+    Line2D([], [], marker="D", ls="", ms=6, mfc="#6f6e6a", mec=SURF, label="gemini")],
+    loc="lower center", ncol=6, frameon=False, fontsize=9, labelcolor=INK,
+    bbox_to_anchor=(0.5, 0.016))
+fig3.subplots_adjust(left=0.135, right=0.99, top=0.895, bottom=0.088,
+                     hspace=0.34, wspace=0.12)
+o3 = "results/charts/pi05_eval_effects_by_applier.png"
+fig3.savefig(o3, dpi=165, facecolor=SURF)
+print("wrote", o3)
