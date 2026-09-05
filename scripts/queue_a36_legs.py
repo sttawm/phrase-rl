@@ -30,6 +30,15 @@ BASE = {"kind": "score", "method": "rollout", "draw": 0, "seed": 7,
 REPS = {"adv": 2, "nat": 1, "orig": 2}
 AP = {"claude": "cl", "gemini": "ge", "qwen": "qw"}
 
+import subprocess, collections
+_ls = subprocess.run(["git", "ls-tree", "-r", "--name-only", "origin/main", "--",
+                      "results/rules_runs/r1_sim/jobs/"], capture_output=True, text=True).stdout
+ORIGIN_DONE = collections.Counter()
+for _l in _ls.splitlines():
+    _b = pathlib.Path(_l).name
+    if _b.startswith("f36") and _b.endswith(".result.parquet"):
+        ORIGIN_DONE[_b.split("_")[0] + "_"] += 1
+
 tot = eps = 0
 for f in sorted(glob.glob(str(R / "results/sealed/ph_a36_*.parquet"))):
     m = re.match(r"ph_a36_([tsb][23])_(claude|gemini|qwen)_(adv|nat|orig)$",
@@ -38,6 +47,13 @@ for f in sorted(glob.glob(str(R / "results/sealed/ph_a36_*.parquet"))):
         continue
     tag, applier, cond = m.groups()
     if cond not in CONDS:
+        continue
+    # duplicate guard (2026-09-05): an arm whose legs already have results on
+    # origin is DONE -- a regenerated apply parquet (temperature) changes the
+    # payload hash and would silently stage a second full set of legs.
+    arm = f"f36{tag}{AP[applier]}{cond[0]}_"
+    if ORIGIN_DONE.get(arm, 0) >= 12:
+        print(f"skip {arm}*: {ORIGIN_DONE[arm]} result legs already on origin")
         continue
     rw = pd.read_parquet(f)
     n = rolled = 0
