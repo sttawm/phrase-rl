@@ -1,0 +1,23 @@
+/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+[20] widowx_eggplant_on_sponge_clean ep19 success=True phrase='Grab the purple eggplant and pop it onto'
+[40] widowx_eggplant_on_sponge_clean ep15 success=True phrase='Can you drop the little purple eggplant '
+[60] widowx_eggplant_on_sponge_clean ep11 success=True phrase='Set the eggplant down on top of the spon'
+[80] widowx_eggplant_on_sponge_clean ep7 success=True phrase='Move the eggplant onto the green and yel'
+[100] widowx_eggplant_on_sponge_clean ep3 success=True phrase='Put the eggplant over the green sponge.'
+[120] widowx_eggplant_on_sponge_clean ep23 success=False phrase='Put the eggplant over the green sponge.'
+done: 120 new episodes (120 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/f36t2cln_6aad462499.rollraw.0.parquet
+task
+widowx_eggplant_on_sponge_clean    0.791667
+Name: success, dtype: float64
+[20] widowx_eggplant_on_sponge_clean ep19 success=False phrase='Eggplant goes on the sponge.'
+[40] widowx_eggplant_on_sponge_clean ep15 success=True phrase='Place the eggplant on the sponge.'
+[60] widowx_eggplant_on_sponge_clean ep11 success=False phrase='Put the purple vegetable onto the green '
+[80] widowx_eggplant_on_sponge_clean ep7 success=True phrase='Place the purple eggplant on the sponge.'
+[100] widowx_eggplant_on_sponge_clean ep3 success=False phrase='Lay the purple thing on the yellow and g'
+[120] widowx_eggplant_on_sponge_clean ep23 success=False phrase='Lay the purple thing on the yellow and g'
+done: 120 new episodes (120 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/f36t2cln_6aad462499.rollraw.2.parquet
+task
+widowx_eggplant_on_sponge_clean    0.541667
+Name: success, dtype: float64
+rollout chunks failed: [1]
