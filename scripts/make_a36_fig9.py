@@ -33,13 +33,13 @@ BASE = [("oracle*", 48.2, 50.3, 46.8, "#2f855a"),
 # scaffold (no-rules) controls -- pooled/iv/oov per applier per condition.
 # natural from A34 (same 186 image set), adversarial from A31 (same 72 attacks).
 # original scaffold was never run (X'd out), so that role is empty for Original.
-SCAFFOLD = {
-    "Adversarial": {"gemini": (24.0, 22.7, 19.6), "claude": (24.3, 30.2, 16.8),
-                    "qwen": (24.7, 28.9, 16.3)},  # strata measured from a30 legs
-    "Natural": {"gemini": (28.7, None, None), "claude": (29.7, None, None),
-                "qwen": (28.1, None, None)},
-    "Original": {},
-}
+_r1 = json.loads((R / "results/analysis/r1_cells.json").read_text())
+def _sc(ap, c):
+    r = _r1.get(f"sc|{ap}|{c}")
+    return (r["pooled"], r.get("iv"), r.get("oov")) if r else None
+SCAFFOLD = {"Adversarial": {ap: _sc(ap, "adv") for ap in ("gemini", "claude", "qwen")},
+            "Natural": {ap: _sc(ap, "nat") for ap in ("gemini", "claude", "qwen")},
+            "Original": {}}
 ROLES = ["rollout+\ntraining-data\nrules", "rollout-\nderived\nrules",
          "no rules\n(bare\nprompt)"]
 MODELS = [("Gemini-Pro", "gemini"), ("Claude Fable", "claude"), ("Frozen Qwen", "qwen")]

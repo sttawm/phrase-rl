@@ -21,10 +21,13 @@ audit = json.load(open(R / "results/analysis/sealed_vocab_audit.json"))
 def stem(n): return n.replace("put ", "").replace(" on ", "_on_").replace(" ", "_")
 STRAT = {stem(x["nominal"]): ("iv" if x["stratum"] == "in-vocab" else "oov")
          for x in audit}
-ALIAS = {"pepsi_can_on_plate": "pepsi_on_plate", "green_cube_on_plate": "cube_on_plate"}
+ALIAS = {"pepsi_on_plate": "pepsi_can_on_plate",
+         "cube_on_plate": "green_cube_on_plate"}  # task-stem -> audit-stem
 def strat(t):
     t = t.replace("widowx_", "").replace("_clean", "")
-    return STRAT.get(ALIAS.get(t, t))
+    s = STRAT.get(ALIAS.get(t, t))
+    assert s is not None, f"unmapped task stratum: {t}"
+    return s
 
 
 def pool(leg_files):

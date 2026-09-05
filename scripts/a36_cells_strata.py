@@ -26,14 +26,15 @@ STRAT = {stem(x["nominal"]): ("iv" if x["stratum"] == "in-vocab" else "oov")
          for x in audit}
 # leg task col is e.g. widowx_carrot_on_ramekin_clean; pepsi audit stem is
 # "pepsi_can_on_plate" but the sealed stem is "pepsi_on_plate"
-ALIAS = {"pepsi_can_on_plate": "pepsi_on_plate",
-         "green_cube_on_plate": "cube_on_plate"}
+ALIAS = {"pepsi_on_plate": "pepsi_can_on_plate",
+         "cube_on_plate": "green_cube_on_plate"}  # task-stem -> audit-stem
 
 
 def task_stratum(task):
     t = task.replace("widowx_", "").replace("_clean", "")
-    t = ALIAS.get(t, t)
-    return STRAT.get(t)
+    s = STRAT.get(ALIAS.get(t, t))
+    assert s is not None, f"unmapped task stratum: {t}"
+    return s
 
 
 legs = collections.defaultdict(list)
