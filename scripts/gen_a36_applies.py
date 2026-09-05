@@ -36,9 +36,21 @@ adv = pd.concat([
 nat = pd.read_parquet(REPO / "results/sealed/ph_sealed_natural_v2_img.parquet")[["task", "k", "phrase"]]
 orig = orig12.rename(columns={"nominal": "phrase"})[["task", "phrase"]].drop_duplicates()
 
+import time as _time
 for cond, bases in (("adv", adv), ("nat", nat), ("orig", orig)):
-    rw = d.apply_rules(run, cfg, applier, rules, bases[["task", "phrase"]],
-                       f"a36{tag}{applier[:2]}_{cond}")
+    # transient API disconnects abort a whole condition and the cache only
+    # writes on completion -- retry the condition instead of dying (2026-09-05:
+    # gemini t3 crash-looped for 3.5h without this)
+    for _att in range(3):
+        try:
+            rw = d.apply_rules(run, cfg, applier, rules, bases[["task", "phrase"]],
+                               f"a36{tag}{applier[:2]}_{cond}")
+            break
+        except Exception as e:
+            print(f"[{tag}/{applier}/{cond}] attempt {_att+1} failed: {e}", flush=True)
+            if _att == 2:
+                raise
+            _time.sleep(45)
     rw = rw.rename(columns={"phrase": "base", "rewrite": "phrase"})
     rw["phrase"] = rw.phrase.fillna("").astype(str)
     rw.loc[rw.phrase.str.strip() == "", "phrase"] = rw.base
