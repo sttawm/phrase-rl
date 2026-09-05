@@ -33,11 +33,7 @@ AP = {"claude": "cl", "gemini": "ge", "qwen": "qw"}
 import subprocess, collections
 _ls = subprocess.run(["git", "ls-tree", "-r", "--name-only", "origin/main", "--",
                       "results/rules_runs/r1_sim/jobs/"], capture_output=True, text=True).stdout
-ORIGIN_DONE = collections.Counter()
-for _l in _ls.splitlines():
-    _b = pathlib.Path(_l).name
-    if _b.startswith("f36") and _b.endswith(".result.parquet"):
-        ORIGIN_DONE[_b.split("_")[0] + "_"] += 1
+ORIGIN = {pathlib.Path(_l).name for _l in _ls.splitlines()}
 
 tot = eps = 0
 for f in sorted(glob.glob(str(R / "results/sealed/ph_a36_*.parquet"))):
@@ -48,20 +44,17 @@ for f in sorted(glob.glob(str(R / "results/sealed/ph_a36_*.parquet"))):
     tag, applier, cond = m.groups()
     if cond not in CONDS:
         continue
-    # duplicate guard (2026-09-05): an arm whose legs already have results on
-    # origin is DONE -- a regenerated apply parquet (temperature) changes the
-    # payload hash and would silently stage a second full set of legs.
-    arm = f"f36{tag}{AP[applier]}{cond[0]}_"
-    if ORIGIN_DONE.get(arm, 0) >= 12:
-        print(f"skip {arm}*: {ORIGIN_DONE[arm]} result legs already on origin")
-        continue
     rw = pd.read_parquet(f)
     n = rolled = 0
     for t, g in rw.groupby("task"):
         g = g[["task", "phrase"]].drop_duplicates()
         h = hashlib.sha1(pd.util.hash_pandas_object(g).values.tobytes()).hexdigest()[:10]
         jid = f"f36{tag}{AP[applier]}{cond[0]}_{h}"
-        if (jd / f"{jid}.spec.json").exists():
+        # jid is content-addressed: same payload -> same jid. Skip anything
+        # already queued or finished ON ORIGIN, not just locally (2026-09-05 --
+        # regenerated applies + a stripped local jobs dir caused duplicate legs).
+        if (jd / f"{jid}.spec.json").exists() or f"{jid}.spec.json" in ORIGIN \
+                or f"{jid}.result.parquet" in ORIGIN:
             continue
         g.to_parquet(jd / f"{jid}.payload.parquet", index=False)
         json.dump({"job_id": jid, **BASE,
