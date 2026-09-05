@@ -1,0 +1,25 @@
+FW.
+/workspace/INT-ACT/.venv/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+[20] widowx_nut_on_plate_clean ep19 success=False phrase='Grab that little nut and get it onto the'
+[40] widowx_nut_on_plate_clean ep15 success=False phrase='Move the nut onto the yellow plate.'
+[60] widowx_nut_on_plate_clean ep11 success=False phrase='Can you drop the nut onto the plate for '
+[80] widowx_nut_on_plate_clean ep7 success=False phrase='Get the nut on the plate'
+[100] widowx_nut_on_plate_clean ep3 success=False phrase='Place the nut on the plate'
+[120] widowx_nut_on_plate_clean ep23 success=False phrase='Place the nut on the plate'
+done: 120 new episodes (120 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/f36t2gen_2b4611b6b7.rollraw.2.parquet
+task
+widowx_nut_on_plate_clean    0.258333
+Name: success, dtype: float64
+[20] widowx_nut_on_plate_clean ep19 success=False phrase='Nut goes on the plate, please.'
+[40] widowx_nut_on_plate_clean ep15 success=False phrase='The nut needs to end up on top of the pl'
+[60] widowx_nut_on_plate_clean ep11 success=True phrase='Place the grey nut on the plate.'
+[80] widowx_nut_on_plate_clean ep7 success=False phrase='Set the hexagonal nut down on the plate.'
+[100] widowx_nut_on_plate_clean ep3 success=False phrase='Drop the nut on the plate'
+[120] widowx_nut_on_plate_clean ep23 success=False phrase='Drop the nut on the plate'
+[140] widowx_nut_on_plate_clean ep19 success=False phrase='Lay the nut onto the plate'
+done: 144 new episodes (144 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/f36t2gen_2b4611b6b7.rollraw.0.parquet
+task
+widowx_nut_on_plate_clean    0.319444
+Name: success, dtype: float64
+rollout chunks failed: [1]
