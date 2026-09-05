@@ -1,0 +1,23 @@
+3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+[20] widowx_coke_can_on_wheel_clean ep19 success=False phrase='Pick up the red Coke can and set it on t'
+[40] widowx_coke_can_on_wheel_clean ep15 success=True phrase='put the red coke can on the black wheel.'
+[60] widowx_coke_can_on_wheel_clean ep11 success=False phrase='Pick up the red soda can and place it on'
+[80] widowx_coke_can_on_wheel_clean ep7 success=True phrase='Pick up the red Coke and put it on the b'
+[100] widowx_coke_can_on_wheel_clean ep3 success=False phrase='Move the Coke can onto the tire.'
+[120] widowx_coke_can_on_wheel_clean ep23 success=False phrase='Move the Coke can onto the tire.'
+done: 120 new episodes (120 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/f36b3qwn_b298aedf8a.rollraw.0.parquet
+task
+widowx_coke_can_on_wheel_clean    0.333333
+Name: success, dtype: float64
+[20] widowx_coke_can_on_wheel_clean ep19 success=False phrase='Pick up the red can of Coke and put it o'
+[40] widowx_coke_can_on_wheel_clean ep15 success=True phrase='Put the red can of Coke on top of the bl'
+[60] widowx_coke_can_on_wheel_clean ep11 success=False phrase='Set the red can on the toy wheel.'
+[80] widowx_coke_can_on_wheel_clean ep7 success=False phrase='Rest the red can on the black wheel.'
+[100] widowx_coke_can_on_wheel_clean ep3 success=False phrase='Put the red can into the black wheel.'
+[120] widowx_coke_can_on_wheel_clean ep23 success=True phrase='Put the red can into the black wheel.'
+done: 120 new episodes (120 total) -> /workspace/phrase-rl/results/rules_runs/r1_sim/jobs/f36b3qwn_b298aedf8a.rollraw.2.parquet
+task
+widowx_coke_can_on_wheel_clean    0.2
+Name: success, dtype: float64
+rollout chunks failed: [1]
