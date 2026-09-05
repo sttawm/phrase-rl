@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
-"""results/charts/pi05_dashboard.png -- the rules_dashboard idiom, for pi0.5/LIBERO.
+"""results/charts/pi05_dashboard.png -- the pi0.5/LIBERO twin of rules_dashboard.png.
 
-Same page shape as make_rules_dashboard.py (bridge): three condition columns,
-grey = no-rules rephraser, blue = rulebook cell, red dashed = no rephraser at
-all, value labels on every bar, dotted ghosts for cells that have not run.
+Deliberately IDENTICAL to make_rules_dashboard.py in layout, colour, spacing,
+bar geometry and legend, so the two pages can be read without re-learning the
+display. Only the data and the diet labels differ.
 
-Row A (slice by APPLIER): applier clusters x rule diets, pooled over strata.
-Row B (slice by STRATUM): bridge slices row 2 by rulebook DRAW (r1/r2/r3);
-pi0.5 has only one draw per diet, so the dimension that actually varies here is
-the canonical-success stratum -- and it is the one that decides whether a cell
-could move at all. Same idiom, substituted axis.
+Row A (slice by APPLIER): per condition, applier clusters x rule diets; bar =
+mean over rulebook draws, dots = the individual draws.
+Row B (slice by RULEBOOK DRAW): per condition, diet clusters x draws; bar =
+mean over the appliers with complete cells for that draw.
 
-qwen never ran (the pod-side apply branch reads bridge traces only), so its
-cluster is drawn as ghosts.
+pi0.5 has ONE draw per diet (bridge has three: r1 = A31/A34, r2/r3 = A36
+replicates), so r2/r3 ghost out exactly the way bridge's unfinished cells do.
+The page then says "no replicates exist yet" in the same visual language rather
+than by quietly substituting a different axis. qwen never ran -- the pod-side
+apply branch reads bridge traces only -- so its cluster ghosts too.
 
 Regenerate: .venv/bin/python scripts/make_pi05_dashboard.py
 """
@@ -22,10 +24,7 @@ import pathlib
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-from matplotlib.patches import Patch
-from matplotlib.lines import Line2D
 
 R = pathlib.Path(__file__).resolve().parents[1]
 D = R / "results/analysis/pi05_bank"
@@ -34,126 +33,156 @@ res = pd.concat([pd.read_parquet(f) for f in sorted(glob.glob(
     str(R / "results/rules_runs/p_eval/jobs/ev*.result.parquet")))],
     ignore_index=True).drop_duplicates(["task", "phrase"])
 bases = pd.read_parquet(D / "eval_bases.parquet")
-bl = (bases.merge(res[["task", "phrase", "gt_success"]], on=["task", "phrase"], how="left")
-      .rename(columns={"gt_success": "base_succ"}))
+bl = bases.merge(res[["task", "phrase", "gt_success"]], on=["task", "phrase"], how="left")
 A = pd.concat([pd.read_parquet(f).merge(
     res[["task", "phrase", "gt_success"]], left_on=["task", "rewrite"],
     right_on=["task", "phrase"], how="left", suffixes=("", "_r"))
     for f in sorted(glob.glob(str(D / "eval_applies/*.parquet")))], ignore_index=True)
 
-# diet order mirrors the bridge dashboard: control first, then the books
-DIETS = [("none", "no\nrules"), ("ood_only_v1", "OOD\nonly"),
-         ("in_plus_ood_v2", "in +\nOOD"), ("in_only_v1", "in-ft\nonly")]
-APPS = [("claude", "Claude"), ("gemini", "Gemini"), ("qwen", "Qwen")]
-STRATA = [("A_in_finetune", "A · in-ft\n100%"), ("B_ood_range", "B · range\n94%"),
-          ("C_ood_marginal", "C · marginal\n4%"), ("D_ood_floor", "D · floor\n0%")]
-CONDS = [("natural", "Natural"), ("adversarial", "Adversarial"), ("original", "Original")]
-
-GREY, BLUE, RED = "#8a8a85", "#a8c4ea", "#cc3b34"
-INK, MUTED, GRID, SURF = "#0b0b0b", "#52514e", "#dedcd5", "#fcfcfb"
-
-fig, axes = plt.subplots(2, 3, figsize=(19.0, 12.4))
+APS = ["claude", "gemini", "qwen"]
+KIND = {"nat": "natural", "adv": "adversarial", "orig": "original"}
+BOOK = {"s": "ood_only_v1", "b": "in_plus_ood_v2", "t": "in_only_v1"}
 
 
-def bars(ax, groups, getter, gap=1.6, rot=0, lab_fs=8.2, tick_fs=7.6, tick_rot=0):
-    """groups: list of (group_label, [(diet_key, diet_label)]). getter -> value|None."""
-    xs, ticks, tlab, gcent = [], [], [], []
+def cell(cond, book, ap):
+    g = A[(A.kind == KIND[cond]) & (A.book == book) & (A.applier == ap)]
+    return None if g.empty else g.gt_success.mean()
+
+
+def draws(cond, diet, ap):
+    """{draw_label: value}. pi0.5 has r1 only; r2/r3 are not distilled yet."""
+    v = cell(cond, BOOK[diet], ap)
+    return {} if v is None else {"r1": v}
+
+
+SCAFFOLD = {c: {ap: cell(c, "none", ap) for ap in APS} for c in KIND}
+NO_REPH = {c: bl[bl.kind == KIND[c]].gt_success.mean() for c in KIND}
+
+C_BASE, C_RULES, INK = "#8b96a5", "#a3bffa", "#2d3748"
+DIETS = [("s", "OOD\nonly"), ("b", "in +\nOOD"), ("t", "in-ft\nonly")]
+CONDS = [("nat", "Natural"), ("adv", "Adversarial"), ("orig", "Original")]
+DMARK = {"r1": "o", "r2": "^", "r3": "s"}
+YLIM = (50, 80)
+GHOST_H = YLIM[1] - YLIM[0] - 16
+
+fig, axes = plt.subplots(2, 3, figsize=(16.4, 9.2), sharey=True)
+
+
+def ghost(ax, x, label):
+    ax.bar(x, GHOST_H, 0.62, bottom=YLIM[0], color="none", edgecolor="#cbd5e0",
+           lw=0.8, ls=":")
+    ax.text(x, YLIM[0] + 3.5, label, ha="center", fontsize=5.6, color="#a0aec0",
+            rotation=90)
+
+
+# ---------- Row A: slice by applier ----------
+for ax, (cond, cname) in zip(axes[0], CONDS):
     x = 0.0
-    for glabel, diets in groups:
-        start = x
-        for dk, dl in diets:
-            v = getter(glabel, dk)
-            col = GREY if dk == "none" else BLUE
-            if v is None:
-                ax.bar(x, 100, 0.82, facecolor="none", edgecolor="#c9c8c2",
-                       lw=0.9, ls=":", zorder=2)
-                ax.text(x, 0.5, "not\nrun", transform=ax.get_xaxis_transform(),
-                        ha="center", va="center", fontsize=7.5,
-                        color="#b6b5af", rotation=90)
-            else:
-                ax.bar(x, v, 0.82, color=col, edgecolor=SURF, lw=1.4, zorder=2)
-                ax.text(x, v + 1.6, f"{v:.1f}", ha="center",
-                        va="bottom" if rot == 0 else "bottom",
-                        rotation=rot, fontsize=lab_fs, color=INK, fontweight="bold")
-            ticks.append(x); tlab.append(dl); x += 1.0
-        gcent.append((start + x - 1.0) / 2)
-        x += gap
-    ax.set_xticks(ticks)
-    ax.set_xticklabels(tlab, fontsize=tick_fs, color=MUTED, rotation=tick_rot,
-                       ha="center" if tick_rot == 0 else "right")
-    return gcent
-
-
-for ci, (ckey, clabel) in enumerate(CONDS):
-    base = bl[bl.kind == ckey].base_succ.mean()
-
-    # ---- Row A: by applier (pooled over strata) ----
-    ax = axes[0][ci]
-    sub = A[A.kind == ckey]
-
-    def g_app(app_label, dk, sub=sub):
-        akey = {v: k for k, v in APPS}[app_label]
-        g = sub[(sub.applier == akey) & (sub.book == dk)]
-        return None if g.empty else g.gt_success.mean()
-
-    cent = bars(ax, [(al, DIETS) for _, al in APPS], g_app)
-    ax.axhline(base, color=RED, ls="--", lw=1.6, zorder=3)
-    ax.text(ax.get_xlim()[1], base + 1.0, "no rephraser", color=RED, fontsize=8,
-            ha="right", va="bottom")
-    for c, (_, al) in zip(cent, APPS):
-        ax.text(c, -0.135, al, transform=ax.get_xaxis_transform(), ha="center",
-                va="top", fontsize=11, color=INK, fontweight="bold")
-    ax.set_title(clabel, fontsize=13, color=INK, pad=12)
-    if ci == 0:
-        ax.set_ylabel("success %   (slice by applier)", fontsize=10, color=MUTED)
-
-    # ---- Row B: by stratum (pooled over appliers) ----
-    ax2 = axes[1][ci]
-
-    def g_str(s_label, dk, sub=sub):
-        skey = {v: k for k, v in STRATA}[s_label]
-        g = sub[(sub.stratum == skey) & (sub.book == dk)]
-        return None if g.empty else g.gt_success.mean()
-
-    SHORT = [(k, {"none": "none", "ood_only_v1": "OOD",
-                  "in_plus_ood_v2": "both", "in_only_v1": "in-ft"}[k]) for k, _ in DIETS]
-    cent2 = bars(ax2, [(sl, SHORT) for _, sl in STRATA], g_str,
-                 rot=90, lab_fs=7.6, tick_fs=8.0, tick_rot=90)
-    for c, (skey, sl) in zip(cent2, STRATA):
-        b = bl[(bl.kind == ckey) & (bl.stratum == skey)].base_succ.mean()
-        ax2.plot([c - 2.0, c + 2.0], [b, b], color=RED, ls="--", lw=1.6, zorder=3)
-        ax2.text(c, -0.20, sl.split(" · ")[1].split("\n")[0] + f"\nbase {b:.0f}%",
-                 transform=ax2.get_xaxis_transform(), ha="center", va="top",
-                 fontsize=9.5, color=INK, fontweight="bold")
-    if ci == 0:
-        ax2.set_ylabel("success %   (slice by stratum)", fontsize=10, color=MUTED)
-
-for ri, row in enumerate(axes):
-    for ci2, ax in enumerate(row):
-        if ri == 0:   # zoom: these cells differ by ~1pp on a 0-100 axis otherwise
-            b = bl[bl.kind == CONDS[ci2][0]].base_succ.mean()
-            ax.set_ylim(max(0, b - 14), b + 14)
+    ticks, tlabels, gticks = [], [], []
+    for ap in APS:
+        gxs = []
+        sc = (SCAFFOLD[cond] or {}).get(ap)
+        if sc is not None:
+            ax.bar(x, sc, 0.62, color=C_BASE, edgecolor="#4a5568", lw=0.8)
+            ax.text(x, sc + 0.4, f"{sc:.1f}", ha="center", fontsize=7.6,
+                    fontweight="bold")
         else:
-            ax.set_ylim(0, 112)
-            ax.set_yticks([0, 25, 50, 75, 100])
-for ax in axes.ravel():
-    ax.tick_params(labelsize=8, colors=MUTED, length=0)
-    ax.grid(axis="y", color=GRID, lw=0.7)
-    ax.set_axisbelow(True)
-    for s in ax.spines.values():
-        s.set_visible(False)
+            ghost(ax, x, "not run")
+        ticks.append(x); tlabels.append("no\nrules"); gxs.append(x); x += 0.82
+        for diet, dlabel in DIETS:
+            dv = draws(cond, diet, ap)
+            if not dv:
+                ghost(ax, x, "not run")
+            else:
+                m = sum(dv.values()) / len(dv)
+                ax.bar(x, m, 0.62, color=C_RULES, edgecolor="#4a5568", lw=0.8)
+                ax.text(x, m + 0.4, f"{m:.1f}", ha="center", fontsize=7.6,
+                        fontweight="bold")
+                for lb, v in dv.items():
+                    ax.plot([x], [v], DMARK[lb], ms=3.6, color=INK, zorder=5,
+                            mfc="white", mew=1.0)
+            ticks.append(x); tlabels.append(dlabel); gxs.append(x); x += 0.82
+        gticks.append(sum(gxs) / len(gxs))
+        ax.axvline(x - 0.31, color="#e2e8f0", lw=1.0, zorder=0)
+        x += 0.42
+    ax.axhline(NO_REPH[cond], color="#c53030", lw=1.2, ls=(0, (4, 3)), zorder=1)
+    ax.text(x - 0.75, NO_REPH[cond] + 0.3, "no rephraser", fontsize=6.6,
+            color="#c53030", ha="right")
+    ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=6.0, color="#4a5568")
+    for gx, ap in zip(gticks, ["Claude", "Gemini", "Qwen"]):
+        ax.text(gx, YLIM[0] - 3.6, ap, ha="center", fontsize=10, fontweight="bold",
+                clip_on=False)
+    ax.tick_params(axis="x", length=0)
+    ax.set_xlim(-0.6, x - 0.55)
+    ax.grid(axis="y", alpha=0.16)
+    ax.set_title(cname, fontsize=13, pad=8)
+    ax.spines[["top", "right"]].set_visible(False)
+axes[0][0].set_ylabel("success %  (slice by applier)", fontsize=10.5)
 
-fig.suptitle("pi0.5 / LIBERO rulebook dashboard — sealed 22 tasks, inits 30-49 "
-             "(row 1: by applier, pooled over strata; row 2: by stratum, pooled over appliers)",
-             fontsize=13.5, color=INK, y=0.975)
-fig.legend(handles=[
-    Patch(facecolor=GREY, edgecolor=SURF, label="no-rules rephraser"),
-    Patch(facecolor=BLUE, edgecolor=SURF, label="rulebook cell"),
-    Patch(facecolor="none", edgecolor="#c9c8c2", ls=":", label="not run (qwen)"),
-    Line2D([], [], color=RED, ls="--", lw=1.6, label="no rephraser (un-rephrased base)")],
-    loc="lower center", ncol=4, frameon=False, fontsize=10, labelcolor=INK,
-    bbox_to_anchor=(0.5, 0.004))
-fig.subplots_adjust(left=0.055, right=0.995, top=0.918, bottom=0.135, hspace=0.50, wspace=0.10)
-out = "results/charts/pi05_dashboard.png"
-fig.savefig(out, dpi=160, facecolor=SURF)
-print("wrote", out)
+# ---------- Row B: slice by rulebook draw ----------
+for ax, (cond, cname) in zip(axes[1], CONDS):
+    x = 0.0
+    ticks, tlabels, gticks = [], [], []
+    for diet, dlabel in DIETS:
+        gxs = []
+        for dr in ["r1", "r2", "r3"]:
+            vals = [draws(cond, diet, ap).get(dr) for ap in APS]
+            vals = [v for v in vals if v is not None]
+            if not vals:
+                ghost(ax, x, "not distilled")
+            else:
+                m = sum(vals) / len(vals)
+                ax.bar(x, m, 0.62, color=C_RULES, edgecolor="#4a5568", lw=0.8)
+                ax.text(x, m + 0.4, f"{m:.1f}", ha="center", fontsize=7.6,
+                        fontweight="bold")
+                if len(vals) < 3:
+                    ax.text(x, m - 1.6, f"n={len(vals)}", ha="center",
+                            fontsize=5.6, color="#744210")
+            ticks.append(x); tlabels.append(dr); gxs.append(x); x += 0.82
+        gticks.append(sum(gxs) / len(gxs))
+        ax.axvline(x - 0.31, color="#e2e8f0", lw=1.0, zorder=0)
+        x += 0.42
+    scv = [v for v in (SCAFFOLD[cond] or {}).values() if v is not None]
+    if scv:
+        sc = sum(scv) / len(scv)
+        ax.axhline(sc, color="#4a5568", lw=1.2, ls=(0, (2, 2)), zorder=1)
+        ax.text(x - 0.75, sc + 0.3, "no rules (mean)", fontsize=6.6,
+                color="#4a5568", ha="right")
+    ax.axhline(NO_REPH[cond], color="#c53030", lw=1.2, ls=(0, (4, 3)), zorder=1)
+    ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=7.0, color="#4a5568")
+    for gx, (diet, dlabel) in zip(gticks, DIETS):
+        ax.text(gx, YLIM[0] - 3.6, dlabel.replace("\n", " "), ha="center",
+                fontsize=10, fontweight="bold", clip_on=False)
+    ax.tick_params(axis="x", length=0)
+    ax.set_xlim(-0.6, x - 0.55)
+    ax.grid(axis="y", alpha=0.16)
+    ax.spines[["top", "right"]].set_visible(False)
+axes[1][0].set_ylabel("success %  (slice by rulebook draw)", fontsize=10.5)
+
+for row in axes:
+    for ax in row:
+        ax.set_ylim(*YLIM)
+
+handles = [plt.Rectangle((0, 0), 1, 1, color=C_BASE),
+           plt.Rectangle((0, 0), 1, 1, color=C_RULES),
+           plt.Line2D([0], [0], marker="o", color=INK, mfc="white", ls="", ms=5),
+           plt.Line2D([0], [0], marker="^", color=INK, mfc="white", ls="", ms=5),
+           plt.Line2D([0], [0], marker="s", color=INK, mfc="white", ls="", ms=5),
+           plt.Line2D([0], [0], color="#c53030", lw=1.2, ls=(0, (4, 3))),
+           plt.Line2D([0], [0], color="#4a5568", lw=1.2, ls=(0, (2, 2)))]
+fig.legend(handles, ["no-rules rephraser (scaffold)", "rulebook cell",
+                     "draw r1", "draw r2", "draw r3",
+                     "no rephraser", "no rules (mean)"],
+           fontsize=8, ncol=7, loc="lower center", bbox_to_anchor=(0.5, -0.005),
+           framealpha=0.95)
+fig.suptitle("pi0.5 / LIBERO rulebook dashboard — sealed 22 tasks "
+             "(row 1: by applier, dots = draws; row 2: by draw, mean over appliers)",
+             fontsize=12.5, y=0.995)
+fig.text(0.99, 0.004,
+         "natural 70 bases · adversarial 48 ERT attacks · original 22 canonicals\n"
+         "all x20 inits (window 30-49) · r1 only, no replicates distilled yet · qwen never ran",
+         ha="right", va="bottom", fontsize=6.6, color="#718096", linespacing=1.5)
+fig.tight_layout(rect=(0, 0.035, 1, 0.975))
+out = R / "results/charts/pi05_dashboard.png"
+fig.savefig(out, dpi=140, bbox_inches="tight", pad_inches=0.22)
+print("chart ->", out)
