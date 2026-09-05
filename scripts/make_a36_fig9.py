@@ -34,8 +34,8 @@ BASE = [("oracle*", 48.2, 50.3, 46.8, "#2f855a"),
 # natural from A34 (same 186 image set), adversarial from A31 (same 72 attacks).
 # original scaffold was never run (X'd out), so that role is empty for Original.
 SCAFFOLD = {
-    "Adversarial": {"gemini": (24.0, 24.6, 23.5), "claude": (24.3, 25.1, 23.7),
-                    "qwen": (24.7, 25.4, 24.2)},
+    "Adversarial": {"gemini": (24.0, 22.7, 19.6), "claude": (24.3, 30.2, 16.8),
+                    "qwen": (24.7, 28.9, 16.3)},  # strata measured from a30 legs
     "Natural": {"gemini": (28.7, None, None), "claude": (29.7, None, None),
                 "qwen": (28.1, None, None)},
     "Original": {},
