@@ -8,12 +8,12 @@
   "legs": 12
  },
  "t2|claude|nat": {
-  "pooled": 22.7,
-  "iv": 31.8,
+  "pooled": 26.3,
+  "iv": 38.5,
   "oov": 17.3,
-  "n_base": 171,
-  "n_dist": 171,
-  "legs": 11
+  "n_base": 186,
+  "n_dist": 186,
+  "legs": 12
  },
  "b2|claude|adv": {
   "pooled": 31.5,
@@ -63,6 +63,14 @@
   "n_dist": 56,
   "legs": 12
  },
+ "t2|qwen|adv": {
+  "pooled": 25.5,
+  "iv": 25.7,
+  "oov": 25.3,
+  "n_base": 72,
+  "n_dist": 71,
+  "legs": 12
+ },
  "s3|qwen|orig": {
   "pooled": 34.2,
   "iv": 38.3,
@@ -103,6 +111,14 @@
   "n_dist": 46,
   "legs": 12
  },
+ "b3|qwen|adv": {
+  "pooled": 28.1,
+  "iv": 42.1,
+  "oov": 20.1,
+  "n_base": 66,
+  "n_dist": 56,
+  "legs": 11
+ },
  "s3|gemini|adv": {
   "pooled": 34.3,
   "iv": 39.4,
@@ -131,6 +147,14 @@
   "pooled": 34.5,
   "iv": 47.1,
   "oov": 25.6,
+  "n_base": 12,
+  "n_dist": 12,
+  "legs": 12
+ },
+ "b3|qwen|orig": {
+  "pooled": 34.7,
+  "iv": 39.6,
+  "oov": 31.2,
   "n_base": 12,
   "n_dist": 12,
   "legs": 12
@@ -199,13 +223,37 @@
   "n_dist": 55,
   "legs": 12
  },
- "t2|claude|adv": {
+ "t2|gemini|orig": {
+  "pooled": 36.8,
+  "iv": 50.0,
+  "oov": 27.4,
+  "n_base": 12,
+  "n_dist": 12,
+  "legs": 12
+ },
+ "t2|gemini|nat": {
   "pooled": 26.1,
+  "iv": 38.0,
+  "oov": 17.3,
+  "n_base": 186,
+  "n_dist": 186,
+  "legs": 12
+ },
+ "t2|claude|adv": {
+  "pooled": 24.4,
   "iv": 24.8,
-  "oov": 27.3,
-  "n_base": 66,
-  "n_dist": 65,
-  "legs": 11
+  "oov": 24.2,
+  "n_base": 72,
+  "n_dist": 70,
+  "legs": 12
+ },
+ "t2|qwen|nat": {
+  "pooled": 29.0,
+  "iv": 38.3,
+  "oov": 19.5,
+  "n_base": 156,
+  "n_dist": 156,
+  "legs": 10
  },
  "b3|claude|nat": {
   "pooled": 31.6,
@@ -247,6 +295,14 @@
   "n_dist": 12,
   "legs": 12
  },
+ "t2|qwen|orig": {
+  "pooled": 33.0,
+  "iv": 42.7,
+  "oov": 27.4,
+  "n_base": 11,
+  "n_dist": 11,
+  "legs": 11
+ },
  "s3|gemini|orig": {
   "pooled": 33.9,
   "iv": 46.7,
@@ -254,6 +310,14 @@
   "n_base": 12,
   "n_dist": 12,
   "legs": 12
+ },
+ "b3|qwen|nat": {
+  "pooled": 31.9,
+  "iv": 38.5,
+  "oov": 26.3,
+  "n_base": 171,
+  "n_dist": 166,
+  "legs": 11
  },
  "b3|claude|adv": {
   "pooled": 30.0,
@@ -294,13 +358,5 @@
   "n_base": 12,
   "n_dist": 12,
   "legs": 12
- },
- "t2|gemini|nat": {
-  "pooled": 10.6,
-  "iv": NaN,
-  "oov": 10.6,
-  "n_base": 15,
-  "n_dist": 15,
-  "legs": 1
  }
 }
