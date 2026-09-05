@@ -1,0 +1,20 @@
+{
+ "_note": "A34 natural condition, COMPLETE (156/156 legs, 13 arms). Values are BASE-WEIGHTED: pooled over the 186 natural bases, not over distinct rewrites, because appliers collapse duplicates at very different rates (qwen x combined collapses 63/186). Computed from results/rules_runs/r1_sim/jobs/d34*.result.parquet joined to results/sealed/ph_a34_*_nat.parquet.",
+ "_baseline": 26.0,
+
+ "train_only|claude": 26.5,
+ "train_only|gemini": 26.8,
+ "train_only|qwen": 28.4,
+
+ "sim_only|claude": 31.5,
+ "sim_only|gemini": 31.4,
+ "sim_only|qwen": 28.4,
+
+ "both|claude": 29.4,
+ "both|gemini": 29.0,
+ "both|qwen": 29.5,
+
+ "scaffold|claude": 29.7,
+ "scaffold|gemini": 28.7,
+ "scaffold|qwen": 28.1
+}
