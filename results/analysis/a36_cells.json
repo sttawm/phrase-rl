@@ -79,6 +79,22 @@
   "n_dist": 56,
   "legs": 12
  },
+ "t3|gemini|adv": {
+  "pooled": 27.5,
+  "iv": 39.2,
+  "oov": 19.1,
+  "n_base": 72,
+  "n_dist": 62,
+  "legs": 12
+ },
+ "t3|gemini|orig": {
+  "pooled": 39.6,
+  "iv": 49.6,
+  "oov": 32.4,
+  "n_base": 12,
+  "n_dist": 12,
+  "legs": 12
+ },
  "t2|qwen|adv": {
   "pooled": 25.5,
   "iv": 25.7,
@@ -149,6 +165,14 @@
   "oov": 21.5,
   "n_base": 186,
   "n_dist": 160,
+  "legs": 12
+ },
+ "t3|gemini|nat": {
+  "pooled": 26.6,
+  "iv": 38.9,
+  "oov": 17.6,
+  "n_base": 186,
+  "n_dist": 186,
   "legs": 12
  },
  "b2|gemini|nat": {
