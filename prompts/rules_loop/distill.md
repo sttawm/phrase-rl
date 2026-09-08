@@ -68,6 +68,27 @@ Guidance:
   measured yet. Say what measurement would test it, and name it in your plan —
   those measurements land in the evidence and are there for every later
   iteration.
+- **A rule that PERMITS an edit needs different evidence from one that FORBIDS
+  one.** Forbidding needs only demonstrated harm. Permitting needs demonstrated
+  BENEFIT. "No significant penalty on average" is never grounds to license an
+  edit: a mean near zero is equally consistent with an edit that is usually
+  harmless and occasionally catastrophic, and the applier will make that edit on
+  every instruction it sees. Before writing any rule that allows something,
+  count the tails rather than the average — how many phrases does this edit lose
+  20pp or more on, and how many does it gain 10pp or more on? If the losses
+  outnumber the gains, forbid it however small the mean. State both counts in
+  the rationale.
+  This is not hypothetical. A previous rulebook licensed single-word noun
+  synonyms ("bowl" -> "dish", "stove" -> "burner") as carrying "no measured
+  penalty". On its own evidence that edit gained >=10pp on 12% of phrases and
+  lost >=20pp on 30% of them; measured at n=50 on a task outside its evidence,
+  the same swap cost 56pp.
+- **Your evidence covers less of the world than the applier will meet.** A rule
+  qualified by a condition the applier cannot check from the instruction in
+  front of it — "out of finetune", "on tasks like these", "for easy scenes" —
+  will be applied everywhere regardless, because nothing at apply time tells it
+  which case it is in. Either write the rule so it is safe when the condition
+  does NOT hold, or do not write it.
 - When a regressed rulebook is shown, diff it against the best one and identify
   which specific change cost the ground. Their two eval files let you compare the
   same rules measured under both -- a rule present in both whose delta moved is
