@@ -878,3 +878,13 @@ noise. Either anchor failing STOPS the program before the heavy arm.
 Predictions: P13 CoVer-heavy beats passthrough on sealed adversarial. P14 (open
 question, no prediction): CoVer vs the rollout-only rulebook at ~40x test-time
 compute difference. Combined arm is gated on the adversarial read.
+
+#### A37 deviation note (2026-09-08, user decision): Gemini substituted for GPT-4o
+CoVer's released rephrase generator calls GPT-4o; no OpenAI credential exists in
+this project. Rephrase generation for the sealed bases will run CoVer's pipeline
+(their generator script, batching, dedup, boot-time first-frame conditioning)
+with the VLM swapped to Gemini via the OpenAI-compatible endpoint -- a one-line
+model substitution, everything else theirs. Anchor A is unaffected (it consumes
+their SHIPPED GPT-4o rephrase file for their tasks). Recorded as a method
+deviation: the CoVer-on-sealed-12 arm is "CoVer with a Gemini rephraser", and
+any rephrase-quality gap travels with that caveat.
