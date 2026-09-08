@@ -840,3 +840,41 @@ Qwen3.5-9B greedy pod-side. Leg prefixes f36* (r2) and g36* (r3) so phase 2 can
 be queued or dropped independently after phase 1 is read.
 With n=3 draws per (diet, applier, condition) the published table can carry
 between-draw error bars on EVERY cell rather than only the gemini row.
+
+### Amendment A37 (2026-09-05): CoVer head-to-head on the sealed 12
+Filed BEFORE any generation. External comparison against CoVer (arXiv:2602.12281,
+released code + verifier weights at github.com/cover-vla/cover-vla).
+
+SEALED CONTACT AUTHORIZED BY THIS AMENDMENT:
+- Rephrase GENERATION touching sealed bases: CoVer's released rephrase pipeline
+  (their verbatim prompt scaffold, whose trace slot our cover_prompt.py port
+  preserves), 8 rephrases per base, applied to the 72 sealed adversarial bases,
+  the 186 A34 judged naturals, and the 12 canonicals. FINAL_EVAL=1 and a
+  preflight print of every base before generation.
+- TRACES: the existing registered per-base traces (trace registry incl. the
+  +264 sealed rows) are REUSED verbatim. No new trace generation. Every arm in
+  the comparison (passthrough / rulebook / CoVer / combined-if-run) conditions
+  on identical trace rows.
+- ROLLOUTS on sealed 12: CoVer arms at the matched grids (adversarial 24x2
+  committed now; natural 24x1 and original 24x2 as separate later gates), plus
+  a verifier-off passthrough re-measurement (2 attacks/task x 24) inside their
+  harness as a cross-check against our phase0c numbers.
+
+EXPLICITLY NOT TOUCHED: the reserved CoVer OOD trio (redbull_on_plate,
+zucchini_on_towel, tennis_in_basket) stays sealed; harness validation against
+their published numbers uses their 4 in-distribution tasks only (val8 natives,
+train-side, not sealed).
+
+PROTOCOL FIXED IN ADVANCE: checkpoint = INTACT-pi0-finetune-rephrase-bridge
+ONLY (their Table-3 "pi0 w/ Inst. Aug." row is the printed anchor, pending
+stage-0 verification of their exact checkpoint id). Episode ids 0-23, same
+bases, same traces. CoVer's internal stochasticity (8 rephrases, 5 action
+samples/step, verifier ensemble) is NOT noise-pinned -- it is the method under
+measurement; reps average it. Anchors precede heavy compute: (A) their 4 ID
+tasks, verifier off ~= 44.0 then on ~= 65.5 (+-4-5pp; their trial counts are
+unpublished); (B) our sealed 12 verifier-off vs our passthrough within CRN
+noise. Either anchor failing STOPS the program before the heavy arm.
+
+Predictions: P13 CoVer-heavy beats passthrough on sealed adversarial. P14 (open
+question, no prediction): CoVer vs the rollout-only rulebook at ~40x test-time
+compute difference. Combined arm is gated on the adversarial read.
