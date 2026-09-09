@@ -116,4 +116,22 @@ patch("run_simpler_eval_with_openpi.py", [
     ("            save_rollout_video_openpi(",
      "            (save_rollout_video_openpi if cfg.save_videos else (lambda *a, **k: None))("),
 ], "eval")
+
+# Second-pass patch (A37-horizon): under pin_layouts, respect the env's
+# TimeLimit truncation (our benchmark's 60-step horizon) instead of their
+# hardcoded 150-step loop. Their loop ignores `trunc`; ours breaks on it
+# (phase0c semantics). Without this, 20pp of Anchor-B episodes succeeded
+# after step 60 — inflating every cell (measured 2026-09-09).
+patch("run_simpler_eval_with_openpi.py", [
+    ("""                if done:
+                    task_successes += 1
+                    total_successes += 1
+                    break""",
+     """                if done:
+                    task_successes += 1
+                    total_successes += 1
+                    break
+                if cfg.pin_layouts and trunc:  # A37-horizon
+                    break"""),
+], "horizon")
 print("ALL PATCHES OK")

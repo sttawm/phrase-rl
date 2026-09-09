@@ -903,3 +903,22 @@ vs 61.0). 6/7 tasks within +-5pp, two exact -> harness reproduces their stack;
 program proceeds to Anchor B. Verifier-off leg of Anchor A was not run (the
 shipped script covers verifier-on only; verifier-off validation is Anchor B's
 role against our own passthrough).
+
+#### A37 Anchor B, first attempt (2026-09-09): FAIL — horizon mismatch found and fixed
+Their harness on our sealed 12 (k1+k2 attacks, 24 pinned layouts, verifier off)
+scored 53.3 pooled vs our passthrough reference 26.1 (+27.2pp, every cell
+high). Root cause: their episode loop hardcodes a 150-step horizon and ignores
+TimeLimit truncation; our benchmark's envs truncate at 60 (SIMPLER
+registration). 20.0pp of episodes succeeded after step 60. Fix: pin_layouts
+mode now breaks on truncation (A37-horizon patch, both pods) — the head-to-head
+holds the benchmark horizon fixed at 60 for every arm.
+Horizon-adjusting the recorded episodes (success only if steps<=60) leaves
+33.3 vs 26.1: a residual +7.2pp serving-stack offset (their integration of the
+INT-ACT BridgeSimplerAdapter + their PI0 serving vs our phase0c serving), or a
+host/driver effect (our 26.1 reference came from the retired r1 fleet).
+Triangulation in progress before any heavy launch: (a) Anchor B re-run under
+the horizon fix (their harness, cv3); (b) the SAME 24 cells rolled by OUR
+phase0c on the SAME GPU (cv2). If (b) reproduces ~26 the offset is their
+serving; if (b) lands near (a) the offset is host drift and the fleet-era
+reference is the outlier. No heavy compute until this is read and the pass
+criterion re-evaluated.
