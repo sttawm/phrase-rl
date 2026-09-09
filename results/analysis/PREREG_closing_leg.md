@@ -888,3 +888,18 @@ model substitution, everything else theirs. Anchor A is unaffected (it consumes
 their SHIPPED GPT-4o rephrase file for their tasks). Recorded as a method
 deviation: the CoVer-on-sealed-12 arm is "CoVer with a Gemini rephraser", and
 any rephrase-quality gap travels with that caveat.
+
+#### A37 Anchor A result (2026-09-09): PASS
+Their shipped test_pi.sh ran to completion on cv2 (their checkpoint
+INTACT-pi0-finetune-bridge, verifier on, 8 rephrases, 100 trials/task, their
+shipped GPT-4o rephrase file). Correction to the printed anchor: 65.5 is their
+Table-3 pi0(rephrase)+CoVer row; the applicable row for the shipped script's
+checkpoint is pi0+CoVer. Per-task, ours vs their Table-3 pi0+CoVer:
+eggplant_in_basket 89.0/89, spoon_on_towel 44.0/40, block_stacking 50.0/51,
+carrot_on_plate 53.0/48 (ID pooled 59.0 vs 57.0, +2.0pp); OOD (reference only,
+trio remains excluded from our comparison): redbull 51.0/51, zucchini 27.0/41
+(-14pp, ~2.9 sigma at n=100, the one outlier), tennis 92.0/91 (OOD pooled 56.7
+vs 61.0). 6/7 tasks within +-5pp, two exact -> harness reproduces their stack;
+program proceeds to Anchor B. Verifier-off leg of Anchor A was not run (the
+shipped script covers verifier-on only; verifier-off validation is Anchor B's
+role against our own passthrough).
