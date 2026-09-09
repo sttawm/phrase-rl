@@ -1,0 +1,187 @@
+{
+ "timestamp": "20260909_131733",
+ "a37_wave": "adv_k2",
+ "model": "gemini-3.1-pro-preview",
+ "instructions": {
+  "put carrot on ramekin": {
+   "original": "Deposit the tapered orange root vegetable into the white ceramic dipping bowl.",
+   "ert_rephrases": [
+    "Put the carrot in the white bowl.",
+    "Place the orange vegetable into the ceramic dish.",
+    "Drop the carrot into the white ramekin.",
+    "Insert the root vegetable into the small white cup.",
+    "Move the carrot to the white container.",
+    "Set the orange carrot inside the dipping bowl.",
+    "Transfer the orange root into the white receptacle.",
+    "Put the vegetable in the round dish.",
+    "Place the carrot into the small white bowl.",
+    "Drop the orange food into the ceramic bowl."
+   ]
+  },
+  "put nut on wheel": {
+   "original": "Place the gray hexagonal fastener directly onto the center of the rubber tire.",
+   "ert_rephrases": [
+    "Put the gray nut on the center of the black tire.",
+    "Move the hexagonal hardware to the middle of the wheel.",
+    "Place the grey metal piece into the center hole of the rubber tire.",
+    "Set the small gray nut onto the hub of the black wheel.",
+    "Drop the six-sided fastener onto the middle of the tire.",
+    "Position the gray hex nut on the center of the black rubber wheel.",
+    "Insert the gray nut into the middle of the wheel.",
+    "Take the hexagonal piece and put it on the center of the tire.",
+    "Move the small grey fastener to the hub of the black rubber wheel.",
+    "Place the hex nut onto the middle of the black tire."
+   ]
+  },
+  "put eggplant on keyboard": {
+   "original": "Deposit the purple nightshade vegetable directly onto the keys of the black typing input device.",
+   "ert_rephrases": [
+    "Put the purple eggplant on the black keyboard.",
+    "Place the aubergine on the keyboard.",
+    "Set the purple vegetable on top of the black keyboard.",
+    "Move the purple eggplant to the computer keyboard.",
+    "Drop the purple food item onto the black keys.",
+    "Leave the aubergine on the black typing board.",
+    "Position the purple vegetable on the dark keyboard.",
+    "Place the violet eggplant on the black keys.",
+    "Set the purple aubergine on the keyboard.",
+    "Drop the eggplant onto the black computer accessory."
+   ]
+  },
+  "put eggplant on sponge": {
+   "original": "Stack the small purple vegetable directly on top of the green and yellow cleaning block.",
+   "ert_rephrases": [
+    "Place the purple eggplant on the green and yellow sponge.",
+    "Put the small purple veggie on top of the cleaning pad.",
+    "Set the purple produce onto the green and yellow scrubber.",
+    "Move the small eggplant to the top of the sponge.",
+    "Position the purple vegetable on the green and yellow block.",
+    "Rest the little purple food item on the cleaning tool.",
+    "Drop the purple eggplant onto the green and yellow sponge.",
+    "Lay the violet veggie on the cleaning sponge.",
+    "Put the purple object on the green and yellow pad.",
+    "Stack the small eggplant on the two-toned scrubber."
+   ]
+  },
+  "put orange juice on plate": {
+   "original": "Deposit the small rectangular citrus beverage carton onto the circular yellow dish.",
+   "ert_rephrases": [
+    "Put the orange juice box on the yellow plate.",
+    "Place the small juice carton onto the round yellow dish.",
+    "Move the rectangular drink box to the yellow plate.",
+    "Set the citrus beverage carton on the yellow dish.",
+    "Transfer the small orange juice to the round plate.",
+    "Take the drink container and put it on the yellow plate.",
+    "Pick up the orange juice carton and drop it onto the yellow dish.",
+    "Put the small rectangular juice box on the round yellow plate.",
+    "Place the citrus juice container onto the yellow dish.",
+    "Move the orange beverage carton to the circular yellow plate."
+   ]
+  },
+  "put carrot on sponge": {
+   "original": "Place the orange root vegetable on top of the yellow and green cleaning block.",
+   "ert_rephrases": [
+    "Put the carrot on the sponge.",
+    "Move the orange carrot onto the yellow and green sponge.",
+    "Place the carrot on top of the cleaning pad.",
+    "Set the orange vegetable on the scrubber.",
+    "Put the carrot onto the green and yellow block.",
+    "Take the carrot and place it on the sponge.",
+    "Move the orange root onto the sponge.",
+    "Lay the carrot on the cleaning block.",
+    "Position the carrot on top of the sponge.",
+    "Drop the orange vegetable onto the sponge."
+   ]
+  },
+  "put green cube on plate": {
+   "original": "Situate the small teal block on the light green circular dish.",
+   "ert_rephrases": [
+    "Put the teal block on the light green plate.",
+    "Place the small cube onto the round dish.",
+    "Move the cyan square to the pale green saucer.",
+    "Set the teal piece on the light green plate.",
+    "Position the small object onto the round tray.",
+    "Transfer the blue-green cube to the circular plate.",
+    "Drop the tiny teal block onto the pale green dish.",
+    "Put the little teal square on the light green circular plate.",
+    "Place the small cyan block onto the round dish.",
+    "Set the teal cube on the light green saucer."
+   ]
+  },
+  "put coke can on keyboard": {
+   "original": "Deposit the red aluminum beverage cylinder onto the black input device.",
+   "ert_rephrases": [
+    "Put the red soda can on the black keyboard.",
+    "Place the red cola can onto the computer keyboard.",
+    "Move the red drink to the black keypad.",
+    "Set the red can on top of the black keyboard.",
+    "Transfer the red beverage to the dark computer keyboard.",
+    "Position the red coke can on the black input device.",
+    "Drop the red aluminum can onto the black keyboard.",
+    "Take the red soda can and put it on the black keyboard.",
+    "Pick up the red drink can and place it on the black keypad.",
+    "Move the red metallic cylinder onto the black keyboard."
+   ]
+  },
+  "put pepsi can on plate": {
+   "original": "Place the blue cylinder with the logo onto the circular yellow dish.",
+   "ert_rephrases": [
+    "Put the blue soda can on the yellow plate.",
+    "Move the blue beverage can to the round yellow dish.",
+    "Take the blue drink and set it on the yellow saucer.",
+    "Position the blue can with the logo on the yellow platter.",
+    "Transfer the blue tin to the yellow plate.",
+    "Pick up the blue Pepsi can and put it on the yellow dish.",
+    "Set the blue cylinder on the round yellow plate.",
+    "Drop the blue beverage can onto the yellow plate.",
+    "Move the blue can to the yellow dish.",
+    "Leave the blue drink on the round yellow plate."
+   ]
+  },
+  "put nut on plate": {
+   "original": "Position the dark metallic hexagonal ring onto the pale yellow circular dish.",
+   "ert_rephrases": [
+    "Put the dark nut on the yellow plate.",
+    "Place the grey hexagonal piece onto the light yellow dish.",
+    "Move the metal nut to the round yellow saucer.",
+    "Set the dark hardware on the pale plate.",
+    "Transfer the black six-sided object to the yellow dish.",
+    "Drop the metal item onto the light circular plate.",
+    "Relocate the dark fastener to the yellow tray.",
+    "Put the grey hexagonal nut on the round plate.",
+    "Place the dark metal object onto the pale yellow saucer.",
+    "Move the six-sided nut to the light yellow dish."
+   ]
+  },
+  "put coke can on wheel": {
+   "original": "Place the red soda can directly inside the center of the black rubber tire.",
+   "ert_rephrases": [
+    "Put the red can into the middle of the black wheel.",
+    "Move the red soda to the hole of the black tire.",
+    "Set the red beverage inside the black rubber wheel.",
+    "Insert the red cola into the opening of the black tire.",
+    "Drop the red tin into the center of the black wheel.",
+    "Position the red drink in the middle of the dark tire.",
+    "Take the red can and put it in the black rubber ring.",
+    "Pick up the red soda and set it inside the black wheel.",
+    "Place the red object into the hole of the black tire.",
+    "Move the red drink container to the center of the black wheel."
+   ]
+  },
+  "put the small plate on the green cube": {
+   "original": "Set the light yellow circular dish directly on top of the teal block.",
+   "ert_rephrases": [
+    "Place the pale yellow bowl on the teal cube.",
+    "Put the yellow dish on top of the green block.",
+    "Move the round yellow object onto the turquoise box.",
+    "Position the light yellow plate over the blue-green cube.",
+    "Stack the yellow circular container on the teal square.",
+    "Transfer the cream colored bowl to the green block.",
+    "Balance the round yellow dish on the teal cube.",
+    "Take the light yellow circle and put it on the green box.",
+    "Pick up the pale yellow plate and place it on the turquoise block.",
+    "Drop the round yellow container onto the teal cube."
+   ]
+  }
+ }
+}
