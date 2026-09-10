@@ -39,6 +39,12 @@ SCAFFOLD = {"nat": [29.7, 28.7, 28.1],      # A34, same 186 set
             "orig": None}                    # never run (X'd out)
 NO_REPH = {"nat": 26.0, "adv": 24.5, "orig": 36.1}
 ORACLE = 48.2
+# A37 CoVer head-to-head (their released pipeline + verifier, our benchmark
+# contract: sealed 12, our attacks, pinned layouts, 60-step final-state).
+# (off, on) per condition; off = their verifier-off = our passthrough
+# (anchor: 25.7 vs 26.1). None = condition not yet measured.
+COVER = json.loads((R / "results/analysis/a37_cover_cells.json").read_text()) \
+    if (R / "results/analysis/a37_cover_cells.json").exists() else {}
 
 
 def diet_mean(cond, diet):
@@ -91,6 +97,17 @@ for cond, cname in CONDS:
         ax.text(x, v + 0.5, f"{v:.1f}", ha="center", fontsize=9, fontweight="bold")
         ticks.append(x); tlabels.append(label); gxs.append(x)
         x += 1.12
+    # A37: CoVer head-to-head cluster (their released method, our benchmark)
+    cv = COVER.get(cond)
+    if cv:
+        for lbl, v, col in [("CoVer,\nverifier off", cv.get("off"), C_BASE),
+                            ("CoVer\n(verifier on)", cv.get("on"), "#f6ad55")]:
+            if v is None:
+                continue
+            ax.bar(x, v, 0.7, color=col, edgecolor="#4a5568", lw=0.9)
+            ax.text(x, v + 0.5, f"{v:.1f}", ha="center", fontsize=9, fontweight="bold")
+            ticks.append(x); tlabels.append(lbl); gxs.append(x)
+            x += 1.12
     gticks.append(sum(gxs) / len(gxs)); glabels.append(cname)
     x += 0.7
 
@@ -107,8 +124,10 @@ ax.grid(axis="y", alpha=0.18)
 ax.spines[["top", "right"]].set_visible(False)
 
 handles = [plt.Rectangle((0, 0), 1, 1, color=C_BASE),
-           plt.Rectangle((0, 0), 1, 1, color=C_RULES)]
-ax.legend(handles, ["baseline", "rulebook (mean over appliers × independent draws)"],
+           plt.Rectangle((0, 0), 1, 1, color=C_RULES),
+           plt.Rectangle((0, 0), 1, 1, color="#f6ad55")]
+ax.legend(handles, ["baseline", "rulebook (mean over appliers × independent draws)",
+                    "CoVer (their released verifier, our benchmark contract)"],
           fontsize=8.2, loc="upper right", framealpha=0.95)
 
 ncells = {f"{c}/{r}": n for c, r, n in cover}
@@ -121,7 +140,9 @@ fig.text(0.5, -0.015,
          f"rollout-only: {nc('Natural','rollout only')}/{nc('Adversarial','rollout only')}/{nc('Original','rollout only')}, "
          f"rollout+train: {nc('Natural','rollout + train')}/{nc('Adversarial','rollout + train')}/{nc('Original','rollout + train')}, "
          f"train-only: 3/3/3 (replicate draws pending). "
-         "Oracle$^{*}$: best held-out phrase per task (24\u00d712 grid).",
+         "Oracle$^{*}$: best held-out phrase per task (24\u00d712 grid). "
+         "CoVer bars: their released pipeline on this benchmark (A37; adv verifier-on = "
+         "preliminary 36/72 attacks), verifier-off anchor-matched to our passthrough (25.7 vs 26.1).",
          ha="center", fontsize=6.8, color="#4a5568")
 
 out = R / "results/charts/rules_summary_bars.png"
