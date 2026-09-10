@@ -1,0 +1,254 @@
+[
+ {
+  "task": "widowx_coke_can_on_ramekin_clean",
+  "group": "ramekin_ladder",
+  "label": "destination noun",
+  "phrase": "place the red cola can inside the white basin",
+  "prior_success": 77.8,
+  "prior_n": 64,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_ramekin_clean",
+  "group": "ramekin_ladder",
+  "label": "destination noun",
+  "phrase": "place the red cola can inside the white container",
+  "prior_success": 72.2,
+  "prior_n": 64,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_ramekin_clean",
+  "group": "ramekin_ladder",
+  "label": "destination noun",
+  "phrase": "place the red cola can inside the white cup",
+  "prior_success": 63.9,
+  "prior_n": 64,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_ramekin_clean",
+  "group": "ramekin_ladder",
+  "label": "destination noun",
+  "phrase": "place the red cola can inside the white bowl",
+  "prior_success": 61.1,
+  "prior_n": 70,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_ramekin_clean",
+  "group": "ramekin_ladder",
+  "label": "destination noun",
+  "phrase": "place the red cola can inside the white dish",
+  "prior_success": 52.8,
+  "prior_n": 64,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_ramekin_clean",
+  "group": "ramekin_ladder",
+  "label": "destination noun",
+  "phrase": "place the red cola can inside the white pot",
+  "prior_success": 50.0,
+  "prior_n": 64,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_ramekin_clean",
+  "group": "ramekin_ladder",
+  "label": "destination noun",
+  "phrase": "place the red cola can inside the white ramekin",
+  "prior_success": 22.2,
+  "prior_n": 64,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_plate_clean",
+  "group": "coke_plate",
+  "label": "object noun",
+  "phrase": "put the coke on the plate",
+  "prior_success": 63.9,
+  "prior_n": 76,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_plate_clean",
+  "group": "coke_plate",
+  "label": "object noun",
+  "phrase": "put the can on the plate",
+  "prior_success": 30.6,
+  "prior_n": 64,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_plate_clean",
+  "group": "coke_plate",
+  "label": "destination noun / phrase added",
+  "phrase": "put the coke can on the plate",
+  "prior_success": 61.1,
+  "prior_n": 304,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_plate_clean",
+  "group": "coke_plate",
+  "label": "destination noun",
+  "phrase": "put the coke can on the dish",
+  "prior_success": 30.6,
+  "prior_n": 262,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_coke_can_on_plate_clean",
+  "group": "coke_plate",
+  "label": "phrase added",
+  "phrase": "put the coke can on top of the plate",
+  "prior_success": 38.9,
+  "prior_n": 64,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_carrot_on_wheel_clean",
+  "group": "carrot_wheel",
+  "label": "destination noun / colour dropped",
+  "phrase": "put the carrot on the black wheel",
+  "prior_success": 38.9,
+  "prior_n": 66,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_carrot_on_wheel_clean",
+  "group": "carrot_wheel",
+  "label": "destination noun / colour dropped",
+  "phrase": "put the carrot on the rim",
+  "prior_success": 5.6,
+  "prior_n": 66,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_carrot_on_wheel_clean",
+  "group": "carrot_wheel",
+  "label": "destination noun / colour dropped",
+  "phrase": "put the carrot on the tire",
+  "prior_success": 8.3,
+  "prior_n": 66,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_carrot_on_wheel_clean",
+  "group": "carrot_wheel",
+  "label": "destination noun / colour dropped",
+  "phrase": "put the carrot on the wheel",
+  "prior_success": 16.7,
+  "prior_n": 348,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_carrot_on_wheel_clean",
+  "group": "carrot_wheel_eval",
+  "label": "colour dropped",
+  "phrase": "Pick up the orange carrot and place it in the center of the black tire.",
+  "prior_success": 12.5,
+  "prior_n": 432,
+  "prior_source": "phrase_success_table"
+ },
+ {
+  "task": "widowx_carrot_on_wheel_clean",
+  "group": "carrot_wheel_eval",
+  "label": "colour dropped",
+  "phrase": "Pick up the orange carrot and place it in the center of the tire.",
+  "prior_success": 0.1,
+  "prior_n": 936,
+  "prior_source": "phrase_success_table"
+ },
+ {
+  "task": "widowx_carrot_on_keyboard_clean",
+  "group": "carrot_keyboard",
+  "label": "destination noun / word dropped",
+  "phrase": "put the carrot on the black keyboard",
+  "prior_success": 27.8,
+  "prior_n": 60,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_carrot_on_keyboard_clean",
+  "group": "carrot_keyboard",
+  "label": "destination noun / word dropped",
+  "phrase": "put the carrot on the keys",
+  "prior_success": 2.8,
+  "prior_n": 60,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_carrot_on_keyboard_clean",
+  "group": "carrot_keyboard",
+  "label": "destination noun / word dropped",
+  "phrase": "place the carrot on the keyboard keys",
+  "prior_success": 36.1,
+  "prior_n": 60,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_carrot_on_keyboard_clean",
+  "group": "carrot_keyboard",
+  "label": "destination noun / word dropped",
+  "phrase": "place the carrot on the keyboard",
+  "prior_success": 13.9,
+  "prior_n": 78,
+  "prior_source": "evidence.csv/fine_exam"
+ },
+ {
+  "task": "widowx_carrot_on_keyboard_clean",
+  "group": "carrot_keyboard_eval",
+  "label": "colour dropped",
+  "phrase": "Pick up the orange carrot and place it on the black keyboard.",
+  "prior_success": 22.6,
+  "prior_n": 1944,
+  "prior_source": "phrase_success_table"
+ },
+ {
+  "task": "widowx_carrot_on_keyboard_clean",
+  "group": "carrot_keyboard_eval",
+  "label": "colour dropped",
+  "phrase": "Pick up the orange carrot and place it on the keyboard.",
+  "prior_success": 12.2,
+  "prior_n": 288,
+  "prior_source": "phrase_success_table"
+ },
+ {
+  "task": "widowx_spoon_on_towel",
+  "group": "spoon_eval",
+  "label": "modifier dropped",
+  "phrase": "Place the green-handled spoon in the center of the blue towel.",
+  "prior_success": 38.0,
+  "prior_n": 936,
+  "prior_source": "phrase_success_table"
+ },
+ {
+  "task": "widowx_spoon_on_towel",
+  "group": "spoon_eval",
+  "label": "modifier dropped",
+  "phrase": "Place the green spoon in the center of the blue towel.",
+  "prior_success": 25.0,
+  "prior_n": 288,
+  "prior_source": "phrase_success_table"
+ },
+ {
+  "task": "widowx_spoon_on_towel",
+  "group": "spoon_eval",
+  "label": "word added",
+  "phrase": "Place the spoon in the middle of the towel.",
+  "prior_success": 30.6,
+  "prior_n": 72,
+  "prior_source": "phrase_success_table"
+ },
+ {
+  "task": "widowx_spoon_on_towel",
+  "group": "spoon_eval",
+  "label": "word added",
+  "phrase": "Place the spoon exactly in the middle of the towel.",
+  "prior_success": 19.4,
+  "prior_n": 288,
+  "prior_source": "phrase_success_table"
+ }
+]
