@@ -142,22 +142,22 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 
 | phrase | success | n |
 |---|---|---|
-| **Set** **the** **purple** **eggplant** **on** **the** **sponge.** | 85% [75–91] | 72 |
-| **purple** **Eggplant** **set** **on** **the** **sponge.** | 36% [26–48] | 72 |
+| **Set** the purple **eggplant** on the sponge. | 85% [75–91] | 72 |
+| purple **Eggplant** **set** on the sponge. | 36% [26–48] | 72 |
 
 **eggplant_on_keyboard** — group `A19_articles`, top-vs-bottom gap **19pp**
 
 | phrase | success | n |
 |---|---|---|
-| put **eggplant** **on** **keyboard** | 32% [22–43] | 72 |
-| put **the** **eggplant** **on** **the** **keyboard** | 12% [7–22] | 72 |
+| put eggplant on keyboard | 32% [22–43] | 72 |
+| put **the** eggplant on **the** keyboard | 12% [7–22] | 72 |
 
 **eggplant_on_sponge** — group `A20_polite_colororder`, top-vs-bottom gap **6pp** *(two concepts: politeness + colour order — flagged, not headline)*
 
 | phrase | success | n |
 |---|---|---|
-| **please** **put** **the** **purple** **eggplant** **on** **the** **green** **and** **yellow** **sponge** | 76% [65–85] | 72 |
-| **put** **the** **purple** **eggplant** **on** **the** **yellow** **and** **green** **sponge** | 71% [60–80] | 72 |
+| **please** put the purple eggplant on the green and yellow sponge | 76% [65–85] | 72 |
+| put the purple eggplant on the yellow and green sponge | 71% [60–80] | 72 |
 
 
 ## Colour-word insertions
@@ -166,8 +166,8 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 
 | phrase | success | n |
 |---|---|---|
-| put the eggplant on the **black** **keyboard** | 54% [43–65] | 72 |
-| put the eggplant on the **keyboard** | 12% [7–22] | 72 |
+| put the eggplant on the **black** keyboard | 54% [43–65] | 72 |
+| put the eggplant on the keyboard | 12% [7–22] | 72 |
 
 **coke_can_on_wheel** — group `Ac2_dest_black_wheel`, top-vs-bottom gap **28pp**
 
@@ -187,50 +187,50 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 
 | phrase | success | n |
 |---|---|---|
-| Place the green block on the **plate.** | 82% [72–89] | 72 |
-| Place the green block on the **green** **plate.** | 64% [52–74] | 72 |
+| Place the green block on the plate. | 82% [72–89] | 72 |
+| Place the green block on the green plate. | 64% [52–74] | 72 |
 
 **eggplant_on_sponge** — group `Ac5_obj_purple_eggplant`, top-vs-bottom gap **61pp**
 
 | phrase | success | n |
 |---|---|---|
-| **purple** **eggplant** **goes** **on** **the** **sponge** | 69% [58–79] | 72 |
-| **eggplant** **goes** **on** **the** **sponge** | 8% [4–17] | 72 |
+| **purple** eggplant goes on the sponge | 69% [58–79] | 72 |
+| eggplant goes on the sponge | 8% [4–17] | 72 |
 
 **cube_on_plate** — group `Ac6_obj_green_block`, top-vs-bottom gap **35pp**
 
 | phrase | success | n |
 |---|---|---|
-| put the **green** **block** **on** **the** **plate** | 79% [68–87] | 72 |
-| put the **block** **on** **the** **plate** | 44% [34–56] | 72 |
+| put the **green** block on the plate | 79% [68–87] | 72 |
+| put the block on the plate | 44% [34–56] | 72 |
 
 **pepsi_on_plate** — group `Ac7_obj_blue_coke`, top-vs-bottom gap **38pp**
 
 | phrase | success | n |
 |---|---|---|
-| set the **blue** **coke** **on** **the** **plate** | 64% [52–74] | 72 |
-| set the **coke** **on** **the** **plate** | 26% [18–38] | 72 |
+| set the **blue** coke on the plate | 64% [52–74] | 72 |
+| set the coke on the plate | 26% [18–38] | 72 |
 
 **nut_on_plate** — group `Ac8_obj_grey_nut`, top-vs-bottom gap **18pp**
 
 | phrase | success | n |
 |---|---|---|
-| drop the **nut** **on** **the** **yellow** **plate** | 40% [30–52] | 72 |
-| drop the **grey** **nut** **on** **the** **yellow** **plate** | 22% [14–33] | 72 |
+| drop the nut on the yellow plate | 40% [30–52] | 72 |
+| drop the **grey** nut on the yellow plate | 22% [14–33] | 72 |
 
 **eggplant_on_keyboard** — group `Ac9_obj_purple_on_colored_dest`, top-vs-bottom gap **30pp**
 
 | phrase | success | n |
 |---|---|---|
-| The **eggplant** **needs** **to** **end** **up** **on** **the** **black** **keyboard.** | 61% [50–72] | 72 |
-| The **purple** **eggplant** **needs** **to** **end** **up** **on** **the** **black** **keyboard.** | 31% [21–42] | 72 |
+| The eggplant needs to end up on the black keyboard. | 61% [50–72] | 72 |
+| The **purple** eggplant needs to end up on the black keyboard. | 31% [21–42] | 72 |
 
 **carrot_on_plate** — group `Ac10_obj_orange_carrot`, top-vs-bottom gap **1pp**
 
 | phrase | success | n |
 |---|---|---|
-| **Put** the **orange** **carrot** **on** **the** **plate.** | 43% [32–55] | 72 |
-| **put** the **carrot** **on** **the** **plate** | 42% [31–53] | 72 |
+| **Put** the **orange** carrot on the **plate.** | 43% [32–55] | 72 |
+| **put** the carrot on the **plate** | 42% [31–53] | 72 |
 
 
 ## The destination-noun ladder
@@ -254,11 +254,11 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 
 | phrase | success | n |
 |---|---|---|
-| **put** **the** **green** **cube** **on** **the** **yellow** **cube** | 50% [39–61] | 72 |
-| **green** **cube** **on** **yellow** **cube** | 43% [32–55] | 72 |
-| **put** **the** **green** **block** **on** **the** **yellow** **block** | 29% [20–40] | 72 |
-| **stack** **the** **green** **cube** **on** **the** **yellow** **cube** | 25% [16–36] | 72 |
-| **green** **block** **on** **yellow** **block** | 17% [10–27] | 72 |
+| **put** **the** green **cube** on **the** yellow **cube** | 50% [39–61] | 72 |
+| green **cube** on yellow **cube** | 43% [32–55] | 72 |
+| **put** **the** green **block** on **the** yellow **block** | 29% [20–40] | 72 |
+| **stack** **the** green **cube** on **the** yellow **cube** | 25% [16–36] | 72 |
+| green **block** on yellow **block** | 17% [10–27] | 72 |
 
 
 ## The B-set families (object/destination nouns, colour, prepositions)
@@ -267,12 +267,12 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 
 | phrase | success | n |
 |---|---|---|
-| put the **coke** **on** **the** **plate** | 67% [55–76] | 72 |
-| put the **coke** **can** **on** **the** **plate** | 61% [50–72] | 72 |
-| put the **coke** **can** **on** **top** **of** **the** **plate** | 53% [41–64] | 72 |
-| put the **coke** **can** **on** **the** **yellow** **plate** | 44% [34–56] | 72 |
-| put the **coke** **can** **on** **the** **dish** | 42% [31–53] | 72 |
-| put the **can** **on** **the** **plate** | 35% [25–46] | 72 |
+| put the **coke** on the **plate** | 67% [55–76] | 72 |
+| put the **coke** **can** on the **plate** | 61% [50–72] | 72 |
+| put the **coke** **can** on **top** **of** the **plate** | 53% [41–64] | 72 |
+| put the **coke** **can** on the **yellow** **plate** | 44% [34–56] | 72 |
+| put the **coke** **can** on the **dish** | 42% [31–53] | 72 |
+| put the **can** on the **plate** | 35% [25–46] | 72 |
 
 **carrot_on_wheel** — group `carrot_on_wheel_clean`, top-vs-bottom gap **25pp**
 
@@ -296,16 +296,16 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 
 | phrase | success | n |
 |---|---|---|
-| put the eggplant in the **yellow** **basket** | 100% [84–100] | 20 |
-| put the eggplant in the **basket** | 82% [75–87] | 180 |
+| put the eggplant in the **yellow** basket | 100% [84–100] | 20 |
+| put the eggplant in the basket | 82% [75–87] | 180 |
 
 **spoon_on_towel** — group `spoon_on_towel`, top-vs-bottom gap **22pp**
 
 | phrase | success | n |
 |---|---|---|
-| put the spoon **atop** the **towel** | 67% [55–76] | 72 |
-| put the spoon **on** the **towel** | 61% [50–72] | 72 |
-| put the spoon **on** the **blue** **towel** | 44% [34–56] | 72 |
+| put the spoon **atop** the towel | 67% [55–76] | 72 |
+| put the spoon **on** the towel | 61% [50–72] | 72 |
+| put the spoon **on** the **blue** towel | 44% [34–56] | 72 |
 
 
 ## Priors that did NOT survive the full grid

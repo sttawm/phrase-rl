@@ -39,18 +39,24 @@ def cat_of(group):
 
 
 def bold_variation(phrases):
-    """Bold tokens that vary across the group's phrases (case-sensitive)."""
+    """Bold tokens that vary across the group's phrases (case-sensitive).
+    Equal-length groups diff by position; ragged groups bold tokens absent
+    from at least one sibling phrase."""
     toksets = [p.split(" ") for p in phrases]
     out = []
-    for toks in toksets:
-        marked = []
-        for i, t in enumerate(toks):
-            others = {ts[i] if i < len(ts) else None for ts in toksets}
-            if len(others) > 1:
-                marked.append(f"**{t}**")
-            else:
-                marked.append(t)
-        out.append(" ".join(marked))
+    if len({len(t) for t in toksets}) == 1:
+        for toks in toksets:
+            marked = []
+            for i, t in enumerate(toks):
+                if len({ts[i] for ts in toksets}) > 1:
+                    marked.append(f"**{t}**")
+                else:
+                    marked.append(t)
+            out.append(" ".join(marked))
+    else:
+        common = set.intersection(*[set(t) for t in toksets])
+        for toks in toksets:
+            out.append(" ".join(t if t in common else f"**{t}**" for t in toks))
     return out
 
 
