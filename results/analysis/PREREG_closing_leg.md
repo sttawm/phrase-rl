@@ -974,3 +974,16 @@ pass criterion unchanged (+-4pp pooled vs 26.1). One found-and-fixed
 harness-adaptation bug also recorded: the bf16 patch had swallowed their
 config.device assignment into the flag branch (fp32 path crash; no completed
 result affected).
+
+#### A37 Anchor B FINAL (2026-09-10): PASS — 25.7 vs 26.1 (-0.4pp)
+Metric-fixed anchor (their harness, verifier off, our 24 k1/k2 attack cells,
+24 pinned layouts, 60-step horizon, final-state success, fp32): 25.7 pooled
+vs our 26.1 passthrough reference. Alignment achieved: their verifier-off IS
+our passthrough within CRN noise. The aligned CoVer configuration is
+therefore: their released pipeline + verifier, our benchmark contract
+(sealed-12 suite, our 72 attacks, episode ids 0-23, 60-step horizon,
+final-state success), fp32 serving (matching the passing anchor), CoVer
+internal stochasticity unpinned (the method under measurement). Heavy
+adversarial arm LAUNCHED per the standing order: waves k0-k2 on cv3 (24
+layouts x 2 reps each, verifier on, 8 rephrases, 5 action samples/step);
+waves k3-k5 queue onto cv2 when its pair-verification shard completes.
