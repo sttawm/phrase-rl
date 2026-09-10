@@ -92,7 +92,7 @@ for g in M.drop_duplicates(subset=["group"]).group:
     blocks.setdefault(rows.task.iloc[0], []).append((g, rows))
 
 tex = [r"""\documentclass[10pt]{article}
-\usepackage[margin=0.85cm]{geometry}
+\usepackage[left=0.75cm,right=0.75cm,top=0.6cm,bottom=0.55cm]{geometry}
 \usepackage{graphicx,xcolor,multicol,needspace}
 \usepackage[T1]{fontenc}
 \definecolor{hi}{RGB}{212,241,212}
@@ -106,18 +106,23 @@ tex = [r"""\documentclass[10pt]{article}
 \begin{document}
 {\normalsize\bfseries Verified minimal pairs --- frozen $\pi_0$, SIMPLER Bridge}\enspace
 {\scriptsize Full layout grid $\times$ 3 reps (n=72/phrase; basket 180); success = final state @ 60 steps; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
-\vspace{3pt}\hrule\vspace{4pt}
-\begin{multicols}{2}\scriptsize\setlength{\baselineskip}{8.3pt}"""]
+\vspace{2pt}\hrule\vspace{2.5pt}
+\begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.7pt}"""]
 
+first = True
 for task in sorted(blocks):
     short = task.replace("widowx_", "").replace("_clean", "").replace("_", r"\_")
+    if not first:
+        tex.append(r"\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}")
+    first = False
+    tex.append(r"{\ttfamily\bfseries " + short + r"}\\[0.6pt]")
     for g, rows in blocks[task]:
         top, bot = rows.iloc[0], rows.iloc[-1]
         delta = top.succ - bot.succ
         p = two_prop_p(top.succ / 100, top.n, bot.succ / 100, bot.n)
         pstr = f"p={p:.4f}" if p >= 5e-5 else "p<0.0001"
-        tex.append(r"{\ttfamily\bfseries " + short + r"}\," + r"$\cdot$\," +
-                   r"{\bfseries " + esc(cat(g)) + r"}\enspace " +
+        tex.append(r"{\leftskip=1.1em")
+        tex.append(r"{\bfseries " + esc(cat(g)) + r"}\enspace " +
                    f"{delta:+.0f}\\,pp\\," + r"$\cdot$\," + f" {pstr}" + r"\\[1pt]")
         sibs = list(rows.phrase)
         for j, (_, r) in enumerate(rows.iterrows()):
@@ -125,7 +130,7 @@ for task in sorted(blocks):
             pcol = "hipct" if j == 0 else "lopct"
             tex.append(r"\hangindent=2.4em \pct{" + pcol + r"}{" + f"{r.succ:.0f}" + r"}~\texttt{"
                        + marked_phrase(r.phrase, sibs, color) + r"}\\")
-        tex.append(r"[1.8pt]")
+        tex.append(r"[0.9pt]\par}")
 
 tex.append(r"\end{multicols}")
 tex.append(r"\newpage")
