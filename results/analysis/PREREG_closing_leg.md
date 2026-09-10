@@ -1002,3 +1002,28 @@ read: their method was designed for ever-success@150 (their published gains
 replicate in OUR Anchor A at that metric); a metric-ablation arm (their loop,
 break-on-done at 60) would separate horizon from metric if wanted. Waves
 k3-k5 complete on cv2 shortly; final read then.
+
+#### A37 decisions + verification (2026-09-10, user)
+- Combined rules+verifier arm: NOT RUN (user decision, given the verifier-
+  net-negative adversarial read).
+- Natural + original CoVer conditions: COMMISSIONED. Rephrases for the 186
+  A34 naturals generated under the same pipeline (preflight passed); ragged
+  nat waves k1-k16 + the orig wave rolling.
+- Metric: user judgment is that ever-success (their convention) is the better
+  metric; our historical grid cannot be re-scored (final-state only recorded).
+  Going forward the harness records BOTH metrics per episode (ever_success
+  field) plus a per-episode count of verifier low-confidence swaps and the
+  final selected instruction, so nat/orig read out both ways and the swap-rate
+  diagnostic comes free. Directionality of the adversarial read is expected to
+  hold under either metric (to be confirmed on nat/orig; an adversarial
+  re-roll under dual metrics is a cheap later option).
+- Prompt fidelity verified byte-level against the DEPLOYED CoVer code (not
+  just the July reference): get_rephrase_batch user turn (two batch sizes)
+  and the system persona are byte-identical to our port. Deviation remains
+  Gemini-for-GPT-4o only.
+- Rephrase-pool audit for the hurt tasks: pools are goal-preserving and
+  image-grounded, but rich in exactly the lexical features our minimal-pair
+  mining measures as policy-toxic (destination color words on plate tasks,
+  dish-for-plate, capitalization). Mechanism hypothesis: the verifier scores
+  trajectory consistency, not lexical toxicity; low-confidence swaps move
+  INTO toxic rewrites on survivable tasks.
