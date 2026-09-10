@@ -1,0 +1,979 @@
+task,category,style_consistent,phrase_lo,succ_lo,n_lo,phrase_hi,succ_hi,n_hi,gap_pp,z,change
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Set the Pepsi down on the plate.,19.4,432,set the pepsi down on the plate,82.3,96,62.8,12.06, -> 
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,set the purple eggplant next to the green sponge,4.2,24,set the purple eggplant over to the green sponge,62.5,24,58.3,4.29,next -> over
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the coke down on the plate,25.0,48,set the pepsi down on the plate,82.3,96,57.3,6.72,coke -> pepsi
+widowx_pepsi_on_plate_clean,verb synonym,False,Put the Pepsi on the plate.,18.3,240,set the pepsi on the plate,75.0,48,56.7,8.0,put -> set
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the coke down on top of the plate,16.7,24,set the pepsi down on top of the plate,72.2,72,55.6,4.78,coke -> pepsi
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Set the Pepsi on the plate.,19.8,96,set the pepsi on the plate,75.0,48,55.2,6.43, -> 
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Drop the Pepsi onto the plate.,20.8,72,drop the pepsi onto the plate,75.0,48,54.2,5.88, -> 
+widowx_pepsi_on_plate_clean,verb synonym,False,put the Pepsi on the plate,20.8,96,set the pepsi on the plate,75.0,48,54.2,6.29,put -> set
+widowx_pepsi_on_plate_clean,verb synonym,False,Place the Pepsi onto the plate.,21.9,96,drop the pepsi onto the plate,75.0,48,53.1,6.15,place -> drop
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the coke on the plate,22.9,48,set the pepsi on the plate,75.0,48,52.1,5.1,coke -> pepsi
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,False,set the purple thing on the yellow and green sponge,22.9,96,Set the purple eggplant on the yellow and green sponge.,75.0,96,52.1,7.22,eggplant -> thing
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,False,set the purple vegetable onto the green and yellow sponge,37.5,24,set the purple eggplant onto the green and yellow sponge.,87.5,24,50.0,3.58,eggplant -> vegetable
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Put the fastener onto the dish.,12.5,48,Put the ring onto the dish.,62.5,48,50.0,5.06,fastener -> ring
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,set the purple thing on the yellow and green sponge,22.9,96,set the purple eggplant on the yellow and green sponge,72.9,96,50.0,6.93,eggplant -> thing
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Set the Pepsi can on the plate.,32.7,168,set the pepsi down on the plate,82.3,96,49.6,7.75,can -> down
+widowx_pepsi_on_plate_clean,verb synonym,False,put the Pepsi on the plate.,26.2,168,set the pepsi on the plate,75.0,48,48.8,6.18,put -> set
+widowx_pepsi_on_plate_clean,verb synonym,False,Drop the Pepsi onto the plate.,20.8,72,place the pepsi onto the plate,68.8,48,47.9,5.25,drop -> place
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Place the Pepsi onto the plate.,21.9,96,place the pepsi onto the plate,68.8,48,46.9,5.48, -> 
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,Lay the purple thing on the yellow and green sponge.,37.0,216,Lay the purple eggplant on the yellow and green sponge.,83.3,24,46.3,4.36,eggplant -> thing
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the soda on the plate,29.2,24,set the pepsi on the plate,75.0,48,45.8,3.74,pepsi -> soda
+widowx_stack_cube,preposition synonym,True,place the green block onto the yellow block,8.3,24,place the green block on the yellow block,54.2,24,45.8,3.43,on -> onto
+widowx_pepsi_on_plate_clean,slight restructure,False,"Set the Pepsi on the plate, please.",29.2,24,set the pepsi on the plate,75.0,48,45.8,3.74,reorder/determiners
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the blue can on the plate.,30.2,96,Put the blue soda on the plate.,75.0,24,44.8,4.02,can -> soda
+widowx_pepsi_on_plate_clean,slight restructure,False,"Set the Pepsi down on top of the plate, please.",28.3,240,set the pepsi down on top of the plate,72.2,72,43.9,6.71,reorder/determiners
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,False,Place the purple vegetable on the green and yellow sponge.,45.8,48,place the purple eggplant on the green and yellow sponge,89.6,48,43.8,4.58,vegetable -> eggplant
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the red soda can on top of the black keyboard.,2.8,72,Put the red soda cylinder on top of the black keyboard.,45.8,48,43.1,5.78,can -> cylinder
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Put the Pepsi on the plate.,18.3,240,put the pepsi on the plate,61.5,96,43.1,7.75, -> 
+widowx_cube_on_plate_clean,noun/adjective synonym,False,put the blue block on the green dish,29.2,24,Put the green block on the green dish.,70.8,24,41.7,2.89,green -> blue
+widowx_pepsi_on_plate_clean,verb synonym,False,Place the Pepsi on the plate.,33.3,24,set the pepsi on the plate,75.0,48,41.7,3.42,place -> set
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,False,Place the purple vegetable on the green and yellow sponge.,45.8,48,place the purple eggplant on the green and yellow sponge.,87.5,24,41.7,3.4,vegetable -> eggplant
+widowx_pepsi_on_plate_clean,verb synonym,False,Set the Pepsi on the plate.,19.8,96,put the pepsi on the plate,61.5,96,41.7,5.88,set -> put
+widowx_cube_on_plate_clean,verb synonym,False,pick up the green cube and put it on the yellow plate,41.7,24,Pick up the green cube and place it on the yellow plate.,83.3,72,41.7,3.98,place -> put
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,Pick up the orange vegetable and place it in the white bowl.,12.5,24,Pick up the orange carrot and place it in the white bowl.,54.2,48,41.7,3.4,carrot -> vegetable
+widowx_cube_on_plate_clean,noun/adjective synonym,False,put the green block onto the yellow dish.,41.7,24,Put the green block onto the yellow plate.,83.3,24,41.7,2.98,plate -> dish
+widowx_nut_on_wheel_clean,verb synonym,True,Position the nut right on the wheel.,4.2,120,Put the nut right on the wheel.,45.8,48,41.7,6.64,position -> put
+widowx_pepsi_on_plate_clean,case/punctuation only,False,put the Pepsi on the plate,20.8,96,put the pepsi on the plate,61.5,96,40.6,5.72, -> 
+widowx_coke_can_on_plate_clean,noun/adjective synonym,True,put the coke can on the plate,38.1,105,put the coke down on the plate,78.3,60,40.2,4.98,can -> down
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Set the Pepsi down on top of the plate.,32.3,96,set the pepsi down on top of the plate,72.2,72,39.9,5.12, -> 
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut right on the wheel,6.2,48,Put the nut right on the wheel.,45.8,48,39.6,4.42,put -> set
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the can on the plate.,22.9,48,put the pepsi on the plate,61.5,96,38.5,4.36,can -> pepsi
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,False,Put the purple vegetable onto the green and yellow sponge.,49.3,288,put the purple eggplant onto the green and yellow sponge,87.5,24,38.2,3.6,vegetable -> eggplant
+widowx_coke_can_on_plate_clean,noun/adjective synonym,True,put the coke can on the dish,0.0,60,put the coke can on the plate,38.1,105,38.1,5.49,dish -> plate
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the blue can on the dish.,0.0,24,put the blue can on the plate,38.1,168,38.1,3.7,dish -> plate
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the blue can on the plate?,37.5,24,Put the blue soda on the plate.,75.0,24,37.5,2.62,can -> soda
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,set the purple vegetable onto the green and yellow sponge,37.5,24,set the purple eggplant onto the green and yellow sponge,75.0,48,37.5,3.1,eggplant -> vegetable
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Set the blue can on the yellow plate.,25.0,48,set the blue pepsi on the yellow plate,62.5,24,37.5,3.1,can -> pepsi
+widowx_cube_on_plate_clean,verb synonym,True,put the green cube into the dish,37.5,24,place the green cube into the dish,75.0,48,37.5,3.1,place -> put
+widowx_eggplant_on_sponge_clean,slight restructure,True,purple Eggplant set on the sponge.,45.8,24,Set the purple eggplant on the sponge.,83.3,48,37.5,3.3,reorder/determiners
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the blue can on the dish.,0.0,24,put the blue can on the plate?,37.5,24,37.5,3.33,dish -> plate
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the blue can on the dish.,0.0,24,Put the blue can on the plate?,37.5,24,37.5,3.33,dish -> plate
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Put the nut onto the dish.,25.0,48,Put the ring onto the dish.,62.5,48,37.5,3.7,nut -> ring
+widowx_nut_on_plate_clean,verb synonym,False,move the nut onto the plate.,16.7,24,transfer the nut onto the plate,54.2,24,37.5,2.72,move -> transfer
+widowx_cube_on_plate_clean,verb synonym,False,pick up the green cube and put it on the yellow plate,41.7,24,Pick up the green cube and set it on the yellow plate.,79.2,24,37.5,2.66,set -> put
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Set the can on top of the keyboard.,0.0,48,set the coke on top of the keyboard,37.5,24,37.5,4.54,can -> coke
+widowx_cube_on_plate_clean,noun/adjective synonym,True,put the green block on the dish,50.0,48,put the green block on the plate,87.5,120,37.5,5.2,dish -> plate
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the pepsi can on the plate,44.8,192,set the pepsi down on the plate,82.3,96,37.5,6.06,can -> down
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,put the blue can on the plate?,37.5,24,Put the blue soda on the plate.,75.0,24,37.5,2.62,soda -> can
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the blue soda on the dish,33.3,24,set the blue soda on the plate,70.8,24,37.5,2.6,dish -> plate
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the blue can on the yellow plate,25.0,264,set the blue pepsi on the yellow plate,62.5,24,37.5,3.91,can -> pepsi
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the blue soda on the dish.,37.5,24,Put the blue soda on the plate.,75.0,24,37.5,2.62,dish -> plate
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the blue can on the dish.,0.0,24,Put the blue soda on the dish.,37.5,24,37.5,3.33,can -> soda
+widowx_cube_on_plate_clean,noun/adjective synonym,False,put the teal block on the yellow plate,41.7,24,Put the green block on the yellow plate.,79.2,48,37.5,3.18,green -> teal
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Transfer the purple eggplant to the black keyboard.,8.3,24,set the purple eggplant to the black keyboard,45.8,24,37.5,2.92,transfer -> set
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,put the blue can on the plate,38.1,168,Put the blue soda on the plate.,75.0,24,36.9,3.42,soda -> can
+widowx_spoon_on_towel,preposition synonym,True,put the spoon on the towel,30.4,69,put the spoon atop the towel,66.7,72,36.2,4.3,atop -> on
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the plate.,18.1,72,transfer the nut onto the plate,54.2,24,36.1,3.45,move -> transfer
+widowx_pepsi_on_plate_clean,preposition synonym,False,Place the Pepsi on the plate.,33.3,24,place the pepsi onto the plate,68.8,48,35.4,2.86,on -> onto
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,put the red can on the black tire,27.1,48,put the red coke on the black tire,62.5,24,35.4,2.91,can -> coke
+widowx_pepsi_on_plate_clean,verb synonym,True,move the blue can on the yellow plate,10.4,48,drop the blue can on the yellow plate,45.8,24,35.4,3.41,drop -> move
+widowx_pepsi_on_plate_clean,case/punctuation only,False,put the Pepsi on the plate.,26.2,168,put the pepsi on the plate,61.5,96,35.3,5.65, -> 
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the purple eggplant on the black keyboard.,16.7,24,set the purple eggplant on the black keyboard,51.9,360,35.3,3.35,move -> set
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,put the can on the plate,27.1,48,put the pepsi on the plate,61.5,96,34.4,3.89,can -> pepsi
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Set the blue can on the plate.,36.8,144,set the blue coke on the plate,70.8,48,34.0,4.1,can -> coke
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Set the blue can on the plate.,36.8,144,set the blue soda on the plate,70.8,24,34.0,3.13,can -> soda
+widowx_cube_on_plate_clean,noun/adjective synonym,False,Put the green block on the dish.,53.6,192,put the green block on the plate,87.5,120,33.9,6.17,dish -> plate
+widowx_nut_on_wheel_clean,case/punctuation only,False,put the nut right on the wheel.,12.5,24,Put the nut right on the wheel.,45.8,48,33.3,2.8, -> 
+widowx_carrot_on_ramekin_clean,preposition synonym,True,Place the orange carrot on the white ramekin.,4.2,24,Place the orange carrot inside the white ramekin.,37.5,24,33.3,2.84,inside -> on
+widowx_spoon_on_towel,preposition synonym,False,Put the spoon on the towel.,33.3,30,put the spoon atop the towel,66.7,72,33.3,3.1,on -> atop
+widowx_cube_on_plate_clean,preposition synonym,False,place the green cube on the yellow dish,45.8,24,Place the green cube into the yellow dish.,79.2,24,33.3,2.39,into -> on
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,put the red can onto the black device,12.5,48,Put the red cylinder onto the black device.,45.8,48,33.3,3.59,cylinder -> can
+widowx_eggplant_on_sponge_clean,case/punctuation only,True,purple Eggplant set on the sponge.,45.8,24,Purple eggplant set on the sponge.,79.2,24,33.3,2.39, -> 
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the purple eggplant to the black keyboard.,12.5,48,set the purple eggplant to the black keyboard,45.8,24,33.3,3.14,move -> set
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Put the green block onto the yellow dish.,50.0,24,Put the green block onto the yellow plate.,83.3,24,33.3,2.45,dish -> plate
+widowx_cube_on_plate_clean,noun/adjective synonym,False,put the green block onto the yellow dish,50.0,120,Put the green block onto the yellow plate.,83.3,24,33.3,3.0,plate -> dish
+widowx_carrot_on_sponge_clean,verb synonym,False,Move the carrot onto the green sponge.,20.8,24,place the carrot onto the green sponge,54.2,24,33.3,2.39,move -> place
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the blue can on the plate,38.2,144,set the blue coke on the plate,70.8,48,32.6,3.93,can -> coke
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the blue can on the plate,38.2,144,set the blue soda on the plate,70.8,24,32.6,2.99,can -> soda
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the can on the dish.,0.0,24,Put the soda on the dish.,32.4,336,32.4,3.34,can -> soda
+widowx_pepsi_on_plate_clean,verb synonym,False,Place the blue Pepsi can on the light yellow plate.,26.0,96,put the blue pepsi can on the light yellow plate,58.3,48,32.3,3.79,place -> put
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,Put the purple vegetable onto the green and yellow sponge.,49.3,288,Put the purple eggplant onto the green and yellow sponge.,81.5,168,32.2,6.82,eggplant -> vegetable
+widowx_nut_on_plate_clean,verb synonym,False,move the nut onto the plate.,16.7,24,put the nut onto the plate,48.6,144,31.9,2.92,move -> put
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,Place the purple vegetable on the green and yellow sponge.,45.8,48,Place the purple eggplant on the green and yellow sponge.,77.3,432,31.5,4.73,eggplant -> vegetable
+widowx_eggplant_on_sponge_clean,verb synonym,False,pop the purple eggplant onto the sponge,58.3,24,Set the purple eggplant onto the sponge.,89.6,48,31.3,3.08,set -> pop
+widowx_pepsi_on_plate_clean,preposition synonym,False,Put the blue Pepsi can onto the light yellow plate.,27.1,48,put the blue pepsi can on the light yellow plate,58.3,48,31.3,3.09,onto -> on
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Drop the Pepsi can onto the plate.,25.0,120,drop the pepsi can onto the plate,56.2,48,31.2,3.86, -> 
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the soda can on the dish.,2.1,48,put the soda can on the plate,33.3,48,31.2,4.01,dish -> plate
+widowx_eggplant_on_sponge_clean,verb synonym,False,set the purple thing on the yellow and green sponge,22.9,96,Place the purple thing on the yellow and green sponge.,54.2,24,31.2,3.01,place -> set
+widowx_eggplant_on_sponge_clean,verb synonym,True,Place the purple eggplant onto the yellow and green sponge.,60.4,48,Deposit the purple eggplant onto the yellow and green sponge.,91.7,24,31.2,2.75,deposit -> place
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,Set the purple vegetable on the black keyboard.,20.8,48,set the purple eggplant on the black keyboard,51.9,360,31.1,4.05,vegetable -> eggplant
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Place the blue soda can onto the circular yellow dish.,25.0,144,Place the blue soda container onto the circular yellow dish.,55.8,312,30.8,6.13,can -> container
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the plate.,18.1,72,put the nut onto the plate,48.6,144,30.6,4.35,move -> put
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the yellow plate.,11.2,624,drop the nut onto the yellow plate,41.7,48,30.4,5.97,move -> drop
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the blue can on the dish.,0.0,24,Put the blue can on the plate.,30.2,96,30.2,3.09,dish -> plate
+widowx_pepsi_on_plate_clean,verb synonym,False,Put the Pepsi can on top of the plate.,24.0,96,set the pepsi can on top of the plate,54.2,24,30.2,2.89,put -> set
+widowx_eggplant_on_sponge_clean,verb synonym,True,Move the purple eggplant onto the sponge.,59.5,168,Set the purple eggplant onto the sponge.,89.6,48,30.1,3.88,move -> set
+widowx_nut_on_plate_clean,preposition synonym,False,Transfer the nut to the plate.,24.2,120,transfer the nut onto the plate,54.2,24,30.0,2.95,to -> onto
+widowx_nut_on_plate_clean,noun/adjective synonym,True,put the black nut on the yellow plate,16.0,144,put the black ring on the yellow plate,45.8,48,29.9,4.23,nut -> ring
+widowx_eggplant_on_sponge_clean,slight restructure,False,put the purple eggplant on the yellow and green sponge,62.1,240,Put the purple eggplant on the green and yellow sponge.,91.7,24,29.6,2.89,reorder/determiners
+widowx_pepsi_on_plate_clean,slight restructure,False,put the Pepsi can on the plate,31.2,48,put pepsi can on plate,60.8,816,29.5,4.05,reorder/determiners
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the can on the keyboard.,0.0,24,Put the coke on the keyboard.,29.2,24,29.2,2.86,can -> coke
+widowx_cube_on_plate_clean,verb synonym,True,pick up the green cube and put it on the yellow plate,41.7,24,pick up the green cube and place it on the yellow plate,70.8,24,29.2,2.04,place -> put
+widowx_eggplant_on_sponge_clean,verb synonym,False,pop the purple eggplant onto the sponge,58.3,24,Drop the purple eggplant onto the sponge.,87.5,24,29.2,2.27,drop -> pop
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Leave the eggplant on the keyboard.,4.2,48,place the eggplant on the keyboard,33.3,96,29.2,3.88,leave -> place
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,set the blue can on the plate.,41.7,24,set the blue coke on the plate,70.8,48,29.2,2.39,can -> coke
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,set the blue can on the plate.,41.7,24,set the blue soda on the plate,70.8,24,29.2,2.04,can -> soda
+widowx_cube_on_plate_clean,noun/adjective synonym,False,put the green block on the yellow dish,50.0,48,Put the green block on the yellow plate.,79.2,48,29.2,2.99,plate -> dish
+widowx_cube_on_plate_clean,case/punctuation only,False,pick up the green cube and put it on the yellow plate,41.7,24,Pick up the green cube and put it on the yellow plate.,70.8,24,29.2,2.04, -> 
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Move the purple eggplant on the black keyboard.,16.7,24,Rest the purple eggplant on the black keyboard.,45.8,24,29.2,2.18,move -> rest
+widowx_coke_can_on_wheel_clean,case/punctuation only,False,Put the red Coke on the black tire.,33.3,24,put the red coke on the black tire,62.5,24,29.2,2.02, -> 
+widowx_nut_on_plate_clean,verb synonym,True,move the nut onto the plate,25.0,24,transfer the nut onto the plate,54.2,24,29.2,2.07,move -> transfer
+widowx_nut_on_plate_clean,verb synonym,False,move the nut onto the plate.,16.7,24,drop the nut onto the plate,45.8,192,29.2,2.72,drop -> move
+widowx_cube_on_plate_clean,noun/adjective synonym,False,Move the green square to the plate.,50.0,24,move the green cube to the plate.,79.2,24,29.2,2.11,square -> cube
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,put the grey nut into the black wheel,8.3,24,put the grey nut into the black tire,37.5,24,29.2,2.4,tire -> wheel
+widowx_nut_on_plate_clean,verb synonym,False,move the nut onto the plate.,16.7,24,Put the nut onto the plate,45.8,24,29.2,2.18,put -> move
+widowx_carrot_on_sponge_clean,noun/adjective synonym,True,Set the orange carrot on top of the yellow block.,4.2,48,Set the orange carrot on top of the green block.,33.3,48,29.2,3.66,green -> yellow
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Transfer the purple eggplant to the black keyboard.,8.3,24,Set the purple eggplant to the black keyboard,37.5,48,29.2,2.6,set -> transfer
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Set the red can directly on top of the black keyboard.,8.3,24,Set the red coke directly on top of the black keyboard.,37.5,24,29.2,2.4,can -> coke
+widowx_nut_on_plate_clean,slight restructure,False,"grey Nut set on the plate, please.",16.7,48,Set the grey nut on the plate,45.8,48,29.2,3.08,reorder/determiners
+widowx_nut_on_wheel_clean,verb synonym,False,pick up the nut and put it in the wheel,0.0,24,Pick up the nut and drop it in the wheel.,29.2,24,29.2,2.86,drop -> put
+widowx_cube_on_plate_clean,noun/adjective synonym,True,put the teal block on the yellow plate,41.7,24,put the teal cube on the yellow plate,70.8,24,29.2,2.04,block -> cube
+widowx_spoon_on_towel,noun/adjective synonym,True,put the spoon on the blue cloth,37.9,87,put the spoon on the woven cloth,66.7,30,28.7,2.73,blue -> woven
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the purple eggplant on the black keyboard.,16.7,24,put the purple eggplant on the black keyboard,45.3,408,28.7,2.75,move -> put
+widowx_eggplant_on_sponge_clean,slight restructure,False,purple Eggplant set on the sponge.,45.8,24,set the purple eggplant on the sponge,74.0,312,28.2,2.97,reorder/determiners
+widowx_pepsi_on_plate_clean,verb synonym,False,Place the blue Pepsi can on the light yellow plate.,26.0,96,set the blue pepsi can on the light yellow plate,54.2,48,28.1,3.33,place -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,put the red can on top of the black keyboard,5.2,96,Put the red Coke on top of the black keyboard.,33.3,24,28.1,3.97,coke -> can
+widowx_pepsi_on_plate_clean,verb synonym,False,Place the Pepsi on the plate.,33.3,24,put the pepsi on the plate,61.5,96,28.1,2.48,place -> put
+widowx_cube_on_plate_clean,noun/adjective synonym,True,set the green cube in the dish,45.8,24,set the green cube in the plate,74.0,96,28.1,2.65,dish -> plate
+widowx_eggplant_on_sponge_clean,verb synonym,True,Move the purple eggplant onto the sponge.,59.5,168,Drop the purple eggplant onto the sponge.,87.5,24,28.0,2.66,drop -> move
+widowx_pepsi_on_plate_clean,verb synonym,False,Put the blue can on the yellow plate.,17.9,168,drop the blue can on the yellow plate,45.8,24,28.0,3.13,put -> drop
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the plate.,18.1,72,drop the nut onto the plate,45.8,192,27.8,4.14,move -> drop
+widowx_carrot_on_keyboard_clean,verb synonym,True,put the carrot on the keyboard,0.0,27,place the carrot on the keyboard,27.8,36,27.8,2.99,place -> put
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the plate.,18.1,72,Put the nut onto the plate,45.8,24,27.8,2.72,move -> put
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,True,Set the drink container on top of the plate.,5.7,192,Set the drink box on top of the plate.,33.3,24,27.6,4.5,box -> container
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Place the blue can on the plate.,35.0,120,place that blue can on the plate?,62.5,48,27.5,3.25,the -> that
+widowx_cube_on_plate_clean,verb synonym,True,place the green cube on the yellow plate,50.0,24,set the green cube on the yellow plate,77.2,408,27.2,3.02,place -> set
+widowx_pepsi_on_plate_clean,verb synonym,False,Set the Pepsi can onto the plate.,29.2,24,drop the pepsi can onto the plate,56.2,48,27.1,2.17,set -> drop
+widowx_pepsi_on_plate_clean,verb synonym,False,Move the Pepsi can onto the plate.,29.2,168,drop the pepsi can onto the plate,56.2,48,27.1,3.47,move -> drop
+widowx_cube_on_plate_clean,slight restructure,True,set the cube on the green plate,56.2,48,set the green cube on the plate,83.3,336,27.1,4.38,reorder/determiners
+widowx_nut_on_plate_clean,noun/adjective synonym,False,take the little nut and set it on the dish,0.0,48,Take the little nut and set it on the plate.,27.1,48,27.1,3.88,plate -> dish
+widowx_pepsi_on_plate_clean,verb synonym,False,Move the Pepsi can onto the plate,29.2,24,drop the pepsi can onto the plate,56.2,48,27.1,2.17,move -> drop
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Put the blue Pepsi can on the light yellow plate.,31.2,96,put the blue pepsi can on the light yellow plate,58.3,48,27.1,3.12, -> 
+widowx_cube_on_plate_clean,noun/adjective synonym,False,put the green block on the dish,50.0,48,Put the green block on the plate.,77.1,96,27.1,3.29,plate -> dish
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the can on the keyboard.,0.0,24,put the coke on the keyboard,27.1,48,27.1,2.82,can -> coke
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the can on the dish.,0.0,24,put the can on the plate,27.1,48,27.1,2.82,dish -> plate
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Set the red cylinder on top of the black peripheral.,18.8,48,set the red cylinder on top of the black device,45.8,48,27.1,2.84,peripheral -> device
+widowx_coke_can_on_wheel_clean,preposition synonym,True,Put the red can on the black wheel.,4.2,24,Put the red can into the black wheel.,31.2,96,27.1,2.71,into -> on
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Place the purple eggplant on the black keyboard,25.0,24,set the purple eggplant on the black keyboard,51.9,360,26.9,2.56,place -> set
+widowx_carrot_on_ramekin_clean,verb synonym,False,Place the carrot in the bowl.,8.3,24,set the carrot in the bowl,34.7,72,26.4,2.49,place -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the red can on top of the black keyboard.,6.9,72,Put the red Coke on top of the black keyboard.,33.3,24,26.4,3.27,coke -> can
+widowx_eggplant_on_sponge_clean,verb synonym,True,pop the purple eggplant onto the sponge,58.3,24,put the purple eggplant onto the sponge,84.7,144,26.4,3.05,pop -> put
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the yellow plate.,11.2,624,put the nut onto the yellow plate,37.5,96,26.3,6.77,move -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Leave the eggplant on the keyboard.,4.2,48,Place the eggplant on the keyboard.,30.5,600,26.3,3.89,leave -> place
+widowx_nut_on_plate_clean,verb synonym,True,Move the nut onto the yellow plate.,11.2,624,Drop the nut onto the yellow plate.,37.5,120,26.3,7.29,drop -> move
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the purple eggplant onto the black keyboard.,16.7,192,set the purple eggplant onto the black keyboard,42.9,336,26.2,6.14,move -> set
+widowx_stack_cube,verb synonym,False,Put the green block on the yellow block.,28.2,39,place the green block on the yellow block,54.2,24,26.0,2.06,put -> place
+widowx_pepsi_on_plate_clean,verb synonym,False,move the Pepsi can onto the plate,30.6,72,drop the pepsi can onto the plate,56.2,48,25.7,2.81,drop -> move
+widowx_pepsi_on_plate_clean,verb synonym,True,put the blue can onto the yellow plate,9.7,72,place the blue can onto the yellow plate,35.4,48,25.7,3.45,place -> put
+widowx_carrot_on_keyboard_clean,verb synonym,True,set the carrot on the keyboard,2.1,48,place the carrot on the keyboard,27.8,36,25.7,3.45,place -> set
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Set the blue can on the plate.,36.8,144,set the blue pepsi on the plate,62.5,24,25.7,2.37,can -> pepsi
+widowx_stack_cube,verb synonym,True,put the green block on the yellow block,28.6,63,place the green block on the yellow block,54.2,24,25.6,2.23,place -> put
+widowx_eggplant_on_keyboard_clean,slight restructure,True,put the eggplant on the keyboard,12.0,192,put eggplant on keyboard,37.5,672,25.5,6.7,reorder/determiners
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,put carrot on ramekin,13.0,384,put carrot on bowl,38.5,96,25.5,5.81,bowl -> ramekin
+widowx_pepsi_on_plate_clean,verb synonym,True,put the blue can on the yellow plate,20.5,288,drop the blue can on the yellow plate,45.8,24,25.3,2.86,drop -> put
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Set the Pepsi down on the plate.,19.4,432,set the pepsi can on the plate,44.8,192,25.3,6.56,down -> can
+widowx_eggplant_on_sponge_clean,verb synonym,False,Move the purple eggplant onto the sponge.,59.5,168,put the purple eggplant onto the sponge,84.7,144,25.2,4.9,move -> put
+widowx_nut_on_plate_clean,noun/adjective synonym,False,Put the dark nut on the plate.,18.8,48,put the grey nut on the plate,43.8,48,25.0,2.64,dark -> grey
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Put the blue soda on the plate,50.0,48,Put the blue soda on the plate.,75.0,24,25.0,2.03, -> 
+widowx_nut_on_wheel_clean,verb synonym,False,pick up the nut and place it in the wheel,4.2,24,Pick up the nut and drop it in the wheel.,29.2,24,25.0,2.32,drop -> place
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the coke can on top of the plate.,14.6,48,put the pepsi can on top of the plate,39.6,48,25.0,2.76,coke -> pepsi
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,put the blue can on the yellow dish,12.5,48,Put the blue soda on the yellow dish.,37.5,24,25.0,2.46,soda -> can
+widowx_orange_juice_on_plate_clean,verb synonym,False,Move the juice box onto the plate.,16.7,24,put the juice box onto the plate,41.7,48,25.0,2.12,move -> put
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Grab the red can and place it on the black computer keyboard.,4.2,24,Grab the red soda and place it on the black computer keyboard.,29.2,48,25.0,2.46,can -> soda
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the can on the dish.,0.0,24,put the soda on the dish,25.0,48,25.0,2.68,can -> soda
+widowx_eggplant_on_sponge_clean,verb synonym,False,put the purple eggplant onto the yellow and green sponge,66.7,24,Deposit the purple eggplant onto the yellow and green sponge.,91.7,24,25.0,2.13,deposit -> put
+widowx_nut_on_plate_clean,case/punctuation only,False,pick up the black nut and put it on the yellow plate,8.3,48,Pick up the black nut and put it on the yellow plate.,33.3,24,25.0,2.68, -> 
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Move the Coke can onto the keyboard.,8.3,120,place the coke can onto the keyboard,33.3,48,25.0,4.05,move -> place
+widowx_nut_on_wheel_clean,case/punctuation only,False,put the nut right on the wheel,20.8,24,Put the nut right on the wheel.,45.8,48,25.0,2.07, -> 
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,set the pepsi can onto the dish,4.2,24,Set the Pepsi can onto the plate.,29.2,24,25.0,2.32,plate -> dish
+widowx_pepsi_on_plate_clean,case/punctuation only,False,put the blue soda on the plate,50.0,168,Put the blue soda on the plate.,75.0,24,25.0,2.3, -> 
+widowx_nut_on_plate_clean,noun/adjective synonym,False,Put the fastener onto the dish.,12.5,48,put the nut onto the dish,37.5,24,25.0,2.46,fastener -> nut
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Put the red soda can onto the black rubber tire.,20.8,48,Put the red soda container onto the black rubber tire.,45.8,48,25.0,2.6,can -> container
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Leave the eggplant on the keyboard.,4.2,48,Drop the eggplant on the keyboard.,29.2,48,25.0,3.29,drop -> leave
+widowx_nut_on_plate_clean,noun/adjective synonym,False,put the nut onto the dish,37.5,24,Put the ring onto the dish.,62.5,48,25.0,2.01,ring -> nut
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Position the red soda can onto the black rubber tire.,16.7,48,Position the red soda container onto the black rubber tire.,41.7,48,25.0,2.69,can -> container
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,Put the purple vegetable on the yellow and green scrubbing block.,29.2,48,Put the purple vegetable on the yellow and green cleaning block.,54.2,96,25.0,2.84,cleaning -> scrubbing
+widowx_coke_can_on_wheel_clean,verb synonym,False,put the red can inside the black tire,12.5,24,place the red can inside the black tire.,37.5,24,25.0,2.0,place -> put
+widowx_coke_can_on_wheel_clean,preposition synonym,False,Put the red can on the black wheel.,4.2,24,put the red can inside the black wheel,29.2,24,25.0,2.32,on -> inside
+widowx_coke_can_on_wheel_clean,preposition synonym,False,place the red can inside the black tire,20.8,48,Place the red can on the black tire.,45.8,24,25.0,2.2,on -> inside
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Set the eggplant on the keyboard keys.,25.0,48,Place the eggplant on the keyboard keys.,50.0,48,25.0,2.53,place -> set
+widowx_cube_on_plate_clean,noun/adjective synonym,False,put the green block on top of the yellow dish,62.5,24,Put the green block on top of the yellow plate.,87.5,24,25.0,2.0,plate -> dish
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the purple eggplant to the black keyboard.,12.5,48,Set the purple eggplant to the black keyboard,37.5,48,25.0,2.83,move -> set
+widowx_pepsi_on_plate_clean,verb synonym,False,Move the blue Pepsi can onto the yellow plate.,20.8,24,set the blue pepsi can onto the yellow plate,45.8,48,25.0,2.07,move -> set
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the soda can on the plate.,20.8,48,Put the pepsi can on the plate.,45.8,24,25.0,2.2,pepsi -> soda
+widowx_carrot_on_sponge_clean,noun/adjective synonym,False,Put the carrot next to the sponge.,4.2,24,put the carrot over to the sponge.,29.2,24,25.0,2.32,next -> over
+widowx_nut_on_plate_clean,preposition synonym,False,drop the grey nut on the yellow plate,4.2,24,Drop the grey nut onto the yellow plate.,29.2,24,25.0,2.32,onto -> on
+widowx_cube_on_plate_clean,case/punctuation only,False,take the cube and drop it onto the plate,54.2,48,Take the cube and drop it onto the plate.,79.2,336,25.0,3.8, -> 
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Pick up the green block and place it on the yellow plate.,58.3,24,Pick up the green cube and place it on the yellow plate.,83.3,72,25.0,2.52,block -> cube
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,False,place the purple eggplant on the green block,62.5,48,Place the purple eggplant on the green sponge.,87.5,48,25.0,2.83,sponge -> block
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Drop the Pepsi onto that light green circle.,0.0,96,Drop the Pepsi onto that light green plate.,25.0,24,25.0,5.03,circle -> plate
+widowx_cube_on_plate_clean,case/punctuation only,False,put the green block onto the yellow plate,58.3,48,Put the green block onto the yellow plate.,83.3,24,25.0,2.12, -> 
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Leave the eggplant on the keyboard.,4.2,48,Position the eggplant on the keyboard.,29.2,24,25.0,3.02,leave -> position
+widowx_carrot_on_sponge_clean,preposition synonym,False,Put the carrot onto the sponge.,20.8,72,Put the carrot on the sponge,45.8,48,25.0,2.91,on -> onto
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the coke can over to the plate,29.2,24,set the blue can over to the plate,54.2,48,25.0,2.01,blue -> coke
+widowx_nut_on_plate_clean,verb synonym,False,move the nut onto the plate.,16.7,24,lay the nut onto the plate,41.7,48,25.0,2.12,lay -> move
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Can you put the blue can on the plate?,41.7,72,Can you put the blue soda on the plate?,66.7,96,25.0,3.23,can -> soda
+widowx_orange_juice_on_plate_clean,verb synonym,True,take the orange juice carton on the yellow plate,12.5,24,drop the orange juice carton on the yellow plate,37.5,24,25.0,2.0,drop -> take
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,False,put the orange juice carton on the yellow plate.,16.7,24,Put the orange-themed carton on the yellow plate.,41.7,48,25.0,2.12,themed -> juice
+widowx_pepsi_on_plate_clean,verb synonym,False,move the Pepsi can on the plate,29.2,24,place the pepsi can on the plate,54.2,96,25.0,2.19,move -> place
+widowx_eggplant_on_sponge_clean,verb synonym,True,Place the purple eggplant on the green-and-yellow sponge.,66.7,24,Put the purple eggplant on the green and yellow sponge.,91.7,24,25.0,2.13,place -> put
+widowx_carrot_on_sponge_clean,preposition synonym,False,put the carrot to the sponge,20.8,24,Put the carrot on the sponge,45.8,48,25.0,2.07,on -> to
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Set the red can on the black keyboard.,4.2,48,set the red soda on the black keyboard,29.2,24,25.0,3.02,can -> soda
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Set the red coke can on top of the black keyboard.,12.5,48,Set the red coke directly on top of the black keyboard.,37.5,24,25.0,2.46,can -> directly
+widowx_cube_on_plate_clean,verb synonym,False,set the green block on the yellow plate,54.2,48,Put the green block on the yellow plate.,79.2,48,25.0,2.6,put -> set
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Leave the purple eggplant on the black keyboard.,27.1,48,set the purple eggplant on the black keyboard,51.9,360,24.9,3.24,leave -> set
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Move the green cube to the yellow plate.,45.8,120,Move the green block to the yellow plate.,70.5,312,24.7,4.78,block -> cube
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,put the purple thing on the yellow and green sponge,37.5,24,put the purple eggplant on the yellow and green sponge,62.1,240,24.6,2.34,eggplant -> thing
+widowx_pepsi_on_plate_clean,slight restructure,False,Put the Pepsi can on the plate.,36.2,480,put pepsi can on plate,60.8,816,24.5,8.54,reorder/determiners
+widowx_nut_on_wheel_clean,case/punctuation only,False,put the nut onto the tire,4.2,48,Put the nut onto the tire.,28.6,168,24.4,3.54, -> 
+widowx_cube_on_plate_clean,slight restructure,False,set the cube on the green plate,56.2,48,Set the green cube on the plate.,80.7,264,24.4,3.7,reorder/determiners
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the blue can on the plate,38.2,144,set the blue pepsi on the plate,62.5,24,24.3,2.24,can -> pepsi
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the purple eggplant onto the black keyboard.,16.7,192,Place the purple eggplant onto the black keyboard,40.8,120,24.2,4.74,move -> place
+widowx_nut_on_plate_clean,verb synonym,False,move the nut onto the plate.,16.7,24,Put the nut onto the plate.,40.9,264,24.2,2.33,put -> move
+widowx_cube_on_plate_clean,verb synonym,False,put the green cube into the dish,37.5,24,Place the green cube into the dish.,61.6,432,24.1,2.35,place -> put
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,drop the eggplant onto the sponge,62.5,48,Drop the eggplant onto the sponge.,86.6,216,24.1,3.94, -> 
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,Set the purple eggplant onto the black device,18.8,48,set the purple eggplant onto the black keyboard,42.9,336,24.1,3.19,device -> keyboard
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,put the red can on the black keyboard,3.7,216,put the coke can on the black keyboard,27.8,72,24.1,5.97,coke -> red
+widowx_nut_on_plate_clean,noun/adjective synonym,True,put the nut onto the yellow dish,26.0,96,put the ring onto the yellow dish,50.0,24,24.0,2.27,nut -> ring
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,True,put the purple eggplant onto the black device,16.7,48,put the purple eggplant onto the black keyboard,40.6,192,24.0,3.1,device -> keyboard
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the purple eggplant onto the black keyboard.,16.7,192,put the purple eggplant onto the black keyboard,40.6,192,24.0,5.19,move -> put
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Place the Pepsi can on the plate.,30.2,576,place the pepsi can on the plate,54.2,96,24.0,4.6, -> 
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,set the carrot in the white bowl,30.2,96,set the carrot in the white dish,54.2,24,24.0,2.2,bowl -> dish
+widowx_carrot_on_ramekin_clean,verb synonym,False,Put the carrot in the bowl.,10.8,120,set the carrot in the bowl,34.7,72,23.9,4.02,put -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,set the red can on the black keyboard,5.4,168,set the red soda on the black keyboard,29.2,24,23.8,3.95,can -> soda
+widowx_nut_on_plate_clean,noun/adjective synonym,False,Put the nut onto the dish.,25.0,48,put the nut onto the plate,48.6,144,23.6,2.86,dish -> plate
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Move the green block onto the yellow dish.,55.1,312,Move the green block onto the yellow plate.,78.7,216,23.6,5.58,dish -> plate
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the plate.,18.1,72,lay the nut onto the plate,41.7,48,23.6,2.84,move -> lay
+widowx_eggplant_on_sponge_clean,verb synonym,False,pop the purple eggplant onto the sponge,58.3,24,Put the purple eggplant onto the sponge.,81.9,216,23.6,2.72,put -> pop
+widowx_nut_on_plate_clean,verb synonym,True,move the nut onto the plate,25.0,24,put the nut onto the plate,48.6,144,23.6,2.15,move -> put
+widowx_carrot_on_ramekin_clean,verb synonym,False,put the carrot in the bowl.,11.1,72,set the carrot in the bowl,34.7,72,23.6,3.37,put -> set
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,put the eggplant across the keyboard,4.2,24,Put the eggplant onto the keyboard.,27.7,264,23.5,2.52,onto -> across
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Put the green block on the dish.,53.6,192,Put the green block on the plate.,77.1,96,23.4,3.85,dish -> plate
+widowx_carrot_on_wheel_clean,verb synonym,False,put the carrot on the wheel,3.5,144,Place the carrot on the wheel.,26.7,45,23.2,4.75,place -> put
+widowx_eggplant_on_sponge_clean,verb synonym,False,set the purple eggplant on the green and yellow sponge,68.6,264,Put the purple eggplant on the green and yellow sponge.,91.7,24,23.1,2.38,put -> set
+widowx_cube_on_plate_clean,noun/adjective synonym,True,set the green block on the yellow plate,54.2,48,set the green cube on the yellow plate,77.2,408,23.0,3.48,block -> cube
+widowx_cube_on_plate_clean,verb synonym,True,move the green cube on the yellow plate,54.2,24,set the green cube on the yellow plate,77.2,408,23.0,2.57,move -> set
+widowx_nut_on_plate_clean,verb synonym,True,Move the nut onto the plate.,18.1,72,Put the nut onto the plate.,40.9,264,22.9,3.58,move -> put
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,set the red soda can on the black tire,14.6,48,set the red coke can on the black tire,37.5,24,22.9,2.2,coke -> soda
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Put the dark nut on the plate.,18.8,48,Put the grey nut on the plate.,41.7,24,22.9,2.08,dark -> grey
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,True,Pick up the orange juice box and place it on the yellow plate.,12.5,24,Pick up the orange juice carton and place it on the yellow plate.,35.4,48,22.9,2.05,box -> carton
+widowx_eggplant_on_keyboard_clean,case/punctuation only,False,Put the eggplant on the black keyboard.,31.2,144,put the eggplant on the black keyboard,54.2,96,22.9,3.54, -> 
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,False,Put the juice box onto the yellow dish.,4.2,24,put the juice box onto the yellow plate,27.1,48,22.9,2.32,dish -> plate
+widowx_pepsi_on_plate_clean,verb synonym,False,put the blue Pepsi can on the plate,45.8,48,set the blue pepsi can on the plate,68.8,48,22.9,2.27,put -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Set the red cylinder on top of the black peripheral.,18.8,48,Set the red cylinder on top of the black keys.,41.7,24,22.9,2.08,keys -> peripheral
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,Place the purple eggplant on the green-and-yellow sponge.,66.7,24,place the purple eggplant on the green and yellow sponge,89.6,48,22.9,2.38, -> 
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,False,Put the juice box onto the yellow dish.,4.2,24,put the small box onto the yellow dish,27.1,48,22.9,2.32,juice -> small
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the soda can on the plate.,20.8,48,put the pepsi can on the plate,43.8,96,22.9,2.7,soda -> pepsi
+widowx_cube_on_plate_clean,case/punctuation only,False,set the green block on the yellow plate,54.2,48,Set the green block on the yellow plate.,77.1,48,22.9,2.36, -> 
+widowx_cube_on_plate_clean,noun/adjective synonym,False,set the teal block onto the yellow dish,50.0,48,Set the teal block onto the yellow plate.,72.9,48,22.9,2.31,plate -> dish
+widowx_pepsi_on_plate_clean,verb synonym,False,Put the blue Pepsi can on the light yellow plate.,31.2,96,set the blue pepsi can on the light yellow plate,54.2,48,22.9,2.66,put -> set
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,False,put the carrot in the little bowl,14.6,48,put the carrot in the white bowl.,37.5,24,22.9,2.2,little -> white
+widowx_coke_can_on_wheel_clean,verb synonym,True,move the red can on the black wheel,2.1,48,rest the red can on the black wheel,25.0,24,22.9,3.09,move -> rest
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the can on the dish.,0.0,24,Put the can on the plate.,22.9,48,22.9,2.55,dish -> plate
+widowx_pepsi_on_plate_clean,verb synonym,False,put the Pepsi can on the plate,31.2,48,place the pepsi can on the plate,54.2,96,22.9,2.6,place -> put
+widowx_cube_on_plate_clean,slight restructure,True,set the cube on the green plate,56.2,48,set green cube on plate,79.2,144,22.9,3.11,reorder/determiners
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Place the blue soda can onto the yellow plate.,27.1,48,Place the blue coke can onto the yellow plate.,50.0,96,22.9,2.62,coke -> soda
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,False,Put the red can on the black wheel.,4.2,24,put the red can on the black tire,27.1,48,22.9,2.32,wheel -> tire
+widowx_coke_can_on_wheel_clean,verb synonym,False,move the red can on the black wheel,2.1,48,Place the red can on the black wheel.,25.0,24,22.9,3.09,place -> move
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,put the red can onto the black device,12.5,48,put the red cylinder onto the black device,35.4,48,22.9,2.63,can -> cylinder
+widowx_nut_on_plate_clean,verb synonym,True,move the nut onto the yellow plate,18.8,48,drop the nut onto the yellow plate,41.7,48,22.9,2.45,drop -> move
+widowx_coke_can_on_wheel_clean,verb synonym,False,set the red soda can on the black tire,14.6,48,Place the red soda can on the black tire.,37.5,24,22.9,2.2,place -> set
+widowx_nut_on_plate_clean,noun/adjective synonym,False,set the hexagonal nut on the plate,22.9,48,Set the grey nut on the plate,45.8,48,22.9,2.36,grey -> hexagonal
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Lay the purple eggplant on the black keyboard,29.2,72,set the purple eggplant on the black keyboard,51.9,360,22.8,3.53,lay -> set
+widowx_eggplant_on_keyboard_clean,preposition synonym,False,Set the purple eggplant onto the black keyboard?,29.2,24,set the purple eggplant on the black keyboard,51.9,360,22.8,2.16,onto -> on
+widowx_pepsi_on_plate_clean,verb synonym,False,Move the blue can over to the plate.,31.4,312,set the blue can over to the plate,54.2,48,22.8,3.09,move -> set
+widowx_cube_on_plate_clean,verb synonym,True,Move the green square to the plate.,50.0,24,Transfer the green square to the plate.,72.7,264,22.7,2.35,move -> transfer
+widowx_eggplant_on_sponge_clean,verb synonym,True,Move the purple eggplant onto the sponge.,59.5,168,Put the purple eggplant onto the sponge.,81.9,216,22.4,4.86,move -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Leave the eggplant on the keyboard.,4.2,48,set the eggplant on the keyboard,26.4,216,22.2,3.34,leave -> set
+widowx_pepsi_on_plate_clean,verb synonym,False,Place the blue can on the yellow plate.,23.6,144,drop the blue can on the yellow plate,45.8,24,22.2,2.28,place -> drop
+widowx_nut_on_plate_clean,verb synonym,False,Place the nut on the yellow plate.,23.6,72,drop the nut on the yellow plate,45.8,24,22.2,2.07,place -> drop
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,set the red coke can on top of the black keyboard,15.3,144,Set the red coke directly on top of the black keyboard.,37.5,24,22.2,2.6,directly -> can
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Take the little nut and set it on the dish.,5.0,360,Take the little nut and set it on the plate.,27.1,48,22.1,5.42,dish -> plate
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Put the dark nut on the plate.,18.8,48,Put the hex nut on the plate.,40.6,192,21.9,2.82,dark -> hex
+widowx_nut_on_plate_clean,verb synonym,False,Put the nut on the yellow plate.,24.0,96,drop the nut on the yellow plate,45.8,24,21.9,2.13,put -> drop
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Place the blue can on the plate.,35.0,120,place that blue can on the plate,56.9,144,21.9,3.56,the -> that
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Place the red coke can inside the center of the black tire.,10.4,48,Place the red coke can inside the center of the black wheel.,32.3,96,21.9,2.86,tire -> wheel
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,put the nut onto the wheel,6.9,72,Put the nut onto the tire.,28.6,168,21.6,3.7,tire -> wheel
+widowx_nut_on_plate_clean,noun/adjective synonym,False,get the nut on the plate,25.6,168,Put the nut on the plate.,47.2,144,21.6,3.98,put -> get
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Set the blue can on the plate.,36.8,144,set that blue can on the plate,58.3,48,21.5,2.62,the -> that
+widowx_nut_on_plate_clean,verb synonym,False,Lay the nut onto the plate,32.7,312,transfer the nut onto the plate,54.2,24,21.5,2.14,lay -> transfer
+widowx_eggplant_on_keyboard_clean,verb synonym,True,put the eggplant on the keyboard,12.0,192,place the eggplant on the keyboard,33.3,96,21.4,4.35,place -> put
+widowx_nut_on_wheel_clean,preposition synonym,True,put the grey nut on the black tire,16.1,168,put the grey nut into the black tire,37.5,24,21.4,2.52,into -> on
+widowx_carrot_on_ramekin_clean,preposition synonym,True,Place the carrot in the ramekin.,19.3,192,Place the carrot inside the ramekin.,40.6,96,21.4,3.88,in -> inside
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Move the green cube onto the yellow plate.,57.3,96,Move the green block onto the yellow plate.,78.7,216,21.4,3.89,block -> cube
+widowx_pepsi_on_plate_clean,verb synonym,False,Set the Pepsi can on the plate.,32.7,168,place the pepsi can on the plate,54.2,96,21.4,3.41,set -> place
+widowx_pepsi_on_plate_clean,slight restructure,False,Please put the blue can on the plate.,16.7,24,put the blue can on the plate,38.1,168,21.4,2.05,reorder/determiners
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the yellow plate.,11.2,624,set the nut onto the yellow plate,32.6,144,21.4,6.45,move -> set
+widowx_cube_on_plate_clean,preposition synonym,False,put the green block on the yellow plate,62.0,192,Put the green block onto the yellow plate.,83.3,24,21.4,2.06,onto -> on
+widowx_eggplant_on_sponge_clean,slight restructure,True,put the purple eggplant on the yellow and green sponge,62.1,240,please put the purple eggplant on the green and yellow sponge,83.3,24,21.3,2.07,reorder/determiners
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,False,Lay the purple thing on the yellow and green sponge.,37.0,216,lay the purple eggplant on the yellow and green sponge,58.3,24,21.3,2.03,thing -> eggplant
+widowx_eggplant_on_sponge_clean,verb synonym,False,put the purple eggplant on the yellow and green sponge,62.1,240,Lay the purple eggplant on the yellow and green sponge.,83.3,24,21.3,2.07,lay -> put
+widowx_eggplant_on_keyboard_clean,slight restructure,False,Put the eggplant on the keyboard.,16.2,216,put eggplant on keyboard,37.5,672,21.3,5.82,reorder/determiners
+widowx_eggplant_on_sponge_clean,slight restructure,False,put the purple eggplant on the yellow and green sponge,62.1,240,put the purple eggplant on the green and yellow sponge.,83.3,24,21.3,2.07,reorder/determiners
+widowx_eggplant_on_sponge_clean,verb synonym,False,place the purple eggplant on the green sponge,66.7,48,Put the purple eggplant on the green sponge.,88.0,216,21.3,3.65,put -> place
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,put the red can on the black keyboard,3.7,216,put the red coke on the black keyboard,25.0,24,21.3,4.22,can -> coke
+widowx_carrot_on_sponge_clean,verb synonym,True,Place the orange carrot on the green and yellow sponge.,8.3,24,Set the orange carrot on the green and yellow sponge.,29.6,240,21.2,2.22,place -> set
+widowx_eggplant_on_sponge_clean,verb synonym,True,set the purple eggplant on the green and yellow sponge,68.6,264,place the purple eggplant on the green and yellow sponge,89.6,48,21.0,2.98,place -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,pick up the red can and place it on the black keyboard,8.3,48,Pick up the red soda and place it on the black keyboard.,29.2,24,20.8,2.32,soda -> can
+widowx_coke_can_on_wheel_clean,preposition synonym,False,Put the red can on the black wheel.,4.2,24,put the red can onto the black wheel,25.0,48,20.8,2.17,on -> onto
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Pick up the red can and place it on the black keyboard.,8.3,48,Pick up the red soda and place it on the black keyboard.,29.2,24,20.8,2.32,can -> soda
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the purple eggplant onto the black keyboard.,16.7,192,put the purple eggplant onto the black keyboard.,37.5,24,20.8,2.45,move -> put
+widowx_cube_on_plate_clean,noun/adjective synonym,False,get the green cube onto that plate,66.7,48,Set the green cube onto that plate.,87.5,48,20.8,2.43,set -> get
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the purple eggplant onto the black keyboard.,16.7,192,set the purple eggplant onto the black keyboard?,37.5,24,20.8,2.45,move -> set
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the Pepsi can on the light green plate.,8.3,24,put the blue can on the light green plate,29.2,48,20.8,2.0,pepsi -> blue
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Move the purple eggplant onto the black keyboard.,16.7,192,Place the purple eggplant onto the black keyboard.,37.5,72,20.8,3.62,move -> place
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Place the red cylinder onto the black device.,25.0,48,Put the red cylinder onto the black device.,45.8,48,20.8,2.13,place -> put
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Place the blue soda can on the yellow plate.,25.0,240,place the blue pepsi can on the yellow plate,45.8,24,20.8,2.19,soda -> pepsi
+widowx_eggplant_on_sponge_clean,verb synonym,True,drop the eggplant onto the sponge,62.5,48,put the eggplant onto the sponge,83.3,48,20.8,2.3,drop -> put
+widowx_cube_on_plate_clean,noun/adjective synonym,False,set the teal block on the yellow plate,56.2,48,Set the green block on the yellow plate.,77.1,48,20.8,2.17,green -> teal
+widowx_coke_can_on_wheel_clean,verb synonym,False,Put the red can on the black wheel.,4.2,24,rest the red can on the black wheel,25.0,24,20.8,2.04,put -> rest
+widowx_nut_on_plate_clean,verb synonym,False,drop the grey nut on the yellow plate,4.2,24,set the grey nut on the yellow plate.,25.0,48,20.8,2.17,drop -> set
+widowx_nut_on_plate_clean,verb synonym,False,drop the grey nut on the yellow plate,4.2,24,Set the grey nut on the yellow plate.,25.0,24,20.8,2.04,set -> drop
+widowx_nut_on_wheel_clean,verb synonym,False,place the nut onto the wheel,0.0,96,put the nut onto the wheel.,20.8,24,20.8,4.57,place -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Leave the eggplant on the keyboard.,4.2,48,Rest the eggplant on the keyboard.,25.0,24,20.8,2.65,leave -> rest
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,lay the eggplant across the keyboard,4.2,48,Lay the eggplant on the keyboard,25.0,24,20.8,2.65,on -> across
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Leave the eggplant on the keyboard.,4.2,48,Lay the eggplant on the keyboard,25.0,24,20.8,2.65,lay -> leave
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,True,Lay the eggplant across the keyboard,4.2,192,Lay the eggplant on the keyboard,25.0,24,20.8,3.91,across -> on
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Position the red soda can directly onto the black rubber tire.,14.6,96,Position the red soda container directly onto the black rubber tire.,35.4,48,20.8,2.87,can -> container
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Leave the eggplant on the keyboard.,4.2,48,Put the eggplant on the keyboard,25.0,24,20.8,2.65,leave -> put
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,place the purple eggplant on the green sponge,66.7,48,Place the purple eggplant on the green sponge.,87.5,48,20.8,2.43, -> 
+widowx_carrot_on_sponge_clean,slight restructure,True,Set the orange carrot on top of the yellow and green block.,8.3,48,Set the orange carrot on top of the green and yellow block.,29.2,48,20.8,2.61,reorder/determiners
+widowx_carrot_on_sponge_clean,verb synonym,True,put the carrot on the sponge.,25.0,48,place the carrot on the sponge.,45.8,48,20.8,2.13,place -> put
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,Grab the nut and place it on the black wheel.,0.0,48,Grab the nut and place it on the black tire.,20.8,24,20.8,3.28,tire -> wheel
+widowx_eggplant_on_sponge_clean,verb synonym,False,place the eggplant on the sponge.,66.7,24,Put the eggplant on the sponge,87.5,48,20.8,2.11,put -> place
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,put the eggplant on the sponge.,66.7,48,Put the eggplant on the sponge,87.5,48,20.8,2.43, -> 
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Leave the eggplant on the keyboard.,4.2,48,place the eggplant on the keyboard.,25.0,24,20.8,2.65,leave -> place
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Leave the eggplant on the keyboard.,4.2,48,rest the eggplant on the keyboard,25.0,48,20.8,2.89,leave -> rest
+widowx_pepsi_on_plate_clean,verb synonym,True,set the blue can on the yellow plate,25.0,264,drop the blue can on the yellow plate,45.8,24,20.8,2.21,drop -> set
+widowx_coke_can_on_wheel_clean,verb synonym,False,put the red soda can on the wheel,4.2,24,Place the red soda can on the wheel.,25.0,24,20.8,2.04,place -> put
+widowx_coke_can_on_keyboard_clean,verb synonym,False,take the red coke can and put it on the black keyboard,0.0,24,Grab the red coke can and put it on the black keyboard.,20.8,24,20.8,2.36,grab -> take
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Set the teal block on the yellow plate.,56.2,48,Set the green block on the yellow plate.,77.1,48,20.8,2.17,green -> teal
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,set the red can onto the black keyboard,2.1,96,set the coke can onto the black keyboard,22.9,48,20.8,4.11,coke -> red
+widowx_carrot_on_sponge_clean,case/punctuation only,False,put the carrot on the sponge.,25.0,48,Put the carrot on the sponge,45.8,48,20.8,2.13, -> 
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,put the beverage can on the keyboard,0.0,24,Put the cola can on the keyboard.,20.8,24,20.8,2.36,cola -> beverage
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Drop the coke can onto the plate.,35.4,48,drop the pepsi can onto the plate,56.2,48,20.8,2.05,coke -> pepsi
+widowx_carrot_on_ramekin_clean,verb synonym,True,Place the orange carrot on the white ramekin.,4.2,24,Put the orange carrot on the white ramekin.,25.0,24,20.8,2.04,place -> put
+widowx_coke_can_on_wheel_clean,verb synonym,True,Put the red can on the black wheel.,4.2,24,Place the red can on the black wheel.,25.0,24,20.8,2.04,place -> put
+widowx_pepsi_on_plate_clean,verb synonym,True,Drop the Pepsi can onto the plate.,25.0,120,put the Pepsi can onto the plate.,45.8,24,20.8,2.06,drop -> put
+widowx_stack_cube,noun/adjective synonym,True,Put the green block on the yellow block.,28.2,39,Stack the green block on the yellow block.,49.0,51,20.8,2.0,put -> stack
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,put the beverage can on the keyboard,0.0,24,put the Coke can on the keyboard,20.8,24,20.8,2.36,coke -> beverage
+widowx_nut_on_plate_clean,verb synonym,False,move the nut onto the plate.,16.7,24,Drop the nut onto the plate.,37.5,216,20.8,2.02,drop -> move
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,True,put the juice carton onto the plate,20.8,48,put the juice box onto the plate,41.7,48,20.8,2.2,box -> carton
+widowx_eggplant_on_keyboard_clean,slight restructure,False,put the eggplant on the keyboard.,16.7,24,put eggplant on keyboard,37.5,672,20.8,2.08,reorder/determiners
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,set the red soda can on the black keyboard,4.2,144,Set the red beverage can on the black keyboard,25.0,24,20.8,3.67,beverage -> soda
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Set the red can on the black keyboard,8.3,48,set the red soda on the black keyboard,29.2,24,20.8,2.32,can -> soda
+widowx_nut_on_wheel_clean,preposition synonym,False,put the nut onto the tire,4.2,48,Put the nut on the tire.,25.0,216,20.8,3.19,on -> onto
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,False,Set the red can onto the black rubber tire.,10.4,48,set the red can onto the black rubber wheel,31.2,96,20.8,2.75,tire -> wheel
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,put the eggplant across the keyboard,4.2,24,Put the eggplant on the keyboard,25.0,24,20.8,2.04,on -> across
+widowx_nut_on_wheel_clean,preposition synonym,False,put the nut onto the tire,4.2,48,put the nut on the tire.,25.0,24,20.8,2.65,on -> onto
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Slide the red can onto the black keyboard,0.0,72,place the red can onto the black keyboard,20.8,48,20.8,4.05,slide -> place
+widowx_carrot_on_ramekin_clean,verb synonym,False,Move the carrot to the bowl.,8.3,48,set the carrot to the bowl,29.2,24,20.8,2.32,move -> set
+widowx_eggplant_on_sponge_clean,verb synonym,False,set the purple eggplant onto the yellow and green sponge,70.8,144,Deposit the purple eggplant onto the yellow and green sponge.,91.7,24,20.8,2.15,deposit -> set
+widowx_carrot_on_ramekin_clean,preposition synonym,True,Place the orange carrot on the white ramekin.,4.2,24,Place the orange carrot in the white ramekin.,25.0,24,20.8,2.04,in -> on
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Place the blue soda can on the yellow plate.,25.0,240,Place the blue Pepsi can on the yellow plate.,45.8,48,20.8,2.92,pepsi -> soda
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Put the teal block onto the center of the yellow plate.,47.9,48,Put the green block onto the center of the yellow plate.,68.8,48,20.8,2.07,green -> teal
+widowx_eggplant_on_sponge_clean,verb synonym,True,pop the purple eggplant onto the sponge,58.3,24,set the purple eggplant onto the sponge,79.2,144,20.8,2.22,pop -> set
+widowx_cube_on_plate_clean,verb synonym,False,set the green block on the yellow plate,54.2,48,Deposit the green block on the yellow plate.,75.0,48,20.8,2.13,deposit -> set
+widowx_pepsi_on_plate_clean,preposition synonym,True,Move the blue can to the plate.,16.7,48,Move the blue can onto the plate.,37.5,168,20.8,2.71,onto -> to
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the beverage can on the keyboard.,0.0,96,Put the cola can on the keyboard.,20.8,24,20.8,4.57,beverage -> cola
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the beverage can on the keyboard.,0.0,96,put the Coke can on the keyboard,20.8,24,20.8,4.57,beverage -> coke
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,set the can on the wheel,0.0,24,set the coke on the wheel,20.8,72,20.8,2.43,can -> coke
+widowx_pepsi_on_plate_clean,verb synonym,True,Move the blue coke can onto the yellow plate.,29.2,48,Place the blue coke can onto the yellow plate.,50.0,96,20.8,2.38,move -> place
+widowx_cube_on_plate_clean,preposition synonym,False,put the green block onto the yellow plate,58.3,48,Put the green block on the yellow plate.,79.2,48,20.8,2.2,on -> onto
+widowx_carrot_on_ramekin_clean,verb synonym,False,Place the orange carrot on the white ramekin.,4.2,24,put the orange carrot on the white ramekin,25.0,24,20.8,2.04,place -> put
+widowx_carrot_on_ramekin_clean,verb synonym,False,Stick the carrot in the bowl.,14.0,264,set the carrot in the bowl,34.7,72,20.7,4.01,stick -> set
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Move the eggplant onto the keyboard.,16.7,48,Place the eggplant onto the keyboard,37.1,264,20.5,2.75,move -> place
+widowx_pepsi_on_plate_clean,verb synonym,False,put the blue can onto the yellow plate,9.7,72,Set the blue can onto the yellow plate.,30.2,96,20.5,3.2,set -> put
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,True,Get the eggplant onto the keyboard,16.7,48,Place the eggplant onto the keyboard,37.1,264,20.5,2.75,get -> place
+widowx_coke_can_on_keyboard_clean,case/punctuation only,False,grab the soda and place it on the computer keyboard,6.2,48,Grab the soda and place it on the computer keyboard.,26.7,240,20.4,3.06, -> 
+widowx_cube_on_plate_clean,verb synonym,False,put the green block onto the yellow plate,58.3,48,Move the green block onto the yellow plate.,78.7,216,20.4,2.95,move -> put
+widowx_stack_cube,noun/adjective synonym,False,put the green block on the yellow block,28.6,63,Stack the green block on the yellow block.,49.0,51,20.4,2.24,stack -> put
+widowx_nut_on_plate_clean,noun/adjective synonym,True,get the nut on the plate,25.6,168,drop the nut on the plate,45.8,72,20.2,3.09,drop -> get
+widowx_nut_on_plate_clean,noun/adjective synonym,False,get the nut on the plate,25.6,168,Put the nut on the plate,45.8,72,20.2,3.09,put -> get
+widowx_nut_on_wheel_clean,preposition synonym,False,put the nut to the tire,8.3,24,Put the nut onto the tire.,28.6,168,20.2,2.11,onto -> to
+widowx_coke_can_on_wheel_clean,verb synonym,False,set the red soda can in the black tire,22.9,96,Place the red soda can in the black tire.,43.1,144,20.1,3.2,place -> set
+widowx_cube_on_plate_clean,verb synonym,True,set the green block on the plate,71.5,144,drop the green block on the plate,91.7,48,20.1,2.85,drop -> set
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,Place the purple thing on the yellow and green sponge.,54.2,24,Place the purple eggplant on the yellow and green sponge.,74.3,144,20.1,2.02,eggplant -> thing
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Put the eggplant on the black keyboard.,31.2,144,Place the eggplant on the black keyboard.,51.4,72,20.1,2.88,place -> put
+widowx_coke_can_on_wheel_clean,preposition synonym,False,put the red soda can on the black tire,18.8,48,Put the red soda can onto the black tire.,38.9,72,20.1,2.34,onto -> on
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,True,Put the orange juice on the yellow plate.,17.4,144,Put the orange juice on the circular plate.,37.5,24,20.1,2.27,circular -> yellow
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Place the eggplant on top of the keyboard.,4.9,144,Put the eggplant on top of the keyboard.,25.0,24,20.1,3.42,place -> put
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the blue can on the plate,38.2,144,set that blue can on the plate,58.3,48,20.1,2.44,that -> the
+widowx_stack_cube,noun/adjective synonym,True,put the green cube on the yellow one,33.3,54,put the green cube on the yellow cube,53.3,45,20.0,2.0,cube -> one
+widowx_cube_on_plate_clean,case/punctuation only,False,pick up the green cube and place it on the plate,75.0,96,Pick up the green cube and place it on the plate.,95.0,504,20.0,6.57, -> 
+widowx_carrot_on_sponge_clean,preposition synonym,False,put the carrot onto the sponge,26.0,96,Put the carrot on the sponge,45.8,48,19.8,2.39,on -> onto
+widowx_cube_on_plate_clean,verb synonym,False,Move the green cube onto the yellow plate.,57.3,96,set the green cube onto the yellow plate,77.1,96,19.8,2.92,move -> set
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the blue can on the plate.,30.2,96,put the blue soda on the plate,50.0,168,19.8,3.13,can -> soda
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the coke can on the plate,25.0,96,set the pepsi can on the plate,44.8,192,19.8,3.26,coke -> pepsi
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,False,Put the juice box onto the yellow dish.,4.2,24,put the juice carton onto the yellow dish,24.0,96,19.8,2.17,box -> carton
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Set the coke can on the plate.,25.0,48,set the pepsi can on the plate,44.8,192,19.8,2.5,coke -> pepsi
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the blue can on the plate.,30.2,96,Put the blue soda on the plate,50.0,48,19.8,2.32,can -> soda
+widowx_eggplant_on_keyboard_clean,preposition synonym,False,Set the purple eggplant onto the black keyboard.,32.3,192,set the purple eggplant on the black keyboard,51.9,360,19.7,4.42,onto -> on
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,Set the carrot down inside the bowl.,12.5,48,Set the carrot down inside the ramekin.,32.1,168,19.6,2.68,bowl -> ramekin
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Place the purple eggplant on the black keyboard.,32.4,312,set the purple eggplant on the black keyboard,51.9,360,19.6,5.11,place -> set
+widowx_eggplant_on_sponge_clean,verb synonym,False,Move the purple eggplant onto the sponge.,59.5,168,set the purple eggplant onto the sponge,79.2,144,19.6,3.73,move -> set
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,Move the eggplant to the keyboard.,5.4,168,give the eggplant to the keyboard,25.0,72,19.6,4.41,move -> give
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,Move the eggplant to the keyboard.,5.4,168,Give the eggplant to the keyboard,25.0,192,19.6,5.09,give -> move
+widowx_cube_on_plate_clean,verb synonym,True,Transfer the green cube to the plate.,63.7,168,Set the green cube to the plate.,83.3,48,19.6,2.57,set -> transfer
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Place the blue can onto the yellow dish.,16.0,144,place the blue can onto the yellow plate,35.4,48,19.4,2.87,dish -> plate
+widowx_carrot_on_sponge_clean,preposition synonym,False,pick up the carrot and place it on the sponge,23.6,72,Pick up the carrot and place it onto the sponge.,43.1,72,19.4,2.47,onto -> on
+widowx_nut_on_plate_clean,verb synonym,True,Move the nut onto the plate.,18.1,72,Drop the nut onto the plate.,37.5,216,19.4,3.05,drop -> move
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the red can on the black keyboard,8.3,48,put the coke can on the black keyboard,27.8,72,19.4,2.61,red -> coke
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,Put the eggplant across the keyboard,8.3,24,Put the eggplant onto the keyboard.,27.7,264,19.3,2.06,across -> onto
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,False,Set the drink container on top of the plate.,5.7,192,set the drink box on top of the plate,25.0,24,19.3,3.31,container -> box
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Place the blue can on the plate.,35.0,120,place the pepsi can on the plate,54.2,96,19.2,2.82,blue -> pepsi
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,False,Put the red can on the black wheel.,4.2,24,put the coke can on the black wheel,23.3,120,19.2,2.14,red -> coke
+widowx_cube_on_plate_clean,verb synonym,True,Move the green block onto the plate.,65.3,216,Drop the green block onto the plate.,84.4,384,19.1,5.38,drop -> move
+widowx_orange_juice_on_plate_clean,verb synonym,True,Move the juice box onto the yellow plate.,14.4,216,Place the juice box onto the yellow plate.,33.3,24,19.0,2.39,move -> place
+widowx_cube_on_plate_clean,preposition synonym,True,set the green cube to the yellow plate,58.3,24,set the green cube on the yellow plate,77.2,408,18.9,2.11,on -> to
+widowx_cube_on_plate_clean,verb synonym,True,Place the small teal block on the light green circular dish.,50.0,96,Put the small teal block on the light green circular dish.,68.8,144,18.8,2.92,place -> put
+widowx_pepsi_on_plate_clean,verb synonym,True,Drop the Pepsi onto that green plate.,10.4,48,Set the Pepsi onto that green plate.,29.2,48,18.8,2.31,drop -> set
+widowx_nut_on_plate_clean,verb synonym,False,move the nut onto the yellow plate,18.8,48,Drop the nut onto the yellow plate.,37.5,120,18.8,2.35,drop -> move
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Set the red can onto the black keyboard.,4.2,96,set the coke can onto the black keyboard,22.9,48,18.8,3.47,red -> coke
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Transfer the red can onto the black keyboard.,2.1,48,place the red can onto the black keyboard,20.8,48,18.8,2.88,transfer -> place
+widowx_coke_can_on_wheel_clean,verb synonym,False,move the red can on the black wheel,2.1,48,Rest the red can on the black wheel.,20.8,24,18.8,2.71,rest -> move
+widowx_coke_can_on_wheel_clean,verb synonym,True,move the red can on the black wheel,2.1,48,set the red can on the black wheel,20.8,48,18.8,2.88,move -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,True,set the red can onto the black keyboard,2.1,96,place the red can onto the black keyboard,20.8,48,18.8,3.84,place -> set
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,pick up the nut and put it on the wheel,0.0,48,Pick up the nut and put it on the tire.,18.8,48,18.8,3.15,tire -> wheel
+widowx_nut_on_plate_clean,verb synonym,True,move the nut onto the yellow plate,18.8,48,put the nut onto the yellow plate,37.5,96,18.8,2.29,move -> put
+widowx_nut_on_plate_clean,preposition synonym,True,set the small dark hexagonal nut onto the round pale yellow plate,16.7,48,set the small dark hexagonal nut on the round pale yellow plate,35.4,48,18.8,2.09,on -> onto
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Leave the eggplant on the keyboard.,4.2,48,Set the eggplant on the keyboard.,22.9,48,18.8,2.68,leave -> set
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,put the purple eggplant on the green and yellow sponge,72.9,192,Put the purple eggplant on the green and yellow sponge.,91.7,24,18.8,2.0, -> 
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the soda can on the dish.,2.1,48,Put the soda can on the plate.,20.8,48,18.8,2.88,dish -> plate
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,rest the soda can on the black wheel,6.2,48,rest the red can on the black wheel,25.0,24,18.8,2.27,red -> soda
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,False,Set the can on the wheel.,2.1,48,set the coke on the wheel,20.8,72,18.8,2.96,can -> coke
+widowx_pepsi_on_plate_clean,verb synonym,False,Put the blue can onto the yellow plate.,16.7,48,place the blue can onto the yellow plate,35.4,48,18.8,2.09,put -> place
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Put the can of Pepsi on the plate.,16.7,144,put the can of pepsi on the plate,35.4,48,18.8,2.75, -> 
+widowx_coke_can_on_wheel_clean,verb synonym,False,move the red can on the black wheel,2.1,48,Set the red can on the black wheel.,20.8,24,18.8,2.71,set -> move
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,False,Put the red can on the black wheel.,4.2,24,put the soda can on the black wheel.,22.9,48,18.8,2.01,red -> soda
+widowx_eggplant_on_sponge_clean,verb synonym,False,put the eggplant on the sponge.,66.7,48,Set the eggplant on the sponge.,85.4,48,18.8,2.15,set -> put
+widowx_eggplant_on_sponge_clean,verb synonym,False,drop the purple eggplant onto the sponge,70.8,72,Set the purple eggplant onto the sponge.,89.6,48,18.8,2.44,set -> drop
+widowx_coke_can_on_keyboard_clean,case/punctuation only,True,Put the Coke on the keyboard.,10.4,48,Put the coke on the keyboard.,29.2,24,18.8,2.01, -> 
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Put the Coke on the keyboard.,10.4,48,drop the Coke on the keyboard,29.2,24,18.8,2.01,put -> drop
+widowx_nut_on_plate_clean,verb synonym,True,Move the nut onto the yellow plate.,11.2,624,Put the nut onto the yellow plate.,30.0,120,18.8,5.39,move -> put
+widowx_carrot_on_ramekin_clean,verb synonym,False,put the carrot in the little white bowl.,12.5,48,set the carrot in the little white bowl,31.2,48,18.7,2.22,put -> set
+widowx_nut_on_plate_clean,noun/adjective synonym,False,Set the hexagonal nut on the plate.,27.1,96,Set the grey nut on the plate,45.8,48,18.7,2.25,grey -> hexagonal
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,False,put the carrot in the little bowl,14.6,48,Put the carrot in the white bowl.,33.3,360,18.7,2.64,white -> little
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,Put the eggplant on the computer keyboard.,35.4,96,put the eggplant on the black keyboard,54.2,96,18.7,2.61,computer -> black
+widowx_nut_on_plate_clean,case/punctuation only,False,Put the dark nut on the plate.,18.8,48,put the dark nut on the plate,37.5,72,18.7,2.2, -> 
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,Move the carrot to the white bowl.,20.8,96,Move the carrot to the white dish.,39.6,48,18.7,2.39,bowl -> dish
+widowx_carrot_on_sponge_clean,verb synonym,False,Put the carrot onto the sponge.,20.8,72,drop the carrot onto the sponge,39.6,96,18.7,2.59,put -> drop
+widowx_eggplant_on_keyboard_clean,verb synonym,True,drop the purple eggplant on the black keyboard,33.3,48,set the purple eggplant on the black keyboard,51.9,360,18.6,2.42,drop -> set
+widowx_eggplant_on_keyboard_clean,case/punctuation only,False,Set the purple eggplant on the black keyboard.,33.3,72,set the purple eggplant on the black keyboard,51.9,360,18.6,2.88, -> 
+widowx_eggplant_on_keyboard_clean,case/punctuation only,False,set the purple eggplant on the black keyboard.,33.3,48,set the purple eggplant on the black keyboard,51.9,360,18.6,2.42, -> 
+widowx_eggplant_on_keyboard_clean,verb synonym,False,put the eggplant on the keyboard,12.0,192,Place the eggplant on the keyboard.,30.5,600,18.5,5.09,place -> put
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the red can on the black keyboard.,9.4,96,put the coke can on the black keyboard,27.8,72,18.4,3.12,red -> coke
+widowx_carrot_on_sponge_clean,verb synonym,False,Set the carrot on the green sponge.,26.0,96,put the carrot on the green sponge,44.4,144,18.4,2.89,set -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Move the purple eggplant onto the black keyboard.,16.7,192,Deposit the purple eggplant onto the black keyboard.,35.0,120,18.3,3.7,deposit -> move
+widowx_coke_can_on_keyboard_clean,slight restructure,True,put the coke can on the keyboard,11.5,96,put coke can on keyboard,29.7,720,18.3,3.76,reorder/determiners
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Leave the purple eggplant on the black keyboard.,27.1,48,put the purple eggplant on the black keyboard,45.3,408,18.3,2.41,leave -> put
+widowx_nut_on_plate_clean,slight restructure,False,"grey Nut set on the plate, please.",16.7,48,set the grey nut on the plate,35.0,120,18.3,2.35,reorder/determiners
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the blue soda can on the yellow plate,28.3,120,set the blue pepsi can on the yellow plate,46.5,144,18.2,3.03,pepsi -> soda
+widowx_nut_on_plate_clean,verb synonym,False,place the nut on the plate,29.2,48,Put the nut on the plate.,47.2,144,18.1,2.19,put -> place
+widowx_cube_on_plate_clean,verb synonym,True,Move the green block onto the plate.,65.3,216,Put the green block onto the plate.,83.3,48,18.1,2.44,move -> put
+widowx_nut_on_plate_clean,verb synonym,True,Place the nut on the plate.,29.2,48,Put the nut on the plate.,47.2,144,18.1,2.19,place -> put
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,False,drop the little purple eggplant onto the sponge,61.1,144,Drop the small purple eggplant onto the sponge.,79.2,72,18.1,2.66,small -> little
+widowx_cube_on_plate_clean,verb synonym,False,Move the green block onto the plate.,65.3,216,put the green block onto the plate.,83.3,48,18.1,2.44,move -> put
+widowx_coke_can_on_wheel_clean,preposition synonym,True,Place the red soda can on the black rubber tire.,16.7,96,Place the red soda can in the black rubber tire.,34.7,144,18.1,3.07,in -> on
+widowx_coke_can_on_wheel_clean,verb synonym,False,Place the Coke can on the black wheel.,11.1,72,set the coke can on the black wheel,29.2,120,18.1,2.91,place -> set
+widowx_nut_on_wheel_clean,verb synonym,True,set the nut on the wheel there,2.8,72,put the nut on the wheel there,20.8,48,18.1,3.23,put -> set
+widowx_nut_on_wheel_clean,verb synonym,False,place the nut onto the wheel,0.0,96,Put the nut onto the wheel.,18.1,72,18.1,4.33,put -> place
+widowx_carrot_on_sponge_clean,noun/adjective synonym,True,Set the orange vegetable on the green and yellow sponge.,11.7,240,Set the orange carrot on the green and yellow sponge.,29.6,240,17.9,4.85,carrot -> vegetable
+widowx_carrot_on_ramekin_clean,verb synonym,True,put the carrot into the white bowl,28.0,168,place the carrot into the white bowl,45.8,48,17.9,2.34,place -> put
+widowx_pepsi_on_plate_clean,verb synonym,False,Put the Pepsi can on the plate.,36.2,480,place the pepsi can on the plate,54.2,96,17.9,3.28,put -> place
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,True,Set the orange carton onto the circular yellow dish.,14.6,48,Set the citrus carton onto the circular yellow dish.,32.5,456,17.9,2.55,citrus -> orange
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Move the purple eggplant onto the black keyboard.,16.7,192,Put the purple eggplant onto the black keyboard.,34.6,312,17.9,4.37,move -> put
+widowx_cube_on_plate_clean,verb synonym,False,Set the green block on the plate.,73.8,240,drop the green block on the plate,91.7,48,17.9,2.68,set -> drop
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,put the purple eggplant onto the black device,16.7,48,Put the purple eggplant onto the black keyboard.,34.6,312,17.9,2.48,keyboard -> device
+widowx_nut_on_wheel_clean,verb synonym,True,Set the nut on top of the black wheel.,7.2,360,Place the nut on top of the black wheel.,25.0,48,17.8,3.98,place -> set
+widowx_nut_on_wheel_clean,verb synonym,False,Set the nut on top of the black wheel.,7.2,360,place the nut on top of the black wheel,25.0,24,17.8,3.05,set -> place
+widowx_nut_on_plate_clean,case/punctuation only,False,deposit the small dark hexagonal hardware piece onto the round pale yellow dish,25.0,48,Deposit the small dark hexagonal hardware piece onto the round pale yellow dish.,42.7,192,17.7,2.25, -> 
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,get the eggplant onto the keyboard,19.4,144,Place the eggplant onto the keyboard,37.1,264,17.7,3.69,place -> get
+widowx_nut_on_plate_clean,slight restructure,True,put the nut on the plate,38.2,288,put nut on plate,55.9,744,17.7,5.11,reorder/determiners
+widowx_carrot_on_sponge_clean,verb synonym,False,put the orange carrot on the yellow and green sponge,11.5,96,Set the orange carrot on the yellow-and-green sponge.,29.2,24,17.7,2.17,set -> put
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the blue coke can on the plate,51.0,96,set the blue pepsi can on the plate,68.8,48,17.7,2.02,coke -> pepsi
+widowx_orange_juice_on_plate_clean,verb synonym,True,place the juice onto the yellow plate,8.3,48,set the juice onto the yellow plate,26.0,96,17.7,2.5,place -> set
+widowx_pepsi_on_plate_clean,verb synonym,True,Put the blue coke can onto the yellow plate.,32.3,96,Place the blue coke can onto the yellow plate.,50.0,96,17.7,2.49,place -> put
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,True,Place the purple eggplant on top of the black keyboard.,13.7,168,Place the purple vegetable on top of the black keyboard.,31.2,48,17.6,2.82,eggplant -> vegetable
+widowx_pepsi_on_plate_clean,preposition synonym,False,Set the blue can to the plate.,20.8,48,set the blue can on the plate,38.2,144,17.4,2.2,to -> on
+widowx_pepsi_on_plate_clean,verb synonym,True,put the blue can onto the yellow plate,9.7,72,set the blue can onto the yellow plate,27.1,144,17.4,2.94,put -> set
+widowx_cube_on_plate_clean,noun/adjective synonym,False,pick up the green block and put it on the plate,72.2,72,Pick up the green cube and put it on the plate.,89.6,48,17.4,2.29,cube -> block
+widowx_coke_can_on_keyboard_clean,case/punctuation only,False,set the coca-cola can on the keyboard,12.5,48,Set the Coca-Cola can on the keyboard.,29.9,144,17.4,2.39, -> 
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the soda can on the plate.,20.8,48,put the blue can on the plate,38.1,168,17.3,2.22,soda -> blue
+widowx_nut_on_plate_clean,verb synonym,False,set the nut on the plate,29.9,264,Put the nut on the plate.,47.2,144,17.3,3.48,put -> set
+widowx_cube_on_plate_clean,case/punctuation only,False,put the green block on the yellow plate,62.0,192,Put the green block on the yellow plate.,79.2,48,17.2,2.24, -> 
+widowx_eggplant_on_keyboard_clean,verb synonym,False,put the eggplant on the keyboard,12.0,192,Position the eggplant on the keyboard.,29.2,24,17.2,2.3,position -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,False,put the eggplant on the keyboard,12.0,192,Drop the eggplant on the keyboard.,29.2,48,17.2,2.95,drop -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Put the purple eggplant on the black keyboard.,34.7,144,set the purple eggplant on the black keyboard,51.9,360,17.2,3.5,put -> set
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Put the eggplant on the keyboard.,16.2,216,place the eggplant on the keyboard,33.3,96,17.1,3.4,put -> place
+widowx_eggplant_on_sponge_clean,verb synonym,False,lay the purple eggplant on the green sponge,70.8,24,Put the purple eggplant on the green sponge.,88.0,216,17.1,2.31,put -> lay
+widowx_pepsi_on_plate_clean,slight restructure,True,put the pepsi can on the plate,43.8,96,put pepsi can on plate,60.8,816,17.0,3.21,reorder/determiners
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Place the Pepsi can on the plate.,30.2,576,place the blue can on the plate,47.2,72,17.0,2.92,pepsi -> blue
+widowx_pepsi_on_plate_clean,verb synonym,False,Put the blue can on the plate.,30.2,96,place the blue can on the plate,47.2,72,17.0,2.25,put -> place
+widowx_nut_on_plate_clean,noun/adjective synonym,False,Get the nut on the plate,30.3,264,Put the nut on the plate.,47.2,144,16.9,3.4,get -> put
+widowx_coke_can_on_keyboard_clean,verb synonym,False,set the red soda can on the black keyboard,4.2,144,Place the red soda can on the black keyboard,20.8,24,16.7,3.06,place -> set
+widowx_cube_on_plate_clean,noun/adjective synonym,False,Put the green cube on the plate,70.8,48,put the green block on the plate,87.5,120,16.7,2.58,cube -> block
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Move the red can onto the black keyboard.,4.2,48,place the red can onto the black keyboard,20.8,48,16.7,2.47,move -> place
+widowx_coke_can_on_keyboard_clean,case/punctuation only,False,grab the red soda can and put it on the black keyboard,4.2,48,Grab the red soda can and put it on the black keyboard.,20.8,24,16.7,2.25, -> 
+widowx_coke_can_on_keyboard_clean,slight restructure,False,Please drop the Coke on the keyboard.,12.5,120,drop the Coke on the keyboard,29.2,24,16.7,2.07,reorder/determiners
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,grab the red soda can and put it on the black keyboard,4.2,48,Grab the red coke can and put it on the black keyboard.,20.8,24,16.7,2.25,coke -> soda
+widowx_cube_on_plate_clean,case/punctuation only,False,put the small teal block on the light green circular dish,52.1,48,Put the small teal block on the light green circular dish.,68.8,144,16.7,2.09, -> 
+widowx_eggplant_on_sponge_clean,verb synonym,True,put the purple eggplant on the green and yellow sponge,72.9,192,place the purple eggplant on the green and yellow sponge,89.6,48,16.7,2.43,place -> put
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Move the red coke can onto the black keyboard.,4.2,48,Place the red coke can onto the black keyboard.,20.8,48,16.7,2.47,move -> place
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the beverage can on the keyboard.,0.0,96,Put the Coke can on the keyboard.,16.7,72,16.7,4.15,coke -> beverage
+widowx_eggplant_on_sponge_clean,verb synonym,True,move the purple eggplant on the green and yellow sponge,72.9,48,place the purple eggplant on the green and yellow sponge,89.6,48,16.7,2.09,move -> place
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Move the red coke can onto the black keyboard.,4.2,48,put the red coke can onto the black keyboard,20.8,24,16.7,2.25,move -> put
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,put the beverage can on the keyboard,0.0,24,Put the Coke can on the keyboard.,16.7,72,16.7,2.14,coke -> beverage
+widowx_coke_can_on_keyboard_clean,case/punctuation only,False,Put the Coke on the keyboard.,10.4,48,put the coke on the keyboard,27.1,48,16.7,2.09, -> 
+widowx_nut_on_wheel_clean,verb synonym,False,Position the nut right on the wheel.,4.2,120,put the nut right on the wheel,20.8,24,16.7,2.93,position -> put
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,place the grey nut on the black wheel,0.0,24,Place the grey nut on the black tire.,16.7,24,16.7,2.09,tire -> wheel
+widowx_coke_can_on_keyboard_clean,verb synonym,True,slide the red can onto the black keyboard,4.2,48,place the red can onto the black keyboard,20.8,48,16.7,2.47,place -> slide
+widowx_coke_can_on_keyboard_clean,verb synonym,True,put the red can onto the black keyboard,4.2,72,place the red can onto the black keyboard,20.8,48,16.7,2.88,place -> put
+widowx_nut_on_wheel_clean,preposition synonym,False,set the nut to the tire,0.0,24,Set the nut on the tire.,16.7,24,16.7,2.09,on -> to
+widowx_coke_can_on_keyboard_clean,verb synonym,True,take the red can on the black keyboard,0.0,24,place the red can on the black keyboard,16.7,24,16.7,2.09,place -> take
+widowx_coke_can_on_keyboard_clean,verb synonym,True,slide the red can on the black keyboard,0.0,24,place the red can on the black keyboard,16.7,24,16.7,2.09,place -> slide
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,put the nut onto the tire,4.2,48,put the nut onto the wheel.,20.8,24,16.7,2.25,tire -> wheel
+widowx_nut_on_wheel_clean,verb synonym,False,Drop the nut onto the wheel.,4.2,120,put the nut onto the wheel.,20.8,24,16.7,2.93,drop -> put
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,set the gray nut onto the center of the rubber wheel,0.0,96,set the small nut onto the center of the rubber wheel,16.7,48,16.7,4.12,gray -> small
+widowx_coke_can_on_keyboard_clean,verb synonym,True,set the coke can onto the keyboard,16.7,96,place the coke can onto the keyboard,33.3,48,16.7,2.27,place -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Transfer the red Coke can to the black keyboard.,4.2,48,set the red coke can to the black keyboard,20.8,24,16.7,2.25,transfer -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Set the red can onto the black keyboard.,4.2,96,place the red can onto the black keyboard,20.8,48,16.7,3.18,set -> place
+widowx_orange_juice_on_plate_clean,case/punctuation only,False,Put the orange juice carton onto the yellow dish.,12.5,48,put the orange juice carton onto the yellow dish,29.2,48,16.7,2.01, -> 
+widowx_pepsi_on_plate_clean,verb synonym,False,Drop the Pepsi can onto the plate.,25.0,120,put the pepsi can onto the plate,41.7,48,16.7,2.13,drop -> put
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the red can on the keyboard.,4.2,48,put the Coke can on the keyboard,20.8,24,16.7,2.25,red -> coke
+widowx_coke_can_on_wheel_clean,verb synonym,False,Set the Coke can on top of the wheel.,12.5,48,put the coke can on top of the wheel,29.2,48,16.7,2.01,set -> put
+widowx_cube_on_plate_clean,preposition synonym,False,set the green cube into the plate,66.7,72,Set the green cube to the plate.,83.3,48,16.7,2.02,to -> into
+widowx_coke_can_on_wheel_clean,verb synonym,False,rest the soda can on the black wheel,6.2,48,put the soda can on the black wheel.,22.9,48,16.7,2.31,put -> rest
+widowx_coke_can_on_wheel_clean,preposition synonym,True,set the red coke can onto the black wheel,29.2,120,set the red coke can in the black wheel,45.8,96,16.7,2.53,in -> onto
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the red can on the keyboard.,4.2,48,Put the cola can on the keyboard.,20.8,24,16.7,2.25,cola -> red
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the can on the keyboard.,0.0,24,put the Coke on the keyboard,16.7,24,16.7,2.09,can -> coke
+widowx_cube_on_plate_clean,verb synonym,False,set the green cube onto the plate,70.8,96,Drop the green cube onto the plate.,87.5,240,16.7,3.65,drop -> set
+widowx_cube_on_plate_clean,noun/adjective synonym,False,set the green cube onto the plate,70.8,96,Set the green cube onto that plate.,87.5,48,16.7,2.22,that -> the
+widowx_coke_can_on_keyboard_clean,verb synonym,False,set the red soda can on the black keyboard,4.2,144,put the red soda can on the black keyboard?,20.8,48,16.7,3.62,put -> set
+widowx_carrot_on_sponge_clean,verb synonym,False,Put the carrot onto the sponge.,20.8,72,place the carrot onto the sponge,37.5,96,16.7,2.33,put -> place
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,Move the orange carrot to the white ramekin.,8.3,48,Move the orange carrot to the white bowl.,25.0,48,16.7,2.19,bowl -> ramekin
+widowx_cube_on_plate_clean,preposition synonym,True,set the green cube into the plate,66.7,72,set the green cube on the plate,83.3,336,16.7,3.23,into -> on
+widowx_eggplant_on_sponge_clean,slight restructure,False,put purple eggplant on sponge,70.8,96,Put the purple eggplant on the sponge.,87.5,72,16.7,2.58,reorder/determiners
+widowx_eggplant_on_keyboard_clean,slight restructure,False,Put the eggplant on the black keyboard.,31.2,144,put eggplant on black keyboard,47.9,48,16.7,2.09,reorder/determiners
+widowx_eggplant_on_keyboard_clean,preposition synonym,False,put the eggplant to the keyboard,11.1,72,Put the eggplant onto the keyboard.,27.7,264,16.5,2.91,onto -> to
+widowx_nut_on_plate_clean,verb synonym,True,Move the nut onto the plate.,18.1,72,Transfer the nut onto the plate.,34.4,96,16.3,2.35,move -> transfer
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Drop the eggplant onto the keyboard.,20.8,288,Place the eggplant onto the keyboard,37.1,264,16.3,4.23,drop -> place
+widowx_eggplant_on_keyboard_clean,verb synonym,False,drop the eggplant onto the keyboard,20.8,48,Place the eggplant onto the keyboard,37.1,264,16.3,2.18,place -> drop
+widowx_eggplant_on_keyboard_clean,verb synonym,False,put the eggplant onto the keyboard,20.8,120,Place the eggplant onto the keyboard,37.1,264,16.3,3.17,place -> put
+widowx_eggplant_on_sponge_clean,verb synonym,False,put the eggplant on the sponge.,66.7,48,Position the eggplant on the sponge.,82.9,240,16.3,2.58,position -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,False,set the eggplant onto the keyboard,20.8,48,Place the eggplant onto the keyboard,37.1,264,16.3,2.18,place -> set
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Lay the purple eggplant on the black keyboard,29.2,72,put the purple eggplant on the black keyboard,45.3,408,16.2,2.56,lay -> put
+widowx_carrot_on_sponge_clean,preposition synonym,False,Put the carrot onto the sponge.,20.8,72,put the carrot on the sponge,37.1,240,16.2,2.57,onto -> on
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,False,Put the carrot in the bowl.,10.8,120,toss the carrot in the bowl,27.1,48,16.2,2.63,put -> toss
+widowx_coke_can_on_wheel_clean,preposition synonym,True,put the red soda can on the black tire,18.8,48,put the red soda can onto the black tire,35.0,120,16.2,2.07,on -> onto
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the plate.,18.1,72,set the nut onto the plate,34.2,120,16.1,2.4,move -> set
+widowx_eggplant_on_sponge_clean,slight restructure,False,set the purple eggplant on top of the yellow and green sponge,63.1,168,Set the purple eggplant on top of the green and yellow sponge.,79.2,120,16.1,2.93,reorder/determiners
+widowx_carrot_on_sponge_clean,verb synonym,False,put the carrot on the sponge.,25.0,48,rest the carrot on the sponge,41.1,192,16.1,2.06,put -> rest
+widowx_pepsi_on_plate_clean,preposition synonym,True,Set the blue can to the plate.,20.8,48,Set the blue can on the plate.,36.8,144,16.0,2.04,on -> to
+widowx_cube_on_plate_clean,verb synonym,True,set the green block on the plate,71.5,144,put the green block on the plate,87.5,120,16.0,3.16,put -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Put the Coke on the keyboard.,10.4,48,Drop the Coke on the keyboard.,26.4,72,16.0,2.14,drop -> put
+widowx_nut_on_plate_clean,slight restructure,False,put the nut on the plate,38.2,288,"put the nut on the plate, please.",54.2,48,16.0,2.09,reorder/determiners
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,False,put the carrot in the bowl.,11.1,72,toss the carrot in the bowl,27.1,48,16.0,2.26,put -> toss
+widowx_nut_on_plate_clean,verb synonym,False,set the nut on the plate,29.9,264,Put the nut on the plate,45.8,72,15.9,2.54,put -> set
+widowx_nut_on_plate_clean,verb synonym,False,Lay the nut onto the plate,32.7,312,put the nut onto the plate,48.6,144,15.9,3.26,lay -> put
+widowx_nut_on_plate_clean,verb synonym,True,set the nut on the plate,29.9,264,drop the nut on the plate,45.8,72,15.9,2.54,drop -> set
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Put the nut onto the dish.,25.0,48,Put the nut onto the plate.,40.9,264,15.9,2.08,dish -> plate
+widowx_carrot_on_sponge_clean,case/punctuation only,False,Drop the carrot onto the sponge.,23.8,480,drop the carrot onto the sponge,39.6,96,15.8,3.21, -> 
+widowx_cube_on_plate_clean,case/punctuation only,False,get the cube onto that plate,54.2,48,Get the cube onto that plate.,70.0,240,15.8,2.14, -> 
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,put the carrot in the little bowl,14.6,48,put the carrot in the white bowl,30.4,240,15.8,2.24,little -> white
+widowx_eggplant_on_keyboard_clean,preposition synonym,False,Put the eggplant onto the black keyboard.,38.3,120,put the eggplant on the black keyboard,54.2,96,15.8,2.32,onto -> on
+widowx_eggplant_on_keyboard_clean,preposition synonym,False,put the eggplant on the keyboard,12.0,192,Put the eggplant onto the keyboard.,27.7,264,15.7,4.05,onto -> on
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Move the green block onto the yellow dish.,55.1,312,Move the green cube onto the yellow dish.,70.8,72,15.7,2.43,block -> cube
+widowx_eggplant_on_sponge_clean,verb synonym,False,put the eggplant onto the sponge.,70.8,24,Drop the eggplant onto the sponge.,86.6,216,15.7,2.05,drop -> put
+widowx_pepsi_on_plate_clean,verb synonym,False,Move the blue can onto the yellow plate.,19.8,96,place the blue can onto the yellow plate,35.4,48,15.6,2.04,move -> place
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Move the purple eggplant onto the black keyboard.,16.7,192,Set the purple eggplant onto the black keyboard.,32.3,192,15.6,3.56,move -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the red can on the black keyboard.,9.4,96,put the red coke on the black keyboard,25.0,24,15.6,2.07,can -> coke
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Put the red soda can in the middle of the black tire.,3.1,96,Put the red soda can in the center of the black tire.,18.8,48,15.6,3.2,center -> middle
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,set the red cola can on the black keyboard,9.4,96,Set the red beverage can on the black keyboard,25.0,24,15.6,2.07,beverage -> cola
+widowx_nut_on_plate_clean,case/punctuation only,False,put the hex nut on the plate,25.0,48,Put the hex nut on the plate.,40.6,192,15.6,2.0, -> 
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,False,Put the juice carton onto the plate.,26.0,192,put the juice box onto the plate,41.7,48,15.6,2.13,carton -> box
+widowx_carrot_on_ramekin_clean,verb synonym,True,Drop the carrot inside the ramekin.,25.0,240,Place the carrot inside the ramekin.,40.6,96,15.6,2.84,drop -> place
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Get the nut on the plate,30.3,264,Put the nut on the plate,45.8,72,15.5,2.47,get -> put
+widowx_eggplant_on_sponge_clean,preposition synonym,False,set the purple eggplant on the sponge,74.0,312,Set the purple eggplant onto the sponge.,89.6,48,15.5,2.35,onto -> on
+widowx_nut_on_plate_clean,noun/adjective synonym,False,Get the nut on the plate,30.3,264,drop the nut on the plate,45.8,72,15.5,2.47,get -> drop
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Move the eggplant to the keyboard.,5.4,168,Transfer the eggplant to the keyboard.,20.8,48,15.5,3.34,move -> transfer
+widowx_pepsi_on_plate_clean,noun/adjective synonym,False,Put the blue can on the yellow plate.,17.9,168,put the blue can on the green plate,33.3,48,15.5,2.31,yellow -> green
+widowx_carrot_on_sponge_clean,verb synonym,False,set the orange carrot on the sponge,24.2,120,Lay the orange carrot on the sponge.,39.6,48,15.4,2.0,lay -> set
+widowx_carrot_on_sponge_clean,verb synonym,True,set the carrot onto the sponge,24.2,120,drop the carrot onto the sponge,39.6,96,15.4,2.43,drop -> set
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Put the soda can on the plate.,20.8,48,Put the Pepsi can on the plate.,36.2,480,15.4,2.14,pepsi -> soda
+widowx_nut_on_wheel_clean,verb synonym,False,place the grey nut on the black wheel,0.0,24,Put the grey nut on the black wheel.,15.3,72,15.3,2.03,put -> place
+widowx_eggplant_on_sponge_clean,slight restructure,False,Place the purple eggplant on the yellow and green sponge.,74.3,144,place the purple eggplant on the green and yellow sponge,89.6,48,15.3,2.22,reorder/determiners
+widowx_coke_can_on_wheel_clean,verb synonym,True,move the red can on the black wheel,2.1,48,put the red can on the black wheel,17.4,144,15.3,2.68,move -> put
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut on top of the black wheel,9.7,144,Place the nut on top of the black wheel.,25.0,48,15.3,2.68,place -> set
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Deposit the small dark hexagonal nut onto the round pale yellow plate.,26.4,72,Deposit the small dark hexagonal nut onto the round pale yellow dish.,41.7,96,15.3,2.05,dish -> plate
+widowx_nut_on_wheel_clean,verb synonym,True,set the nut on top of the black wheel,9.7,144,place the nut on top of the black wheel,25.0,24,15.3,2.14,place -> set
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,Set the little eggplant down on the sponge.,66.0,144,set the little eggplant down on the sponge,81.2,48,15.3,2.0, -> 
+widowx_carrot_on_ramekin_clean,preposition synonym,True,Put the carrot in the bowl.,10.8,120,Put the carrot into the bowl.,26.0,96,15.2,2.92,in -> into
+widowx_nut_on_plate_clean,noun/adjective synonym,False,place the grey nut on the yellow plate,15.3,72,Place the black nut on the yellow plate.,30.4,168,15.1,2.45,black -> grey
+widowx_nut_on_plate_clean,noun/adjective synonym,False,get the nut on the plate,25.6,168,Place the nut on the plate,40.7,432,15.1,3.46,place -> get
+widowx_cube_on_plate_clean,verb synonym,False,set the green block on the plate,71.5,144,Place the green block on the plate.,86.7,120,15.1,2.98,place -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the red soda can on the black keyboard.,10.0,120,Put the red drink can on the black keyboard,25.0,48,15.0,2.51,drink -> soda
+widowx_nut_on_wheel_clean,verb synonym,False,grab the nut and put it on the wheel,0.0,72,Grab the nut and place it on the wheel.,15.0,120,15.0,3.45,place -> put
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,grab the nut and place it on the tire,0.0,72,Grab the nut and place it on the wheel.,15.0,120,15.0,3.45,wheel -> tire
+widowx_carrot_on_sponge_clean,verb synonym,False,pick up the carrot and place it on the sponge,23.6,72,Pick up the carrot and put it on the sponge.,38.5,192,14.9,2.27,put -> place
+widowx_eggplant_on_sponge_clean,verb synonym,False,drop the eggplant onto the sponge,62.5,48,Put the eggplant onto the sponge.,77.4,168,14.9,2.07,put -> drop
+widowx_coke_can_on_wheel_clean,verb synonym,False,put the red soda can in the black tire,28.1,96,Place the red soda can in the black tire.,43.1,144,14.9,2.35,place -> put
+widowx_carrot_on_ramekin_clean,preposition synonym,False,put the carrot in the bowl.,11.1,72,Put the carrot into the bowl.,26.0,96,14.9,2.41,into -> in
+widowx_orange_juice_on_plate_clean,noun/adjective synonym,False,Put the juice carton onto the yellow dish.,18.6,360,put the orange carton onto the yellow dish,33.3,48,14.7,2.38,juice -> orange
+widowx_coke_can_on_wheel_clean,case/punctuation only,False,Stack the Coke can on the wheel.,6.2,192,stack the coke can on the wheel,20.8,48,14.6,3.13, -> 
+widowx_eggplant_on_sponge_clean,verb synonym,False,Put the small purple eggplant on top of the green and yellow sponge.,66.7,48,set the small purple eggplant on top of the green and yellow sponge,81.2,144,14.6,2.1,put -> set
+widowx_eggplant_on_keyboard_clean,verb synonym,True,set the eggplant on the black keyboard,39.6,96,put the eggplant on the black keyboard,54.2,96,14.6,2.02,put -> set
+widowx_eggplant_on_sponge_clean,verb synonym,True,place the purple eggplant on the green sponge,66.7,48,put the purple eggplant on the green sponge,81.3,144,14.6,2.1,place -> put
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Move the red coke can onto the black keyboard.,4.2,48,Drop the red coke can onto the black keyboard.,18.7,48,14.6,2.24,drop -> move
+widowx_coke_can_on_wheel_clean,verb synonym,True,move the red can on the black wheel,2.1,48,transfer the red can on the black wheel,16.7,24,14.6,2.29,move -> transfer
+widowx_carrot_on_sponge_clean,preposition synonym,True,set the carrot onto the sponge,24.2,120,set the carrot on the sponge,38.8,312,14.6,2.86,on -> onto
+widowx_coke_can_on_wheel_clean,preposition synonym,False,move the red can on the black wheel,2.1,48,Move the red can to the black wheel.,16.7,24,14.6,2.29,to -> on
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut on the tire,10.4,48,Put the nut on the tire.,25.0,216,14.6,2.19,put -> set
+widowx_carrot_on_ramekin_clean,verb synonym,True,Set the carrot inside the ramekin.,26.0,96,Place the carrot inside the ramekin.,40.6,96,14.6,2.14,place -> set
+widowx_nut_on_plate_clean,verb synonym,False,Move the nut onto the plate.,18.1,72,Lay the nut onto the plate,32.7,312,14.6,2.44,lay -> move
+widowx_pepsi_on_plate_clean,verb synonym,True,move the blue can on the yellow plate,10.4,48,set the blue can on the yellow plate,25.0,264,14.6,2.22,move -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,False,move the red coke can onto the black keyboard,6.2,48,Place the red coke can onto the black keyboard.,20.8,48,14.6,2.09,place -> move
+widowx_cube_on_plate_clean,verb synonym,False,Put the green block on the plate.,77.1,96,drop the green block on the plate,91.7,48,14.6,2.14,put -> drop
+widowx_cube_on_plate_clean,verb synonym,False,pick up the green cube and place it on the plate,75.0,96,Pick up the green cube and put it on the plate.,89.6,48,14.6,2.06,put -> place
+widowx_coke_can_on_keyboard_clean,case/punctuation only,False,Place the red can onto the black keyboard.,6.2,96,place the red can onto the black keyboard,20.8,48,14.6,2.63, -> 
+widowx_pepsi_on_plate_clean,verb synonym,False,Place the Pepsi can on the plate.,30.2,576,set the pepsi can on the plate,44.8,192,14.6,3.7,place -> set
+widowx_eggplant_on_keyboard_clean,verb synonym,True,put the eggplant on the keyboard,12.0,192,set the eggplant on the keyboard,26.4,216,14.4,3.66,put -> set
+widowx_carrot_on_sponge_clean,case/punctuation only,False,Put the carrot on the green sponge.,30.0,120,put the carrot on the green sponge,44.4,144,14.4,2.41, -> 
+widowx_eggplant_on_keyboard_clean,verb synonym,True,place the purple eggplant on the black keyboard,37.5,72,set the purple eggplant on the black keyboard,51.9,360,14.4,2.24,place -> set
+widowx_carrot_on_sponge_clean,slight restructure,True,put the orange carrot on the yellow and green sponge,11.5,96,put the orange carrot on the green and yellow sponge,25.8,240,14.4,2.89,reorder/determiners
+widowx_nut_on_plate_clean,verb synonym,False,put the black nut on the yellow plate,16.0,144,Place the black nut on the yellow plate.,30.4,168,14.4,2.98,place -> put
+widowx_nut_on_plate_clean,verb synonym,True,set the nut onto the plate,34.2,120,put the nut onto the plate,48.6,144,14.4,2.37,put -> set
+widowx_nut_on_wheel_clean,preposition synonym,False,put the nut on the tire,14.3,168,Put the nut onto the tire.,28.6,168,14.3,3.19,onto -> on
+widowx_coke_can_on_wheel_clean,verb synonym,False,Move the red can onto the black wheel.,10.7,168,put the red can onto the black wheel,25.0,48,14.3,2.52,move -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Put the eggplant on the keyboard.,16.2,216,Place the eggplant on the keyboard.,30.5,600,14.3,4.07,place -> put
+widowx_cube_on_plate_clean,noun/adjective synonym,True,put the green cube on the plate,73.2,384,put the green block on the plate,87.5,120,14.3,3.23,block -> cube
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,Put the carrot in the bowl.,10.8,120,Toss the carrot in the bowl.,25.0,48,14.2,2.33,put -> toss
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,Put the carrot into the ramekin.,21.2,288,Put the carrot into the dish.,35.4,48,14.2,2.16,dish -> ramekin
+widowx_nut_on_wheel_clean,slight restructure,True,put the nut on the black wheel,15.0,120,put nut on black wheel,29.2,96,14.2,2.53,reorder/determiners
+widowx_nut_on_plate_clean,verb synonym,False,Transfer the nut onto the plate.,34.4,96,put the nut onto the plate,48.6,144,14.2,2.18,transfer -> put
+widowx_eggplant_on_sponge_clean,noun/adjective synonym,True,Drop the small purple item onto the sponge.,65.0,240,Drop the small purple eggplant onto the sponge.,79.2,72,14.2,2.27,eggplant -> item
+widowx_eggplant_on_sponge_clean,verb synonym,False,put the eggplant on the sponge.,66.7,48,set the eggplant on the sponge,80.9,288,14.2,2.24,put -> set
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Grab the Pepsi can and put it on the plate.,25.5,408,grab the pepsi can and put it on the plate,39.6,48,14.1,2.08, -> 
+widowx_eggplant_on_sponge_clean,verb synonym,False,set the purple thing on the yellow and green sponge,22.9,96,Lay the purple thing on the yellow and green sponge.,37.0,216,14.1,2.45,lay -> set
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,set the nut on the wheel,2.7,264,Set the nut on the tire.,16.7,24,14.0,3.43,tire -> wheel
+widowx_cube_on_plate_clean,preposition synonym,False,set the green cube into the plate,66.7,72,Set the green cube on the plate.,80.7,264,14.0,2.53,on -> into
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,True,put the eggplant to the keyboard,11.1,72,give the eggplant to the keyboard,25.0,72,13.9,2.17,give -> put
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,put the nut onto the tire,4.2,48,Put the nut onto the wheel.,18.1,72,13.9,2.25,wheel -> tire
+widowx_nut_on_wheel_clean,verb synonym,True,Drop the nut onto the wheel.,4.2,120,Put the nut onto the wheel.,18.1,72,13.9,3.2,drop -> put
+widowx_carrot_on_keyboard_clean,verb synonym,False,put the carrot on the keyboard,0.0,27,Place the carrot on the keyboard.,13.9,36,13.9,2.02,place -> put
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,False,put the carrot in the bowl.,11.1,72,Toss the carrot in the bowl.,25.0,48,13.9,2.0,toss -> put
+widowx_nut_on_plate_clean,verb synonym,False,Drop the nut on the plate,33.3,312,Put the nut on the plate.,47.2,144,13.9,2.84,drop -> put
+widowx_coke_can_on_keyboard_clean,case/punctuation only,False,set the coca-cola on top of the keyboard,15.3,72,Set the Coca-Cola on top of the keyboard.,29.2,264,13.9,2.38, -> 
+widowx_coke_can_on_keyboard_clean,slight restructure,True,Please drop the Coke on the keyboard.,12.5,120,Drop the Coke on the keyboard.,26.4,72,13.9,2.44,reorder/determiners
+widowx_coke_can_on_wheel_clean,preposition synonym,False,put the red can on the black wheel,17.4,144,Put the red can into the black wheel.,31.2,96,13.9,2.51,into -> on
+widowx_eggplant_on_sponge_clean,verb synonym,True,drop the purple eggplant onto the sponge,70.8,72,put the purple eggplant onto the sponge,84.7,144,13.9,2.41,drop -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Move the purple eggplant onto the black keyboard.,16.7,192,Drop the purple eggplant onto the black keyboard.,30.6,72,13.9,2.49,drop -> move
+widowx_cube_on_plate_clean,verb synonym,False,Move the green block onto the plate.,65.3,216,drop the green block onto the plate,79.2,96,13.9,2.46,move -> drop
+widowx_eggplant_on_keyboard_clean,noun/adjective synonym,False,put the eggplant to the keyboard,11.1,72,Give the eggplant to the keyboard,25.0,192,13.9,2.46,give -> put
+widowx_cube_on_plate_clean,verb synonym,False,Set the green block on the plate.,73.8,240,put the green block on the plate,87.5,120,13.8,2.99,set -> put
+widowx_carrot_on_sponge_clean,verb synonym,False,Drop the carrot onto the sponge.,23.8,480,place the carrot onto the sponge,37.5,96,13.8,2.8,drop -> place
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,Put the eggplant on the sponge.,73.7,384,Put the eggplant on the sponge,87.5,48,13.8,2.09, -> 
+widowx_nut_on_plate_clean,verb synonym,True,Move the nut onto the yellow plate.,11.2,624,Place the nut onto the yellow plate.,25.0,48,13.8,2.81,move -> place
+widowx_eggplant_on_sponge_clean,preposition synonym,False,drop the eggplant on the sponge,72.9,48,Drop the eggplant onto the sponge.,86.6,216,13.7,2.34,onto -> on
+widowx_eggplant_on_sponge_clean,verb synonym,False,set the purple eggplant on the green and yellow sponge,68.6,264,Position the purple eggplant on the green and yellow sponge.,82.3,96,13.7,2.57,position -> set
+widowx_carrot_on_ramekin_clean,verb synonym,False,Place the orange carrot in the white bowl.,29.2,120,set the orange carrot in the white bowl,42.9,240,13.7,2.53,place -> set
+widowx_carrot_on_sponge_clean,verb synonym,False,Move the carrot onto the sponge.,26.0,624,drop the carrot onto the sponge,39.6,96,13.6,2.77,move -> drop
+widowx_coke_can_on_wheel_clean,verb synonym,False,Move the Coke can onto the tire.,7.2,360,put the coke can onto the tire,20.8,24,13.6,2.37,move -> put
+widowx_eggplant_on_sponge_clean,verb synonym,False,set the purple eggplant on the sponge,74.0,312,Put the purple eggplant on the sponge.,87.5,72,13.5,2.43,put -> set
+widowx_pepsi_on_plate_clean,verb synonym,False,Place the Pepsi can on the plate.,30.2,576,put the pepsi can on the plate,43.8,96,13.5,2.63,place -> put
+widowx_nut_on_plate_clean,preposition synonym,False,Put the nut on the yellow plate.,24.0,96,put the nut onto the yellow plate,37.5,96,13.5,2.03,on -> onto
+widowx_nut_on_plate_clean,case/punctuation only,False,put the nut onto the yellow dish,26.0,96,Put the nut onto the yellow dish.,39.6,240,13.5,2.34, -> 
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,set the red soda can on the black keyboard,4.2,144,set the red coke can on the black keyboard,17.6,312,13.5,3.93,coke -> soda
+widowx_carrot_on_sponge_clean,verb synonym,True,put the carrot onto the sponge,26.0,96,drop the carrot onto the sponge,39.6,96,13.5,2.0,drop -> put
+widowx_coke_can_on_keyboard_clean,verb synonym,False,set the red soda can on the black keyboard,4.2,144,Put the red soda can on the black keyboard,17.7,96,13.5,3.49,put -> set
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,Position the nut on the wheel.,3.1,96,Position the nut on the tire.,16.7,48,13.5,2.88,tire -> wheel
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,Set the Pepsi down on the plate.,19.4,432,Set the Pepsi can on the plate.,32.7,168,13.3,3.47,can -> down
+widowx_carrot_on_sponge_clean,noun/adjective synonym,False,Set the orange vegetable on the green and yellow sponge.,11.7,240,set the orange carrot on the green and yellow sponge,25.0,192,13.3,3.62,vegetable -> carrot
+widowx_eggplant_on_sponge_clean,verb synonym,False,set the eggplant on top of the sponge,65.8,120,Rest the eggplant on top of the sponge.,79.2,96,13.3,2.16,rest -> set
+widowx_carrot_on_sponge_clean,verb synonym,True,set the carrot onto the sponge,24.2,120,place the carrot onto the sponge,37.5,96,13.3,2.12,place -> set
+widowx_coke_can_on_wheel_clean,preposition synonym,True,set the red coke can on the black wheel,32.5,120,set the red coke can in the black wheel,45.8,96,13.3,2.0,in -> on
+widowx_eggplant_on_keyboard_clean,slight restructure,False,Put the purple eggplant on the black keyboard.,34.7,144,put purple eggplant on black keyboard,47.9,96,13.2,2.04,reorder/determiners
+widowx_nut_on_plate_clean,preposition synonym,False,put the black nut on the yellow plate,16.0,144,Put the black nut onto the yellow plate.,29.2,72,13.2,2.27,onto -> on
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut onto the wheel,7.6,144,put the nut onto the wheel.,20.8,24,13.2,2.04,put -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the red soda can on top of the black keyboard.,2.8,72,Put the red coke can on top of the black keyboard.,16.0,144,13.2,2.86,coke -> soda
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,set the coke can on the plate,25.0,96,set the blue can on the plate,38.2,144,13.2,2.13,blue -> coke
+widowx_orange_juice_on_plate_clean,preposition synonym,False,Put the orange juice box onto the yellow plate.,20.8,96,put the orange juice box on the yellow plate,34.0,144,13.2,2.21,onto -> on
+widowx_orange_juice_on_plate_clean,case/punctuation only,False,Put the orange juice box on the yellow plate.,20.8,216,put the orange juice box on the yellow plate,34.0,144,13.2,2.79, -> 
+widowx_coke_can_on_keyboard_clean,slight restructure,False,Put the Coke can on the keyboard.,16.7,72,put coke can on keyboard,29.7,720,13.1,2.34,reorder/determiners
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,False,Stick the carrot in the bowl.,14.0,264,toss the carrot in the bowl,27.1,48,13.1,2.27,stick -> toss
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Move the red can onto the black keyboard.,4.2,48,Move the soda can onto the black keyboard.,17.3,168,13.1,2.28,red -> soda
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Put the purple eggplant on top of the black keyboard.,13.3,120,set the purple eggplant on top of the black keyboard,26.4,72,13.1,2.27,put -> set
+widowx_nut_on_plate_clean,verb synonym,False,Lay the nut onto the plate,32.7,312,drop the nut onto the plate,45.8,192,13.1,2.96,lay -> drop
+widowx_coke_can_on_keyboard_clean,verb synonym,True,put the red can on the black keyboard,3.7,216,place the red can on the black keyboard,16.7,24,13.0,2.76,place -> put
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,put the red can on the black keyboard,3.7,216,Put the coke can on the black keyboard.,16.7,24,13.0,2.76,coke -> red
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut on the wheel,2.7,264,Put the nut on the wheel.,15.6,192,13.0,5.01,put -> set
+widowx_eggplant_on_keyboard_clean,verb synonym,True,put the eggplant on the keyboard,12.0,192,rest the eggplant on the keyboard,25.0,48,13.0,2.29,put -> rest
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Put the eggplant on the keyboard.,16.2,216,Drop the eggplant on the keyboard.,29.2,48,13.0,2.09,drop -> put
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Place the purple eggplant on the black keyboard.,32.4,312,put the purple eggplant on the black keyboard,45.3,408,13.0,3.52,place -> put
+widowx_carrot_on_ramekin_clean,preposition synonym,False,Put the carrot on the ramekin.,10.0,120,put the carrot in the ramekin,22.9,48,12.9,2.2,on -> in
+widowx_cube_on_plate_clean,verb synonym,True,Set the green block on the plate.,73.8,240,Place the green block on the plate.,86.7,120,12.9,2.79,place -> set
+widowx_eggplant_on_sponge_clean,verb synonym,False,put the purple eggplant on the yellow and green sponge,62.1,240,Set the purple eggplant on the yellow and green sponge.,75.0,96,12.9,2.25,set -> put
+widowx_nut_on_wheel_clean,verb synonym,True,Grab the nut and put it on the wheel.,2.2,312,Grab the nut and place it on the wheel.,15.0,120,12.8,5.09,place -> put
+widowx_cube_on_plate_clean,noun/adjective synonym,True,put the little green cube on the plate,72.2,72,put the small green cube on the plate,85.0,120,12.8,2.15,little -> small
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Place the purple eggplant on top of the black keyboard.,13.7,168,set the purple eggplant on top of the black keyboard,26.4,72,12.7,2.37,place -> set
+widowx_orange_juice_on_plate_clean,verb synonym,False,Move the juice box onto the yellow plate.,14.4,216,put the juice box onto the yellow plate,27.1,48,12.7,2.14,move -> put
+widowx_nut_on_plate_clean,noun/adjective synonym,True,get the nut on the plate,25.6,168,put the nut on the plate,38.2,288,12.6,2.75,get -> put
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,set the coke can on the wheel,8.3,168,stack the coke can on the wheel,20.8,48,12.5,2.43,set -> stack
+widowx_orange_juice_on_plate_clean,verb synonym,True,Put the orange juice box on the yellow plate.,20.8,216,Set the orange juice box on the yellow plate.,33.3,72,12.5,2.15,put -> set
+widowx_nut_on_plate_clean,noun/adjective synonym,True,set the grey nut onto the yellow plate,18.7,144,set the black nut onto the yellow plate,31.2,144,12.5,2.45,black -> grey
+widowx_nut_on_wheel_clean,preposition synonym,False,Set the grey nut to the black tire.,4.2,48,set the grey nut on the black tire,16.7,72,12.5,2.09,to -> on
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the beverage can on the keyboard.,0.0,96,Put the soda can on the keyboard,12.5,48,12.5,3.54,beverage -> soda
+widowx_eggplant_on_keyboard_clean,preposition synonym,False,set the purple eggplant onto the keyboard,9.7,216,Set the purple eggplant on the keyboard.,22.2,72,12.5,2.75,on -> onto
+widowx_cube_on_plate_clean,noun/adjective synonym,True,Deposit the small emerald-colored block onto the center of the circular yellow dish.,41.7,216,Deposit the small emerald-colored cube onto the center of the circular yellow dish.,54.2,96,12.5,2.05,block -> cube
+widowx_cube_on_plate_clean,verb synonym,False,place the green cube onto the plate,75.0,48,Drop the green cube onto the plate.,87.5,240,12.5,2.24,drop -> place
+widowx_coke_can_on_keyboard_clean,verb synonym,False,set the soda can on the keyboard,0.0,48,Put the soda can on the keyboard,12.5,48,12.5,2.53,put -> set
+widowx_carrot_on_sponge_clean,noun/adjective synonym,True,Grab that orange carrot and set it on top of the sponge.,16.7,288,Grab the orange carrot and set it on top of the sponge.,29.2,48,12.5,2.07,that -> the
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,placed the round nut on the tire,0.0,48,Put the round nut on the tire.,12.5,48,12.5,2.53,put -> placed
+widowx_cube_on_plate_clean,case/punctuation only,False,drop the green cube onto the plate,75.0,48,Drop the green cube onto the plate.,87.5,240,12.5,2.24, -> 
+widowx_coke_can_on_wheel_clean,preposition synonym,True,Put the red soda can in the center of the black rubber tire.,2.1,48,Put the red soda can inside the center of the black rubber tire.,14.6,96,12.5,2.31,in -> inside
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,place the gray nut onto the black tire,4.2,48,place the grey nut onto the black tire,16.7,48,12.5,2.0,gray -> grey
+widowx_nut_on_wheel_clean,preposition synonym,False,Set the grey nut to the black tire.,4.2,48,set the grey nut in the black tire,16.7,48,12.5,2.0,to -> in
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,Place the lime-colored saucer on top of the teal cube.,4.2,144,place the lime-colored saucer on top of the teal block,16.7,48,12.5,2.88,cube -> block
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the red can on the keyboard.,4.2,48,Put the Coke can on the keyboard.,16.7,72,12.5,2.09,coke -> red
+widowx_nut_on_wheel_clean,verb synonym,True,Position the nut on the wheel.,3.1,96,Put the nut on the wheel.,15.6,192,12.5,3.14,position -> put
+widowx_carrot_on_sponge_clean,verb synonym,True,put the orange carrot on the yellow and green sponge,11.5,96,set the orange carrot on the yellow and green sponge,24.0,192,12.5,2.51,put -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,set the soda can on the keyboard,0.0,48,set the red can on the keyboard,12.5,72,12.5,2.55,red -> soda
+widowx_cube_on_plate_clean,verb synonym,False,Put the green cube on the plate,70.8,48,set the green cube on the plate,83.3,336,12.5,2.1,put -> set
+widowx_eggplant_on_sponge_clean,verb synonym,False,set the purple eggplant on the sponge,74.0,312,Place the purple eggplant on the sponge.,86.6,648,12.5,4.79,place -> set
+widowx_cube_on_plate_clean,case/punctuation only,False,Put the green cube on the plate,70.8,48,Put the green cube on the plate.,83.3,216,12.5,2.0, -> 
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Move the red coke can onto the black keyboard.,4.2,48,Put the red coke can onto the black keyboard.,16.7,96,12.5,2.14,move -> put
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Move the red coke can onto the black keyboard.,4.2,48,place the red coke can onto the black keyboard,16.7,48,12.5,2.0,move -> place
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,pick up the red can and put it on the keyboard,0.0,48,Pick up the coke can and put it on the keyboard.,12.5,24,12.5,2.5,coke -> red
+widowx_cube_on_plate_clean,preposition synonym,True,set the green cube onto the plate,70.8,96,set the green cube on the plate,83.3,336,12.5,2.73,on -> onto
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Place the red can on the keyboard.,4.2,72,Place the Coke can on the keyboard.,16.7,24,12.5,2.04,coke -> red
+widowx_nut_on_plate_clean,verb synonym,True,Drop the nut on the plate,33.3,312,Put the nut on the plate,45.8,72,12.5,2.0,drop -> put
+widowx_nut_on_plate_clean,case/punctuation only,False,Drop the nut on the plate,33.3,312,drop the nut on the plate,45.8,72,12.5,2.0, -> 
+widowx_nut_on_plate_clean,preposition synonym,False,Drop the nut on the plate,33.3,312,drop the nut onto the plate,45.8,192,12.5,2.81,on -> onto
+widowx_coke_can_on_keyboard_clean,verb synonym,False,set the soda can on the keyboard,0.0,48,Place the soda can on the keyboard.,12.5,24,12.5,2.5,place -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,put the red can onto the black keyboard,4.2,72,put the coke can onto the black keyboard,16.7,24,12.5,2.04,coke -> red
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,place the nut on the wheel,4.2,48,Place the nut on the tire.,16.7,72,12.5,2.09,tire -> wheel
+widowx_carrot_on_ramekin_clean,preposition synonym,True,Move the carrot to the white bowl.,20.8,96,Move the carrot into the white bowl.,33.3,120,12.5,2.04,into -> to
+widowx_carrot_on_ramekin_clean,preposition synonym,False,put the carrot into the white bowl,28.0,168,Put the carrot inside the white bowl.,40.4,240,12.4,2.59,inside -> into
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Place the grey nut on the yellow plate.,18.1,144,Place the black nut on the yellow plate.,30.4,168,12.3,2.51,black -> grey
+widowx_coke_can_on_wheel_clean,verb synonym,False,Place the Coke can on the black wheel.,11.1,72,put the coke can on the black wheel,23.3,120,12.2,2.1,place -> put
+widowx_eggplant_on_sponge_clean,verb synonym,False,put the purple eggplant on the yellow and green sponge,62.1,240,Place the purple eggplant on the yellow and green sponge.,74.3,144,12.2,2.46,place -> put
+widowx_eggplant_on_sponge_clean,preposition synonym,True,Drop the eggplant on the sponge.,74.4,168,Drop the eggplant onto the sponge.,86.6,216,12.2,3.03,on -> onto
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Move the Coke can onto the keyboard.,8.3,120,Place the Coke can onto the keyboard.,20.5,312,12.2,3.01,move -> place
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Place the red soda can inside the center of the black rubber tire.,8.7,240,Place the red soda container inside the center of the black rubber tire.,20.8,48,12.1,2.47,can -> container
+widowx_carrot_on_ramekin_clean,preposition synonym,True,Put the carrot in the bowl.,10.8,120,Put the carrot inside the bowl.,22.9,48,12.1,2.02,in -> inside
+widowx_eggplant_on_keyboard_clean,case/punctuation only,False,Set the purple eggplant down on top of the keyboard.,0.4,240,set the purple eggplant down on top of the keyboard,12.5,96,12.1,5.19, -> 
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,False,Put the carrot in the bowl.,10.8,120,put the carrot in the ramekin,22.9,48,12.1,2.02,bowl -> ramekin
+widowx_pepsi_on_plate_clean,case/punctuation only,False,Set the Pepsi can on the plate.,32.7,168,set the pepsi can on the plate,44.8,192,12.1,2.34, -> 
+widowx_carrot_on_ramekin_clean,preposition synonym,True,put carrot on ramekin,13.0,384,put carrot into ramekin,25.0,48,12.0,2.23,into -> on
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,put the carrot into the white bowl,28.0,168,put the carrot into the white dish,40.0,120,12.0,2.14,bowl -> dish
+widowx_eggplant_on_keyboard_clean,verb synonym,True,Leave the eggplant on the keyboard.,4.2,48,Put the eggplant on the keyboard.,16.2,216,12.0,2.17,leave -> put
+widowx_pepsi_on_plate_clean,noun/adjective synonym,True,put the blue can on the plate,38.1,168,put the blue soda on the plate,50.0,168,11.9,2.2,can -> soda
+widowx_cube_on_plate_clean,verb synonym,True,Situate the small teal block on the light green circular dish.,56.8,336,Put the small teal block on the light green circular dish.,68.8,144,11.9,2.44,put -> situate
+widowx_nut_on_wheel_clean,slight restructure,True,put grey nut on black tire,4.2,96,put the grey nut on the black tire,16.1,168,11.9,2.89,reorder/determiners
+widowx_carrot_on_sponge_clean,preposition synonym,False,set the carrot onto the sponge,24.2,120,Set the carrot on the sponge.,35.9,192,11.8,2.18,on -> onto
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Place the eggplant on top of the keyboard.,4.9,144,put the eggplant on top of the keyboard.,16.7,24,11.8,2.16,place -> put
+widowx_cube_on_plate_clean,verb synonym,False,set the green cube onto the plate,70.8,96,Place the green cube onto the plate.,82.6,408,11.8,2.61,place -> set
+widowx_carrot_on_keyboard_clean,verb synonym,False,set the carrot on the keyboard,2.1,48,Place the carrot on the keyboard.,13.9,36,11.8,2.08,place -> set
+widowx_cube_on_plate_clean,noun/adjective synonym,True,set the green block on the plate,71.5,144,set the green cube on the plate,83.3,336,11.8,2.95,block -> cube
+widowx_carrot_on_sponge_clean,verb synonym,True,Put the carrot onto the sponge.,20.8,72,Place the carrot onto the sponge.,32.5,480,11.7,2.0,place -> put
+widowx_nut_on_wheel_clean,verb synonym,True,set the nut on the wheel,2.7,264,put the nut on the wheel,14.4,216,11.7,4.72,put -> set
+widowx_nut_on_plate_clean,verb synonym,True,set the nut onto the plate,34.2,120,drop the nut onto the plate,45.8,192,11.7,2.04,drop -> set
+widowx_cube_on_plate_clean,verb synonym,False,pick up the green cube and put it on the plate,83.3,24,Pick up the green cube and place it on the plate.,95.0,504,11.7,2.46,place -> put
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,False,Put the soda can on the black wheel.,11.7,120,put the coke can on the black wheel,23.3,120,11.7,2.38,soda -> coke
+widowx_eggplant_on_sponge_clean,verb synonym,True,Move the eggplant onto the sponge.,75.0,168,Drop the eggplant onto the sponge.,86.6,216,11.6,2.9,drop -> move
+widowx_cube_on_plate_clean,verb synonym,True,put the green cube on the yellow plate,65.6,192,set the green cube on the yellow plate,77.2,408,11.6,3.0,put -> set
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,Put the grey nut in the middle of the black tire.,1.0,96,put the grey nut in the center of the black tire,12.5,24,11.5,2.8,middle -> center
+widowx_carrot_on_sponge_clean,verb synonym,False,put the orange carrot on the yellow and green sponge,11.5,96,Set the orange carrot on the yellow and green sponge.,22.9,96,11.5,2.1,set -> put
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Set the red can on the black keyboard.,4.2,48,set the coke can on the black keyboard,15.6,96,11.5,2.01,red -> coke
+widowx_nut_on_wheel_clean,verb synonym,False,place the nut on the wheel,4.2,48,Put the nut on the wheel.,15.6,192,11.5,2.09,put -> place
+widowx_carrot_on_sponge_clean,verb synonym,False,Move the carrot onto the sponge.,26.0,624,place the carrot onto the sponge,37.5,96,11.5,2.36,move -> place
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,set the eggplant down on top of the sponge,74.0,96,Set the eggplant down on top of the sponge.,85.4,288,11.5,2.56, -> 
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the beverage can on the keyboard.,0.0,96,put the coke can on the keyboard,11.5,96,11.5,3.42,beverage -> coke
+widowx_eggplant_on_keyboard_clean,preposition synonym,True,Put the eggplant on the keyboard.,16.2,216,Put the eggplant onto the keyboard.,27.7,264,11.4,2.99,on -> onto
+widowx_carrot_on_ramekin_clean,verb synonym,False,Put the carrot in the bowl.,10.8,120,stick the carrot in the bowl,22.2,72,11.4,2.13,put -> stick
+widowx_cube_on_plate_clean,noun/adjective synonym,False,put the little green cube on the plate,72.2,72,Put the small green cube on the plate.,83.5,480,11.3,2.33,small -> little
+widowx_orange_juice_on_plate_clean,verb synonym,True,Put the orange juice box on the yellow plate.,20.8,216,Place the orange juice box on the yellow plate.,32.1,168,11.3,2.51,place -> put
+widowx_eggplant_on_keyboard_clean,preposition synonym,True,Move the eggplant to the keyboard.,5.4,168,Move the eggplant onto the keyboard.,16.7,48,11.3,2.57,onto -> to
+widowx_coke_can_on_keyboard_clean,verb synonym,True,set the red can on the black keyboard,5.4,168,place the red can on the black keyboard,16.7,24,11.3,2.06,place -> set
+widowx_nut_on_wheel_clean,verb synonym,False,Position the nut on the wheel.,3.1,96,put the nut on the wheel,14.4,216,11.2,2.94,position -> put
+widowx_carrot_on_ramekin_clean,preposition synonym,True,Put the carrot on the ramekin.,10.0,120,Put the carrot in the ramekin.,21.2,240,11.2,2.65,in -> on
+widowx_nut_on_wheel_clean,preposition synonym,False,place the nut onto the wheel,0.0,96,Place the nut on the wheel.,11.2,240,11.2,3.43,on -> onto
+widowx_carrot_on_ramekin_clean,preposition synonym,True,Put the carrot on the ramekin.,10.0,120,Put the carrot into the ramekin.,21.2,288,11.2,2.68,into -> on
+widowx_eggplant_on_sponge_clean,verb synonym,False,drop the purple eggplant onto the sponge,70.8,72,Put the purple eggplant onto the sponge.,81.9,216,11.1,2.01,put -> drop
+widowx_nut_on_plate_clean,verb synonym,False,Drop the nut onto the plate.,37.5,216,put the nut onto the plate,48.6,144,11.1,2.09,drop -> put
+widowx_nut_on_wheel_clean,case/punctuation only,False,put the nut onto the wheel,6.9,72,Put the nut onto the wheel.,18.1,72,11.1,2.02, -> 
+widowx_carrot_on_wheel_clean,verb synonym,True,put the carrot on the wheel,3.5,144,set the carrot on the wheel,14.6,48,11.1,2.75,put -> set
+widowx_nut_on_plate_clean,preposition synonym,False,set the grey nut on the yellow plate,18.1,288,Set the grey nut onto the yellow plate.,29.2,96,11.1,2.32,onto -> on
+widowx_coke_can_on_keyboard_clean,verb synonym,False,set the red soda can on the black keyboard,4.2,144,Place the red soda can on the black keyboard.,15.1,192,10.9,3.25,place -> set
+widowx_eggplant_on_sponge_clean,preposition synonym,True,Put the purple eggplant over the green sponge.,77.1,96,Put the purple eggplant on the green sponge.,88.0,216,10.9,2.46,on -> over
+widowx_eggplant_on_sponge_clean,slight restructure,True,put the purple eggplant on the yellow and green sponge,62.1,240,put the purple eggplant on the green and yellow sponge,72.9,192,10.8,2.38,reorder/determiners
+widowx_coke_can_on_keyboard_clean,slight restructure,True,set the coke can on the keyboard,10.0,240,set coke can on keyboard,20.8,48,10.8,2.12,reorder/determiners
+widowx_pepsi_on_plate_clean,preposition synonym,True,put the blue can onto the yellow plate,9.7,72,put the blue can on the yellow plate,20.5,288,10.8,2.11,on -> onto
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Place the red soda can inside the center of the rubber tire.,2.1,192,Place the red soda container inside the center of the rubber tire.,12.9,264,10.8,4.12,can -> container
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the beverage can on the keyboard.,0.0,96,Put the drink can on the keyboard,10.8,120,10.8,3.33,beverage -> drink
+widowx_nut_on_wheel_clean,verb synonym,True,set nut on wheel,8.3,144,put nut on wheel,19.1,696,10.8,3.11,put -> set
+widowx_nut_on_plate_clean,verb synonym,False,set the nut on the plate,29.9,264,Place the nut on the plate,40.7,432,10.8,2.87,place -> set
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,Grab the nut and place it on the tire.,4.2,144,Grab the nut and place it on the wheel.,15.0,120,10.8,3.05,tire -> wheel
+widowx_nut_on_wheel_clean,case/punctuation only,False,put the nut on the tire,14.3,168,Put the nut on the tire.,25.0,216,10.7,2.59, -> 
+widowx_eggplant_on_keyboard_clean,preposition synonym,False,Put the purple eggplant onto the black keyboard.,34.6,312,put the purple eggplant on the black keyboard,45.3,408,10.7,2.9,onto -> on
+widowx_eggplant_on_keyboard_clean,case/punctuation only,False,Set the purple eggplant onto the black keyboard.,32.3,192,set the purple eggplant onto the black keyboard,42.9,336,10.6,2.39, -> 
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,put the nut on the wheel,14.4,216,Put the nut on the tire.,25.0,216,10.6,2.78,tire -> wheel
+widowx_coke_can_on_keyboard_clean,verb synonym,True,set the red soda can on the black keyboard,4.2,144,put the red soda can on the black keyboard,14.8,264,10.6,3.27,put -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Put the red soda can on top of the black keyboard.,2.8,72,Place the red soda can on top of the black keyboard.,13.3,120,10.6,2.43,place -> put
+widowx_eggplant_on_keyboard_clean,case/punctuation only,False,Put the purple eggplant on the black keyboard.,34.7,144,put the purple eggplant on the black keyboard,45.3,408,10.6,2.22, -> 
+widowx_cube_on_plate_clean,case/punctuation only,False,Put the green block on the plate.,77.1,96,put the green block on the plate,87.5,120,10.4,2.02, -> 
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,False,Set the red can down inside the center of the black rubber tire.,0.0,48,set the red can down inside the center of the black rubber wheel,10.4,96,10.4,2.32,tire -> wheel
+widowx_nut_on_plate_clean,preposition synonym,True,put the nut on the plate,38.2,288,put the nut onto the plate,48.6,144,10.4,2.07,on -> onto
+widowx_coke_can_on_keyboard_clean,case/punctuation only,False,drop the soda can onto the keyboard,2.1,48,Drop the soda can onto the keyboard.,12.5,72,10.4,2.02, -> 
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,Put the carrot in the bowl.,10.8,120,Put the carrot in the ramekin.,21.2,240,10.4,2.44,bowl -> ramekin
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Place the red can onto the black keyboard.,6.2,96,Place the Coke can onto the black keyboard.,16.7,72,10.4,2.16,coke -> red
+widowx_carrot_on_ramekin_clean,verb synonym,True,put the orange carrot inside the white bowl,32.8,192,set the orange carrot inside the white bowl,43.2,192,10.4,2.1,put -> set
+widowx_coke_can_on_keyboard_clean,case/punctuation only,False,Set the red can on the keyboard.,2.1,48,set the red can on the keyboard,12.5,72,10.4,2.02, -> 
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Slide the red can onto the black keyboard,0.0,72,slide the coke can onto the black keyboard,10.4,48,10.4,2.8,red -> coke
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Stack the Coke can on the wheel.,6.2,192,Place the Coke can on the wheel.,16.7,408,10.4,3.5,place -> stack
+widowx_nut_on_plate_clean,noun/adjective synonym,True,Get the nut on the plate,30.3,264,Place the nut on the plate,40.7,432,10.4,2.77,get -> place
+widowx_carrot_on_sponge_clean,verb synonym,False,put the orange carrot on the yellow and green sponge,11.5,96,Place the orange carrot on the yellow and green sponge.,21.8,408,10.4,2.29,place -> put
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,put the red can onto the black keyboard,4.2,72,put the soda can onto the black keyboard,14.6,48,10.4,2.02,red -> soda
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut onto the wheel,7.6,144,Put the nut onto the wheel.,18.1,72,10.4,2.3,put -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,set the red can on the black keyboard,5.4,168,set the coke can on the black keyboard,15.6,96,10.3,2.79,coke -> red
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Put the eggplant on the keyboard.,16.2,216,set the eggplant on the keyboard,26.4,216,10.2,2.59,put -> set
+widowx_cube_on_plate_clean,case/punctuation only,False,put the green cube on the plate,73.2,384,Put the green cube on the plate.,83.3,216,10.2,2.83, -> 
+widowx_cube_on_plate_clean,verb synonym,False,put the green cube on the plate,73.2,384,Place the green cube on the plate.,83.3,96,10.2,2.06,place -> put
+widowx_cube_on_plate_clean,verb synonym,True,put the green cube on the plate,73.2,384,set the green cube on the plate,83.3,336,10.2,3.28,put -> set
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,put the carrot in the white bowl,30.4,240,put the carrot in the white dish,40.5,168,10.1,2.1,bowl -> dish
+widowx_carrot_on_ramekin_clean,preposition synonym,False,put the carrot in the white bowl,30.4,240,Put the carrot inside the white bowl.,40.4,240,10.0,2.29,inside -> in
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut in the wheel,2.5,120,Put the nut in the wheel.,12.5,24,10.0,2.24,put -> set
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,set the soda can on the keyboard,0.0,48,set the coke can on the keyboard,10.0,240,10.0,2.29,coke -> soda
+widowx_carrot_on_ramekin_clean,verb synonym,False,Put the orange carrot inside the white bowl.,33.3,216,set the orange carrot inside the white bowl,43.2,192,9.9,2.06,put -> set
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,set the eggplant on top of the sponge,65.8,120,Set the eggplant on top of the sponge.,75.8,264,9.9,2.02, -> 
+widowx_cube_on_plate_clean,preposition synonym,False,set the green cube onto the plate,70.8,96,Set the green cube on the plate.,80.7,264,9.8,2.0,on -> onto
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the red soda can on the black keyboard.,10.0,120,Put the red coke can on the black keyboard.,19.8,96,9.8,2.04,coke -> soda
+widowx_pepsi_on_plate_clean,verb synonym,True,Put the can of Pepsi on the plate.,16.7,144,Set the can of Pepsi on the plate.,26.4,144,9.7,2.01,put -> set
+widowx_nut_on_wheel_clean,verb synonym,True,grab the nut and put it on the wheel,0.0,72,grab the nut and place it on the wheel,9.7,72,9.7,2.71,place -> put
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,grab the nut and place it on the tire,0.0,72,grab the nut and place it on the wheel,9.7,72,9.7,2.71,tire -> wheel
+widowx_cube_on_plate_clean,noun/adjective synonym,False,Set the green block on the plate.,73.8,240,set the green cube on the plate,83.3,336,9.6,2.8,block -> cube
+widowx_nut_on_wheel_clean,case/punctuation only,False,place the nut onto the wheel,0.0,96,Place the nut onto the wheel.,9.6,480,9.6,3.16, -> 
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Put the eggplant onto the keyboard.,27.7,264,Place the eggplant onto the keyboard,37.1,264,9.5,2.33,place -> put
+widowx_carrot_on_sponge_clean,verb synonym,False,Put the carrot on the sponge.,31.6,408,rest the carrot on the sponge,41.1,192,9.5,2.29,put -> rest
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,Put the nut on the wheel.,15.6,192,Put the nut on the tire.,25.0,216,9.4,2.34,tire -> wheel
+widowx_cube_on_plate_clean,preposition synonym,True,set the green cube in the plate,74.0,96,set the green cube on the plate,83.3,336,9.4,2.08,in -> on
+widowx_nut_on_wheel_clean,verb synonym,False,set the grey hexagonal fastener onto the center of the rubber tire,0.0,48,Place the grey hexagonal fastener onto the center of the rubber tire.,9.4,192,9.4,2.21,place -> set
+widowx_carrot_on_ramekin_clean,noun/adjective synonym,True,Take the carrot over to the ramekin and place it inside.,7.4,216,Take the carrot over to the bowl and place it inside.,16.7,48,9.3,2.02,bowl -> ramekin
+widowx_eggplant_on_sponge_clean,verb synonym,True,Put the eggplant on the sponge.,73.7,384,Position the eggplant on the sponge.,82.9,240,9.2,2.67,position -> put
+widowx_cube_on_plate_clean,noun/adjective synonym,False,set the green block on the plate,71.5,144,Set the green cube on the plate.,80.7,264,9.2,2.11,cube -> block
+widowx_eggplant_on_sponge_clean,verb synonym,True,Put the eggplant onto the sponge.,77.4,168,Drop the eggplant onto the sponge.,86.6,216,9.2,2.35,drop -> put
+widowx_eggplant_on_keyboard_clean,preposition synonym,True,set the purple eggplant onto the black keyboard,42.9,336,set the purple eggplant on the black keyboard,51.9,360,9.1,2.4,on -> onto
+widowx_eggplant_on_keyboard_clean,preposition synonym,True,put the eggplant on the keyboard,12.0,192,put the eggplant onto the keyboard,20.8,120,8.9,2.11,on -> onto
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,put the red can on the black keyboard,3.7,216,put the soda can on the black keyboard,12.5,48,8.8,2.46,red -> soda
+widowx_eggplant_on_sponge_clean,verb synonym,False,set the purple eggplant on the green and yellow sponge,68.6,264,Place the purple eggplant on the green and yellow sponge.,77.3,432,8.8,2.55,place -> set
+widowx_carrot_on_sponge_clean,verb synonym,True,Drop the carrot onto the sponge.,23.8,480,Place the carrot onto the sponge.,32.5,480,8.8,3.01,drop -> place
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the red soda can on the black keyboard.,10.0,120,put the red coke can on the black keyboard,18.8,192,8.7,2.08,soda -> coke
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut on the wheel,2.7,264,Place the nut on the wheel.,11.2,240,8.6,3.84,place -> set
+widowx_nut_on_wheel_clean,verb synonym,True,Place the nut onto the wheel.,9.6,480,Put the nut onto the wheel.,18.1,72,8.5,2.17,place -> put
+widowx_eggplant_on_sponge_clean,verb synonym,True,Drop the eggplant on the sponge.,74.4,168,Position the eggplant on the sponge.,82.9,240,8.5,2.09,drop -> position
+widowx_pepsi_on_plate_clean,verb synonym,False,Put the Pepsi can on the plate.,36.2,480,set the pepsi can on the plate,44.8,192,8.5,2.05,put -> set
+widowx_eggplant_on_sponge_clean,case/punctuation only,False,place the purple eggplant on the sponge,78.1,96,Place the purple eggplant on the sponge.,86.6,648,8.4,2.19, -> 
+widowx_carrot_on_sponge_clean,verb synonym,True,Put the carrot on the sponge.,31.6,408,Position the carrot on the sponge.,40.0,240,8.4,2.16,position -> put
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Move the red soda can to the black keyboard.,0.0,432,relocate the red soda can to the black keyboard,8.3,24,8.3,6.01,move -> relocate
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Slide the red can onto the black keyboard,0.0,72,Deposit the red can onto the black keyboard.,8.3,24,8.3,2.48,deposit -> slide
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Move the Coke can over onto the keyboard.,4.2,216,set the coke can over onto the keyboard,12.5,48,8.3,2.26,move -> set
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut on top of the wheel,0.0,72,Place the nut on top of the wheel.,8.3,24,8.3,2.48,place -> set
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,Put the gray nut onto the center of the black wheel.,0.0,48,Put the hexagonal nut onto the center of the black wheel.,8.3,48,8.3,2.04,gray -> hexagonal
+widowx_coke_can_on_keyboard_clean,verb synonym,True,set the soda can on the keyboard,0.0,48,put the soda can on the keyboard,8.3,216,8.3,2.07,put -> set
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,Set the grey nut into the center of the wheel.,0.0,48,set the small nut into the center of the wheel,8.3,48,8.3,2.04,grey -> small
+widowx_nut_on_wheel_clean,case/punctuation only,False,Slide the little hex nut into the wheel's center.,0.0,312,slide the little hex nut into the wheel's center,8.3,48,8.3,5.13, -> 
+widowx_nut_on_wheel_clean,verb synonym,True,place the nut onto the wheel,0.0,96,drop the nut onto the wheel,8.3,48,8.3,2.87,drop -> place
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,place the small plate on the green cube,0.0,120,place the yellow plate on the green cube,8.3,24,8.3,3.18,small -> yellow
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,placed the round nut on the tire,0.0,48,put the round nut on the tire,8.3,24,8.3,2.03,placed -> put
+widowx_nut_on_wheel_clean,verb synonym,True,Grab the nut and place it on the black wheel.,0.0,48,Grab the nut and put it on the black wheel.,8.3,48,8.3,2.04,place -> put
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,Place the small plate on the green cube.,0.0,264,place the yellow plate on the green cube,8.3,24,8.3,4.71,small -> yellow
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,set the gray nut onto the center of the rubber wheel,0.0,96,set the hexagonal nut onto the center of the rubber wheel,8.3,48,8.3,2.87,gray -> hexagonal
+widowx_nut_on_plate_clean,verb synonym,True,set the nut on the plate,29.9,264,put the nut on the plate,38.2,288,8.3,2.05,put -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Slide the red can onto the black keyboard,0.0,72,put the red can onto the black keyboard.,8.3,48,8.3,2.49,slide -> put
+widowx_coke_can_on_wheel_clean,verb synonym,False,set the coke can on the wheel,8.3,168,Place the Coke can on the wheel.,16.7,408,8.3,2.6,place -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,False,set the soda can on the keyboard,0.0,48,Put the soda can on the keyboard.,8.3,48,8.3,2.04,put -> set
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Put the can on the wheel.,0.0,48,Put the Coke on the wheel.,8.3,24,8.3,2.03,coke -> can
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,False,put the can on the wheel,0.0,48,Put the Coke on the wheel.,8.3,24,8.3,2.03,coke -> can
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the beverage can on the keyboard.,0.0,96,put the red can on the keyboard,8.3,120,8.3,2.9,beverage -> red
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the beverage can on the keyboard.,0.0,96,Put the soda can on the keyboard.,8.3,48,8.3,2.87,beverage -> soda
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,put the soda can on the keyboard,8.3,216,Put the Coke can on the keyboard.,16.7,72,8.3,2.0,coke -> soda
+widowx_coke_can_on_keyboard_clean,verb synonym,False,pick up the red can and put it on the keyboard,0.0,48,Pick up the red can and set it on the keyboard.,8.3,24,8.3,2.03,set -> put
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Move the red soda can to the black keyboard.,0.0,432,set the red soda can to the black keyboard,8.3,24,8.3,6.01,move -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Move the red soda can to the black keyboard.,0.0,432,Relocate the red soda can to the black keyboard.,8.3,24,8.3,6.01,move -> relocate
+widowx_coke_can_on_keyboard_clean,preposition synonym,True,Move the red soda can to the black keyboard.,0.0,432,Move the red soda can onto the black keyboard.,8.3,24,8.3,6.01,onto -> to
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Move the red Coke can to the keyboard.,0.0,72,Transfer the red Coke can to the keyboard.,8.3,72,8.3,2.5,move -> transfer
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,False,Put the beverage can on the keyboard.,0.0,96,put the soda can on the keyboard,8.3,216,8.3,2.91,beverage -> soda
+widowx_eggplant_on_keyboard_clean,verb synonym,False,Put the purple eggplant onto the black keyboard.,34.6,312,set the purple eggplant onto the black keyboard,42.9,336,8.2,2.15,put -> set
+widowx_nut_on_wheel_clean,verb synonym,False,set the nut on the wheel there,2.8,72,Put the nut on the wheel there.,11.0,336,8.2,2.16,put -> set
+widowx_cube_on_plate_clean,preposition synonym,True,Move the green block to the yellow plate.,70.5,312,Move the green block onto the yellow plate.,78.7,216,8.2,2.11,onto -> to
+widowx_nut_on_plate_clean,verb synonym,False,Lay the nut onto the plate,32.7,312,Put the nut onto the plate.,40.9,264,8.2,2.04,lay -> put
+widowx_nut_on_wheel_clean,verb synonym,True,Position the nut on the wheel.,3.1,96,Place the nut on the wheel.,11.2,240,8.1,2.36,place -> position
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,Place the gray hexagonal fastener onto the center of the rubber tire.,1.4,144,Place the grey hexagonal fastener onto the center of the rubber tire.,9.4,192,8.0,3.06,gray -> grey
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,Placed the round nut on the tire.,4.6,216,Put the round nut on the tire.,12.5,48,7.9,2.07,placed -> put
+widowx_small_plate_on_green_cube_clean,preposition synonym,True,set the plate on the green cube,0.4,240,set the plate onto the green cube,8.3,48,7.9,3.83,on -> onto
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,set the nut on the wheel,2.7,264,set the nut on the tire,10.4,48,7.8,2.57,tire -> wheel
+widowx_nut_on_wheel_clean,verb synonym,False,set the small metal nut to the wheel,0.0,72,Move the small metal nut to the wheel.,7.7,312,7.7,2.43,move -> set
+widowx_nut_on_wheel_clean,verb synonym,True,place the nut onto the wheel,0.0,96,set the nut onto the wheel,7.6,144,7.6,2.77,place -> set
+widowx_nut_on_wheel_clean,verb synonym,False,Grab the nut and put it on the wheel.,2.2,312,grab the nut and place it on the wheel,9.7,72,7.5,3.05,put -> place
+widowx_cube_on_plate_clean,verb synonym,False,put the green cube on the plate,73.2,384,Set the green cube on the plate.,80.7,264,7.5,2.21,set -> put
+widowx_small_plate_on_green_cube_clean,verb synonym,True,put the yellow plate on the green cube,0.8,120,place the yellow plate on the green cube,8.3,24,7.5,2.35,place -> put
+widowx_nut_on_plate_clean,verb synonym,True,Drop the nut on the plate,33.3,312,Place the nut on the plate,40.7,432,7.4,2.06,drop -> place
+widowx_orange_juice_on_plate_clean,slight restructure,True,put orange juice on plate,28.9,864,put the orange juice on the plate,36.2,240,7.3,2.18,reorder/determiners
+widowx_eggplant_on_sponge_clean,verb synonym,False,Put the eggplant on the sponge.,73.7,384,set the eggplant on the sponge,80.9,288,7.2,2.19,put -> set
+widowx_carrot_on_sponge_clean,verb synonym,False,Put the carrot on the sponge.,31.6,408,set the carrot on the sponge,38.8,312,7.2,2.0,put -> set
+widowx_nut_on_wheel_clean,verb synonym,True,place the nut onto the wheel,0.0,96,put the nut onto the wheel,6.9,72,6.9,2.62,place -> put
+widowx_carrot_on_sponge_clean,verb synonym,True,Move the carrot onto the sponge.,26.0,624,Place the carrot onto the sponge.,32.5,480,6.5,2.38,move -> place
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,Place the small plate on top of the green cube.,0.0,216,Place the small dish on top of the green cube.,6.2,48,6.2,3.7,dish -> plate
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Move the red soda can to the black keyboard.,0.0,432,Move the red coke can to the black keyboard.,6.2,48,6.2,5.21,coke -> soda
+widowx_coke_can_on_keyboard_clean,verb synonym,False,Slide the red can onto the black keyboard,0.0,72,Place the red can onto the black keyboard.,6.2,96,6.2,2.16,place -> slide
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,place the small plate on top of the green cube,0.0,72,Place the small dish on top of the green cube.,6.2,48,6.2,2.15,dish -> plate
+widowx_coke_can_on_wheel_clean,case/punctuation only,False,Rest that can on the wheel.,0.0,216,rest that can on the wheel,6.2,48,6.2,3.7, -> 
+widowx_cube_on_plate_clean,slight restructure,True,put the green cube on the plate,73.2,384,put green cube on plate,79.2,816,6.0,2.31,reorder/determiners
+widowx_pepsi_on_plate_clean,verb synonym,True,Place the Pepsi can on the plate.,30.2,576,Put the Pepsi can on the plate.,36.2,480,6.0,2.08,place -> put
+widowx_carrot_on_sponge_clean,verb synonym,True,Put the carrot on the sponge.,31.6,408,Place the carrot on the sponge.,37.6,768,6.0,2.05,place -> put
+widowx_nut_on_wheel_clean,slight restructure,True,set the nut on the wheel,2.7,264,set nut on wheel,8.3,144,5.7,2.6,reorder/determiners
+widowx_coke_can_on_keyboard_clean,case/punctuation only,False,put the red can on the black keyboard,3.7,216,Put the red can on the black keyboard.,9.4,96,5.7,2.04, -> 
+widowx_coke_can_on_keyboard_clean,verb synonym,False,put the red can on the black keyboard,3.7,216,Place the red can on the black keyboard.,9.4,96,5.7,2.04,place -> put
+widowx_small_plate_on_green_cube_clean,case/punctuation only,False,put the small plate on top of the green cube,0.0,72,Put the small plate on top of the green cube.,5.6,216,5.6,2.04, -> 
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,stack the small plate on top of the green cube,0.0,72,Put the small plate on top of the green cube.,5.6,216,5.6,2.04,put -> stack
+widowx_small_plate_on_green_cube_clean,verb synonym,True,Place the small plate on top of the green cube.,0.0,216,Put the small plate on top of the green cube.,5.6,216,5.6,3.51,place -> put
+widowx_small_plate_on_green_cube_clean,verb synonym,False,place the small plate on top of the green cube,0.0,72,Put the small plate on top of the green cube.,5.6,216,5.6,2.04,put -> place
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,Stack the small plate on top of the green cube.,0.0,168,Put the small plate on top of the green cube.,5.6,216,5.6,3.1,put -> stack
+widowx_nut_on_wheel_clean,preposition synonym,True,set the nut on the wheel,2.7,264,set the nut onto the wheel,7.6,144,5.0,2.34,on -> onto
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,Place the shallow yellow dish on top of the teal block.,2.0,408,Place the pale yellow dish on top of the teal block.,6.5,432,4.5,3.23,pale -> shallow
+widowx_coke_can_on_keyboard_clean,slight restructure,True,Put the beverage can on the keyboard.,0.0,96,Please put the beverage can on the keyboard.,4.2,72,4.2,2.02,reorder/determiners
+widowx_nut_on_wheel_clean,noun/adjective synonym,False,Move the nut to the wheel.,0.0,192,attach the nut to the wheel,4.2,24,4.2,2.83,move -> attach
+widowx_coke_can_on_keyboard_clean,noun/adjective synonym,True,Put the beverage can on the keyboard.,0.0,96,Put the red can on the keyboard.,4.2,48,4.2,2.01,beverage -> red
+widowx_nut_on_wheel_clean,preposition synonym,True,place the nut onto the wheel,0.0,96,place the nut on the wheel,4.2,48,4.2,2.01,on -> onto
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,Stack the small plate on top of the green cube.,0.0,168,stack the yellow plate on top of the green cube,4.2,24,4.2,2.65,small -> yellow
+widowx_nut_on_wheel_clean,noun/adjective synonym,True,Place the gray hexagonal fastener directly onto the center of the rubber tire.,1.9,264,Place the grey hexagonal fastener directly onto the center of the rubber tire.,6.1,360,4.2,2.56,gray -> grey
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,Stack the small plate on the green block.,0.0,288,set the small plate on the green block,4.2,48,4.2,3.47,stack -> set
+widowx_coke_can_on_keyboard_clean,verb synonym,True,Shift the red can over so it rests on the keyboard.,0.0,144,Move the red can over so it rests on the keyboard.,4.2,48,4.2,2.46,move -> shift
+widowx_coke_can_on_wheel_clean,noun/adjective synonym,True,Rest that can on the wheel.,0.0,216,Rest the can on the wheel.,4.2,24,4.2,3.01,that -> the
+widowx_nut_on_wheel_clean,verb synonym,False,place the nut onto the wheel,0.0,96,Drop the nut onto the wheel.,4.2,120,4.2,2.02,drop -> place
+widowx_coke_can_on_wheel_clean,verb synonym,True,Rest that can on the wheel.,0.0,216,Put that can on the wheel.,4.2,24,4.2,3.01,put -> rest
+widowx_eggplant_on_keyboard_clean,case/punctuation only,False,Take that eggplant over to the keyboard and set it there.,0.0,192,take that eggplant over to the keyboard and set it there,4.2,24,4.2,2.83, -> 
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,Grab the small plate and set it on the green cube.,0.0,144,grab the yellow plate and set it on the green cube,4.2,24,4.2,2.46,small -> yellow
+widowx_small_plate_on_green_cube_clean,verb synonym,True,Place the small plate on the green cube.,0.0,264,Move the small plate on the green cube.,4.2,24,4.2,3.32,move -> place
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,Stack the small plate on the green cube.,0.0,96,Move the small plate on the green cube.,4.2,24,4.2,2.01,move -> stack
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,Place the small plate on top of the green cube.,0.0,216,Place the yellow plate on top of the green cube.,4.2,48,4.2,3.01,small -> yellow
+widowx_small_plate_on_green_cube_clean,verb synonym,False,place the small plate on the green cube,0.0,120,Move the small plate on the green cube.,4.2,24,4.2,2.24,move -> place
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,Put the small dish on top of the green block.,1.2,336,Put the small dish on top of the green cube.,5.0,120,3.8,2.45,block -> cube
+widowx_coke_can_on_wheel_clean,preposition synonym,True,Place the red soda can directly in the center of the black rubber tire.,0.5,216,Place the red soda can directly inside the center of the black rubber tire.,3.8,264,3.3,2.42,in -> inside
+widowx_small_plate_on_green_cube_clean,slight restructure,False,put small plate on green cube,0.0,720,Put the small plate on the green cube.,3.1,96,3.1,4.75,reorder/determiners
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,put small plate on green cube,0.0,720,put small dish on green cube,3.1,96,3.1,4.75,dish -> plate
+widowx_small_plate_on_green_cube_clean,verb synonym,True,Place the small plate on the green cube.,0.0,264,Put the small plate on the green cube.,3.1,96,3.1,2.88,place -> put
+widowx_small_plate_on_green_cube_clean,verb synonym,True,Place the small plate on the green cube.,0.0,264,Set the small plate on the green cube.,2.8,216,2.8,2.73,place -> set
+widowx_small_plate_on_green_cube_clean,slight restructure,True,Grab the tiny plate and put it on the green cube.,0.0,168,"Grab the tiny plate and put it on the green cube, please.",2.8,216,2.8,2.18,reorder/determiners
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,Set the tiny plate on the green cube.,0.0,456,Set the small plate on the green cube.,2.8,216,2.8,3.58,small -> tiny
+widowx_small_plate_on_green_cube_clean,verb synonym,True,put small plate on green cube,0.0,720,set small plate on green cube,2.1,144,2.1,3.88,put -> set
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,Stack the small plate onto the green block.,0.0,264,put the small plate onto the green block,2.1,48,2.1,2.35,stack -> put
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,Stack the small plate on the green block.,0.0,288,put the small plate on the green block,2.1,48,2.1,2.45,stack -> put
+widowx_small_plate_on_green_cube_clean,case/punctuation only,False,Put the small plate onto the green block.,0.0,192,put the small plate onto the green block,2.1,48,2.1,2.0, -> 
+widowx_small_plate_on_green_cube_clean,preposition synonym,False,Put the small plate onto the green block.,0.0,192,put the small plate on the green block,2.1,48,2.1,2.0,onto -> on
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,Set the tiny plate on the green cube.,0.0,456,set the yellow plate on the green cube,1.7,120,1.7,2.76,tiny -> yellow
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,Stack the small plate onto the green block.,0.0,264,Move the small plate onto the green block.,1.6,192,1.6,2.04,move -> stack
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,True,Stack the small plate on the green block.,0.0,288,Put the small plate on the green block.,1.4,72,1.4,2.0,put -> stack
+widowx_small_plate_on_green_cube_clean,noun/adjective synonym,False,Set the tiny plate on the green cube.,0.0,456,set the small plate on the green cube,1.0,96,1.0,2.18,tiny -> small
+widowx_small_plate_on_green_cube_clean,slight restructure,True,put small plate on green cube,0.0,720,put the small plate on the green cube,0.6,168,0.6,2.07,reorder/determiners
