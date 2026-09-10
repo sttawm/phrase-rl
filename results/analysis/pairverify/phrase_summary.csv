@@ -80,7 +80,7 @@ widowx_pepsi_on_plate_clean,set the pepsi down on the plate,69.4,72,24,58.0,78.9
 widowx_pepsi_on_plate_clean,set the pepsi on the plate,70.8,72,24,59.5,80.1,A14_noun_soda_pepsi,hi pepsi,75.0,48,A_top20,True,True
 widowx_pepsi_on_plate_clean,set the soda on the plate,31.9,72,24,22.3,43.4,A14_noun_soda_pepsi,lo soda,29.2,24,A_top20,True,True
 widowx_put_eggplant_in_basket,put the eggplant in the basket,81.7,180,60,75.4,86.6,put_eggplant_in_basket,colour word ADDED - helps,80.6,64,B,True,True
-widowx_put_eggplant_in_basket,put the eggplant in the yellow basket,100.0,20,7,83.9,100.0,put_eggplant_in_basket,colour word ADDED - helps,97.2,64,B,True,True
+widowx_put_eggplant_in_basket,put the eggplant in the yellow basket,95.6,180,60,91.5,97.7,put_eggplant_in_basket,colour word ADDED - helps,97.2,64,B,True,True
 widowx_spoon_on_towel,put the spoon atop the towel,66.7,72,24,55.2,76.5,A04_prep_on_atop,hi atop,66.7,72,A_top20,True,True
 widowx_spoon_on_towel,put the spoon atop the towel,66.7,72,24,55.2,76.5,spoon_on_towel,preposition (a gain),75.0,72,B,True,True
 widowx_spoon_on_towel,put the spoon on the blue towel,44.4,72,24,33.5,55.9,spoon_on_towel,colour word ADDED - hurts,38.9,64,B,True,True

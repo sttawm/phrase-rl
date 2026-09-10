@@ -43,7 +43,6 @@ coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the w
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white basin,69.4,"[58.0,78.9]",72,13.9,19.4,2.37,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the dish,41.7,"[31.0,53.2]",put the coke can on the plate,61.1,"[49.6,71.5]",72,30.5,19.4,2.33,True
 coke_can_on_plate,A17_noun_dish_plate,True,True,put the coke can on the dish,41.7,"[31.0,53.2]",put the coke can on the plate,61.1,"[49.6,71.5]",72,38.1,19.4,2.33,True
-put_eggplant_in_basket,put_eggplant_in_basket,True,True,put the eggplant in the basket,81.7,"[75.4,86.6]",put the eggplant in the yellow basket,100.0,"[83.9,100.0]",20,16.6,18.3,2.09,True
 nut_on_plate,Ac8_obj_grey_nut,True,True,drop the grey nut on the yellow plate,22.2,"[14.2,33.1]",drop the nut on the yellow plate,40.3,"[29.7,51.8]",72,41.6,18.1,2.34,True
 carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the wheel,12.5,"[6.7,22.1]",put the carrot on the black wheel,30.6,"[21.1,42.0]",72,22.2,18.1,2.64,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the can on the plate,34.7,"[24.8,46.2]",put the coke can on top of the plate,52.8,"[41.4,63.9]",72,8.3,18.1,2.19,True
@@ -51,14 +50,15 @@ carrot_on_keyboard,carrot_on_keyboard_clean,True,True,put the carrot on the keys
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white ramekin,31.9,"[22.3,43.4]",place the red cola can inside the white cup,50.0,"[38.7,61.3]",72,41.7,18.1,2.21,True
 stack_cube,stack_cube,True,True,stack the green cube on the yellow cube,25.0,"[16.4,36.1]",green cube on yellow cube,43.1,"[32.3,54.6]",72,33.3,18.1,2.29,True
 carrot_on_keyboard,carrot_on_keyboard_clean,True,True,put the carrot on the keys,6.9,"[3.0,15.2]",place the carrot on the keyboard keys,25.0,"[16.4,36.1]",72,33.3,18.1,2.97,True
-cube_on_plate,Ac4_dest_green_plate_collision,True,True,Place the green block on the green plate.,63.9,"[52.4,74.0]",Place the green block on the plate.,81.9,"[71.5,89.1]",72,36.7,18.0,2.43,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white dish,51.4,"[40.1,62.6]",place the red cola can inside the white basin,69.4,"[58.0,78.9]",72,25.0,18.0,2.21,True
+cube_on_plate,Ac4_dest_green_plate_collision,True,True,Place the green block on the green plate.,63.9,"[52.4,74.0]",Place the green block on the plate.,81.9,"[71.5,89.1]",72,36.7,18.0,2.43,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white dish,51.4,"[40.1,62.6]",place the red cola can inside the white bowl,69.4,"[58.0,78.9]",72,8.3,18.0,2.21,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white dish,51.4,"[40.1,62.6]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,2.8,18.0,2.21,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the yellow plate,44.4,"[33.5,55.9]",put the coke can on the plate,61.1,"[49.6,71.5]",72,19.4,16.7,2.01,True
 spoon_on_towel,spoon_on_towel,True,True,put the spoon on the blue towel,44.4,"[33.5,55.9]",put the spoon on the towel,61.1,"[49.6,71.5]",72,16.7,16.7,2.01,True
 nut_on_wheel,A08_verb_position_put,True,True,Position the nut right on the wheel.,8.3,"[3.9,17.0]",Put the nut right on the wheel.,25.0,"[16.4,36.1]",72,41.6,16.7,2.69,True
 pepsi_on_plate,A07_prep_to_onto,True,True,Move the blue can to the plate.,20.8,"[13.1,31.6]",Move the blue can onto the plate.,36.1,"[26.0,47.6]",72,20.8,15.3,2.03,True
+put_eggplant_in_basket,put_eggplant_in_basket,True,True,put the eggplant in the basket,81.7,"[75.4,86.6]",put the eggplant in the yellow basket,95.6,"[91.5,97.7]",180,16.6,13.9,4.16,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on top of the plate,52.8,"[41.4,63.9]",put the coke on the plate,66.7,"[55.2,76.5]",72,25.0,13.9,1.7,False
 stack_cube,stack_cube,True,True,put the green block on the yellow block,29.2,"[19.9,40.5]",green cube on yellow cube,43.1,"[32.3,54.6]",72,33.3,13.9,1.74,False
 stack_cube,stack_cube,True,True,green block on yellow block,16.7,"[9.8,26.9]",put the green block on the yellow block,29.2,"[19.9,40.5]",72,0.0,12.5,1.78,False
