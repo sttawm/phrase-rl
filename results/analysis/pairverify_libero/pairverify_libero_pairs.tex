@@ -1,0 +1,104 @@
+\documentclass[10pt]{article}
+\usepackage[left=0.75cm,right=0.75cm,top=0.6cm,bottom=0.55cm]{geometry}
+\usepackage{graphicx,xcolor,multicol,needspace}
+\usepackage[T1]{fontenc}
+\definecolor{hi}{RGB}{212,241,212}
+\definecolor{lo}{RGB}{250,214,214}
+\definecolor{hipct}{RGB}{22,122,39}
+\definecolor{lopct}{RGB}{178,32,32}
+\setlength{\parindent}{0pt}
+\setlength{\columnsep}{12pt}
+\setlength{\fboxsep}{1.1pt}
+\newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
+\begin{document}
+{\normalsize\bfseries Verified minimal pairs --- frozen $\pi_{0.5}$, LIBERO}\enspace
+{\scriptsize Full init population (inits 0--49; n=50/phrase); success = environment success flag at episode end; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
+\vspace{2pt}\hrule\vspace{2.5pt}
+\begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.7pt}
+{\ttfamily\bfseries libero\_90/10}\par\nopagebreak
+{\leftskip=1.1em
+{\bfseries preposition}\enspace +40\,pp\,$\cdot$\, p<0.0001\\[1pt]
+\hangindent=2.4em \pct{hipct}{100}~\texttt{place the black bowl \colorbox{hi}{\strut on} \colorbox{hi}{\strut top} \colorbox{hi}{\strut of} the cabinet}\\
+\hangindent=2.4em \pct{lopct}{60}~\texttt{place the black bowl \colorbox{lo}{\strut up} \colorbox{lo}{\strut onto} the cabinet}\\
+[0.9pt]\par}
+\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}
+{\ttfamily\bfseries libero\_90/38}\par\nopagebreak
+{\leftskip=1.1em
+{\bfseries verb}\enspace +20\,pp\,$\cdot$\, p=0.0440\\[1pt]
+\hangindent=2.4em \pct{hipct}{54}~\texttt{\colorbox{hi}{\strut pick} \colorbox{hi}{\strut up} the right moka pot and place it on the stove}\\
+\hangindent=2.4em \pct{lopct}{34}~\texttt{\colorbox{lo}{\strut lift} the right moka pot and place it on the stove}\\
+[0.9pt]\par}
+\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}
+{\ttfamily\bfseries libero\_90/44}\par\nopagebreak
+{\leftskip=1.1em
+{\bfseries verb}\enspace +94\,pp\,$\cdot$\, p<0.0001\\[1pt]
+\hangindent=2.4em \pct{hipct}{100}~\texttt{\colorbox{hi}{\strut fire} \colorbox{hi}{\strut up} the stove}\\
+\hangindent=2.4em \pct{lopct}{6}~\texttt{\colorbox{lo}{\strut turn} \colorbox{lo}{\strut on} the stove}\\
+[0.9pt]\par}
+\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}
+{\ttfamily\bfseries libero\_goal/1}\par\nopagebreak
+{\leftskip=1.1em
+{\bfseries destination noun}\enspace +92\,pp\,$\cdot$\, p<0.0001\\[1pt]
+\hangindent=2.4em \pct{hipct}{92}~\texttt{place the grey bowl on the \colorbox{hi}{\strut electric} \colorbox{hi}{\strut burner}}\\
+\hangindent=2.4em \pct{lopct}{0}~\texttt{place the grey bowl on the \colorbox{lo}{\strut hot} \colorbox{lo}{\strut plate}}\\
+[0.9pt]\par}
+\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}
+{\ttfamily\bfseries libero\_goal/5}\par\nopagebreak
+{\leftskip=1.1em
+{\bfseries source noun}\enspace +60\,pp\,$\cdot$\, p<0.0001\\[1pt]
+\hangindent=2.4em \pct{hipct}{62}~\texttt{slide that \colorbox{hi}{\strut plate} over to the front of the stove}\\
+\hangindent=2.4em \pct{lopct}{2}~\texttt{slide that \colorbox{lo}{\strut dish} over to the front of the stove}\\
+[0.9pt]\par}
+\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}
+{\ttfamily\bfseries libero\_goal/7}\par\nopagebreak
+{\leftskip=1.1em
+{\bfseries source noun}\enspace +98\,pp\,$\cdot$\, p<0.0001\\[1pt]
+\hangindent=2.4em \pct{hipct}{100}~\texttt{switch on the \colorbox{hi}{\strut stove}}\\
+\hangindent=2.4em \pct{lopct}{86}~\texttt{switch on the \colorbox{lo}{\strut range}}\\
+\hangindent=2.4em \pct{lopct}{78}~\texttt{switch on the \colorbox{lo}{\strut hob}}\\
+\hangindent=2.4em \pct{lopct}{74}~\texttt{switch on the \colorbox{lo}{\strut cooktop}}\\
+\hangindent=2.4em \pct{lopct}{66}~\texttt{switch on the \colorbox{lo}{\strut heating} \colorbox{lo}{\strut element}}\\
+\hangindent=2.4em \pct{lopct}{62}~\texttt{switch on the \colorbox{lo}{\strut griddle}}\\
+\hangindent=2.4em \pct{lopct}{2}~\texttt{switch on the \colorbox{lo}{\strut hot} \colorbox{lo}{\strut plate}}\\
+[0.9pt]\par}
+{\leftskip=1.1em
+{\bfseries verb}\enspace +52\,pp\,$\cdot$\, p<0.0001\\[1pt]
+\hangindent=2.4em \pct{hipct}{100}~\texttt{\colorbox{hi}{\strut turn} \colorbox{hi}{\strut on} the burners}\\
+\hangindent=2.4em \pct{lopct}{48}~\texttt{\colorbox{lo}{\strut start} the burners}\\
+[0.9pt]\par}
+\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}
+{\ttfamily\bfseries libero\_goal/8}\par\nopagebreak
+{\leftskip=1.1em
+{\bfseries destination noun}\enspace +52\,pp\,$\cdot$\, p<0.0001\\[1pt]
+\hangindent=2.4em \pct{hipct}{100}~\texttt{put the bowl on the \colorbox{hi}{\strut plate}}\\
+\hangindent=2.4em \pct{lopct}{48}~\texttt{put the bowl on the \colorbox{lo}{\strut dish}}\\
+[0.9pt]\par}
+\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}
+{\ttfamily\bfseries libero\_goal/9}\par\nopagebreak
+{\leftskip=1.1em
+{\bfseries destination noun}\enspace +18\,pp\,$\cdot$\, p=0.0117\\[1pt]
+\hangindent=2.4em \pct{hipct}{94}~\texttt{put the wine bottle on the \colorbox{hi}{\strut rack}}\\
+\hangindent=2.4em \pct{lopct}{76}~\texttt{put the wine bottle on the \colorbox{lo}{\strut stand}}\\
+[0.9pt]\par}
+\end{multicols}
+\newpage
+{\large\bfseries Task scenes}\\[4pt]
+\begin{multicols}{3}\footnotesize\centering
+\includegraphics[width=0.9\linewidth]{frames/libero_90__10.png}\\
+{\ttfamily libero\_90/10}\\[8pt]
+\includegraphics[width=0.9\linewidth]{frames/libero_90__38.png}\\
+{\ttfamily libero\_90/38}\\[8pt]
+\includegraphics[width=0.9\linewidth]{frames/libero_90__44.png}\\
+{\ttfamily libero\_90/44}\\[8pt]
+\includegraphics[width=0.9\linewidth]{frames/libero_goal__1.png}\\
+{\ttfamily libero\_goal/1}\\[8pt]
+\includegraphics[width=0.9\linewidth]{frames/libero_goal__5.png}\\
+{\ttfamily libero\_goal/5}\\[8pt]
+\includegraphics[width=0.9\linewidth]{frames/libero_goal__7.png}\\
+{\ttfamily libero\_goal/7}\\[8pt]
+\includegraphics[width=0.9\linewidth]{frames/libero_goal__8.png}\\
+{\ttfamily libero\_goal/8}\\[8pt]
+\includegraphics[width=0.9\linewidth]{frames/libero_goal__9.png}\\
+{\ttfamily libero\_goal/9}\\[8pt]
+\end{multicols}
+\end{document}
