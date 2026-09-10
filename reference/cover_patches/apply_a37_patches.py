@@ -163,4 +163,11 @@ patch("run_simpler_eval_with_openpi.py", [
     ("                    single_action = action_queue.popleft().cpu().numpy()",
      "                    single_action = action_queue.popleft().float().cpu().numpy()"),
 ], "bf16")
+
+# eval_utils: the verifier path also numpy-converts policy outputs; bf16
+# tensors raise "unsupported ScalarType BFloat16" there. (A37-bf16-utils)
+patch("eval_utils.py", [
+    ("        single_action = predefined_action_queue[i].cpu().numpy()  # (batch_size, 7)",
+     "        single_action = predefined_action_queue[i].float().cpu().numpy()  # (batch_size, 7)  # A37-bf16-utils"),
+], "bf16-utils")
 print("ALL PATCHES OK")
