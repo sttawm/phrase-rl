@@ -56,7 +56,7 @@ for cond, k in waves:
         assert len(reph) >= 8, f"{r.task}/{cond}/k{k}: only {len(reph)} rephrases"
         instructions[ENV_NOMINAL[r.task]] = {
             "original": r.base, "ert_rephrases": reph}
-    name = f"wave_{cond}_k{k}.json" if cond == "adv" else "wave_orig.json"
+    name = "wave_orig.json" if cond == "orig" else f"wave_{cond}_k{k}.json"
     (OUT / name).write_text(json.dumps(
         {"timestamp": stamp, "a37_wave": f"{cond}_k{k}",
          "model": g.model.iloc[0], "instructions": instructions}, indent=1))
