@@ -987,3 +987,18 @@ internal stochasticity unpinned (the method under measurement). Heavy
 adversarial arm LAUNCHED per the standing order: waves k0-k2 on cv3 (24
 layouts x 2 reps each, verifier on, 8 rephrases, 5 action samples/step);
 waves k3-k5 queue onto cv2 when its pair-verification shard completes.
+
+#### A37 heavy adversarial, PRELIMINARY (2026-09-10, waves k0-k2 = 36/72 attacks)
+CoVer best-config (verifier on, 8 rephrases, 5 samples/step) under the aligned
+benchmark contract: 21.8 pooled over 36 attack cells (1,728 eps) vs their own
+verifier-off 25.7 and our passthrough 24.5-26.1. P13 (CoVer beats passthrough
+on sealed adversarial) is at half-sample heading to FALSIFIED under
+final-state@60 — the verifier costs ~4pp net. Per-task structure is coherent,
+not noise: helps floor tasks (carrot_on_sponge +13.5, eggplant_on_sponge
++15.6pp vs passthrough) and hurts survivable ones (pepsi -28.1, orange_juice
+-22.9pp) — the same conditional-intervention structure as our in-vocab/OOV
+finding, expressed inside their method. Caveats logged in advance of the full
+read: their method was designed for ever-success@150 (their published gains
+replicate in OUR Anchor A at that metric); a metric-ablation arm (their loop,
+break-on-done at 60) would separate horizon from metric if wanted. Waves
+k3-k5 complete on cv2 shortly; final read then.
