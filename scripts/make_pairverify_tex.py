@@ -29,15 +29,15 @@ GRID = dict(zip(U.task, U.grid * 3))
 
 CATLABEL = [
     (r"A0[12]", "case/punct."), (r"A0[34567]", "preposition"),
-    (r"A0[89]|A1[012]", "verb"), (r"A1[34567]", "object noun"),
+    (r"A0[89]|A1[012]", "verb"), (r"A1[34567]", "source noun"),
     (r"A18", "word order"), (r"A19", "articles"), (r"A20", "politeness"),
-    (r"Ac\d+m?_obj", "object colour"), (r"Ac\d+m?_dest", "destination colour"),
-    (r"ramekin_ladder", "noun ladder"),
-    (r"Rn\d", "object noun rename"),
+    (r"Ac\d+m?_obj", "source color"), (r"Ac\d+m?_dest", "destination color"),
+    (r"ramekin_ladder", "destination noun"),
+    (r"Rn\d", "source noun"),
     (r"stack_cube", "noun/verb family"),
     (r"carrot_on_wheel|carrot_on_keyboard", "noun family"),
     (r"coke_can_on_plate_clean", "noun family"),
-    (r"put_eggplant_in_basket|spoon_on_towel", "colour/prep family"),
+    (r"put_eggplant_in_basket|spoon_on_towel", "color/prep family"),
 ]
 
 
@@ -123,33 +123,33 @@ for g in M.drop_duplicates(subset=["group"]).group:
 # ---- display curation (user edits 2026-09-10; data untouched) --------------
 DISPLAY_EDITS = {
     "carrot_on_keyboard_clean": [
-        ("object+destination noun", ["put the carrot on the black keyboard",
+        ("destination noun", ["put the carrot on the black keyboard",
                                      "put the carrot on the keys"])],
     "carrot_on_wheel_clean": [
         ("destination noun", ["put the carrot on the black wheel",
                               "put the carrot on the wheel",
                               "put the carrot on the tire"])],
     "coke_can_on_plate_clean": [
-        ("object noun", ["put the coke on the plate", "put the can on the plate"]),
-        ("destination colour", ["put the coke can on the plate",
+        ("source noun", ["put the coke on the plate", "put the can on the plate"]),
+        ("destination color", ["put the coke can on the plate",
                                 "put the coke can on the yellow plate"]),
         ("destination noun", ["put the coke can on the plate",
                               "put the coke can on the dish"])],
     "A17_noun_dish_plate": [],   # duplicate of the plate-vs-dish split above
     "ramekin_ladder": [
-        ("noun ladder", ["place the red cola can inside the white container",
+        ("destination noun", ["place the red cola can inside the white container",
                          "place the red cola can inside the white dish",
                          "place the red cola can inside the white cup",
                          "place the red cola can inside the white ramekin"])],
     "spoon_on_towel": [
-        ("colour/prep pair", ["put the spoon atop the towel",
+        ("color/prep pair", ["put the spoon atop the towel",
                               "put the spoon on the blue towel"])],
     "stack_cube": [
-        ("object noun", ["put the green cube on the yellow cube",
+        ("source noun", ["put the green cube on the yellow cube",
                          "put the green block on the yellow block"]),
         ("verb", ["put the green cube on the yellow cube",
                   "stack the green cube on the yellow cube"]),
-        ("object noun", ["green cube on yellow cube",
+        ("source noun", ["green cube on yellow cube",
                          "green block on yellow block"])],
 }
 for task in list(blocks):
@@ -189,7 +189,7 @@ for task in sorted(blocks):
     if not first:
         tex.append(r"\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}")
     first = False
-    tex.append(r"{\ttfamily\bfseries " + short + r"}\\[0.6pt]")
+    tex.append(r"{\ttfamily\bfseries " + short + r"}\par\nopagebreak")
     for g, rows in blocks[task]:
         top, bot = rows.iloc[0], rows.iloc[-1]
         delta = top.succ - bot.succ
