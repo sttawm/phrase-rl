@@ -922,3 +922,20 @@ phase0c on the SAME GPU (cv2). If (b) reproduces ~26 the offset is their
 serving; if (b) lands near (a) the offset is host drift and the fleet-era
 reference is the outlier. No heavy compute until this is read and the pass
 criterion re-evaluated.
+
+#### A37 Anchor B triangulation result (2026-09-10): offset is their serving stack
+Horizon-fixed re-run of their harness (cv3): 32.3 pooled vs our 26.1 reference
+(+6.2pp, FAIL at +-4). Same-GPU control — OUR phase0c on the identical 24
+cells on cv2 — 25.6 at 540/576 (final number recorded when complete): the
+fleet-era reference transfers; host drift is excluded. Attribution: ~+6pp
+serving-stack difference in their harness.
+Serving diff identified as the leading candidate: our harness serves pi0 in
+bf16 (INT-ACT pipeline defaults use_bf16=True, use_amp=True: weights cast +
+autocast) — the entire published grid ran bf16 — while their harness loads
+fp32 with no autocast. Per user decision, the alignment direction is: make
+THEIR verifier-off reproduce OUR passthrough (our grid is frozen). A/B-1
+running: their harness with policy_bf16 flag (weights->bf16 + autocast + input
+cast + float-before-numpy, mirroring our policy_wrapper semantics exactly),
+same 24-cell anchor. Pass -> level-based A37 design proceeds with policy_bf16
+in the aligned CoVer config; residual -> next knob (their forked batched
+select_action path, ensemble-temp no-op check).

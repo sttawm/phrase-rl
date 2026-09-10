@@ -134,4 +134,33 @@ patch("run_simpler_eval_with_openpi.py", [
                 if cfg.pin_layouts and trunc:  # A37-horizon
                     break"""),
 ], "horizon")
+
+# Third-pass patch (A37-bf16): serve pi0 in bf16 exactly as our harness does
+# (INT-ACT policy_wrapper: model.to(bf16) + autocast + input cast + .float()
+# before numpy). Their fp32 serving is a candidate for the residual +6.2pp
+# verifier-off offset (measured 2026-09-10). Off by default; the A/B and the
+# aligned config set policy_bf16 True.
+patch("run_simpler_eval_with_openpi.py", [
+    ("    results_jsonl: Optional[str] = None      # per-episode records",
+     """    results_jsonl: Optional[str] = None      # per-episode records
+    policy_bf16: bool = False                # A37-bf16: serve pi0 as our harness does"""),
+    ("        pi0_policy.to(\"cuda\")",
+     """        pi0_policy.to(\"cuda\")
+    if cfg.policy_bf16:
+        pi0_policy.to(torch.bfloat16)"""),
+    ("""                if real_step % cfg.n_action_steps == 0:
+                    with torch.no_grad():
+                        output_action_queue = pi0_policy.select_action(observation, noise_std=action_noise_std)""",
+     """                if real_step % cfg.n_action_steps == 0:
+                    if cfg.policy_bf16:
+                        observation = {
+                            k: (v.to(torch.bfloat16)
+                                if isinstance(v, torch.Tensor) and v.is_floating_point() else v)
+                            for k, v in observation.items()}
+                    with torch.no_grad(), torch.autocast(
+                            device_type="cuda", dtype=torch.bfloat16, enabled=cfg.policy_bf16):
+                        output_action_queue = pi0_policy.select_action(observation, noise_std=action_noise_std)"""),
+    ("                    single_action = action_queue.popleft().cpu().numpy()",
+     "                    single_action = action_queue.popleft().float().cpu().numpy()"),
+], "bf16")
 print("ALL PATCHES OK")
