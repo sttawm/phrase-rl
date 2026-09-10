@@ -28,16 +28,16 @@ V = pd.read_csv(PV / "pair_verdicts.csv")
 GRID = dict(zip(U.task, U.grid * 3))
 
 CATLABEL = [
-    (r"A0[12]", "case / punctuation"), (r"A0[34567]", "preposition"),
+    (r"A0[12]", "case/punct."), (r"A0[34567]", "preposition"),
     (r"A0[89]|A1[012]", "verb"), (r"A1[34567]", "object noun"),
     (r"A18", "word order"), (r"A19", "articles"), (r"A20", "politeness"),
     (r"Ac\d+m?_obj", "object colour"), (r"Ac\d+m?_dest", "destination colour"),
-    (r"ramekin_ladder", "destination noun (ladder)"),
+    (r"ramekin_ladder", "noun ladder"),
     (r"Rn\d", "object noun rename"),
-    (r"stack_cube", "object noun / verb (family)"),
-    (r"carrot_on_wheel|carrot_on_keyboard", "destination noun (family)"),
-    (r"coke_can_on_plate_clean", "object / destination noun (family)"),
-    (r"put_eggplant_in_basket|spoon_on_towel", "colour / preposition (family)"),
+    (r"stack_cube", "noun/verb family"),
+    (r"carrot_on_wheel|carrot_on_keyboard", "noun family"),
+    (r"coke_can_on_plate_clean", "noun family"),
+    (r"put_eggplant_in_basket|spoon_on_towel", "colour/prep family"),
 ]
 
 
@@ -92,7 +92,7 @@ for g in M.drop_duplicates(subset=["group"]).group:
     blocks.setdefault(rows.task.iloc[0], []).append((g, rows))
 
 tex = [r"""\documentclass[10pt]{article}
-\usepackage[margin=1.6cm]{geometry}
+\usepackage[margin=0.85cm]{geometry}
 \usepackage{graphicx,xcolor,multicol,needspace}
 \usepackage[T1]{fontenc}
 \definecolor{hi}{RGB}{212,241,212}
@@ -100,38 +100,43 @@ tex = [r"""\documentclass[10pt]{article}
 \definecolor{hipct}{RGB}{22,122,39}
 \definecolor{lopct}{RGB}{178,32,32}
 \setlength{\parindent}{0pt}
-\setlength{\columnsep}{22pt}
-\newcommand{\pct}[2]{\makebox[2.4em][r]{\textcolor{#1}{\bfseries #2\%}}}
+\setlength{\columnsep}{12pt}
+\setlength{\fboxsep}{1.1pt}
+\newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
 \begin{document}
-{\Large\bfseries Verified minimal pairs --- frozen $\pi_0$, SIMPLER Bridge}\\[2pt]
-{\small Full per-task layout grid $\times$ 3 reps (n=72 per phrase; basket grid 60 $\to$ n=180); success = final state at the 60-step horizon; p = two-proportion, top vs.\ bottom. Highlight marks the changed span.}
-\vspace{6pt}\hrule\vspace{8pt}
-\begin{multicols}{2}\footnotesize"""]
+{\normalsize\bfseries Verified minimal pairs --- frozen $\pi_0$, SIMPLER Bridge}\enspace
+{\scriptsize Full layout grid $\times$ 3 reps (n=72/phrase; basket 180); success = final state @ 60 steps; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
+\vspace{3pt}\hrule\vspace{4pt}
+\begin{multicols}{2}\scriptsize\setlength{\baselineskip}{8.3pt}"""]
 
 for task in sorted(blocks):
     short = task.replace("widowx_", "").replace("_clean", "").replace("_", r"\_")
-    img = FRAMES / f"{task}.png"
-    tex.append(r"\needspace{14\baselineskip}")
-    tex.append(r"\begin{center}\includegraphics[width=0.72\linewidth]{frames/" + task + r".png}\end{center}")
-    tex.append(r"{\normalsize\bfseries\ttfamily " + short + r"}\\[3pt]")
     for g, rows in blocks[task]:
         top, bot = rows.iloc[0], rows.iloc[-1]
         delta = top.succ - bot.succ
         p = two_prop_p(top.succ / 100, top.n, bot.succ / 100, bot.n)
         pstr = f"p={p:.4f}" if p >= 5e-5 else "p<0.0001"
-        tex.append(r"\Needspace{" + str(len(rows) + 2) + r"\baselineskip}")
-        tex.append(r"{\bfseries " + esc(cat(g)) + r"}\enspace " +
-                   f"{delta:+.0f} pp\\," + r"$\cdot$\," + f" {pstr}" + r"\\[1pt]")
+        tex.append(r"{\ttfamily\bfseries " + short + r"}\," + r"$\cdot$\," +
+                   r"{\bfseries " + esc(cat(g)) + r"}\enspace " +
+                   f"{delta:+.0f}\\,pp\\," + r"$\cdot$\," + f" {pstr}" + r"\\[1pt]")
         sibs = list(rows.phrase)
         for j, (_, r) in enumerate(rows.iterrows()):
-            color = "hi" if j == 0 else ("lo" if j == len(rows) - 1 else "white")
-            pcol = "hipct" if j == 0 else ("lopct" if j == len(rows) - 1 else "black")
-            tex.append(r"\hangindent=2.6em \pct{" + pcol + r"}{" + f"{r.succ:.0f}" + r"}~\texttt{"
+            color = "hi" if j == 0 else "lo"
+            pcol = "hipct" if j == 0 else "lopct"
+            tex.append(r"\hangindent=2.4em \pct{" + pcol + r"}{" + f"{r.succ:.0f}" + r"}~\texttt{"
                        + marked_phrase(r.phrase, sibs, color) + r"}\\")
-        tex.append(r"[6pt]")
-    tex.append(r"\vspace{4pt}\hrule\vspace{8pt}")
+        tex.append(r"[1.8pt]")
 
-tex.append(r"\end{multicols}\end{document}")
+tex.append(r"\end{multicols}")
+tex.append(r"\newpage")
+tex.append(r"{\large\bfseries Task scenes}\\[4pt]")
+tex.append(r"\begin{multicols}{3}\footnotesize\centering")
+for task in sorted(blocks):
+    short = task.replace("widowx_", "").replace("_clean", "").replace("_", r"\_")
+    tex.append(r"\includegraphics[width=0.9\linewidth]{frames/" + task + r".png}\\")
+    tex.append(r"{\ttfamily " + short + r"}\\[8pt]")
+tex.append(r"\end{multicols}")
+tex.append(r"\end{document}")
 
 out = PV / "pairverify_pairs.tex"
 out.write_text("\n".join(tex))
