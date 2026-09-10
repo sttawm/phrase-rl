@@ -1,6 +1,6 @@
 # Verified minimal pairs — full-grid re-roll (by task)
 
-Frozen π₀ (rephrase-bridge) on SIMPLER; 6,220 episodes, full per-task layout grid × 3 reps (n=72; basket grid is 60 → n=180), layout id on every row, success = final state at the 60-step horizon.
+Frozen π₀ (rephrase-bridge) on SIMPLER; 6,320 episodes, full per-task layout grid × 3 reps (n=72; basket grid is 60 → n=180), layout id on every row, success = final state at the 60-step horizon.
 
 Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.96 SE mid-range, asymmetric near 0/100%) — not ±1 SD. Only groups with a significant contrast (|z| ≥ 1.96) and phrases at full n are shown. **Bold** = the tokens that differ. Gap labels: LARGE ≥ 30pp, MEDIUM 15–30pp, SMALL < 15pp. ⚠ marks groups whose phrases also differ in capitalisation or trailing punctuation when that is NOT the tested edit (treat the gap as format-confounded by up to ~10-40pp until style-matched re-roll). Everything else: `pair_verdicts.csv`, `phrase_summary.csv`.
 
@@ -334,9 +334,10 @@ Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.
 | green **cube** on yellow **cube** | 43% [32–55] | 72 |
 | **put** **the** green **block** on **the** yellow **block** | 29% [20–40] | 72 |
 | **stack** **the** green **cube** on **the** yellow **cube** | 25% [16–36] | 72 |
+| **stack** **the** green **block** on **the** yellow **block** | 21% [13–32] | 72 |
 | green **block** on yellow **block** | 17% [10–27] | 72 |
 
 
 ---
 
-Overall: **54 of 86** single-concept, format-matched contrasts survive at full-grid n (58/92 of all contrasts).
+Overall: **56 of 91** single-concept, format-matched contrasts survive at full-grid n (60/97 of all contrasts).

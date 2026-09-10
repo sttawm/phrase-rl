@@ -3,90 +3,96 @@ eggplant_on_sponge,Ac5_obj_purple_eggplant,True,True,eggplant goes on the sponge
 eggplant_on_sponge,A18_order_fronted,True,True,purple Eggplant set on the sponge.,36.1,"[26.0,47.6]",Set the purple eggplant on the sponge.,84.7,"[74.7,91.2]",72,37.5,48.6,5.96,True
 eggplant_on_sponge,A13_noun_thing_eggplant,True,True,set the purple thing on the yellow and green sponge,26.4,"[17.6,37.6]",set the purple eggplant on the yellow and green sponge,70.8,"[59.5,80.1]",72,50.0,44.4,5.33,True
 pepsi_on_plate,A01_case_period,False,False,Set the Pepsi down on the plate.,26.4,"[17.6,37.6]",set the pepsi down on the plate,69.4,"[58.0,78.9]",72,62.9,43.0,5.16,True
-eggplant_on_keyboard,Ac1_dest_black_keyboard,True,True,put the eggplant on the keyboard,12.5,"[6.7,22.1]",put the eggplant on the black keyboard,54.2,"[42.7,65.2]",72,42.2,41.7,5.31,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white ramekin,31.9,"[22.3,43.4]",place the red cola can inside the white container,73.6,"[62.4,82.4]",72,50.0,41.7,5.01,True
+eggplant_on_keyboard,Ac1_dest_black_keyboard,True,True,put the eggplant on the keyboard,12.5,"[6.7,22.1]",put the eggplant on the black keyboard,54.2,"[42.7,65.2]",72,42.2,41.7,5.31,True
 coke_can_on_keyboard,A15_noun_can_cylinder,True,True,Put the red soda can on top of the black keyboard.,4.2,"[1.4,11.5]",Put the red soda cylinder on top of the black keyboard.,45.8,"[34.8,57.3]",72,43.0,41.6,5.76,True
 pepsi_on_plate,A14_noun_soda_pepsi,True,True,set the soda on the plate,31.9,"[22.3,43.4]",set the pepsi on the plate,70.8,"[59.5,80.1]",72,45.8,38.9,4.67,True
 pepsi_on_plate,A02_brand_case,True,False,Put the Pepsi on the plate.,30.6,"[21.1,42.0]",put the pepsi on the plate,69.4,"[58.0,78.9]",72,43.2,38.8,4.66,True
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white ramekin,31.9,"[22.3,43.4]",place the red cola can inside the white basin,69.4,"[58.0,78.9]",72,55.6,37.5,4.5,True
 carrot_on_ramekin,A16_noun_vegetable_carrot,True,True,Pick up the orange vegetable and place it in the white bowl.,9.7,"[4.8,18.7]",Pick up the orange carrot and place it in the white bowl.,47.2,"[36.1,58.6]",72,41.7,37.5,4.99,True
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white ramekin,31.9,"[22.3,43.4]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,27.8,37.5,4.5,True
 pepsi_on_plate,Ac7_obj_blue_coke,True,True,set the coke on the plate,26.4,"[17.6,37.6]",set the blue coke on the plate,63.9,"[52.4,74.0]",72,47.9,37.5,4.52,True
-cube_on_plate,A09_verb_put_place,True,True,put the green cube into the dish,40.3,"[29.7,51.8]",place the green cube into the dish,77.8,"[66.9,85.8]",72,37.5,37.5,4.58,True
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white ramekin,31.9,"[22.3,43.4]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,27.8,37.5,4.5,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white ramekin,31.9,"[22.3,43.4]",place the red cola can inside the white bowl,69.4,"[58.0,78.9]",72,38.9,37.5,4.5,True
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white ramekin,31.9,"[22.3,43.4]",place the red cola can inside the white basin,69.4,"[58.0,78.9]",72,55.6,37.5,4.5,True
+cube_on_plate,A09_verb_put_place,True,True,put the green cube into the dish,40.3,"[29.7,51.8]",place the green cube into the dish,77.8,"[66.9,85.8]",72,37.5,37.5,4.58,True
 cube_on_plate,Ac6_obj_green_block,True,True,put the block on the plate,44.4,"[33.5,55.9]",put the green block on the plate,79.2,"[68.4,86.9]",72,35.4,34.8,4.3,True
 stack_cube,stack_cube,True,True,green block on yellow block,16.7,"[9.8,26.9]",put the green cube on the yellow cube,50.0,"[38.7,61.3]",72,13.9,33.3,4.24,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the can on the plate,34.7,"[24.8,46.2]",put the coke on the plate,66.7,"[55.2,76.5]",72,33.3,32.0,3.84,True
-eggplant_on_keyboard,Ac9_obj_purple_on_colored_dest,True,True,The purple eggplant needs to end up on the black keyboard.,30.6,"[21.1,42.0]",The eggplant needs to end up on the black keyboard.,61.1,"[49.6,71.5]",72,37.5,30.5,3.67,True
 cube_on_plate,Ac3_dest_yellow_plate,True,False,pick up the green cube and put it on the yellow plate,54.2,"[42.7,65.2]",Pick up the green cube and put it on the plate.,84.7,"[74.7,91.2]",72,47.9,30.5,3.97,True
+eggplant_on_keyboard,Ac9_obj_purple_on_colored_dest,True,True,The purple eggplant needs to end up on the black keyboard.,30.6,"[21.1,42.0]",The eggplant needs to end up on the black keyboard.,61.1,"[49.6,71.5]",72,37.5,30.5,3.67,True
+stack_cube,stack_cube,True,True,stack the green block on the yellow block,20.8,"[13.1,31.6]",put the green cube on the yellow cube,50.0,"[38.7,61.3]",72,14.9,29.2,3.66,True
 coke_can_on_wheel,Ac2_dest_black_wheel,True,False,grab the red coke can and set it on the wheel,8.3,"[3.9,17.0]",Grab the red Coke can and set it on the black wheel.,36.1,"[26.0,47.6]",72,30.2,27.8,4.01,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the can on the plate,34.7,"[24.8,46.2]",put the coke can on the plate,61.1,"[49.6,71.5]",72,30.5,26.4,3.17,True
 stack_cube,stack_cube,True,True,green block on yellow block,16.7,"[9.8,26.9]",green cube on yellow cube,43.1,"[32.3,54.6]",72,33.3,26.4,3.46,True
+stack_cube,stack_cube,True,True,stack the green cube on the yellow cube,25.0,"[16.4,36.1]",put the green cube on the yellow cube,50.0,"[38.7,61.3]",72,13.9,25.0,3.1,True
+carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the rim,5.6,"[2.2,13.4]",put the carrot on the black wheel,30.6,"[21.1,42.0]",72,33.3,25.0,3.9,True
 carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the tire,5.6,"[2.2,13.4]",put the carrot on the black wheel,30.6,"[21.1,42.0]",72,30.6,25.0,3.9,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the dish,41.7,"[31.0,53.2]",put the coke on the plate,66.7,"[55.2,76.5]",72,33.3,25.0,3.01,True
-carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the rim,5.6,"[2.2,13.4]",put the carrot on the black wheel,30.6,"[21.1,42.0]",72,33.3,25.0,3.9,True
-stack_cube,stack_cube,True,True,stack the green cube on the yellow cube,25.0,"[16.4,36.1]",put the green cube on the yellow cube,50.0,"[38.7,61.3]",72,13.9,25.0,3.1,True
-eggplant_on_keyboard,A12_verb_move_rest,True,True,Move the purple eggplant on the black keyboard.,16.7,"[9.8,26.9]",Rest the purple eggplant on the black keyboard.,40.3,"[29.7,51.8]",72,29.1,23.6,3.14,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white container,73.6,"[62.4,82.4]",72,8.3,23.6,2.91,True
+eggplant_on_keyboard,A12_verb_move_rest,True,True,Move the purple eggplant on the black keyboard.,16.7,"[9.8,26.9]",Rest the purple eggplant on the black keyboard.,40.3,"[29.7,51.8]",72,29.1,23.6,3.14,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the yellow plate,44.4,"[33.5,55.9]",put the coke on the plate,66.7,"[55.2,76.5]",72,22.2,22.3,2.69,True
+stack_cube,stack_cube,True,True,stack the green block on the yellow block,20.8,"[13.1,31.6]",green cube on yellow cube,43.1,"[32.3,54.6]",72,34.3,22.3,2.87,True
 spoon_on_towel,spoon_on_towel,True,True,put the spoon on the blue towel,44.4,"[33.5,55.9]",put the spoon atop the towel,66.7,"[55.2,76.5]",72,36.1,22.3,2.69,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white dish,51.4,"[40.1,62.6]",place the red cola can inside the white container,73.6,"[62.4,82.4]",72,19.4,22.2,2.75,True
 stack_cube,stack_cube,True,True,put the green block on the yellow block,29.2,"[19.9,40.5]",put the green cube on the yellow cube,50.0,"[38.7,61.3]",72,13.9,20.8,2.55,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white ramekin,31.9,"[22.3,43.4]",place the red cola can inside the white dish,51.4,"[40.1,62.6]",72,30.6,19.5,2.37,True
 carrot_on_ramekin,A06_prep_in_inside,True,True,Place the carrot in the ramekin.,20.8,"[13.1,31.6]",Place the carrot inside the ramekin.,40.3,"[29.7,51.8]",72,21.3,19.5,2.54,True
+eggplant_on_sponge,A11_verb_move_set,True,True,Move the purple eggplant onto the sponge.,68.1,"[56.6,77.7]",Set the purple eggplant onto the sponge.,87.5,"[77.9,93.3]",72,30.1,19.4,2.8,True
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white bowl,69.4,"[58.0,78.9]",72,2.8,19.4,2.37,True
+eggplant_on_keyboard,A19_articles,True,True,put the eggplant on the keyboard,12.5,"[6.7,22.1]",put eggplant on keyboard,31.9,"[22.3,43.4]",72,25.5,19.4,2.8,True
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,13.9,19.4,2.37,True
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white basin,69.4,"[58.0,78.9]",72,13.9,19.4,2.37,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the dish,41.7,"[31.0,53.2]",put the coke can on the plate,61.1,"[49.6,71.5]",72,30.5,19.4,2.33,True
 coke_can_on_plate,A17_noun_dish_plate,True,True,put the coke can on the dish,41.7,"[31.0,53.2]",put the coke can on the plate,61.1,"[49.6,71.5]",72,38.1,19.4,2.33,True
-eggplant_on_keyboard,A19_articles,True,True,put the eggplant on the keyboard,12.5,"[6.7,22.1]",put eggplant on keyboard,31.9,"[22.3,43.4]",72,25.5,19.4,2.8,True
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white basin,69.4,"[58.0,78.9]",72,13.9,19.4,2.37,True
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white bowl,69.4,"[58.0,78.9]",72,2.8,19.4,2.37,True
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,13.9,19.4,2.37,True
-eggplant_on_sponge,A11_verb_move_set,True,True,Move the purple eggplant onto the sponge.,68.1,"[56.6,77.7]",Set the purple eggplant onto the sponge.,87.5,"[77.9,93.3]",72,30.1,19.4,2.8,True
+put_eggplant_in_basket,put_eggplant_in_basket,True,True,put the eggplant in the basket,81.7,"[75.4,86.6]",put the eggplant in the yellow basket,100.0,"[83.9,100.0]",20,16.6,18.3,2.09,True
 nut_on_plate,Ac8_obj_grey_nut,True,True,drop the grey nut on the yellow plate,22.2,"[14.2,33.1]",drop the nut on the yellow plate,40.3,"[29.7,51.8]",72,41.6,18.1,2.34,True
+carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the wheel,12.5,"[6.7,22.1]",put the carrot on the black wheel,30.6,"[21.1,42.0]",72,22.2,18.1,2.64,True
+coke_can_on_plate,coke_can_on_plate_clean,True,True,put the can on the plate,34.7,"[24.8,46.2]",put the coke can on top of the plate,52.8,"[41.4,63.9]",72,8.3,18.1,2.19,True
 carrot_on_keyboard,carrot_on_keyboard_clean,True,True,put the carrot on the keys,6.9,"[3.0,15.2]",put the carrot on the black keyboard,25.0,"[16.4,36.1]",72,25.0,18.1,2.97,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white ramekin,31.9,"[22.3,43.4]",place the red cola can inside the white cup,50.0,"[38.7,61.3]",72,41.7,18.1,2.21,True
-coke_can_on_plate,coke_can_on_plate_clean,True,True,put the can on the plate,34.7,"[24.8,46.2]",put the coke can on top of the plate,52.8,"[41.4,63.9]",72,8.3,18.1,2.19,True
-carrot_on_keyboard,carrot_on_keyboard_clean,True,True,put the carrot on the keys,6.9,"[3.0,15.2]",place the carrot on the keyboard keys,25.0,"[16.4,36.1]",72,33.3,18.1,2.97,True
 stack_cube,stack_cube,True,True,stack the green cube on the yellow cube,25.0,"[16.4,36.1]",green cube on yellow cube,43.1,"[32.3,54.6]",72,33.3,18.1,2.29,True
-carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the wheel,12.5,"[6.7,22.1]",put the carrot on the black wheel,30.6,"[21.1,42.0]",72,22.2,18.1,2.64,True
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white dish,51.4,"[40.1,62.6]",place the red cola can inside the white basin,69.4,"[58.0,78.9]",72,25.0,18.0,2.21,True
+carrot_on_keyboard,carrot_on_keyboard_clean,True,True,put the carrot on the keys,6.9,"[3.0,15.2]",place the carrot on the keyboard keys,25.0,"[16.4,36.1]",72,33.3,18.1,2.97,True
 cube_on_plate,Ac4_dest_green_plate_collision,True,True,Place the green block on the green plate.,63.9,"[52.4,74.0]",Place the green block on the plate.,81.9,"[71.5,89.1]",72,36.7,18.0,2.43,True
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white dish,51.4,"[40.1,62.6]",place the red cola can inside the white basin,69.4,"[58.0,78.9]",72,25.0,18.0,2.21,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white dish,51.4,"[40.1,62.6]",place the red cola can inside the white bowl,69.4,"[58.0,78.9]",72,8.3,18.0,2.21,True
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white dish,51.4,"[40.1,62.6]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,2.8,18.0,2.21,True
-nut_on_wheel,A08_verb_position_put,True,True,Position the nut right on the wheel.,8.3,"[3.9,17.0]",Put the nut right on the wheel.,25.0,"[16.4,36.1]",72,41.6,16.7,2.69,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the yellow plate,44.4,"[33.5,55.9]",put the coke can on the plate,61.1,"[49.6,71.5]",72,19.4,16.7,2.01,True
 spoon_on_towel,spoon_on_towel,True,True,put the spoon on the blue towel,44.4,"[33.5,55.9]",put the spoon on the towel,61.1,"[49.6,71.5]",72,16.7,16.7,2.01,True
+nut_on_wheel,A08_verb_position_put,True,True,Position the nut right on the wheel.,8.3,"[3.9,17.0]",Put the nut right on the wheel.,25.0,"[16.4,36.1]",72,41.6,16.7,2.69,True
 pepsi_on_plate,A07_prep_to_onto,True,True,Move the blue can to the plate.,20.8,"[13.1,31.6]",Move the blue can onto the plate.,36.1,"[26.0,47.6]",72,20.8,15.3,2.03,True
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on top of the plate,52.8,"[41.4,63.9]",put the coke on the plate,66.7,"[55.2,76.5]",72,25.0,13.9,1.7,False
 stack_cube,stack_cube,True,True,put the green block on the yellow block,29.2,"[19.9,40.5]",green cube on yellow cube,43.1,"[32.3,54.6]",72,33.3,13.9,1.74,False
 stack_cube,stack_cube,True,True,green block on yellow block,16.7,"[9.8,26.9]",put the green block on the yellow block,29.2,"[19.9,40.5]",72,0.0,12.5,1.78,False
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the dish,41.7,"[31.0,53.2]",put the coke can on top of the plate,52.8,"[41.4,63.9]",72,8.3,11.1,1.33,False
-stack_cube,A03_prep_onto_on,True,True,place the green block onto the yellow block,20.8,"[9.2,40.5]",place the green block on the yellow block,30.6,"[21.1,42.0]",24,45.9,9.8,0.92,False
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the can on the plate,34.7,"[24.8,46.2]",put the coke can on the yellow plate,44.4,"[33.5,55.9]",72,11.1,9.7,1.19,False
 carrot_on_keyboard,carrot_on_keyboard_clean,True,True,place the carrot on the keyboard,15.3,"[8.8,25.3]",place the carrot on the keyboard keys,25.0,"[16.4,36.1]",72,22.2,9.7,1.45,False
 carrot_on_keyboard,carrot_on_keyboard_clean,True,True,place the carrot on the keyboard,15.3,"[8.8,25.3]",put the carrot on the black keyboard,25.0,"[16.4,36.1]",72,13.9,9.7,1.45,False
-carrot_on_keyboard,carrot_on_keyboard_clean,True,True,put the carrot on the keys,6.9,"[3.0,15.2]",place the carrot on the keyboard,15.3,"[8.8,25.3]",72,11.1,8.4,1.6,False
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the yellow plate,44.4,"[33.5,55.9]",put the coke can on top of the plate,52.8,"[41.4,63.9]",72,2.8,8.4,1.01,False
-coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on top of the plate,52.8,"[41.4,63.9]",put the coke can on the plate,61.1,"[49.6,71.5]",72,22.2,8.3,1.01,False
+stack_cube,A03_prep_onto_on,True,True,place the green block onto the yellow block,22.2,"[14.2,33.1]",place the green block on the yellow block,30.6,"[21.1,42.0]",72,45.9,8.4,1.14,False
+stack_cube,stack_cube,True,True,stack the green block on the yellow block,20.8,"[13.1,31.6]",put the green block on the yellow block,29.2,"[19.9,40.5]",72,1.0,8.4,1.16,False
+carrot_on_keyboard,carrot_on_keyboard_clean,True,True,put the carrot on the keys,6.9,"[3.0,15.2]",place the carrot on the keyboard,15.3,"[8.8,25.3]",72,11.1,8.4,1.6,False
 coke_can_on_wheel,A05_prep_on_into,True,True,Put the red can on the black wheel.,13.9,"[7.7,23.7]",Put the red can into the black wheel.,22.2,"[14.2,33.1]",72,27.0,8.3,1.29,False
+coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on top of the plate,52.8,"[41.4,63.9]",put the coke can on the plate,61.1,"[49.6,71.5]",72,22.2,8.3,1.01,False
 stack_cube,stack_cube,True,True,green block on yellow block,16.7,"[9.8,26.9]",stack the green cube on the yellow cube,25.0,"[16.4,36.1]",72,0.0,8.3,1.23,False
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the can on the plate,34.7,"[24.8,46.2]",put the coke can on the dish,41.7,"[31.0,53.2]",72,0.0,7.0,0.86,False
+stack_cube,stack_cube,True,True,green cube on yellow cube,43.1,"[32.3,54.6]",put the green cube on the yellow cube,50.0,"[38.7,61.3]",72,19.4,6.9,0.83,False
+eggplant_on_sponge,A10_verb_place_deposit,True,True,Deposit the purple eggplant onto the yellow and green sponge.,66.7,"[55.2,76.5]",Place the purple eggplant onto the yellow and green sponge.,73.6,"[62.4,82.4]",72,31.3,6.9,0.9,False
 carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the rim,5.6,"[2.2,13.4]",put the carrot on the wheel,12.5,"[6.7,22.1]",72,11.1,6.9,1.44,False
 carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the tire,5.6,"[2.2,13.4]",put the carrot on the wheel,12.5,"[6.7,22.1]",72,8.4,6.9,1.44,False
-eggplant_on_sponge,A10_verb_place_deposit,True,True,Deposit the purple eggplant onto the yellow and green sponge.,66.7,"[55.2,76.5]",Place the purple eggplant onto the yellow and green sponge.,73.6,"[62.4,82.4]",72,31.3,6.9,0.9,False
-stack_cube,stack_cube,True,True,green cube on yellow cube,43.1,"[32.3,54.6]",put the green cube on the yellow cube,50.0,"[38.7,61.3]",72,19.4,6.9,0.83,False
-spoon_on_towel,A04_prep_on_atop,True,True,put the spoon on the towel,61.1,"[49.6,71.5]",put the spoon atop the towel,66.7,"[55.2,76.5]",72,36.3,5.6,0.7,False
-coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the plate,61.1,"[49.6,71.5]",put the coke on the plate,66.7,"[55.2,76.5]",72,2.8,5.6,0.7,False
 eggplant_on_sponge,A20_polite_colororder,False,True,put the purple eggplant on the yellow and green sponge,70.8,"[59.5,80.1]",please put the purple eggplant on the green and yellow sponge,76.4,"[65.4,84.7]",72,21.2,5.6,0.76,False
 spoon_on_towel,spoon_on_towel,True,True,put the spoon on the towel,61.1,"[49.6,71.5]",put the spoon atop the towel,66.7,"[55.2,76.5]",72,19.4,5.6,0.7,False
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white bowl,69.4,"[58.0,78.9]",place the red cola can inside the white container,73.6,"[62.4,82.4]",72,11.1,4.2,0.56,False
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white pot,69.4,"[58.0,78.9]",place the red cola can inside the white container,73.6,"[62.4,82.4]",72,22.2,4.2,0.56,False
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white basin,69.4,"[58.0,78.9]",place the red cola can inside the white container,73.6,"[62.4,82.4]",72,5.6,4.2,0.56,False
+spoon_on_towel,A04_prep_on_atop,True,True,put the spoon on the towel,61.1,"[49.6,71.5]",put the spoon atop the towel,66.7,"[55.2,76.5]",72,36.3,5.6,0.7,False
+coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the plate,61.1,"[49.6,71.5]",put the coke on the plate,66.7,"[55.2,76.5]",72,2.8,5.6,0.7,False
 stack_cube,stack_cube,True,True,stack the green cube on the yellow cube,25.0,"[16.4,36.1]",put the green block on the yellow block,29.2,"[19.9,40.5]",72,0.0,4.2,0.57,False
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white pot,69.4,"[58.0,78.9]",place the red cola can inside the white container,73.6,"[62.4,82.4]",72,22.2,4.2,0.56,False
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white bowl,69.4,"[58.0,78.9]",place the red cola can inside the white container,73.6,"[62.4,82.4]",72,11.1,4.2,0.56,False
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white basin,69.4,"[58.0,78.9]",place the red cola can inside the white container,73.6,"[62.4,82.4]",72,5.6,4.2,0.56,False
+stack_cube,stack_cube,True,True,stack the green block on the yellow block,20.8,"[13.1,31.6]",stack the green cube on the yellow cube,25.0,"[16.4,36.1]",72,1.0,4.2,0.6,False
+stack_cube,stack_cube,True,True,green block on yellow block,16.7,"[9.8,26.9]",stack the green block on the yellow block,20.8,"[13.1,31.6]",72,1.0,4.1,0.63,False
 coke_can_on_plate,coke_can_on_plate_clean,True,True,put the coke can on the dish,41.7,"[31.0,53.2]",put the coke can on the yellow plate,44.4,"[33.5,55.9]",72,11.1,2.7,0.33,False
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white dish,51.4,"[40.1,62.6]",72,11.1,1.4,0.17,False
 carrot_on_plate,Ac10_obj_orange_carrot,True,False,put the carrot on the plate,41.7,"[31.0,53.2]",Put the orange carrot on the plate.,43.1,"[32.3,54.6]",72,37.5,1.4,0.17,False
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white bowl,69.4,"[58.0,78.9]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,11.1,0.0,0.0,False
-coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white basin,69.4,"[58.0,78.9]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,27.8,0.0,0.0,False
-carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the rim,5.6,"[2.2,13.4]",put the carrot on the tire,5.6,"[2.2,13.4]",72,2.7,0.0,0.0,False
-carrot_on_keyboard,carrot_on_keyboard_clean,True,True,put the carrot on the black keyboard,25.0,"[16.4,36.1]",place the carrot on the keyboard keys,25.0,"[16.4,36.1]",72,8.3,0.0,0.0,False
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white cup,50.0,"[38.7,61.3]",place the red cola can inside the white dish,51.4,"[40.1,62.6]",72,11.1,1.4,0.17,False
 coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white basin,69.4,"[58.0,78.9]",place the red cola can inside the white bowl,69.4,"[58.0,78.9]",72,16.7,0.0,0.0,False
+carrot_on_wheel,carrot_on_wheel_clean,True,True,put the carrot on the rim,5.6,"[2.2,13.4]",put the carrot on the tire,5.6,"[2.2,13.4]",72,2.7,0.0,0.0,False
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white bowl,69.4,"[58.0,78.9]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,11.1,0.0,0.0,False
+carrot_on_keyboard,carrot_on_keyboard_clean,True,True,put the carrot on the black keyboard,25.0,"[16.4,36.1]",place the carrot on the keyboard keys,25.0,"[16.4,36.1]",72,8.3,0.0,0.0,False
+coke_can_on_ramekin,ramekin_ladder,True,True,place the red cola can inside the white basin,69.4,"[58.0,78.9]",place the red cola can inside the white pot,69.4,"[58.0,78.9]",72,27.8,0.0,0.0,False
