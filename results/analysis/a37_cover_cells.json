@@ -1,6 +1,6 @@
 {
- "adv": {"off": 25.7, "on": 21.8,
-         "note": "on = PRELIMINARY waves k0-k2 (36/72 attacks); off = anchor (24 k1/k2 cells x24, vs our 26.1)"},
+ "adv": {"off": 25.7, "on": 21.6,
+         "note": "FINAL: on = all 72 attacks x 24 layouts x 2 reps (3,456 eps); off = anchor k1+k2 cells x24 (25.7 vs our 26.1)"},
  "nat": {"off": null, "on": null, "note": "rolling"},
  "orig": {"off": null, "on": null, "note": "rolling"}
 }

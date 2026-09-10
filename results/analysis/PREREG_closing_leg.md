@@ -1027,3 +1027,16 @@ k3-k5 complete on cv2 shortly; final read then.
   dish-for-plate, capitalization). Mechanism hypothesis: the verifier scores
   trajectory consistency, not lexical toxicity; low-confidence swaps move
   INTO toxic rewrites on survivable tasks.
+
+#### A37 heavy adversarial FINAL (2026-09-10): CoVer 21.6 — P13 FALSIFIED on this benchmark
+All 72 attacks x 24 pinned layouts x 2 reps (3,456 episodes, verifier on, 8
+rephrases, 5 samples/step, final-state@60): pooled 21.6 vs their own
+verifier-off 25.7 and our passthrough 24.5-26.1 — the verifier is net
+-4.1pp against its in-harness baseline. The conditional structure sharpened
+at full sample: hurts survivable tasks (orange_juice -25.8, pepsi -21.7pp vs
+passthrough on matched cells) and helps floor tasks (eggplant_keyboard +15.8,
+carrot_sponge +12.9, eggplant_sponge +10.8). P13 (CoVer beats passthrough on
+sealed adversarial) FALSIFIED under the aligned benchmark contract. P14: the
+rollout rulebook (~30 pooled, ~1/40th test-time compute) beats CoVer by ~8pp.
+Pending: natural + original conditions (dual-metric), the ever-success
+metric ablation on anchor cells, and the swap-rate diagnostics — all rolling.
