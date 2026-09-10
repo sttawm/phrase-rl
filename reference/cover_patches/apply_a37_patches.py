@@ -171,3 +171,22 @@ patch("eval_utils.py", [
      "        single_action = predefined_action_queue[i].float().cpu().numpy()  # (batch_size, 7)  # A37-bf16-utils"),
 ], "bf16-utils")
 print("ALL PATCHES OK")
+
+# ---------------------------------------------------------------------------
+# A37-device fix (2026-09-10): the bf16 patch above anchored on
+# `pi0_policy.to("cuda")` whose ORIGINAL next line was
+# `pi0_policy.config.device = "cuda"` — the insertion swallowed that line into
+# the policy_bf16 branch, so fp32 runs left config.device="cpu" and crashed at
+# first inference. Fixed on both pods by hoisting the device assignment into
+# its own `if torch.cuda.is_available():` block ahead of the bf16 cast.
+#
+# A37-metric (2026-09-10, the actual +7pp): their loop breaks on FIRST success
+# (ever-success within horizon); phase0c runs to truncation and scores
+# FINAL-STATE success — pi0 keeps acting after success and can undo it, so
+# ever-success >= end-state systematically (+6-7pp measured, paired traces
+# 5/12 vs 3/12 on identical episodes). Under pin_layouts their loop now runs
+# to truncation and counts `done` at loop exit:
+#   - `if done:` early-break gated on `not cfg.pin_layouts`
+#   - after pbar.close(): `if cfg.pin_layouts and done:` increments successes
+# Applied inline on cv2+cv3 (anchors in the transcript); a fresh clone should
+# apply the equivalent edits.

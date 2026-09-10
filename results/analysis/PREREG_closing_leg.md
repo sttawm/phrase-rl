@@ -954,3 +954,23 @@ executed inside THEIR venv on the same 24 cells — ~32 implicates the torch/
 lerobot-fork runtime; ~24 implicates their eval-loop code specifically. Heavy
 arm remains gated (user condition: launch only when their verifier-off
 reproduces our passthrough).
+
+#### A37 serving-offset ROOT CAUSE (2026-09-10): success-metric mismatch
+Runtime bisect: our phase0c inside their venv = 26.0 pooled (vs our 24.1-26.1
+band) — torch 2.11, their lerobot fork, weights, adapter, sim stack all
+exonerated. Paired action traces (both harnesses, same venv, same CRN seed,
+12 episodes): actions differ only at ~1e-3 from step 0 (bf16-vs-fp32
+rounding, pooled-neutral per A/B-1), but EPISODE SEMANTICS differ — their
+loop breaks on FIRST success (ever-success within horizon; episodes end at
+step 26/31/38/57), phase0c runs to truncation and scores FINAL-STATE success
+at 60. pi0 continues acting after success and can undo it: ever-success >=
+end-state, +6-7pp systematic (5/12 vs 3/12 on identical episodes). Our
+published grid is end-state@60 throughout; their published numbers are
+ever-success@150 (their benchmark, self-consistent; Anchor A unaffected).
+Alignment per user decision (their verifier-off must reproduce our
+passthrough): A37-metric patch — under pin_layouts their loop runs to the
+60-step truncation and scores done-at-exit. Metric-fixed anchor re-running;
+pass criterion unchanged (+-4pp pooled vs 26.1). One found-and-fixed
+harness-adaptation bug also recorded: the bf16 patch had swallowed their
+config.device assignment into the flag branch (fp32 path crash; no completed
+result affected).
