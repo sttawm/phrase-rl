@@ -43,9 +43,8 @@ FULL_N = 50
 # Curated groups: each is one task, one edit dimension, phrases in any order.
 GROUPS = [
     ("libero_goal/7", "source noun", [
-        # hob (78) and cooktop (74) trimmed for space: they sit between range and
-        # heating element and add no shape to the gradient.
-        "switch on the stove", "switch on the range", "switch on the heating element",
+        "switch on the stove", "switch on the range", "switch on the hob",
+        "switch on the cooktop", "switch on the heating element",
         "switch on the griddle", "switch on the hotplate", "switch on the hot plate"]),
     ("libero_goal/7", "verb", ["turn on the burners", "start the burners"]),
     ("libero_goal/1", "destination noun", [
@@ -67,6 +66,9 @@ GROUPS = [
         "put the wine bottle on the wooden stand"]),
     ("libero_90/30", "destination noun", [
         "put the black bowl on the plate", "put the black bowl on the dish"]),
+    ("libero_90/38", "verb", [
+        "pick up the right moka pot and place it on the stove",
+        "lift the right moka pot and place it on the stove"]),
     # --- round 4: libero_spatial (two identical bowls; the locator is the only
     # disambiguator) and libero_object (hypernym substitution).
     ("libero_spatial/7", "locator noun", [
