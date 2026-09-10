@@ -42,6 +42,8 @@ CATLABEL = [
 
 
 def cat(group):
+    if group.startswith("__disp__"):
+        return group[8:]
     for pat, name in CATLABEL:
         if re.match(pat, group):
             return name
@@ -61,16 +63,43 @@ def two_prop_p(p1, n1, p2, n2):
     return math.erfc(z / math.sqrt(2))
 
 
-def marked_phrase(phrase, siblings, color):
-    """Wrap tokens that vary across the group in a colorbox."""
+def _mark_sets(siblings):
+    """Per-phrase sets of token indices to highlight.
+    Pairs: difflib alignment; an insert/delete highlights the inserted tokens
+    AND the next aligned token on BOTH sides, so word additions mark something
+    reasonable in each sentence. Larger groups: tokens not common to all."""
+    import difflib
     toksets = [p.split(" ") for p in siblings]
-    toks = phrase.split(" ")
+    if len(toksets) == 2:
+        a, b = toksets
+        ha, hb = set(), set()
+        sm = difflib.SequenceMatcher(a=a, b=b, autojunk=False)
+        for tag, i1, i2, j1, j2 in sm.get_opcodes():
+            if tag == "equal":
+                continue
+            ha.update(range(i1, i2)); hb.update(range(j1, j2))
+            if tag in ("insert", "delete"):
+                if i2 < len(a): ha.add(i2)
+                if j2 < len(b): hb.add(j2)
+        return [ha, hb]
     same_len = len({len(t) for t in toksets}) == 1
     common = set.intersection(*[set(t) for t in toksets])
+    outs = []
+    for toks in toksets:
+        if same_len:
+            outs.append({i for i, t in enumerate(toks)
+                         if len({ts[i] for ts in toksets}) > 1})
+        else:
+            outs.append({i for i, t in enumerate(toks) if t not in common})
+    return outs
+
+
+def marked_phrase(phrase, siblings, color):
+    idx = siblings.index(phrase)
+    hi = _mark_sets(siblings)[idx]
     out = []
-    for i, t in enumerate(toks):
-        varies = (len({ts[i] for ts in toksets}) > 1) if same_len else (t not in common)
-        if varies:
+    for i, t in enumerate(phrase.split(" ")):
+        if i in hi:
             out.append(r"\colorbox{" + color + r"}{\strut " + esc(t) + "}")
         else:
             out.append(esc(t))
@@ -90,6 +119,51 @@ for g in M.drop_duplicates(subset=["group"]).group:
         continue
     rows = rows.sort_values("succ", ascending=False).reset_index(drop=True)
     blocks.setdefault(rows.task.iloc[0], []).append((g, rows))
+
+# ---- display curation (user edits 2026-09-10; data untouched) --------------
+DISPLAY_EDITS = {
+    "carrot_on_keyboard_clean": [
+        ("object+destination noun", ["put the carrot on the black keyboard",
+                                     "put the carrot on the keys"])],
+    "carrot_on_wheel_clean": [
+        ("destination noun", ["put the carrot on the black wheel",
+                              "put the carrot on the wheel",
+                              "put the carrot on the tire"])],
+    "coke_can_on_plate_clean": [
+        ("object noun", ["put the coke on the plate", "put the can on the plate"]),
+        ("destination colour", ["put the coke can on the plate",
+                                "put the coke can on the yellow plate"]),
+        ("destination noun", ["put the coke can on the plate",
+                              "put the coke can on the dish"])],
+    "A17_noun_dish_plate": [],   # duplicate of the plate-vs-dish split above
+    "ramekin_ladder": [
+        ("noun ladder", ["place the red cola can inside the white container",
+                         "place the red cola can inside the white dish",
+                         "place the red cola can inside the white cup",
+                         "place the red cola can inside the white ramekin"])],
+    "spoon_on_towel": [
+        ("colour/prep pair", ["put the spoon atop the towel",
+                              "put the spoon on the blue towel"])],
+    "stack_cube": [
+        ("object noun", ["put the green cube on the yellow cube",
+                         "put the green block on the yellow block"]),
+        ("verb", ["put the green cube on the yellow cube",
+                  "stack the green cube on the yellow cube"]),
+        ("object noun", ["green cube on yellow cube",
+                         "green block on yellow block"])],
+}
+for task in list(blocks):
+    newlist = []
+    for g, rows in blocks[task]:
+        if g not in DISPLAY_EDITS:
+            newlist.append((g, rows))
+            continue
+        for k, (label, phrases) in enumerate(DISPLAY_EDITS[g]):
+            sub = rows[rows.phrase.isin(phrases)].copy()
+            sub = sub.sort_values("succ", ascending=False).reset_index(drop=True)
+            assert len(sub) == len(phrases), f"display edit {g}/{label}: missing phrase"
+            newlist.append((f"__disp__{label}", sub))
+    blocks[task] = newlist
 
 tex = [r"""\documentclass[10pt]{article}
 \usepackage[left=0.75cm,right=0.75cm,top=0.6cm,bottom=0.55cm]{geometry}
