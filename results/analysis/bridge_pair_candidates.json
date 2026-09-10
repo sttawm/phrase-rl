@@ -57,48 +57,48 @@
  },
  {
   "task": "widowx_stack_cube",
-  "group": "cube_block_grid",
-  "label": "verb x object noun",
+  "group": "stack_cube",
+  "label": "object noun - no verb",
   "phrase": "green cube on yellow cube",
   "prior_success": 58.3,
   "prior_n": 56
  },
  {
   "task": "widowx_stack_cube",
-  "group": "cube_block_grid",
-  "label": "verb x object noun",
+  "group": "stack_cube",
+  "label": "object noun - no verb",
   "phrase": "green block on yellow block",
   "prior_success": 25.0,
   "prior_n": 224
  },
  {
   "task": "widowx_stack_cube",
-  "group": "cube_block_grid",
-  "label": "verb x object noun",
+  "group": "stack_cube",
+  "label": "object noun - with put the",
   "phrase": "put the green cube on the yellow cube",
   "prior_success": 38.9,
   "prior_n": 68
  },
  {
   "task": "widowx_stack_cube",
-  "group": "cube_block_grid",
-  "label": "verb x object noun",
+  "group": "stack_cube",
+  "label": "object noun - with put the",
   "phrase": "put the green block on the yellow block",
   "prior_success": 25.0,
   "prior_n": 110
  },
  {
   "task": "widowx_stack_cube",
-  "group": "cube_block_grid",
-  "label": "verb x object noun",
+  "group": "stack_cube",
+  "label": "object noun - with stack the",
   "phrase": "stack the green cube on the yellow cube",
   "prior_success": 25.0,
   "prior_n": 44
  },
  {
   "task": "widowx_stack_cube",
-  "group": "cube_block_grid",
-  "label": "verb x object noun",
+  "group": "stack_cube",
+  "label": "object noun - with stack the",
   "phrase": "stack the green block on the yellow block",
   "prior_success": 24.0,
   "prior_n": 288
@@ -144,6 +144,14 @@
   "prior_n": 64
  },
  {
+  "task": "widowx_coke_can_on_plate_clean",
+  "group": "coke_can_on_plate_clean",
+  "label": "colour word ADDED - hurts",
+  "phrase": "put the coke can on the yellow plate",
+  "prior_success": 41.7,
+  "prior_n": 64
+ },
+ {
   "task": "widowx_carrot_on_wheel_clean",
   "group": "carrot_on_wheel_clean",
   "label": "destination noun",
@@ -170,7 +178,7 @@
  {
   "task": "widowx_carrot_on_wheel_clean",
   "group": "carrot_on_wheel_clean",
-  "label": "colour word dropped",
+  "label": "colour word ADDED - helps",
   "phrase": "put the carrot on the wheel",
   "prior_success": 16.7,
   "prior_n": 348
@@ -208,6 +216,22 @@
   "prior_n": 78
  },
  {
+  "task": "widowx_put_eggplant_in_basket",
+  "group": "put_eggplant_in_basket",
+  "label": "colour word ADDED - helps",
+  "phrase": "put the eggplant in the yellow basket",
+  "prior_success": 97.2,
+  "prior_n": 64
+ },
+ {
+  "task": "widowx_put_eggplant_in_basket",
+  "group": "put_eggplant_in_basket",
+  "label": "colour word ADDED - helps",
+  "phrase": "put the eggplant in the basket",
+  "prior_success": 80.6,
+  "prior_n": 64
+ },
+ {
   "task": "widowx_spoon_on_towel",
   "group": "spoon_on_towel",
   "label": "preposition (a gain)",
@@ -226,7 +250,7 @@
  {
   "task": "widowx_spoon_on_towel",
   "group": "spoon_on_towel",
-  "label": "colour word ADDED",
+  "label": "colour word ADDED - hurts",
   "phrase": "put the spoon on the blue towel",
   "prior_success": 38.9,
   "prior_n": 64
