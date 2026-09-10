@@ -1,0 +1,338 @@
+task,color,bare,succ_bare,n_bare,colored,succ_col,n_col,delta_pp,z
+widowx_cube_on_plate_clean,yellow,Pick up the green cube and put it on the plate.,89.6,48,pick up the green cube and put it on the yellow plate,41.7,24,-47.9,4.35
+widowx_nut_on_plate_clean,grey,drop the nut on the yellow plate,45.8,24,drop the grey nut on the yellow plate,4.2,24,-41.7,3.33
+widowx_cube_on_plate_clean,yellow,pick up the green cube and put it on the plate,83.3,24,pick up the green cube and put it on the yellow plate,41.7,24,-41.7,2.98
+widowx_eggplant_on_keyboard_clean,purple,The eggplant needs to end up on the black keyboard.,58.3,24,The purple eggplant needs to end up on the black keyboard.,20.8,48,-37.5,3.18
+widowx_cube_on_plate_clean,green,Place the green block on the plate.,86.7,120,Place the green block on the green plate.,50.0,24,-36.7,4.14
+widowx_cube_on_plate_clean,yellow,put the small green cube on the plate,85.0,120,Put the small green cube on the yellow plate.,50.0,24,-35.0,3.85
+widowx_cube_on_plate_clean,yellow,Put the small green cube on the plate.,83.5,480,Put the small green cube on the yellow plate.,50.0,24,-33.5,4.17
+widowx_cube_on_plate_clean,yellow,Place the green cube on the plate.,83.3,96,place the green cube on the yellow plate,50.0,24,-33.3,3.45
+widowx_cube_on_plate_clean,yellow,move the green cube to the plate.,79.2,24,Move the green cube to the yellow plate.,45.8,120,-33.3,2.98
+widowx_pepsi_on_plate_clean,yellow,place the pepsi can on the plate,54.2,96,Place the Pepsi can on the yellow plate.,20.8,24,-33.3,2.92
+widowx_pepsi_on_plate_clean,yellow,Put the blue coke can onto the plate.,64.6,48,Put the blue coke can onto the yellow plate.,32.3,96,-32.3,3.69
+widowx_nut_on_plate_clean,yellow,Place the grey nut on the plate,45.8,48,place the grey nut on the yellow plate,15.3,72,-30.6,3.67
+widowx_nut_on_plate_clean,yellow,place the grey nut on the plate,45.8,48,place the grey nut on the yellow plate,15.3,72,-30.6,3.67
+widowx_cube_on_plate_clean,yellow,place the green cube on the plate,79.2,24,place the green cube on the yellow plate,50.0,24,-29.2,2.11
+widowx_eggplant_on_keyboard_clean,purple,Transfer the eggplant to the black keyboard.,37.5,24,Transfer the purple eggplant to the black keyboard.,8.3,24,-29.2,2.4
+widowx_cube_on_plate_clean,yellow,Move the green cube to the plate.,75.0,24,Move the green cube to the yellow plate.,45.8,120,-29.2,2.61
+widowx_cube_on_plate_clean,yellow,place the green cube on the plate.,79.2,48,place the green cube on the yellow plate,50.0,24,-29.2,2.53
+widowx_pepsi_on_plate_clean,yellow,Move the blue coke can onto the plate.,58.3,24,Move the blue coke can onto the yellow plate.,29.2,48,-29.2,2.39
+widowx_eggplant_on_keyboard_clean,purple,Place the eggplant on top of the black keyboard.,41.7,24,Place the purple eggplant on top of the black keyboard.,13.7,168,-28.0,3.4
+widowx_nut_on_plate_clean,yellow,put the grey nut on the plate,43.8,48,Put the grey nut on the yellow plate.,15.8,120,-27.9,3.84
+widowx_nut_on_plate_clean,yellow,place the grey nut on the plate,45.8,48,Place the grey nut on the yellow plate.,18.1,144,-27.8,3.85
+widowx_nut_on_plate_clean,yellow,Set the grey nut on the plate,45.8,48,set the grey nut on the yellow plate,18.1,288,-27.8,4.3
+widowx_nut_on_plate_clean,yellow,put the nut onto the plate,48.6,144,put the nut onto the yellow plate.,20.8,24,-27.8,2.53
+widowx_nut_on_plate_clean,yellow,Place the grey nut on the plate,45.8,48,Place the grey nut on the yellow plate.,18.1,144,-27.8,3.85
+widowx_pepsi_on_plate_clean,yellow,set the blue pepsi can on the plate,68.8,48,Set the blue Pepsi can on the yellow plate.,41.7,72,-27.1,2.91
+widowx_pepsi_on_plate_clean,yellow,put the blue can onto the plate,36.7,120,put the blue can onto the yellow plate,9.7,72,-26.9,4.09
+widowx_nut_on_plate_clean,black,Pick up the nut and put it on the plate.,39.1,192,pick up the black nut and put it on the plate,12.5,24,-26.6,2.55
+widowx_eggplant_on_keyboard_clean,purple,Place the eggplant on the black keyboard.,51.4,72,Place the purple eggplant on the black keyboard,25.0,24,-26.4,2.25
+widowx_nut_on_plate_clean,yellow,put the grey nut on the plate,43.8,48,put the grey nut on the yellow plate,17.4,264,-26.3,4.09
+widowx_nut_on_plate_clean,yellow,Put the grey nut on the plate.,41.7,24,Put the grey nut on the yellow plate.,15.8,120,-25.8,2.88
+widowx_pepsi_on_plate_clean,yellow,Put the blue soda can onto the plate.,54.8,168,Put the blue soda can onto the yellow plate.,29.2,24,-25.6,2.35
+widowx_cube_on_plate_clean,yellow,put the green block on the plate,87.5,120,put the green block on the yellow plate,62.0,192,-25.5,4.87
+widowx_pepsi_on_plate_clean,yellow,pick up the blue can and place it on the plate,41.7,24,pick up the blue can and place it on the yellow plate.,16.7,48,-25.0,2.31
+widowx_carrot_on_sponge_clean,orange,Put the carrot on the sponge,45.8,48,put the orange carrot on the sponge,20.8,24,-25.0,2.07
+widowx_pepsi_on_plate_clean,yellow,put the blue soda can onto the plate,54.2,48,Put the blue soda can onto the yellow plate.,29.2,24,-25.0,2.01
+widowx_cube_on_plate_clean,yellow,Set the green cube to the plate.,83.3,48,set the green cube to the yellow plate,58.3,24,-25.0,2.31
+widowx_cube_on_plate_clean,yellow,Put the green block onto the plate.,83.3,48,put the green block onto the yellow plate,58.3,48,-25.0,2.69
+widowx_cube_on_plate_clean,yellow,put the green block onto the plate.,83.3,48,put the green block onto the yellow plate,58.3,48,-25.0,2.69
+widowx_eggplant_on_keyboard_clean,purple,set the eggplant down on top of the black keyboard,41.7,48,Set the purple eggplant down on top of the black keyboard.,16.7,168,-25.0,3.67
+widowx_pepsi_on_plate_clean,yellow,Place the blue soda can on the plate.,50.0,24,Place the blue soda can on the yellow plate.,25.0,240,-25.0,2.62
+widowx_nut_on_plate_clean,black,pick up the nut and put it on the plate,36.7,120,pick up the black nut and put it on the plate,12.5,24,-24.2,2.3
+widowx_nut_on_plate_clean,yellow,Put the grey nut on the plate.,41.7,24,put the grey nut on the yellow plate,17.4,264,-24.2,2.87
+widowx_cube_on_plate_clean,yellow,Pick up the green cube and place it on the plate.,95.0,504,pick up the green cube and place it on the yellow plate,70.8,24,-24.2,4.86
+widowx_pepsi_on_plate_clean,yellow,place the blue can on the plate,47.2,72,Place the blue can on the yellow plate.,23.6,144,-23.6,3.52
+widowx_nut_on_plate_clean,yellow,Put the nut on the plate.,47.2,144,Put the nut on the yellow plate.,24.0,96,-23.3,3.64
+widowx_nut_on_plate_clean,yellow,Set the grey nut onto the plate,41.7,48,set the grey nut onto the yellow plate,18.7,144,-22.9,3.2
+widowx_nut_on_wheel_clean,grey,put the nut on the tire.,25.0,24,put the grey nut on the tire,2.1,48,-22.9,3.09
+widowx_nut_on_plate_clean,yellow,set the grey nut onto the plate?,41.7,24,set the grey nut onto the yellow plate,18.7,144,-22.9,2.51
+widowx_nut_on_wheel_clean,grey,Put the nut on the tire.,25.0,216,put the grey nut on the tire,2.1,48,-22.9,3.54
+widowx_pepsi_on_plate_clean,yellow,set the blue pepsi can on the plate,68.8,48,set the blue pepsi can on the yellow plate,46.5,144,-22.2,2.67
+widowx_pepsi_on_plate_clean,yellow,place the blue can on the plate,47.2,72,place the blue can on the yellow plate,25.0,48,-22.2,2.45
+widowx_carrot_on_sponge_clean,orange,put the carrot on the green sponge,44.4,144,Put the orange carrot on the green sponge.,22.2,216,-22.2,4.46
+widowx_nut_on_plate_clean,yellow,Put the nut on the plate,45.8,72,Put the nut on the yellow plate.,24.0,96,-21.9,2.98
+widowx_eggplant_on_keyboard_clean,purple,Put the eggplant onto the keys of the black keyboard.,43.8,48,Put the purple eggplant onto the keys of the black keyboard.,22.2,72,-21.5,2.5
+widowx_eggplant_on_keyboard_clean,purple,set the eggplant down on top of the black keyboard,41.7,48,set the purple eggplant down on top of the black keyboard,20.8,48,-20.8,2.2
+widowx_orange_juice_on_plate_clean,yellow,Pick up the juice box and put it on the plate.,25.0,48,Pick up the juice box and put it on the yellow plate.,4.2,24,-20.8,2.17
+widowx_nut_on_plate_clean,yellow,Set the grey nut on the plate,45.8,48,set the grey nut on the yellow plate.,25.0,48,-20.8,2.13
+widowx_nut_on_plate_clean,grey,put nut on plate,55.9,744,put grey nut on plate,35.4,48,-20.5,2.76
+widowx_pepsi_on_plate_clean,yellow,put the blue can on the plate,38.1,168,Put the blue can on the yellow plate.,17.9,168,-20.2,4.13
+widowx_carrot_on_sponge_clean,orange,put the carrot on the green sponge,44.4,144,put the orange carrot on the green sponge,24.4,168,-20.0,3.73
+widowx_pepsi_on_plate_clean,yellow,put the blue can onto the plate,36.7,120,Put the blue can onto the yellow plate.,16.7,48,-20.0,2.53
+widowx_eggplant_on_sponge_clean,green,Place the purple eggplant on the sponge.,86.6,648,place the purple eggplant on the green sponge,66.7,48,-19.9,3.75
+widowx_nut_on_plate_clean,yellow,Place the grey nut on the plate.,35.0,432,place the grey nut on the yellow plate,15.3,72,-19.7,3.31
+widowx_pepsi_on_plate_clean,yellow,Put the blue can on the plate?,37.5,24,Put the blue can on the yellow plate.,17.9,168,-19.6,2.24
+widowx_cube_on_plate_clean,yellow,Set the green block on the plate.,73.8,240,set the green block on the yellow plate,54.2,48,-19.6,2.72
+widowx_pepsi_on_plate_clean,yellow,put the blue can on the plate?,37.5,24,Put the blue can on the yellow plate.,17.9,168,-19.6,2.24
+widowx_eggplant_on_keyboard_clean,purple,put the eggplant on the black keyboard,54.2,96,Put the purple eggplant on the black keyboard.,34.7,144,-19.4,2.99
+widowx_eggplant_on_keyboard_clean,purple,drop the eggplant onto the black keyboard,50.0,48,Drop the purple eggplant onto the black keyboard.,30.6,72,-19.4,2.15
+widowx_eggplant_on_keyboard_clean,purple,Place the eggplant on the black keyboard.,51.4,72,Place the purple eggplant on the black keyboard.,32.4,312,-19.0,3.03
+widowx_orange_juice_on_plate_clean,yellow,move the juice box onto the plate,33.3,24,Move the juice box onto the yellow plate.,14.4,216,-19.0,2.39
+widowx_orange_juice_on_plate_clean,yellow,put the orange juice on the plate,36.2,240,Put the orange juice on the yellow plate.,17.4,144,-18.9,3.94
+widowx_pepsi_on_plate_clean,yellow,put the pepsi can on the plate,43.8,96,Put the Pepsi can on the yellow plate.,25.0,48,-18.8,2.19
+widowx_pepsi_on_plate_clean,yellow,put the blue soda can on the plate,50.0,48,put the blue soda can on the yellow plate,31.2,96,-18.8,2.19
+widowx_nut_on_wheel_clean,grey,Attach the nut to the black tire.,18.8,48,Attach the grey nut to the black tire.,0.0,24,-18.8,2.27
+widowx_cube_on_plate_clean,yellow,Pick up the green cube and put it on the plate.,89.6,48,Pick up the green cube and put it on the yellow plate.,70.8,24,-18.7,2.01
+widowx_nut_on_plate_clean,yellow,put the nut onto the plate,48.6,144,Put the nut onto the yellow plate.,30.0,120,-18.6,3.07
+widowx_cube_on_plate_clean,yellow,put the green cube on the plate.,83.3,72,put the green cube on the yellow plate,65.6,192,-17.7,2.81
+widowx_cube_on_plate_clean,yellow,Put the green cube on the plate.,83.3,216,put the green cube on the yellow plate,65.6,192,-17.7,4.12
+widowx_pepsi_on_plate_clean,yellow,Move the blue can onto the plate.,37.5,168,Move the blue can onto the yellow plate.,19.8,96,-17.7,2.99
+widowx_carrot_on_sponge_clean,green,set the orange carrot on top of the sponge,34.4,192,Set the orange carrot on top of the green sponge.,16.7,48,-17.7,2.38
+widowx_pepsi_on_plate_clean,yellow,put the blue can on the plate,38.1,168,put the blue can on the yellow plate,20.5,288,-17.6,4.09
+widowx_nut_on_plate_clean,grey,put the nut on the yellow plate,33.3,48,Put the grey nut on the yellow plate.,15.8,120,-17.5,2.52
+widowx_nut_on_plate_clean,black,put the nut on the yellow plate,33.3,48,put the black nut on the yellow plate,16.0,144,-17.4,2.59
+widowx_cube_on_plate_clean,yellow,set the green block on the plate,71.5,144,set the green block on the yellow plate,54.2,48,-17.4,2.22
+widowx_eggplant_on_keyboard_clean,black,Position the eggplant on the computer keyboard.,38.0,192,Position the eggplant on the black computer keyboard.,20.8,48,-17.2,2.24
+widowx_nut_on_plate_clean,yellow,Place the nut on the plate,40.7,432,Place the nut on the yellow plate.,23.6,72,-17.1,2.77
+widowx_nut_on_plate_clean,yellow,Place the grey nut on the plate.,35.0,432,Place the grey nut on the yellow plate.,18.1,144,-16.9,3.81
+widowx_nut_on_plate_clean,yellow,set the grey nut on the plate,35.0,120,set the grey nut on the yellow plate,18.1,288,-16.9,3.7
+widowx_nut_on_wheel_clean,gray,place the nut onto the black tire,20.8,48,place the gray nut onto the black tire,4.2,48,-16.7,2.47
+widowx_coke_can_on_keyboard_clean,red,Put the coca-cola can on the keyboard.,25.0,48,put the red coca-cola can on the keyboard,8.3,48,-16.7,2.19
+widowx_coke_can_on_keyboard_clean,black,place the coke can onto the keyboard,33.3,48,Place the Coke can onto the black keyboard.,16.7,72,-16.7,2.11
+widowx_nut_on_wheel_clean,grey,Set the nut on the tire.,16.7,24,set the grey nut on the tire,0.0,24,-16.7,2.09
+widowx_eggplant_on_sponge_clean,green,Put the eggplant on the sponge,87.5,48,put the eggplant on the green sponge,70.8,48,-16.7,2.01
+widowx_carrot_on_sponge_clean,green,set the orange carrot on top of the sponge,34.4,192,set the orange carrot on top of the green sponge,18.1,72,-16.3,2.58
+widowx_nut_on_plate_clean,grey,put the nut on the yellow plate,33.3,48,put the grey nut on the yellow plate,17.4,264,-15.9,2.54
+widowx_cube_on_plate_clean,yellow,Place the green block on the plate.,86.7,120,Place the green block on the yellow plate.,70.8,48,-15.8,2.42
+widowx_eggplant_on_sponge_clean,purple,Drop the eggplant onto the sponge.,86.6,216,drop the purple eggplant onto the sponge,70.8,72,-15.7,3.05
+widowx_eggplant_on_sponge_clean,purple,Move the eggplant onto the sponge.,75.0,168,Move the purple eggplant onto the sponge.,59.5,168,-15.5,3.02
+widowx_cube_on_plate_clean,yellow,Put the green block on the plate.,77.1,96,put the green block on the yellow plate,62.0,192,-15.1,2.57
+widowx_nut_on_wheel_clean,black,Grab the nut and place it on the wheel.,15.0,120,Grab the nut and place it on the black wheel.,0.0,48,-15.0,2.84
+widowx_eggplant_on_keyboard_clean,purple,Drop the eggplant onto the black keyboard.,45.4,216,Drop the purple eggplant onto the black keyboard.,30.6,72,-14.8,2.21
+widowx_carrot_on_sponge_clean,orange,set the carrot on the sponge,38.8,312,set the orange carrot on the sponge,24.2,120,-14.6,2.86
+widowx_nut_on_wheel_clean,grey,Place the nut on the tire.,16.7,72,Place the grey nut on the tire.,2.1,48,-14.6,2.52
+widowx_carrot_on_sponge_clean,orange,Place the carrot on top of the yellow and green sponge.,35.4,48,Place the orange carrot on top of the yellow and green sponge.,21.2,264,-14.2,2.14
+widowx_orange_juice_on_plate_clean,orange,put the juice box on the yellow plate,35.0,120,Put the orange juice box on the yellow plate.,20.8,216,-14.2,2.84
+widowx_nut_on_plate_clean,yellow,put the nut on the plate,38.2,288,Put the nut on the yellow plate.,24.0,96,-14.2,2.54
+widowx_nut_on_plate_clean,grey,set the nut onto the yellow plate,32.6,144,set the grey nut onto the yellow plate,18.7,144,-13.9,2.7
+widowx_nut_on_plate_clean,yellow,move the nut onto the plate,25.0,24,Move the nut onto the yellow plate.,11.2,624,-13.8,2.06
+widowx_orange_juice_on_plate_clean,yellow,put the orange juice on the plate,36.2,240,put the orange juice on the yellow plate,22.7,264,-13.5,3.34
+widowx_pepsi_on_plate_clean,yellow,set the blue coke can on the plate,51.0,96,set the blue coke can on the yellow plate,37.5,168,-13.5,2.14
+widowx_pepsi_on_plate_clean,yellow,set the blue can on the plate,38.2,144,set the blue can on the yellow plate,25.0,264,-13.2,2.79
+widowx_pepsi_on_plate_clean,green,put the blue can on the plate,38.1,168,Put the blue can on the green plate.,25.0,96,-13.1,2.17
+widowx_carrot_on_sponge_clean,green,set the carrot on the sponge,38.8,312,Set the carrot on the green sponge.,26.0,96,-12.7,2.28
+widowx_pepsi_on_plate_clean,yellow,Put the blue can on the plate.,30.2,96,Put the blue can on the yellow plate.,17.9,168,-12.4,2.32
+widowx_nut_on_wheel_clean,grey,put the nut on the tire,14.3,168,put the grey nut on the tire,2.1,48,-12.2,2.33
+widowx_eggplant_on_keyboard_clean,purple,Set the eggplant down on top of the keyboard.,12.5,96,Set the purple eggplant down on top of the keyboard.,0.4,240,-12.1,5.19
+widowx_orange_juice_on_plate_clean,yellow,Put the orange juice on the plate.,29.2,120,Put the orange juice on the yellow plate.,17.4,144,-11.8,2.28
+widowx_pepsi_on_plate_clean,yellow,Set the blue can on the plate.,36.8,144,set the blue can on the yellow plate,25.0,264,-11.8,2.51
+widowx_carrot_on_sponge_clean,orange,Set the carrot on the sponge.,35.9,192,set the orange carrot on the sponge,24.2,120,-11.8,2.18
+widowx_cube_on_plate_clean,yellow,Pick up the green cube and place it on the plate.,95.0,504,Pick up the green cube and place it on the yellow plate.,83.3,72,-11.7,3.79
+widowx_nut_on_wheel_clean,grey,Put the nut on the wheel.,15.6,192,put the grey nut on the wheel,4.2,96,-11.5,2.84
+widowx_pepsi_on_plate_clean,yellow,Place the blue can on the plate.,35.0,120,Place the blue can on the yellow plate.,23.6,144,-11.4,2.04
+widowx_carrot_on_sponge_clean,orange,set the carrot on the green sponge,35.4,144,set the orange carrot on the green sponge,24.2,264,-11.2,2.4
+widowx_eggplant_on_keyboard_clean,purple,set the eggplant onto the keyboard,20.8,48,set the purple eggplant onto the keyboard,9.7,216,-11.1,2.16
+widowx_nut_on_plate_clean,yellow,Put the nut onto the plate.,40.9,264,Put the nut onto the yellow plate.,30.0,120,-10.9,2.05
+widowx_nut_on_wheel_clean,grey,put the nut on the wheel,14.4,216,put the grey nut on the wheel,4.2,96,-10.2,2.63
+widowx_eggplant_on_keyboard_clean,purple,set the eggplant on the keyboard,26.4,216,set the purple eggplant on the keyboard,16.7,120,-9.7,2.03
+widowx_nut_on_wheel_clean,black,grab the nut and place it on the wheel,9.7,72,Grab the nut and place it on the black wheel.,0.0,48,-9.7,2.23
+widowx_nut_on_wheel_clean,grey,Put the nut on the wheel.,15.6,192,Put the grey nut on the wheel.,6.2,96,-9.4,2.27
+widowx_nut_on_wheel_clean,grey,put the nut on the wheel,14.4,216,Put the grey nut on the wheel.,6.2,96,-8.1,2.04
+widowx_eggplant_on_keyboard_clean,purple,set the eggplant down on top of the keyboard,8.3,48,Set the purple eggplant down on top of the keyboard.,0.4,240,-7.9,3.83
+widowx_eggplant_on_sponge_clean,purple,set the eggplant on the sponge,80.9,288,set the purple eggplant on the sponge,74.0,312,-6.9,2.01
+widowx_cube_on_plate_clean,yellow,set the green cube on the plate,83.3,336,set the green cube on the yellow plate,77.2,408,-6.1,2.08
+widowx_nut_on_wheel_clean,black,Slide the little hex nut into the wheel's center.,0.0,312,Slide the little hex nut into the black wheel's center.,4.2,24,4.2,3.61
+widowx_eggplant_on_keyboard_clean,purple,Take that eggplant over to the keyboard and set it there.,0.0,192,take that purple eggplant over to the keyboard and set it there,4.2,24,4.2,2.83
+widowx_small_plate_on_green_cube_clean,yellow,Place the small plate on the green cube.,0.0,264,Place the small yellow plate on the green cube.,4.2,24,4.2,3.32
+widowx_small_plate_on_green_cube_clean,yellow,place the small plate on the green cube,0.0,120,Place the small yellow plate on the green cube.,4.2,24,4.2,2.24
+widowx_small_plate_on_green_cube_clean,yellow,Place the small plate on top of the green cube.,0.0,216,Place the small yellow plate on top of the green cube.,4.2,24,4.2,3.01
+widowx_small_plate_on_green_cube_clean,yellow,Put the little dish on the green block.,0.0,216,put the little yellow dish on the green block,4.2,48,4.2,3.01
+widowx_small_plate_on_green_cube_clean,yellow,Take the plate and place it on the green cube.,0.6,360,Take the yellow plate and place it on the green cube.,6.2,48,5.7,3.37
+widowx_nut_on_wheel_clean,black,Grab the nut and put it on the wheel.,2.2,312,Grab the nut and put it on the black wheel.,8.3,48,6.1,2.28
+widowx_coke_can_on_keyboard_clean,black,Move the red Coke can to the keyboard.,0.0,72,Move the red coke can to the black keyboard.,6.2,48,6.2,2.15
+widowx_nut_on_wheel_clean,black,set the grey nut on the wheel,4.2,168,set the grey nut on the black wheel,10.8,240,6.7,2.43
+widowx_coke_can_on_wheel_clean,black,Place the red soda can inside the center of the rubber tire.,2.1,192,Place the red soda can inside the center of the black rubber tire.,8.7,240,6.7,2.95
+widowx_nut_on_wheel_clean,black,set the nut on top of the wheel,0.0,72,Set the nut on top of the black wheel.,7.2,360,7.2,2.35
+widowx_coke_can_on_keyboard_clean,black,Grab the red can and set it down on top of the keyboard.,0.8,264,Grab the red can and set it down on top of the black keyboard.,8.3,96,7.6,3.87
+widowx_coke_can_on_wheel_clean,red,set the coke can on the wheel,8.3,168,set the red coke can on the wheel,16.7,120,8.3,2.16
+widowx_nut_on_wheel_clean,black,grab the nut and put it on the wheel,0.0,72,Grab the nut and put it on the black wheel.,8.3,48,8.3,2.49
+widowx_coke_can_on_keyboard_clean,black,pick up the soda can and set it on the keys,0.0,48,Pick up the soda can and set it on the black keys,8.3,24,8.3,2.03
+widowx_coke_can_on_keyboard_clean,black,grab the red can and set it down on top of the keyboard,0.0,48,Grab the red can and set it down on top of the black keyboard.,8.3,96,8.3,2.06
+widowx_small_plate_on_green_cube_clean,yellow,place the plate on the green cube,0.0,48,place the yellow plate on the green cube,8.3,24,8.3,2.03
+widowx_coke_can_on_keyboard_clean,black,Shift the red can over so it rests on the keyboard.,0.0,144,Shift the red can over so it rests on the black keyboard.,8.3,48,8.3,3.5
+widowx_nut_on_wheel_clean,black,take the nut and put it on top of the wheel,0.0,48,Take the nut and put it on top of the black wheel.,8.3,24,8.3,2.03
+widowx_eggplant_on_keyboard_clean,black,Take that eggplant over to the keyboard and set it there.,0.0,192,Take that eggplant over to the black keyboard and set it there.,8.3,48,8.3,4.03
+widowx_nut_on_wheel_clean,grey,Set the nut on top of the black wheel.,7.2,360,Set the grey nut on top of the black wheel.,16.7,48,9.4,2.22
+widowx_nut_on_wheel_clean,black,set the nut on top of the wheel,0.0,72,set the nut on top of the black wheel,9.7,144,9.7,2.74
+widowx_eggplant_on_sponge_clean,purple,Place the eggplant on the sponge.,76.8,672,Place the purple eggplant on the sponge.,86.6,648,9.8,4.59
+widowx_nut_on_wheel_clean,black,put nut on wheel,19.1,696,put nut on black wheel,29.2,96,10.1,2.3
+widowx_coke_can_on_wheel_clean,black,Set the red can down onto the toy wheel.,10.4,288,Set the red can down onto the black toy wheel.,20.8,48,10.4,2.06
+widowx_nut_on_wheel_clean,black,Position the nut right on the wheel.,4.2,120,Position the nut right on the black wheel.,14.6,48,10.4,2.37
+widowx_eggplant_on_keyboard_clean,black,Put the eggplant onto the keyboard.,27.7,264,Put the eggplant onto the black keyboard.,38.3,120,10.7,2.1
+widowx_nut_on_wheel_clean,black,put the grey nut on the wheel,4.2,96,Put the grey nut on the black wheel.,15.3,72,11.1,2.5
+widowx_coke_can_on_wheel_clean,black,put the coke can on the wheel,11.8,144,put the coke can on the black wheel,23.3,120,11.5,2.48
+widowx_eggplant_on_keyboard_clean,purple,put the eggplant on the keyboard,12.0,192,Put the purple eggplant on the keyboard.,23.6,72,11.6,2.35
+widowx_nut_on_wheel_clean,black,Transfer the small nut to the wheel.,2.8,72,Transfer the small nut to the black wheel.,14.6,48,11.8,2.41
+widowx_eggplant_on_sponge_clean,purple,Put the eggplant onto the green and yellow sponge.,69.8,192,Put the purple eggplant onto the green and yellow sponge.,81.5,168,11.8,2.58
+widowx_coke_can_on_wheel_clean,black,Put the red can into the wheel.,19.3,384,Put the red can into the black wheel.,31.2,96,12.0,2.55
+widowx_eggplant_on_keyboard_clean,purple,set the eggplant on the black keyboard,39.6,96,set the purple eggplant on the black keyboard,51.9,360,12.4,2.15
+widowx_nut_on_wheel_clean,black,drop that nut on the wheel next to it,0.0,48,Drop that nut on the black wheel next to it.,12.5,48,12.5,2.53
+widowx_coke_can_on_wheel_clean,black,set the coke can down on top of the wheel,4.2,96,set the Coke can down on top of the black wheel?,16.7,48,12.5,2.56
+widowx_coke_can_on_keyboard_clean,black,Move the Coke can over onto the keyboard.,4.2,216,Move the Coke can over onto the black keyboard.,16.7,96,12.5,3.75
+widowx_coke_can_on_wheel_clean,black,set the Coke can down on top of the wheel,4.2,72,set the Coke can down on top of the black wheel?,16.7,48,12.5,2.32
+widowx_coke_can_on_keyboard_clean,black,Place the red can on the keyboard.,4.2,72,place the red can on the black keyboard,16.7,24,12.5,2.04
+widowx_coke_can_on_keyboard_clean,black,Can you put the soda can on the keyboard for me?,0.0,96,Can you put the soda can on the black keyboard for me?,12.5,48,12.5,3.54
+widowx_coke_can_on_keyboard_clean,red,set the coke can on top of the keyboard,0.0,48,set the red coke can on top of the keyboard,12.5,24,12.5,2.5
+widowx_carrot_on_ramekin_clean,orange,set the carrot in the white bowl,30.2,96,set the orange carrot in the white bowl,42.9,240,12.7,2.15
+widowx_carrot_on_sponge_clean,green,Put the carrot on the sponge.,31.6,408,put the carrot on the green sponge,44.4,144,12.8,2.78
+widowx_eggplant_on_keyboard_clean,black,set the eggplant on the keyboard,26.4,216,set the eggplant on the black keyboard,39.6,96,13.2,2.34
+widowx_cube_on_plate_clean,yellow,Move the green block onto the plate.,65.3,216,Move the green block onto the yellow plate.,78.7,216,13.4,3.11
+widowx_coke_can_on_wheel_clean,red,Put the soda can on the tire.,7.3,96,Put the red soda can on the tire.,20.8,48,13.5,2.37
+widowx_nut_on_wheel_clean,black,place the nut onto the wheel,0.0,96,Place the nut onto the black wheel.,13.5,96,13.5,3.73
+widowx_pepsi_on_plate_clean,blue,Place the can onto the circular yellow dish.,11.5,96,Place the blue can onto the circular yellow dish.,25.0,48,13.5,2.09
+widowx_nut_on_plate_clean,grey,Move the nut onto the yellow plate.,11.2,624,Move the grey nut onto the yellow plate.,25.0,24,13.8,2.06
+widowx_eggplant_on_sponge_clean,purple,Put the eggplant on the sponge.,73.7,384,Put the purple eggplant on the sponge.,87.5,72,13.8,2.51
+widowx_nut_on_wheel_clean,black,put the grey nut on the tire,2.1,48,put the grey nut on the black tire,16.1,168,14.0,2.54
+widowx_eggplant_on_keyboard_clean,purple,Put the eggplant on the black keyboard.,31.2,144,put the purple eggplant on the black keyboard,45.3,408,14.1,2.95
+widowx_coke_can_on_wheel_clean,red,put the can on the wheel,0.0,48,put the red can on the wheel,14.6,96,14.6,2.78
+widowx_coke_can_on_wheel_clean,black,Rest that can on the wheel.,0.0,216,Rest that can on the black wheel.,14.6,48,14.6,5.69
+widowx_coke_can_on_keyboard_clean,black,Pick up the red soda can and place it on the keyboard.,0.0,24,Pick up the red soda can and place it on the black keyboard.,14.6,144,14.6,2.0
+widowx_nut_on_wheel_clean,black,Place the grey nut on the tire.,2.1,48,Place the grey nut on the black tire.,16.7,24,14.6,2.29
+widowx_cube_on_plate_clean,green,set the cube on the plate,68.8,48,set the green cube on the plate,83.3,336,14.6,2.43
+widowx_coke_can_on_wheel_clean,red,Put the can on the wheel.,0.0,48,put the red can on the wheel,14.6,96,14.6,2.78
+widowx_eggplant_on_sponge_clean,purple,Place the eggplant on the green and yellow sponge.,62.5,48,Place the purple eggplant on the green and yellow sponge.,77.3,432,14.8,2.27
+widowx_eggplant_on_sponge_clean,purple,set the eggplant on top of the sponge,65.8,120,set the purple eggplant on top of the sponge,80.8,120,15.0,2.63
+widowx_eggplant_on_keyboard_clean,black,Put the eggplant on the keyboard.,16.2,216,Put the eggplant on the black keyboard.,31.2,144,15.0,3.36
+widowx_coke_can_on_keyboard_clean,black,Pick up the red soda can and place it on the keyboard.,0.0,24,pick up the red soda can and place it on the black keyboard,15.6,96,15.6,2.07
+widowx_coke_can_on_wheel_clean,black,set the red coke can on the wheel,16.7,120,set the red coke can on the black wheel,32.5,120,15.8,2.85
+widowx_nut_on_plate_clean,grey,set the nut on the plate,29.9,264,Set the grey nut on the plate,45.8,48,15.9,2.17
+widowx_pepsi_on_plate_clean,blue,Place the soda can onto the dish.,13.1,336,Place the blue soda can onto the dish.,29.2,48,16.1,2.91
+widowx_eggplant_on_keyboard_clean,black,Set the purple eggplant down on top of the keyboard.,0.4,240,Set the purple eggplant down on top of the black keyboard.,16.7,168,16.2,6.29
+widowx_coke_can_on_keyboard_clean,black,put the coke can on the keyboard,11.5,96,put the coke can on the black keyboard,27.8,72,16.3,2.7
+widowx_coke_can_on_keyboard_clean,black,set the coke can on top of the keyboard,0.0,48,set the coke can on top of the black keyboard,16.7,24,16.7,2.91
+widowx_pepsi_on_plate_clean,blue,Put the Pepsi can on the yellow plate.,25.0,48,Put the blue Pepsi can on the yellow plate.,41.7,120,16.7,2.02
+widowx_eggplant_on_keyboard_clean,black,set the purple eggplant on the keyboard,16.7,120,Set the purple eggplant on the black keyboard.,33.3,72,16.7,2.66
+widowx_eggplant_on_keyboard_clean,black,set the purple eggplant on the keyboard,16.7,120,set the purple eggplant on the black keyboard.,33.3,48,16.7,2.38
+widowx_nut_on_wheel_clean,black,Grab the nut and place it on the tire.,4.2,144,Grab the nut and place it on the black tire.,20.8,24,16.7,3.06
+widowx_coke_can_on_wheel_clean,red,Put the can onto the black tire.,4.2,48,put the red can onto the black tire,20.8,24,16.7,2.25
+widowx_nut_on_wheel_clean,black,set the grey nut on the tire,0.0,24,set the grey nut on the black tire,16.7,72,16.7,2.14
+widowx_nut_on_wheel_clean,black,set the grey nut onto the wheel,0.0,24,set the grey nut onto the black wheel,16.7,24,16.7,2.09
+widowx_eggplant_on_keyboard_clean,black,lay the eggplant across the keyboard,4.2,48,Lay the eggplant across the black keyboard,20.8,48,16.7,2.47
+widowx_eggplant_on_keyboard_clean,black,Lay the eggplant across the keyboard,4.2,192,Lay the eggplant across the black keyboard,20.8,48,16.7,3.92
+widowx_coke_can_on_wheel_clean,red,Transfer the soda can to the black wheel.,18.6,264,Transfer the red soda can to the black wheel.,35.4,48,16.9,2.63
+widowx_eggplant_on_sponge_clean,purple,put the eggplant on the green sponge,70.8,48,Put the purple eggplant on the green sponge.,88.0,216,17.1,2.99
+widowx_pepsi_on_plate_clean,blue,Put the Pepsi can on the yellow plate.,25.0,48,put the blue pepsi can on the yellow plate,42.5,120,17.5,2.12
+widowx_carrot_on_ramekin_clean,white,Put the carrot inside the bowl.,22.9,48,Put the carrot inside the white bowl.,40.4,240,17.5,2.29
+widowx_eggplant_on_keyboard_clean,black,put the eggplant onto the keyboard,20.8,120,Put the eggplant onto the black keyboard.,38.3,120,17.5,2.97
+widowx_coke_can_on_wheel_clean,red,Pick up the Coke can and place it on the wheel.,7.1,168,Pick up the red Coke can and place it on the wheel.,25.0,24,17.9,2.81
+widowx_eggplant_on_keyboard_clean,black,Put the purple eggplant onto the keyboard.,16.7,48,Put the purple eggplant onto the black keyboard.,34.6,312,17.9,2.48
+widowx_coke_can_on_wheel_clean,red,Place the Coke can on the black wheel.,11.1,72,Place the red Coke can on the black wheel.,29.2,24,18.1,2.11
+widowx_eggplant_on_keyboard_clean,black,place the eggplant on the keyboard,33.3,96,Place the eggplant on the black keyboard.,51.4,72,18.1,2.35
+widowx_eggplant_on_keyboard_clean,black,put the purple eggplant on the keyboard,16.7,48,Put the purple eggplant on the black keyboard.,34.7,144,18.1,2.36
+widowx_coke_can_on_wheel_clean,red,Put the can on the wheel.,0.0,48,Put the red can on the wheel.,18.5,168,18.5,3.22
+widowx_coke_can_on_wheel_clean,red,put the can on the wheel,0.0,48,Put the red can on the wheel.,18.5,168,18.5,3.22
+widowx_eggplant_on_keyboard_clean,black,Place the purple eggplant on top of the keyboard.,10.4,48,place the purple eggplant on top of the black keyboard,29.2,24,18.8,2.01
+widowx_pepsi_on_plate_clean,blue,set the coke can on the yellow plate,18.8,48,set the blue coke can on the yellow plate,37.5,168,18.8,2.43
+widowx_cube_on_plate_clean,teal,set the cube on the yellow plate,50.0,48,set the teal cube on the yellow plate,68.8,96,18.8,2.19
+widowx_coke_can_on_wheel_clean,black,put the Coke can on the wheel,4.2,24,put the coke can on the black wheel,23.3,120,19.2,2.14
+widowx_carrot_on_ramekin_clean,white,put the carrot in the bowl.,11.1,72,put the carrot in the white bowl,30.4,240,19.3,3.28
+widowx_eggplant_on_keyboard_clean,black,put the eggplant on the keyboard,12.0,192,Put the eggplant on the black keyboard.,31.2,144,19.3,4.35
+widowx_eggplant_on_keyboard_clean,black,set the purple eggplant onto the keyboard,9.7,216,Set the purple eggplant onto the black keyboard?,29.2,24,19.4,2.82
+widowx_carrot_on_sponge_clean,green,put the carrot on the sponge.,25.0,48,put the carrot on the green sponge,44.4,144,19.4,2.39
+widowx_carrot_on_ramekin_clean,white,Put the carrot in the bowl.,10.8,120,put the carrot in the white bowl,30.4,240,19.6,4.11
+widowx_nut_on_wheel_clean,black,Put the grey nut down onto the wheel.,3.3,240,Put the grey nut down onto the black wheel.,22.9,96,19.6,5.69
+widowx_eggplant_on_keyboard_clean,black,Move the eggplant to the keyboard.,5.4,168,Move the eggplant to the black keyboard.,25.0,24,19.6,3.35
+widowx_eggplant_on_sponge_clean,purple,place the eggplant on the sponge.,66.7,24,Place the purple eggplant on the sponge.,86.6,648,19.9,2.75
+widowx_eggplant_on_keyboard_clean,black,Set the purple eggplant down on top of the keyboard.,0.4,240,set the purple eggplant down on top of the black keyboard,20.8,48,20.4,6.74
+widowx_coke_can_on_wheel_clean,black,put coke can on wheel,10.9,624,put coke can on black wheel,31.2,144,20.4,6.21
+widowx_nut_on_wheel_clean,black,grab the nut and place it on the tire,0.0,72,Grab the nut and place it on the black tire.,20.8,24,20.8,3.98
+widowx_coke_can_on_wheel_clean,black,set the coke can onto the wheel,12.5,48,set the coke can onto the black wheel,33.3,24,20.8,2.11
+widowx_eggplant_on_keyboard_clean,black,place the eggplant onto the keyboard,25.0,48,Place the eggplant onto the black keyboard,45.8,48,20.8,2.13
+widowx_eggplant_on_keyboard_clean,black,Set the eggplant down on top of the keyboard.,12.5,96,Set the eggplant down on top of the black keyboard.,33.3,24,20.8,2.45
+widowx_carrot_on_ramekin_clean,white,Take the carrot over to the bowl and place it inside.,16.7,48,take the carrot over to the white bowl and place it inside,37.5,48,20.8,2.3
+widowx_carrot_on_ramekin_clean,white,Set the carrot down inside the bowl.,12.5,48,Set the carrot down inside the white bowl.,33.3,48,20.8,2.43
+widowx_coke_can_on_wheel_clean,black,set the coke can on the wheel,8.3,168,set the coke can on the black wheel,29.2,120,20.8,4.64
+widowx_coke_can_on_wheel_clean,red,put the coke can on the tire,4.2,24,Put the red coke can on the tire.,25.0,24,20.8,2.04
+widowx_eggplant_on_keyboard_clean,black,take the eggplant and set it on the keyboard,8.3,48,Take the eggplant and set it on the black keyboard.,29.2,24,20.8,2.32
+widowx_coke_can_on_wheel_clean,black,set the red coke can on the wheel,16.7,120,Set the red coke can on the black wheel.,37.5,24,20.8,2.32
+widowx_eggplant_on_sponge_clean,purple,hold the eggplant and set it on the sponge,66.7,24,Hold the purple eggplant and set it on the sponge.,87.5,48,20.8,2.11
+widowx_eggplant_on_sponge_clean,purple,put the eggplant on the sponge.,66.7,48,Put the purple eggplant on the sponge.,87.5,72,20.8,2.75
+widowx_cube_on_plate_clean,green,put the cube on the plate,62.5,48,put the green cube on the plate.,83.3,72,20.8,2.58
+widowx_cube_on_plate_clean,green,put the cube on the plate,62.5,48,Put the green cube on the plate.,83.3,216,20.8,3.24
+widowx_eggplant_on_keyboard_clean,black,Place the eggplant on the keyboard.,30.5,600,Place the eggplant on the black keyboard.,51.4,72,20.9,3.57
+widowx_carrot_on_sponge_clean,green,Place the carrot onto the sponge.,32.5,480,place the carrot onto the green sponge,54.2,24,21.7,2.19
+widowx_eggplant_on_keyboard_clean,black,Put the purple eggplant on the keyboard.,23.6,72,put the purple eggplant on the black keyboard,45.3,408,21.7,3.44
+widowx_coke_can_on_wheel_clean,red,pick up the coke can and place it on the wheel,3.1,96,Pick up the red Coke can and place it on the wheel.,25.0,24,21.9,3.64
+widowx_carrot_on_ramekin_clean,white,put the carrot in the bowl.,11.1,72,Put the carrot in the white bowl.,33.3,360,22.2,3.77
+widowx_carrot_on_ramekin_clean,white,Put the carrot in the bowl.,10.8,120,Put the carrot in the white bowl.,33.3,360,22.5,4.77
+widowx_eggplant_on_keyboard_clean,black,set the purple eggplant onto the keyboard,9.7,216,Set the purple eggplant onto the black keyboard.,32.3,192,22.6,5.65
+widowx_carrot_on_ramekin_clean,white,Drop the carrot inside the bowl.,12.5,48,drop the carrot inside the white bowl,35.4,48,22.9,2.63
+widowx_cube_on_plate_clean,green,set the cube onto the yellow plate,54.2,48,set the green cube onto the yellow plate,77.1,96,22.9,2.81
+widowx_coke_can_on_wheel_clean,red,rest the soda can on the black wheel,6.2,48,rest the red soda can on the black wheel,29.2,24,22.9,2.65
+widowx_nut_on_wheel_clean,black,put the grey nut down onto the wheel,0.0,48,Put the grey nut down onto the black wheel.,22.9,96,22.9,3.6
+widowx_eggplant_on_keyboard_clean,black,Put the purple eggplant onto the keyboard.,16.7,48,put the purple eggplant onto the black keyboard,40.6,192,24.0,3.1
+widowx_pepsi_on_plate_clean,blue,set the pepsi can on the plate,44.8,192,set the blue pepsi can on the plate,68.8,48,24.0,2.97
+widowx_eggplant_on_keyboard_clean,black,Drop the eggplant onto the keyboard.,20.8,288,Drop the eggplant onto the black keyboard.,45.4,216,24.5,5.88
+widowx_eggplant_on_keyboard_clean,black,put the purple eggplant on the keyboard.,20.8,24,put the purple eggplant on the black keyboard,45.3,408,24.5,2.35
+widowx_eggplant_on_keyboard_clean,black,drop the eggplant onto the keyboard,20.8,48,Drop the eggplant onto the black keyboard.,45.4,216,24.5,3.13
+widowx_eggplant_on_keyboard_clean,black,set the eggplant down on top of the keyboard,8.3,48,Set the eggplant down on top of the black keyboard.,33.3,24,25.0,2.68
+widowx_orange_juice_on_plate_clean,orange,set the carton on the plate,8.3,24,set the orange carton on the plate,33.3,24,25.0,2.13
+widowx_cube_on_plate_clean,green,put the block on the plate,52.1,48,Put the green block on the plate.,77.1,96,25.0,3.05
+widowx_eggplant_on_sponge_clean,purple,drop the eggplant onto the sponge,62.5,48,Drop the purple eggplant onto the sponge.,87.5,24,25.0,2.2
+widowx_cube_on_plate_clean,green,set the cube on the yellow plate,50.0,48,Set the green cube on the yellow plate.,75.0,24,25.0,2.03
+widowx_carrot_on_ramekin_clean,white,Place the carrot in the bowl.,8.3,24,place the carrot in the white bowl,33.3,96,25.0,2.43
+widowx_orange_juice_on_plate_clean,orange,Put the juice box onto the yellow dish.,4.2,24,Put the orange juice box onto the yellow dish.,29.2,24,25.0,2.32
+widowx_coke_can_on_wheel_clean,black,Place the red soda can on the tire.,12.5,24,Place the red soda can on the black tire.,37.5,24,25.0,2.0
+widowx_pepsi_on_plate_clean,blue,Place the Pepsi can on the yellow plate.,20.8,24,Place the blue Pepsi can on the yellow plate.,45.8,48,25.0,2.07
+widowx_eggplant_on_keyboard_clean,black,place the eggplant over on the keyboard,37.5,48,Place the eggplant over on the black keyboard.,62.5,24,25.0,2.01
+widowx_eggplant_on_sponge_clean,purple,Place the eggplant on the green and yellow sponge.,62.5,48,place the purple eggplant on the green and yellow sponge.,87.5,24,25.0,2.2
+widowx_carrot_on_ramekin_clean,orange,Set the carrot down inside the bowl.,12.5,48,set the orange carrot down inside the bowl,37.5,24,25.0,2.46
+widowx_pepsi_on_plate_clean,blue,Set the Pepsi can on the plate.,32.7,168,set the blue Pepsi can on the plate,58.3,24,25.6,2.44
+widowx_carrot_on_ramekin_clean,white,Place the carrot in the bowl.,8.3,24,Place the carrot in the white bowl.,34.2,120,25.8,2.52
+widowx_pepsi_on_plate_clean,blue,Set the coke can on the plate.,25.0,48,set the blue coke can on the plate,51.0,96,26.0,2.98
+widowx_pepsi_on_plate_clean,blue,set the coke can on the plate,25.0,96,set the blue coke can on the plate,51.0,96,26.0,3.72
+widowx_coke_can_on_wheel_clean,red,Place the Coke can on the black wheel.,11.1,72,place the red coke can on the black wheel,37.5,24,26.4,2.93
+widowx_carrot_on_ramekin_clean,white,put the carrot in the bowl.,11.1,72,put the carrot in the white bowl.,37.5,24,26.4,2.93
+widowx_eggplant_on_keyboard_clean,black,place the eggplant on the keyboard.,25.0,24,Place the eggplant on the black keyboard.,51.4,72,26.4,2.25
+widowx_carrot_on_ramekin_clean,white,Put the carrot in the bowl.,10.8,120,put the carrot in the white bowl.,37.5,24,26.7,3.31
+widowx_coke_can_on_wheel_clean,black,Grab the red Coke can and set it on the wheel.,11.8,288,Grab the red Coke can and set it on the black wheel.,38.5,96,26.7,5.84
+widowx_coke_can_on_wheel_clean,black,pick up the coke and put it on the wheel,14.6,96,Pick up the Coke and put it on the black wheel.,41.7,48,27.1,3.61
+widowx_cube_on_plate_clean,green,put the block on the plate.,50.0,24,Put the green block on the plate.,77.1,96,27.1,2.63
+widowx_cube_on_plate_clean,green,Put the block on the plate.,50.0,72,Put the green block on the plate.,77.1,96,27.1,3.65
+widowx_eggplant_on_sponge_clean,purple,Place the eggplant on the green and yellow sponge.,62.5,48,place the purple eggplant on the green and yellow sponge,89.6,48,27.1,3.11
+widowx_cube_on_plate_clean,green,set the cube on the yellow plate,50.0,48,set the green cube on the yellow plate,77.2,408,27.2,4.08
+widowx_coke_can_on_wheel_clean,black,Pick up the Coke and put it on the wheel.,14.2,360,Pick up the Coke and put it on the black wheel.,41.7,48,27.5,4.72
+widowx_carrot_on_sponge_clean,orange,Transfer the carrot to the top of the sponge.,5.7,336,Transfer the orange carrot to the top of the sponge.,33.3,24,27.7,4.97
+widowx_eggplant_on_keyboard_clean,black,set the purple eggplant onto the keyboard,9.7,216,set the purple eggplant onto the black keyboard?,37.5,24,27.8,3.9
+widowx_coke_can_on_plate_clean,red,put the coke can on the plate,38.1,105,put the red coke can on the plate,66.7,36,28.6,2.97
+widowx_eggplant_on_keyboard_clean,black,put the purple eggplant on the keyboard,16.7,48,put the purple eggplant on the black keyboard,45.3,408,28.7,3.8
+widowx_eggplant_on_keyboard_clean,black,Drop the eggplant onto the keyboard.,20.8,288,drop the eggplant onto the black keyboard,50.0,48,29.2,4.32
+widowx_eggplant_on_keyboard_clean,black,Put the eggplant on the keyboard,25.0,24,put the eggplant on the black keyboard,54.2,96,29.2,2.56
+widowx_pepsi_on_plate_clean,blue,Move the coke can onto the plate.,29.2,96,Move the blue coke can onto the plate.,58.3,24,29.2,2.68
+widowx_pepsi_on_plate_clean,blue,Put the soda can on the plate.,20.8,48,put the blue soda can on the plate,50.0,48,29.2,2.99
+widowx_eggplant_on_keyboard_clean,black,place the eggplant on top of the keyboard,12.5,48,Place the eggplant on top of the black keyboard.,41.7,24,29.2,2.81
+widowx_eggplant_on_keyboard_clean,black,drop the eggplant onto the keyboard,20.8,48,drop the eggplant onto the black keyboard,50.0,48,29.2,2.99
+widowx_coke_can_on_keyboard_clean,black,Please drop the Coke on the keyboard.,12.5,120,Please drop the Coke on the black keyboard.,41.7,48,29.2,4.21
+widowx_eggplant_on_keyboard_clean,black,Place the eggplant over on the keyboard.,33.3,48,Place the eggplant over on the black keyboard.,62.5,24,29.2,2.36
+widowx_eggplant_on_keyboard_clean,black,Set the eggplant down on top of the keyboard.,12.5,96,set the eggplant down on top of the black keyboard,41.7,48,29.2,3.97
+widowx_pepsi_on_plate_clean,blue,Place the coke can onto the yellow plate.,20.8,48,Place the blue coke can onto the yellow plate.,50.0,96,29.2,3.36
+widowx_coke_can_on_wheel_clean,red,Place the can on the wheel.,0.0,24,Place the red can on the wheel.,29.2,24,29.2,2.86
+widowx_carrot_on_ramekin_clean,white,Set the carrot down inside the bowl.,12.5,48,set the carrot down inside the white bowl,41.7,48,29.2,3.22
+widowx_eggplant_on_keyboard_clean,black,Can you get the eggplant onto the keyboard?,8.3,96,Can you get the eggplant onto the black keyboard?,37.5,48,29.2,4.29
+widowx_eggplant_on_keyboard_clean,black,Set the purple eggplant on the keyboard.,22.2,72,set the purple eggplant on the black keyboard,51.9,360,29.7,4.61
+widowx_coke_can_on_wheel_clean,black,grab the red coke can and set it on the wheel,8.3,72,Grab the red Coke can and set it on the black wheel.,38.5,96,30.2,4.44
+widowx_eggplant_on_keyboard_clean,black,set the purple eggplant onto the keyboard,9.7,216,set the purple eggplant onto the black keyboard,42.9,336,33.1,8.3
+widowx_eggplant_on_keyboard_clean,black,Drop the eggplant on top of the keyboard.,12.5,48,Drop the eggplant on top of the black keyboard.,45.8,24,33.3,3.14
+widowx_eggplant_on_keyboard_clean,black,Leave the eggplant on the keyboard.,4.2,48,Leave the eggplant on the black keyboard.,37.5,24,33.3,3.71
+widowx_eggplant_on_keyboard_clean,black,set the eggplant down on top of the keyboard,8.3,48,set the eggplant down on top of the black keyboard,41.7,48,33.3,3.77
+widowx_eggplant_on_keyboard_clean,black,set the purple eggplant on the keyboard,16.7,120,set the purple eggplant on the black keyboard,51.9,360,35.3,6.76
+widowx_cube_on_plate_clean,green,put the block on the plate,52.1,48,put the green block on the plate,87.5,120,35.4,4.96
+widowx_pepsi_on_plate_clean,blue,Put the coke can onto the plate.,29.2,48,Put the blue coke can onto the plate.,64.6,48,35.4,3.48
+widowx_pepsi_on_plate_clean,blue,Set the Pepsi can on the plate.,32.7,168,set the blue pepsi can on the plate,68.8,48,36.0,4.48
+widowx_eggplant_on_keyboard_clean,black,Place the eggplant on top of the keyboard.,4.9,144,Place the eggplant on top of the black keyboard.,41.7,24,36.8,5.54
+widowx_carrot_on_plate,orange,put the carrot on the plate,25.0,84,Put the orange carrot on the plate.,62.5,24,37.5,3.44
+widowx_pepsi_on_plate_clean,blue,Put the Pepsi can on the light green plate.,8.3,24,Put the blue Pepsi can on the light green plate.,45.8,72,37.5,3.31
+widowx_eggplant_on_keyboard_clean,black,put the eggplant on the keyboard.,16.7,24,put the eggplant on the black keyboard,54.2,96,37.5,3.29
+widowx_eggplant_on_keyboard_clean,black,drop the eggplant on top of the keyboard,8.3,48,Drop the eggplant on top of the black keyboard.,45.8,24,37.5,3.69
+widowx_eggplant_on_keyboard_clean,black,The eggplant needs to end up on the keyboard.,20.8,216,The eggplant needs to end up on the black keyboard.,58.3,24,37.5,4.05
+widowx_cube_on_plate_clean,green,put the block on the plate.,50.0,24,put the green block on the plate,87.5,120,37.5,4.3
+widowx_cube_on_plate_clean,green,Put the block on the plate.,50.0,72,put the green block on the plate,87.5,120,37.5,5.7
+widowx_eggplant_on_keyboard_clean,black,Put the eggplant on the keyboard.,16.2,216,put the eggplant on the black keyboard,54.2,96,38.0,6.9
+widowx_pepsi_on_plate_clean,blue,set the soda on the plate,29.2,24,set the blue soda on the plate,70.8,24,41.7,2.89
+widowx_eggplant_on_keyboard_clean,black,put the eggplant on the keyboard,12.0,192,put the eggplant on the black keyboard,54.2,96,42.2,7.69
+widowx_pepsi_on_plate_clean,blue,Set the Pepsi on the plate.,19.8,96,set the blue pepsi on the plate,62.5,24,42.7,4.15
+widowx_eggplant_on_sponge_clean,purple,Eggplant goes on the sponge.,20.8,216,purple eggplant goes on the sponge,66.7,24,45.8,4.89
+widowx_eggplant_on_keyboard_clean,black,"Grab the eggplant and put it on the keyboard, please.",8.3,144,"Grab the eggplant and put it on the black keyboard, please.",54.2,48,45.8,6.9
+widowx_pepsi_on_plate_clean,blue,set the coke on the plate,22.9,48,set the blue coke on the plate,70.8,48,47.9,4.7
+widowx_eggplant_on_sponge_clean,purple,eggplant goes on the sponge,4.2,24,purple eggplant goes on the sponge,66.7,24,62.5,4.53
