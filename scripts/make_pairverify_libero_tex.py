@@ -32,7 +32,8 @@ rows = [json.loads(l)
         for f in (glob.glob(str(BANK / "roll50/roll*.jsonl"))
                   + glob.glob(str(BANK / "round2/r2roll*.jsonl"))
                   + glob.glob(str(BANK / "round3/r3roll*.jsonl"))
-                  + glob.glob(str(BANK / "round4/r4roll*.jsonl")))
+                  + glob.glob(str(BANK / "round4/r4roll*.jsonl"))
+                  + glob.glob(str(BANK / "round5/r5roll*.jsonl")))
         for l in open(f)]
 d = pd.DataFrame(rows)
 d["task"] = d.suite + "/" + d.task_id.astype(str)
@@ -80,12 +81,22 @@ GROUPS = [
     ("libero_spatial/5", "locator noun", [
         "pick up the black bowl on the ramekin and place it on the plate",
         "pick up the black bowl on the dish and place it on the plate"]),
+    # round 5 folds the shape hypernyms into these as ladders.
     ("libero_object/4", "source noun", [
         "pick up the ketchup and place it in the basket",
+        "pick up the bottle and place it in the basket",
+        "pick up the red bottle and place it in the basket",
         "pick up the sauce and place it in the basket"]),
     ("libero_object/9", "source noun", [
         "pick up the orange juice and place it in the basket",
-        "pick up the drink and place it in the basket"]),
+        "pick up the juice and place it in the basket",
+        "pick up the drink and place it in the basket",
+        "pick up the carton and place it in the basket",
+        "pick up the bottle and place it in the basket"]),
+    ("libero_object/5", "source noun", [
+        "pick up the tomato sauce and place it in the basket",
+        "pick up the can and place it in the basket",
+        "pick up the bottle and place it in the basket"]),
 ]
 
 
@@ -198,7 +209,7 @@ tex = [r"""\documentclass[10pt]{article}
 \newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
 \begin{document}
 {\normalsize\bfseries Verified minimal pairs --- frozen $\pi_{0.5}$, LIBERO}\enspace
-{\scriptsize Full init population (inits 0--49; n=50/phrase, four rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
+{\scriptsize Full init population (inits 0--49; n=50/phrase, five rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
 \vspace{2pt}\hrule\vspace{2.5pt}
 \begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.2pt}"""]
 
