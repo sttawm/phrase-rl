@@ -1,0 +1,91 @@
+task,phrase,succ,n,n_layouts,lo95,hi95,group,label,prior_success,prior_n,source,single_concept,format_matched
+widowx_carrot_on_keyboard_clean,place the carrot on the keyboard,15.3,72,24,8.8,25.3,carrot_on_keyboard_clean,word dropped,13.9,78,B,True,True
+widowx_carrot_on_keyboard_clean,place the carrot on the keyboard keys,25.0,72,24,16.4,36.1,carrot_on_keyboard_clean,word dropped,36.1,60,B,True,True
+widowx_carrot_on_keyboard_clean,put the carrot on the black keyboard,25.0,72,24,16.4,36.1,carrot_on_keyboard_clean,destination noun,27.8,60,B,True,True
+widowx_carrot_on_keyboard_clean,put the carrot on the keys,6.9,72,24,3.0,15.2,carrot_on_keyboard_clean,destination noun,2.8,60,B,True,True
+widowx_carrot_on_plate,Put the orange carrot on the plate.,43.1,72,24,32.3,54.6,Ac10_obj_orange_carrot,colored,62.5,24,A_color,True,False
+widowx_carrot_on_plate,put the carrot on the plate,41.7,72,24,31.0,53.2,Ac10_obj_orange_carrot,bare,25.0,84,A_color,True,False
+widowx_carrot_on_ramekin_clean,Pick up the orange carrot and place it in the white bowl.,47.2,72,24,36.1,58.6,A16_noun_vegetable_carrot,hi carrot,54.2,48,A_top20,True,True
+widowx_carrot_on_ramekin_clean,Pick up the orange vegetable and place it in the white bowl.,9.7,72,24,4.8,18.7,A16_noun_vegetable_carrot,lo vegetable,12.5,24,A_top20,True,True
+widowx_carrot_on_ramekin_clean,Place the carrot in the ramekin.,20.8,72,24,13.1,31.6,A06_prep_in_inside,lo in,19.3,192,A_top20,True,True
+widowx_carrot_on_ramekin_clean,Place the carrot inside the ramekin.,40.3,72,24,29.7,51.8,A06_prep_in_inside,hi inside,40.6,96,A_top20,True,True
+widowx_carrot_on_wheel_clean,put the carrot on the black wheel,30.6,72,24,21.1,42.0,carrot_on_wheel_clean,destination noun,38.9,66,B,True,True
+widowx_carrot_on_wheel_clean,put the carrot on the rim,5.6,72,24,2.2,13.4,carrot_on_wheel_clean,destination noun,5.6,66,B,True,True
+widowx_carrot_on_wheel_clean,put the carrot on the tire,5.6,72,24,2.2,13.4,carrot_on_wheel_clean,destination noun,8.3,66,B,True,True
+widowx_carrot_on_wheel_clean,put the carrot on the wheel,12.5,72,24,6.7,22.1,carrot_on_wheel_clean,colour word ADDED - helps,16.7,348,B,True,True
+widowx_coke_can_on_keyboard_clean,Put the red soda can on top of the black keyboard.,4.2,72,24,1.4,11.5,A15_noun_can_cylinder,lo can,2.8,72,A_top20,True,True
+widowx_coke_can_on_keyboard_clean,Put the red soda cylinder on top of the black keyboard.,45.8,72,24,34.8,57.3,A15_noun_can_cylinder,hi cylinder,45.8,48,A_top20,True,True
+widowx_coke_can_on_plate_clean,put the can on the plate,34.7,72,24,24.8,46.2,coke_can_on_plate_clean,object noun,30.6,64,B,True,True
+widowx_coke_can_on_plate_clean,put the coke can on the dish,41.7,72,24,31.0,53.2,A17_noun_dish_plate,lo dish,0.0,60,A_top20,True,True
+widowx_coke_can_on_plate_clean,put the coke can on the dish,41.7,72,24,31.0,53.2,coke_can_on_plate_clean,destination noun,30.6,262,B,True,True
+widowx_coke_can_on_plate_clean,put the coke can on the plate,61.1,72,24,49.6,71.5,A17_noun_dish_plate,hi plate,38.1,105,A_top20,True,True
+widowx_coke_can_on_plate_clean,put the coke can on the plate,61.1,72,24,49.6,71.5,coke_can_on_plate_clean,destination noun,61.1,304,B,True,True
+widowx_coke_can_on_plate_clean,put the coke can on the yellow plate,44.4,72,24,33.5,55.9,coke_can_on_plate_clean,colour word ADDED - hurts,41.7,64,B,True,True
+widowx_coke_can_on_plate_clean,put the coke can on top of the plate,52.8,72,24,41.4,63.9,coke_can_on_plate_clean,phrase added,38.9,64,B,True,True
+widowx_coke_can_on_plate_clean,put the coke on the plate,66.7,72,24,55.2,76.5,coke_can_on_plate_clean,object noun,63.9,76,B,True,True
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white basin,69.4,72,24,58.0,78.9,ramekin_ladder,destination noun,77.8,64,B,True,True
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white bowl,69.4,72,24,58.0,78.9,ramekin_ladder,destination noun,61.1,70,B,True,True
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white container,73.6,72,24,62.4,82.4,ramekin_ladder,destination noun,72.2,64,B,True,True
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white cup,50.0,72,24,38.7,61.3,ramekin_ladder,destination noun,63.9,64,B,True,True
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white dish,51.4,72,24,40.1,62.6,ramekin_ladder,destination noun,52.8,64,B,True,True
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white pot,69.4,72,24,58.0,78.9,ramekin_ladder,destination noun,50.0,64,B,True,True
+widowx_coke_can_on_ramekin_clean,place the red cola can inside the white ramekin,31.9,72,24,22.3,43.4,ramekin_ladder,destination noun,22.2,64,B,True,True
+widowx_coke_can_on_wheel_clean,Grab the red Coke can and set it on the black wheel.,36.1,72,24,26.0,47.6,Ac2_dest_black_wheel,colored,38.5,96,A_color,True,False
+widowx_coke_can_on_wheel_clean,Put the red can into the black wheel.,22.2,72,24,14.2,33.1,A05_prep_on_into,hi into,31.2,96,A_top20,True,True
+widowx_coke_can_on_wheel_clean,Put the red can on the black wheel.,13.9,72,24,7.7,23.7,A05_prep_on_into,lo on,4.2,24,A_top20,True,True
+widowx_coke_can_on_wheel_clean,grab the red coke can and set it on the wheel,8.3,72,24,3.9,17.0,Ac2_dest_black_wheel,bare,8.3,72,A_color,True,False
+widowx_cube_on_plate_clean,Pick up the green cube and put it on the plate.,84.7,72,24,74.7,91.2,Ac3_dest_yellow_plate,bare,89.6,48,A_color,True,False
+widowx_cube_on_plate_clean,Place the green block on the green plate.,63.9,72,24,52.4,74.0,Ac4_dest_green_plate_collision,colored,50.0,24,A_color,True,True
+widowx_cube_on_plate_clean,Place the green block on the plate.,81.9,72,24,71.5,89.1,Ac4_dest_green_plate_collision,bare,86.7,120,A_color,True,True
+widowx_cube_on_plate_clean,pick up the green cube and put it on the yellow plate,54.2,72,24,42.7,65.2,Ac3_dest_yellow_plate,colored,41.7,24,A_color,True,False
+widowx_cube_on_plate_clean,place the green cube into the dish,77.8,72,24,66.9,85.8,A09_verb_put_place,hi place,75.0,48,A_top20,True,True
+widowx_cube_on_plate_clean,put the block on the plate,44.4,72,24,33.5,55.9,Ac6_obj_green_block,bare,52.1,48,A_color,True,True
+widowx_cube_on_plate_clean,put the green block on the plate,79.2,72,24,68.4,86.9,Ac6_obj_green_block,colored,87.5,120,A_color,True,True
+widowx_cube_on_plate_clean,put the green cube into the dish,40.3,72,24,29.7,51.8,A09_verb_put_place,lo put,37.5,24,A_top20,True,True
+widowx_eggplant_on_keyboard_clean,Move the purple eggplant on the black keyboard.,16.7,72,24,9.8,26.9,A12_verb_move_rest,lo move,16.7,24,A_top20,True,True
+widowx_eggplant_on_keyboard_clean,Rest the purple eggplant on the black keyboard.,40.3,72,24,29.7,51.8,A12_verb_move_rest,hi rest,45.8,24,A_top20,True,True
+widowx_eggplant_on_keyboard_clean,The eggplant needs to end up on the black keyboard.,61.1,72,24,49.6,71.5,Ac9_obj_purple_on_colored_dest,bare,58.3,24,A_color,True,True
+widowx_eggplant_on_keyboard_clean,The purple eggplant needs to end up on the black keyboard.,30.6,72,24,21.1,42.0,Ac9_obj_purple_on_colored_dest,colored,20.8,48,A_color,True,True
+widowx_eggplant_on_keyboard_clean,put eggplant on keyboard,31.9,72,24,22.3,43.4,A19_articles,hi bare canonical,37.5,672,A_top20,True,True
+widowx_eggplant_on_keyboard_clean,put the eggplant on the black keyboard,54.2,72,24,42.7,65.2,Ac1_dest_black_keyboard,colored,54.2,96,A_color,True,True
+widowx_eggplant_on_keyboard_clean,put the eggplant on the keyboard,12.5,72,24,6.7,22.1,A19_articles,lo with articles,12.0,192,A_top20,True,True
+widowx_eggplant_on_keyboard_clean,put the eggplant on the keyboard,12.5,72,24,6.7,22.1,Ac1_dest_black_keyboard,bare,12.0,192,A_color,True,True
+widowx_eggplant_on_sponge_clean,Deposit the purple eggplant onto the yellow and green sponge.,66.7,72,24,55.2,76.5,A10_verb_place_deposit,hi deposit,91.7,24,A_top20,True,True
+widowx_eggplant_on_sponge_clean,Move the purple eggplant onto the sponge.,68.1,72,24,56.6,77.7,A11_verb_move_set,lo move,59.5,168,A_top20,True,True
+widowx_eggplant_on_sponge_clean,Place the purple eggplant onto the yellow and green sponge.,73.6,72,24,62.4,82.4,A10_verb_place_deposit,lo place,60.4,48,A_top20,True,True
+widowx_eggplant_on_sponge_clean,Set the purple eggplant on the sponge.,84.7,72,24,74.7,91.2,A18_order_fronted,hi canonical order,83.3,48,A_top20,True,True
+widowx_eggplant_on_sponge_clean,Set the purple eggplant onto the sponge.,87.5,72,24,77.9,93.3,A11_verb_move_set,hi set,89.6,48,A_top20,True,True
+widowx_eggplant_on_sponge_clean,eggplant goes on the sponge,8.3,72,24,3.9,17.0,Ac5_obj_purple_eggplant,bare,4.2,24,A_color,True,True
+widowx_eggplant_on_sponge_clean,please put the purple eggplant on the green and yellow sponge,76.4,72,24,65.4,84.7,A20_polite_colororder,hi please+swap,83.3,24,A_top20,False,True
+widowx_eggplant_on_sponge_clean,purple Eggplant set on the sponge.,36.1,72,24,26.0,47.6,A18_order_fronted,lo fronted,45.8,24,A_top20,True,True
+widowx_eggplant_on_sponge_clean,purple eggplant goes on the sponge,69.4,72,24,58.0,78.9,Ac5_obj_purple_eggplant,colored,66.7,24,A_color,True,True
+widowx_eggplant_on_sponge_clean,put the purple eggplant on the yellow and green sponge,70.8,72,24,59.5,80.1,A20_polite_colororder,lo bare,62.1,240,A_top20,False,True
+widowx_eggplant_on_sponge_clean,set the purple eggplant on the yellow and green sponge,70.8,72,24,59.5,80.1,A13_noun_thing_eggplant,hi eggplant,72.9,96,A_top20,True,True
+widowx_eggplant_on_sponge_clean,set the purple thing on the yellow and green sponge,26.4,72,24,17.6,37.6,A13_noun_thing_eggplant,lo thing,22.9,96,A_top20,True,True
+widowx_nut_on_plate_clean,drop the grey nut on the yellow plate,22.2,72,24,14.2,33.1,Ac8_obj_grey_nut,colored,4.2,24,A_color,True,True
+widowx_nut_on_plate_clean,drop the nut on the yellow plate,40.3,72,24,29.7,51.8,Ac8_obj_grey_nut,bare,45.8,24,A_color,True,True
+widowx_nut_on_wheel_clean,Position the nut right on the wheel.,8.3,72,24,3.9,17.0,A08_verb_position_put,lo position,4.2,120,A_top20,True,True
+widowx_nut_on_wheel_clean,Put the nut right on the wheel.,25.0,72,24,16.4,36.1,A08_verb_position_put,hi put,45.8,48,A_top20,True,True
+widowx_pepsi_on_plate_clean,Move the blue can onto the plate.,36.1,72,24,26.0,47.6,A07_prep_to_onto,hi onto,37.5,168,A_top20,True,True
+widowx_pepsi_on_plate_clean,Move the blue can to the plate.,20.8,72,24,13.1,31.6,A07_prep_to_onto,lo to,16.7,48,A_top20,True,True
+widowx_pepsi_on_plate_clean,Put the Pepsi on the plate.,30.6,72,24,21.1,42.0,A02_brand_case,lo Pepsi cased,18.3,240,A_top20,True,False
+widowx_pepsi_on_plate_clean,Set the Pepsi down on the plate.,26.4,72,24,17.6,37.6,A01_case_period,lo cased+period,19.4,432,A_top20,False,False
+widowx_pepsi_on_plate_clean,put the pepsi on the plate,69.4,72,24,58.0,78.9,A02_brand_case,hi lowercase,61.5,96,A_top20,True,False
+widowx_pepsi_on_plate_clean,set the blue coke on the plate,63.9,72,24,52.4,74.0,Ac7_obj_blue_coke,colored,70.8,48,A_color,True,True
+widowx_pepsi_on_plate_clean,set the coke on the plate,26.4,72,24,17.6,37.6,Ac7_obj_blue_coke,bare,22.9,48,A_color,True,True
+widowx_pepsi_on_plate_clean,set the pepsi down on the plate,69.4,72,24,58.0,78.9,A01_case_period,hi lowercase,82.3,96,A_top20,False,False
+widowx_pepsi_on_plate_clean,set the pepsi on the plate,70.8,72,24,59.5,80.1,A14_noun_soda_pepsi,hi pepsi,75.0,48,A_top20,True,True
+widowx_pepsi_on_plate_clean,set the soda on the plate,31.9,72,24,22.3,43.4,A14_noun_soda_pepsi,lo soda,29.2,24,A_top20,True,True
+widowx_put_eggplant_in_basket,put the eggplant in the basket,81.7,180,60,75.4,86.6,put_eggplant_in_basket,colour word ADDED - helps,80.6,64,B,True,True
+widowx_spoon_on_towel,put the spoon atop the towel,66.7,72,24,55.2,76.5,A04_prep_on_atop,hi atop,66.7,72,A_top20,True,True
+widowx_spoon_on_towel,put the spoon atop the towel,66.7,72,24,55.2,76.5,spoon_on_towel,preposition (a gain),75.0,72,B,True,True
+widowx_spoon_on_towel,put the spoon on the blue towel,44.4,72,24,33.5,55.9,spoon_on_towel,colour word ADDED - hurts,38.9,64,B,True,True
+widowx_spoon_on_towel,put the spoon on the towel,61.1,72,24,49.6,71.5,A04_prep_on_atop,lo on,30.4,69,A_top20,True,True
+widowx_spoon_on_towel,put the spoon on the towel,61.1,72,24,49.6,71.5,spoon_on_towel,preposition (a gain),55.6,288,B,True,True
+widowx_stack_cube,green block on yellow block,16.7,72,24,9.8,26.9,stack_cube,object noun - no verb,25.0,224,B,True,True
+widowx_stack_cube,green cube on yellow cube,43.1,72,24,32.3,54.6,stack_cube,object noun - no verb,58.3,56,B,True,True
+widowx_stack_cube,place the green block on the yellow block,30.6,72,24,21.1,42.0,A03_prep_onto_on,hi on,54.2,24,A_top20,True,True
+widowx_stack_cube,place the green block onto the yellow block,20.8,24,8,9.2,40.5,A03_prep_onto_on,lo onto,8.3,24,A_top20,True,True
+widowx_stack_cube,put the green block on the yellow block,29.2,72,24,19.9,40.5,stack_cube,object noun - with put the,25.0,110,B,True,True
+widowx_stack_cube,put the green cube on the yellow cube,50.0,72,24,38.7,61.3,stack_cube,object noun - with put the,38.9,68,B,True,True
+widowx_stack_cube,stack the green cube on the yellow cube,25.0,72,24,16.4,36.1,stack_cube,object noun - with stack the,25.0,44,B,True,True
