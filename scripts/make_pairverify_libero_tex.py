@@ -29,7 +29,9 @@ PV.mkdir(parents=True, exist_ok=True)
 
 # ---- data ------------------------------------------------------------------
 rows = [json.loads(l)
-        for f in glob.glob(str(BANK / "roll50/roll*.jsonl")) + glob.glob(str(BANK / "round2/r2roll*.jsonl"))
+        for f in (glob.glob(str(BANK / "roll50/roll*.jsonl"))
+                  + glob.glob(str(BANK / "round2/r2roll*.jsonl"))
+                  + glob.glob(str(BANK / "round3/r3roll*.jsonl")))
         for l in open(f)]
 d = pd.DataFrame(rows)
 d["task"] = d.suite + "/" + d.task_id.astype(str)
@@ -42,12 +44,14 @@ GROUPS = [
     ("libero_goal/7", "source noun", [
         "switch on the stove", "switch on the range", "switch on the hob",
         "switch on the cooktop", "switch on the heating element",
-        "switch on the griddle", "switch on the hot plate"]),
+        "switch on the griddle", "switch on the hotplate", "switch on the hot plate"]),
     ("libero_goal/7", "verb", ["turn on the burners", "start the burners"]),
     ("libero_goal/1", "destination noun", [
         "place the grey bowl on the electric burner",
+        "place the grey bowl on the hotplate",
         "place the grey bowl on the hot plate"]),
     ("libero_90/44", "verb", ["fire up the stove", "turn on the stove"]),
+    ("libero_90/44", "particle placement", ["turn the stove on", "turn on the stove"]),
     ("libero_goal/5", "source noun", [
         "slide that plate over to the front of the stove",
         "slide that dish over to the front of the stove"]),
@@ -57,7 +61,10 @@ GROUPS = [
         "place the black bowl on top of the cabinet",
         "place the black bowl up onto the cabinet"]),
     ("libero_goal/9", "destination noun", [
-        "put the wine bottle on the rack", "put the wine bottle on the stand"]),
+        "put the wine bottle on the rack", "put the wine bottle on the stand",
+        "put the wine bottle on the wooden stand"]),
+    ("libero_90/30", "destination noun", [
+        "put the black bowl on the plate", "put the black bowl on the dish"]),
     ("libero_90/38", "verb", [
         "pick up the right moka pot and place it on the stove",
         "lift the right moka pot and place it on the stove"]),
@@ -149,10 +156,14 @@ for task in TASKORDER:
     rel = "results/analysis/pi05_bank/%s/%s__%02d.png" % (sub, su, int(ti))
     src = R / rel
     if not src.exists():
+        # sealed tasks were never in frames/; render one on a pod and drop it in.
         src.parent.mkdir(parents=True, exist_ok=True)
         with open(src, "wb") as fh:
-            subprocess.run(["git", "cat-file", "-p", "origin/main:" + rel],
-                           cwd=R, stdout=fh, check=True)
+            rc = subprocess.run(["git", "cat-file", "-p", "origin/main:" + rel],
+                                cwd=R, stdout=fh).returncode
+        if rc != 0 or src.stat().st_size == 0:
+            src.unlink(missing_ok=True)
+            raise SystemExit("missing scene frame: %s (render it on a pod)" % rel)
     shutil.copyfile(src, PV / "frames" / (fname(task) + ".png"))
 
 tex = [r"""\documentclass[10pt]{article}
@@ -169,7 +180,7 @@ tex = [r"""\documentclass[10pt]{article}
 \newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
 \begin{document}
 {\normalsize\bfseries Verified minimal pairs --- frozen $\pi_{0.5}$, LIBERO}\enspace
-{\scriptsize Full init population (inits 0--49; n=50/phrase); success = environment success flag at episode end; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
+{\scriptsize Full init population (inits 0--49; n=50/phrase, three rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
 \vspace{2pt}\hrule\vspace{2.5pt}
 \begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.7pt}"""]
 
