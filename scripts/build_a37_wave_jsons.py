@@ -42,11 +42,14 @@ stamp = time.strftime("%Y%m%d_%H%M%S")
 
 waves = [("adv", k) for k in sorted(df[df.cond == "adv"].k.unique())]
 waves += [("orig", 0)] if (df.cond == "orig").any() else []
+waves += [("nat", k) for k in sorted(df[df.cond == "nat"].k.unique())]
 
 for cond, k in waves:
     g = df[(df.cond == cond) & (df.k == k)]
     missing = set(ENV_NOMINAL) - set(g.task)
-    assert not missing, f"{cond} k{k}: missing tasks {missing}"
+    # natural waves are ragged (14-16 bases/task); the eval's A37-diag patch
+    # skips suite tasks absent from a wave file
+    assert not missing or cond == "nat", f"{cond} k{k}: missing tasks {missing}"
     instructions = {}
     for r in g.itertuples():
         reph = list(r.rephrases)

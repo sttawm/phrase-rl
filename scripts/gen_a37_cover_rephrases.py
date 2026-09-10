@@ -63,9 +63,18 @@ def build_bases(conds):
             for k, p in enumerate(g["phrase"].tolist(), start=1):
                 rows.append({"task": task, "nominal": nom[task], "cond": "adv",
                              "k": k, "base": p})
+    if "nat" in conds:
+        nom = dict(zip(assets.task, assets.nominal))
+        nats = pd.read_parquet(R / "results/sealed/ph_sealed_natural_v2_img.parquet")
+        for task, g in nats.groupby("task", sort=False):
+            for k, p in enumerate(g["phrase"].tolist(), start=1):
+                rows.append({"task": task, "nominal": nom[task], "cond": "nat",
+                             "k": k, "base": p})
     df = pd.DataFrame(rows)
     n_adv = (df.cond == "adv").sum()
     assert "adv" not in conds or n_adv == 72, f"expected 72 adv bases, got {n_adv}"
+    n_nat = (df.cond == "nat").sum()
+    assert "nat" not in conds or n_nat == 186, f"expected 186 nat bases, got {n_nat}"
     return df
 
 
