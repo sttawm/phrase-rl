@@ -31,7 +31,8 @@ PV.mkdir(parents=True, exist_ok=True)
 rows = [json.loads(l)
         for f in (glob.glob(str(BANK / "roll50/roll*.jsonl"))
                   + glob.glob(str(BANK / "round2/r2roll*.jsonl"))
-                  + glob.glob(str(BANK / "round3/r3roll*.jsonl")))
+                  + glob.glob(str(BANK / "round3/r3roll*.jsonl"))
+                  + glob.glob(str(BANK / "round4/r4roll*.jsonl")))
         for l in open(f)]
 d = pd.DataFrame(rows)
 d["task"] = d.suite + "/" + d.task_id.astype(str)
@@ -42,8 +43,9 @@ FULL_N = 50
 # Curated groups: each is one task, one edit dimension, phrases in any order.
 GROUPS = [
     ("libero_goal/7", "source noun", [
-        "switch on the stove", "switch on the range", "switch on the hob",
-        "switch on the cooktop", "switch on the heating element",
+        # hob (78) and cooktop (74) trimmed for space: they sit between range and
+        # heating element and add no shape to the gradient.
+        "switch on the stove", "switch on the range", "switch on the heating element",
         "switch on the griddle", "switch on the hotplate", "switch on the hot plate"]),
     ("libero_goal/7", "verb", ["turn on the burners", "start the burners"]),
     ("libero_goal/1", "destination noun", [
@@ -65,9 +67,23 @@ GROUPS = [
         "put the wine bottle on the wooden stand"]),
     ("libero_90/30", "destination noun", [
         "put the black bowl on the plate", "put the black bowl on the dish"]),
-    ("libero_90/38", "verb", [
-        "pick up the right moka pot and place it on the stove",
-        "lift the right moka pot and place it on the stove"]),
+    # --- round 4: libero_spatial (two identical bowls; the locator is the only
+    # disambiguator) and libero_object (hypernym substitution).
+    ("libero_spatial/7", "locator noun", [
+        "pick up the black bowl on the stove and place it on the plate",
+        "pick up the black bowl on the hot plate and place it on the plate"]),
+    ("libero_spatial/1", "locator noun", [
+        "pick up the black bowl next to the ramekin and place it on the plate",
+        "pick up the black bowl next to the dish and place it on the plate"]),
+    ("libero_spatial/5", "locator noun", [
+        "pick up the black bowl on the ramekin and place it on the plate",
+        "pick up the black bowl on the dish and place it on the plate"]),
+    ("libero_object/4", "source noun", [
+        "pick up the ketchup and place it in the basket",
+        "pick up the sauce and place it in the basket"]),
+    ("libero_object/9", "source noun", [
+        "pick up the orange juice and place it in the basket",
+        "pick up the drink and place it in the basket"]),
 ]
 
 
@@ -180,37 +196,37 @@ tex = [r"""\documentclass[10pt]{article}
 \newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
 \begin{document}
 {\normalsize\bfseries Verified minimal pairs --- frozen $\pi_{0.5}$, LIBERO}\enspace
-{\scriptsize Full init population (inits 0--49; n=50/phrase, three rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
+{\scriptsize Full init population (inits 0--49; n=50/phrase, four rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
 \vspace{2pt}\hrule\vspace{2.5pt}
-\begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.7pt}"""]
+\begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.2pt}"""]
 
 first = True
 for task in TASKORDER:
     short = task.replace("_", r"\_")
     if not first:
-        tex.append(r"\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}")
+        tex.append(r"\vspace{0.3pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.0pt}")
     first = False
     tex.append(r"{\ttfamily\bfseries " + short + r"}\par\nopagebreak")
     for label, rows_, delta, p in blocks[task]:
         pstr = f"p={p:.4f}" if p >= 5e-5 else "p<0.0001"
         tex.append(r"{\leftskip=1.1em")
         tex.append(r"{\bfseries " + esc(label) + r"}\enspace " +
-                   f"{delta:+.0f}\\,pp\\," + r"$\cdot$\," + f" {pstr}" + r"\\[1pt]")
+                   f"{delta:+.0f}\\,pp\\," + r"$\cdot$\," + f" {pstr}" + r"\\[0.5pt]")
         sibs = list(rows_.phrase)
         for j, (_, r) in enumerate(rows_.iterrows()):
             color = "hi" if j == 0 else "lo"
             pcol = "hipct" if j == 0 else "lopct"
             tex.append(r"\hangindent=2.4em \pct{" + pcol + r"}{" + f"{r.succ:.0f}" + r"}~\texttt{"
                        + marked_phrase(r.phrase, sibs, color) + r"}\\")
-        tex.append(r"[0.9pt]\par}")
+        tex.append(r"[0.4pt]\par}")
 
 tex.append(r"\end{multicols}")
 tex.append(r"\newpage")
 tex.append(r"{\large\bfseries Task scenes}\\[4pt]")
 tex.append(r"\begin{multicols}{3}\footnotesize\centering")
 for task in TASKORDER:
-    tex.append(r"\includegraphics[width=0.9\linewidth]{frames/" + fname(task) + r".png}\\")
-    tex.append(r"{\ttfamily " + task.replace("_", r"\_") + r"}\\[8pt]")
+    tex.append(r"\includegraphics[width=0.62\linewidth]{frames/" + fname(task) + r".png}\\")
+    tex.append(r"{\ttfamily\scriptsize " + task.replace("_", r"\_") + r"}\\[3pt]")
 tex.append(r"\end{multicols}")
 tex.append(r"\end{document}")
 
