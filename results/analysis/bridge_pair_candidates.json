@@ -57,43 +57,51 @@
  },
  {
   "task": "widowx_stack_cube",
-  "group": "stack_cube",
-  "label": "object noun",
+  "group": "cube_block_grid",
+  "label": "verb x object noun",
   "phrase": "green cube on yellow cube",
   "prior_success": 58.3,
   "prior_n": 56
  },
  {
   "task": "widowx_stack_cube",
-  "group": "stack_cube",
-  "label": "object noun",
+  "group": "cube_block_grid",
+  "label": "verb x object noun",
   "phrase": "green block on yellow block",
   "prior_success": 25.0,
   "prior_n": 224
  },
  {
   "task": "widowx_stack_cube",
-  "group": "stack_cube",
-  "label": "colour words dropped",
-  "phrase": "cube on cube",
-  "prior_success": 8.3,
+  "group": "cube_block_grid",
+  "label": "verb x object noun",
+  "phrase": "put the green cube on the yellow cube",
+  "prior_success": 38.9,
+  "prior_n": 68
+ },
+ {
+  "task": "widowx_stack_cube",
+  "group": "cube_block_grid",
+  "label": "verb x object noun",
+  "phrase": "put the green block on the yellow block",
+  "prior_success": 25.0,
+  "prior_n": 110
+ },
+ {
+  "task": "widowx_stack_cube",
+  "group": "cube_block_grid",
+  "label": "verb x object noun",
+  "phrase": "stack the green cube on the yellow cube",
+  "prior_success": 25.0,
   "prior_n": 44
  },
  {
   "task": "widowx_stack_cube",
-  "group": "stack_cube",
-  "label": "reduced to a generic plural",
+  "group": "cube_block_grid",
+  "label": "verb x object noun",
   "phrase": "stack the green block on the yellow block",
   "prior_success": 24.0,
   "prior_n": 288
- },
- {
-  "task": "widowx_stack_cube",
-  "group": "stack_cube",
-  "label": "reduced to a generic plural",
-  "phrase": "stack the cubes",
-  "prior_success": 0.0,
-  "prior_n": 44
  },
  {
   "task": "widowx_coke_can_on_plate_clean",
