@@ -2,7 +2,7 @@
 
 Frozen π₀ (rephrase-bridge) on SIMPLER. Every phrase rolled on its full per-task layout grid × 3 reps (n=72; the basket task's grid is 60 → n=180). 6,220 episodes, layout id recorded on every row. Success = final state at the 60-step horizon (the grid convention). Wilson 95% intervals. Priors were pooled across mixed layouts/reps — the whole point of the re-roll.
 
-Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens that differ within a group. Full tables: `pair_verdicts.csv`, `phrase_summary.csv`.
+Brackets are Wilson 95% score intervals on the success probability (≈ ±1.96 standard errors mid-range, asymmetric near 0/100%) — not ±1 SD. Survival = two-proportion |z| ≥ 1.96 at full-grid n; only groups with a surviving contrast are listed below. **Bold** marks the tokens that differ within a group. Full tables incl. non-significant contrasts: `pair_verdicts.csv`, `phrase_summary.csv`.
 
 
 ## Case and punctuation only
@@ -23,27 +23,6 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 
 
 ## Preposition synonyms
-
-**stack_cube** — group `A03_prep_onto_on`, top-vs-bottom gap **1pp**
-
-| phrase | success | n |
-|---|---|---|
-| place the green block **on** the yellow block | 31% [21–42] | 72 |
-| place the green block **onto** the yellow block | 30% [18–44] | 44 |
-
-**spoon_on_towel** — group `A04_prep_on_atop`, top-vs-bottom gap **6pp**
-
-| phrase | success | n |
-|---|---|---|
-| put the spoon **atop** the towel | 67% [55–76] | 72 |
-| put the spoon **on** the towel | 61% [50–72] | 72 |
-
-**coke_can_on_wheel** — group `A05_prep_on_into`, top-vs-bottom gap **8pp**
-
-| phrase | success | n |
-|---|---|---|
-| Put the red can **into** the black wheel. | 22% [14–33] | 72 |
-| Put the red can **on** the black wheel. | 14% [8–24] | 72 |
 
 **carrot_on_ramekin** — group `A06_prep_in_inside`, top-vs-bottom gap **19pp**
 
@@ -75,13 +54,6 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 |---|---|---|
 | **place** the green cube into the dish | 78% [67–86] | 72 |
 | **put** the green cube into the dish | 40% [30–52] | 72 |
-
-**eggplant_on_sponge** — group `A10_verb_place_deposit`, top-vs-bottom gap **7pp**
-
-| phrase | success | n |
-|---|---|---|
-| **Place** the purple eggplant onto the yellow and green sponge. | 74% [62–82] | 72 |
-| **Deposit** the purple eggplant onto the yellow and green sponge. | 67% [55–76] | 72 |
 
 **eggplant_on_sponge** — group `A11_verb_move_set`, top-vs-bottom gap **19pp**
 
@@ -152,13 +124,6 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 | put eggplant on keyboard | 32% [22–43] | 72 |
 | put **the** eggplant on **the** keyboard | 12% [7–22] | 72 |
 
-**eggplant_on_sponge** — group `A20_polite_colororder`, top-vs-bottom gap **6pp** *(two concepts: politeness + colour order — flagged, not headline)*
-
-| phrase | success | n |
-|---|---|---|
-| **please** put the purple eggplant on the green and yellow sponge | 76% [65–85] | 72 |
-| put the purple eggplant on the yellow and green sponge | 71% [60–80] | 72 |
-
 
 ## Colour-word insertions
 
@@ -224,13 +189,6 @@ Survival = two-proportion |z| ≥ 1.96 at full-grid n. **Bold** marks the tokens
 |---|---|---|
 | The eggplant needs to end up on the black keyboard. | 61% [50–72] | 72 |
 | The **purple** eggplant needs to end up on the black keyboard. | 31% [21–42] | 72 |
-
-**carrot_on_plate** — group `Ac10_obj_orange_carrot`, top-vs-bottom gap **1pp**
-
-| phrase | success | n |
-|---|---|---|
-| **Put** the **orange** carrot on the **plate.** | 43% [32–55] | 72 |
-| **put** the carrot on the **plate** | 42% [31–53] | 72 |
 
 
 ## The destination-noun ladder

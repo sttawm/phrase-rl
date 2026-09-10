@@ -72,13 +72,20 @@ lines.append(f"Frozen π₀ (rephrase-bridge) on SIMPLER. Every phrase rolled on
              f"{E_n:,} episodes, layout id recorded on every row. Success = final state at the "
              f"60-step horizon (the grid convention). Wilson 95% intervals. "
              f"Priors were pooled across mixed layouts/reps — the whole point of the re-roll.\n")
-lines.append("Survival = two-proportion |z| ≥ 1.96 at full-grid n. "
+lines.append("Brackets are Wilson 95% score intervals on the success probability "
+             "(≈ ±1.96 standard errors mid-range, asymmetric near 0/100%) — not ±1 SD. "
+             "Survival = two-proportion |z| ≥ 1.96 at full-grid n; only groups with a "
+             "surviving contrast are listed below. "
              "**Bold** marks the tokens that differ within a group. "
-             "Full tables: `pair_verdicts.csv`, `phrase_summary.csv`.\n")
+             "Full tables incl. non-significant contrasts: `pair_verdicts.csv`, `phrase_summary.csv`.\n")
 
+V_all = pd.read_csv(PV / "pair_verdicts.csv")
+sig_groups = set(V_all[V_all.survives].group)
 groups = M.drop_duplicates(subset=["group"])[["group"]]
 bycat = {}
 for g in groups.group:
+    if g not in sig_groups:
+        continue
     bycat.setdefault(cat_of(g), []).append(g)
 
 for _, catname in CAT:
