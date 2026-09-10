@@ -939,3 +939,18 @@ cast + float-before-numpy, mirroring our policy_wrapper semantics exactly),
 same 24-cell anchor. Pass -> level-based A37 design proceeds with policy_bf16
 in the aligned CoVer config; residual -> next knob (their forked batched
 select_action path, ensemble-temp no-op check).
+
+#### A37 serving-offset A/B-1 (2026-09-10): bf16 EXONERATED
+Their harness verifier-off with pi0 served bf16 exactly as ours (weights cast +
+autocast + input cast): 33.2 pooled vs 32.3 fp32 — no movement. Precision is
+not the offset. Also verified by direct inspection: CoVer's harness imports
+INT-ACT's own BridgeSimplerAdapter (identical preprocess/postprocess/dataset
+statistics), their lerobot fork's pi0 is INT-ACT's + a default-1.0 noise_std
+argument (num_steps=10 both), checkpoint config identical, sim stack identical
+(sapien 2.2.2, same editable ManiSkill2_real2sim, gymnasium 0.29.1, numpy
+1.26.4). Sole remaining stack difference: torch 2.11.0+cu128 (their venv) vs
+2.6.0 (ours). A/B-2 (runtime bisect) running: OUR phase0c rollout code
+executed inside THEIR venv on the same 24 cells — ~32 implicates the torch/
+lerobot-fork runtime; ~24 implicates their eval-loop code specifically. Heavy
+arm remains gated (user condition: launch only when their verifier-off
+reproduces our passthrough).
