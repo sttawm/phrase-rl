@@ -136,6 +136,7 @@ for cond in CONDS:
     cl = {"nat": "n", "adv": "a", "orig": "o"}[cond]
     for ap_name in A2:
         arms = {}
+        arm_draws = {}
         for diet in ["s", "b", "t"]:
             draws = []
             # r1
@@ -152,6 +153,7 @@ for cond in CONDS:
                 pq = f"ph_a36_{diet}{dr}_{ap_name}_{cond if cond != 'nat' else 'nat'}.parquet"
                 draws.append(per_base(pat, pq))
             arms[diet] = pd.concat(draws, axis=1).mean(axis=1)
+            arm_draws[diet] = draws
         # scaffold (r1 only; not run for orig)
         if cond == "nat":
             arms["sc"] = per_base(f"d34sc{ {'claude':'cln','gemini':'gen','qwen':'qwn'}[ap_name] }_*.result.parquet",
@@ -159,6 +161,25 @@ for cond in CONDS:
         elif cond == "adv":
             arms["sc"] = per_base(f"a30{A2[ap_name]}adv_*.result.parquet",
                                   f"ph_a29_{ap_name}sc_adv.parquet")
+        # draw-level inference: the rulebook draw as the unit. Each draw's
+        # base-weighted delta vs baseline is one observation; a t test on
+        # the n_draw=3 values asks whether the DISTILLATION PROCEDURE (not
+        # just these particular books) beats baseline. df=2: only normality
+        # of draw effects makes this testable at all — labeled as such.
+        for diet, draws_list in arm_draws.items():
+            ds = []
+            for cell_d in draws_list:
+                jj = pd.concat([cell_d.rename("c"),
+                                base_rates[cond].rename("b")],
+                               axis=1, join="inner")
+                ds.append(float((jj.c - jj.b).mean()))
+            m = float(np.mean(ds)); sd = float(np.std(ds, ddof=1))
+            se = sd / math.sqrt(len(ds))
+            t = m / se if se > 0 else 0.0
+            OUT[f"{cond}|{ap_name}|{diet}_drawlevel"] = {
+                "per_draw": [round(x, 2) for x in ds],
+                "mean": round(m, 2), "sd_draws": round(sd, 2),
+                "p_t_df2": round(_t_sf(abs(t), len(ds) - 1), 4)}
         for diet, cell in arms.items():
             baselines = {"": base_rates[cond]}
             if diet != "sc" and "sc" in arms:      # vs same-applier scaffold

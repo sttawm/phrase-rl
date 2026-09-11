@@ -12,9 +12,9 @@ prompts/distill_oneshot.md, and the pair-verification findings.
 
 ## Common context (prepend to every stage)
 
-You are distilling an instruction-phrasing rulebook for a frozen [pi0] robot
-manipulation policy ([Bridge] corpus). Phrasing choices move this policy's
-task success by tens of points; your book is how that knowledge gets applied.
+You are distilling an instruction-phrasing rulebook for a frozen robot
+manipulation policy. Phrasing choices move this policy's task success by
+tens of points; your book is how that knowledge gets applied.
 
 THE APPLIER. Your book will be applied MECHANICALLY, one instruction at a
 time, by a strong rule-following language model that sees only your rules,

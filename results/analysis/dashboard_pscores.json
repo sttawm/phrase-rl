@@ -1,4 +1,34 @@
 {
+ "nat|claude|s_drawlevel": {
+  "per_draw": [
+   5.53,
+   3.11,
+   7.33
+  ],
+  "mean": 5.32,
+  "sd_draws": 2.11,
+  "p_t_df2": 0.0487
+ },
+ "nat|claude|b_drawlevel": {
+  "per_draw": [
+   3.43,
+   2.8,
+   5.65
+  ],
+  "mean": 3.96,
+  "sd_draws": 1.49,
+  "p_t_df2": 0.0444
+ },
+ "nat|claude|t_drawlevel": {
+  "per_draw": [
+   0.58,
+   0.34,
+   1.1
+  ],
+  "mean": 0.67,
+  "sd_draws": 0.39,
+  "p_t_df2": 0.0957
+ },
  "nat|claude|s": {
   "delta": 5.32,
   "p_perm": 0.0,
@@ -40,6 +70,36 @@
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 186
+ },
+ "nat|gemini|s_drawlevel": {
+  "per_draw": [
+   5.4,
+   1.95,
+   6.52
+  ],
+  "mean": 4.62,
+  "sd_draws": 2.38,
+  "p_t_df2": 0.0783
+ },
+ "nat|gemini|b_drawlevel": {
+  "per_draw": [
+   3.05,
+   2.55,
+   5.15
+  ],
+  "mean": 3.58,
+  "sd_draws": 1.38,
+  "p_t_df2": 0.046
+ },
+ "nat|gemini|t_drawlevel": {
+  "per_draw": [
+   0.83,
+   0.13,
+   0.67
+  ],
+  "mean": 0.55,
+  "sd_draws": 0.36,
+  "p_t_df2": 0.1221
  },
  "nat|gemini|s": {
   "delta": 4.62,
@@ -83,6 +143,36 @@
   "p_t": 0.0004,
   "n_base": 186
  },
+ "nat|qwen|s_drawlevel": {
+  "per_draw": [
+   2.44,
+   4.97,
+   5.15
+  ],
+  "mean": 4.19,
+  "sd_draws": 1.52,
+  "p_t_df2": 0.041
+ },
+ "nat|qwen|b_drawlevel": {
+  "per_draw": [
+   3.58,
+   1.75,
+   5.58
+  ],
+  "mean": 3.64,
+  "sd_draws": 1.92,
+  "p_t_df2": 0.0814
+ },
+ "nat|qwen|t_drawlevel": {
+  "per_draw": [
+   2.49,
+   0.36,
+   3.54
+  ],
+  "mean": 2.13,
+  "sd_draws": 1.62,
+  "p_t_df2": 0.1508
+ },
  "nat|qwen|s": {
   "delta": 4.19,
   "p_perm": 0.0001,
@@ -124,6 +214,36 @@
   "p_perm": 0.0736,
   "p_t": 0.0683,
   "n_base": 186
+ },
+ "adv|claude|s_drawlevel": {
+  "per_draw": [
+   6.31,
+   4.17,
+   8.88
+  ],
+  "mean": 6.45,
+  "sd_draws": 2.36,
+  "p_t_df2": 0.0419
+ },
+ "adv|claude|b_drawlevel": {
+  "per_draw": [
+   4.8,
+   7.09,
+   5.61
+  ],
+  "mean": 5.84,
+  "sd_draws": 1.16,
+  "p_t_df2": 0.0129
+ },
+ "adv|claude|t_drawlevel": {
+  "per_draw": [
+   2.49,
+   0.06,
+   1.19
+  ],
+  "mean": 1.24,
+  "sd_draws": 1.22,
+  "p_t_df2": 0.2184
  },
  "adv|claude|s": {
   "delta": 6.45,
@@ -167,6 +287,36 @@
   "p_t": 0.9892,
   "n_base": 72
  },
+ "adv|gemini|s_drawlevel": {
+  "per_draw": [
+   6.08,
+   3.73,
+   9.9
+  ],
+  "mean": 6.57,
+  "sd_draws": 3.11,
+  "p_t_df2": 0.0673
+ },
+ "adv|gemini|b_drawlevel": {
+  "per_draw": [
+   5.61,
+   5.9,
+   4.6
+  ],
+  "mean": 5.37,
+  "sd_draws": 0.68,
+  "p_t_df2": 0.0054
+ },
+ "adv|gemini|t_drawlevel": {
+  "per_draw": [
+   3.24,
+   1.42,
+   3.1
+  ],
+  "mean": 2.58,
+  "sd_draws": 1.01,
+  "p_t_df2": 0.0476
+ },
  "adv|gemini|s": {
   "delta": 6.57,
   "p_perm": 0.0041,
@@ -208,6 +358,36 @@
   "p_perm": 0.8224,
   "p_t": 0.8086,
   "n_base": 72
+ },
+ "adv|qwen|s_drawlevel": {
+  "per_draw": [
+   3.99,
+   4.92,
+   9.29
+  ],
+  "mean": 6.07,
+  "sd_draws": 2.83,
+  "p_t_df2": 0.0654
+ },
+ "adv|qwen|b_drawlevel": {
+  "per_draw": [
+   2.37,
+   7.18,
+   3.36
+  ],
+  "mean": 4.3,
+  "sd_draws": 2.54,
+  "p_t_df2": 0.099
+ },
+ "adv|qwen|t_drawlevel": {
+  "per_draw": [
+   2.95,
+   1.13,
+   3.56
+  ],
+  "mean": 2.55,
+  "sd_draws": 1.26,
+  "p_t_df2": 0.0733
  },
  "adv|qwen|s": {
   "delta": 6.07,
@@ -251,6 +431,36 @@
   "p_t": 0.8715,
   "n_base": 72
  },
+ "orig|claude|s_drawlevel": {
+  "per_draw": [
+   1.04,
+   -4.17,
+   -6.77
+  ],
+  "mean": -3.3,
+  "sd_draws": 3.98,
+  "p_t_df2": 0.2874
+ },
+ "orig|claude|b_drawlevel": {
+  "per_draw": [
+   1.39,
+   1.74,
+   -0.69
+  ],
+  "mean": 0.81,
+  "sd_draws": 1.31,
+  "p_t_df2": 0.3975
+ },
+ "orig|claude|t_drawlevel": {
+  "per_draw": [
+   -1.74,
+   -1.22,
+   -1.39
+  ],
+  "mean": -1.45,
+  "sd_draws": 0.27,
+  "p_t_df2": 0.011
+ },
  "orig|claude|s": {
   "delta": -3.3,
   "p_perm": 0.2988,
@@ -269,6 +479,36 @@
   "p_t": 0.4794,
   "n_base": 12
  },
+ "orig|gemini|s_drawlevel": {
+  "per_draw": [
+   0.69,
+   -3.65,
+   -4.34
+  ],
+  "mean": -2.43,
+  "sd_draws": 2.73,
+  "p_t_df2": 0.2628
+ },
+ "orig|gemini|b_drawlevel": {
+  "per_draw": [
+   1.74,
+   3.82,
+   -2.26
+  ],
+  "mean": 1.1,
+  "sd_draws": 3.09,
+  "p_t_df2": 0.6002
+ },
+ "orig|gemini|t_drawlevel": {
+  "per_draw": [
+   -0.69,
+   -1.39,
+   1.39
+  ],
+  "mean": -0.23,
+  "sd_draws": 1.45,
+  "p_t_df2": 0.8075
+ },
  "orig|gemini|s": {
   "delta": -2.43,
   "p_perm": 0.4673,
@@ -286,6 +526,36 @@
   "p_perm": 0.9238,
   "p_t": 0.9057,
   "n_base": 12
+ },
+ "orig|qwen|s_drawlevel": {
+  "per_draw": [
+   -9.72,
+   -3.3,
+   -3.99
+  ],
+  "mean": -5.67,
+  "sd_draws": 3.53,
+  "p_t_df2": 0.1083
+ },
+ "orig|qwen|b_drawlevel": {
+  "per_draw": [
+   -1.22,
+   0.0,
+   -3.47
+  ],
+  "mean": -1.56,
+  "sd_draws": 1.76,
+  "p_t_df2": 0.2643
+ },
+ "orig|qwen|t_drawlevel": {
+  "per_draw": [
+   -0.17,
+   -1.39,
+   3.3
+  ],
+  "mean": 0.58,
+  "sd_draws": 2.43,
+  "p_t_df2": 0.7203
  },
  "orig|qwen|s": {
   "delta": -5.67,
