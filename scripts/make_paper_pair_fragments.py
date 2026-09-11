@@ -28,32 +28,12 @@ JOBS = [
      OUT / "pairverify_libero_body.tex"),
 ]
 
-PHRASE = re.compile(r"^\\hangindent=2\.4em (.*)\\\\$")
-HEADER = re.compile(r"^(\{\\bfseries .*)\\\\\[[\d.]+pt\]$")
-ORPHAN = re.compile(r"^\[[\d.]+pt\]\\par\}$")
-
 for src, dst in JOBS:
     text = src.read_text()
     m = re.search(r"\\begin\{multicols\}\{2\}[^\n]*\n(.*?)\\end\{multicols\}",
                   text, re.S)
     assert m, f"no multicols listing block in {src}"
-    out = []
-    for line in m.group(1).rstrip().splitlines():
-        # each phrase becomes its own paragraph with its own hanging indent:
-        # group-level \hangindent + \\ mis-tabs wrapped phrases in the
-        # paper's narrower columns (hangindent is a paragraph property).
-        pm = PHRASE.match(line)
-        hm = HEADER.match(line)
-        if pm:
-            out.append(r"{\hangindent=2.4em\hangafter=1\noindent "
-                       + pm.group(1) + r"\par}")
-        elif hm:
-            out.append(hm.group(1) + r"\par\nopagebreak")
-        elif ORPHAN.match(line):
-            out.append("}")
-        else:
-            out.append(line)
-    body = "\n".join(out) + "\n"
+    body = m.group(1).rstrip() + "\n"
     assert "\\includegraphics" not in body, f"scene grid leaked into {dst}"
     dst.write_text(body)
     print(f"{dst.relative_to(R)}  ({len(body.splitlines())} lines)")
