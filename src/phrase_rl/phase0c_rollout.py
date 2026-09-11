@@ -117,6 +117,7 @@ def main():
                 action_plan = collections.deque()
                 success, steps = False, 0
                 ever_success = False  # first-frame metric, recorded alongside final-state
+                first_success_step = None
                 rec = {"imgs": [], "states": [], "actions": []} if args.record_dir else None
                 while True:
                     img = np.ascontiguousarray(get_image_from_maniskill2_obs_dict(env, obs))
@@ -141,6 +142,8 @@ def main():
                     if rec is not None:
                         rec["actions"].append(np.asarray(action, dtype=np.float32))
                     obs, reward, success, truncated, info = env.step(action.copy())
+                    if bool(success) and first_success_step is None:
+                        first_success_step = steps
                     ever_success = ever_success or bool(success)
                     steps += 1
                     if args.cover_protocol:
@@ -164,6 +167,7 @@ def main():
                         "task": task, "arm": row.arm, "phrase": row.phrase,
                         "episode_id": ep_id, "rep": rep, "success": bool(success), "steps": steps,
                         "ever_success": bool(ever_success),
+                        "first_success_step": first_success_step,
                         "grasped": int(stats.get("is_src_obj_grasped", 0)),
                         "moved_correct": int(stats.get("moved_correct_obj", 0)),
                         "moved_wrong": int(stats.get("moved_wrong_obj", 0)),
