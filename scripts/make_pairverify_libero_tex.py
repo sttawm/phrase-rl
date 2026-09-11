@@ -78,25 +78,14 @@ GROUPS = [
     ("libero_spatial/1", "locator noun", [
         "pick up the black bowl next to the ramekin and place it on the plate",
         "pick up the black bowl next to the dish and place it on the plate"]),
-    ("libero_spatial/5", "locator noun", [
-        "pick up the black bowl on the ramekin and place it on the plate",
-        "pick up the black bowl on the dish and place it on the plate"]),
-    # round 5 folds the shape hypernyms into these as ladders.
-    ("libero_object/4", "source noun", [
-        "pick up the ketchup and place it in the basket",
+    # trimmed for display: the pair carries the specificity effect on its own.
+    ("libero_object/4", "modifier added", [
         "pick up the bottle and place it in the basket",
-        "pick up the red bottle and place it in the basket",
-        "pick up the sauce and place it in the basket"]),
+        "pick up the red bottle and place it in the basket"]),
     ("libero_object/9", "source noun", [
-        "pick up the orange juice and place it in the basket",
         "pick up the juice and place it in the basket",
         "pick up the drink and place it in the basket",
-        "pick up the carton and place it in the basket",
-        "pick up the bottle and place it in the basket"]),
-    ("libero_object/5", "source noun", [
-        "pick up the tomato sauce and place it in the basket",
-        "pick up the can and place it in the basket",
-        "pick up the bottle and place it in the basket"]),
+        "pick up the carton and place it in the basket"]),
 ]
 
 

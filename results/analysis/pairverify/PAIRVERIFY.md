@@ -1,6 +1,6 @@
 # Verified minimal pairs — full-grid re-roll (by task)
 
-Frozen π₀ (rephrase-bridge) on SIMPLER; 6,320 episodes, full per-task layout grid × 3 reps (n=72; basket grid is 60 → n=180), layout id on every row, success = final state at the 60-step horizon.
+Frozen π₀ (rephrase-bridge) on SIMPLER; 6,912 episodes, full per-task layout grid × 3 reps (n=72; basket grid is 60 → n=180), layout id on every row, success = final state at the 60-step horizon.
 
 Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.96 SE mid-range, asymmetric near 0/100%) — not ±1 SD. Only groups with a significant contrast (|z| ≥ 1.96) and phrases at full n are shown. **Bold** = the tokens that differ. Gap labels: LARGE ≥ 30pp, MEDIUM 15–30pp, SMALL < 15pp. ⚠ marks groups whose phrases also differ in capitalisation or trailing punctuation when that is NOT the tested edit (treat the gap as format-confounded by up to ~10-40pp until style-matched re-roll). Everything else: `pair_verdicts.csv`, `phrase_summary.csv`.
 
@@ -71,6 +71,13 @@ Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.
 | Put the red soda **cylinder** on top of the black keyboard. | 46% [35–57] | 72 |
 | Put the red soda **can** on top of the black keyboard. | 4% [1–12] | 72 |
 
+`Rn1_can_coke` — **LARGE gap (32pp)**
+
+| phrase | success | n |
+|---|---|---|
+| set the **coke** on top of the keyboard | 32% [22–43] | 72 |
+| set the **can** on top of the keyboard | 0% [0–5] | 72 |
+
 
 ---
 
@@ -129,6 +136,13 @@ Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.
 | **Grab** the red **Coke** can and set it on the **black** **wheel.** | 36% [26–48] | 72 |
 | **grab** the red **coke** can and set it on the **wheel** | 8% [4–17] | 72 |
 
+`Ac2m_dest_black_wheel_matched` — **MEDIUM gap (21pp)**
+
+| phrase | success | n |
+|---|---|---|
+| grab the red coke can and set it on the **black** wheel | 29% [20–40] | 72 |
+| grab the red coke can and set it on the wheel | 8% [4–17] | 72 |
+
 
 ---
 
@@ -149,6 +163,13 @@ Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.
 |---|---|---|
 | **Pick** up the green cube and put it on the **plate.** | 85% [75–91] | 72 |
 | **pick** up the green cube and put it on the **yellow** **plate** | 54% [43–65] | 72 |
+
+`Ac3m_dest_yellow_plate_matched` — **MEDIUM gap (22pp)**
+
+| phrase | success | n |
+|---|---|---|
+| pick up the green cube and put it on the plate | 76% [65–85] | 72 |
+| pick up the green cube and put it on the **yellow** plate | 54% [43–65] | 72 |
 
 `Ac4_dest_green_plate_collision` — **MEDIUM gap (18pp)**
 
@@ -307,17 +328,32 @@ Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.
 
 ---
 
+## put_eggplant_in_basket
+
+<img src="../../charts/pairverify_frames/widowx_put_eggplant_in_basket.png" width="260"/>
+
+`put_eggplant_in_basket` — **SMALL gap (14pp)**
+
+| phrase | success | n |
+|---|---|---|
+| put the eggplant in the **yellow** basket | 96% [92–98] | 180 |
+| put the eggplant in the basket | 82% [75–87] | 180 |
+
+
+---
+
 ## spoon_on_towel
 
 <img src="../../charts/pairverify_frames/widowx_spoon_on_towel.png" width="260"/>
 
-`spoon_on_towel` — **MEDIUM gap (22pp)**
+`spoon_on_towel` — **MEDIUM gap (24pp)**
 
 | phrase | success | n |
 |---|---|---|
 | put the spoon **atop** the towel | 67% [55–76] | 72 |
 | put the spoon **on** the towel | 61% [50–72] | 72 |
 | put the spoon **on** the **blue** towel | 44% [34–56] | 72 |
+| put the spoon **atop** the **blue** towel | 43% [32–55] | 72 |
 
 
 ---
@@ -340,4 +376,4 @@ Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.
 
 ---
 
-Overall: **56 of 91** single-concept, format-matched contrasts survive at full-grid n (60/97 of all contrasts).
+Overall: **61 of 98** single-concept, format-matched contrasts survive at full-grid n (65/104 of all contrasts).

@@ -15,6 +15,8 @@ widowx_carrot_on_wheel_clean,put the carrot on the tire,5.6,72,24,2.2,13.4,carro
 widowx_carrot_on_wheel_clean,put the carrot on the wheel,12.5,72,24,6.7,22.1,carrot_on_wheel_clean,colour word ADDED - helps,16.7,348,B,True,True
 widowx_coke_can_on_keyboard_clean,Put the red soda can on top of the black keyboard.,4.2,72,24,1.4,11.5,A15_noun_can_cylinder,lo can,2.8,72,A_top20,True,True
 widowx_coke_can_on_keyboard_clean,Put the red soda cylinder on top of the black keyboard.,45.8,72,24,34.8,57.3,A15_noun_can_cylinder,hi cylinder,45.8,48,A_top20,True,True
+widowx_coke_can_on_keyboard_clean,set the can on top of the keyboard,0.0,72,24,0.0,5.1,Rn1_can_coke,can,,0,A_topup,True,True
+widowx_coke_can_on_keyboard_clean,set the coke on top of the keyboard,31.9,72,24,22.3,43.4,Rn1_can_coke,coke,,0,A_topup,True,True
 widowx_coke_can_on_plate_clean,put the can on the plate,34.7,72,24,24.8,46.2,coke_can_on_plate_clean,object noun,30.6,64,B,True,True
 widowx_coke_can_on_plate_clean,put the coke can on the dish,41.7,72,24,31.0,53.2,A17_noun_dish_plate,lo dish,0.0,60,A_top20,True,True
 widowx_coke_can_on_plate_clean,put the coke can on the dish,41.7,72,24,31.0,53.2,coke_can_on_plate_clean,destination noun,30.6,262,B,True,True
@@ -23,6 +25,7 @@ widowx_coke_can_on_plate_clean,put the coke can on the plate,61.1,72,24,49.6,71.
 widowx_coke_can_on_plate_clean,put the coke can on the yellow plate,44.4,72,24,33.5,55.9,coke_can_on_plate_clean,colour word ADDED - hurts,41.7,64,B,True,True
 widowx_coke_can_on_plate_clean,put the coke can on top of the plate,52.8,72,24,41.4,63.9,coke_can_on_plate_clean,phrase added,38.9,64,B,True,True
 widowx_coke_can_on_plate_clean,put the coke on the plate,66.7,72,24,55.2,76.5,coke_can_on_plate_clean,object noun,63.9,76,B,True,True
+widowx_coke_can_on_ramekin_clean,place the red coke can inside the white bowl,72.2,72,24,61.0,81.2,Rn2_cola_coke,coke,,0,A_topup,True,True
 widowx_coke_can_on_ramekin_clean,place the red cola can inside the white basin,69.4,72,24,58.0,78.9,ramekin_ladder,destination noun,77.8,64,B,True,True
 widowx_coke_can_on_ramekin_clean,place the red cola can inside the white bowl,69.4,72,24,58.0,78.9,ramekin_ladder,destination noun,61.1,70,B,True,True
 widowx_coke_can_on_ramekin_clean,place the red cola can inside the white bowl,69.4,72,24,58.0,78.9,Rn2_cola_coke,cola,,0,A_topup,True,True
@@ -34,11 +37,13 @@ widowx_coke_can_on_ramekin_clean,place the red cola can inside the white ramekin
 widowx_coke_can_on_wheel_clean,Grab the red Coke can and set it on the black wheel.,36.1,72,24,26.0,47.6,Ac2_dest_black_wheel,colored,38.5,96,A_color,True,False
 widowx_coke_can_on_wheel_clean,Put the red can into the black wheel.,22.2,72,24,14.2,33.1,A05_prep_on_into,hi into,31.2,96,A_top20,True,True
 widowx_coke_can_on_wheel_clean,Put the red can on the black wheel.,13.9,72,24,7.7,23.7,A05_prep_on_into,lo on,4.2,24,A_top20,True,True
+widowx_coke_can_on_wheel_clean,grab the red coke can and set it on the black wheel,29.2,72,24,19.9,40.5,Ac2m_dest_black_wheel_matched,colored,,0,A_topup,True,True
 widowx_coke_can_on_wheel_clean,grab the red coke can and set it on the wheel,8.3,72,24,3.9,17.0,Ac2_dest_black_wheel,bare,8.3,72,A_color,True,False
 widowx_coke_can_on_wheel_clean,grab the red coke can and set it on the wheel,8.3,72,24,3.9,17.0,Ac2m_dest_black_wheel_matched,bare,,0,A_topup,True,True
 widowx_cube_on_plate_clean,Pick up the green cube and put it on the plate.,84.7,72,24,74.7,91.2,Ac3_dest_yellow_plate,bare,89.6,48,A_color,True,False
 widowx_cube_on_plate_clean,Place the green block on the green plate.,63.9,72,24,52.4,74.0,Ac4_dest_green_plate_collision,colored,50.0,24,A_color,True,True
 widowx_cube_on_plate_clean,Place the green block on the plate.,81.9,72,24,71.5,89.1,Ac4_dest_green_plate_collision,bare,86.7,120,A_color,True,True
+widowx_cube_on_plate_clean,pick up the green cube and put it on the plate,76.4,72,24,65.4,84.7,Ac3m_dest_yellow_plate_matched,bare,,0,A_topup,True,True
 widowx_cube_on_plate_clean,pick up the green cube and put it on the yellow plate,54.2,72,24,42.7,65.2,Ac3_dest_yellow_plate,colored,41.7,24,A_color,True,False
 widowx_cube_on_plate_clean,pick up the green cube and put it on the yellow plate,54.2,72,24,42.7,65.2,Ac3m_dest_yellow_plate_matched,colored,,0,A_topup,True,True
 widowx_cube_on_plate_clean,place the green cube into the dish,77.8,72,24,66.9,85.8,A09_verb_put_place,hi place,75.0,48,A_top20,True,True
@@ -81,6 +86,7 @@ widowx_pepsi_on_plate_clean,set the pepsi on the plate,70.8,72,24,59.5,80.1,A14_
 widowx_pepsi_on_plate_clean,set the soda on the plate,31.9,72,24,22.3,43.4,A14_noun_soda_pepsi,lo soda,29.2,24,A_top20,True,True
 widowx_put_eggplant_in_basket,put the eggplant in the basket,81.7,180,60,75.4,86.6,put_eggplant_in_basket,colour word ADDED - helps,80.6,64,B,True,True
 widowx_put_eggplant_in_basket,put the eggplant in the yellow basket,95.6,180,60,91.5,97.7,put_eggplant_in_basket,colour word ADDED - helps,97.2,64,B,True,True
+widowx_spoon_on_towel,put the spoon atop the blue towel,43.1,72,24,32.3,54.6,spoon_on_towel,colour word ADDED - atop variant,,0,A_topup,True,True
 widowx_spoon_on_towel,put the spoon atop the towel,66.7,72,24,55.2,76.5,A04_prep_on_atop,hi atop,66.7,72,A_top20,True,True
 widowx_spoon_on_towel,put the spoon atop the towel,66.7,72,24,55.2,76.5,spoon_on_towel,preposition (a gain),75.0,72,B,True,True
 widowx_spoon_on_towel,put the spoon on the blue towel,44.4,72,24,33.5,55.9,spoon_on_towel,colour word ADDED - hurts,38.9,64,B,True,True
