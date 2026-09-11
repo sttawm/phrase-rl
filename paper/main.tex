@@ -146,8 +146,8 @@ span.}\label{fig:pairs-libero}}
 \label{sec:rule-distillation}
 
 Fig.~\ref{fig:dashboard} summarizes rulebook performance across conditions.
-The prompts used to generate rephrasings, to distill rules, and to apply
-rules appear in Appendix~\ref{app:prompts}.
+The prompts used to generate rephrasings and to apply rules appear in
+Appendix~\ref{app:prompts}.
 All distilled rulebooks are available in the project
 repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}}
 
@@ -195,9 +195,6 @@ repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/ru
 The single generation prompt contains both the natural and the adversarial
 style block; the requested style selects which block applies.
 \lstinputlisting{appendix/prompt_generate_rephrases.txt}
-
-\subsection{Distilling rules}
-\lstinputlisting{appendix/prompt_distill_rules.txt}
 
 \subsection{Applying rules}
 The rulebook itself is substituted for the \texttt{\{\{rules\}\}} slot;
