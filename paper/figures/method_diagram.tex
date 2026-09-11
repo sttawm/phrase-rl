@@ -61,29 +61,30 @@
   {\footnotesize``put the carrot on the plate''}
   \end{tabular}};
 
-\node[model] (vlm1) at (4.05,0) {VLM};
+\node[model] (vlm1) at (3.3,0) {VLM};
 
 \node[chip, fill=chipnat] (nat) at (7.0,0) {natural};
 \node[chip, fill=chipadv] (adv) at (7.0,0.84) {adversarial};
 \node[chip, fill=chipben] (ben) at (7.0,-0.84) {benign};
 
-\node[model] (vla1) at (9.85,0) {VLA};
-\node[db] (evidence) at (12.35,0) {evidence};
+\node[model] (vla1) at (9.3,0) {VLA};
+\node[db] (evidence) at (12.45,0) {evidence};
 
 \draw[arr] (task) -- (vlm1);
-\draw[arr] (vlm1.east) -- ($(adv.west)+(-0.05,-0.05)$);
-\draw[arr] (vlm1.east) -- node[lab, above=0.6mm, pos=0.5]{generate}
-                          node[lab, below=0.6mm, pos=0.5]{rephrases} (nat.west);
-\draw[arr] (vlm1.east) -- ($(ben.west)+(-0.05,0.05)$);
+\coordinate (split) at (5.75,0);
+\draw[line width=0.8pt, draw=arrowc] (vlm1.east)
+  -- node[lab, above=0.7mm]{generate rephrases} (split);
+\draw[arr] (split) -- ($(adv.west)+(-0.03,-0.03)$);
+\draw[arr] (split) -- (nat.west);
+\draw[arr] (split) -- ($(ben.west)+(-0.03,0.03)$);
 \draw[arr] (adv.east) -- ($(vla1.west)+(-0.05,0.1)$);
 \draw[arr] (nat.east) -- (vla1.west);
 \draw[arr] (ben.east) -- ($(vla1.west)+(-0.05,-0.1)$);
-\draw[arr] (vla1) -- (evidence);
-\node[lab] at (11.52,-0.82) {execute \& score};
+\draw[arr] (vla1) -- node[lab, above=0.7mm, font=\scriptsize]{execute \& score} (evidence);
 
 % ---------------- rule distillation (right, T -> B) ----------------
-\node[modelp] (llm) at (12.35,-2.5) {LLM};
-\node[db] (rules) at (12.35,-4.7) {rules};
+\node[modelp] (llm) at (12.45,-2.3) {LLM};
+\node[db] (rules) at (12.45,-4.7) {rules};
 \draw[arr] (evidence) -- (llm);
 \draw[arr] (llm) -- node[lab, right=1.2mm]{distill} (rules);
 
