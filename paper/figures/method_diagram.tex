@@ -73,14 +73,14 @@
 \draw[arr] (task) -- (vlm1);
 \coordinate (split) at (5.75,0);
 \draw[line width=0.8pt, draw=arrowc] (vlm1.east)
-  -- node[lab, above=0.7mm]{generate rephrases} (split);
+  -- node[lab, above=0.7mm, align=center]{generate\\[-0.2mm]rephrases} (split);
 \draw[arr] (split) -- ($(adv.west)+(-0.03,-0.03)$);
 \draw[arr] (split) -- (nat.west);
 \draw[arr] (split) -- ($(ben.west)+(-0.03,0.03)$);
 \draw[arr] (adv.east) -- ($(vla1.west)+(-0.05,0.1)$);
 \draw[arr] (nat.east) -- (vla1.west);
 \draw[arr] (ben.east) -- ($(vla1.west)+(-0.05,-0.1)$);
-\draw[arr] (vla1) -- node[lab, above=0.7mm, font=\scriptsize]{execute \& score} (evidence);
+\draw[arr] (vla1) -- node[lab, above=0.7mm, align=center, font=\scriptsize]{execute\\[-0.2mm]\& score} (evidence);
 
 % ---------------- rule distillation (right, T -> B) ----------------
 \node[modelp] (llm) at (12.45,-2.3) {LLM};
