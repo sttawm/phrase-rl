@@ -142,8 +142,12 @@ DISPLAY_EDITS = {
                          "place the red cola can inside the white cup",
                          "place the red cola can inside the white ramekin"])],
     "spoon_on_towel": [
-        ("color/prep pair", ["put the spoon atop the towel",
-                              "put the spoon on the blue towel"])],
+        ("destination color chain", ["put the spoon atop the towel",
+                                     "put the spoon atop the blue towel",
+                                     "put the spoon on the blue towel"])],
+    "Ac2_dest_black_wheel": [],   # superseded by style-matched Ac2m
+    "Ac3_dest_yellow_plate": [],  # superseded by style-matched Ac3m
+    "A02_brand_case": [],         # superseded by single-letter A02b
     "stack_cube": [
         ("source noun", ["put the green cube on the yellow cube",
                          "put the green block on the yellow block"]),
@@ -181,13 +185,13 @@ tex = [r"""\documentclass[10pt]{article}
 {\normalsize\bfseries Verified minimal pairs --- frozen $\pi_0$, SIMPLER Bridge}\enspace
 {\scriptsize Full layout grid $\times$ 3 reps (n=72/phrase; basket 180); success = final state @ 60 steps; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
 \vspace{2pt}\hrule\vspace{2.5pt}
-\begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.7pt}"""]
+\begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.4pt}"""]
 
 first = True
 for task in sorted(blocks):
     short = task.replace("widowx_", "").replace("_clean", "").replace("_", r"\_")
     if not first:
-        tex.append(r"\vspace{0.5pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.5pt}")
+        tex.append(r"\vspace{0.3pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.1pt}")
     first = False
     tex.append(r"{\ttfamily\bfseries " + short + r"}\par\nopagebreak")
     for g, rows in blocks[task]:
@@ -204,12 +208,12 @@ for task in sorted(blocks):
             pcol = "hipct" if j == 0 else "lopct"
             tex.append(r"\hangindent=2.4em \pct{" + pcol + r"}{" + f"{r.succ:.0f}" + r"}~\texttt{"
                        + marked_phrase(r.phrase, sibs, color) + r"}\\")
-        tex.append(r"[0.9pt]\par}")
+        tex.append(r"[0.5pt]\par}")
 
 tex.append(r"\end{multicols}")
 tex.append(r"\newpage")
 tex.append(r"{\large\bfseries Task scenes}\\[4pt]")
-tex.append(r"\begin{multicols}{3}\footnotesize\centering")
+tex.append(r"\begin{multicols}{4}\footnotesize\centering")
 for task in sorted(blocks):
     short = task.replace("widowx_", "").replace("_clean", "").replace("_", r"\_")
     tex.append(r"\includegraphics[width=0.9\linewidth]{frames/" + task + r".png}\\")
