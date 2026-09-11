@@ -6,13 +6,15 @@
 \definecolor{lo}{RGB}{250,214,214}
 \definecolor{hipct}{RGB}{22,122,39}
 \definecolor{lopct}{RGB}{178,32,32}
+\definecolor{mid}{RGB}{236,236,236}
+\definecolor{midpct}{RGB}{90,90,90}
 \setlength{\parindent}{0pt}
 \setlength{\columnsep}{12pt}
 \setlength{\fboxsep}{1.1pt}
 \newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
 \begin{document}
 {\normalsize\bfseries Verified minimal pairs --- frozen $\pi_{0.5}$, LIBERO}\enspace
-{\scriptsize Full init population (inits 0--49; n=50/phrase, five rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
+{\scriptsize Full init population (inits 0--49; n=50/phrase, five rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, grey = within 10\,pp of it, red = worse; highlight = changed span. Scenes on page 2.}
 \vspace{2pt}\hrule\vspace{2.5pt}
 \begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.2pt}
 {\ttfamily\bfseries libero\_90/10}\par\nopagebreak
@@ -100,7 +102,7 @@
 {\leftskip=1.1em
 {\bfseries source noun}\enspace +96\,pp\,$\cdot$\, p<0.0001\\[0.5pt]
 \hangindent=2.4em \pct{hipct}{98}~\texttt{pick up the \colorbox{hi}{\strut ketchup} and place it in the basket}\\
-\hangindent=2.4em \pct{lopct}{96}~\texttt{pick up the \colorbox{lo}{\strut bottle} and place it in the basket}\\
+\hangindent=2.4em \pct{midpct}{96}~\texttt{pick up the \colorbox{mid}{\strut bottle} and place it in the basket}\\
 \hangindent=2.4em \pct{lopct}{58}~\texttt{pick up the \colorbox{lo}{\strut red} \colorbox{lo}{\strut bottle} and place it in the basket}\\
 \hangindent=2.4em \pct{lopct}{2}~\texttt{pick up the \colorbox{lo}{\strut sauce} and place it in the basket}\\
 [0.4pt]\par}
@@ -109,7 +111,7 @@
 {\leftskip=1.1em
 {\bfseries source noun}\enspace +14\,pp\,$\cdot$\, p=0.0374\\[0.5pt]
 \hangindent=2.4em \pct{hipct}{94}~\texttt{pick up the \colorbox{hi}{\strut tomato} \colorbox{hi}{\strut sauce} and place it in the basket}\\
-\hangindent=2.4em \pct{lopct}{90}~\texttt{pick up the \colorbox{lo}{\strut can} and place it in the basket}\\
+\hangindent=2.4em \pct{midpct}{90}~\texttt{pick up the \colorbox{mid}{\strut can} and place it in the basket}\\
 \hangindent=2.4em \pct{lopct}{80}~\texttt{pick up the \colorbox{lo}{\strut bottle} and place it in the basket}\\
 [0.4pt]\par}
 \vspace{0.3pt}{\color{black!35}\hrule height 0.5pt}\vspace{1.0pt}
@@ -117,7 +119,7 @@
 {\leftskip=1.1em
 {\bfseries source noun}\enspace +86\,pp\,$\cdot$\, p<0.0001\\[0.5pt]
 \hangindent=2.4em \pct{hipct}{98}~\texttt{pick up the \colorbox{hi}{\strut orange} \colorbox{hi}{\strut juice} and place it in the basket}\\
-\hangindent=2.4em \pct{lopct}{96}~\texttt{pick up the \colorbox{lo}{\strut juice} and place it in the basket}\\
+\hangindent=2.4em \pct{midpct}{96}~\texttt{pick up the \colorbox{mid}{\strut juice} and place it in the basket}\\
 \hangindent=2.4em \pct{lopct}{20}~\texttt{pick up the \colorbox{lo}{\strut drink} and place it in the basket}\\
 \hangindent=2.4em \pct{lopct}{12}~\texttt{pick up the \colorbox{lo}{\strut bottle} and place it in the basket}\\
 \hangindent=2.4em \pct{lopct}{12}~\texttt{pick up the \colorbox{lo}{\strut carton} and place it in the basket}\\

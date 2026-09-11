@@ -203,13 +203,15 @@ tex = [r"""\documentclass[10pt]{article}
 \definecolor{lo}{RGB}{250,214,214}
 \definecolor{hipct}{RGB}{22,122,39}
 \definecolor{lopct}{RGB}{178,32,32}
+\definecolor{mid}{RGB}{236,236,236}
+\definecolor{midpct}{RGB}{90,90,90}
 \setlength{\parindent}{0pt}
 \setlength{\columnsep}{12pt}
 \setlength{\fboxsep}{1.1pt}
 \newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
 \begin{document}
 {\normalsize\bfseries Verified minimal pairs --- frozen $\pi_{0.5}$, LIBERO}\enspace
-{\scriptsize Full init population (inits 0--49; n=50/phrase, five rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, red = worse; highlight = changed span. Scenes on page 2.}
+{\scriptsize Full init population (inits 0--49; n=50/phrase, five rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, grey = within 10\,pp of it, red = worse; highlight = changed span. Scenes on page 2.}
 \vspace{2pt}\hrule\vspace{2.5pt}
 \begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.2pt}"""]
 
@@ -226,9 +228,16 @@ for task in TASKORDER:
         tex.append(r"{\bfseries " + esc(label) + r"}\enspace " +
                    f"{delta:+.0f}\\,pp\\," + r"$\cdot$\," + f" {pstr}" + r"\\[0.5pt]")
         sibs = list(rows_.phrase)
+        best = rows_.succ.iloc[0]
         for j, (_, r) in enumerate(rows_.iterrows()):
-            color = "hi" if j == 0 else "lo"
-            pcol = "hipct" if j == 0 else "lopct"
+            # colour by VALUE, not by position: a ladder rung within 10pp of the
+            # best phrase has not failed and must not be painted as though it had.
+            if j == 0:
+                color, pcol = "hi", "hipct"
+            elif best - r.succ < 10:
+                color, pcol = "mid", "midpct"
+            else:
+                color, pcol = "lo", "lopct"
             tex.append(r"\hangindent=2.4em \pct{" + pcol + r"}{" + f"{r.succ:.0f}" + r"}~\texttt{"
                        + marked_phrase(r.phrase, sibs, color) + r"}\\")
         tex.append(r"[0.4pt]\par}")
