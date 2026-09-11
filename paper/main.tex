@@ -25,6 +25,15 @@
         aboveskip=6pt,
         belowskip=6pt}
 
+% minimal-pair listing highlights (fragments under figures/pairverify_*_body.tex)
+\definecolor{hi}{RGB}{212,241,212}
+\definecolor{lo}{RGB}{250,214,214}
+\definecolor{hipct}{RGB}{22,122,39}
+\definecolor{lopct}{RGB}{178,32,32}
+\definecolor{mid}{RGB}{236,236,236}
+\definecolor{midpct}{RGB}{90,90,90}
+\newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
+
 \title{\LARGE \bf
 Reducing a VLA's Language Sensitivity Using LLM-Distilled Instruction-Phrasing Rules
 }
@@ -106,36 +115,28 @@ executor parses reliably, and edits the instruction accordingly.
 \section{Verified Minimal Pairs}
 \label{sec:minimal-pairs}
 
-Fig.~\ref{fig:pairs-bridge} shows the verified minimal pairs for $\pi_0$ on
-SIMPLER Bridge; Fig.~\ref{fig:pairs-libero} shows the equivalent for
-$\pi_{0.5}$ on LIBERO. First-frame images of each task scene appear in
-Appendix~\ref{app:scenes}.
+First-frame images of each task scene appear in Appendix~\ref{app:scenes}.
 
-\begin{figure*}[p]
-    \centering
-    \includegraphics[page=1, width=\textwidth, height=0.92\textheight,
-                     keepaspectratio]{figures/pairverify_bridge.pdf}
-    \caption{Verified minimal pairs --- frozen $\pi_0$, SIMPLER Bridge.}
-    \label{fig:pairs-bridge}
-\end{figure*}
+{\normalsize\bfseries Minimal pairs (and tuples) for $\pi_0$ + Bridge}\par
+\vspace{2pt}
+{\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
+\input{figures/pairverify_bridge_body}\par}
 
-\begin{figure*}[p]
-    \centering
-    \includegraphics[page=1, width=\textwidth, height=0.92\textheight,
-                     keepaspectratio]{figures/pairverify_libero.pdf}
-    \caption{Verified minimal pairs --- $\pi_{0.5}$, LIBERO.}
-    \label{fig:pairs-libero}
-\end{figure*}
+\vspace{4pt}
+{\normalsize\bfseries Minimal pairs (and tuples) for $\pi_{0.5}$ + LIBERO}\par
+\vspace{2pt}
+{\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
+\input{figures/pairverify_libero_body}\par}
 
 
 \section{Rule Distillation}
 \label{sec:rule-distillation}
 
 Fig.~\ref{fig:dashboard} summarizes rulebook performance across conditions.
-The prompts used to generate rephrasings, to generate scene-analysis traces,
-to distill rules, and to apply rules appear in Appendix~\ref{app:prompts}.
+The prompts used to generate rephrasings, to distill rules, and to apply
+rules appear in Appendix~\ref{app:prompts}.
 All distilled rulebooks are available in the project
-repository.\footnote{\url{https://github.com/sttawm/pharse-rl-paper/tree/main/rules}}
+repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}}
 
 \begin{figure*}[!t]
     \centering
@@ -175,16 +176,13 @@ The single generation prompt contains both the natural and the adversarial
 style block; the requested style selects which block applies.
 \lstinputlisting{appendix/prompt_generate_rephrases.txt}
 
-\subsection{Generating the scene-analysis trace}
-\lstinputlisting{appendix/prompt_trace.txt}
-
 \subsection{Distilling rules}
 \lstinputlisting{appendix/prompt_distill_rules.txt}
 
 \subsection{Applying rules}
 The rulebook itself is substituted for the \texttt{\{\{rules\}\}} slot;
 rulebooks are available in the project
-repository (\url{https://github.com/sttawm/pharse-rl-paper/tree/main/rules}).
+repository (\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}).
 \lstinputlisting{appendix/prompt_apply_rules.txt}
 
 
