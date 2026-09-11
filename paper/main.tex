@@ -11,10 +11,12 @@
 
 \overrideIEEEmargins                                      % Needed to meet printer requirements.
 
+\usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{url}
+\usepackage{capt-of}
 
 \lstset{basicstyle=\ttfamily\scriptsize,
         breaklines=true,
@@ -117,16 +119,27 @@ executor parses reliably, and edits the instruction accordingly.
 
 First-frame images of each task scene appear in Appendix~\ref{app:scenes}.
 
-{\normalsize\bfseries Minimal pairs (and tuples) for $\pi_0$ + Bridge}\par
-\vspace{2pt}
+\subsection{Minimal pairs (and tuples) for $\pi_0$ + Bridge}
+
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_bridge_body}\par}
+{\footnotesize\captionof{figure}{Verified minimal pairs for frozen $\pi_0$
+on SIMPLER Bridge. Every phrase rolled on its task's full layout grid
+$\times$ 3 reps (n = 72 per phrase; basket task n = 180); success = final
+state at the 60-step horizon; p: two-proportion z, best vs.\ worst phrase.
+Green = best phrasing, red = worse; highlighted = the changed
+span.}\label{fig:pairs-bridge}}
 
-\vspace{4pt}
-{\normalsize\bfseries Minimal pairs (and tuples) for $\pi_{0.5}$ + LIBERO}\par
-\vspace{2pt}
+\subsection{Minimal pairs (and tuples) for $\pi_{0.5}$ + LIBERO}
+
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_libero_body}\par}
+{\footnotesize\captionof{figure}{Verified minimal pairs for $\pi_{0.5}$ on
+LIBERO. Every phrase rolled on the full init population (inits 0--49,
+n = 50 per phrase); success = the environment's success flag at episode
+end; p: two-proportion z, best vs.\ worst phrase. Green = best phrasing,
+grey = within 10\,pp of best, red = worse; highlighted = the changed
+span.}\label{fig:pairs-libero}}
 
 
 \section{Rule Distillation}
@@ -141,10 +154,17 @@ repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/ru
 \begin{figure*}[!t]
     \centering
     \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
-    \caption{Sealed-suite success by condition (natural, adversarial,
-    original) for the un-rephrased baseline, the rules-free rephraser
-    scaffold, and each rulebook diet, against the held-out best-phrase
-    oracle.}
+    \caption{Evaluating rulebooks across models. Base-weighted success on
+    the 12 sealed tasks, by condition (columns: natural, adversarial,
+    original). Rows: by applier (dots = individual rulebook draws); by
+    rulebook draw (bars = mean over appliers); the in-vocab stratum (5
+    tasks); the out-of-vocab stratum (7 tasks). Dashed red line = the
+    un-rephrased baseline; dashed grey line = the no-rules rephraser
+    scaffold; grey bars = scaffold, blue bars = rulebook cells. Natural =
+    the 186-phrase image-conditioned set ($\times$1 rep); adversarial = 72
+    attacks ($\times$2); original = 12 canonical instructions ($\times$2);
+    three independent rulebook draws per diet; strata from the ex-ante
+    vocabulary audit.}
     \label{fig:dashboard}
 \end{figure*}
 

@@ -15,6 +15,7 @@ check the published cells). Replicates live from results/analysis/a36_cells.json
 (only 12/12-leg arms), so the page improves as A36 legs land.
 """
 import json
+import os
 import pathlib
 
 import matplotlib
@@ -193,15 +194,18 @@ fig.legend(handles, ["no-rules rephraser (scaffold)", "rulebook cell",
                      "draw r1", "draw r2", "draw r3", "no rephraser",
                      "no rules (mean)"],
            fontsize=8.4, ncol=7, loc="lower center", bbox_to_anchor=(0.5, 0.0))
-fig.suptitle("Rulebook evaluation dashboard — base-weighted, sealed 12 tasks\n"
-             "rows: by applier (dots = draws) · by rulebook draw (mean over appliers) · "
-             "in-vocab stratum · out-of-vocab stratum",
-             fontsize=12.5, y=0.995)
-fig.text(0.99, 0.002,
-         "natural = 186-phrase image set ×1 rep · adversarial = 72 attacks ×2 · original = 12 canonicals ×2 · "
-         "draws: r1 = A31/A34, r2/r3 = A36 (12/12-leg arms only) · strata from the ex-ante vocabulary audit",
-         ha="right", fontsize=6.6, color="#718096")
-fig.tight_layout(rect=(0, 0.018, 1, 0.972))
-out = R / "results/charts/rules_dashboard.png"
+PAPER = os.environ.get("PAPER") == "1"   # paper variant: no title/footer, the
+if not PAPER:                            # LaTeX caption carries that text
+    fig.suptitle("Rulebook evaluation dashboard — base-weighted, sealed 12 tasks\n"
+                 "rows: by applier (dots = draws) · by rulebook draw (mean over appliers) · "
+                 "in-vocab stratum · out-of-vocab stratum",
+                 fontsize=12.5, y=0.995)
+    fig.text(0.99, 0.002,
+             "natural = 186-phrase image set ×1 rep · adversarial = 72 attacks ×2 · original = 12 canonicals ×2 · "
+             "draws: r1 = A31/A34, r2/r3 = A36 (12/12-leg arms only) · strata from the ex-ante vocabulary audit",
+             ha="right", fontsize=6.6, color="#718096")
+fig.tight_layout(rect=(0, 0.018, 1, 0.972) if not PAPER else (0, 0.018, 1, 1.0))
+out = R / ("results/charts/rules_dashboard_paper.png" if PAPER
+           else "results/charts/rules_dashboard.png")
 fig.savefig(out, dpi=140, bbox_inches="tight", pad_inches=0.22)
 print("chart ->", out)
