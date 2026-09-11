@@ -1,0 +1,25 @@
+18:20 r3 restart shard1 at 0
+18:20 r3 restart shard2 at 0
+19:48 R3 COMPLETE: 1650
+19:49 R3 done -> launching R4
+21:28 R4 COMPLETE: 2000
+22:54 R5 COMPLETE: 500
+10:40 r6 restart shard0 at 525
+10:40 r6 restart shard1 at 495
+10:40 r6 restart shard2 at 495
+10:40 r6 restart shard3 at 521
+10:41 r6 restart shard4 at 492
+10:41 r6 restart shard5 at 537
+10:41 r6 restart shard6 at 492
+10:41 r6 restart shard7 at 495
+13:49 r6 restart shard2 at 495
+13:49 r6 restart shard3 at 521
+13:49 r6 restart shard5 at 537
+13:50 r6 restart shard6 at 492
+13:50 r6b restart shard2 at 495
+13:50 r6b restart shard3 at 521
+13:50 r6b restart shard4 at 492
+13:50 r6b restart shard5 at 537
+13:50 r6b restart shard6 at 492
+15:34 R6 COMPLETE: 5000
+15:34 R6 COMPLETE: 5000
