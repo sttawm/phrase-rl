@@ -80,7 +80,7 @@
 \draw[arr] (adv.east) -- ($(vla1.west)+(-0.05,0.1)$);
 \draw[arr] (nat.east) -- (vla1.west);
 \draw[arr] (ben.east) -- ($(vla1.west)+(-0.05,-0.1)$);
-\draw[arr] (vla1) -- node[lab, above=0.7mm, align=center, font=\scriptsize]{execute\\[-0.2mm]\& score} (evidence);
+\draw[arr] (vla1) -- node[lab, above=0.7mm, align=center, font=\scriptsize, pos=0.40]{execute\\[-0.2mm]\& score} (evidence);
 
 % ---------------- rule distillation (right, T -> B) ----------------
 \node[modelp] (llm) at (12.45,-2.3) {LLM};
@@ -106,7 +106,7 @@
   \fill[bandA, fill opacity=0.38, rounded corners=4mm]
       (-1.8,1.66) rectangle (13.55,-1.66);
   \fill[bandB, fill opacity=0.38, rounded corners=4mm]
-      (11.15,1.66) rectangle (13.55,-5.72);
+      (11.5,1.66) rectangle (13.55,-5.72);
   \fill[bandC, fill opacity=0.38, rounded corners=4mm]
       (-1.8,-2.95) rectangle (13.55,-5.72);
 \end{scope}
