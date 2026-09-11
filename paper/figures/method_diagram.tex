@@ -3,10 +3,14 @@
 \usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,backgrounds,shadows}
 \usepackage[T1]{fontenc}
 \usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}
+\usepackage[tracking=true]{microtype}
 
 \definecolor{bandA}{HTML}{BBD4F5}
 \definecolor{bandB}{HTML}{CDBCEC}
 \definecolor{bandC}{HTML}{B9E3C6}
+\definecolor{secA}{HTML}{3E6FB4}
+\definecolor{secB}{HTML}{6E51A8}
+\definecolor{secC}{HTML}{3F8A5E}
 \definecolor{cardEdge}{HTML}{51607A}
 \definecolor{boxblue}{HTML}{BFD8F7}
 \definecolor{boxpurple}{HTML}{D6C8F0}
@@ -19,6 +23,7 @@
 \definecolor{ink}{HTML}{273244}
 \definecolor{sub}{HTML}{5B6779}
 \definecolor{arrowc}{HTML}{7A8698}
+
 
 \tikzset{
   every node/.style={font=\small, text=ink},
@@ -43,7 +48,6 @@
   arr/.style={-{Stealth[length=2.7mm, width=2.2mm]}, line width=0.8pt,
               draw=arrowc, rounded corners=2mm},
   lab/.style={font=\footnotesize, text=sub, inner sep=1pt},
-  seclab/.style={font=\footnotesize\bfseries, text=ink!85},
 }
 
 \begin{document}
@@ -62,21 +66,20 @@
 \node[chip, fill=chipnat] (nat) at (7.0,0) {natural};
 \node[chip, fill=chipadv] (adv) at (7.0,0.84) {adversarial};
 \node[chip, fill=chipben] (ben) at (7.0,-0.84) {benign};
-\node[lab, font=\footnotesize\itshape] at (7.0,-1.46) {phrases};
 
 \node[model] (vla1) at (9.85,0) {VLA};
 \node[db] (evidence) at (12.35,0) {evidence};
 
 \draw[arr] (task) -- (vlm1);
-\draw[arr] (vlm1) -- node[lab, above=0.6mm, pos=0.58]{generate}
-                     node[lab, below=0.6mm, pos=0.58]{rephrases} ($(nat.west)+(-0.12,0)$);
-\draw[arr] ($(vlm1.east)+(0.62,0)$) |- (adv.west);
-\draw[arr] ($(vlm1.east)+(0.62,0)$) |- (ben.west);
+\draw[arr] (vlm1.east) -- ($(adv.west)+(-0.05,-0.05)$);
+\draw[arr] (vlm1.east) -- node[lab, above=0.6mm, pos=0.5]{generate}
+                          node[lab, below=0.6mm, pos=0.5]{rephrases} (nat.west);
+\draw[arr] (vlm1.east) -- ($(ben.west)+(-0.05,0.05)$);
 \draw[arr] (adv.east) -- ($(vla1.west)+(-0.05,0.1)$);
 \draw[arr] (nat.east) -- (vla1.west);
 \draw[arr] (ben.east) -- ($(vla1.west)+(-0.05,-0.1)$);
-\draw[arr] (vla1) -- node[lab, above=0.7mm]{evaluate} (evidence);
-\node[lab, font=\scriptsize] at (11.1,-0.88) {w/ rollouts or success-proxy};
+\draw[arr] (vla1) -- (evidence);
+\node[lab] at (11.52,-0.82) {execute \& score};
 
 % ---------------- rule distillation (right, T -> B) ----------------
 \node[modelp] (llm) at (12.35,-2.5) {LLM};
@@ -85,33 +88,33 @@
 \draw[arr] (llm) -- node[lab, right=1.2mm]{distill} (rules);
 
 % ---------------- rule application (bottom, R -> L) ----------------
-\node[modelg] (vlm2) at (8.9,-4.7) {VLM};
-\node[chip, fill=white, draw=cardEdge!30] (task2) at (8.9,-3.35)
-  {{\footnotesize\bfseries task}\;{\footnotesize = instruction + image}};
-\node[card, align=center] (reph) at (5.05,-4.7) {%
+\node[modelg] (vlm2) at (9.9,-4.7) {VLM};
+\node[card, align=center] (reph) at (4.7,-4.7) {%
   {\footnotesize\bfseries rephrased task instruction}\\[0.5mm]
   {\scriptsize``put the orange carrot on the yellow plate''}};
-\node[model] (vla2) at (1.3,-4.7) {VLA};
+\node[model] (vla2) at (0.45,-4.7) {VLA};
 
 \draw[arr] (rules) -- (vlm2);
-\draw[arr] (task2) -- (vlm2);
 \draw[arr] (vlm2) -- node[lab, above=0.7mm]{rephrase} (reph);
 \draw[arr] (reph) -- (vla2);
 
-% ---------------- translucent bands (overlaps visible) ----------------
+% ---------------- translucent bands ----------------
 \begin{scope}[on background layer]
   \fill[bandA, fill opacity=0.38, rounded corners=4mm]
-      (-1.8,1.62) rectangle (13.55,-1.78);
+      (-1.8,1.66) rectangle (13.55,-1.66);
   \fill[bandB, fill opacity=0.38, rounded corners=4mm]
-      (11.15,0.95) rectangle (13.55,-5.72);
+      (11.15,1.66) rectangle (13.55,-5.72);
   \fill[bandC, fill opacity=0.38, rounded corners=4mm]
-      (-1.8,-2.82) rectangle (13.55,-5.72);
+      (-1.8,-2.95) rectangle (13.55,-5.72);
 \end{scope}
 
 % ---------------- section labels ----------------
-\node[seclab, anchor=south west] at (-1.75,1.72) {Evidence gathering};
-\node[seclab, anchor=center, rotate=-90] at (13.88,-2.38) {Rule distillation};
-\node[seclab, anchor=north west] at (-1.75,-5.82) {Rule application};
+\node[anchor=south west, font=\normalsize\bfseries, text=secA]
+  at (-1.75,1.78) {\textls[130]{EVIDENCE GATHERING}};
+\node[anchor=center, rotate=-90, font=\normalsize\bfseries, text=secB]
+  at (13.95,-2.03) {\textls[130]{RULE DISTILLATION}};
+\node[anchor=north west, font=\normalsize\bfseries, text=secC]
+  at (-1.75,-5.86) {\textls[130]{RULE APPLICATION}};
 
 \end{tikzpicture}
 \end{document}
