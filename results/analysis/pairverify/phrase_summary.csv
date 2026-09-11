@@ -78,7 +78,9 @@ widowx_pepsi_on_plate_clean,Move the blue can onto the plate.,36.1,72,24,26.0,47
 widowx_pepsi_on_plate_clean,Move the blue can to the plate.,20.8,72,24,13.1,31.6,A07_prep_to_onto,lo to,16.7,48,A_top20,True,True
 widowx_pepsi_on_plate_clean,Put the Pepsi on the plate.,30.6,72,24,21.1,42.0,A02_brand_case,lo Pepsi cased,18.3,240,A_top20,True,False
 widowx_pepsi_on_plate_clean,Set the Pepsi down on the plate.,26.4,72,24,17.6,37.6,A01_case_period,lo cased+period,19.4,432,A_top20,False,False
+widowx_pepsi_on_plate_clean,put the Pepsi on the plate,25.0,72,24,16.4,36.1,A02b_single_letter_case,lo Pepsi capital only,20.8,96,A_tidyup,True,True
 widowx_pepsi_on_plate_clean,put the pepsi on the plate,69.4,72,24,58.0,78.9,A02_brand_case,hi lowercase,61.5,96,A_top20,True,False
+widowx_pepsi_on_plate_clean,put the pepsi on the plate,69.4,72,24,58.0,78.9,A02b_single_letter_case,hi lowercase,61.5,96,A_tidyup,True,True
 widowx_pepsi_on_plate_clean,set the blue coke on the plate,63.9,72,24,52.4,74.0,Ac7_obj_blue_coke,colored,70.8,48,A_color,True,True
 widowx_pepsi_on_plate_clean,set the coke on the plate,26.4,72,24,17.6,37.6,Ac7_obj_blue_coke,bare,22.9,48,A_color,True,True
 widowx_pepsi_on_plate_clean,set the pepsi down on the plate,69.4,72,24,58.0,78.9,A01_case_period,hi lowercase,82.3,96,A_top20,False,False
