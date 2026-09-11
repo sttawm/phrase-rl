@@ -114,17 +114,21 @@ Lb = leg_pool("d34basen_*.result.parquet")
 base_rates["nat"] = Lb.set_index(["task", "phrase"]).succ
 base_rates["nat"].index.names = ["task", "base"]
 
-rows = []
-for f in glob.glob(str(R / "results/analysis/a37_cover_runs/ever72_off_k*.jsonl")):
-    for line in open(f):
-        r = json.loads(line)
-        rows.append((r["task"], r["base"], bool(r["success"])))
-adv = pd.DataFrame(rows, columns=["task", "base", "s"])
-base_rates["adv"] = adv.groupby(["task", "base"]).s.mean() * 100
+# adversarial + original baselines: the PUBLISHED baseline rolls (the same
+# data behind the 24.5 / 36.1 dashboard constants): a29pass legs (60 new
+# attacks x 24 x 1) + anchors_x12.parquet passthrough (original 12 attacks
+# x 24 x 12) and originals (12 canonicals x 24 x 12). anchors_x12 fetched
+# to LEGS_DIR's parent by the session fetch step if not in the tree.
+anch_pq = pathlib.Path(LEGS).parent / "anchors_x12.parquet"
+anch = pd.read_parquet(anch_pq)
+p60 = leg_pool("a29pass_*.result.parquet").set_index(["task", "phrase"]).succ
+p12 = anch[anch.arm == "passthrough"].groupby(
+    ["task", "phrase"]).success.mean() * 100
+base_rates["adv"] = pd.concat([p60, p12])
+base_rates["adv"].index.names = ["task", "base"]
 
-sd = pd.read_parquet(R / "results/analysis/a37_cover_runs/sens_dualmetric.parquet")
-op = sd[sd.arm == "orig_pass"].copy()
-base_rates["orig"] = op.groupby(["task", "phrase"]).success.mean() * 100
+base_rates["orig"] = anch[anch.arm == "originals"].groupby(
+    ["task", "phrase"]).success.mean() * 100
 base_rates["orig"].index.names = ["task", "base"]
 
 # ---- cells ------------------------------------------------------------------
@@ -201,8 +205,11 @@ out = R / "results/analysis/dashboard_pscores.json"
 out.write_text(json.dumps(OUT, indent=1))
 print("json ->", out)
 for k, v in OUT.items():
-    print(f"{k:22s} delta={v['delta']:+6.2f}  p_perm={v['p_perm']:.4f} "
-          f"p_t={v['p_t']:.4f}  n={v['n_base']}")
+    if "delta" in v:
+        print(f"{k:22s} delta={v['delta']:+6.2f}  p_perm={v['p_perm']:.4f} "
+              f"p_t={v['p_t']:.4f}  n={v['n_base']}")
+    else:
+        print(f"{k:26s} draws={v['per_draw']}  p_t(df=2)={v['p_t_df2']:.4f}")
 
 # ---- simple chart: delta + p grid ------------------------------------------
 import matplotlib
