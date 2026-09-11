@@ -148,8 +148,39 @@ success probability (two-proportion z test). Green = best phrasing, grey
 \label{sec:rule-distillation}
 
 Fig.~\ref{fig:dashboard} summarizes rulebook performance across conditions.
+Fig.~\ref{fig:pscores-baseline} and Fig.~\ref{fig:pscores-scaffold} give the
+statistical significance of each cell.
 The prompts used to generate rephrasings and to apply rules appear in
 Appendix~\ref{app:prompts}.
+
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=0.86\textwidth]{figures/pscores_vs_baseline.png}
+    \caption{Significance of each dashboard cell against the un-rephrased
+    baseline. Every base instruction is rolled under both arms on the same
+    pinned layouts; the entry shows the mean per-base gap in success and
+    its p-value. In plain terms, p answers: \emph{if the rephraser
+    actually made no difference, how often would layout luck alone produce
+    a gap at least this large?} A small p (below 0.05, shaded) means the
+    gap is very unlikely to be luck; a large p means the data cannot tell
+    the arms apart. Computed by a sign-flip permutation test on the
+    per-base paired differences (rulebook cells pooled over the three
+    draws; green = significant gain, grey = not significant).}
+    \label{fig:pscores-baseline}
+\end{figure*}
+
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=0.86\textwidth]{figures/pscores_vs_scaffold.png}
+    \caption{Significance of each rulebook cell against the same applier's
+    \emph{no-rules scaffold}, isolating what the rules add beyond
+    rephrasing itself. Same paired construction and p-value meaning as
+    Fig.~\ref{fig:pscores-baseline}: p is how often chance alone would
+    produce a per-base gap this large if the rules changed nothing.
+    Green = significant gain, red = significant harm, grey = not
+    significant; the original condition has no scaffold arm.}
+    \label{fig:pscores-scaffold}
+\end{figure*}
 All distilled rulebooks are available in the project
 repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}}
 

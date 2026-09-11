@@ -194,7 +194,12 @@ CN = {"nat": "Natural (n=186 bases)", "adv": "Adversarial (n=72)",
       "orig": "Original (n=12)"}
 
 
+PAPER = os.environ.get("PAPER") == "1"   # paper variant: no in-image title
+
+
 def p_grid(rows, suffix, title, png_name):
+    if PAPER:
+        title, png_name = None, png_name.replace(".png", "_paper.png")
     fig, ax = plt.subplots(figsize=(9.6, 0.62 * len(rows) + 1.6))
     ax.set_xlim(0, 3); ax.set_ylim(0, len(rows)); ax.invert_yaxis()
     ax.axis("off")
@@ -221,7 +226,8 @@ def p_grid(rows, suffix, title, png_name):
     for ri, (ap_name, diet) in enumerate(rows):
         ax.text(-0.04, ri + 0.52, f"{ap_name} · {RL[diet]}", ha="right",
                 va="center", fontsize=9)
-    ax.set_title(title, fontsize=10.5, pad=18)
+    if title:
+        ax.set_title(title, fontsize=10.5, pad=18)
     fig.tight_layout()
     png = R / f"results/analysis/{png_name}"
     fig.savefig(png, dpi=150, bbox_inches="tight", pad_inches=0.25)
