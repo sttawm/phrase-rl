@@ -95,7 +95,9 @@
   {\scriptsize``put the orange carrot on the yellow plate''}};
 \node[model] (vla2) at (0.45,-4.7) {VLA};
 
+\node[chip, fill=white, draw=cardEdge!35, font=\footnotesize\bfseries] (task2) at (9.9,-3.42) {task};
 \draw[arr] (rules) -- (vlm2);
+\draw[arr] (task2) -- (vlm2);
 \draw[arr] (vlm2) -- node[lab, above=0.7mm]{rephrase} (reph);
 \draw[arr] (reph) -- (vla2);
 
