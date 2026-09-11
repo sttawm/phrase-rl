@@ -84,18 +84,18 @@
 
 % ---------------- rule distillation (right, T -> B) ----------------
 \node[modelp] (llm) at (12.5,-2.3) {LLM};
-\node[db] (rules) at (12.5,-4.55) {rules};
+\node[db] (rules) at (12.5,-4.4) {rules};
 \draw[arr] (evidence) -- (llm);
 \draw[arr] (llm) -- node[lab, right=1.2mm]{distill} (rules);
 
 % ---------------- rule application (bottom, R -> L) ----------------
-\node[modelg] (vlm2) at (10.0,-4.55) {VLM};
-\node[card, align=center] (reph) at (5.0,-4.55) {%
+\node[modelg] (vlm2) at (10.2,-4.4) {VLM};
+\node[card, align=center] (reph) at (4.6,-4.4) {%
   {\footnotesize\bfseries rephrased task instruction}\\[0.5mm]
   {\scriptsize``put the orange carrot on the yellow plate''}};
-\node[model] (vla2) at (0.2,-4.55) {VLA};
+\node[model] (vla2) at (-0.5,-4.4) {VLA};
 
-\node[chip, fill=white, draw=cardEdge!35, font=\footnotesize\bfseries] (task2) at (10.0,-3.35) {task};
+\node[chip, fill=white, draw=cardEdge!35, font=\footnotesize\bfseries] (task2) at (10.2,-3.3) {task};
 \draw[arr] (rules) -- (vlm2);
 \draw[arr] (task2) -- (vlm2);
 \draw[arr] (vlm2) -- node[lab, above=0.7mm]{rephrase} (reph);
@@ -106,7 +106,7 @@
   \fill[bandA, fill opacity=0.38, rounded corners=4mm]
       (-1.8,1.66) rectangle (13.55,-1.66);
   \fill[bandB, fill opacity=0.38, rounded corners=4mm]
-      (11.5,1.66) rectangle (13.5,-5.55);
+      (11.45,1.66) rectangle (13.55,-5.55);
   \fill[bandC, fill opacity=0.38, rounded corners=4mm]
       (-1.8,-2.95) rectangle (13.55,-5.55);
 \end{scope}
