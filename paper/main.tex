@@ -156,15 +156,16 @@ repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/ru
     \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
     \caption{Evaluating rulebooks across models. Base-weighted success on
     the 12 sealed tasks, by condition (columns: natural, adversarial,
-    original). Rows: by applier (dots = individual rulebook draws); by
-    rulebook draw (bars = mean over appliers); the in-vocab stratum (5
-    tasks); the out-of-vocab stratum (7 tasks). Dashed red line = the
-    un-rephrased baseline; dashed grey line = the no-rules rephraser
-    scaffold; grey bars = scaffold, blue bars = rulebook cells. Natural =
-    the 186-phrase image-conditioned set ($\times$1 rep); adversarial = 72
+    original). Rows: by applier (bars = mean over three independent
+    rulebook draws); by rulebook draw (bars = mean over appliers); the
+    in-vocab stratum (5 tasks); the out-of-vocab stratum (7 tasks). The
+    number inside each bar is absolute success; the signed number above it
+    is the change vs.\ the un-rephrased baseline (dashed red line; dashed
+    grey line = the no-rules scaffold mean). Grey bars = the no-rules
+    rephraser scaffold, blue bars = rulebook cells. Natural = the
+    186-phrase image-conditioned set ($\times$1 rep); adversarial = 72
     attacks ($\times$2); original = 12 canonical instructions ($\times$2);
-    three independent rulebook draws per diet; strata from the ex-ante
-    vocabulary audit.}
+    strata from the ex-ante vocabulary audit.}
     \label{fig:dashboard}
 \end{figure*}
 

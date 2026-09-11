@@ -66,6 +66,19 @@ def scaffold(cond, ap=None, st="pooled"):
     return sum(vals) / len(vals) if vals else None
 
 
+def bar_annot(ax, x, v, base, dy=0.9, fc=None):
+    """Value inside the bar top; signed delta vs the no-rephraser base above.
+    Solid text boxes (bar-colored inside, white above) keep the dashed
+    baseline from striking through the numbers."""
+    ax.text(x, v - dy, f"{v:.1f}", ha="center", va="top", fontsize=7.0,
+            fontweight="bold", color="#1a202c", zorder=6,
+            bbox=dict(boxstyle="square,pad=0.10", fc=fc or C_RULES, ec="none"))
+    d = v - base
+    ax.text(x, v + 0.35, f"{d:+.1f}", ha="center", fontsize=6.2,
+            fontweight="bold", color="#2f855a" if d >= 0 else "#c53030", zorder=6,
+            bbox=dict(boxstyle="square,pad=0.10", fc="white", ec="none"))
+
+
 fig, axes = plt.subplots(4, 3, figsize=(16.4, 17.0), sharey="row")
 
 # ---------- Row 1: slice by applier ----------
@@ -77,7 +90,7 @@ for ax, (cond, cname) in zip(axes[0], CONDS):
         sc = scaffold(cond, ap)
         if sc is not None:
             ax.bar(x, sc, 0.62, color=C_BASE, edgecolor="#4a5568", lw=0.8)
-            ax.text(x, sc + 0.4, f"{sc:.1f}", ha="center", fontsize=7.6, fontweight="bold")
+            bar_annot(ax, x, sc, NO_REPH[cond], fc=C_BASE)
         else:
             ax.text(x, 21.2, "no rules:\nnot run", ha="center", fontsize=5.8, color="#a0aec0")
         ticks.append(x); tlabels.append("no\nrules"); gxs.append(x); x += 0.82
@@ -85,16 +98,14 @@ for ax, (cond, cname) in zip(axes[0], CONDS):
             dv = draws(cond, diet, ap)
             m = sum(dv.values()) / len(dv)
             ax.bar(x, m, 0.62, color=C_RULES, edgecolor="#4a5568", lw=0.8)
-            ax.text(x, m + 0.4, f"{m:.1f}", ha="center", fontsize=7.6, fontweight="bold")
-            for lb, v in dv.items():
-                ax.plot([x], [v], DMARK[lb], ms=3.6, color=INK, mfc="white", mew=1.0, zorder=5)
+            bar_annot(ax, x, m, NO_REPH[cond])
             ticks.append(x); tlabels.append(dlabel); gxs.append(x); x += 0.82
         gticks.append(sum(gxs) / len(gxs))
         ax.axvline(x - 0.31, color="#e2e8f0", lw=1.0, zorder=0)
         x += 0.42
     ax.axhline(NO_REPH[cond], color="#c53030", lw=1.2, ls=(0, (4, 3)), zorder=1)
-    ax.text(x - 0.75, NO_REPH[cond] + 0.3, f"no rephraser {NO_REPH[cond]:.1f}",
-            fontsize=6.6, color="#c53030", ha="right")
+    ax.text(1.005, NO_REPH[cond], f"{NO_REPH[cond]:.1f}", fontsize=6.6,
+            color="#c53030", ha="left", va="center", transform=ax.get_yaxis_transform())
     ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=6.0, color="#4a5568")
     for gx, ap in zip(gticks, ["Claude", "Gemini", "Qwen"]):
         ax.text(gx, 16.6, ap, ha="center", fontsize=10, fontweight="bold", clip_on=False)
@@ -123,9 +134,9 @@ for ax, (cond, cname) in zip(axes[1], CONDS):
             else:
                 m = sum(vals) / len(vals)
                 ax.bar(x, m, 0.62, color=C_RULES, edgecolor="#4a5568", lw=0.8)
-                ax.text(x, m + 0.4, f"{m:.1f}", ha="center", fontsize=7.6, fontweight="bold")
+                bar_annot(ax, x, m, NO_REPH[cond])
                 if len(vals) < 3:
-                    ax.text(x, m - 1.6, f"n={len(vals)}", ha="center", fontsize=5.6,
+                    ax.text(x, m - 2.6, f"n={len(vals)}", ha="center", fontsize=5.6,
                             color="#744210")
             ticks.append(x); tlabels.append(dr); gxs.append(x); x += 0.82
         gticks.append(sum(gxs) / len(gxs))
@@ -134,9 +145,18 @@ for ax, (cond, cname) in zip(axes[1], CONDS):
     sc = scaffold(cond)
     if sc is not None:
         ax.axhline(sc, color="#4a5568", lw=1.2, ls=(0, (2, 2)), zorder=1)
-        ax.text(x - 0.75, sc + 0.3, f"no rules {sc:.1f}", fontsize=6.6,
-                color="#4a5568", ha="right")
+        crowd = abs(sc - NO_REPH[cond]) < 1.2   # stacked labels: nudge apart
+        ax.text(1.005, sc, f"{sc:.1f}", fontsize=6.6, color="#4a5568", ha="left",
+                va="bottom" if (crowd and sc >= NO_REPH[cond]) else
+                   ("top" if crowd else "center"),
+                transform=ax.get_yaxis_transform())
     ax.axhline(NO_REPH[cond], color="#c53030", lw=1.2, ls=(0, (4, 3)), zorder=1)
+    crowd = sc is not None and abs(sc - NO_REPH[cond]) < 1.2
+    ax.text(1.005, NO_REPH[cond], f"{NO_REPH[cond]:.1f}", fontsize=6.6,
+            color="#c53030", ha="left",
+            va="top" if (crowd and sc >= NO_REPH[cond]) else
+               ("bottom" if crowd else "center"),
+            transform=ax.get_yaxis_transform())
     ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=7.0, color="#4a5568")
     for gx, (diet, dlabel) in zip(gticks, DIETS):
         ax.text(gx, 16.6, dlabel.replace("\n", " "), ha="center", fontsize=10,
@@ -157,7 +177,7 @@ for row, st, stname, ylim in [(2, "iv", "IN-VOCAB (5 tasks)", (12, 50)),
         sc = scaffold(cond, st=st)
         if sc is not None:
             ax.bar(x, sc, 0.62, color=C_BASE, edgecolor="#4a5568", lw=0.8)
-            ax.text(x, sc + 0.5, f"{sc:.1f}", ha="center", fontsize=7.6, fontweight="bold")
+            bar_annot(ax, x, sc, NOREPH_ST[cond][st], dy=1.2, fc=C_BASE)
         else:
             ax.text(x, ylim[0] + 2.0, "no rules:\nnot run", ha="center",
                     fontsize=5.8, color="#a0aec0")
@@ -167,14 +187,12 @@ for row, st, stname, ylim in [(2, "iv", "IN-VOCAB (5 tasks)", (12, 50)),
             dvals = {k: v for k, v in dvals.items() if v is not None}
             m = sum(dvals.values()) / len(dvals)
             ax.bar(x, m, 0.62, color=C_RULES, edgecolor="#4a5568", lw=0.8)
-            ax.text(x, m + 0.5, f"{m:.1f}", ha="center", fontsize=7.6, fontweight="bold")
-            for lb, v in dvals.items():
-                ax.plot([x], [v], DMARK[lb], ms=3.8, color=INK, mfc="white", mew=1.0, zorder=5)
+            bar_annot(ax, x, m, NOREPH_ST[cond][st], dy=1.2)
             ticks.append(x); tlabels.append(dlabel); x += 0.9
         nb = NOREPH_ST[cond][st]
         ax.axhline(nb, color="#c53030", lw=1.2, ls=(0, (4, 3)), zorder=1)
-        ax.text(x - 0.65, min(nb + 0.4, ylim[1] - 1.6), f"no rephraser {nb:.1f}",
-                fontsize=6.6, color="#c53030", ha="right")
+        ax.text(1.005, nb, f"{nb:.1f}", fontsize=6.6, color="#c53030",
+                ha="left", va="center", transform=ax.get_yaxis_transform())
         ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=6.4, color="#4a5568")
         ax.tick_params(axis="x", length=0)
         ax.set_xlim(-0.65, x - 0.6)
@@ -185,20 +203,17 @@ for row, st, stname, ylim in [(2, "iv", "IN-VOCAB (5 tasks)", (12, 50)),
 
 handles = [plt.Rectangle((0, 0), 1, 1, color=C_BASE),
            plt.Rectangle((0, 0), 1, 1, color=C_RULES),
-           plt.Line2D([0], [0], marker="o", color=INK, mfc="white", ls="", ms=5),
-           plt.Line2D([0], [0], marker="^", color=INK, mfc="white", ls="", ms=5),
-           plt.Line2D([0], [0], marker="s", color=INK, mfc="white", ls="", ms=5),
            plt.Line2D([0], [0], color="#c53030", lw=1.2, ls=(0, (4, 3))),
            plt.Line2D([0], [0], color="#4a5568", lw=1.2, ls=(0, (2, 2)))]
 fig.legend(handles, ["no-rules rephraser (scaffold)", "rulebook cell",
-                     "draw r1", "draw r2", "draw r3", "no rephraser",
-                     "no rules (mean)"],
-           fontsize=8.4, ncol=7, loc="lower center", bbox_to_anchor=(0.5, 0.0))
+                     "no rephraser", "no rules (mean)"],
+           fontsize=8.4, ncol=4, loc="lower center", bbox_to_anchor=(0.5, 0.0))
 PAPER = os.environ.get("PAPER") == "1"   # paper variant: no title/footer, the
 if not PAPER:                            # LaTeX caption carries that text
     fig.suptitle("Rulebook evaluation dashboard — base-weighted, sealed 12 tasks\n"
-                 "rows: by applier (dots = draws) · by rulebook draw (mean over appliers) · "
-                 "in-vocab stratum · out-of-vocab stratum",
+                 "rows: by applier · by rulebook draw (mean over appliers) · "
+                 "in-vocab stratum · out-of-vocab stratum · "
+                 "green/red = delta vs no rephraser",
                  fontsize=12.5, y=0.995)
     fig.text(0.99, 0.002,
              "natural = 186-phrase image set ×1 rep · adversarial = 72 attacks ×2 · original = 12 canonicals ×2 · "
