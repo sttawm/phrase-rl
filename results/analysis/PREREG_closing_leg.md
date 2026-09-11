@@ -1062,3 +1062,14 @@ The full picture, final-state vs no-rephraser: adversarial -2.9 (21.6 vs
 verifier is net-negative on every condition of this benchmark; the damage
 scales with how good the un-intervened instruction already was — the
 conditional-intervention thesis, third confirmation.
+
+#### A37 four-arm dual-metric comparison, adversarial full-72 (2026-09-11, passthrough 34/72 pending)
+All arms 24 layouts x 1 rep, dual-metric + first-success step. final / ever:
+rules-gemini 29.0/35.6 (median first-success step 29); scaffold 24.0/31.4
+(31); passthrough 24.9/32.3 (32; partial); CoVer-on 20.7/28.5 (32; the x1
+read replicates the x2 heavy 21.6). VERDICT: ever-success shifts every arm
++7pp nearly uniformly — margins preserved; rules beat CoVer by +7.1pp under
+CoVer's own metric; CoVer stays below plain passthrough under both metrics.
+Speed: CoVer's median time-to-first-success equals passthrough (no speed
+benefit from 40-candidate selection); rules arm fastest. P14 holds under
+both metrics.
