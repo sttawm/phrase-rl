@@ -67,16 +67,11 @@ def scaffold(cond, ap=None, st="pooled"):
 
 
 def bar_annot(ax, x, v, base, dy=0.9, fc=None):
-    """Value inside the bar top; signed delta vs the no-rephraser base above.
-    Solid text boxes (bar-colored inside, white above) keep the dashed
-    baseline from striking through the numbers."""
+    """Value inside the bar top; the bar-colored text box keeps the dashed
+    baseline from striking through the number. (base kept for call symmetry.)"""
     ax.text(x, v - dy, f"{v:.1f}", ha="center", va="top", fontsize=7.0,
             fontweight="bold", color="#1a202c", zorder=6,
             bbox=dict(boxstyle="square,pad=0.10", fc=fc or C_RULES, ec="none"))
-    d = v - base
-    ax.text(x, v + 0.35, f"{d:+.1f}", ha="center", fontsize=6.2,
-            fontweight="bold", color="#2f855a" if d >= 0 else "#c53030", zorder=6,
-            bbox=dict(boxstyle="square,pad=0.10", fc="white", ec="none"))
 
 
 fig, axes = plt.subplots(4, 3, figsize=(16.4, 17.0), sharey="row")
@@ -212,8 +207,7 @@ PAPER = os.environ.get("PAPER") == "1"   # paper variant: no title/footer, the
 if not PAPER:                            # LaTeX caption carries that text
     fig.suptitle("Rulebook evaluation dashboard — base-weighted, sealed 12 tasks\n"
                  "rows: by applier · by rulebook draw (mean over appliers) · "
-                 "in-vocab stratum · out-of-vocab stratum · "
-                 "green/red = delta vs no rephraser",
+                 "in-vocab stratum · out-of-vocab stratum",
                  fontsize=12.5, y=0.995)
     fig.text(0.99, 0.002,
              "natural = 186-phrase image set ×1 rep · adversarial = 72 attacks ×2 · original = 12 canonicals ×2 · "
