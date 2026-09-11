@@ -160,17 +160,21 @@ for cond in CONDS:
             arms["sc"] = per_base(f"a30{A2[ap_name]}adv_*.result.parquet",
                                   f"ph_a29_{ap_name}sc_adv.parquet")
         for diet, cell in arms.items():
-            j = pd.concat([cell.rename("c"), base_rates[cond].rename("b")],
-                          axis=1, join="inner")
-            n_expect = {"nat": 186, "adv": 72, "orig": 12}[cond]
-            assert len(j) >= n_expect - 6, \
-                f"{cond}|{ap_name}|{diet}: only {len(j)} paired bases"
-            d = (j.c - j.b).values
-            OUT[f"{cond}|{ap_name}|{diet}"] = {
-                "delta": round(float(d.mean()), 2),
-                "p_perm": round(sign_flip_p(d), 4),
-                "p_t": round(paired_t_p(d), 4),
-                "n_base": len(d)}
+            baselines = {"": base_rates[cond]}
+            if diet != "sc" and "sc" in arms:      # vs same-applier scaffold
+                baselines["_vs_sc"] = arms["sc"]
+            for suffix, base in baselines.items():
+                j = pd.concat([cell.rename("c"), base.rename("b")],
+                              axis=1, join="inner")
+                n_expect = {"nat": 186, "adv": 72, "orig": 12}[cond]
+                assert len(j) >= n_expect - 6, \
+                    f"{cond}|{ap_name}|{diet}{suffix}: only {len(j)} paired bases"
+                d = (j.c - j.b).values
+                OUT[f"{cond}|{ap_name}|{diet}{suffix}"] = {
+                    "delta": round(float(d.mean()), 2),
+                    "p_perm": round(sign_flip_p(d), 4),
+                    "p_t": round(paired_t_p(d), 4),
+                    "n_base": len(d)}
 
 out = R / "results/analysis/dashboard_pscores.json"
 out.write_text(json.dumps(OUT, indent=1))
@@ -184,41 +188,55 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-ROWS = [(ap, diet) for ap in ["claude", "gemini", "qwen"]
-        for diet in ["sc", "s", "b", "t"]]
 RL = {"sc": "no rules", "s": "rollout only", "b": "rollout + train",
       "t": "train only"}
 CN = {"nat": "Natural (n=186 bases)", "adv": "Adversarial (n=72)",
       "orig": "Original (n=12)"}
-fig, ax = plt.subplots(figsize=(9.6, 7.0))
-ax.set_xlim(0, 3); ax.set_ylim(0, len(ROWS)); ax.invert_yaxis(); ax.axis("off")
-for ci, cond in enumerate(CONDS):
-    ax.text(ci + 0.5, -0.35, CN[cond], ha="center", fontsize=11,
-            fontweight="bold")
-    for ri, (ap_name, diet) in enumerate(ROWS):
-        v = OUT.get(f"{cond}|{ap_name}|{diet}")
-        if v is None:
-            ax.text(ci + 0.5, ri + 0.55, "not run", ha="center", fontsize=8,
-                    color="#a0aec0")
-            continue
-        p = v["p_perm"]
-        fc = ("#c6f6d5" if v["delta"] > 0 else "#fed7d7") if p < 0.05 else \
-             "#edf2f7"
-        ax.add_patch(plt.Rectangle((ci + 0.02, ri + 0.06), 0.96, 0.88,
-                                   fc=fc, ec="#cbd5e0", lw=0.7))
-        ps = f"p={p:.4f}" if p >= 1e-4 else "p<0.0001"
-        ax.text(ci + 0.5, ri + 0.52,
-                f"{v['delta']:+.1f} pp   {ps}", ha="center", va="center",
-                fontsize=9.5,
-                fontweight="bold" if p < 0.05 else "normal")
-for ri, (ap_name, diet) in enumerate(ROWS):
-    ax.text(-0.04, ri + 0.52, f"{ap_name} · {RL[diet]}", ha="right",
-            va="center", fontsize=9)
-ax.set_title("Dashboard bars vs no-rephraser — paired-by-base sign-flip "
-             "permutation p\n(cells pooled over draws; green/red = "
-             "significant gain/harm at p<0.05, grey = not significant)",
-             fontsize=10.5, pad=18)
-fig.tight_layout()
-png = R / "results/analysis/dashboard_pscores.png"
-fig.savefig(png, dpi=150, bbox_inches="tight", pad_inches=0.25)
-print("chart ->", png)
+
+
+def p_grid(rows, suffix, title, png_name):
+    fig, ax = plt.subplots(figsize=(9.6, 0.62 * len(rows) + 1.6))
+    ax.set_xlim(0, 3); ax.set_ylim(0, len(rows)); ax.invert_yaxis()
+    ax.axis("off")
+    for ci, cond in enumerate(CONDS):
+        ax.text(ci + 0.5, -0.35, CN[cond], ha="center", fontsize=11,
+                fontweight="bold")
+        for ri, (ap_name, diet) in enumerate(rows):
+            v = OUT.get(f"{cond}|{ap_name}|{diet}{suffix}")
+            if v is None:
+                ax.text(ci + 0.5, ri + 0.55, "no scaffold arm" if suffix
+                        else "not run", ha="center", fontsize=8,
+                        color="#a0aec0")
+                continue
+            p = v["p_perm"]
+            fc = ("#c6f6d5" if v["delta"] > 0 else "#fed7d7") if p < 0.05 \
+                else "#edf2f7"
+            ax.add_patch(plt.Rectangle((ci + 0.02, ri + 0.06), 0.96, 0.88,
+                                       fc=fc, ec="#cbd5e0", lw=0.7))
+            ps = f"p={p:.4f}" if p >= 1e-4 else "p<0.0001"
+            ax.text(ci + 0.5, ri + 0.52,
+                    f"{v['delta']:+.1f} pp   {ps}", ha="center", va="center",
+                    fontsize=9.5,
+                    fontweight="bold" if p < 0.05 else "normal")
+    for ri, (ap_name, diet) in enumerate(rows):
+        ax.text(-0.04, ri + 0.52, f"{ap_name} · {RL[diet]}", ha="right",
+                va="center", fontsize=9)
+    ax.set_title(title, fontsize=10.5, pad=18)
+    fig.tight_layout()
+    png = R / f"results/analysis/{png_name}"
+    fig.savefig(png, dpi=150, bbox_inches="tight", pad_inches=0.25)
+    print("chart ->", png)
+
+
+p_grid([(ap, d) for ap in ["claude", "gemini", "qwen"]
+        for d in ["sc", "s", "b", "t"]], "",
+       "Dashboard bars vs no-rephraser — paired-by-base sign-flip "
+       "permutation p\n(cells pooled over draws; green/red = significant "
+       "gain/harm at p<0.05, grey = not significant)",
+       "dashboard_pscores.png")
+p_grid([(ap, d) for ap in ["claude", "gemini", "qwen"]
+        for d in ["s", "b", "t"]], "_vs_sc",
+       "Rulebook cells vs the SAME APPLIER's no-rules scaffold — "
+       "paired-by-base permutation p\n(what the rules add beyond the "
+       "rephrase scaffold; original has no scaffold arm)",
+       "dashboard_pscores_vs_scaffold.png")
