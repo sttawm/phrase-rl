@@ -1063,13 +1063,19 @@ verifier is net-negative on every condition of this benchmark; the damage
 scales with how good the un-intervened instruction already was — the
 conditional-intervention thesis, third confirmation.
 
-#### A37 four-arm dual-metric comparison, adversarial full-72 (2026-09-11, passthrough 34/72 pending)
-All arms 24 layouts x 1 rep, dual-metric + first-success step. final / ever:
-rules-gemini 29.0/35.6 (median first-success step 29); scaffold 24.0/31.4
-(31); passthrough 24.9/32.3 (32; partial); CoVer-on 20.7/28.5 (32; the x1
-read replicates the x2 heavy 21.6). VERDICT: ever-success shifts every arm
-+7pp nearly uniformly — margins preserved; rules beat CoVer by +7.1pp under
-CoVer's own metric; CoVer stays below plain passthrough under both metrics.
-Speed: CoVer's median time-to-first-success equals passthrough (no speed
-benefit from 40-candidate selection); rules arm fastest. P14 holds under
-both metrics.
+#### A37 four-arm dual-metric comparison, adversarial full-72 — FINAL (2026-09-11)
+All arms COMPLETE at 72/72 bases x 24 layouts x 1 rep, dual-metric +
+first-success step, base-weighted. (Correction vs the interim read: the
+rules/scaffold rolls covered 60 DISTINCT applied phrases because the applier
+mapped some attacks to identical outputs; pooling now expands each applied
+phrase back to its bases via the A31/A29 apply tables — 72/72 covered. The
+interim 29.0/35.6 and 24.0/31.4 were phrase-weighted.) final / ever:
+rules-gemini 28.1/35.5 (median first-success step 29); scaffold 24.1/32.4
+(31); passthrough 24.4/31.8 (32; ever72_off k0-k5, cv4+cv2); CoVer-on
+20.7/28.5 (32; the x1 read replicates the x2 heavy 21.6). VERDICT
+unchanged: ever-success shifts every arm ~+7pp nearly uniformly — margins
+preserved; rules beat CoVer by +7.0pp under CoVer's own metric (35.5 vs
+28.5) and +7.4 under final; CoVer stays below plain passthrough under both
+metrics. Speed: CoVer's median time-to-first-success equals passthrough (no
+speed benefit from 40-candidate selection); rules arm fastest. P14 holds
+under both metrics. Raw episodes: a37_cover_runs/ever72_{on,off}_k0-5.jsonl.

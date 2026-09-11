@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """results/charts/ever_mini.png — miniature dual-metric four-arm comparison
-(adversarial, full-72 bases x 24 layouts x 1 rep; passthrough partial 34/72)."""
+(adversarial, full-72 bases x 24 layouts x 1 rep; all arms complete,
+base-weighted: applier collisions expanded back to their 72 bases)."""
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-ARMS = [("Gemini +\nrollout rules", 29.0, 35.6, "#a3bffa"),
-        ("Gemini,\nno rules", 24.0, 31.4, "#8b96a5"),
-        ("no rephraser\n(passthrough)*", 24.9, 32.3, "#8b96a5"),
+ARMS = [("Gemini +\nrollout rules", 28.1, 35.5, "#a3bffa"),
+        ("Gemini,\nno rules", 24.1, 32.4, "#8b96a5"),
+        ("no rephraser\n(passthrough)", 24.4, 31.8, "#8b96a5"),
         ("CoVer\n(verifier on)", 20.7, 28.5, "#f6ad55")]
 
 fig, ax = plt.subplots(figsize=(6.8, 3.4))
@@ -29,7 +30,7 @@ hatched = plt.Rectangle((0, 0), 1, 1, color="#b0b7c3", alpha=0.45, hatch="//")
 ax.legend([solid, hatched], ["final state @ 60 steps", "first success (ever)"],
           fontsize=8.5, loc="upper right", framealpha=0.95)
 ax.set_title("Adversarial, both metrics — 72 attacks × 24 layouts", fontsize=10.5)
-fig.text(0.99, 0.01, "*passthrough partial (34/72 bases)", ha="right", fontsize=7,
+fig.text(0.99, 0.01, "all arms 72/72 bases, base-weighted", ha="right", fontsize=7,
          color="#718096")
 fig.tight_layout()
 fig.savefig("results/charts/ever_mini.png", dpi=160, bbox_inches="tight", pad_inches=0.15)
