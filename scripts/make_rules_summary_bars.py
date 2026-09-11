@@ -101,7 +101,8 @@ for cond, cname in CONDS:
     cv = COVER.get(cond)
     if cv:
         for lbl, v, col in [("CoVer,\nverifier off", cv.get("off"), C_BASE),
-                            ("CoVer\n(verifier on)", cv.get("on"), "#f6ad55")]:
+                            ("CoVer\n(verifier on)", cv.get("on"), "#f6ad55"),
+                            ("CoVer,\never-succ.", cv.get("on_ever"), "#fbd38d")]:
             if v is None:
                 continue
             ax.bar(x, v, 0.7, color=col, edgecolor="#4a5568", lw=0.9)
