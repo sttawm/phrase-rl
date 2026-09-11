@@ -1,7 +1,8 @@
 {
  "adv": {"off": 25.7, "on": 21.6,
          "note": "FINAL: on = 72 attacks x 24 x 2 (3,456 eps); off = anchor k1+k2 x24"},
- "nat": {"off": null, "on": null, "note": "rolling"},
+ "nat": {"off": null, "on": 22.8, "on_ever": 30.6,
+         "note": "FINAL: 186 naturals x 24 (4,464 eps), final-state@60; on_ever = same eps, first-success"},
  "orig": {"off": null, "on": 26.4, "on_ever": 35.9,
-          "note": "on = 12 canonicals x 24 x 2 (576 eps, final-state@60); on_ever = same episodes, first-success metric"}
+          "note": "12 canonicals x 24 x 2 (576 eps); on_ever = first-success"}
 }

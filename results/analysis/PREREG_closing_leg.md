@@ -1052,3 +1052,13 @@ published grid stands under final-state@60 with this note; no re-evaluation.
 Fixed-instruction hold rates 83-85% vs CoVer-originals 74%: ~10pp excess
 un-solving attributable to the verifier (measured, supports the
 destabilization mechanism).
+
+#### A37 natural condition FINAL (2026-09-11): CoVer 22.8 — net-negative in ALL THREE conditions
+186 naturals x 24 pinned layouts (4,464 eps, verifier on, final-state@60):
+pooled 22.8 vs our no-rephraser 26.0, scaffold ~28.8, rulebooks 27.1-30.7.
+Ever-success 30.6 (+7.8 churn gap; swap rate 6.5/15 — condition-independent).
+The full picture, final-state vs no-rephraser: adversarial -2.9 (21.6 vs
+24.5), natural -3.2 (22.8 vs 26.0), original -9.7 (26.4 vs 36.1). CoVer's
+verifier is net-negative on every condition of this benchmark; the damage
+scales with how good the un-intervened instruction already was — the
+conditional-intervention thesis, third confirmation.
