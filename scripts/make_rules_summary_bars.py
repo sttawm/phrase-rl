@@ -142,8 +142,9 @@ fig.text(0.5, -0.015,
          f"rollout+train: {nc('Natural','rollout + train')}/{nc('Adversarial','rollout + train')}/{nc('Original','rollout + train')}, "
          f"train-only: 3/3/3 (replicate draws pending). "
          "Oracle$^{*}$: best held-out phrase per task (24\u00d712 grid). "
-         "CoVer bars: their released pipeline on this benchmark (A37; adv verifier-on = "
-         "preliminary 36/72 attacks), verifier-off anchor-matched to our passthrough (25.7 vs 26.1).",
+         "CoVer bars: their released pipeline on this benchmark (A37, final: adv = 72 attacks ×24×2; "
+         "orig = 12 canonicals ×24×2); verifier-off anchor-matched to our passthrough (25.7 vs 26.1); "
+         "light-orange = same episodes scored by first-success (ever) instead of final state.",
          ha="center", fontsize=6.8, color="#4a5568")
 
 out = R / "results/charts/rules_summary_bars.png"
