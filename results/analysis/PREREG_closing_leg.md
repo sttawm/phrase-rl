@@ -1040,3 +1040,15 @@ sealed adversarial) FALSIFIED under the aligned benchmark contract. P14: the
 rollout rulebook (~30 pooled, ~1/40th test-time compute) beats CoVer by ~8pp.
 Pending: natural + original conditions (dual-metric), the ever-success
 metric ablation on anchor cells, and the swap-rate diagnostics — all rolling.
+
+#### Metric-sensitivity slice (2026-09-11): grid deltas are METRIC-STABLE — no re-roll
+1,392 dual-metric episodes (our harness): originals passthrough, naturals
+sample, rollout-book adversarial rewrites. Ever-vs-final gaps: +4.7 / +4.7 /
++8.0pp — arm-independent within comparisons; task-level gaps correlate
+0.63-0.89 across arms (un-solving is a task property; eggplant_on_keyboard is
+the outlier at 12-33pp under every arm). Conclusion: first-success rescoring
+shifts fixed-instruction arms together, preserving all grid deltas — the
+published grid stands under final-state@60 with this note; no re-evaluation.
+Fixed-instruction hold rates 83-85% vs CoVer-originals 74%: ~10pp excess
+un-solving attributable to the verifier (measured, supports the
+destabilization mechanism).
