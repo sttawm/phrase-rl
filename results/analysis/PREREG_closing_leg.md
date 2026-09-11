@@ -1079,3 +1079,19 @@ preserved; rules beat CoVer by +7.0pp under CoVer's own metric (35.5 vs
 metrics. Speed: CoVer's median time-to-first-success equals passthrough (no
 speed benefit from 40-candidate selection); rules arm fastest. P14 holds
 under both metrics. Raw episodes: a37_cover_runs/ever72_{on,off}_k0-5.jsonl.
+
+#### Amendment A38 (2026-09-11, pre-registered before generation): scaffold x Original completion
+The no-rules scaffold was never measured on the Original condition (the
+lone hole in the 4-arm x 3-condition grid; charts show "not run"). Plan:
+apply the frozen no-rules scaffold book (results/rules_runs/v2distill/
+scaffold.md, unchanged) to the 12 canonical instructions with all three
+appliers (claude-fable-5 effort high / gemini-pro-latest thinking 1024 /
+Qwen3.5-9B greedy pod-side), via the standard A31 apply path
+(gen_a31_applies.py, tag "sc", FINAL_EVAL=1), original-condition traces,
+then roll every rewrite on the full 24-layout grid x 2 reps (seed 42, CRN,
+final-state@60) -- the exact protocol of the A31 orig cells. No rulebook
+cell is re-rolled; no sealed phrase is regenerated (the 12 nominals are
+inputs, as in every prior orig apply). Predictions logged: P15 scaffold ~=
+baseline 36.1 (as in adv/nat, rephrasing without rules neither helps nor
+hurts originals materially); the interesting alternative is a qwen
+over-edit harm case mirroring qwen x rollout-only x orig.
