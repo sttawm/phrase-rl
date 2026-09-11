@@ -161,11 +161,13 @@ Appendix~\ref{app:prompts}.
     pinned layouts; the entry shows the mean per-base gap in success and
     its p-value. In plain terms, p answers: \emph{if the rephraser
     actually made no difference, how often would layout luck alone produce
-    a gap at least this large?} A small p (below 0.05, shaded) means the
-    gap is very unlikely to be luck; a large p means the data cannot tell
-    the arms apart. Computed by a sign-flip permutation test on the
-    per-base paired differences (rulebook cells pooled over the three
-    draws; green = significant gain, grey = not significant).}
+    a gap at least this large?} Computed by a sign-flip permutation test
+    on the per-base paired differences: the number of bases (n in the
+    column header) is the test's sample size; the 24 layouts per base
+    sharpen each per-base rate but do not add to n; rulebook cells average
+    their three independent draws before pairing, so the test reads on the
+    average-draw book. Green = significant gain at p $<$ 0.05, grey = not
+    significant.}
     \label{fig:pscores-baseline}
 \end{figure*}
 
