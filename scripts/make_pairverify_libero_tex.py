@@ -33,7 +33,8 @@ rows = [json.loads(l)
                   + glob.glob(str(BANK / "round2/r2roll*.jsonl"))
                   + glob.glob(str(BANK / "round3/r3roll*.jsonl"))
                   + glob.glob(str(BANK / "round4/r4roll*.jsonl"))
-                  + glob.glob(str(BANK / "round5/r5roll*.jsonl")))
+                  + glob.glob(str(BANK / "round5/r5roll*.jsonl"))
+                  + glob.glob(str(BANK / "round6/r6roll*.jsonl")))
         for l in open(f)]
 d = pd.DataFrame(rows)
 d["task"] = d.suite + "/" + d.task_id.astype(str)
@@ -86,6 +87,11 @@ GROUPS = [
         "pick up the juice and place it in the basket",
         "pick up the drink and place it in the basket",
         "pick up the carton and place it in the basket"]),
+    # round 6: the only edit of 75 that moved a floor task. Dropping the colour
+    # word HELPS here; the same canonical scores 95% on 90/10 and 0% on 90/25.
+    ("libero_90/31", "source color", [
+        "put the bowl on top of the cabinet",
+        "put the black bowl on top of the cabinet"]),
 ]
 
 
@@ -200,7 +206,7 @@ tex = [r"""\documentclass[10pt]{article}
 \newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
 \begin{document}
 {\normalsize\bfseries Verified minimal pairs --- frozen $\pi_{0.5}$, LIBERO}\enspace
-{\scriptsize Full init population (inits 0--49; n=50/phrase, five rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, grey = within 10\,pp of it, red = worse; highlight = changed span. Scenes on page 2.}
+{\scriptsize Full init population (inits 0--49; n=50/phrase, six rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, grey = within 10\,pp of it, red = worse; highlight = changed span. Scenes on page 2.}
 \vspace{2pt}\hrule\vspace{2.5pt}
 \begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.2pt}"""]
 
