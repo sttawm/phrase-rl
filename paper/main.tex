@@ -6,48 +6,26 @@
 
 %\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
 
-\IEEEoverridecommandlockouts                              % This command is only needed if 
+\IEEEoverridecommandlockouts                              % This command is only needed if
                                                           % you want to use the \thanks command
 
 \overrideIEEEmargins                                      % Needed to meet printer requirements.
 
-%In case you encounter the following error:
-%Error 1010 The PDF file may be corrupt (unable to open PDF file) OR
-%Error 1000 An error occurred while parsing a contents stream. Unable to analyze the PDF file.
-%This is a known problem with pdfLaTeX conversion filter. The file cannot be opened with acrobat reader
-%Please use one of the alternatives below to circumvent this error by uncommenting one or the other
-%\pdfobjcompresslevel=0
-%\pdfminorversion=4
-
-% See the \addtolength command later in the file to balance the column lengths
-% on the last page of the document
-
-% The following packages can be found on http:\\www.ctan.org
-%\usepackage{graphics} % for pdf, bitmapped graphics files
-%\usepackage{epsfig} % for postscript graphics files
-%\usepackage{mathptmx} % assumes new font selection scheme installed
-%\usepackage{times} % assumes new font selection scheme installed
-%\usepackage{amsmath} % assumes amsmath package installed
-%\usepackage{amssymb}  % assumes amsmath package installed
-
-\usepackage[normalem]{ulem} % for strikethrough while editting
 \usepackage{graphicx}
-\usepackage{cuted}
-\usepackage{capt-of}
-\setlength{\stripsep}{4pt plus 1pt minus 1pt}
-\usepackage{flafter} % Makes figures appear after their references
-\usepackage{dblfloatfix} % Force teaser image above abstract
-\setcounter{dbltopnumber}{2}
-\renewcommand{\dbltopfraction}{0.95}
-\renewcommand{\dblfloatpagefraction}{0.85}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstset{basicstyle=\ttfamily\scriptsize,
+        breaklines=true,
+        columns=fullflexible,
+        keepspaces=true,
+        frame=single,
+        framerule=0.3pt,
+        aboveskip=6pt,
+        belowskip=6pt}
 
 \title{\LARGE \bf
-Improving VLA Performance by Rephrasing Task Instructions\\
-\large ROUGH DRAFT --- work in progress
-\thanks{ROUGH DRAFT: experiments, verification of results, and writing are
-still in progress; numbers may change.}%
+Reducing a VLA's Language Sensitivity Using LLM-Distilled Instruction-Phrasing Rules
 }
 
 
@@ -58,7 +36,7 @@ still in progress; numbers may change.}%
 }
 
 
-\graphicspath{{./}{../results/charts/}}
+\graphicspath{{./}{./figures/}}
 
 \begin{document}
 
@@ -66,37 +44,26 @@ still in progress; numbers may change.}%
 
 \maketitle
 
-\begin{figure*}[!t]
-    \centering
-    \includegraphics[width=\textwidth]{training_flow_compact.png}
-    \caption{Phrase-search and rule-distillation training loop.
-    A VLM generates candidate rephrasings, which are evaluated using either
-    simulation success rate or a learned success-rate proxy. An LLM distills
-    the resulting scored phrases into updated phrasing rules for subsequent
-    iterations.}
-    \label{fig:training_flow_compact}
-\end{figure*}
-
-
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{inference_flow.png}
-    \caption{At deployment time, a rephraser --- a VLM conditioned on
-phrasing rules, or finetuned via SFT or GRPO --- rewrites each task
-instruction before it reaches the VLA.}
-    \label{fig:deployment}
-\end{figure}
-
-
 \thispagestyle{empty}
 \pagestyle{empty}
 
 
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/method_diagram.pdf}
+    \caption{Method overview. \emph{Evidence gathering}: a VLM generates
+    adversarial, natural, and benign rephrasings of each task instruction,
+    which the frozen VLA executes; scored rollouts are collected as evidence.
+    \emph{Rule distillation}: an LLM distills the evidence into
+    instruction-phrasing rules. \emph{Rule application}: at deployment, a VLM
+    conditioned on the rules rephrases each incoming task instruction before
+    it reaches the frozen VLA.}
+    \label{fig:method}
+\end{figure*}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-
-Much progress has been made towards building general purpose robots. These robots are capable of being instructed by humans via natural language to perform a wide variety of tasks. However, many of the state of the art, open robots, implemented as Vision-Language-Action models (VLAs), are still very sensitive to instruction phrasing: variation in task phrasing can change task success rates by more than 60 percentage points. We characterize this gap in detail on a state-of-the-art open VLA. We then compare three different methods of learning a given VLA's preferred language. We package these learnings into a "rephraser" that sits between the human and the robot, translating each instruction into the VLA's preferred phrasing. Our best method raises VLA task success on adversarially phrased instructions from 26.6\% to 31.6\%, and on naturally phrased instructions from 28.5\% to 36.9\% --- fully recovering natural-phrasing damage, to the level the executor achieves on its own original instructions (36.1\%).
 
 \end{abstract}
 
@@ -104,36 +71,18 @@ Much progress has been made towards building general purpose robots. These robot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-We have come a long way toward developing general-purpose robots -- implemented as Vision-Language-Action models (VLAs) -- that can be instructed via natural language to perform a wide variety of tasks. These robots are built on top of Large Language Models (LLMs) which themselves demonstrate a super-human command of language. However, there's something lacking in the way that LLM's language skills transfer to VLAs: \sout{modern VLAs} $\pi_0$ is extremely sensitive to the specific phrasing of its given natural language instruction. As shown in Fig.~\ref{fig:pi0_conditions}, changes to task phrasing can affect \sout{VLA} $\pi_0$ performance by more than 60 percentage points; see Fig.~\ref{fig:spread_coke_can_on_keyboard}, ~\ref{fig:spread_cube_on_plate}, and ~\ref{fig:spread_eggplant_on_keyboard} for examples. Despite the fact that a VLA may have the required motor skills to perform a task, it is often not straightforward to find the optimal language instruction to trigger the skill.
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{pi0_conditions.png}
-    \caption{Task phrasing significantly affects $\pi_0$ performance on the SIMPLER dataset. On out of vocabulary tasks, oracle phrasings improve task performance by more than 2x when compared to 16 natural phrasings. All evaluation are on 12 layouts of 12 tasks.}
-    \label{fig:pi0_conditions}
-\end{figure}
-
-
-
-In an attempt to address these issues we add a \textit{translator} model that translates incoming task-instructions into (what is ideally) the robot's preferred form. We try three different methods. Each of our methods inspects the robot's training data and optionally some simulated rollouts of various task rephrasings.
-
-Our first and most successful method we call \textit{LLM-derived rules}. In this method, we first calculate VLA task success across many different task phrasings. We perform this phrase-comparison for both its real-world training set and in a simulated environment. Since we cannot directly measure task success on the robot's real-world training data, we use a gripper-based proxy. This proxy shows high correlation with actual task success, especially when sampled at many different frames along a robot's task trajectory. After gathering a dataset of per-task phrase-rankings, we ask an LLM to derive observations about how phrasing affects task success. These observations are compiled into rules, and the rules are given in a prompt to an off-the-shelf VLM (Vision Language Model) rephraser. This is the method reported in the abstract; it raises VLA task success on adversarially phrased instructions from 26.6\% to 31.6\% and restores naturally phrased instructions from 28.5\% to 36.9\% --- level with the 36.1\% the executor achieves on its original instructions. A variant that additionally mines the executor's training data deepens adversarial repair to 34.3\% at some cost on natural inputs (\S\ref{sec:results-comparison}).
-
-Our second method is more or less the "weights" based, RL counterpart to the above. In this method, we test many rephrasing per task, ranking the results according to our gripper-based proxy reward and apply GRPO. We have yet to see significant improvement when using this method, though it does seem that the proxy reward is able to be mildly optimized. 
-
-Our third method trains a VLM to map rephrased training tasks back to their original training task. In our evaluation, it helps with in-distribution tasks and hurts on out-of-distribution tasks. For future work, it may be interesting to endow this method with access to our proxy-reward function; on roughly a third of evaluated training tasks (69 of 213), our proxy-guided search found a phrasing that outscored the original.
-
+Fig.~\ref{fig:method} gives an overview of the method.
 
 
 \section{Related Work}
 
 \textbf{Language-Sensitivity. }
-Other works call attention to the language-sensitivity of language-conditioned robot policies ~\cite{karnik2024embodied}. 
+Other works call attention to the language-sensitivity of language-conditioned robot policies ~\cite{karnik2024embodied}.
 
 \textbf{Reducing Language Sensitivity. }
 Recent works improve VLA performance by augmenting its training data with additional rephrases of its training instructions ~\cite{kwok2026scaling, chen2026steerable}.
 
-In conjunction with the above, a frozen VLA's performance can be improved by generating many phrase-action pairs at runtime and then using a pre-trained model to select the best candidate ~\cite{kwok2026scaling}. This method is our closest known comparison, yet we operate solely on task-phrasing; that is, we do not explicitly select good candidate actions. Moreover, though generating multiple phrase-action pairs at each inference step is relatively inexpensive, we avoid this cost by generating our rephrase just once, at the beginning of the episode.  
+In conjunction with the above, a frozen VLA's performance can be improved by generating many phrase-action pairs at runtime and then using a pre-trained model to select the best candidate ~\cite{kwok2026scaling}. This method is our closest known comparison, yet we operate solely on task-phrasing; that is, we do not explicitly select good candidate actions. Moreover, though generating multiple phrase-action pairs at each inference step is relatively inexpensive, we avoid this cost by generating our rephrase just once, at the beginning of the episode.
 
 \textbf{Using a VLM to improve VLA performance. }
 Another body of work incorporates a VLM in some capacity to improve the performance of a downstream VLA \cite{zitkovich2023rt2,driess2023palme,shi2025hirobot}.
@@ -148,884 +97,143 @@ instruction-level analogue: rather than selecting \emph{which} skill to
 invoke, it learns which \emph{surface forms} of an instruction this
 executor parses reliably, and edits the instruction accordingly.
 
-\section{Method}
-\label{sec:method}
 
-Vision-Language-Action models are highly sensitive to the phrasing of
-their instructions, even when task semantics are unchanged. We propose
-inserting a \emph{rephraser} between the user and the executor
-(Fig.~\ref{fig:deployment}) that translates each incoming instruction
-into the executor's preferred phrasing, leaving the executor itself
-frozen. We first build the instruments for characterizing phrase
-sensitivity (\S\ref{sec:characterizing}) and select a reward function
-for scoring candidate phrasings (\S\ref{sec:reward}); we then present
-three methods of increasing training commitment for learning the
-rephraser (Fig.~\ref{fig:training_flow_compact}).
+\section{A Benchmark for Phrasing Sensitivity}
+\label{sec:benchmark}
 
-\subsection{Characterizing Phrase Sensitivity}
-\label{sec:characterizing}
 
-\textbf{Oracle Phrase Search.}
-To upper-bound what phrasing alone can contribute, we search for each
-task's best-performing instruction: a pool of candidate rewordings
-(LLM-proposed paraphrases and systematic variants of the original
-instruction) is rolled in simulation, and the candidate with the
-highest success rate on a selection split of scene layouts is retained
-as that task's \emph{oracle phrasing}. To limit selection bias, oracle
-phrases are selected on 18 of the 24 evaluation layouts and reported on
-all 24. The gap between oracle and original phrasings measures the headroom
-available to any rephrasing method.
+\section{Verified Minimal Pairs}
+\label{sec:minimal-pairs}
 
-\textbf{Adversarial Phrase Generation.}
-To lower-bound robustness, we generate adversarial rewordings that
-preserve the task goal while avoiding the executor's preferred surface
-forms: objects are referenced by description or indirection rather than
-their canonical names (e.g.\ ``the plastic-handled eating utensil'' for
-a spoon), with scene-plausible attributes added. Rewordings are
-authored by an image-conditioned LLM (Gemini,
-\texttt{gemini-3.5-flash}, temperature 0.8), seeded with four few-shot
-examples of the genre from the INT-ACT release~\cite{intact}; the full
-prompt is given in Appendix~\ref{app:ert-prompt}. Importantly, the
-adversarial generator used for \emph{evaluation} is distinct from the
-model that generates hostile variants for \emph{training}
-(\S\ref{sec:sft}), so evaluation attacks are held out from everything
-the learned methods see.
+Fig.~\ref{fig:pairs-bridge} shows the verified minimal pairs for $\pi_0$ on
+SIMPLER Bridge; Fig.~\ref{fig:pairs-libero} shows the equivalent for
+$\pi_{0.5}$ on LIBERO. First-frame images of each task scene appear in
+Appendix~\ref{app:scenes}.
 
-\textbf{Natural Phrase Generation.}
-Between these extremes, we measure robustness to the phrasing variation
-real users produce: $K{=}16$ rephrases of each instruction, generated
-by an image-conditioned VLM (Gemini Pro, \texttt{gemini-pro-latest})
-prompted for natural, everyday phrasing with no knowledge of the
-executor, its training data, or any phrasing heuristics
-(Appendix~\ref{app:natural-prompt}). Because the generator sees the
-scene, natural rephrases include perceptual re-descriptions (``the blue
-cloth'' for a towel) --- a qualitatively different stress than
-text-only paraphrasing, and the one deployed systems actually face.
-
-\subsection{Selecting a Reward Function}
-\label{sec:reward}
-
-Both the phrase search (\S\ref{sec:search-rules}) and RL
-(\S\ref{sec:grpo}) require scoring a candidate phrase by how well the
-executor performs when conditioned on it, in two regimes
-(Fig.~\ref{fig:training_flow_compact}).
-
-\textbf{Simulated success-rate.}
-Where a task is simulatable, the score is the empirical success rate of
-the frozen executor conditioned on the candidate phrase, rolled over a
-fixed set of scene layouts. This is the ground-truth signal, but it is
-expensive and unavailable for tasks that exist only as real-world
-demonstrations.
-
-\textbf{A gripper-error proxy from ground-truth trajectories.}
-For the non-simulatable regime we score a phrase by how well the
-phrase-conditioned executor reconstructs recorded expert trajectories:
-at $F$ sampled frames of $C$ demonstration episodes, we query the
-frozen executor and measure the error of its predicted
-\emph{gripper-channel} actions against the ground truth --- whether the
-phrase triggers correct grasp/release behavior at the correct moments.
-We also train an ensemble of learned \emph{verifiers}: small
-networks that read the executor's predicted-action features at a frame
---- its denoising residuals against the demonstrated action, decoded
-action chunks, and their spread across draws --- and are trained to
-distinguish the instruction a demonstration was actually following
-from instructions swapped in from other episodes. The
-ensemble's mean calibrated logit is the
-verifier score. The two channels prove complementary --- gripper error is the sharper judge of close calls,
-the verifier ensemble of large gaps --- and our final reward is a
-logistic success model fitted on 254 phrases with rollout-measured
-success, combining both channels. Its output is consumed strictly as a
-ranking signal, never as an absolute success estimate.
-
-\textbf{Validation.}
-We validate the proxy against 434 phrases whose true success rates
-were each measured with 36 simulated rollouts, across fifteen
-simulatable tasks: 254 close paraphrases, plus 180 natural and
-adversarial rephrasings collected \emph{after} the logistic was
-fitted on the paraphrases --- a genuinely held-out test. Restricted to
-phrase pairs whose true ordering is statistically confident, the
-calibrated proxy picks the truly better phrase in 78\% of within-task
-pairs (83\% when true success differs by more than 15 points; 71\%
-at 5--10 points); alone, the gripper channel orders 74\% of pairs and
-the verifier 76\%. On the held-out rephrasings the within-task rank
-correlation with true success is 0.51, higher than on the
-narrow-spread fitting set itself (0.32).
-
-\textbf{Budget allocation.}
-Agreement grids over $(F, C)$ come from a four-task exam
-(Fig.~\ref{fig:reward_grids_gripper}): for two tasks, real training
-demonstrations exist and the training instruction applies verbatim in
-simulation (``put the spoon on the towel'', ``put the green cube on
-top of the yellow cube''); for the other two, demonstrations are kept
-successful simulated episodes. More episodes beat more frames at equal
-cost, so the search screens cheaply ($F{=}1$, $C{=}4$) and re-scores
-finalists carefully ($F{=}4$, $C{=}10$), while RL accepts noisier
-scores for throughput ($C{=}5$, $F{=}4$) --- group averaging washes
-the noise out.
-
-\begin{figure}[!t]
+\begin{figure*}[p]
     \centering
-    \includegraphics[width=\columnwidth]{reward_grids_gripper.png}
-    \caption{Agreement between the gripper-error proxy and simulated
-success, by sampling budget ($C$ episodes $\times$ $F$ frames per
-episode). Each cell is the fraction of phrase pairs the proxy orders
-the same way as the simulator. \emph{Coarse spreads}: pairs whose true
-success rates clearly differ (median gap 27\,pp; native-task exam).
-\emph{Fine spreads}: pairs differing by only 5--10\,pp. Dotted lines
-are level sets of constant total budget $F{\times}C$; along any such
-line, tends to be higher with more episodes and fewer frames. The
-search screens at ($F{=}1$, $C{=}4$) and re-scores finalists at
-($F{=}4$, $C{=}10$); cross-task triage uses up to $C{=}20$; RL runs at
-($F{=}4$, $C{=}5$).}
-    \label{fig:reward_grids_gripper}
-\end{figure}
+    \includegraphics[page=1, width=\textwidth, height=0.92\textheight,
+                     keepaspectratio]{figures/pairverify_bridge.pdf}
+    \caption{Verified minimal pairs --- frozen $\pi_0$, SIMPLER Bridge.}
+    \label{fig:pairs-bridge}
+\end{figure*}
 
-\subsection{Scene-Description Traces}
-\label{sec:traces}
-
-All three methods condition the rephraser on a \emph{trace}: a short
-scene description, plus a reading of the instruction in the context of
-the scene, written by an image-conditioned VLM (Gemini,
-\texttt{gemini-3.5-flash}) from the robot's initial camera frame. Traces are generated from the \emph{incoming} phrase,
-never from the task's original instruction --- a trace derived from the
-original would leak the executor's canonical vocabulary into exactly the
-degraded inputs whose repair we want to measure. The trace is the only
-scene channel our text-only rephrasers see: it supplies the visible
-object names for rule application (\S\ref{sec:search-rules}), the
-context half of SFT training pairs (\S\ref{sec:sft}), and the
-conditioning for RL sampling (\S\ref{sec:grpo}).
-
-\subsection{Reward-Guided Phrase Search and LLM Rule Distillation}
-\label{sec:search-rules}
-
-Our primary method distills what the executor prefers into an explicit,
-human-readable rulebook via the iteration loop of
-Algorithm~\ref{alg:loop} (Fig.~\ref{fig:training_flow_compact}). Each
-iteration rewrites a fixed evaluation set of original, natural, and
-adversarial instructions under the current rulebook and scores the
-rewrites against the frozen executor; an LLM judge audits whether the
-rewrites actually \emph{followed} the rules; the distiller may request
-new probe measurements where its evidence is thin, and only after those
-land in the evidence bank does it emit the next rulebook. Rules are
-treated as hypotheses throughout: a proposed rule must cite the
-measurement that supports it, and the next iteration's scores test it.
-
-\begin{algorithm}[t]
-\caption{Automated rule-distillation loop. \textsc{rephrase} is a VLM;
-\textsc{judge}, \textsc{propose\_experiments}, and \textsc{distill}
-are LLM calls.}
-\label{alg:loop}
-\small
-\begin{algorithmic}[1]
-\Require frozen VLA; phrase bank $\mathit{evidence}$; rulebook $\mathit{rules}_1$
-\Require train and validation instruction sets, with scene traces
-\For{$t = 1, \dots, N$}
-  \State $\mathit{rewrites} \gets \Call{rephrase}{\mathit{instructions}, \mathit{rules}_t}$
-  \State $\mathit{scores} \gets \Call{score}{\mathit{rewrites}, \mathrm{VLA}}$
-  \State $\mathit{adherence} \gets \Call{judge}{\mathit{rules}_t, \mathit{rewrites}, \mathit{scores}}$
-  \State $\mathit{experiments} \gets \Call{propose\_experiments}{\mathit{evidence}, \mathit{rules}_t}$
-  \State $\mathit{evidence} \gets \mathit{evidence} \cup \Call{score}{\mathit{experiments}, \mathrm{VLA}}$
-  \State $\mathit{rules}_{t+1} \gets \Call{distill}{\mathit{evidence}, \mathit{adherence}, \mathit{rules}_t}$
-  \State $v_t \gets$ mean of $\mathit{scores}$ on the validation sets
-  \State stop early if $v$ has not improved in $p$ iterations
-\EndFor
-\State \Return the rulebook with the best $v_t$
-\end{algorithmic}
-\end{algorithm}
-
-\textbf{Initializing the evidence bank.} The bank is seeded before the
-first iteration with every phrase already measured: the oracle-search
-boards of \S\ref{sec:characterizing}, plus generated natural and
-adversarial phrasings of each task, all scored against the frozen
-executor --- roughly 5{,}000 scored phrasings across the training and
-simulatable tasks. Alongside the bank, the distiller receives corpus
-statistics --- word counts over the training instructions --- computed
-deterministically in code, so claims about what is in-distribution rest
-on counting rather than a model's impression.
-
-\textbf{Instantiations.} The two rulebooks we evaluate come from
-supervised passes of this loop. The first pass ran on simulatable
-tasks, with \textsc{score} implemented by simulated rollouts; its
-output is the \emph{rollout-derived} rulebook. The second pass
-searched the \emph{training} corpus --- where no simulator exists ---
-with \textsc{score} implemented by the trajectory proxy of
-\S\ref{sec:reward}, seeded with the rollout-derived rules and the
-corpus statistics; its output is the \emph{rollout{+}training-data}
-rulebook. The two turn out to occupy different points on a
-repair--conservatism trade-off (\S\ref{sec:results-comparison}).
-
-\textbf{Deployment.}
-The frozen rule set is placed in the prompt of an off-the-shelf VLM,
-which rewrites each incoming instruction once, at the start of the
-episode (Fig.~\ref{fig:deployment}).
-
-\subsection{Supervised Finetuning (SFT) from Rephrases to Canonical Instructions}
-\label{sec:sft}
-Our second method learns \emph{back-translation}: mapping degraded
-instructions back to the executor's preferred form. For each of 17{,}297
-unique Bridge training instructions we author three hostile variants with
-the \emph{frozen} rephraser model itself (synonym and attribute
-injection, indirect reference, terse compression), add benign paraphrase
-pairs, and finetune Qwen3.5-9B~\cite{qwen} with LoRA~\cite{hu2021lora}
-on the resulting 73k variant$\rightarrow$original pairs (loss on the
-target only; no checkpoint selection). The strongest variant prepends a
-scene trace (\S\ref{sec:traces}); for cost reasons SFT uses traces
-self-generated by the same Qwen model rather than a commercial VLM.
-Because training attacks are authored by Qwen while evaluation attacks
-are authored by Gemini (\S\ref{sec:characterizing}), the evaluation
-attack distribution is held out from training. 
-
-\subsection{Learning to Rephrase with Group Relative Policy Optimization (GRPO)}
-\label{sec:grpo}
-Our third method trains the rephraser against the reward directly with
-GRPO~\cite{shao2024deepseekmath}: the policy (Qwen3.5-9B with
-LoRA~\cite{hu2021lora}) samples $K{=}16$ rephrases of each incoming
-instruction, each candidate is scored by the frozen executor
-($F{=}4$, $C{=}5$), and group-normalized advantages update the policy
-under a KL leash ($\beta{=}0.15$) to the frozen base, without which the
-policy collapses. Concretely: LoRA rank 16 ($\alpha{=}32$, dropout 0,
-so the update scores exactly the policy that sampled), AdamW at
-learning rate $7{\times}10^{-6}$ with gradient clipping at 1.0; each
-step samples 8 fresh instructions at temperature 1.0 and replays 8
-recent groups --- 16 groups of 16 candidates, 256 candidates per
-update, replayed candidates reused at most six times under a
-PPO-style ratio clip of 0.2; runs span 150--260 steps at roughly 11
-minutes per step on a single L40S GPU. Around this skeleton we varied most of the recipe
-across runs: the conditioning (bare instruction, scene-trace
-conditioned, and image-bearing prompts); the mix of original, natural,
-and adversarial training inputs (1:2:1 and 1:1:2); the reward
-(gripper-only, gripper/verifier rank blends, and --- in early runs ---
-action-distance scores that proved uncorrelated with rollout success and
-were abandoned); and the update rule (GRPO over the full sampled group
-versus advantage-weighted finetuning restricted to top-ranked candidate
-sets, with and without replay). \S\ref{sec:results-comparison} reports
-the common outcome. Two further revisions ran this ablation to ground
-(Fig.~\ref{fig:v13_progress}): replacing within-group ranks with the
-calibrated success model of \S\ref{sec:reward} --- a magnitude cannot
-amplify scoring noise into gradient the way a rank can --- and restoring
-image conditioning eliminated the noise pathway but surfaced a new
-failure, near-verbatim copying of the input (47\% of samples by late
-training); removing original instructions from the training mix
-suppressed the copying only temporarily --- it climbed back to roughly
-40\% of samples late in training, now near-copies of the degraded
-inputs themselves --- and rollout success declined all the same, from
-44.4\% to 40.4\% on paired 768-episode measurements, while the
-policy's proxy margin over the original instruction widened throughout.
-With the noise pathway closed and the incentive to copy originals
-removed, the optimizer still found behavior the proxy favors and
-rollouts do not: the reward's correlation with success, measured across
-static phrases, does not survive an optimizer searching for the phrases
-it scores too favorably.
-
-\begin{figure*}[!t]
+\begin{figure*}[p]
     \centering
-    \includegraphics[width=\textwidth]{v13_progress.png}
-    \caption{The final GRPO revision, instrumented end to end. The
-policy (Qwen3.5-9B, LoRA rank 16) rewrites natural and adversarial
-instructions (2:1 mix, no originals), conditioned on the camera frame
-and a scene trace; each step samples $K{=}16$ rewrites of 8
-instructions plus 8 replayed groups, scores every distinct rewrite
-with the calibrated proxy of \S\ref{sec:reward} ($F{=}4$, $C{=}10$),
-and applies signed group-normalized advantages under a KL leash
-($\beta{=}0.15$). \emph{Far left}: mean candidate reward against the
-original instruction's reward on the same scenes, with greedy rewrites
-of a frozen validation set every 5 steps. \emph{Center left}:
-candidate reward by input tier --- neither tier's level climbs over the
-run; the natural tier crests around step 110 and both end below where
-they began. \emph{Center right}: the copying diagnostic --- the
-near-copy fraction runs near 15\% for the first half of training, then
-climbs to roughly 40\% (the previous revision, which trained with
-original instructions, collapsed to 47\%). \emph{Far right}: ground truth --- rollout success of
-greedy rewrites of 24 natural rephrasings, 192 episodes per point;
-diamonds are paired 768-episode measurements on an identical episode
-set at the endpoints (44.4\% at step 0, 40.4\% at step 140). The
-policy's margin over the original instruction widens throughout and its
-frozen-validation rewrites improve under the proxy while measured
-success falls: the optimizer keeps finding behavior the proxy scores
-favorably --- late near-copying included --- that does not transfer to
-rollouts, isolating the proxy itself as the exploited surface.}
-    \label{fig:v13_progress}
+    \includegraphics[page=1, width=\textwidth, height=0.92\textheight,
+                     keepaspectratio]{figures/pairverify_libero.pdf}
+    \caption{Verified minimal pairs --- $\pi_{0.5}$, LIBERO.}
+    \label{fig:pairs-libero}
 \end{figure*}
 
 
+\section{Rule Distillation}
+\label{sec:rule-distillation}
 
-
-\section{Experiments}
-\label{sec:experiments}
-
-\subsection{Experimental Setup}
-\label{sec:setup}
-
-\textbf{Executors and simulation.}
-We evaluate on the SIMPLER suite~\cite{simpler} of WidowX manipulation
-tasks in simulation, using the INT-ACT evaluation
-stack~\cite{intact}. Our executors are two frozen $\pi_0$
-policies~\cite{pi0} fine-tuned on Bridge data~\cite{bridge}, both from
-the INT-ACT release~\cite{intact}: a standard fine-tune and a
-\emph{rephrase-augmented} fine-tune trained with paraphrase augmentation.
-Unless noted otherwise, sealed results use the rephrase-augmented
-executor. Neither executor is updated by any of our methods; all learning
-acts on the instruction channel alone.
-
-\textbf{Sealed evaluation suite.}
-Our primary benchmark is a \emph{sealed} test suite of 12 tasks
-$\times$ 24 scene layouts, frozen before method development and never
-used for training, tuning, or prompt iteration. Each evaluation run
-rolls 12 episodes per (task, layout) cell, i.e.\ 3{,}456 episodes.
-
-\textbf{Distribution strata.}
-We stratify the 12 sealed tasks by whether their key object nouns occur
-in the executor's training corpus: 5 tasks are \emph{in-distribution} and
-7 are \emph{out-of-distribution}. We report pooled success alongside both
-strata, since phrasing interventions behave differently when the
-canonical noun is unavailable to the executor.
-
-\textbf{Adversarial and natural conditions.}
-The adversarial condition uses one adversarial rewording per task
-(\S\ref{sec:characterizing}) --- 12 phrases in total --- each evaluated
-on all 24 layouts, 12 times per layout (3{,}456 episodes). The
-natural condition rolls all $K{=}16$ natural rephrases per task, one
-episode per (rephrase, layout), over all 24 layouts (4{,}608 episodes).
-
-\textbf{Development and validation sets.}
-Method development, reward-function selection, and RL monitoring use
-separate training tasks and a fixed validation probe (8 tasks $\times$
-24 layouts, one episode each); no sealed task--layout cell is ever used
-for development.
-
-\textbf{Metrics.}
-We report task success rate (\%) under SIMPLER's per-task success
-criteria, pooled over tasks and stratified by vocabulary. At
-$n=3{,}456$ episodes per sealed run, the standard error of a pooled
-rate near 35\% is ${\sim}0.8$ percentage points.
-
-\subsection{How Phrase-Sensitive Are VLAs?}
-\label{sec:results-sensitivity}
-
-Fig.~\ref{fig:pi0_conditions} and the baselines block of
-Fig.~\ref{fig:results} characterize phrase sensitivity on the sealed
-suite. Two observations drive everything that follows.
-
-\textbf{Headroom is large, and concentrated out-of-distribution.}
-Oracle phrasings add 12.2 points over the original instructions. The
-originals show a 21-point cliff between in-distribution and OOD tasks (48.3 vs
-27.3); the oracle nearly erases it (50.3 vs 46.8) --- when a task's key
-noun is missing from the executor's training vocabulary, almost the
-entire deficit is recoverable by rewording alone. Individual tasks are
-dramatic: ``put carrot on ramekin'' scores 14.6\% while ``pick up the
-carrot and place it in the white container'' scores 50.0\% ($n{=}288$
-each); ``put coke can on wheel'' 12.2\% becomes 45.5\% as ``put coke
-can in black wheel''; and deleting one word (``put coke can on
-keyboard'' $\rightarrow$ ``put coke on keyboard'') is worth $+11$
-points.
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{spread_coke_can_on_keyboard.png}
-    \caption{Per-phrase success on the sealed out-of-distribution task
-\emph{coke\_can\_on\_keyboard} (layouts 0--11; oracle / original /
-adversarial bars $n{=}144$, natural bars $n{=}24$ each). Oracle 57.6,
-original 42.4, adversarial 0.7; the 16 natural rephrases span 0--25\%,
-six of them at zero.}
-    \label{fig:spread_coke_can_on_keyboard}
-\end{figure}
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{spread_cube_on_plate.png}
-    \caption{The robust in-distribution foil \emph{cube\_on\_plate}: oracle
-82.6, original 72.9, adversarial 69.4, and every one of the 16 natural
-rephrases at or above 58\%. Phrasing barely matters when the task
-vocabulary is in-distribution.}
-    \label{fig:spread_cube_on_plate}
-\end{figure}
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{spread_eggplant_on_keyboard.png}
-    \caption{\emph{eggplant\_on\_keyboard}: near-synonyms 58 points
-apart --- ``Rest the eggplant on the keyboard.''\ scores 58.3\% while
-``Place the eggplant on top of the keyboard.''\ scores 0.0\%.}
-    \label{fig:spread_eggplant_on_keyboard}
-\end{figure}
-
-\textbf{Natural rephrasing costs three quarters of what an adversary
-costs.} Naturally phrased requests --- the input deployed systems
-actually face --- lose 7.6 points against the originals; deliberately
-hostile rewordings lose 9.5. On OOD tasks naturals are the \emph{worst}
-condition measured (19.2, below even adversarial 23.7), and an everyday
-request like ``Move the carrot to the ramekin.''\ can score 0/24 on a
-task whose original scores ${\sim}28$.
-Figs.~\ref{fig:spread_coke_can_on_keyboard}--\ref{fig:spread_eggplant_on_keyboard}
-show per-phrase spreads: on sensitive OOD tasks, near-synonymous requests
-span 0--58 points.
-
-\subsection{Comparing the Three Learning Methods}
-\label{sec:results-comparison}
-
-All three methods are evaluated as drop-in rephrasers in front of the
-frozen executor (Fig.~\ref{fig:deployment}), against the conditions of
-the conditions of
-\S\ref{sec:results-sensitivity}. In summary: the rules method repairs both
-degraded conditions and is the only method whose gains survive
-out-of-distribution; SFT redistributes success toward in-distribution tasks
-without net gain; and GRPO optimizes its reward without moving rollout
-success at all.
+Fig.~\ref{fig:dashboard} summarizes rulebook performance across conditions.
+The prompts used to generate rephrasings, to generate scene-analysis traces,
+to distill rules, and to apply rules appear in Appendix~\ref{app:prompts}.
+All distilled rulebooks appear in Appendix~\ref{app:rules}.
 
 \begin{figure*}[!t]
     \centering
-    \includegraphics[width=\textwidth]{results_translating.png}
-    \caption{Main results on the sealed suite. Left block: the four
-no-rephraser baselines, drawn once and repeated as dotted levels across
-all panels. Each condition panel shows the three appliers (Gemini,
-Claude, frozen Qwen) rewriting the incoming instruction under the
-rollout{+}training-data rules, the rollout-derived rules, or a bare
-prompt with no rules (grey --- itself a baseline). Wide bars pool the 12
-sealed tasks; flanking bars split in-distribution (5) and out-of-distribution (7)
-strata. Baselines and all cells on original and adversarial inputs roll
-24 layouts $\times$ 12 reps ($n{=}3{,}456$ per cell); natural inputs
-roll 16 rephrases $\times$ 24 layouts $\times$ 1 episode
-($n{=}4{,}608$). Oracle phrasings were selected on 18 layouts and
-evaluated on all 24. The rightmost baseline rolls the natural inputs on
-the \emph{standard} (non-rephrase-augmented) $\pi_0$ fine-tune; every
-other number uses the rephrase-augmented executor.}
-    \label{fig:results}
+    \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
+    \caption{Sealed-suite success by condition (natural, adversarial,
+    original) for the un-rephrased baseline, the rules-free rephraser
+    scaffold, and each rulebook diet, against the held-out best-phrase
+    oracle.}
+    \label{fig:dashboard}
 \end{figure*}
 
-\subsubsection{LLM-distilled rules}
-On \textbf{natural} inputs (Fig.~\ref{fig:results}, Natural panel), the
-rollout-derived rules applied by Gemini restore pooled success to 36.9\% --- above the 36.1\%
-original-instruction reference, i.e.\ complete repair of
-natural-phrasing damage ($+8.4$ over passthrough 28.5). The same frozen
-applier \emph{without} the rules reaches 31.2: most of the value is the
-distilled knowledge, not the rewriting capacity. On \textbf{adversarial}
-inputs (Fig.~\ref{fig:results}, Adversarial panel) the rule sets trade
-places:
-the rollout{+}training-data rules deepen repair to 33.3 (Gemini) and
-34.3 (Claude; $+7.7$ over passthrough, the deepest adversarial repair we
-measured) versus 31.6 for the rollout-derived rules. On unmodified
-\textbf{original} instructions the best configuration does no harm: the
-rollout{+}training-data rules applied by Claude score 37.7, slightly
-above the originals themselves. Gains are OOD-concentrated throughout
---- on original instructions the rollout{+}training-data rules reach OOD
-30.9 vs 27.3 passthrough, while in-distribution gives back two points (46.0 vs
-48.3) --- the pattern that motivates the in-distribution gate discussed
-in \S\ref{sec:results-analysis}.
 
-The Natural panel of Fig.~\ref{fig:results} isolates the rule-set
-difference: the
-rollout-derived rules win on naturals for every applier, and the
-ordering reverses under attack. The training-data pass taught deeper
-repair of hostile inputs at the price of over-correcting natural ones.
-\S\ref{sec:results-analysis} returns to what this implies about the
-proxy.
+\section{Comparison with Test-Time Verification}
+\label{sec:cover}
 
-\subsubsection{GRPO}
-The GRPO recipe of \S\ref{sec:grpo} reliably climbs its reward and
-just as reliably fails to move rollout success --- flat across 240
-steps under the rank reward, declining in the final revision
-(Fig.~\ref{fig:v13_progress}). The decomposition is diagnostic: nearly all
-reward movement came through the learned-verifier channel
-($+0.55$--$0.85$) while the gripper channel moved $0.005$; the
-calibrated success model's own coefficients predict $+6$\,pp from such
-a verifier gain, and the measured change is $-1.1\pm1.3$\,pp. Given
-gradient access, the policy found the reward's exploitable channel and
-optimized it off the data manifold. Candidate diversity also collapsed
-(median 6/16 unique samples; the frozen model at the same temperature
-yields 14.8/16, so the collapse is trained, not a decoding artifact) ---
-but a sibling run with $3\times$ better diversity was equally flat, so
-collapse does not explain the null. An earlier recipe variant that
-\emph{did} move showed the second failure mode: adversarial-input
-repair rose from 34.5\% to 39.1\% by step 120, then declined below
-baseline (34.9\% by step 200) as training continued --- an inverted U
-whose peak checkpoint is the only RL artifact that transferred anything.
 
-\subsubsection{SFT}
-On development tasks SFT looks like a win: $+5.3\pm2.3$ pooled over its
-frozen twin, with the best in-distribution scores we recorded (56.3 vs 38.5).
-The sealed suite exposes the mechanism: against the matched no-finetune
-baseline, SFT moves in-distribution tasks up and OOD tasks down by roughly
-$\pm15$ points each, netting $+0.9$ (CI $[-2.7,+4.2]$) --- and lands
-\emph{below} doing nothing at all (24.6 vs 26.6 passthrough pooled).
-Trained to canonicalize into training vocabulary, it destroys exactly
-the object names that make a task out-of-distribution: ``ramekin'' becomes ``the white object''
-(3.8\%) where the visual rename ``white bowl'' scores 64\%. Scene
-traces partially rescue this in development; the redistribution
-survives.
+\section{Analysis \& Discussion}
+\label{sec:analysis}
 
-\subsection{Analysis}
-\label{sec:results-analysis}
 
-\textbf{Rules beat frozen rephrasers; how much the applier matters
-depends on the rules.}
-An off-the-shelf VLM asked to rewrite instructions \emph{without} any
-distilled knowledge already helps slightly on degraded inputs (bare
-Gemini: 27.8 vs.\ 26.6 passthrough on adversarial, 31.2 vs.\ 28.5 on
-naturals). The rules multiply that --- $+5.5$ further points on
-adversarial and $+5.7$ on naturals for the same frozen applier --- so
-the distilled knowledge, not the rewriting capacity, carries most of the
-value. The two rule sets then part ways on \emph{who} can spend that
-knowledge. The rollout-derived rules are applier-robust: on adversarial
-inputs all three appliers land within 0.6 points of one another (31.0 to
-31.6 --- frozen Qwen matches Claude), and on naturals both capable
-appliers fully repair (Gemini 36.9, Claude 36.4). The
-rollout{+}training-data rules are applier-\emph{sensitive}: their
-deeper adversarial repair exists only in capable hands (Claude 34.3 /
-Gemini 33.3 / frozen Qwen 30.1), on naturals they open a 2.7-point gap
-between the same two appliers the simpler rules held together (33.9 vs
-31.2), and for the weakest applier they are outright harmful --- a
-license to rewrite without the capacity to comply: frozen Qwen with the
-full rulebook scores 27.8 on unmodified original instructions, 8.3
-points below leaving them untouched. Prompt \emph{architecture} shows
-the same capability gradient: swapping a scaffolded template for a bare
-one is worth $+5.4$ to Qwen, $\pm0$ to Gemini, and $-1.2$ to Claude.
-The pattern is consistent: the more a rulebook asks of its applier, the
-more the applier's capability becomes the binding constraint.
+\section{Limitations}
+\label{sec:limitations}
 
-\textbf{An in-distribution gate is the cheapest missing piece.}
-On adversarial inputs, rewriting is all upside. The tax appears when the
-input was already well phrased: on original instructions the rules give
-back in-distribution performance ($-2.3$ for the best configuration versus
-leaving them untouched), and a natural input that already matches the
-executor's preferred phrasing risks the same needless edit. The goal is
-to keep the out-of-distribution improvements while avoiding the
-in-distribution degradation: a classifier that recognizes
-already-canonical, in-distribution instructions and passes them through
-untouched would achieve exactly that at essentially no cost. None of
-our methods currently has one.
 
-\textbf{What did the trajectory proxy contribute?}
-Less than we expected, and the evidence is worth stating carefully. The
-rollout{+}training-data rules' advantage is confined to adversarial
-inputs ($+1.7$ to $+3.3$); on naturals the rollout-derived rules win for
-every applier
-(Fig.~\ref{fig:results}). Moreover the training-data evidence bundles
-proxy-\emph{scored} search results with plain corpus statistics
-(vocabulary counts), and the distillation's own hypothesis gate rejected
-all 14 proxy-motivated improvement rules while keeping repair rules ---
-so rollout evidence carries most of the naturals value, and the
-training-data pass mainly contributed conservatism: helpful under
-attack, costly on benign variation, with the proxy-vs-corpus-statistics
-split not yet isolated. The RL result sharpens the caution: given
-gradient access, a policy optimized the proxy's exploitable channel
-rather than its transferable one. Distillation into human-readable
-rules, gated on held-out measurement, appears to be the safer consumer
-of a noisy reward.
+\section{Conclusion}
+\label{sec:conclusion}
 
-\subsection{A Second Policy: $\pi_{0.5}$ on LIBERO}
-\begin{figure*}[!t]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendices
+
+\section{Prompts}
+\label{app:prompts}
+
+\subsection{Generating natural and adversarial rephrasings}
+The single generation prompt contains both the natural and the adversarial
+style block; the requested style selects which block applies.
+\lstinputlisting{appendix/prompt_generate_rephrases.txt}
+
+\subsection{Generating the scene-analysis trace}
+\lstinputlisting{appendix/prompt_trace.txt}
+
+\subsection{Distilling rules}
+\lstinputlisting{appendix/prompt_distill_rules.txt}
+
+\subsection{Applying rules}
+The rulebook itself is substituted for the \texttt{\{\{rules\}\}} slot;
+rulebooks are listed in Appendix~\ref{app:rules}.
+\lstinputlisting{appendix/prompt_apply_rules.txt}
+
+
+\section{Distilled Rulebooks}
+\label{app:rules}
+
+\subsection{Rollout-only, draw 1}
+\lstinputlisting{appendix/rules_sim_only.txt}
+\subsection{Rollout-only, draw 2}
+\lstinputlisting{appendix/rules_sim_only_r2.txt}
+\subsection{Rollout-only, draw 3}
+\lstinputlisting{appendix/rules_sim_only_r3.txt}
+
+\subsection{Rollout + train, draw 1}
+\lstinputlisting{appendix/rules_both.txt}
+\subsection{Rollout + train, draw 2}
+\lstinputlisting{appendix/rules_both_r2.txt}
+\subsection{Rollout + train, draw 3}
+\lstinputlisting{appendix/rules_both_r3.txt}
+
+\subsection{Train-only, draw 1}
+\lstinputlisting{appendix/rules_train_only.txt}
+\subsection{Train-only, draw 2}
+\lstinputlisting{appendix/rules_train_only_r2.txt}
+\subsection{Train-only, draw 3}
+\lstinputlisting{appendix/rules_train_only_r3.txt}
+
+
+\section{Task Scenes}
+\label{app:scenes}
+
+First-frame scene images for every task appearing in the minimal-pair
+figures (\S\ref{sec:minimal-pairs}).
+
+\begin{figure*}[p]
     \centering
-    \includegraphics[width=\textwidth]{pi05_fourtier.png}
-    \caption{Four-tier phrasing evaluation of $\pi_{0.5}$ fine-tuned on
-LIBERO, where each task is paired with exactly one instruction string.
-(a) On tasks whose instruction was in the fine-tuning data, wording
-matters: adversarial rephrasings cost 50 points. On tasks outside the
-fine-tuning data, all phrasings perform the same. (b) The two
-instruction strings that appear verbatim in the fine-tuning data are
-over-fit to their training scenes: in a novel scene the fine-tuned
-string fails almost completely while nearly any rephrasing of it
-succeeds. Bars show pooled rollout success; error bars are Wilson 95\%
-intervals; per-bar episode counts as labeled.}
-    \label{fig:pi05_fourtier}
+    \includegraphics[page=2, width=\textwidth, height=0.92\textheight,
+                     keepaspectratio]{figures/pairverify_bridge.pdf}
+    \caption{Task scenes --- SIMPLER Bridge minimal-pair tasks.}
+    \label{fig:scenes-bridge}
 \end{figure*}
 
-To check how much of this picture depends on the training recipe, we
-repeated the four-tier evaluation on a second policy and benchmark:
-$\pi_{0.5}$ fine-tuned by Physical Intelligence on LIBERO (over ten
-thousand rollout episodes across 30 tasks; natural and adversarial
-tiers generated with the same prompts as our SIMPLER tiers; the oracle
-is a rollout-driven phrase search whose winner is re-measured on
-held-out initial states). Figure~\ref{fig:pi05_fourtier} shows the
-result: phrase sensitivity depends on how the policy was fine-tuned,
-not on the policy. Tasks whose instruction string was in the
-fine-tuning data reproduce the SIMPLER picture --- the original wording
-is near-unbeatable and ornate rephrasings cost 50 points --- while
-tasks outside the fine-tuning data show no phrasing penalty at all.
-The fine-tuned pairing itself over-fits: evaluated in a new scene, the
-trained string fails almost completely while nearly any rephrasing of
-it succeeds.
+\begin{figure*}[p]
+    \centering
+    \includegraphics[page=2, width=\textwidth, height=0.92\textheight,
+                     keepaspectratio]{figures/pairverify_libero.pdf}
+    \caption{Task scenes --- LIBERO minimal-pair tasks.}
+    \label{fig:scenes-libero}
+\end{figure*}
 
-\section{Conclusions}
-
-A frozen $\pi_0$ executor's success rate depends heavily on instruction
-surface form: 12 points of oracle headroom, most of it on
-out-of-distribution tasks, and a 7.6-point penalty for the natural
-phrasing variation real users produce. Of the three ways we tried to
-learn a rephraser, the LLM rule-distillation loop generalized best ---
-fully repairing natural-phrasing damage and most adversarial damage ---
-while SFT traded out-of-distribution performance for in-distribution gains
-and GRPO optimized a reward channel that did not transfer. That an
-explicit, human-readable rulebook out-generalized both weight-updating
-methods is, to us, the interesting result: the transferable knowledge
-was small and portable, and the methods that tried to bake it into
-weights overfit either the vocabulary (SFT) or the reward (GRPO).
-Whether weights-based methods can be made to generalize the way the
-rulebook does --- or whether the rulebook's legibility and its held-out
-hypothesis gate are precisely what protected it --- is the question this
-comparison leaves open.
-
-Future work:
-\begin{itemize}
-\item a weights-based RL recipe that transfers (our revised
-calibrated-reward recipe of \S\ref{sec:grpo} is specified and queued);
-\item an in-distribution classifier gating the rephraser
-(\S\ref{sec:results-analysis}), which would keep out-of-distribution
-gains without the in-distribution tax;
-\item more simulation coverage, reducing reliance on the trajectory
-proxy for both RL and rule evidence;
-\item longer, fully automated runs of the rules loop --- the results
-here come from a few supervised iterations;
-\item sandboxing the rule-derivation loop so that sealed evaluation
-tasks are provably invisible to every stage of it;
-\item broadening the adversarial evaluation: the sealed adversarial
-condition currently samples a single attack per task (12 phrases), so
-while per-phrase estimates are tight and all repair comparisons are
-paired on the same phrases, the condition mean characterizes those 12
-attacks rather than the attack distribution --- more adversarial
-phrases per task are needed;
-\item regenerating the natural-condition results with matched traces:
-by mistake, the scene traces supplied to the rephraser during natural
-evaluations were derived from the adversarial (ERT) rewordings rather
-than from the natural inputs themselves. We do not expect the numbers
-to move much --- natural inputs tend to be at least as easy to ground
-as adversarial ones --- but a trace coherent with its input should only
-help, so we aim to rerun these evaluations;
-\item other executors and datasets; and
-\item applying the same machinery one level up, to plan phrasing rather
-than instruction phrasing.
-\end{itemize}
-
-\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
-                                  % on the last page of the document manually. It shortens
-                                  % the textheight of the last page by a suitable amount.
-                                  % This command does not take effect until the next page
-                                  % so it should come on the page before the last. Make
-                                  % sure that you do not shorten the textheight too much.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Appendix}
-\section{Natural-Rephrase Generation Prompts}
-\label{app:natural-prompt}
-
-Natural rephrases appear in three roles in this work, and each role uses
-its own generator. Because the register of a natural set is a property of
-the generator and its prompt --- not of the policy being measured --- we
-state all three explicitly.
-
-\begin{itemize}\itemsep2pt
-\item \textbf{Scored phrase bank} --- the evidence the rule distillation
-reads. Gemini Pro (\texttt{gemini-pro-latest}) at temperature 1.0;
-1{,}888 rephrases over 228 training tasks, median 8 per task; text-only,
-no image; anti-repetition block on top-up calls (\S\ref{app:nat-bank}).
-\item \textbf{Policy-training inputs} --- the naturals the executor is
-trained against. Qwen3.5-9B at temperature 1.0; 4{,}083 rephrases,
-$K{=}3$ for each of 1{,}361 unique training instructions; conditioned on
-a scene-description trace rather than an image (\S\ref{app:nat-train}).
-\item \textbf{Sealed evaluation set} --- the natural condition reported
-in our results. Gemini Pro at temperature 1.0; $K{=}16$ per sealed task
-(192 total) from two sampled calls of 8, deduplicated; scene image
-attached (\S\ref{app:nat-sealed}).
-\end{itemize}
-
-None of the three prompts contains information about the executor, its
-training data, or any phrasing heuristic; the only register target is
-natural human phrasing.
-
-\subsection{Sealed evaluation set}
-\label{app:nat-sealed}
-
-Two sampled calls of 8 rephrases per instruction, deduplicated
-(case-insensitive) to $K{=}16$, with the scene image attached to each
-call.
-
-\vspace{4pt}
-\noindent\textit{System prompt:}
-\begin{quote}\small\ttfamily
-You are a text-transformation assistant for robot manipulation tasks.\\[3pt]
-You will be given:\\
-- An image of the scene.\\
-- An instruction describing a manipulation goal.\\[3pt]
-Your task is to:\\
-1. Understand the meaning of the original instruction.\\
-2. Reword the instruction into multiple alternatives that preserve the
-original intent.\\[3pt]
-Guidelines:\\
-- Every reworded instruction must be something a person might actually
-say when asking for this task to be done.\\
-- All reworded instructions must mean the same thing as the original.
-\end{quote}
-
-\noindent\textit{User prompt (per instruction, image attached):}
-\begin{quote}\small\ttfamily
-Given the original instruction: "\{src\}", and the attached image,
-generate 8 reworded instructions that convey the same objective.\\[3pt]
-Guidelines for rephrasing:\\
-1. Write the way real people actually talk when asking for a task ---
-natural, everyday phrasing.\\
-2. Different people phrase the same request differently: vary the
-phrasing the way different natural speakers would.\\
-3. Each rephrase must keep the same objects and the same goal as the
-original.\\
-4. You may refer to objects the way they appear in the image, but do
-not contradict the original instruction or mention things you cannot
-see.\\[3pt]
-Format your response as (no analysis, no commentary):\\
-Reworded Instructions:\\
-1. <Alternative phrasing 1>\\
-...\\[3pt]
-Original Instruction:\\
-\{src\}
-\end{quote}
-
-\subsection{Scored phrase bank}
-\label{app:nat-bank}
-
-The bank prompt asks for natural and adversarial rewordings in one
-response, which keeps the natural block anchored as the easy end of a
-contrast. It names the axes along which the set should vary, and on
-top-up calls it appends every phrase already written for that task under
-the heading \texttt{ALREADY WRITTEN for this task}, so later calls
-cannot re-cover ground. No image is attached; the generator sees only the
-task's own instruction. The natural half of the prompt reads:
-
-\begin{quote}\small\ttfamily
-You are producing test instructions for a robot manipulation task, to
-measure how sensitive a policy is to the way a request is worded.\\[3pt]
-THE TASK'S OWN INSTRUCTION (the wording the policy was trained on):\\
-\{instruction\}\\[3pt]
-Write two sets of rewordings that keep the goal EXACTLY the same. The
-object, the destination, and the action must be identical in every line
---- only the wording changes. A line that changes which object is moved,
-or where it goes, is useless to us and worse than no line at all.\\[3pt]
-\#\# NATURAL (\{n\_natural\} lines)\\
-What a person would actually say to a robot in a kitchen or on a
-workbench: fluent, unremarkable, varied in structure. Vary the verb, the
-article, the word order and the level of detail across the set --- not
-\{n\_natural\} versions of one sentence. Some may name the object by
-colour or material if that is unambiguous. These should be EASY.
-\end{quote}
-
-\subsection{Policy-training inputs}
-\label{app:nat-train}
-
-The naturals the executor is trained against are written by a local
-Qwen3.5-9B, conditioned on the scene-description trace rather than on the
-image, three per training instruction. The prompt carries no phrasing
-knowledge, so the training inputs are not shaped by any rule the method
-later derives:
-
-\begin{quote}\small\ttfamily
-You are helping reword instructions for a tabletop robot task.\\[3pt]
-Scene analysis (what is in the scene and what the instruction refers
-to):\\
-\{trace\}\\[3pt]
-Original instruction: "\{src\}"\\[3pt]
-Write 3 different rewordings of this instruction, the way three different
-people might naturally say it when asking for the task to be done.\\
-- Each rewording must keep the same objects and the same goal.\\
-- Natural, everyday phrasing --- the way real people talk.\\
-- You may refer to objects the way the scene analysis describes them.\\
-Output exactly 3 lines, one rewording per line, no numbering, no quotes.
-\end{quote}
-
-\subsection{Register breadth of a natural set}
-\label{app:nat-breadth}
-
-The three generators do not produce the same register, and the difference
-is large enough to matter when reading the natural condition. Over the
-192 sealed rephrases the generator writes 18 distinct sentence-initial
-words and lengths of 6--12 words (mean 7.8), with 2\% politeness markers
-and 5\% questions; over the 1{,}888 bank rephrases the same model under
-the bank prompt writes 137 distinct sentence-initial words and lengths of
-3--20 words (mean 9.8), with 10\% politeness markers and 10\% questions.
-The sealed natural condition therefore measures robustness to
-synonym and word-order variation within one narrow register, rather than
-to the full breadth of human phrasing; its compressed spread across
-methods should be read in that light. A replacement sealed natural set,
-generated under the bank prompt by three authors (Gemini Pro,
-Claude Sonnet, and Qwen3.5-9B, balanced 6/5/5 per task, with and without
-the scene image, and with the anti-repetition block carried across
-authors) is under evaluation.
-
-\section{Adversarial Instruction Generation Prompt}
-\label{app:ert-prompt}
-
-Sealed adversarial instructions are authored by Gemini
-(\texttt{gemini-3.5-flash}, temperature 0.8), one per task, with the
-scene image attached. \texttt{\{shots\}} is filled with four
-\mbox{original $\rightarrow$ ERT} example pairs taken verbatim from the
-INT-ACT release's extreme-rephrasing examples~\cite{intact};
-\texttt{\{nominal\}} is the task's original instruction. The first line
-of the response is kept.
-
-\begin{quote}\small\ttfamily
-You are building an Extreme Rephrasing Test (ERT) for robot
-instructions: adversarial rewordings that keep the task goal but are
-maximally hostile to a language-conditioned robot policy. The attached
-image shows the actual scene. Reference objects by description or
-indirect means rather than their plain names, add scene-plausible
-attributes, keep the SAME goal. Examples of the genre:\\
-\{shots\}\\[3pt]
-Nominal instruction: "\{nominal\}"\\
-Produce exactly ONE complete ERT rephrasing (output just the
-instruction, no quotes, no explanation).
-\end{quote}
-
-\section{Phrase-Search Prompts}
-\label{app:search-prompts}
-
-\noindent\textit{Candidate generation (one call per instruction, scene
-image attached; \{shots\} holds three style examples from the val-set
-oracle search):}
-\begin{quote}\small\ttfamily
-You are helping phrase instructions for a robot arm policy trained on
-kitchen-manipulation demonstrations (BridgeData). The attached image
-shows the robot's actual camera view for this task.\\
-Current instruction: "\{nominal\}"\\
-Write 8 alternative phrasings the policy is likely to follow RELIABLY.
-Guidelines learned from prior experiments:\\
-- Name objects with common household words the training data would
-contain; if an object's name is unusual, rename it to what it looks
-like (e.g. "ramekin" -> "white bowl").\\
-- Add concrete color/appearance adjectives ONLY for objects visible in
-the image.\\
-- Keep the imperative form and the same task meaning. Keep each under
-15 words.\\
-- Vary structure across the 8 (some minimal edits, some full
-rewrites).\\
-Style examples of phrasings that performed well elsewhere:\\
-\{shots\}\\
-Output exactly 8 lines, one phrasing per line, no numbering, no quotes.
-\end{quote}
-
-\noindent\textit{Hill-climb variation (per round, image attached):}
-\begin{quote}\small\ttfamily
-The attached image is a robot arm's camera view. The current
-best-performing instruction phrasing for this scene is:\\[2pt]
-"\{seed\}"\\[2pt]
-Write \{k\} close VARIATIONS of this phrasing that might work even
-better for a robot policy trained on kitchen-manipulation
-demonstrations: keep its winning structure but vary object adjectives,
-object names (common household words, matching what is visible), and
-verb choice. Keep each under 15 words, imperative form, same task
-meaning.\\
-Output exactly \{k\} lines, one per line, no numbering, no quotes.
-\end{quote}
-
-\section*{ACKNOWLEDGMENT}
-
-AI assistance (Claude, Anthropic) was used extensively throughout this
-work: for experiment orchestration and monitoring, analysis and training
-code, figure generation, and the drafting and editing of this text. All
-experimental designs, decisions, and claims were reviewed and directed
-by the author.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \begin{thebibliography}{99}
 
@@ -1140,6 +348,5 @@ language models,''
 \emph{arXiv preprint arXiv:2402.03300}, 2024.
 
 \end{thebibliography}
-
 
 \end{document}
