@@ -68,7 +68,7 @@
 \node[chip, fill=chipben] (ben) at (7.0,-0.84) {benign};
 
 \node[model] (vla1) at (9.3,0) {VLA};
-\node[db] (evidence) at (12.45,0) {evidence};
+\node[db] (evidence) at (12.5,0) {evidence};
 
 \draw[arr] (task) -- (vlm1);
 \coordinate (split) at (5.75,0);
@@ -83,19 +83,19 @@
 \draw[arr] (vla1) -- node[lab, above=0.7mm, align=center, font=\scriptsize, pos=0.40]{execute\\[-0.2mm]\& score} (evidence);
 
 % ---------------- rule distillation (right, T -> B) ----------------
-\node[modelp] (llm) at (12.45,-2.3) {LLM};
-\node[db] (rules) at (12.45,-4.7) {rules};
+\node[modelp] (llm) at (12.5,-2.3) {LLM};
+\node[db] (rules) at (12.5,-4.55) {rules};
 \draw[arr] (evidence) -- (llm);
 \draw[arr] (llm) -- node[lab, right=1.2mm]{distill} (rules);
 
 % ---------------- rule application (bottom, R -> L) ----------------
-\node[modelg] (vlm2) at (9.9,-4.7) {VLM};
-\node[card, align=center] (reph) at (4.7,-4.7) {%
+\node[modelg] (vlm2) at (10.0,-4.55) {VLM};
+\node[card, align=center] (reph) at (5.0,-4.55) {%
   {\footnotesize\bfseries rephrased task instruction}\\[0.5mm]
   {\scriptsize``put the orange carrot on the yellow plate''}};
-\node[model] (vla2) at (0.45,-4.7) {VLA};
+\node[model] (vla2) at (0.2,-4.55) {VLA};
 
-\node[chip, fill=white, draw=cardEdge!35, font=\footnotesize\bfseries] (task2) at (9.9,-3.42) {task};
+\node[chip, fill=white, draw=cardEdge!35, font=\footnotesize\bfseries] (task2) at (10.0,-3.35) {task};
 \draw[arr] (rules) -- (vlm2);
 \draw[arr] (task2) -- (vlm2);
 \draw[arr] (vlm2) -- node[lab, above=0.7mm]{rephrase} (reph);
@@ -106,9 +106,9 @@
   \fill[bandA, fill opacity=0.38, rounded corners=4mm]
       (-1.8,1.66) rectangle (13.55,-1.66);
   \fill[bandB, fill opacity=0.38, rounded corners=4mm]
-      (11.5,1.66) rectangle (13.55,-5.72);
+      (11.5,1.66) rectangle (13.5,-5.55);
   \fill[bandC, fill opacity=0.38, rounded corners=4mm]
-      (-1.8,-2.95) rectangle (13.55,-5.72);
+      (-1.8,-2.95) rectangle (13.55,-5.55);
 \end{scope}
 
 % ---------------- section labels ----------------
@@ -117,7 +117,7 @@
 \node[anchor=center, rotate=-90, font=\normalsize\bfseries, text=secB]
   at (13.95,-2.03) {\textls[130]{RULE DISTILLATION}};
 \node[anchor=north west, font=\normalsize\bfseries, text=secC]
-  at (-1.75,-5.86) {\textls[130]{RULE APPLICATION}};
+  at (-1.75,-5.7) {\textls[130]{RULE APPLICATION}};
 
 \end{tikzpicture}
 \end{document}
