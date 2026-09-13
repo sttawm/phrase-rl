@@ -69,12 +69,13 @@ instruction phrasing: a one-word edit can move $\pi_{0.5}$'s success on a
 LIBERO task from 100\% to 2\%, and on SIMPLER's Bridge tasks $\pi_0$
 succeeds 23\% of the time on naturally phrased human requests but 48\%
 under oracle phrasings of the same tasks. We propose a simple mitigation
-that leaves the policy's weights untouched: score many phrasings per
-task, have a large language model distill the evidence into ``rephrasing
-rules'', and rewrite each incoming instruction under the rules at
-deployment. Across adversarial and natural phrasings --- both
-machine-generated and human-written --- rule-based rephrasing improves
-the frozen $\pi_0$ by 16--27\% relative to the un-rephrased baseline.
+that leaves the policy's weights untouched: score many phrasings on a
+small set of training tasks, have a large language model distill the
+evidence into ``rephrasing rules'', and rewrite each incoming
+instruction under the rules at deployment. Rules distilled from rollouts
+on just eight tasks improve the frozen $\pi_0$ by 16--27\% over the
+un-rephrased baseline on twelve held-out tasks, across adversarial and
+natural phrasings --- both machine-generated and human-written.
 \end{abstract}
 
 
@@ -241,7 +242,7 @@ In order to derive phrasing rules, we first gather a large set of phrases. For e
 
 \subsubsection{Scoring Phrases}
 
-Rule-distillation requires that each phrase gets a score, so that phrases are comparable. For simulatable tasks, we simply simulate each task / phrase pair multiple times to get a success rate. However, we also aim to measure phrases for non-simulatable tasks: these tasks are equipped with real-world expert trajectories. For these, we score rephrases using a simple metric that acts as a proxy for success rate. For each phrase, we calculate the gripper error between the ground truth action and the VLA's predicted action over 16 trajectories at 4 frames per trajectory. This gives us a set of 64 measurements which we average and use as the score. When using this proxy to measure task / phrase pairs that are simulatable, we see that their scores correlate relatively well with actual rollout success.
+Rule-distillation requires that each phrase gets a score, so that phrases are comparable. For simulatable tasks, we simply simulate each task / phrase pair multiple times to get a success rate. However, we also aim to measure phrases for non-simulatable tasks: these tasks are equipped with real-world expert trajectories. For these, we score rephrases using a simple metric that acts as a proxy for success rate. For each phrase, we calculate the gripper error between the ground truth action and the VLA's predicted action over 16 trajectories at 4 frames per trajectory. This gives us a set of 64 measurements which we average and use as the score. When using this proxy to measure task / phrase pairs that are simulatable, we see that their scores correlate relatively well with actual rollout success. Notably, rollout scores exist for only the eight non-sealed simulatable tasks; the twelve sealed evaluation tasks contribute no evidence.
 
 \subsection{Distilling Rules}
 
