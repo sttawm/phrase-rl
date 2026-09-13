@@ -1120,3 +1120,23 @@ duplicate rolls byte-identical); whether to roll all 392 human bases or a
 uniform subsample is decided AFTER the appliers land, when the dedup
 collapse is known. Traces: all 363 unique (task, phrase) pairs traced
 (image-conditioned, gemini-3.5-flash), cached by exact (task, phrase) key.
+
+#### A38/A40 trace-regime correction (2026-09-13)
+User-directed: ALL new runs use clean traces. Found: the 12 canonical rows
+in the per-base trace registry were keyed to ERT-derived trace text at A31
+registration (410ebc31d) — every Original-condition apply through the
+registry (A31 r1 books, A36 r2/r3, A38 scaffold first pass) saw them; the
+adversarial condition is trace-from-base by construction and the A34
+naturals + A39 humans used correctly-derived traces. CoVer/A37 is
+unaffected: its rephrase calls generate their own inline reasoning trace
+per its protocol (verbatim scaffold, image-conditioned, Gemini swap = the
+recorded deviation). Fix: 12 clean trace-from-nominal rows replace the
+corrupted ones (a38_clean_nominal_traces.parquet); A38 scaffold applies
+redone (scc: gemini 1/12, claude 3/12 rewrites changed; unchanged rewrites
+keep their rolled episodes under CRN); qwen apply requeued (a38scqwo2).
+A40 (queued end-of-night): all nine books x cl/ge/qwen orig applies redone
+on clean traces, rolling only changed rewrites. User recalls a
+pre-migration clean-trace orig rerun; no such artifacts found in git
+(searched leg prefixes + registry history) — treating A40 as the
+authoritative clean-trace orig record. The first-pass A38 numbers
+(scaffold 30.7 vs 36.1, p=.038) are superseded by the scc read.
