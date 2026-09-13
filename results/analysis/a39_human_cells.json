@@ -4,7 +4,9 @@
   "n_base": 363,
   "adult": 24.27,
   "kid": 23.45,
-  "robot": 23.28
+  "robot": 23.28,
+  "iv": 29.57,
+  "oov": 18.51
  },
  "s|claude": {
   "pooled": 26.38,
@@ -16,7 +18,9 @@
   "kid": 25.8,
   "kid_delta": 2.35,
   "robot": 26.94,
-  "robot_delta": 3.66
+  "robot_delta": 3.66,
+  "iv": 33.02,
+  "oov": 21.91
  },
  "s|gemini": {
   "pooled": 26.96,
@@ -28,7 +32,9 @@
   "kid": 26.92,
   "kid_delta": 3.47,
   "robot": 27.02,
-  "robot_delta": 3.74
+  "robot_delta": 3.74,
+  "iv": 33.33,
+  "oov": 22.68
  },
  "s|qwen": {
   "pooled": 27.66,
@@ -40,7 +46,9 @@
   "kid": 28.04,
   "kid_delta": 4.59,
   "robot": 27.66,
-  "robot_delta": 4.38
+  "robot_delta": 4.38,
+  "iv": 33.28,
+  "oov": 23.89
  },
  "b|claude": {
   "pooled": 24.46,
@@ -52,7 +60,9 @@
   "kid": 24.89,
   "kid_delta": 1.44,
   "robot": 25.67,
-  "robot_delta": 2.39
+  "robot_delta": 2.39,
+  "iv": 32.19,
+  "oov": 19.26
  },
  "b|gemini": {
   "pooled": 24.85,
@@ -64,7 +74,9 @@
   "kid": 24.84,
   "kid_delta": 1.39,
   "robot": 25.99,
-  "robot_delta": 2.72
+  "robot_delta": 2.72,
+  "iv": 32.28,
+  "oov": 19.85
  },
  "b|qwen": {
   "pooled": 27.82,
@@ -76,7 +88,9 @@
   "kid": 26.12,
   "kid_delta": 2.67,
   "robot": 27.96,
-  "robot_delta": 4.68
+  "robot_delta": 4.68,
+  "iv": 35.39,
+  "oov": 22.73
  },
  "t|claude": {
   "pooled": 24.06,
@@ -88,7 +102,9 @@
   "kid": 23.29,
   "kid_delta": -0.16,
   "robot": 25.65,
-  "robot_delta": 2.37
+  "robot_delta": 2.37,
+  "iv": 30.94,
+  "oov": 19.43
  },
  "t|gemini": {
   "pooled": 24.21,
@@ -100,7 +116,9 @@
   "kid": 23.45,
   "kid_delta": -0.0,
   "robot": 25.86,
-  "robot_delta": 2.58
+  "robot_delta": 2.58,
+  "iv": 30.88,
+  "oov": 19.72
  },
  "t|qwen": {
   "pooled": 25.02,
@@ -112,7 +130,9 @@
   "kid": 25.21,
   "kid_delta": 1.76,
   "robot": 24.87,
-  "robot_delta": 1.59
+  "robot_delta": 1.59,
+  "iv": 31.93,
+  "oov": 20.37
  },
  "s2|claude": {
   "pooled": 27.54,
@@ -124,7 +144,9 @@
   "kid": 27.94,
   "kid_delta": 4.49,
   "robot": 28.2,
-  "robot_delta": 4.92
+  "robot_delta": 4.92,
+  "iv": 37.01,
+  "oov": 21.16
  },
  "s2|gemini": {
   "pooled": 26.12,
@@ -136,7 +158,9 @@
   "kid": 25.21,
   "kid_delta": 1.76,
   "robot": 26.08,
-  "robot_delta": 2.8
+  "robot_delta": 2.8,
+  "iv": 33.11,
+  "oov": 21.43
  },
  "s2|qwen": {
   "pooled": 28.03,
@@ -148,7 +172,9 @@
   "kid": 26.55,
   "kid_delta": 3.1,
   "robot": 28.84,
-  "robot_delta": 5.56
+  "robot_delta": 5.56,
+  "iv": 33.48,
+  "oov": 24.37
  },
  "s3|claude": {
   "pooled": 29.88,
@@ -160,7 +186,9 @@
   "kid": 31.14,
   "kid_delta": 7.69,
   "robot": 30.46,
-  "robot_delta": 7.18
+  "robot_delta": 7.18,
+  "iv": 35.73,
+  "oov": 25.94
  },
  "s3|gemini": {
   "pooled": 29.76,
@@ -172,7 +200,9 @@
   "kid": 30.72,
   "kid_delta": 7.26,
   "robot": 29.6,
-  "robot_delta": 6.32
+  "robot_delta": 6.32,
+  "iv": 36.62,
+  "oov": 25.15
  },
  "s3|qwen": {
   "pooled": 30.57,
@@ -184,7 +214,9 @@
   "kid": 29.97,
   "kid_delta": 6.52,
   "robot": 30.75,
-  "robot_delta": 7.47
+  "robot_delta": 7.47,
+  "iv": 33.59,
+  "oov": 28.53
  },
  "b2|claude": {
   "pooled": 27.86,
@@ -196,7 +228,9 @@
   "kid": 27.99,
   "kid_delta": 4.54,
   "robot": 28.71,
-  "robot_delta": 5.43
+  "robot_delta": 5.43,
+  "iv": 34.82,
+  "oov": 23.18
  },
  "b2|gemini": {
   "pooled": 27.22,
@@ -208,7 +242,9 @@
   "kid": 27.56,
   "kid_delta": 4.11,
   "robot": 27.82,
-  "robot_delta": 4.54
+  "robot_delta": 4.54,
+  "iv": 33.59,
+  "oov": 22.93
  },
  "b2|qwen": {
   "pooled": 25.2,
@@ -220,7 +256,9 @@
   "kid": 25.05,
   "kid_delta": 1.6,
   "robot": 25.97,
-  "robot_delta": 2.69
+  "robot_delta": 2.69,
+  "iv": 32.99,
+  "oov": 19.95
  },
  "b3|claude": {
   "pooled": 29.71,
@@ -232,7 +270,9 @@
   "kid": 31.2,
   "kid_delta": 7.75,
   "robot": 29.03,
-  "robot_delta": 5.75
+  "robot_delta": 5.75,
+  "iv": 37.73,
+  "oov": 24.31
  },
  "b3|gemini": {
   "pooled": 30.46,
@@ -244,7 +284,9 @@
   "kid": 32.05,
   "kid_delta": 8.6,
   "robot": 29.84,
-  "robot_delta": 6.56
+  "robot_delta": 6.56,
+  "iv": 37.9,
+  "oov": 25.46
  },
  "b3|qwen": {
   "pooled": 28.6,
@@ -256,7 +298,9 @@
   "kid": 29.43,
   "kid_delta": 5.98,
   "robot": 28.25,
-  "robot_delta": 4.97
+  "robot_delta": 4.97,
+  "iv": 34.93,
+  "oov": 24.35
  },
  "t2|claude": {
   "pooled": 23.58,
@@ -268,7 +312,9 @@
   "kid": 23.77,
   "kid_delta": 0.32,
   "robot": 24.65,
-  "robot_delta": 1.37
+  "robot_delta": 1.37,
+  "iv": 30.88,
+  "oov": 18.66
  },
  "t2|gemini": {
   "pooled": 23.38,
@@ -280,7 +326,9 @@
   "kid": 23.45,
   "kid_delta": 0.0,
   "robot": 24.3,
-  "robot_delta": 1.02
+  "robot_delta": 1.02,
+  "iv": 30.34,
+  "oov": 18.7
  },
  "t2|qwen": {
   "pooled": 24.23,
@@ -292,7 +340,9 @@
   "kid": 25.21,
   "kid_delta": 1.76,
   "robot": 24.06,
-  "robot_delta": 0.78
+  "robot_delta": 0.78,
+  "iv": 31.34,
+  "oov": 19.45
  },
  "t3|claude": {
   "pooled": 23.88,
@@ -304,7 +354,9 @@
   "kid": 24.89,
   "kid_delta": 1.44,
   "robot": 24.84,
-  "robot_delta": 1.56
+  "robot_delta": 1.56,
+  "iv": 31.65,
+  "oov": 18.64
  },
  "t3|gemini": {
   "pooled": 23.88,
@@ -316,7 +368,9 @@
   "kid": 24.2,
   "kid_delta": 0.75,
   "robot": 25.08,
-  "robot_delta": 1.8
+  "robot_delta": 1.8,
+  "iv": 31.79,
+  "oov": 18.55
  },
  "t3|qwen": {
   "pooled": 25.31,
@@ -328,7 +382,9 @@
   "kid": 24.31,
   "kid_delta": 0.85,
   "robot": 25.91,
-  "robot_delta": 2.63
+  "robot_delta": 2.63,
+  "iv": 32.31,
+  "oov": 20.6
  },
  "sc|claude": {
   "pooled": 25.13,
@@ -340,7 +396,9 @@
   "kid": 25.27,
   "kid_delta": 1.82,
   "robot": 26.13,
-  "robot_delta": 2.85
+  "robot_delta": 2.85,
+  "iv": 34.56,
+  "oov": 18.78
  },
  "sc|gemini": {
   "pooled": 25.26,
@@ -352,7 +410,9 @@
   "kid": 25.0,
   "kid_delta": 1.55,
   "robot": 25.62,
-  "robot_delta": 2.34
+  "robot_delta": 2.34,
+  "iv": 32.85,
+  "oov": 20.16
  },
  "sc|qwen": {
   "pooled": 27.12,
@@ -364,6 +424,8 @@
   "kid": 26.82,
   "kid_delta": 3.37,
   "robot": 27.42,
-  "robot_delta": 4.14
+  "robot_delta": 4.14,
+  "iv": 35.45,
+  "oov": 21.52
  }
 }
