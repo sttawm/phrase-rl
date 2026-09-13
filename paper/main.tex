@@ -100,20 +100,22 @@ We evaluate in simulation on a variety of phrasing categories --- awkward, adver
 \textbf{Language-Sensitivity. }
 Embodied red teaming searches for natural-language instructions that break
 robot policies~\cite{karnik2024embodied}. LIBERO-PRO perturbs LIBERO along
-objects, initial states, instructions, and environments, and finds model
-outputs can persist even under corrupted or nonsensical
-instructions~\cite{zhou2025liberopro}; LIBERO-Plus reaches the same verdict,
-reporting that models often ignore the instruction
-outright~\cite{fei2025liberoplus}. Our minimal pairs are the complementary
+objects, initial states, instructions, and environments; on the language
+axis it finds that paraphrased instructions leave accuracy intact --- but
+so do nonsensical ones, the policy executing the same memorized trajectory
+regardless~\cite{zhou2025liberopro}. LIBERO-Plus reaches the same verdict:
+models often ignore the instruction outright~\cite{fei2025liberoplus}. Our minimal pairs are the complementary
 observation: when the policy does attend to language, one-word edits swing
 success by tens of points.
 
 \textbf{Reducing Language Sensitivity. }
 Recent works improve VLA performance by augmenting training data with
-additional rephrases of training
-instructions~\cite{kwok2026scaling, chen2026steerable}; DIAL relabels
-demonstrations with VLM-generated instructions to the same
-end~\cite{xiao2023dial}.
+additional rephrases of training instructions~\cite{kwok2026scaling};
+DIAL relabels demonstrations with VLM-generated instructions to the same
+end~\cite{xiao2023dial}. Steerable Policies trains the VLA on synthetic
+commands at multiple levels of abstraction --- subtasks, motions, grounded
+pixel coordinates --- so that language can steer low-level
+behavior~\cite{chen2026steerable}.
 
 \textbf{Test-time verification. }
 In conjunction with the above, a frozen VLA's performance can be improved by generating many phrase-action pairs at runtime and then using a pre-trained model to select the best candidate ~\cite{kwok2026scaling}. This method is our closest known comparison, yet we operate solely on task-phrasing; that is, we do not explicitly select good candidate actions. Moreover, though generating multiple phrase-action pairs at each inference step is relatively inexpensive, we avoid this cost by generating our rephrase just once, at the beginning of the episode.
