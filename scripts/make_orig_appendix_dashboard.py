@@ -25,7 +25,7 @@ DRAW_LBL = ["rulebook-1", "rulebook-2", "rulebook-3"]
 BK = {("s", 1): "s", ("s", 2): "s2", ("s", 3): "s3", ("b", 1): "b",
       ("b", 2): "b2", ("b", 3): "b3", ("t", 1): "t", ("t", 2): "t2",
       ("t", 3): "t3"}
-C_BASE, C_RULES = "#D9DEE6", "#BFD8F7"
+C_BASE, C_RULES = "#D9DEE6", "#3F6B52"
 EDGE, INK, RED, GREY = "#6E7B8B", "#2d3748", "#C0504D", "#7A8698"
 
 
@@ -34,8 +34,9 @@ def cell(diet, dr, ap):
 
 
 def bar_annot(ax, x, v, fc, dy=0.75):
+    txt = "white" if fc == C_RULES else INK
     ax.text(x, v - dy, f"{v:.1f}", ha="center", va="top", fontsize=7.2,
-            fontweight="bold", color=INK, zorder=6,
+            fontweight="bold", color=txt, zorder=6,
             bbox=dict(boxstyle="square,pad=0.10", fc=fc, ec="none"))
 
 

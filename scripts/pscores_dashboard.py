@@ -201,6 +201,68 @@ for cond in CONDS:
                     "p_t": round(paired_t_p(d), 4),
                     "n_base": len(d)}
 
+
+# ---- human naturals (A39): same key shapes, data from repo job results ----
+import glob as _glob
+_jd = R / "results/rules_runs/r1_sim/jobs"
+_hL = pd.concat([pd.read_parquet(f) for f in _glob.glob(str(_jd / "b39roll_*.result.parquet"))],
+                ignore_index=True)
+_hrates = _hL.groupby(["task", "phrase"]).agg(succ=("gt_success", "mean"))
+_ph = pd.read_parquet(R / "results/human_naturals/a39_human_phrases.parquet")
+_raw = _ph.drop_duplicates(["task", "phrase"]).merge(_hrates, on=["task", "phrase"], how="left")
+_raw = _raw.dropna(subset=["succ"])
+base_rates["hum"] = _raw.set_index(["task", "phrase"]).succ
+base_rates["hum"].index.names = ["task", "base"]
+HUM_BOOKS = {"s": ["s", "s2", "s3"], "b": ["b", "b2", "b3"], "t": ["t", "t2", "t3"]}
+
+
+def _hum_map(book, ap):
+    if ap != "qwen":
+        f = R / f"results/human_naturals/ph_a39_{book}_{ap}.parquet"
+        return pd.read_parquet(f)[["task", "base", "phrase"]]
+    hit = _glob.glob(str(_jd / f"a39{book}qw_*.result.parquet"))[0]
+    d = pd.read_parquet(hit).rename(columns={"phrase": "base", "rewrite": "phrase"})
+    d["phrase"] = d.phrase.fillna("").astype(str)
+    d.loc[d.phrase.str.strip() == "", "phrase"] = d.base
+    return d[["task", "base", "phrase"]]
+
+
+def _hum_base_series(book, ap):
+    m = _hum_map(book, ap).merge(_hrates, on=["task", "phrase"], how="left")
+    return m.groupby(["task", "base"]).succ.mean()
+
+
+for ap_name in A2:
+    arms = {}
+    arm_draws = {}
+    for diet in ["s", "b", "t"]:
+        ds = [_hum_base_series(bk, ap_name) for bk in HUM_BOOKS[diet]]
+        arms[diet] = pd.concat(ds, axis=1).mean(axis=1)
+        arm_draws[diet] = ds
+    arms["sc"] = _hum_base_series("sc", ap_name)
+    for diet, draws_list in arm_draws.items():
+        ds = []
+        for cell_d in draws_list:
+            jj = pd.concat([cell_d.rename("c"), base_rates["hum"].rename("b")],
+                           axis=1, join="inner")
+            ds.append(float((jj.c - jj.b).mean()))
+        m = float(np.mean(ds)); sd = float(np.std(ds, ddof=1))
+        se = sd / math.sqrt(len(ds)); t = m / se if se > 0 else 0.0
+        OUT[f"hum|{ap_name}|{diet}_drawlevel"] = {
+            "per_draw": [round(x, 2) for x in ds], "mean": round(m, 2),
+            "sd_draws": round(sd, 2), "p_t_df2": round(_t_sf(abs(t), len(ds) - 1), 4)}
+    for diet, cell in arms.items():
+        baselines = {"": base_rates["hum"]}
+        if diet != "sc":
+            baselines["_vs_sc"] = arms["sc"]
+        for suffix, base in baselines.items():
+            j = pd.concat([cell.rename("c"), base.rename("b")], axis=1, join="inner")
+            d = (j.c - j.b).dropna().values
+            OUT[f"hum|{ap_name}|{diet}{suffix}"] = {
+                "delta": round(float(d.mean()), 2),
+                "p_perm": round(sign_flip_p(d), 4),
+                "p_t": round(paired_t_p(d), 4), "n_base": len(d)}
+
 out = R / "results/analysis/dashboard_pscores.json"
 out.write_text(json.dumps(OUT, indent=1))
 print("json ->", out)
@@ -216,22 +278,22 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-RL = {"sc": "no rules", "s": "rollout only", "b": "rollout + train",
-      "t": "train only"}
-CN = {"nat": "Natural (n=186 bases)", "adv": "Adversarial (n=72)",
-      "orig": "Original (n=12)"}
+RL = {"sc": "no rules", "s": "out-of-finetune", "b": "both",
+      "t": "in-finetune"}
+CN = {"adv": "Adversarial (n=72)", "nat": "LLM-Generated Naturals (n=186)",
+      "hum": "Human-Generated Naturals (n=363)", "orig": "Original (n=12)"}
 
 
 PAPER = os.environ.get("PAPER") == "1"   # paper variant: no in-image title
 
 
-def p_grid(rows, suffix, title, png_name):
+def p_grid(rows, suffix, title, png_name, conds=("adv", "nat", "hum")):
     if PAPER:
         title, png_name = None, png_name.replace(".png", "_paper.png")
     fig, ax = plt.subplots(figsize=(9.6, 0.62 * len(rows) + 1.6))
     ax.set_xlim(0, 3); ax.set_ylim(0, len(rows)); ax.invert_yaxis()
     ax.axis("off")
-    for ci, cond in enumerate(CONDS):
+    for ci, cond in enumerate(conds):
         ax.text(ci + 0.5, -0.35, CN[cond], ha="center", fontsize=11,
                 fontweight="bold")
         for ri, (ap_name, diet) in enumerate(rows):

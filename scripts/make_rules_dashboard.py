@@ -33,14 +33,14 @@ hum = json.loads((R / "results/analysis/a39_human_cells.json").read_text())
 
 APS = ["claude", "gemini", "qwen"]
 DIETS = [("s", "out-of-\nfinetune"), ("b", "both"), ("t", "in-\nfinetune")]
-CONDS = [("nat", "Natural"), ("adv", "Adversarial"), ("hum", "Human Naturals")]
+CONDS = [("adv", "Adversarial"), ("nat", "LLM-Generated Naturals"), ("hum", "Human-Generated Naturals")]
 DRAW_LBL = ["rulebook-1", "rulebook-2", "rulebook-3"]
 HUM_BOOK = {("s", 1): "s", ("s", 2): "s2", ("s", 3): "s3",
             ("b", 1): "b", ("b", 2): "b2", ("b", 3): "b3",
             ("t", 1): "t", ("t", 2): "t2", ("t", 3): "t3"}
 
 # pastel palette (method-diagram family)
-C_BASE, C_RULES = "#D9DEE6", "#BFD8F7"
+C_BASE, C_RULES = "#D9DEE6", "#3F6B52"
 EDGE, INK = "#6E7B8B", "#2d3748"
 RED, GREY = "#C0504D", "#7A8698"
 
@@ -81,8 +81,9 @@ def scaffold(cond, ap=None, st="pooled"):
 
 
 def bar_annot(ax, x, v, fc, dy=0.9):
+    txt = "white" if fc == C_RULES else INK
     ax.text(x, v - dy, f"{v:.1f}", ha="center", va="top", fontsize=7.0,
-            fontweight="bold", color=INK, zorder=6,
+            fontweight="bold", color=txt, zorder=6,
             bbox=dict(boxstyle="square,pad=0.10", fc=fc, ec="none"))
 
 
@@ -115,11 +116,11 @@ for ax, (cond, cname) in zip(axes[0], CONDS):
             color=RED, ha="left", va="center", transform=ax.get_yaxis_transform())
     ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=5.8, color="#4a5568")
     for gx, ap in zip(gticks, ["Claude", "Gemini", "Qwen"]):
-        ax.text(gx, 16.6, ap, ha="center", fontsize=10, fontweight="bold",
+        ax.text(gx, 19.15, ap, ha="center", fontsize=10, fontweight="bold",
                 clip_on=False)
     ax.tick_params(axis="x", length=0)
     ax.set_xlim(-0.6, x - 0.55)
-    ax.set_ylim(20, 44)
+    ax.set_ylim(21, 33)
     ax.grid(axis="y", alpha=0.16)
     ax.set_title(cname, fontsize=13.5, pad=8)
     ax.spines[["top", "right"]].set_visible(False)
@@ -162,18 +163,18 @@ for ax, (cond, cname) in zip(axes[1], CONDS):
             transform=ax.get_yaxis_transform())
     ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=5.6, color="#4a5568")
     for gx, (diet, dlabel) in zip(gticks, DIETS):
-        ax.text(gx, 16.6, dlabel.replace("\n", ""), ha="center", fontsize=10,
+        ax.text(gx, 18.9, dlabel.replace("\n", ""), ha="center", fontsize=10,
                 fontweight="bold", clip_on=False)
     ax.tick_params(axis="x", length=0)
     ax.set_xlim(-0.6, x - 0.55)
-    ax.set_ylim(20, 44)
+    ax.set_ylim(21, 35)
     ax.grid(axis="y", alpha=0.16)
     ax.spines[["top", "right"]].set_visible(False)
 axes[1][0].set_ylabel("success %\n(by rulebook draw)", fontsize=10.5)
 
 # ---------- Rows 3-4: slice by vocabulary stratum ----------
-for row, st, stname, ylim in [(2, "iv", "IN-VOCAB (5 tasks)", (12, 52)),
-                              (3, "oov", "OUT-OF-VOCAB (7 tasks)", (12, 36))]:
+for row, st, stname, ylim in [(2, "iv", "IN-VOCAB (5 tasks)", (23, 46)),
+                              (3, "oov", "OUT-OF-VOCAB (7 tasks)", (15, 29))]:
     for ax, (cond, cname) in zip(axes[row], CONDS):
         x, ticks, tlabels = 0.0, [], []
         sc = scaffold(cond, st=st)

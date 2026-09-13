@@ -574,5 +574,221 @@
   "p_perm": 0.1182,
   "p_t": 0.1147,
   "n_base": 12
+ },
+ "hum|claude|s_drawlevel": {
+  "per_draw": [
+   3.42,
+   4.58,
+   6.92
+  ],
+  "mean": 4.97,
+  "sd_draws": 1.78,
+  "p_t_df2": 0.0403
+ },
+ "hum|claude|b_drawlevel": {
+  "per_draw": [
+   1.5,
+   4.9,
+   6.75
+  ],
+  "mean": 4.38,
+  "sd_draws": 2.66,
+  "p_t_df2": 0.1039
+ },
+ "hum|claude|t_drawlevel": {
+  "per_draw": [
+   1.1,
+   0.62,
+   0.92
+  ],
+  "mean": 0.88,
+  "sd_draws": 0.24,
+  "p_t_df2": 0.0245
+ },
+ "hum|claude|s": {
+  "delta": 4.97,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
+ },
+ "hum|claude|s_vs_sc": {
+  "delta": 2.8,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
+ },
+ "hum|claude|b": {
+  "delta": 4.38,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
+ },
+ "hum|claude|b_vs_sc": {
+  "delta": 2.22,
+  "p_perm": 0.0002,
+  "p_t": 0.0002,
+  "n_base": 363
+ },
+ "hum|claude|t": {
+  "delta": 0.88,
+  "p_perm": 0.0,
+  "p_t": 0.0003,
+  "n_base": 363
+ },
+ "hum|claude|t_vs_sc": {
+  "delta": -1.29,
+  "p_perm": 0.0262,
+  "p_t": 0.0248,
+  "n_base": 363
+ },
+ "hum|claude|sc": {
+  "delta": 2.17,
+  "p_perm": 0.0003,
+  "p_t": 0.0005,
+  "n_base": 363
+ },
+ "hum|gemini|s_drawlevel": {
+  "per_draw": [
+   4.01,
+   3.17,
+   6.81
+  ],
+  "mean": 4.66,
+  "sd_draws": 1.91,
+  "p_t_df2": 0.0515
+ },
+ "hum|gemini|b_drawlevel": {
+  "per_draw": [
+   1.89,
+   4.26,
+   7.51
+  ],
+  "mean": 4.55,
+  "sd_draws": 2.82,
+  "p_t_df2": 0.1075
+ },
+ "hum|gemini|t_drawlevel": {
+  "per_draw": [
+   1.25,
+   0.42,
+   0.92
+  ],
+  "mean": 0.86,
+  "sd_draws": 0.42,
+  "p_t_df2": 0.0692
+ },
+ "hum|gemini|s": {
+  "delta": 4.66,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
+ },
+ "hum|gemini|s_vs_sc": {
+  "delta": 2.35,
+  "p_perm": 0.0001,
+  "p_t": 0.0001,
+  "n_base": 363
+ },
+ "hum|gemini|b": {
+  "delta": 4.55,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
+ },
+ "hum|gemini|b_vs_sc": {
+  "delta": 2.25,
+  "p_perm": 0.0004,
+  "p_t": 0.0003,
+  "n_base": 363
+ },
+ "hum|gemini|t": {
+  "delta": 0.86,
+  "p_perm": 0.0001,
+  "p_t": 0.0002,
+  "n_base": 363
+ },
+ "hum|gemini|t_vs_sc": {
+  "delta": -1.44,
+  "p_perm": 0.0074,
+  "p_t": 0.0066,
+  "n_base": 363
+ },
+ "hum|gemini|sc": {
+  "delta": 2.31,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
+ },
+ "hum|qwen|s_drawlevel": {
+  "per_draw": [
+   4.71,
+   5.07,
+   7.61
+  ],
+  "mean": 5.8,
+  "sd_draws": 1.58,
+  "p_t_df2": 0.0239
+ },
+ "hum|qwen|b_drawlevel": {
+  "per_draw": [
+   4.87,
+   2.24,
+   5.65
+  ],
+  "mean": 4.25,
+  "sd_draws": 1.79,
+  "p_t_df2": 0.0541
+ },
+ "hum|qwen|t_drawlevel": {
+  "per_draw": [
+   2.07,
+   1.27,
+   2.35
+  ],
+  "mean": 1.9,
+  "sd_draws": 0.56,
+  "p_t_df2": 0.0277
+ },
+ "hum|qwen|s": {
+  "delta": 5.8,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
+ },
+ "hum|qwen|s_vs_sc": {
+  "delta": 1.63,
+  "p_perm": 0.0201,
+  "p_t": 0.0186,
+  "n_base": 363
+ },
+ "hum|qwen|b": {
+  "delta": 4.25,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
+ },
+ "hum|qwen|b_vs_sc": {
+  "delta": 0.08,
+  "p_perm": 0.9002,
+  "p_t": 0.8936,
+  "n_base": 363
+ },
+ "hum|qwen|t": {
+  "delta": 1.9,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
+ },
+ "hum|qwen|t_vs_sc": {
+  "delta": -2.27,
+  "p_perm": 0.0046,
+  "p_t": 0.004,
+  "n_base": 363
+ },
+ "hum|qwen|sc": {
+  "delta": 4.17,
+  "p_perm": 0.0,
+  "p_t": 0.0,
+  "n_base": 363
  }
 }
