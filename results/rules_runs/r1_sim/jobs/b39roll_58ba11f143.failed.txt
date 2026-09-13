@@ -1,0 +1,15 @@
+kages/sapien/core/renderer_config.py:4: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[2026-09-13 02:09:10.450] [svulkan2] [error] GLFW error: X11: The DISPLAY environment variable is missing
+[2026-09-13 02:09:10.450] [svulkan2] [warning] Continue without GLFW.
+/workspace/INT-ACT/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+[2026-09-13 02:09:43.629] [svulkan2] [error] GLFW error: X11: The DISPLAY environment variable is missing
+[2026-09-13 02:09:43.629] [svulkan2] [warning] Continue without GLFW.
+/workspace/INT-ACT/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+[2026-09-13 02:10:19.565] [svulkan2] [error] GLFW error: X11: The DISPLAY environment variable is missing
+[2026-09-13 02:10:19.565] [svulkan2] [warning] Continue without GLFW.
+/workspace/INT-ACT/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.robot_uid to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.robot_uid` for environment variables or `env.get_wrapper_attr('robot_uid')` that will search the reminding wrappers.[0m
+  logger.warn(
+rollout chunks failed: [0, 1, 2]
