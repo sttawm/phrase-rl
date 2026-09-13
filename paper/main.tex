@@ -64,7 +64,17 @@ Reducing a VLA's Language Sensitivity Using LLM-Distilled Instruction-Phrasing R
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-
+Vision-language-action models (VLAs) are strikingly sensitive to
+instruction phrasing: a one-word edit can move $\pi_{0.5}$'s success on a
+LIBERO task from 100\% to 2\%, and on SIMPLER's Bridge tasks $\pi_0$
+succeeds 23\% of the time on naturally phrased human requests but 48\%
+under oracle phrasings of the same tasks. We propose a simple mitigation
+that leaves the policy's weights untouched: score many phrasings per
+task, have a large language model distill the evidence into ``rephrasing
+rules'', and rewrite each incoming instruction under the rules at
+deployment. Across adversarial and natural phrasings --- both
+machine-generated and human-written --- rule-based rephrasing improves
+the frozen $\pi_0$ by 16--27\% relative to the un-rephrased baseline.
 \end{abstract}
 
 
