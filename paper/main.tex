@@ -121,7 +121,7 @@ pixel coordinates --- so that language can steer low-level
 behavior~\cite{chen2026steerable}.
 
 \textbf{Test-time verification. }
-In conjunction with the above, a frozen VLA's performance can be improved by generating many phrase-action pairs at runtime and then using a pre-trained model to select the best candidate ~\cite{kwok2026scaling}. This method is our closest known comparison, yet we operate solely on task-phrasing; that is, we do not explicitly select good candidate actions. Moreover, though generating multiple phrase-action pairs at each inference step is relatively inexpensive, we avoid this cost by generating our rephrase just once, at the beginning of the episode.
+In conjunction with the above, a frozen VLA's performance can be improved by generating many phrase-action pairs at runtime and then using a pre-trained model to select the best candidate (CoVer)~\cite{kwok2026scaling}. This method is our closest known comparison, yet we operate solely on task-phrasing; that is, we do not explicitly select good candidate actions. Moreover, though generating multiple phrase-action pairs at each inference step is relatively inexpensive, we avoid this cost by generating our rephrase just once, at the beginning of the episode.
 
 \textbf{Optimizing instructions for a frozen policy. }
 SARL learns by online reinforcement which prompts steer a frozen generalist
@@ -259,7 +259,7 @@ We evaluate on four different phrase sets: adversarials, VLM-generated naturals,
 
 \subsection{Baselines}
 
-We evaluate against three baselines: no rephraser, no-rules rephraser, and CoVer. The no-rephraser does not rephrase at all and passes the incoming instruction directly to the VLA. The no-rules rephraser contains a single simple rule (see the project repository). CoVer uses a contrastively trained verifier to continuously select its verifier's highest-scoring phrase / action pair from a set of 40 (8 rephrases by 5 actions each). Each task is evaluated on 24 different layouts of the scene. The paired construction and permutation test behind
+We evaluate against three baselines: no rephraser, no-rules rephraser, and CoVer~\cite{kwok2026scaling}. The no-rephraser does not rephrase at all and passes the incoming instruction directly to the VLA. The no-rules rephraser contains a single simple rule (see the project repository). CoVer uses a contrastively trained verifier to continuously select its verifier's highest-scoring phrase / action pair from a set of 40 (8 rephrases by 5 actions each). Each task is evaluated on 24 different layouts of the scene. The paired construction and permutation test behind
 every reported p-value are described in Appendix~\ref{app:stats}.
 
 \subsection{Results}
