@@ -31,42 +31,63 @@
  },
  "nat|claude|s": {
   "delta": 5.32,
+  "cell_mean": 31.29,
+  "base_mean": 25.96,
+  "pct": 20.5,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 186
  },
  "nat|claude|s_vs_sc": {
   "delta": 1.4,
+  "cell_mean": 31.29,
+  "base_mean": 29.88,
+  "pct": 4.7,
   "p_perm": 0.0924,
   "p_t": 0.0898,
   "n_base": 186
  },
  "nat|claude|b": {
   "delta": 3.96,
+  "cell_mean": 29.92,
+  "base_mean": 25.96,
+  "pct": 15.2,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 186
  },
  "nat|claude|b_vs_sc": {
   "delta": 0.04,
+  "cell_mean": 29.92,
+  "base_mean": 29.88,
+  "pct": 0.1,
   "p_perm": 0.9697,
   "p_t": 0.9601,
   "n_base": 186
  },
  "nat|claude|t": {
   "delta": 0.67,
+  "cell_mean": 26.64,
+  "base_mean": 25.96,
+  "pct": 2.6,
   "p_perm": 0.0042,
   "p_t": 0.0042,
   "n_base": 186
  },
  "nat|claude|t_vs_sc": {
   "delta": -3.25,
+  "cell_mean": 26.64,
+  "base_mean": 29.88,
+  "pct": -10.9,
   "p_perm": 0.0004,
   "p_t": 0.0002,
   "n_base": 186
  },
  "nat|claude|sc": {
   "delta": 3.92,
+  "cell_mean": 29.88,
+  "base_mean": 25.96,
+  "pct": 15.1,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 186
@@ -103,42 +124,63 @@
  },
  "nat|gemini|s": {
   "delta": 4.62,
+  "cell_mean": 30.59,
+  "base_mean": 25.96,
+  "pct": 17.8,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 186
  },
  "nat|gemini|s_vs_sc": {
   "delta": 1.91,
+  "cell_mean": 30.59,
+  "base_mean": 28.67,
+  "pct": 6.7,
   "p_perm": 0.0167,
   "p_t": 0.0154,
   "n_base": 186
  },
  "nat|gemini|b": {
   "delta": 3.58,
+  "cell_mean": 29.55,
+  "base_mean": 25.96,
+  "pct": 13.8,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 186
  },
  "nat|gemini|b_vs_sc": {
   "delta": 0.87,
+  "cell_mean": 29.55,
+  "base_mean": 28.67,
+  "pct": 3.0,
   "p_perm": 0.2418,
   "p_t": 0.2361,
   "n_base": 186
  },
  "nat|gemini|t": {
   "delta": 0.55,
+  "cell_mean": 26.51,
+  "base_mean": 25.96,
+  "pct": 2.1,
   "p_perm": 0.0292,
   "p_t": 0.0258,
   "n_base": 186
  },
  "nat|gemini|t_vs_sc": {
   "delta": -2.17,
+  "cell_mean": 26.51,
+  "base_mean": 28.67,
+  "pct": -7.6,
   "p_perm": 0.0038,
   "p_t": 0.0034,
   "n_base": 186
  },
  "nat|gemini|sc": {
   "delta": 2.71,
+  "cell_mean": 28.67,
+  "base_mean": 25.96,
+  "pct": 10.4,
   "p_perm": 0.0002,
   "p_t": 0.0004,
   "n_base": 186
@@ -175,42 +217,63 @@
  },
  "nat|qwen|s": {
   "delta": 4.19,
+  "cell_mean": 30.15,
+  "base_mean": 25.96,
+  "pct": 16.1,
   "p_perm": 0.0001,
   "p_t": 0.0,
   "n_base": 186
  },
  "nat|qwen|s_vs_sc": {
   "delta": 2.05,
+  "cell_mean": 30.12,
+  "base_mean": 28.07,
+  "pct": 7.3,
   "p_perm": 0.0271,
   "p_t": 0.0259,
   "n_base": 187
  },
  "nat|qwen|b": {
   "delta": 3.64,
+  "cell_mean": 29.6,
+  "base_mean": 25.96,
+  "pct": 14.0,
   "p_perm": 0.0001,
   "p_t": 0.0,
   "n_base": 186
  },
  "nat|qwen|b_vs_sc": {
   "delta": 1.5,
+  "cell_mean": 29.58,
+  "base_mean": 28.07,
+  "pct": 5.3,
   "p_perm": 0.0606,
   "p_t": 0.0575,
   "n_base": 187
  },
  "nat|qwen|t": {
   "delta": 2.13,
+  "cell_mean": 28.09,
+  "base_mean": 25.96,
+  "pct": 8.2,
   "p_perm": 0.0002,
   "p_t": 0.0001,
   "n_base": 186
  },
  "nat|qwen|t_vs_sc": {
   "delta": 0.02,
+  "cell_mean": 28.09,
+  "base_mean": 28.07,
+  "pct": 0.1,
   "p_perm": 0.9862,
   "p_t": 0.981,
   "n_base": 186
  },
  "nat|qwen|sc": {
   "delta": 2.11,
+  "cell_mean": 28.07,
+  "base_mean": 25.96,
+  "pct": 8.1,
   "p_perm": 0.0736,
   "p_t": 0.0683,
   "n_base": 186
@@ -247,42 +310,63 @@
  },
  "adv|claude|s": {
   "delta": 6.36,
+  "cell_mean": 30.82,
+  "base_mean": 24.46,
+  "pct": 26.0,
   "p_perm": 0.0083,
   "p_t": 0.007,
   "n_base": 72
  },
  "adv|claude|s_vs_sc": {
   "delta": 6.48,
+  "cell_mean": 30.82,
+  "base_mean": 24.33,
+  "pct": 26.6,
   "p_perm": 0.0001,
   "p_t": 0.0,
   "n_base": 72
  },
  "adv|claude|b": {
   "delta": 5.74,
+  "cell_mean": 30.2,
+  "base_mean": 24.46,
+  "pct": 23.5,
   "p_perm": 0.0124,
   "p_t": 0.0099,
   "n_base": 72
  },
  "adv|claude|b_vs_sc": {
   "delta": 5.86,
+  "cell_mean": 30.2,
+  "base_mean": 24.33,
+  "pct": 24.1,
   "p_perm": 0.0001,
   "p_t": 0.0001,
   "n_base": 72
  },
  "adv|claude|t": {
   "delta": 1.15,
+  "cell_mean": 25.61,
+  "base_mean": 24.46,
+  "pct": 4.7,
   "p_perm": 0.3903,
   "p_t": 0.3835,
   "n_base": 72
  },
  "adv|claude|t_vs_sc": {
   "delta": 1.27,
+  "cell_mean": 25.61,
+  "base_mean": 24.33,
+  "pct": 5.2,
   "p_perm": 0.4292,
   "p_t": 0.4281,
   "n_base": 72
  },
  "adv|claude|sc": {
   "delta": -0.12,
+  "cell_mean": 24.33,
+  "base_mean": 24.46,
+  "pct": -0.5,
   "p_perm": 0.9612,
   "p_t": 0.9584,
   "n_base": 72
@@ -319,42 +403,63 @@
  },
  "adv|gemini|s": {
   "delta": 6.48,
+  "cell_mean": 30.93,
+  "base_mean": 24.46,
+  "pct": 26.5,
   "p_perm": 0.0074,
   "p_t": 0.0061,
   "n_base": 72
  },
  "adv|gemini|s_vs_sc": {
   "delta": 6.97,
+  "cell_mean": 30.93,
+  "base_mean": 23.96,
+  "pct": 29.1,
   "p_perm": 0.0001,
   "p_t": 0.0,
   "n_base": 72
  },
  "adv|gemini|b": {
   "delta": 5.28,
+  "cell_mean": 29.74,
+  "base_mean": 24.46,
+  "pct": 21.6,
   "p_perm": 0.0175,
   "p_t": 0.0155,
   "n_base": 72
  },
  "adv|gemini|b_vs_sc": {
   "delta": 5.78,
+  "cell_mean": 29.74,
+  "base_mean": 23.96,
+  "pct": 24.1,
   "p_perm": 0.0004,
   "p_t": 0.0005,
   "n_base": 72
  },
  "adv|gemini|t": {
   "delta": 2.49,
+  "cell_mean": 26.95,
+  "base_mean": 24.46,
+  "pct": 10.2,
   "p_perm": 0.0179,
   "p_t": 0.0139,
   "n_base": 72
  },
  "adv|gemini|t_vs_sc": {
   "delta": 2.99,
+  "cell_mean": 26.95,
+  "base_mean": 23.96,
+  "pct": 12.5,
   "p_perm": 0.0085,
   "p_t": 0.0065,
   "n_base": 72
  },
  "adv|gemini|sc": {
   "delta": -0.5,
+  "cell_mean": 23.96,
+  "base_mean": 24.46,
+  "pct": -2.0,
   "p_perm": 0.756,
   "p_t": 0.7521,
   "n_base": 72
@@ -391,42 +496,63 @@
  },
  "adv|qwen|s": {
   "delta": 5.98,
+  "cell_mean": 30.43,
+  "base_mean": 24.46,
+  "pct": 24.4,
   "p_perm": 0.0112,
   "p_t": 0.0085,
   "n_base": 72
  },
  "adv|qwen|s_vs_sc": {
   "delta": 5.72,
+  "cell_mean": 30.43,
+  "base_mean": 24.71,
+  "pct": 23.1,
   "p_perm": 0.0001,
   "p_t": 0.0001,
   "n_base": 72
  },
  "adv|qwen|b": {
   "delta": 4.21,
+  "cell_mean": 28.67,
+  "base_mean": 24.46,
+  "pct": 17.2,
   "p_perm": 0.0422,
   "p_t": 0.0394,
   "n_base": 72
  },
  "adv|qwen|b_vs_sc": {
   "delta": 3.95,
+  "cell_mean": 28.67,
+  "base_mean": 24.71,
+  "pct": 16.0,
   "p_perm": 0.0033,
   "p_t": 0.0032,
   "n_base": 72
  },
  "adv|qwen|t": {
   "delta": 2.45,
+  "cell_mean": 26.91,
+  "base_mean": 24.46,
+  "pct": 10.0,
   "p_perm": 0.0924,
   "p_t": 0.0844,
   "n_base": 72
  },
  "adv|qwen|t_vs_sc": {
   "delta": 2.2,
+  "cell_mean": 26.91,
+  "base_mean": 24.71,
+  "pct": 8.9,
   "p_perm": 0.1546,
   "p_t": 0.1492,
   "n_base": 72
  },
  "adv|qwen|sc": {
   "delta": 0.26,
+  "cell_mean": 24.71,
+  "base_mean": 24.46,
+  "pct": 1.0,
   "p_perm": 0.9071,
   "p_t": 0.9063,
   "n_base": 72
@@ -463,18 +589,27 @@
  },
  "orig|claude|s": {
   "delta": -1.19,
+  "cell_mean": 34.9,
+  "base_mean": 36.08,
+  "pct": -3.3,
   "p_perm": 0.7173,
   "p_t": 0.7077,
   "n_base": 12
  },
  "orig|claude|b": {
   "delta": 2.92,
+  "cell_mean": 39.0,
+  "base_mean": 36.08,
+  "pct": 8.1,
   "p_perm": 0.2056,
   "p_t": 0.1921,
   "n_base": 12
  },
  "orig|claude|t": {
   "delta": 0.67,
+  "cell_mean": 36.75,
+  "base_mean": 36.08,
+  "pct": 1.8,
   "p_perm": 0.7012,
   "p_t": 0.6739,
   "n_base": 12
@@ -511,18 +646,27 @@
  },
  "orig|gemini|s": {
   "delta": -0.32,
+  "cell_mean": 35.76,
+  "base_mean": 36.08,
+  "pct": -0.9,
   "p_perm": 0.9302,
   "p_t": 0.9216,
   "n_base": 12
  },
  "orig|gemini|b": {
   "delta": 3.21,
+  "cell_mean": 39.29,
+  "base_mean": 36.08,
+  "pct": 8.9,
   "p_perm": 0.2642,
   "p_t": 0.2556,
   "n_base": 12
  },
  "orig|gemini|t": {
   "delta": 1.88,
+  "cell_mean": 37.96,
+  "base_mean": 36.08,
+  "pct": 5.2,
   "p_perm": 0.2871,
   "p_t": 0.275,
   "n_base": 12
@@ -559,18 +703,27 @@
  },
  "orig|qwen|s": {
   "delta": -3.56,
+  "cell_mean": 32.52,
+  "base_mean": 36.08,
+  "pct": -9.9,
   "p_perm": 0.4805,
   "p_t": 0.4826,
   "n_base": 12
  },
  "orig|qwen|b": {
   "delta": 0.55,
+  "cell_mean": 36.63,
+  "base_mean": 36.08,
+  "pct": 1.5,
   "p_perm": 0.9048,
   "p_t": 0.9009,
   "n_base": 12
  },
  "orig|qwen|t": {
   "delta": 2.69,
+  "cell_mean": 38.77,
+  "base_mean": 36.08,
+  "pct": 7.5,
   "p_perm": 0.1182,
   "p_t": 0.1147,
   "n_base": 12
@@ -607,42 +760,63 @@
  },
  "hum|claude|s": {
   "delta": 4.97,
+  "cell_mean": 27.93,
+  "base_mean": 22.96,
+  "pct": 21.7,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363
  },
  "hum|claude|s_vs_sc": {
   "delta": 2.8,
+  "cell_mean": 27.93,
+  "base_mean": 25.13,
+  "pct": 11.2,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363
  },
  "hum|claude|b": {
   "delta": 4.38,
+  "cell_mean": 27.34,
+  "base_mean": 22.96,
+  "pct": 19.1,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363
  },
  "hum|claude|b_vs_sc": {
   "delta": 2.22,
+  "cell_mean": 27.34,
+  "base_mean": 25.13,
+  "pct": 8.8,
   "p_perm": 0.0002,
   "p_t": 0.0002,
   "n_base": 363
  },
  "hum|claude|t": {
   "delta": 0.88,
+  "cell_mean": 23.84,
+  "base_mean": 22.96,
+  "pct": 3.8,
   "p_perm": 0.0,
   "p_t": 0.0003,
   "n_base": 363
  },
  "hum|claude|t_vs_sc": {
   "delta": -1.29,
+  "cell_mean": 23.84,
+  "base_mean": 25.13,
+  "pct": -5.1,
   "p_perm": 0.0262,
   "p_t": 0.0248,
   "n_base": 363
  },
  "hum|claude|sc": {
   "delta": 2.17,
+  "cell_mean": 25.13,
+  "base_mean": 22.96,
+  "pct": 9.4,
   "p_perm": 0.0003,
   "p_t": 0.0005,
   "n_base": 363
@@ -679,42 +853,63 @@
  },
  "hum|gemini|s": {
   "delta": 4.66,
+  "cell_mean": 27.62,
+  "base_mean": 22.96,
+  "pct": 20.3,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363
  },
  "hum|gemini|s_vs_sc": {
   "delta": 2.35,
+  "cell_mean": 27.62,
+  "base_mean": 25.26,
+  "pct": 9.3,
   "p_perm": 0.0001,
   "p_t": 0.0001,
   "n_base": 363
  },
  "hum|gemini|b": {
   "delta": 4.55,
+  "cell_mean": 27.51,
+  "base_mean": 22.96,
+  "pct": 19.8,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363
  },
  "hum|gemini|b_vs_sc": {
   "delta": 2.25,
+  "cell_mean": 27.51,
+  "base_mean": 25.26,
+  "pct": 8.9,
   "p_perm": 0.0004,
   "p_t": 0.0003,
   "n_base": 363
  },
  "hum|gemini|t": {
   "delta": 0.86,
+  "cell_mean": 23.82,
+  "base_mean": 22.96,
+  "pct": 3.8,
   "p_perm": 0.0001,
   "p_t": 0.0002,
   "n_base": 363
  },
  "hum|gemini|t_vs_sc": {
   "delta": -1.44,
+  "cell_mean": 23.82,
+  "base_mean": 25.26,
+  "pct": -5.7,
   "p_perm": 0.0074,
   "p_t": 0.0066,
   "n_base": 363
  },
  "hum|gemini|sc": {
   "delta": 2.31,
+  "cell_mean": 25.26,
+  "base_mean": 22.96,
+  "pct": 10.1,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363
@@ -751,42 +946,63 @@
  },
  "hum|qwen|s": {
   "delta": 5.8,
+  "cell_mean": 28.75,
+  "base_mean": 22.96,
+  "pct": 25.2,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363
  },
  "hum|qwen|s_vs_sc": {
   "delta": 1.63,
+  "cell_mean": 28.75,
+  "base_mean": 27.12,
+  "pct": 6.0,
   "p_perm": 0.0201,
   "p_t": 0.0186,
   "n_base": 363
  },
  "hum|qwen|b": {
   "delta": 4.25,
+  "cell_mean": 27.21,
+  "base_mean": 22.96,
+  "pct": 18.5,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363
  },
  "hum|qwen|b_vs_sc": {
   "delta": 0.08,
+  "cell_mean": 27.21,
+  "base_mean": 27.12,
+  "pct": 0.3,
   "p_perm": 0.9002,
   "p_t": 0.8936,
   "n_base": 363
  },
  "hum|qwen|t": {
   "delta": 1.9,
+  "cell_mean": 24.85,
+  "base_mean": 22.96,
+  "pct": 8.3,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363
  },
  "hum|qwen|t_vs_sc": {
   "delta": -2.27,
+  "cell_mean": 24.85,
+  "base_mean": 27.12,
+  "pct": -8.4,
   "p_perm": 0.0046,
   "p_t": 0.004,
   "n_base": 363
  },
  "hum|qwen|sc": {
   "delta": 4.17,
+  "cell_mean": 27.12,
+  "base_mean": 22.96,
+  "pct": 18.1,
   "p_perm": 0.0,
   "p_t": 0.0,
   "n_base": 363

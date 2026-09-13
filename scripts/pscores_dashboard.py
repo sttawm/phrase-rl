@@ -197,6 +197,9 @@ for cond in CONDS:
                 d = (j.c - j.b).values
                 OUT[f"{cond}|{ap_name}|{diet}{suffix}"] = {
                     "delta": round(float(d.mean()), 2),
+                    "cell_mean": round(float(j.c.mean()), 2),
+                    "base_mean": round(float(j.b.mean()), 2),
+                    "pct": round(float(d.mean() / j.b.mean() * 100), 1),
                     "p_perm": round(sign_flip_p(d), 4),
                     "p_t": round(paired_t_p(d), 4),
                     "n_base": len(d)}
@@ -257,9 +260,13 @@ for ap_name in A2:
             baselines["_vs_sc"] = arms["sc"]
         for suffix, base in baselines.items():
             j = pd.concat([cell.rename("c"), base.rename("b")], axis=1, join="inner")
-            d = (j.c - j.b).dropna().values
+            jj = j.dropna()
+            d = (jj.c - jj.b).values
             OUT[f"hum|{ap_name}|{diet}{suffix}"] = {
                 "delta": round(float(d.mean()), 2),
+                "cell_mean": round(float(jj.c.mean()), 2),
+                "base_mean": round(float(jj.b.mean()), 2),
+                "pct": round(float(d.mean() / jj.b.mean() * 100), 1),
                 "p_perm": round(sign_flip_p(d), 4),
                 "p_t": round(paired_t_p(d), 4), "n_base": len(d)}
 

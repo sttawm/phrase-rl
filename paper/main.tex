@@ -17,6 +17,7 @@
 \usepackage{listings}
 \usepackage{url}
 \usepackage{capt-of}
+\usepackage{booktabs}
 
 \lstset{basicstyle=\ttfamily\scriptsize,
         breaklines=true,
@@ -182,8 +183,9 @@ success probability (two-proportion z test). Green = best phrasing, grey
 \label{sec:rule-distillation}
 
 Fig.~\ref{fig:dashboard} summarizes rulebook performance across conditions.
-Fig.~\ref{fig:pscores-baseline} and Fig.~\ref{fig:pscores-scaffold} give the
-statistical significance of each cell.
+Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold} give the
+statistical significance of the out-of-finetune rulebook against both
+baselines.
 The original condition (rephrasing the canonical instructions themselves)
 appears in Appendix~\ref{app:originals}.
 The prompts used to generate rephrasings and to apply rules appear in
@@ -210,36 +212,38 @@ Appendix~\ref{app:prompts}.
     \label{fig:dashboard}
 \end{figure*}
 
-\begin{figure*}[!t]
+\begin{table}[!t]
+    \caption{The out-of-finetune rulebook against the un-rephrased
+    baseline: relative change in success (percent of the baseline rate;
+    the three rulebook draws are averaged before pairing) and its
+    p-value. Every base instruction is rolled under both arms on the
+    same pinned layouts. In plain terms, p answers: \emph{if the
+    rephraser actually made no difference, how often would layout luck
+    alone produce a gap at least this large?} Computed by a sign-flip
+    permutation test on the per-base paired differences: the number of
+    bases (n in the column header) is the test's sample size; the 24
+    layouts per base sharpen each per-base rate but do not add to n.
+    Baseline success rates: adversarial 24.5\%, human-generated naturals
+    23.0\%, LLM-generated naturals 26.0\%.}
+    \label{tab:pscores-baseline}
     \centering
-    \includegraphics[width=0.86\textwidth]{figures/pscores_vs_baseline.png}
-    \caption{Significance of each dashboard cell against the un-rephrased
-    baseline. Every base instruction is rolled under both arms on the same
-    pinned layouts; the entry shows the mean per-base gap in success and
-    its p-value. In plain terms, p answers: \emph{if the rephraser
-    actually made no difference, how often would layout luck alone produce
-    a gap at least this large?} Computed by a sign-flip permutation test
-    on the per-base paired differences: the number of bases (n in the
-    column header) is the test's sample size; the 24 layouts per base
-    sharpen each per-base rate but do not add to n; rulebook cells average
-    their three independent draws before pairing, so the test reads on the
-    average-draw book. Green = significant gain at p $<$ 0.05, grey = not
-    significant.}
-    \label{fig:pscores-baseline}
-\end{figure*}
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \input{figures/pscores_tab_baseline}
+\end{table}
 
-\begin{figure*}[!t]
-    \centering
-    \includegraphics[width=0.86\textwidth]{figures/pscores_vs_scaffold.png}
-    \caption{Significance of each rulebook cell against the same applier's
+\begin{table}[!t]
+    \caption{The out-of-finetune rulebook against the same applier's
     \emph{no-rules scaffold}, isolating what the rules add beyond
     rephrasing itself. Same paired construction and p-value meaning as
-    Fig.~\ref{fig:pscores-baseline}: p is how often chance alone would
-    produce a per-base gap this large if the rules changed nothing.
-    Green = significant gain, red = significant harm, grey = not
-    significant.}
-    \label{fig:pscores-scaffold}
-\end{figure*}
+    Table~\ref{tab:pscores-baseline}; each percentage is relative to
+    that applier's own scaffold rate in the same condition.}
+    \label{tab:pscores-scaffold}
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \input{figures/pscores_tab_scaffold}
+\end{table}
 All distilled rulebooks are available in the project
 repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}}
 
