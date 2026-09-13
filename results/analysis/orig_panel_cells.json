@@ -1,0 +1,182 @@
+{
+ "sc|claude": {
+  "pooled": 31.8,
+  "pooled_recomputed": 31.77,
+  "iv": 45.42,
+  "oov": 22.02
+ },
+ "s|claude": {
+  "pooled": 39.3,
+  "pooled_recomputed": 39.24,
+  "iv": 49.76,
+  "oov": 31.73
+ },
+ "s2|claude": {
+  "pooled": 32.6,
+  "pooled_recomputed": 32.7,
+  "iv": 49.17,
+  "oov": 20.93
+ },
+ "s3|claude": {
+  "pooled": 32.8,
+  "pooled_recomputed": 32.29,
+  "iv": 46.58,
+  "oov": 22.08
+ },
+ "b|claude": {
+  "pooled": 39.3,
+  "pooled_recomputed": 39.24,
+  "iv": 49.76,
+  "oov": 31.73
+ },
+ "b2|claude": {
+  "pooled": 41.4,
+  "pooled_recomputed": 41.42,
+  "iv": 49.76,
+  "oov": 35.46
+ },
+ "b3|claude": {
+  "pooled": 35.7,
+  "pooled_recomputed": 35.6,
+  "iv": 44.17,
+  "oov": 29.48
+ },
+ "t|claude": {
+  "pooled": 37.3,
+  "pooled_recomputed": 37.38,
+  "iv": 49.76,
+  "oov": 28.54
+ },
+ "t2|claude": {
+  "pooled": 37.3,
+  "pooled_recomputed": 37.38,
+  "iv": 49.76,
+  "oov": 28.54
+ },
+ "t3|claude": {
+  "pooled": 37.3,
+  "pooled_recomputed": 37.38,
+  "iv": 49.76,
+  "oov": 28.54
+ },
+ "sc|gemini": {
+  "pooled": 31.1,
+  "pooled_recomputed": 31.08,
+  "iv": 45.42,
+  "oov": 20.83
+ },
+ "s|gemini": {
+  "pooled": 39.3,
+  "pooled_recomputed": 39.24,
+  "iv": 49.76,
+  "oov": 31.73
+ },
+ "s2|gemini": {
+  "pooled": 33.9,
+  "pooled_recomputed": 33.91,
+  "iv": 47.08,
+  "oov": 24.5
+ },
+ "s3|gemini": {
+  "pooled": 33.2,
+  "pooled_recomputed": 33.63,
+  "iv": 46.45,
+  "oov": 24.46
+ },
+ "b|gemini": {
+  "pooled": 39.3,
+  "pooled_recomputed": 39.24,
+  "iv": 49.76,
+  "oov": 31.73
+ },
+ "b2|gemini": {
+  "pooled": 42.2,
+  "pooled_recomputed": 42.27,
+  "iv": 49.76,
+  "oov": 36.92
+ },
+ "b3|gemini": {
+  "pooled": 35.7,
+  "pooled_recomputed": 35.6,
+  "iv": 44.17,
+  "oov": 29.48
+ },
+ "t|gemini": {
+  "pooled": 37.3,
+  "pooled_recomputed": 37.38,
+  "iv": 49.76,
+  "oov": 28.54
+ },
+ "t2|gemini": {
+  "pooled": 37.3,
+  "pooled_recomputed": 37.38,
+  "iv": 49.76,
+  "oov": 28.54
+ },
+ "t3|gemini": {
+  "pooled": 37.3,
+  "pooled_recomputed": 37.38,
+  "iv": 49.76,
+  "oov": 28.54
+ },
+ "sc|qwen": {
+  "pooled": 28.5,
+  "pooled_recomputed": 28.47,
+  "iv": 39.58,
+  "oov": 20.54
+ },
+ "s|qwen": {
+  "pooled": 31.2,
+  "pooled_recomputed": 31.24,
+  "iv": 36.22,
+  "oov": 27.69
+ },
+ "s2|qwen": {
+  "pooled": 33.7,
+  "pooled_recomputed": 34.43,
+  "iv": 48.44,
+  "oov": 24.42
+ },
+ "s3|qwen": {
+  "pooled": 34.4,
+  "pooled_recomputed": 35.02,
+  "iv": 40.49,
+  "oov": 31.12
+ },
+ "b|qwen": {
+  "pooled": 32.5,
+  "pooled_recomputed": 32.44,
+  "iv": 36.22,
+  "oov": 29.73
+ },
+ "b2|qwen": {
+  "pooled": 33.2,
+  "pooled_recomputed": 32.52,
+  "iv": 40.05,
+  "oov": 27.13
+ },
+ "b3|qwen": {
+  "pooled": 32.0,
+  "pooled_recomputed": 32.17,
+  "iv": 38.45,
+  "oov": 27.69
+ },
+ "t|qwen": {
+  "pooled": 35.7,
+  "pooled_recomputed": 35.74,
+  "iv": 43.95,
+  "oov": 29.88
+ },
+ "t2|qwen": {
+  "pooled": 37.3,
+  "pooled_recomputed": 37.38,
+  "iv": 49.76,
+  "oov": 28.54
+ },
+ "t3|qwen": {
+  "pooled": 37.8,
+  "pooled_recomputed": 37.9,
+  "iv": 49.76,
+  "oov": 29.43
+ }
+}
