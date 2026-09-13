@@ -144,7 +144,7 @@ rephraser is the instruction-level analogue: rather than selecting
 \emph{which} skill to invoke, it learns which \emph{surface forms} of an
 instruction this executor parses reliably.
 
-\section{Setup}
+\section{Models and Benchmarks}
 
 Throughout, we work with two modern VLAs: $\pi_0$~\cite{pi0} and $\pi_{0.5}$~\cite{pi05}. All of our $\pi_0$ experiments are conducted on the Bridge dataset, and all of our $\pi_{0.5}$ experiments are conducted on the LIBERO dataset. Both checkpoints are inherited from prior work: $\pi_0$ finetuned on Bridge~\cite{intact}, $\pi_{0.5}$ on LIBERO~\cite{pi05}. Moreover, the finetuned version of $\pi_0$ that we use is explicitly trained on rephrases of each task in order to reduce its language sensitivity. That is, $\pi_0$ already carries a mitigation for language sensitivity; we study what remains. In our own tests, the rephrase augmentation is worth a 20\% relative improvement on natural rephrasings (28.4\% vs 23.8\% pooled success on a 192-phrase natural-rephrase set, against the otherwise-identical non-augmented checkpoint); we seek to further improve robustness with rules.
 
@@ -154,7 +154,7 @@ In our experiments, we measure the success of these VLAs in simulation. One desi
 
 Each benchmark provides a set of simulatable tasks, and each task a canonical instruction.
 
-\subsubsection{Bridge / SIMPLER}
+\subsubsection{SIMPLER / Bridge}
 
 SIMPLER~\cite{simpler} provides simulated replicas of real-robot evaluation setups; we use its Bridge~\cite{bridge} suite of WidowX tabletop tasks, such as ``put carrot on plate'' and ``put eggplant into yellow basket''. We use the four Bridge tasks shipped with the benchmark and construct 16 more from benchmark-provided primitives, for 20 simulatable tasks in total. Of these, eight are in-vocabulary: every noun in the canonical instruction appears in the Bridge training language. Task success is procedurally determined by the benchmark. Our sealed evaluation set fixes 12 of the 20 ex ante --- five in-vocabulary, seven out --- and these strata are the in-distribution / out-of-distribution splits reported in our figures.
 
@@ -176,7 +176,7 @@ Our search algorithm is simple: first we generate many rephrases for each task (
 
 \subsection{Oracle Phrase Search}
 
-To further quantify language sensitivity, for each task, we compare its ``best-performing'' phrase to its canonical phrase (see Setup for the definition of canonical phrase). To find the ``best'' phrase for a task, we employ a simple algorithm. For a fixed task, we first generate 16 rephrases using a VLM. We then score each phrase by rolling it out multiple times. Then, we ask the VLM to generate 16 new phrases based on all previously scored phrases. We repeat this process three times, and select the best-performing phrase. See Fig.~\ref{fig:pi0-conditions} and Fig.~\ref{fig:pi05-fourtier} for a comparison of the success rates of oracle phrases to canonicals, adversarials, and naturals. For both models, oracle phrases reach significantly higher success rates than the other phrase sets. By this measure, $\pi_0$ is more sensitive to phrasing than $\pi_{0.5}$, consistent with our experience searching for single-edit swings.
+To further quantify language sensitivity, for each task, we compare its ``best-performing'' phrase to its canonical phrase. To find the ``best'' phrase for a task, we employ a simple algorithm. For a fixed task, we first generate 16 rephrases using a VLM. We then score each phrase by rolling it out multiple times. Then, we ask the VLM to generate 16 new phrases based on all previously scored phrases. We repeat this process three times, and select the best-performing phrase. See Fig.~\ref{fig:pi0-conditions} and Fig.~\ref{fig:pi05-fourtier} for a comparison of the success rates of oracle phrases to canonicals, adversarials, and naturals. For both models, oracle phrases reach significantly higher success rates than the other phrase sets. By this measure, $\pi_0$ is more sensitive to phrasing than $\pi_{0.5}$, consistent with our experience searching for single-edit swings.
 
 
 
@@ -210,31 +210,24 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
 
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_bridge_body}\par}
-{\footnotesize\captionof{figure}{Single-edit swings for frozen $\pi_0$
-on SIMPLER Bridge. Every phrase rolled on its task's full layout grid
-$\times$ 3 reps (n = 72 per phrase; basket task n = 180); success = final
-state at the 60-step horizon. p is the probability of seeing a gap at
-least this large between the best and worst phrase if the two phrasings
-actually had the same success probability (two-proportion z test). Green
-= best phrasing, red = worse; highlighted = the changed span.}\label{fig:pairs-bridge}}
+{\footnotesize\captionof{figure}{Single-edit swings for $\pi_0$ on
+SIMPLER Bridge (n = 72 per phrase; basket task n = 180). p = the
+probability of a gap this large by chance alone (two-proportion z test).
+Green = best phrasing, red = worse; highlighted = the changed span.}\label{fig:pairs-bridge}}
 
 \subsection{Single-Edit Swings for $\pi_{0.5}$ + LIBERO}
 
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_libero_body}\par}
 {\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on
-LIBERO. Every phrase rolled on the full init population (inits 0--49,
-n = 50 per phrase); success = the environment's success flag at episode
-end. p is the probability of seeing a gap at least this large between
-the best and worst phrase if the two phrasings actually had the same
-success probability (two-proportion z test). Green = best phrasing, grey
-= within 10\,pp of best, red = worse; highlighted = the changed span.}\label{fig:pairs-libero}}
+LIBERO (n = 50 per phrase). p as in Fig.~\ref{fig:pairs-bridge}; grey =
+within 10\,pp of best.}\label{fig:pairs-libero}}
 
 \section{Reducing Language Sensitivity with LLM-Distilled Rephrasing Rules}
 
 We now present our method for reducing this sensitivity. An overview of our method is given in Fig.~\ref{fig:method}. At a high level, it is quite simple: generate many rephrases across many tasks, score each phrase, present these scored phrases to an LLM, and then receive a set of rules specifying how to rephrase an incoming language instruction. Unlike per-task optimization, the rules must hold across all tasks at once.
 
-\subsection{Gathering Evidence: Generating and Scoring Phrases}
+\subsection{Gathering Evidence}
 
 In order to derive phrasing rules, we first gather a large set of phrases. For each task in our training set, we prompt a VLM to generate 16 ``natural'' phrases --- e.g. the way a human might naturally request a task --- and 8 adversarial phrases --- e.g. a convoluted, overly complicated task request. For example, a natural rephrase of ``put carrot on plate'' is ``Could you move the carrot to the plate?'', whereas an adversarial one is ``Take the long orange item typically eaten by rabbits and ensure it ends up supported by the circular dishware.'' We also include all phrases measured during oracle search (these tend to be more benign rephrases). See the appendix for the prompt used to generate natural and adversarial phrases.
 
@@ -251,7 +244,7 @@ For rulebooks distilled from phrases from the finetuning dataset, we further pro
 All distilled rulebooks are available in the project
 repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}}
 
-\subsubsection{Applying Rules}
+\subsection{Applying Rules}
 
 Rephrasing rules are applied just once before the robot's trajectory begins. Alongside the instruction and rules, the applier receives a reasoning trace generated from the incoming phrase and a scene image. These traces are generated by gemini-3.5-flash. The rules are applied greedily, and the output phrase is given directly to the VLA, after which the robot performs the task as usual.
 
@@ -273,26 +266,17 @@ every reported p-value are described in Appendix~\ref{app:stats}.
 
 \subsection{Results}
 
-Our best-performing rulebook type is consistently the out-of-finetune rulebook (the exception is the canonical set, where the in-finetune rulebook performs best; however, we note that at just a single phrase per task, our evaluation of canonical phrases is statistically underpowered). The gains concentrate on out-of-distribution tasks. With the out-of-finetune rulebooks, the Claude applier increases performance, on average, by more than 20\% across adversarial and natural phrases when compared to the no-rephraser baseline. When compared to the no-rules rephraser baseline, it improves performance by 26\% on adversarials, 11\% on human-generated naturals, and 4.7\% on VLM-generated naturals. See Fig.~\ref{fig:dashboard} and Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold} for the detailed set of results.
+Our best-performing rulebook type is consistently the out-of-finetune rulebook (the exception is the canonical set, where the in-finetune rulebook performs best; however, we note that at just a single phrase per task, our evaluation of canonical phrases is statistically underpowered). The gains concentrate on out-of-distribution tasks. With the out-of-finetune rulebooks, the Claude applier increases performance, on average, by more than 20\% across adversarial and natural phrases when compared to the no-rephraser baseline. When compared to the no-rules rephraser baseline, it improves performance by 26\% on adversarials, 11\% on human-generated naturals, and 4.7\% on VLM-generated naturals. See Fig.~\ref{fig:dashboard} and Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold} for the detailed set of results. Across the three independent draws of a rulebook type, pooled success varies by 0.7--5.1\,pp (median range 3.0\,pp) --- small relative to the effects above.
 
 \begin{figure*}[!t]
     \centering
     \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
-    \caption{Evaluating rulebooks across models. Base-weighted success on
-    the 12 sealed tasks, by condition (panels: adversarial,
-    human-generated naturals, LLM-generated naturals, canonical). Within each applier
-    group: the no-rules rephraser scaffold (grey) and the three rulebook
-    evidence diets (green; each bar the mean over three independent
-    distillation draws) --- out-of-finetune (distilled from rollout
-    evidence), both combined, and in-finetune (distilled from
-    finetune-corpus evidence). The thin flanking bars split each cell into
-    the in-distribution (left, 5 tasks) and out-of-distribution (right, 7
-    tasks) strata from the ex-ante vocabulary audit; the dashed red line
-    is the un-rephrased baseline. Adversarial = 72 attacks ($\times$2
-    reps); human-generated naturals = 363 phrases ($\times$1);
-    LLM-generated naturals = the 186-phrase image-conditioned set
-    ($\times$1); canonical = the 12 canonical instructions. Per-draw results appear
-    in Appendix~\ref{app:draws}.}
+    \caption{Main results: base-weighted success on the 12 sealed tasks,
+    by condition. Grey = the no-rules rephraser scaffold; green = rulebook
+    cells (mean over the three distillation draws) for the
+    out-of-finetune, both, and in-finetune rulebooks; thin flanks = the
+    in-distribution (left) / out-of-distribution (right) strata; dashed
+    red = the no-rephraser baseline.}
     \label{fig:dashboard}
 \end{figure*}
 
@@ -360,25 +344,6 @@ each effect as a relative change: the mean paired difference as a percent
 of the baseline's pooled rate (adversarial 24.5\%, human-generated
 naturals 23.0\%, LLM-generated naturals 26.0\%; scaffold rates per
 applier and condition).
-
-
-\section{Rulebook Draws}
-\label{app:draws}
-
-Table~\ref{tab:draws} reports each independent distillation draw
-separately: success \% on the sealed set, pooled over the three appliers
---- the per-draw view behind the draw-averaged cells of
-Fig.~\ref{fig:dashboard}.
-
-\begin{table}[!t]
-    \caption{Success \% by evidence diet and rulebook draw, pooled over
-    the three appliers.}
-    \label{tab:draws}
-    \centering
-    \footnotesize
-    \setlength{\tabcolsep}{5pt}
-    \input{figures/draws_tab}
-\end{table}
 
 
 \section{Task Scenes}
