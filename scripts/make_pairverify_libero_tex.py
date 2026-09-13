@@ -5,7 +5,7 @@ LIBERO twin of scripts/make_pairverify_tex.py -- layout, spacing, colors and
 markup are reused verbatim; only the data loading differs. Two-column listing on
 page 1, scene frames in a 3-column grid on page 2.
 
-Data: the n=50 rounds in results/analysis/pi05_bank/{roll50,round2}/*.jsonl.
+Data: the n=50 rounds in results/analysis/pi05_bank/{roll50,round2..round8}/*.jsonl.
 Every phrase is measured on the full LIBERO init population (inits 0-49), so
 n=50/phrase and there is no window-composition question. Success is the
 environment's own success flag at episode end, never a predicate on text.
@@ -34,7 +34,9 @@ rows = [json.loads(l)
                   + glob.glob(str(BANK / "round3/r3roll*.jsonl"))
                   + glob.glob(str(BANK / "round4/r4roll*.jsonl"))
                   + glob.glob(str(BANK / "round5/r5roll*.jsonl"))
-                  + glob.glob(str(BANK / "round6/r6roll*.jsonl")))
+                  + glob.glob(str(BANK / "round6/r6roll*.jsonl"))
+                  + glob.glob(str(BANK / "round7/r7roll*.jsonl"))
+                  + glob.glob(str(BANK / "round8/r8roll*.jsonl")))
         for l in open(f)]
 d = pd.DataFrame(rows)
 d["task"] = d.suite + "/" + d.task_id.astype(str)
@@ -91,7 +93,26 @@ GROUPS = [
     # word HELPS here; the same canonical scores 95% on 90/10 and 0% on 90/25.
     ("libero_90/31", "source color", [
         "put the bowl on top of the cabinet",
-        "put the black bowl on top of the cabinet"]),
+        "put the black bowl on top of the cabinet",
+        "put the grey bowl on top of the cabinet"]),
+    # round 8: libero_object hypernyms. Five of six tasks lose >= 18 pp when the
+    # trained object name is replaced by a generic one; the same generic string
+    # ("pick up the bottle ...") scores 96 / 74 / 60 on object/4, /2, /3.
+    ("libero_object/1", "source noun", [
+        "pick up the cream cheese and place it in the basket",
+        "pick up the container and place it in the basket"]),
+    ("libero_object/3", "source noun", [
+        "pick up the bbq sauce and place it in the basket",
+        "pick up the bottle and place it in the basket"]),
+    ("libero_object/8", "source noun", [
+        "pick up the chocolate pudding and place it in the basket",
+        "pick up the cup and place it in the basket"]),
+    ("libero_object/2", "source noun", [
+        "pick up the salad dressing and place it in the basket",
+        "pick up the bottle and place it in the basket"]),
+    ("libero_object/6", "source noun", [
+        "pick up the butter and place it in the basket",
+        "pick up the block and place it in the basket"]),
 ]
 
 
@@ -136,6 +157,16 @@ def _mark_sets(siblings):
                          if len({ts[i] for ts in toksets}) > 1})
         else:
             outs.append({i for i, t in enumerate(toks) if t not in common})
+    # a rung that is a pure deletion of the others (e.g. "the bowl" vs "the
+    # black bowl" / "the grey bowl") has nothing of its own to mark: fall back
+    # to the pair rule against the first differing sibling so the aligned
+    # token ("bowl") is highlighted.
+    for i, toks in enumerate(toksets):
+        if not outs[i]:
+            for j, other in enumerate(toksets):
+                if j != i and other != toks:
+                    outs[i] = _mark_sets([siblings[i], siblings[j]])[0]
+                    break
     return outs
 
 
@@ -206,7 +237,7 @@ tex = [r"""\documentclass[10pt]{article}
 \newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
 \begin{document}
 {\normalsize\bfseries Verified minimal pairs --- frozen $\pi_{0.5}$, LIBERO}\enspace
-{\scriptsize Full init population (inits 0--49; n=50/phrase, six rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, grey = within 10\,pp of it, red = worse; highlight = changed span. Scenes on page 2.}
+{\scriptsize Full init population (inits 0--49; n=50/phrase, eight rounds); success = environment success flag at episode end; libero\_90/30 is a held-out sealed task; p: two-proportion z, best vs worst phrase (ladder extremes selected within family --- descriptive). Green = best phrasing, grey = within 10\,pp of it, red = worse; highlight = changed span. Scenes on page 2.}
 \vspace{2pt}\hrule\vspace{2.5pt}
 \begin{multicols}{2}\scriptsize\setlength{\baselineskip}{7.2pt}"""]
 
@@ -240,10 +271,13 @@ for task in TASKORDER:
 tex.append(r"\end{multicols}")
 tex.append(r"\newpage")
 tex.append(r"{\large\bfseries Task scenes}\\[4pt]")
-tex.append(r"\begin{multicols}{3}\footnotesize\centering")
+# 4 columns so up to 24 scenes stay on one page; each frame+label is one
+# unbreakable box so a column break never separates them.
+tex.append(r"\begin{multicols}{4}\footnotesize\centering")
 for task in TASKORDER:
-    tex.append(r"\includegraphics[width=0.62\linewidth]{frames/" + fname(task) + r".png}\\")
-    tex.append(r"{\ttfamily\scriptsize " + task.replace("_", r"\_") + r"}\\[3pt]")
+    tex.append(r"\begin{minipage}{\linewidth}\centering"
+               r"\includegraphics[width=0.8\linewidth]{frames/" + fname(task) + r".png}\\"
+               r"{\ttfamily\scriptsize " + task.replace("_", r"\_") + r"}\end{minipage}\\[5pt]")
 tex.append(r"\end{multicols}")
 tex.append(r"\end{document}")
 
