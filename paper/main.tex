@@ -120,7 +120,7 @@ executor parses reliably, and edits the instruction accordingly.
 
 \section{Setup}
 
-Throughout, we work with two modern VLAs: $\pi_0$ and $\pi_{0.5}$. All of our $\pi_0$ experiments are conducted on the Bridge dataset, and all of our $\pi_{0.5}$ experiments are conducted on the LIBERO dataset. The specific versions of our models are finetuned for their respective datasets and are inherited from prior works. Moreover, the finetuned version of $\pi_0$ that we use is explicitly trained on rephrases of each task in order to reduce its language-sensitivity. That is, in the case of $\pi_0$, we are already working with a model that's been developed to some extent to mitigate the issue of language-sensitivity, and in this work we seek to further explore what remains of its language sensitivity.
+Throughout, we work with two modern VLAs: $\pi_0$ and $\pi_{0.5}$. All of our $\pi_0$ experiments are conducted on the Bridge dataset, and all of our $\pi_{0.5}$ experiments are conducted on the LIBERO dataset. The specific versions of our models are finetuned for their respective datasets and are inherited from prior works. Moreover, the finetuned version of $\pi_0$ that we use is explicitly trained on rephrases of each task in order to reduce its language-sensitivity. That is, in the case of $\pi_0$, we are already working with a model that's been developed to some extent to mitigate the issue of language-sensitivity, and in this work we seek to further explore what remains of its language sensitivity. In our own tests, the rephrase augmentation is worth a 20\% relative improvement on natural rephrasings (28.4\% vs 23.8\% pooled success on a 192-phrase natural-rephrase set, against the otherwise-identical non-augmented checkpoint); we seek to further improve robustness with rules.
 
 In our experiments, we measure the success of these VLAs in simulation. In determining success, there's a design choice to be made: at which frame in the episode should success be measured? For Bridge's simulation (SIMPLER) tasks, we measure success at the 60th frame of a trajectory, defaulting to the benchmark's default.
 
@@ -261,20 +261,20 @@ Our best-performing rulebook type is consistently the out-of-finetune rulebook (
     \centering
     \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
     \caption{Evaluating rulebooks across models. Base-weighted success on
-    the 12 sealed tasks, by condition (columns: adversarial,
-    human-generated naturals, LLM-generated naturals). Rows: by applier
-    (bars = mean over the three independent rulebook draws); by rulebook
-    draw (bars = mean over appliers); the in-vocab stratum (5 tasks); the
-    out-of-vocab stratum (7 tasks). Within each applier group the three
-    green bars are the rulebook evidence diets: out-of-finetune (distilled
-    from rollout evidence), in-finetune (distilled from finetune-corpus
-    evidence), and both combined. Dashed red line = the un-rephrased
-    baseline; dashed grey line = the no-rules scaffold mean. Grey bars =
-    the no-rules rephraser scaffold, green bars = rulebook cells.
-    Adversarial = 72 attacks ($\times$2 reps); human-generated naturals =
-    the 392 collected phrases, 363 unique task / phrase pairs ($\times$1); LLM-generated naturals =
-    the 186-phrase image-conditioned set ($\times$1); strata from the
-    ex-ante vocabulary audit.}
+    the 12 sealed tasks, by condition (panels: adversarial,
+    human-generated naturals, LLM-generated naturals). Within each applier
+    group: the no-rules rephraser scaffold (grey) and the three rulebook
+    evidence diets (green; each bar the mean over three independent
+    distillation draws) --- out-of-finetune (distilled from rollout
+    evidence), both combined, and in-finetune (distilled from
+    finetune-corpus evidence). The thin flanking bars split each cell into
+    the in-distribution (left, 5 tasks) and out-of-distribution (right, 7
+    tasks) strata from the ex-ante vocabulary audit; the dashed red line
+    is the un-rephrased baseline. Adversarial = 72 attacks ($\times$2
+    reps); human-generated naturals = the 392 collected phrases, 363
+    unique task / phrase pairs ($\times$1); LLM-generated naturals = the
+    186-phrase image-conditioned set ($\times$1). Per-draw results appear
+    in Appendix~\ref{app:draws}.}
     \label{fig:dashboard}
 \end{figure*}
 
@@ -344,6 +344,25 @@ The rulebook itself is substituted for the \texttt{\{\{rules\}\}} slot;
 rulebooks are available in the project
 repository (\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}).
 \lstinputlisting{appendix/prompt_apply_rules.txt}
+
+
+\section{Rulebook Draws}
+\label{app:draws}
+
+Table~\ref{tab:draws} reports each independent distillation draw
+separately: success \% on the sealed set, pooled over the three appliers
+--- the per-draw view behind the draw-averaged cells of
+Fig.~\ref{fig:dashboard}.
+
+\begin{table}[!t]
+    \caption{Success \% by evidence diet and rulebook draw, pooled over
+    the three appliers.}
+    \label{tab:draws}
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{5pt}
+    \input{figures/draws_tab}
+\end{table}
 
 
 \section{The Original Condition}
