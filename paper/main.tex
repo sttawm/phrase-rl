@@ -217,6 +217,42 @@ We evaluate on four different phrase sets: adversarial, VLM-generated naturals, 
 
 We evaluate against three baselines: no rephraser, no-rules rephraser, and CoVer. The no rephraser does not rephrase at all and passes the incoming instruction directly to the VLA. The no-rules rephraser contains a single simple rules (see appendix). CoVer uses a contrastively trained verifier to continuously select their verifier's highest scoring phrase / action pair from a set of 40 (8 rephrases by 5 actions each). Each task is evaluated on 22 different layouts of the scene. All evaluations perform two repetitions per phrase per task, with the exception of CoVer and the human-generated naturals, due to cost constraints.
 
+\subsection{Statistical tests}
+\label{sec:stats}
+
+For a comparison between two arms (e.g.\ a rulebook cell against the
+un-rephrased baseline), the paired unit is the \emph{base instruction}. For
+base $i$, let $c_i$ be the arm's success rate on that base --- the success
+proportion of the arm's rephrasing of base $i$ over the base's pinned
+layout grid, averaged over the three independent rulebook draws where the
+arm is a rulebook cell --- and let $b_i$ be the baseline's success
+proportion for the raw base over the same grid. The paired difference is
+$d_i = c_i - b_i$, and the reported effect is the mean of the $d_i$
+(base-weighted, matching all pooled numbers in this paper). Because both
+arms face identical pinned layouts and common random numbers, scene
+difficulty cancels within each $d_i$.
+
+The p-value is a two-sided sign-flip permutation test on the mean of the
+$d_i$: under the null hypothesis that the arm changes nothing, each
+$d_i$'s sign is exchangeable, so we recompute the mean under random sign
+assignments (20{,}000 resamples; exact enumeration of all $2^n$ sign
+patterns when $n \le 12$) and report the fraction of null means at least
+as large in magnitude as the observed one. The number of bases is the
+test's sample size ($n = 186$ VLM-generated natural, $363$
+human-generated natural, $72$ adversarial, $12$ canonical);
+layouts and repetitions sharpen each $d_i$ but do not add to $n$.
+Averaging draws before pairing means the test reads on the average-draw
+rulebook: it licenses claims about the distilled books, not about the
+distillation procedure (with three draws, a draw-level test is reported
+only as a replication check). Baseline per-base rates come from the published baseline rolls: the
+un-rephrased natural set at one repetition; for the adversarial condition,
+the 60 generated attacks at one repetition plus the original 12 attacks at
+twelve; for the human-generated naturals, the raw survey phrases at one
+repetition; for the canonical condition, the 12 canonical instructions at
+twelve repetitions. Cell arms carry one or two repetitions depending on
+condition and draw. Repetition counts affect only the precision of the
+individual $d_i$, not the pairing.
+
 \subsection{Results}
 
 Our best performing rulebook-type is consistently the out-of-finetune rulebook (the exception to this rule is the canonical set, where the in-finetune rulebook performs best; however, we note that at just a single phrase per task, our evaluation of canonical phrases is statistically underpowered). The rulebook performs significantly better on out-of-distribution tasks. With the out-of-finetune rulebooks, the Claude applier increases performance, on average, by more than 20\% across adversarial and natural phrases when compared to the no-rephraser baseline. When compared to the no-rules rephraser baseline, it improves performance by 26\% on adversarials, 11\% on human-generated naturals, and 4.7\% on VLM-generated naturals. See figures XX and YY for the detailed set of results.
