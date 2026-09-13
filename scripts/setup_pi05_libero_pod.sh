@@ -1,7 +1,7 @@
 #!/bin/bash
 # Full pi05_libero environment build from scratch. Consolidates the three stage
 # scripts that built pilot3 (2026-09-10) into one; ~25 min, dominated by the
-# 12GB checkpoint download at the end.
+# 12GB checkpoint download (aria2, ~8 MB/s), which lives on /workspace so a stop does not wipe it.
 set -x
 export DEBIAN_FRONTEND=noninteractive PATH=/root/.local/bin:$PATH
 apt-get update -qq
@@ -23,6 +23,19 @@ export LIBERO_VENV=/workspace/openpi/examples/libero/.venv
 export LIBERO_PYTHONPATH=/workspace/openpi/third_party/libero
 ENV
 mkdir -p /workspace/.libero; rm -rf /root/.libero; ln -s /workspace/.libero /root/.libero
+# openpi's checkpoint cache defaults to /root/.cache/openpi, which is container disk:
+# a pod stop wipes it and the next serve_policy re-downloads 11.6 GiB serially at
+# ~1 MB/s (3 h). Keep it on the volume, and prefetch it with aria2 (8 MB/s, ~25 min).
+mkdir -p /workspace/.cache/openpi; rm -rf /root/.cache/openpi; mkdir -p /root/.cache; ln -s /workspace/.cache/openpi /root/.cache/openpi
+apt-get install -y -qq aria2
+CK=/workspace/.cache/openpi/openpi-assets/checkpoints/pi05_libero; mkdir -p $CK
+curl -s "https://storage.googleapis.com/storage/v1/b/openpi-assets/o?prefix=checkpoints/pi05_libero/&fields=items(name,size)&maxResults=200" \
+ | python3 -c 'import sys,json
+for i in json.load(sys.stdin)["items"]: print(i["size"], i["name"][len("checkpoints/pi05_libero/"):])' > /workspace/ckpt_manifest.txt
+: > /workspace/aria2_in.txt
+while read sz rel; do printf '%s\n  dir=%s\n  out=%s\n' "https://storage.googleapis.com/openpi-assets/checkpoints/pi05_libero/$rel" "$CK/$(dirname $rel)" "$(basename $rel)" >> /workspace/aria2_in.txt; done < /workspace/ckpt_manifest.txt
+aria2c -i /workspace/aria2_in.txt -j 8 -x 8 -s 8 -k 8M -c --file-allocation=none --max-tries=20 --summary-interval=60 --console-log-level=warn
+while read sz rel; do [ "$(stat -c %s "$CK/$rel")" = "$sz" ] || { echo "CHECKPOINT SIZE MISMATCH $rel"; exit 3; }; done < /workspace/ckpt_manifest.txt
 . /workspace/interactive-vlas/pi05_libero/.openpi_env
 echo N | MUJOCO_GL=egl PYOPENGL_PLATFORM=egl PYTHONPATH="$LIBERO_PYTHONPATH" "$LIBERO_VENV/bin/python" -c "import libero.libero" >/dev/null 2>&1
 # HARD GATE: real render
