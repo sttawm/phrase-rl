@@ -142,9 +142,9 @@ instruction this executor parses reliably.
 
 \section{Setup}
 
-Throughout, we work with two modern VLAs: $\pi_0$ and $\pi_{0.5}$. All of our $\pi_0$ experiments are conducted on the Bridge dataset, and all of our $\pi_{0.5}$ experiments are conducted on the LIBERO dataset. The specific versions of our models are finetuned for their respective datasets and are inherited from prior works. Moreover, the finetuned version of $\pi_0$ that we use is explicitly trained on rephrases of each task in order to reduce its language-sensitivity. That is, in the case of $\pi_0$, we are already working with a model that's been developed to some extent to mitigate the issue of language-sensitivity, and in this work we seek to further explore what remains of its language sensitivity. In our own tests, the rephrase augmentation is worth a 20\% relative improvement on natural rephrasings (28.4\% vs 23.8\% pooled success on a 192-phrase natural-rephrase set, against the otherwise-identical non-augmented checkpoint); we seek to further improve robustness with rules.
+Throughout, we work with two modern VLAs: $\pi_0$~\cite{pi0} and $\pi_{0.5}$~\cite{pi05}. All of our $\pi_0$ experiments are conducted on the Bridge dataset, and all of our $\pi_{0.5}$ experiments are conducted on the LIBERO dataset. The specific versions of our models are finetuned for their respective datasets and are inherited from prior works~\cite{intact, pi05}. Moreover, the finetuned version of $\pi_0$ that we use is explicitly trained on rephrases of each task in order to reduce its language-sensitivity. That is, in the case of $\pi_0$, we are already working with a model that's been developed to some extent to mitigate the issue of language-sensitivity, and in this work we seek to further explore what remains of its language sensitivity. In our own tests, the rephrase augmentation is worth a 20\% relative improvement on natural rephrasings (28.4\% vs 23.8\% pooled success on a 192-phrase natural-rephrase set, against the otherwise-identical non-augmented checkpoint); we seek to further improve robustness with rules.
 
-In our experiments, we measure the success of these VLAs in simulation. In determining success, there's a design choice to be made: at which frame in the episode should success be measured? For Bridge's simulation (SIMPLER) tasks, we measure success at the 60th frame of a trajectory, defaulting to the benchmark's default.
+In our experiments, we measure the success of these VLAs in simulation. In determining success, there's a design choice to be made: at which frame in the episode should success be measured? For SIMPLER's Bridge tasks, we measure success at the 60th frame of a trajectory, the benchmark's default horizon.
 
 \subsection{Tasks}
 
@@ -152,11 +152,11 @@ Each dataset used in our experiments is associated with a set of simulatable tas
 
 \subsubsection{Bridge / SIMPLER}
 
-SIMPLER tasks are simulatable tabletop tasks, such as ``put carrot on plate'' and ``put eggplant into yellow basket''. In our experiments, we use four tasks which are shipped with the benchmark, and we further construct 16 more tasks using benchmark-provided primitives. In total, this gives us 20 simulatable tasks. Of these, eight are in vocabulary in that they share a common object with tasks in the Bridge training set. Task success is procedurally determined by the benchmark.
+SIMPLER~\cite{simpler} provides simulated replicas of real-robot evaluation setups; we use its Bridge~\cite{bridge} suite of WidowX tabletop tasks, such as ``put carrot on plate'' and ``put eggplant into yellow basket''. We use the four Bridge tasks shipped with the benchmark and construct 16 more from benchmark-provided primitives, for 20 simulatable tasks in total. Of these, eight are in-vocabulary: every noun in the canonical instruction appears in the Bridge training language. Task success is procedurally determined by the benchmark. Our sealed evaluation set fixes 12 of the 20 ex ante --- five in-vocabulary, seven out --- and these strata are the in-distribution / out-of-distribution splits reported in our figures.
 
 \subsubsection{LIBERO}
 
-LIBERO consists of many simulatable tabletop tasks. Examples include ``put the bowl on the plate'' and ``put the moka pot on the stove''. Its tasks are split into 5 groups: libero\_goal, libero\_spatial, libero\_object, libero\_90, and libero\_10. We inherit a $\pi_{0.5}$ that is finetuned on all of these categories with the exception of libero\_90. As in SIMPLER, task success is defined procedurally by the benchmark's code. Each LIBERO task has a maximum number of steps for which it is run, and the task is determined to be successful once any step is determined to be successful.
+LIBERO~\cite{liu2023libero} consists of 130 simulatable tabletop tasks. Examples include ``put the bowl on the plate'' and ``put the moka pot on the stove''. Its tasks are grouped into four suites --- libero\_spatial, libero\_object, and libero\_goal (10 tasks each), plus libero\_100, which splits into libero\_90 (90 tasks) and libero\_10 (10). We inherit a $\pi_{0.5}$ finetuned on every suite except libero\_90~\cite{pi05}. As in SIMPLER, task success is defined procedurally by the benchmark's code. Each LIBERO task runs to a suite-specific step limit and counts as successful once any step succeeds.
 
 
 
@@ -597,6 +597,20 @@ and J. Tompson,
 ``Robotic skill acquisition via instruction augmentation with
 vision-language models,''
 in \emph{Proc. Robotics: Science and Systems (RSS)}, 2023.
+
+
+\bibitem{liu2023libero}
+B. Liu, Y. Zhu, C. Gao, Y. Feng, Q. Liu, Y. Zhu, and P. Stone,
+``LIBERO: Benchmarking knowledge transfer for lifelong robot learning,''
+in \emph{Advances in Neural Information Processing Systems (NeurIPS),
+Datasets and Benchmarks Track}, 2023.
+
+\bibitem{pi05}
+Physical Intelligence, K. Black, N. Brown, J. Darpinian, K. Dhabalia,
+D. Driess, \emph{et al.},
+``$\pi_{0.5}$: A vision-language-action model with open-world
+generalization,''
+\emph{arXiv preprint arXiv:2504.16054}, 2025.
 
 \end{thebibliography}
 
