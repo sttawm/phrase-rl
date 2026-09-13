@@ -1,0 +1,1 @@
+Pick up the orange object, move it to the right, place it on the green object, and repeat.

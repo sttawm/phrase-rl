@@ -1,6 +1,6 @@
 # Verified minimal pairs — full-grid re-roll (by task)
 
-Frozen π₀ (rephrase-bridge) on SIMPLER; 6,912 episodes, full per-task layout grid × 3 reps (n=72; basket grid is 60 → n=180), layout id on every row, success = final state at the 60-step horizon.
+Frozen π₀ (rephrase-bridge) on SIMPLER; 6,984 episodes, full per-task layout grid × 3 reps (n=72; basket grid is 60 → n=180), layout id on every row, success = final state at the 60-step horizon.
 
 Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.96 SE mid-range, asymmetric near 0/100%) — not ±1 SD. Only groups with a significant contrast (|z| ≥ 1.96) and phrases at full n are shown. **Bold** = the tokens that differ. Gap labels: LARGE ≥ 30pp, MEDIUM 15–30pp, SMALL < 15pp. ⚠ marks groups whose phrases also differ in capitalisation or trailing punctuation when that is NOT the tested edit (treat the gap as format-confounded by up to ~10-40pp until style-matched re-roll). Everything else: `pair_verdicts.csv`, `phrase_summary.csv`.
 
@@ -304,6 +304,13 @@ Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.
 | **put** the **pepsi** on the **plate** | 69% [58–79] | 72 |
 | **Put** the **Pepsi** on the **plate.** | 31% [21–42] | 72 |
 
+`A02b_single_letter_case` — **LARGE gap (44pp)**
+
+| phrase | success | n |
+|---|---|---|
+| put the **pepsi** on the plate | 69% [58–79] | 72 |
+| put the **Pepsi** on the plate | 25% [16–36] | 72 |
+
 `A07_prep_to_onto` — **MEDIUM gap (15pp)**
 
 | phrase | success | n |
@@ -376,4 +383,4 @@ Brackets are **Wilson 95% score intervals** on the success probability (≈ ±1.
 
 ---
 
-Overall: **61 of 98** single-concept, format-matched contrasts survive at full-grid n (65/104 of all contrasts).
+Overall: **62 of 99** single-concept, format-matched contrasts survive at full-grid n (66/105 of all contrasts).

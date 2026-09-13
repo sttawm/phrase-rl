@@ -95,24 +95,14 @@ GROUPS = [
         "put the bowl on top of the cabinet",
         "put the black bowl on top of the cabinet",
         "put the grey bowl on top of the cabinet"]),
-    # round 8: libero_object hypernyms. Five of six tasks lose >= 18 pp when the
-    # trained object name is replaced by a generic one; the same generic string
-    # ("pick up the bottle ...") scores 96 / 74 / 60 on object/4, /2, /3.
-    ("libero_object/1", "source noun", [
-        "pick up the cream cheese and place it in the basket",
-        "pick up the container and place it in the basket"]),
-    ("libero_object/3", "source noun", [
-        "pick up the bbq sauce and place it in the basket",
-        "pick up the bottle and place it in the basket"]),
-    ("libero_object/8", "source noun", [
-        "pick up the chocolate pudding and place it in the basket",
-        "pick up the cup and place it in the basket"]),
-    ("libero_object/2", "source noun", [
-        "pick up the salad dressing and place it in the basket",
-        "pick up the bottle and place it in the basket"]),
-    ("libero_object/6", "source noun", [
-        "pick up the butter and place it in the basket",
-        "pick up the block and place it in the basket"]),
+    # round 8 (68 edits): formatting, sentence structure, libero_10 nouns and
+    # spatial locators were all within 16 pp; the libero_object hypernym drops
+    # (container -66, bottle -38/-26, cup -36, block -18) were rejected as
+    # ambiguous (several bottles / containers per scene). Kept: the one
+    # structural edit that moved (user decision 2026-09-13).
+    ("libero_90/9", "question form", [
+        "put the black bowl on the plate",
+        "can you put the black bowl on the plate"]),
 ]
 
 
@@ -285,10 +275,15 @@ out = PV / "pairverify_libero_pairs.tex"
 out.write_text("\n".join(tex))
 print("tex ->", out)
 print("groups:", sum(len(v) for v in blocks.values()), "across", len(blocks), "tasks")
-if not shutil.which("pdflatex"):
-    raise SystemExit("no pdflatex locally; compile elsewhere")
-for _ in range(2):
-    subprocess.run(["pdflatex", "-interaction=nonstopmode", "-output-directory", str(PV), str(out)],
-                   capture_output=True, text=True)
+if shutil.which("pdflatex"):
+    engine = ["pdflatex", "-interaction=nonstopmode", "-output-directory", str(PV), str(out)]
+elif shutil.which("tectonic"):
+    engine = ["tectonic", "--outdir", str(PV), str(out)]   # runs its own extra passes
+else:
+    raise SystemExit("no pdflatex/tectonic locally; compile elsewhere")
+for _ in range(2 if engine[0] == "pdflatex" else 1):
+    r = subprocess.run(engine, capture_output=True, text=True)
 pdf = PV / "pairverify_libero_pairs.pdf"
 print("pdf ->", pdf, "exists:", pdf.exists())
+if not pdf.exists():
+    print("\n".join((r.stdout + r.stderr).splitlines()[-25:]))

@@ -1,0 +1,1 @@
+Pick up dark grey object and place in light grey object inside black object

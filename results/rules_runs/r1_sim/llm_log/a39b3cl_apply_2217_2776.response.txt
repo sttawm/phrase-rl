@@ -1,0 +1,1 @@
+Pick up green cube. Move right. Place the green cube on yellow plate.

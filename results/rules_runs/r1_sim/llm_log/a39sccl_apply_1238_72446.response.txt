@@ -1,0 +1,1 @@
+Put the purple piece on the green and yellow rectangular piece without flipping it.

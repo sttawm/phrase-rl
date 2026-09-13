@@ -1,0 +1,1 @@
+Pick up the round object gently and place it on the rectangular object.

@@ -1,0 +1,44 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a robotic gripper positioned over a wooden table. On the table, there is a small, light-green circular dish (referred to as the ashtray) on the left and a small, teal/greenish-blue cube (referred to as the block) on the right.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to pick up the light-green circular dish (ashtray) and place it directly on top of the teal/greenish-blue cube (block).
+
+Original: ashtray, block, top as many as possible potential replacements: light-green dish, circular plate, green bowl, teal cube, green block, square block, upper surface
+Original: place as many as possible potential replacements: put, set, position, drop, stack, move
+Original: green, teal, circular, square as many as possible potential replacements: light-green, greenish-blue, round, cubic
+Original: on top of as many as possible potential replacements: onto, atop
+
+Incoming instruction: place the ashtray on top of the block
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

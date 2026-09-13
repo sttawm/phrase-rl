@@ -1,0 +1,46 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a wooden tabletop with a robotic gripper positioned above a small grey nut and a black toy tire with a silver rim. There is no bowl visible in the image, suggesting the instruction might be referring to placing the tire onto or inside another object, or potentially misidentifying the wheel rim/center as a bowl-like structure, or referring to a task where the tire needs to be moved.
+
+<Meaning of the instruction in the context of the image>
+The instruction "Put the tire in the bowl" directs the robot to pick up the black and silver tire and place it into a bowl. Since no bowl is currently visible in the immediate frame, the robot must locate the bowl on the surface and deposit the tire inside it.
+
+Original: tire as many as possible potential replacements: black wheel, rubber tire, wheel
+Original: bowl as many as possible potential replacements: container, dish, basin, holder
+Original: Put as many as possible potential replacements: Place, Move, Drop, Deposit, Transfer
+Original: in as many as possible potential replacements: into, inside
+Original: Adjectives as many as possible potential replacements: black, round, rubber
+Original: Adverbs as many as possible potential replacements: None
+
+Incoming instruction: Put the tire in the bowl
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

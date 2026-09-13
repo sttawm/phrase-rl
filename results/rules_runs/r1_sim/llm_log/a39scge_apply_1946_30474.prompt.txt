@@ -1,0 +1,44 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a robotic arm gripper positioned over a wooden table. On the table, there is a small purple eggplant toy and a green and yellow kitchen sponge. The gripper is currently positioned directly above the purple eggplant.
+
+<Meaning of the instruction in the context of the image>
+The instruction "Place the object on the sponge" means the robot should use its gripper to pick up the purple eggplant and set it down on top of the green and yellow sponge.
+
+Original: object, sponge as many as possible potential replacements: purple eggplant, purple vegetable, toy eggplant, green sponge, yellow and green sponge, cleaning sponge
+Original: Place as many as possible potential replacements: Put, Set, Move, Drop, Position, Lay
+Original: None as many as possible potential replacements: purple, green, yellow, wooden
+Original: None
+
+Incoming instruction: Place the object on the sponge
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

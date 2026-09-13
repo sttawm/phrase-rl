@@ -1,0 +1,1 @@
+set multicolor object on yellow object

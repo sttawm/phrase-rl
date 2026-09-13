@@ -1,0 +1,57 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+**Description of the image:**  
+The image shows a robotic arm with a parallel gripper positioned over a wooden desk. On the desk, there is a red soda can (labeled "Cola") and a black computer keyboard to its right.
+
+**Meaning of the instruction in the context of the image:**  
+The instruction asks the robot to pick up the red soda can and place it upright (with its top opening pointing up) onto the top-right corner of the black keyboard (referred to as the "black board" in the prompt).
+
+**Original: <Nouns> as many as possible potential replacements:**  
+* can: red can, soda can, cola can, red container  
+* upper right corner: top right corner, top right section  
+* black board: black keyboard, computer keyboard, black input device  
+* opening: top, mouth  
+
+**Original: <Verbs> as many as possible potential replacements:**  
+* Place: put, set, position, move, transfer, drop  
+* facing: pointing, oriented  
+
+**Original: <Adjectives> as many as possible potential replacements:**  
+* upper right: top-right  
+* black: dark  
+* upwards: upright, up  
+
+**Original: <Adverbs>**  
+* upwards (used as direction/orientation)
+
+Incoming instruction: Place the can on the upper right corner of the black board, with the opening facing upwards
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

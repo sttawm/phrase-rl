@@ -1,0 +1,1 @@
+pick up green cube. move right. set object on yellow plate

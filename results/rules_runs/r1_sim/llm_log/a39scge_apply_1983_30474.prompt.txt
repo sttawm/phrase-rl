@@ -1,0 +1,56 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+**Description of the image:**
+The image shows a robotic gripper positioned over a wooden table. On the table, there is a small purple eggplant and a green and yellow sponge. The green side of the sponge is facing upwards.
+
+**Meaning of the instruction in the context of the image:**
+The instruction asks the robot to grasp the purple eggplant and place it on top of the green, rough scrubbing side of the sponge.
+
+**Original: <Nouns> as many as possible potential replacements:** 
+- eggplant: purple eggplant, purple vegetable, eggplant toy
+- rough side: green side, top surface, green top
+- sponge: green and yellow sponge, cleaning sponge, scrubber
+
+**Original: <Verbs> as many as possible potential replacements:** 
+- Pick up: grasp, take, lift, grab
+- put: place, set, deposit, drop
+
+**Original: <Adjectives> as many as possible potential replacements:** 
+- rough: green, top, textured
+
+**Original: <Adverbs>**
+- None
+
+**
+
+Incoming instruction: Pick up the eggplant and put it on the rough side of the sponge
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

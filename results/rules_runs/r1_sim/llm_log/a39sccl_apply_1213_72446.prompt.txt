@@ -1,0 +1,52 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+**Description of the image:**
+The image shows a wooden table with a black robotic gripper positioned above a red Coca-Cola can. To the right of the can, there is a black toy tire with a silver rim, which resembles a circle.
+
+**Meaning of the instruction in the context of the image:**
+The instruction "Put the coke can in the circle" means the robot needs to pick up the red soda can and place it inside the center opening of the black tire.
+
+**Original: <Nouns> as many as possible potential replacements:** 
+- coke can: red soda can, red can, beverage can, cola can
+- circle: tire, black wheel, wheel center, black tire
+
+**Original: <Verbs> as many as possible potential replacements:**
+- Put: place, move, set, drop, deposit, transfer
+
+**Original: <Adjectives> as many as possible potential replacements:**
+- None in the original instruction (potential replacements for implied adjectives: red, black, circular)
+
+**Original: <Adverbs>**
+- None
+
+Incoming instruction: Put the coke can in the circle
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

@@ -1,0 +1,44 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+<Description of the image>
+The image shows a robotic gripper positioned over a wooden desk. On the desk, there is a purple eggplant and a black computer keyboard. There is no tray visible in the current view of the desk, suggesting the target location (the tray) might be just out of frame or the instruction refers to a designated area on the desk surface.
+
+<Meaning of the instruction in the context of the image>
+The instruction asks the robot to grasp the purple eggplant and transport it to the right corner of a tray (or a specific target zone on the right side of the workspace).
+
+Original: eggplant, corner, tray as many as possible potential replacements: purple vegetable, right side, container, designated zone, platter
+Original: PUT as many as possible potential replacements: place, move, set, deposit, transfer
+Original: RIGHT as many as possible potential replacements: far-right, right-hand
+Original: ON, OF
+
+Incoming instruction: PUT THE EGGPLANT ON THE RIGHT CORNER OF THE TRAY
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

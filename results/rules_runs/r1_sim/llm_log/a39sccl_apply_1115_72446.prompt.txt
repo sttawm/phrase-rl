@@ -1,0 +1,55 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+**Description of the image:**
+The image shows a robotic arm with a parallel gripper positioned over a wooden tabletop. On the table, there is a small purple toy eggplant (the purple object) and a green and yellow kitchen sponge (the object with a green horizontal surface).
+
+**Meaning of the instruction in the context of the image:**
+The instruction asks the robot to pick up the purple eggplant and place it on top of the green surface of the sponge.
+
+**Original: <Nouns> as many as possible potential replacements:**
+- "purple object": purple eggplant, purple toy, eggplant, purple vegetable
+- "green horizontal surface": green sponge, sponge, green pad, yellow and green sponge
+
+**Original: <Verbs> as many as possible potential replacements:**
+- "grip": pick up, grasp, take, lift, hold
+- "Place": put, set down, deposit, position, drop
+
+**Original: <Adjectives> as many as possible potential replacements:**
+- "purple": violet, dark purple
+- "green": green-topped
+- "horizontal": flat, top
+
+**Original: <Adverbs>**
+- "Gently" (to be removed)
+
+Incoming instruction: Gently grip purple object. Place on green horizontal surface. ( it robot is programmed to detect color off course😁)
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

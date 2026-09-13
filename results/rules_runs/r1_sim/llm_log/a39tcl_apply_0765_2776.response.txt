@@ -1,0 +1,1 @@
+Grip round object. Place on rectangular object.

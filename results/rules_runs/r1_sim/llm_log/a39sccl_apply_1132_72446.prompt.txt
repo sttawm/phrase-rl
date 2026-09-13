@@ -1,0 +1,56 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+**Description of the image:**
+The image shows a wooden table with a robotic gripper positioned above a red soda can (labeled "Cola") and a small wheel assembly consisting of a grey metal rim inside a black rubber tire.
+
+**Meaning of the instruction in the context of the image:**
+The instruction asks the robot to pick up the red soda can (referred to as the "red cylinder") and place it on top of the grey metal rim (referred to as the "grey object") which is nested inside the black rubber tire (referred to as the "black object").
+
+**Original: Nouns**
+*   "red cylinder": soda can, cola can, red can, beverage container
+*   "grey object": metal rim, wheel center, grey hub, silver rim
+*   "black object": tire, rubber tire, black wheel, outer ring
+
+**Original: Verbs**
+*   "Pick up": grasp, lift, take, grab, retrieve
+*   "place": put, set, position, deposit, drop
+
+**Original: Adjectives**
+*   "red": crimson, scarlet
+*   "grey": silver, metallic
+*   "black": dark
+
+**Original: Adverbs**
+*   None
+
+Incoming instruction: Pick up red cylinder and place on grey object that is inside black object
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

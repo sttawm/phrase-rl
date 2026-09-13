@@ -1,0 +1,1 @@
+Pick up yellow object and place on top of green object

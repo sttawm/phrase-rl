@@ -1,0 +1,55 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+**Description of the image:**
+The image shows a robotic arm with a parallel gripper positioned over a wooden table. The gripper is currently holding a blue Pepsi can. Next to the can and gripper, there is a light yellow plate resting on the table.
+
+**Meaning of the instruction in the context of the image:**
+The instruction asks the robot to place the blue Pepsi can horizontally (on its side) onto the edge of the yellow plate.
+
+**Original: Nouns**
+- Pepsi: blue can, soda can, Pepsi can, beverage container
+- side: side, horizontal position
+- edge: rim, border, side, margin
+- plate: yellow plate, dish, saucer
+
+**Original: Verbs**
+- Drop: place, lay, set down, put, release
+
+**Original: Adjectives**
+- yellow (inferred from image for plate)
+- blue (inferred from image for Pepsi)
+
+**Original: Adverbs**
+- None
+
+Incoming instruction: Drop the Pepsi on its side the edge of the plate.
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.

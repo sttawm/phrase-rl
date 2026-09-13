@@ -1,0 +1,1 @@
+Pick up orange object. Move right. Place on green object. Repeat;)

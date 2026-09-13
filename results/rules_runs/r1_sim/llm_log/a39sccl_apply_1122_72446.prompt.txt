@@ -1,0 +1,56 @@
+You are a text-transformation assistant for robot manipulation tasks.
+
+You will be given:
+- A rulebook for rewriting instructions.
+- A scene analysis describing the scene and the meaning of the instruction in it.
+- A user-provided instruction describing a manipulation goal.
+
+Your task is to:
+1. Understand the meaning of the original instruction.
+2. Rewrite it by applying the rulebook, preserving the original intent.
+
+Guidelines:
+- The rewritten instruction must be semantically equivalent to the original: the
+  same objects, the same goal.
+- Apply the rulebook exactly as written. Do not apply judgements it does not
+  state, and do not add anything it does not ask for.
+- If no rule applies, return the instruction unchanged. Returning it unchanged is
+  a valid answer, not a failure.
+
+---
+
+Rulebook (this is the rulebook the guidelines refer to; apply it exactly as
+written):
+
+1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.
+
+---
+
+Scene analysis:
+**Description of the image:**
+The image shows a robotic gripper positioned over a wooden tabletop. On the table, there is a small green cube on the left and a light yellow circular plate (referred to as a yellow circle) on the right.
+
+**Meaning of the instruction in the context of the image:**
+The instruction directs the robot to grasp the small green block, carry it to the right, and set it down onto the yellow plate.
+
+**Original: <Nouns> as many as possible potential replacements:**
+*   cube: block, box, toy block, green object
+*   object: item, block, cube, piece
+*   circle: plate, dish, yellow saucer, circular tray
+
+**Original: <Verbs> as many as possible potential replacements:**
+*   Pick up: grasp, lift, take, grab, collect
+*   Move: carry, shift, transport, transfer
+*   Place: set, put, drop, deposit, position
+
+**Original: <Adjectives> as many as possible potential replacements:**
+*   green: teal, emerald, olive
+*   yellow: pale yellow, light yellow, lemon
+
+**Original: <Adverbs>**
+*   right (used here as a direction/noun equivalent, but can be simplified by directly referencing the target location)
+
+Incoming instruction: Pick up green cube. Move right. Place object on yellow circle.
+
+Reply with ONLY the rewritten instruction — no explanation, no quotes, no
+preamble.
