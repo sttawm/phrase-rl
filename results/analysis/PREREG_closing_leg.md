@@ -1140,3 +1140,15 @@ pre-migration clean-trace orig rerun; no such artifacts found in git
 (searched leg prefixes + registry history) — treating A40 as the
 authoritative clean-trace orig record. The first-pass A38 numbers
 (scaffold 30.7 vs 36.1, p=.038) are superseded by the scc read.
+
+#### A38 FINAL (clean traces, 2026-09-13): scaffold x Originals = harm in every cell
+claude 31.8 (-4.3, p=.17) / gemini 31.1 (-5.0, p=.056) / qwen 28.5 (-7.6,
+p=.063) vs anchors 36.1; exact sign-flip, n=12 bases each. P15 falsified:
+the no-rules rephraser damages originals, and the damage orders by edit
+aggressiveness (claude kept 2 canonicals verbatim under clean traces; gemini
+normalized all 12 to sentence-case+period; qwen additionally added colors
+and sibling nouns -- each edit class independently measured harmful by pair
+verification). First-pass (ERT-trace) numbers superseded but concordant
+(-5.4 pooled cl/ge). The rulebook orig cells (-1 to +4 vs baseline) vs the
+scaffold (-4 to -8) show the books' copy-by-default rule protecting
+originals from the rephrase wrap itself.
