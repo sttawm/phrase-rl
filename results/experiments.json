@@ -276,5 +276,21 @@
    "results/sealed/a29_new_erts.parquet (60 new held-out attacks + traces)",
    "results/sealed/a29_natural_traces.parquet (192 matched natural traces)"
   ]
+ },
+ {
+  "id": "a38_a39_a40_overnight",
+  "date": "2026-09-12/13",
+  "commit": "a99bd1ce4",
+  "overview": "Overnight fleet campaign (20 pods created, 18 productive-terminated, 2 unfixable-terminated): A38 scaffold x Originals CLEAN TRACES: claude 31.8 (-4.3, p=.17) / gemini 31.1 (-5.0, p=.056) / qwen 28.5 (-7.6, p=.063) vs 36.1 -- P15 falsified, harm ordered by edit aggressiveness; A39 human naturals (37 submissions -> 363 unique phrases, adult/kid/robot registers): RAW HUMAN 22.96 < generated-naturals 26.0; all 30 apply arms (9 books + scaffold x 3 appliers, claude MAX/gemini 16k/qwen) improve significantly (rollout books +3.4..+7.6, r3 draws best; train-only +0.4..+2.5; scaffold +2.1..+4.2); registers lift in parallel; A40 book x orig on clean traces: r1 frontier cells replicate published within 0.7pp; qwen trace-sensitive; b2 the best orig cells (41.4/42.2); aggressive rollout draws (s2/s3) hurt originals. Trace-regime correction mid-run: 12 canonical registry rows were ERT-keyed since A31 registration; replaced with trace-from-nominal rows; all new runs clean per user directive. Infra: numpy-2 ABI segfault in sapien FK (pin numpy<2), uv-venv-no-pip, setuptools<81 pkg_resources, sparse-checkout job-dir exclusion, one community pod = serial CUDA failures, git push contention at 17 workers.",
+  "command": "scripts/{queue_a38_scaffold,gen_a39_traces,gen_a39_applies,queue_a39_legs,analyze_a39}.py via r1_sim job queue; selfprov fleet recipe in session scratchpad",
+  "prereg": "PREREG_closing_leg.md A38/A39/A40 entries (filed before generation)",
+  "artifacts": [
+   "results/analysis/a39_human_cells.json",
+   "results/analysis/a40_clean_orig_cells.json",
+   "results/human_naturals/",
+   "results/sealed/ph_a31_scc_*.parquet",
+   "results/sealed/ph_a40_*.parquet",
+   "results/sealed/a38_clean_nominal_traces.parquet"
+  ]
  }
 ]
