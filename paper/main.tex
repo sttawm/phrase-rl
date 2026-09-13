@@ -98,25 +98,45 @@ We evaluate in simulation on a variety of phrasing categories --- awkward, adver
 \section{Related Work}
 
 \textbf{Language-Sensitivity. }
-Other works call attention to the language-sensitivity of language-conditioned robot policies ~\cite{karnik2024embodied}.
+Embodied red teaming searches for natural-language instructions that break
+robot policies~\cite{karnik2024embodied}. LIBERO-PRO perturbs LIBERO along
+objects, initial states, instructions, and environments, and finds model
+outputs can persist even under corrupted or nonsensical
+instructions~\cite{zhou2025liberopro}; LIBERO-Plus reaches the same verdict,
+reporting that models often ignore the instruction
+outright~\cite{fei2025liberoplus}. Our minimal pairs are the complementary
+observation: when the policy does attend to language, one-word edits swing
+success by tens of points.
 
 \textbf{Reducing Language Sensitivity. }
-Recent works improve VLA performance by augmenting its training data with additional rephrases of its training instructions ~\cite{kwok2026scaling, chen2026steerable}.
+Recent works improve VLA performance by augmenting training data with
+additional rephrases of training
+instructions~\cite{kwok2026scaling, chen2026steerable}; DIAL relabels
+demonstrations with VLM-generated instructions to the same
+end~\cite{xiao2023dial}.
 
+\textbf{Test-time verification. }
 In conjunction with the above, a frozen VLA's performance can be improved by generating many phrase-action pairs at runtime and then using a pre-trained model to select the best candidate ~\cite{kwok2026scaling}. This method is our closest known comparison, yet we operate solely on task-phrasing; that is, we do not explicitly select good candidate actions. Moreover, though generating multiple phrase-action pairs at each inference step is relatively inexpensive, we avoid this cost by generating our rephrase just once, at the beginning of the episode.
+
+\textbf{Optimizing instructions for a frozen policy. }
+SARL learns by online reinforcement which prompts steer a frozen generalist
+policy to a given task~\cite{bhatia2026sarl}; VLA Grounder trains an
+instruction-to-command translator against rollout reward for a black-box
+VLA~\cite{shodiev2026grounder}; PALO optimizes language subtask
+decompositions for few-shot adaptation~\cite{myers2024palo}. Each optimizes
+per task through interaction; our rules are distilled once, offline, and
+apply zero-shot to unseen instructions.
 
 \textbf{Using a VLM to improve VLA performance. }
 Another body of work incorporates a VLM in some capacity to improve the performance of a downstream VLA \cite{zitkovich2023rt2,driess2023palme,shi2025hirobot}.
 
 \textbf{Accounting for robot capabilities. }
-A complementary line of work conditions the \emph{language} side of a
-system on what the robot can actually do: SayCan grounds an LLM planner in
-learned value functions so that proposed plans respect the robot's
-skills~\cite{ahn2022saycan}, and Inner Monologue closes the loop with
-execution feedback~\cite{huang2022inner}. Our rephraser is the
-instruction-level analogue: rather than selecting \emph{which} skill to
-invoke, it learns which \emph{surface forms} of an instruction this
-executor parses reliably, and edits the instruction accordingly.
+SayCan grounds an LLM planner in learned value functions so that proposed
+plans respect the robot's skills~\cite{ahn2022saycan}; Inner Monologue
+closes the loop with execution feedback~\cite{huang2022inner}. Our
+rephraser is the instruction-level analogue: rather than selecting
+\emph{which} skill to invoke, it learns which \emph{surface forms} of an
+instruction this executor parses reliably.
 
 \section{Setup}
 
@@ -217,7 +237,7 @@ Rule-distillation requires that each phrase gets a score, so that phrases are co
 
 \subsection{Distilling Rules}
 
-To distill the evidence into a set of rules, we prompt Claude to derive rules as in the appendix. We test three different rulebooks which differ by the evidence they are provided: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
+To distill the evidence into a set of rules, we prompt Claude to derive rules as in Appendix~\ref{app:prompts}. We test three different rulebooks which differ by the evidence they are provided: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
 
 For rulebooks distilled from phrases from the finetuning dataset, we further provide the full set of finetuning phrases so that the distiller may make use of corpus statistics such as how frequently objects occur in the finetuning data, the most common phrase structures, etc. Due to cost constraints, we use Claude Fable to generate the first three rulebooks (one each of in-finetune, out-of-finetune, and both), and then we repeat twice more with Claude Opus 5. Anyway, our results don't suggest that this has a significant effect when we evaluate the distilled rules.
 
@@ -330,6 +350,11 @@ Table~\ref{tab:cover} compares CoVer against our baselines.
 The single generation prompt contains both the natural and the adversarial
 style block; the requested style selects which block applies.
 \lstinputlisting{appendix/prompt_generate_rephrases.txt}
+
+\subsection{Distilling rules}
+The evidence diet (in-finetune, out-of-finetune, or both) is selected by
+the evidence file substituted into the \texttt{\{\{evidence\_file\}\}} slot.
+\lstinputlisting{appendix/prompt_distill_rules.txt}
 
 \subsection{Applying rules}
 The rulebook itself is substituted for the \texttt{\{\{rules\}\}} slot;
@@ -532,6 +557,44 @@ Y. K. Li, Y. Wu, and D. Guo,
 ``DeepSeekMath: Pushing the limits of mathematical reasoning in open
 language models,''
 \emph{arXiv preprint arXiv:2402.03300}, 2024.
+
+
+\bibitem{zhou2025liberopro}
+X. Zhou, Y. Xu, G. Tie, Y. Chen, G. Zhang, D. Chu, P. Zhou, and L. Sun,
+``LIBERO-PRO: Towards robust and fair evaluation of vision-language-action
+models beyond memorization,''
+\emph{arXiv preprint arXiv:2510.03827}, 2025.
+
+\bibitem{fei2025liberoplus}
+S. Fei, S. Wang, J. Shi, Z. Dai, J. Cai, P. Qian, L. Ji, X. He, S. Zhang,
+Z. Fei, J. Fu, J. Gong, and X. Qiu,
+``LIBERO-Plus: In-depth robustness analysis of vision-language-action
+models,''
+\emph{arXiv preprint arXiv:2510.13626}, 2025.
+
+\bibitem{bhatia2026sarl}
+J. S. Bhatia, A. Wagenmaker, W. Chen, and S. Levine,
+``Adapting generalist robot policies with semantic reinforcement learning,''
+\emph{arXiv preprint arXiv:2606.31958}, 2026.
+
+\bibitem{shodiev2026grounder}
+D. Shodiev, A. Staroverov, N. Kachaev, A. K. Kovalev, and A. I. Panov,
+``VLA Grounder: Language-conditioning space optimization for black-box VLA
+models,''
+\emph{arXiv preprint arXiv:2607.04517}, 2026.
+
+\bibitem{myers2024palo}
+V. Myers, B. C. Zheng, O. Mees, S. Levine, and K. Fang,
+``Policy adaptation via language optimization: Decomposing tasks for
+few-shot imitation,''
+in \emph{Proc. Conf. Robot Learning (CoRL)}, 2024.
+
+\bibitem{xiao2023dial}
+T. Xiao, H. Chan, P. Sermanet, A. Wahid, A. Brohan, K. Hausman, S. Levine,
+and J. Tompson,
+``Robotic skill acquisition via instruction augmentation with
+vision-language models,''
+in \emph{Proc. Robotics: Science and Systems (RSS)}, 2023.
 
 \end{thebibliography}
 
