@@ -1152,3 +1152,24 @@ verification). First-pass (ERT-trace) numbers superseded but concordant
 (-5.4 pooled cl/ge). The rulebook orig cells (-1 to +4 vs baseline) vs the
 scaffold (-4 to -8) show the books' copy-by-default rule protecting
 originals from the rephrase wrap itself.
+
+#### A39 FINAL (2026-09-13): human naturals, 30 arms, all significant gains
+363 unique human phrases (37 submissions, 3 register prompts), 24 layouts x 1
+rep, ~53k episodes total incl. arms. RAW HUMAN BASELINE 22.96 -- BELOW the
+LLM-generated naturals baseline (26.0): real human phrasing is harder for
+pi0 than synthetic naturals. Every arm improves on raw humans (paired
+sign-flip, n=363; all p<=0.03, rollout books p<0.0001): rollout-only draws
++3.4 to +7.6 (r3 draws strongest: s3 ~+7 all appliers, b3 +5.7 to +7.5);
+train-only +0.4 to +2.5; scaffold +2.1 to +4.2. Registers (adult 24.3 / kid
+23.5 / robot 23.3 raw) lift in parallel. Cells:
+results/analysis/a39_human_cells.json.
+
+#### A40 FINAL (2026-09-13): clean-trace book x orig
+r1 frontier cells replicate the published ERT-era numbers within 0.7pp
+(s/b/t x claude/gemini) -- the A31 Original column stands for frontier
+appliers; qwen r1 cells move (b 37.0->32.5, s 28.5->31.2, t 38.0->35.7),
+qwen being trace-sensitive in both directions. Replicate draws on
+originals: b2 41.4/42.2/33.2 (best orig cells measured), s2/s3 32.6-34.4
+(aggressive rollout draws hurt originals), t2/t3 ~37.3 (barely edit).
+Note: A40 cells mix 24x2 (fresh/b31) and 24x1 (A39-overlap) rates.
+Cells: results/analysis/a40_clean_orig_cells.json.
