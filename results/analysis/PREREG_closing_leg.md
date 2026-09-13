@@ -1111,3 +1111,12 @@ a protocol difference), Qwen3.5-9B greedy pod-side as before; (3) rollouts
 of the applied phrases plus the raw human baseline on the 24-layout grid
 (rep count to be fixed with cost sign-off before rolling). Sealed phrases
 enter only as apply INPUTS, as in every prior condition.
+
+A39 addendum (2026-09-12, before any rollout): rollouts at 24 layouts x 1
+repetition (n=1 confirmed by user; the metric-stability slice justifies the
+single-rep design). The roll set: unique (task, phrase) over all apply
+outputs + the raw human phrases, deduplicated BEFORE rolling (CRN makes
+duplicate rolls byte-identical); whether to roll all 392 human bases or a
+uniform subsample is decided AFTER the appliers land, when the dedup
+collapse is known. Traces: all 363 unique (task, phrase) pairs traced
+(image-conditioned, gemini-3.5-flash), cached by exact (task, phrase) key.
