@@ -62,6 +62,6 @@ grid([(bridge_frame(t), t) for t in BRIDGE], 4, 0.75,
 lib = sorted(glob.glob(str(R / "results/analysis/pairverify_libero/frames/*.png")),
              key=lambda f: (pathlib.Path(f).stem.split("__")[0],
                             int(pathlib.Path(f).stem.split("__")[1])))
-items = [(f, pathlib.Path(f).stem.replace("libero_", "").replace("__", " / "))
+items = [(f, pathlib.Path(f).stem.replace("__", " / "))
          for f in lib]
-grid(items, 5, 1.0, R / "results/charts/scenes_libero_grid.png", 4.4)
+grid(items, 5, 1.0, R / "results/charts/scenes_libero_grid.png", 3.9)
