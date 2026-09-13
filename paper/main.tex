@@ -253,7 +253,7 @@ Our best-performing rulebook type is consistently the out-of-finetune rulebook (
     \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
     \caption{Evaluating rulebooks across models. Base-weighted success on
     the 12 sealed tasks, by condition (panels: adversarial,
-    human-generated naturals, LLM-generated naturals). Within each applier
+    human-generated naturals, LLM-generated naturals, canonical). Within each applier
     group: the no-rules rephraser scaffold (grey) and the three rulebook
     evidence diets (green; each bar the mean over three independent
     distillation draws) --- out-of-finetune (distilled from rollout
@@ -264,7 +264,7 @@ Our best-performing rulebook type is consistently the out-of-finetune rulebook (
     is the un-rephrased baseline. Adversarial = 72 attacks ($\times$2
     reps); human-generated naturals = 363 phrases ($\times$1);
     LLM-generated naturals = the 186-phrase image-conditioned set
-    ($\times$1). Per-draw results appear
+    ($\times$1); canonical = the 12 canonical instructions. Per-draw results appear
     in Appendix~\ref{app:draws}.}
     \label{fig:dashboard}
 \end{figure*}
@@ -294,6 +294,17 @@ Our best-performing rulebook type is consistently the out-of-finetune rulebook (
 
 \section{Comparison with Test-Time Verification}
 \label{sec:cover}
+
+\begin{table}[!t]
+    \caption{CoVer against the no-rephraser baseline (success \%,
+    final-state at 60 steps; the last column is CoVer's native
+    first-success metric).}
+    \label{tab:cover}
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{5pt}
+    \input{figures/cover_tab}
+\end{table}
 
 
 \section{Analysis \& Discussion}

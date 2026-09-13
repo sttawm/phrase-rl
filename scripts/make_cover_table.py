@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""results/analysis/cover_tab.tex — CoVer comparison table for the paper's
-test-time-verification section. Rows = the three conditions CoVer was run on
-(A37); columns = our arms (mean over the three appliers; rulebook = the
-out-of-finetune diet, mean over draws) and CoVer under both metrics.
-Everything final-state@60 except the last column (CoVer's native
-first-success metric, 150-step horizon). The adversarial first-success cell
-is computed here from the ever72_on episode records."""
+"""results/analysis/cover_tab.tex — 3x3 baselines table: CoVer vs the
+no-rephraser baseline on the three conditions CoVer was run on (A37).
+Final-state@60 except the last column (CoVer's native first-success metric,
+150-step horizon). The adversarial first-success cell is computed here from
+the ever72_on episode records."""
 import glob
 import json
 import pathlib
@@ -56,14 +54,14 @@ ROWS = [("adv", "Adversarial"), ("nat", "LLM-Generated Naturals"),
         ("orig", "Canonical")]
 EVER = {"adv": adv_ever, "nat": cov["nat"]["on_ever"], "orig": cov["orig"]["on_ever"]}
 
-lines = ["\\begin{tabular}{@{}lccccc@{}}", "\\toprule",
-         " & no & no-rules & out-of-finetune & CoVer & CoVer \\\\",
-         " & rephraser & rephraser & rulebook & & (first-success) \\\\",
+lines = ["\\begin{tabular}{@{}lccc@{}}", "\\toprule",
+         " & no rephraser & CoVer & CoVer \\\\",
+         " & & & (first-success) \\\\",
          "\\midrule"]
-md = ["| condition | no rephraser | no-rules rephraser | out-of-finetune rulebook | CoVer | CoVer (first-success) |",
-      "|---|---|---|---|---|---|"]
+md = ["| condition | no rephraser | CoVer | CoVer (first-success) |",
+      "|---|---|---|---|"]
 for cond, label in ROWS:
-    v = [NOREPH[cond], sc_cell(cond), s_cell(cond), cov[cond]["on"], EVER[cond]]
+    v = [NOREPH[cond], cov[cond]["on"], EVER[cond]]
     lines.append(f"{label} & " + " & ".join(f"{x:.1f}" for x in v) + " \\\\")
     md.append(f"| {label} | " + " | ".join(f"{x:.1f}" for x in v) + " |")
 lines += ["\\bottomrule", "\\end{tabular}"]
