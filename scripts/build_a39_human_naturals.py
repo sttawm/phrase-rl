@@ -26,6 +26,11 @@ data = json.load(open(src))
 JUNK = {"x", "na", "n/a", "tu", "none", "-", "?"}
 # reviewed-by-hand incompletes the pattern rules cannot catch
 DROP_EXACT = {"put the object"}   # names no destination
+# form-entry duplication glitches, trims confirmed by the user 2026-09-12
+TRIM = {"Place the can on its side on the plate place the ca":
+            "Place the can on its side on the plate",
+        "Put the coke can on the black materialPut the c":
+            "Put the coke can on the black material"}
 rows, removed = [], []
 for sub in data["submissions"]:
     meta = dict(age=sub.get("age", ""), gender=sub.get("gender", ""),
@@ -37,6 +42,7 @@ for sub in data["submissions"]:
             continue
         task, register = m.group(1), m.group(2)
         phrase = re.sub(r"\s+", " ", v.replace("\r\n", " ")).strip()
+        phrase = TRIM.get(phrase, phrase)
         why = None
         if phrase.lower() in JUNK:
             why = "placeholder junk"
