@@ -220,8 +220,7 @@ Green = best phrasing, red = worse; highlighted = the changed span.}\label{fig:p
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_libero_body}\par}
 {\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on
-LIBERO (n = 50 per phrase). p as in Fig.~\ref{fig:pairs-bridge}; grey =
-within 10\,pp of best.}\label{fig:pairs-libero}}
+LIBERO (n = 50 per phrase). p as in Fig.~\ref{fig:pairs-bridge}.}\label{fig:pairs-libero}}
 
 \section{Reducing Language Sensitivity with LLM-Distilled Rephrasing Rules}
 
@@ -281,9 +280,8 @@ Our best-performing rulebook type is consistently the out-of-finetune rulebook (
 \end{figure*}
 
 \begin{table}[!t]
-    \caption{p-scores for the out-of-finetune rulebook vs the
-    no-rephraser baseline: relative change in success and the permutation
-    p (Appendix~\ref{app:stats}); the three rulebook draws are pooled.}
+    \caption{p-scores for the out-of-finetune rulebook (pooled) vs the
+    no-rephraser baseline.}
     \label{tab:pscores-baseline}
     \centering
     \footnotesize
@@ -292,9 +290,8 @@ Our best-performing rulebook type is consistently the out-of-finetune rulebook (
 \end{table}
 
 \begin{table}[!t]
-    \caption{p-scores for the out-of-finetune rulebook vs the
-    no-rules rephraser baseline --- what the rules add beyond rephrasing
-    itself.}
+    \caption{p-scores for the out-of-finetune rulebook vs the no-rules
+    rephraser baseline.}
     \label{tab:pscores-scaffold}
     \centering
     \footnotesize
