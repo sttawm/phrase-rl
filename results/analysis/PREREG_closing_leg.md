@@ -1095,3 +1095,19 @@ inputs, as in every prior orig apply). Predictions logged: P15 scaffold ~=
 baseline 36.1 (as in adv/nat, rephrasing without rules neither helps nor
 hurts originals materially); the interesting alternative is a qwen
 over-edit harm case mirroring qwen x rollout-only x orig.
+
+#### Amendment A39 (2026-09-12, pre-registered before generation): human-naturals condition
+37 survey submissions (three register prompts: adult / kid / robot) yield 392
+cleaned unique (task, register, phrase) rows over all 12 sealed tasks (10
+invalid entries removed: placeholder junk and destination-less incompletes,
+logged in build_a39_human_naturals.py output; human typos kept VERBATIM --
+the register is the treatment). Plan: (1) gemini traces per (task, phrase),
+standard recipe (CoVer-template USER_TEMPLATE, gemini-3.5-flash, temp 0.4,
+scene image, extract_trace), trace from the HUMAN phrase, never the
+canonical; (2) applies for ALL NINE draw-books (3 diets x r1/r2/r3) plus the
+no-rules scaffold, by three appliers -- claude-fable-5 at effort MAX, gemini
+at thinking budget 16384 (both deliberately above the A31 settings; noted as
+a protocol difference), Qwen3.5-9B greedy pod-side as before; (3) rollouts
+of the applied phrases plus the raw human baseline on the 24-layout grid
+(rep count to be fixed with cost sign-off before rolling). Sealed phrases
+enter only as apply INPUTS, as in every prior condition.
