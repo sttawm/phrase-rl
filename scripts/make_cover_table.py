@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
 """results/analysis/cover_tab.tex — 3x3 baselines table: CoVer vs the
-no-rephraser baseline on the three conditions CoVer was run on (A37).
-Final-state@60 except the last column (CoVer's native first-success metric,
-150-step horizon). The adversarial first-success cell is computed here from
-the ever72_on episode records."""
-import glob
+no-rephraser and no-rules rephraser baselines on the three conditions CoVer
+was run on (A37). All cells final-state@60; no-rules rephraser = mean over
+the three appliers."""
 import json
 import pathlib
-
-import pandas as pd
 
 R = pathlib.Path(__file__).resolve().parents[1]
 r1 = json.loads((R / "results/analysis/r1_cells.json").read_text())
@@ -43,25 +39,17 @@ def sc_cell(cond):
     return sum(vals) / len(vals)
 
 
-# adversarial CoVer first-success from the episode records
-fs = glob.glob(str(R / "results/analysis/a37_cover_runs/ever72_on_k*.jsonl"))
-E = pd.concat([pd.read_json(f, lines=True) for f in fs], ignore_index=True)
-adv_ever = float(E.groupby(["task", "base"]).ever_success.mean()
-                  .groupby("task").mean().mean() * 100)
-
 NOREPH = {"adv": 24.5, "nat": r1["noreph|nat"]["pooled"], "orig": 36.1}
 ROWS = [("adv", "Adversarial"), ("nat", "LLM-Generated Naturals"),
         ("orig", "Canonical")]
-EVER = {"adv": adv_ever, "nat": cov["nat"]["on_ever"], "orig": cov["orig"]["on_ever"]}
 
 lines = ["\\begin{tabular}{@{}lccc@{}}", "\\toprule",
-         " & no rephraser & CoVer & CoVer \\\\",
-         " & & & (first-success) \\\\",
+         " & no rephraser & no-rules rephraser & CoVer \\\\",
          "\\midrule"]
-md = ["| condition | no rephraser | CoVer | CoVer (first-success) |",
+md = ["| condition | no rephraser | no-rules rephraser | CoVer |",
       "|---|---|---|---|"]
 for cond, label in ROWS:
-    v = [NOREPH[cond], cov[cond]["on"], EVER[cond]]
+    v = [NOREPH[cond], sc_cell(cond), cov[cond]["on"]]
     lines.append(f"{label} & " + " & ".join(f"{x:.1f}" for x in v) + " \\\\")
     md.append(f"| {label} | " + " | ".join(f"{x:.1f}" for x in v) + " |")
 lines += ["\\bottomrule", "\\end{tabular}"]
