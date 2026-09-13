@@ -33,7 +33,7 @@ hum = json.loads((R / "results/analysis/a39_human_cells.json").read_text())
 
 APS = ["claude", "gemini", "qwen"]
 DIETS = [("s", "out-of-\nfinetune"), ("b", "both"), ("t", "in-\nfinetune")]
-CONDS = [("adv", "Adversarial"), ("nat", "LLM-Generated Naturals"), ("hum", "Human-Generated Naturals")]
+CONDS = [("adv", "Adversarial"), ("hum", "Human-Generated Naturals"), ("nat", "LLM-Generated Naturals")]
 DRAW_LBL = ["rulebook-1", "rulebook-2", "rulebook-3"]
 HUM_BOOK = {("s", 1): "s", ("s", 2): "s2", ("s", 3): "s3",
             ("b", 1): "b", ("b", 2): "b2", ("b", 3): "b3",
@@ -105,7 +105,7 @@ for ax, (cond, cname) in zip(axes[0], CONDS):
         for diet, dlabel in DIETS:
             dv = draws(cond, diet, ap)
             m = sum(dv.values()) / len(dv)
-            ax.bar(x, m, 0.62, color=C_RULES, edgecolor=EDGE, lw=0.8)
+            ax.bar(x, m, 0.62, color=C_RULES, edgecolor="none")
             bar_annot(ax, x, m, C_RULES)
             ticks.append(x); tlabels.append(dlabel); gxs.append(x); x += 0.82
         gticks.append(sum(gxs) / len(gxs))
@@ -139,7 +139,7 @@ for ax, (cond, cname) in zip(axes[1], CONDS):
                        lw=0.8, ls=":")
             else:
                 m = sum(vals) / len(vals)
-                ax.bar(x, m, 0.62, color=C_RULES, edgecolor=EDGE, lw=0.8)
+                ax.bar(x, m, 0.62, color=C_RULES, edgecolor="none")
                 bar_annot(ax, x, m, C_RULES)
             ticks.append(x); tlabels.append(DRAW_LBL[dr - 1]); gxs.append(x)
             x += 0.82
@@ -189,7 +189,7 @@ for row, st, stname, ylim in [(2, "iv", "IN-VOCAB (5 tasks)", (23, 46)),
             dvals = [stratum(cond, diet, dr, st) for dr in (1, 2, 3)]
             dvals = [v for v in dvals if v is not None]
             m = sum(dvals) / len(dvals)
-            ax.bar(x, m, 0.62, color=C_RULES, edgecolor=EDGE, lw=0.8)
+            ax.bar(x, m, 0.62, color=C_RULES, edgecolor="none")
             bar_annot(ax, x, m, C_RULES, dy=1.2)
             ticks.append(x); tlabels.append(dlabel); x += 0.9
         nb = NOREPH_ST[cond][st]
@@ -206,7 +206,7 @@ for row, st, stname, ylim in [(2, "iv", "IN-VOCAB (5 tasks)", (23, 46)),
     axes[row][0].set_ylabel(f"success %\n{stname}", fontsize=10)
 
 handles = [plt.Rectangle((0, 0), 1, 1, fc=C_BASE, ec=EDGE),
-           plt.Rectangle((0, 0), 1, 1, fc=C_RULES, ec=EDGE),
+           plt.Rectangle((0, 0), 1, 1, fc=C_RULES, ec="none"),
            plt.Line2D([0], [0], color=RED, lw=1.2, ls=(0, (4, 3))),
            plt.Line2D([0], [0], color=GREY, lw=1.2, ls=(0, (2, 2)))]
 fig.legend(handles, ["no-rules rephraser (scaffold)", "rulebook cell",

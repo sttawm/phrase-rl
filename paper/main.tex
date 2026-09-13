@@ -184,8 +184,31 @@ success probability (two-proportion z test). Green = best phrasing, grey
 Fig.~\ref{fig:dashboard} summarizes rulebook performance across conditions.
 Fig.~\ref{fig:pscores-baseline} and Fig.~\ref{fig:pscores-scaffold} give the
 statistical significance of each cell.
+The original condition (rephrasing the canonical instructions themselves)
+appears in Appendix~\ref{app:originals}.
 The prompts used to generate rephrasings and to apply rules appear in
 Appendix~\ref{app:prompts}.
+
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
+    \caption{Evaluating rulebooks across models. Base-weighted success on
+    the 12 sealed tasks, by condition (columns: adversarial,
+    human-generated naturals, LLM-generated naturals). Rows: by applier
+    (bars = mean over the three independent rulebook draws); by rulebook
+    draw (bars = mean over appliers); the in-vocab stratum (5 tasks); the
+    out-of-vocab stratum (7 tasks). Within each applier group the three
+    green bars are the rulebook evidence diets: out-of-finetune (distilled
+    from rollout evidence), in-finetune (distilled from finetune-corpus
+    evidence), and both combined. Dashed red line = the un-rephrased
+    baseline; dashed grey line = the no-rules scaffold mean. Grey bars =
+    the no-rules rephraser scaffold, green bars = rulebook cells.
+    Adversarial = 72 attacks ($\times$2 reps); human-generated naturals =
+    363 phrases written by people ($\times$1); LLM-generated naturals =
+    the 186-phrase image-conditioned set ($\times$1); strata from the
+    ex-ante vocabulary audit.}
+    \label{fig:dashboard}
+\end{figure*}
 
 \begin{figure*}[!t]
     \centering
@@ -214,28 +237,11 @@ Appendix~\ref{app:prompts}.
     Fig.~\ref{fig:pscores-baseline}: p is how often chance alone would
     produce a per-base gap this large if the rules changed nothing.
     Green = significant gain, red = significant harm, grey = not
-    significant; the original condition has no scaffold arm.}
+    significant.}
     \label{fig:pscores-scaffold}
 \end{figure*}
 All distilled rulebooks are available in the project
 repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}}
-
-\begin{figure*}[!t]
-    \centering
-    \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
-    \caption{Evaluating rulebooks across models. Base-weighted success on
-    the 12 sealed tasks, by condition (columns: natural, adversarial,
-    original). Rows: by applier (bars = mean over three independent
-    rulebook draws); by rulebook draw (bars = mean over appliers); the
-    in-vocab stratum (5 tasks); the out-of-vocab stratum (7 tasks). Dashed
-    red line = the un-rephrased baseline; dashed grey line = the no-rules
-    scaffold mean. Grey bars = the no-rules rephraser scaffold, blue bars
-    = rulebook cells. Natural = the
-    186-phrase image-conditioned set ($\times$1 rep); adversarial = 72
-    attacks ($\times$2); original = 12 canonical instructions ($\times$2);
-    strata from the ex-ante vocabulary audit.}
-    \label{fig:dashboard}
-\end{figure*}
 
 
 \section{Comparison with Test-Time Verification}
@@ -270,6 +276,31 @@ The rulebook itself is substituted for the \texttt{\{\{rules\}\}} slot;
 rulebooks are available in the project
 repository (\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}).
 \lstinputlisting{appendix/prompt_apply_rules.txt}
+
+
+\section{The Original Condition}
+\label{app:originals}
+
+Fig.~\ref{fig:orig-dashboard} completes the dashboard of
+\S\ref{sec:rule-distillation} with the original condition: the 12
+canonical instructions themselves are given to the rephrasers. This is
+the one regime where rephrasing starts from the policy's optimum, so the
+un-rephrased baseline (36.1) is the number to beat rather than a floor.
+
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/orig_dashboard.png}
+    \caption{The original condition, appendix companion to
+    Fig.~\ref{fig:dashboard}: base-weighted success on the 12 sealed
+    tasks when the rephrasers are given the canonical instructions.
+    Bars = mean over the three rulebook draws per evidence diet; grey =
+    the no-rules rephraser scaffold; dashed red line = no rephraser at
+    all (the canonical instructions as-is, $\times$12 reps). Rephrasing
+    canonical instructions without rules costs 4--8\,pp (28.5--31.8 vs
+    36.1); rulebooks recover the loss, and the strongest cells (both /
+    in-finetune) modestly exceed the canonical baseline.}
+    \label{fig:orig-dashboard}
+\end{figure*}
 
 
 \section{Task Scenes}

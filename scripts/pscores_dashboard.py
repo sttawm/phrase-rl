@@ -280,22 +280,22 @@ import matplotlib.pyplot as plt
 
 RL = {"sc": "no rules", "s": "out-of-finetune", "b": "both",
       "t": "in-finetune"}
-CN = {"adv": "Adversarial (n=72)", "nat": "LLM-Generated Naturals (n=186)",
-      "hum": "Human-Generated Naturals (n=363)", "orig": "Original (n=12)"}
+CN = {"adv": "Adversarial\n(n=72)", "nat": "LLM-Generated Naturals\n(n=186)",
+      "hum": "Human-Generated Naturals\n(n=363)", "orig": "Original\n(n=12)"}
 
 
 PAPER = os.environ.get("PAPER") == "1"   # paper variant: no in-image title
 
 
-def p_grid(rows, suffix, title, png_name, conds=("adv", "nat", "hum")):
+def p_grid(rows, suffix, title, png_name, conds=("adv", "hum", "nat")):
     if PAPER:
         title, png_name = None, png_name.replace(".png", "_paper.png")
     fig, ax = plt.subplots(figsize=(9.6, 0.62 * len(rows) + 1.6))
     ax.set_xlim(0, 3); ax.set_ylim(0, len(rows)); ax.invert_yaxis()
     ax.axis("off")
     for ci, cond in enumerate(conds):
-        ax.text(ci + 0.5, -0.35, CN[cond], ha="center", fontsize=11,
-                fontweight="bold")
+        ax.text(ci + 0.5, -0.55, CN[cond], ha="center", va="center",
+                fontsize=10, fontweight="bold")
         for ri, (ap_name, diet) in enumerate(rows):
             v = OUT.get(f"{cond}|{ap_name}|{diet}{suffix}")
             if v is None:
@@ -317,7 +317,7 @@ def p_grid(rows, suffix, title, png_name, conds=("adv", "nat", "hum")):
         ax.text(-0.04, ri + 0.52, f"{ap_name} · {RL[diet]}", ha="right",
                 va="center", fontsize=9)
     if title:
-        ax.set_title(title, fontsize=10.5, pad=18)
+        ax.set_title(title, fontsize=10.5, pad=46)
     fig.tight_layout()
     png = R / f"results/analysis/{png_name}"
     fig.savefig(png, dpi=150, bbox_inches="tight", pad_inches=0.25)

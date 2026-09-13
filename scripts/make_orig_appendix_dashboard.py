@@ -40,7 +40,8 @@ def bar_annot(ax, x, v, fc, dy=0.75):
             bbox=dict(boxstyle="square,pad=0.10", fc=fc, ec="none"))
 
 
-fig, axes = plt.subplots(2, 1, figsize=(8.6, 8.8))
+fig, axes = plt.subplots(1, 1, figsize=(8.6, 4.9))
+axes = [axes]
 
 # Row 1: by applier (mean over draws)
 ax = axes[0]
@@ -53,7 +54,7 @@ for ap in APS:
     for diet, dlabel in DIETS:
         vals = [cell(diet, dr, ap) for dr in (1, 2, 3) if cell(diet, dr, ap)]
         m = sum(vals) / len(vals)
-        ax.bar(x, m, 0.62, color=C_RULES, edgecolor=EDGE, lw=0.8)
+        ax.bar(x, m, 0.62, color=C_RULES, edgecolor="none")
         bar_annot(ax, x, m, C_RULES)
         ticks.append(x); tlabels.append(dlabel); gxs.append(x); x += 0.82
     gticks.append(sum(gxs) / len(gxs))
@@ -64,41 +65,11 @@ ax.text(1.005, BASE, f"{BASE:.1f}", fontsize=6.8, color=RED, ha="left",
         va="center", transform=ax.get_yaxis_transform())
 ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=6.2, color="#4a5568")
 for gx, ap in zip(gticks, ["Claude", "Gemini", "Qwen"]):
-    ax.text(gx, 22.2, ap, ha="center", fontsize=10.5, fontweight="bold",
+    ax.text(gx, 20.9, ap, ha="center", fontsize=10.5, fontweight="bold",
             clip_on=False)
 ax.set_ylim(24, 44)
 ax.set_xlim(-0.6, x - 0.55)
 ax.set_ylabel("success %\n(by applier)", fontsize=10.5)
-
-# Row 2: by draw (mean over appliers)
-ax = axes[1]
-x, ticks, tlabels, gticks = 0.0, [], [], []
-for diet, dlabel in DIETS:
-    gxs = []
-    for dr in (1, 2, 3):
-        vals = [cell(diet, dr, ap) for ap in APS if cell(diet, dr, ap)]
-        m = sum(vals) / len(vals)
-        ax.bar(x, m, 0.62, color=C_RULES, edgecolor=EDGE, lw=0.8)
-        bar_annot(ax, x, m, C_RULES)
-        ticks.append(x); tlabels.append(DRAW_LBL[dr - 1]); gxs.append(x)
-        x += 0.82
-    gticks.append(sum(gxs) / len(gxs))
-    ax.axvline(x - 0.31, color="#e2e8f0", lw=1.0, zorder=0)
-    x += 0.42
-sc_mean = sum(SC.values()) / 3
-ax.axhline(sc_mean, color=GREY, lw=1.2, ls=(0, (2, 2)), zorder=1)
-ax.text(1.005, sc_mean, f"{sc_mean:.1f}", fontsize=6.8, color=GREY, ha="left",
-        va="center", transform=ax.get_yaxis_transform())
-ax.axhline(BASE, color=RED, lw=1.2, ls=(0, (4, 3)), zorder=1)
-ax.text(1.005, BASE, f"{BASE:.1f}", fontsize=6.8, color=RED, ha="left",
-        va="center", transform=ax.get_yaxis_transform())
-ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=6.0, color="#4a5568")
-for gx, (diet, dlabel) in zip(gticks, DIETS):
-    ax.text(gx, 22.2, dlabel.replace("\n", ""), ha="center", fontsize=10.5,
-            fontweight="bold", clip_on=False)
-ax.set_ylim(24, 44)
-ax.set_xlim(-0.6, x - 0.55)
-ax.set_ylabel("success %\n(by rulebook draw)", fontsize=10.5)
 
 for ax in axes:
     ax.tick_params(axis="x", length=0)
@@ -106,17 +77,17 @@ for ax in axes:
     ax.spines[["top", "right"]].set_visible(False)
 
 handles = [plt.Rectangle((0, 0), 1, 1, fc=C_BASE, ec=EDGE),
-           plt.Rectangle((0, 0), 1, 1, fc=C_RULES, ec=EDGE),
+           plt.Rectangle((0, 0), 1, 1, fc=C_RULES, ec="none"),
            plt.Line2D([0], [0], color=RED, lw=1.2, ls=(0, (4, 3))),
            plt.Line2D([0], [0], color=GREY, lw=1.2, ls=(0, (2, 2)))]
-fig.legend(handles, ["no-rules rephraser (scaffold)", "rulebook cell",
-                     "no rephraser (canonical instructions)", "no rules (mean)"],
-           fontsize=8.4, ncol=2, loc="lower center", bbox_to_anchor=(0.5, 0.0))
+fig.legend(handles[:3], ["no-rules rephraser (scaffold)", "rulebook cell",
+                     "no rephraser (canonical instructions)"],
+           fontsize=8.4, ncol=3, loc="lower center", bbox_to_anchor=(0.5, 0.0))
 PAPER = os.environ.get("PAPER") == "1"
 if not PAPER:
     fig.suptitle("Originals — clean-trace cells (A40/A38), appendix companion "
                  "to the main dashboard", fontsize=12, y=0.99)
-fig.tight_layout(rect=(0, 0.05, 1, 0.97 if not PAPER else 1.0))
+fig.tight_layout(rect=(0, 0.09, 1, 0.95 if not PAPER else 1.0))
 out = R / ("results/charts/orig_appendix_dashboard_paper.png" if PAPER
            else "results/charts/orig_appendix_dashboard.png")
 fig.savefig(out, dpi=145, bbox_inches="tight", pad_inches=0.22)
