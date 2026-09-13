@@ -21,7 +21,7 @@ J = json.loads((R / "results/analysis/dashboard_pscores.json").read_text())
 
 CONDS = ["adv", "hum", "nat"]
 HDR = (" & Adversarial & Human-Generated & LLM-Generated \\\\\n"
-       " & (n=72) & Naturals (n=392) & Naturals (n=186) \\\\\n")
+       " & (n=72) & Naturals (n=363) & Naturals (n=186) \\\\\n")
 APS = [("claude", "Claude"), ("gemini", "Gemini"), ("qwen", "Qwen")]
 
 
