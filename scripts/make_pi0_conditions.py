@@ -48,28 +48,28 @@ C_NAT, C_ADV, C_HUM = "#B08A3E", "#A94E4E", "#5E7B9B"
 C_PLAIN, INK = "#7A8698", "#2d3748"
 
 MAIN = [
-    ("oracle\n(searched)",        (48.23, 50.28, 46.78), C_ORACLE),
-    ("canonical\ninstruction",    (36.08, 48.33, 27.33), C_CANON),
-    ("VLM-generated\nnaturals",   (nr["pooled"], nr["iv"], nr["oov"]), C_NAT),
-    ("adversarial",               (24.46, 25.17, 23.94), C_ADV),
-    ("human-generated\nnaturals", (hm["pooled"], hm["iv"], hm["oov"]), C_HUM),
+    ("oracle",           (48.23, 50.28, 46.78), C_ORACLE),
+    ("canonical",        (36.08, 48.33, 27.33), C_CANON),
+    ("VLM\nnaturals",    (nr["pooled"], nr["iv"], nr["oov"]), C_NAT),
+    ("adversarial",      (24.46, 25.17, 23.94), C_ADV),
+    ("human\nnaturals",  (hm["pooled"], hm["iv"], hm["oov"]), C_HUM),
 ]
 K16 = {e: k16(e) for e in ("pi0rephrase", "pi0base")}   # prose numbers
 
-fig, ax = plt.subplots(figsize=(7.6, 4.2))
+fig, ax = plt.subplots(figsize=(4.4, 3.3))
 
 
 def cluster(x, pool, iv, oov, col):
     ax.bar(x - 0.20, iv, 0.34, color=col, alpha=0.40, zorder=1, edgecolor="none")
     ax.bar(x + 0.20, oov, 0.34, color=col, alpha=0.40, zorder=1, edgecolor="none")
-    ax.text(x - 0.32, iv + 0.7, f"{iv:.0f}", ha="center", fontsize=7,
+    ax.text(x - 0.32, iv + 0.9, f"{iv:.0f}", ha="center", fontsize=5.6,
             color="#4a5568", zorder=3)
-    ax.text(x + 0.32, oov + 0.7, f"{oov:.0f}", ha="center", fontsize=7,
+    ax.text(x + 0.32, oov + 0.9, f"{oov:.0f}", ha="center", fontsize=5.6,
             color="#4a5568", zorder=3)
     ax.bar(x, pool, 0.44, color=col, zorder=2, edgecolor="none")
-    ax.text(x, pool - 1.2, f"{pool:.1f}", ha="center", va="top", fontsize=9.5,
+    ax.text(x, pool - 1.4, f"{pool:.1f}", ha="center", va="top", fontsize=7.8,
             fontweight="bold", color="white", zorder=4,
-            bbox=dict(boxstyle="square,pad=0.12", fc=col, ec="none"))
+            bbox=dict(boxstyle="square,pad=0.10", fc=col, ec="none"))
 
 
 x, ticks, labels = 0.0, [], []
@@ -81,8 +81,8 @@ print("k16 augmented %.2f / plain %.2f -> %+.1f%% relative" % (
     100 * (K16["pi0rephrase"][0] / K16["pi0base"][0] - 1)))
 
 ax.set_xticks(ticks)
-ax.set_xticklabels(labels, fontsize=8.4)
-ax.set_ylabel("success % (12 sealed tasks, 24 layouts)", fontsize=9.5)
+ax.set_xticklabels(labels, fontsize=7.2)
+ax.set_ylabel("success % (12 tasks, 24 layouts)", fontsize=8.0)
 ax.set_ylim(0, 55)
 ax.set_xlim(-0.62, x - 0.45)
 ax.grid(axis="y", alpha=0.18, zorder=0)
@@ -92,8 +92,8 @@ ax.spines[["top", "right"]].set_visible(False)
 handles = [plt.Rectangle((0, 0), 1, 1, fc="#7A8698"),
            plt.Rectangle((0, 0), 1, 1, fc="#7A8698", alpha=0.40)]
 ax.legend(handles, ["pooled (12 tasks)",
-                    "flanks: in-distribution (left, 5) / out-of-distribution (right, 7)"],
-          fontsize=7.8, loc="upper right", frameon=False)
+                    "flanks: in-distrib. (left, 5) / out-of-distrib. (right, 7)"],
+          fontsize=5.9, loc="upper right", frameon=False)
 
 fig.tight_layout()
 out = R / "results/charts/pi0_conditions.png"

@@ -153,9 +153,9 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
 
 
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
     \centering
-    \includegraphics[width=0.88\textwidth]{figures/pi0_conditions.png}
+    \includegraphics[width=\columnwidth]{figures/pi0_conditions.png}
     \caption{Success by input condition for the rephrase-augmented $\pi_0$
     on the 12 sealed SIMPLER tasks ($\times$24 pinned layouts). Solid bars =
     pooled over the 12 tasks; thin flanks = the in-distribution (left, 5
@@ -164,19 +164,19 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
     natural sets $\times$1. Oracle phrasing nearly closes the 21-point
     strata gap seen under canonical instructions.}
     \label{fig:pi0-conditions}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
     \centering
-    \includegraphics[width=0.62\textwidth]{figures/pi05_fourtier.png}
+    \includegraphics[width=\columnwidth]{figures/pi05_fourtier.png}
     \caption{Phrasing sensitivity of $\pi_{0.5}$ on LIBERO by finetune
-    membership (Wilson 95\% intervals). On in-finetune tasks (libero\_goal,
+    membership. On in-finetune tasks (libero\_goal,
     10 tasks) adversarial rephrasing costs 50\,pp (97 $\to$ 47), while on
     out-of-finetune tasks (libero\_90, 18 tasks) the original, natural, and
     adversarial tiers are statistically indistinguishable (52\,/\,50\,/\,48);
     oracle search finds headroom in both regimes (99\,/\,66).}
     \label{fig:pi05-fourtier}
-\end{figure*}
+\end{figure}
 
 
 \subsection{Minimal pairs (and tuples) for $\pi_0$ + Bridge}
@@ -395,9 +395,9 @@ canonical instructions themselves are given to the rephrasers. This is
 the one regime where rephrasing starts from the policy's optimum, so the
 un-rephrased baseline (36.1) is the number to beat rather than a floor.
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/orig_dashboard.png}
+    \includegraphics[width=\columnwidth]{figures/orig_dashboard.png}
     \caption{The original condition, appendix companion to
     Fig.~\ref{fig:dashboard}: base-weighted success on the 12 sealed
     tasks when the rephrasers are given the canonical instructions.
@@ -408,7 +408,7 @@ un-rephrased baseline (36.1) is the number to beat rather than a floor.
     36.1); rulebooks recover the loss, and the strongest cells (both /
     in-finetune) modestly exceed the canonical baseline.}
     \label{fig:orig-dashboard}
-\end{figure*}
+\end{figure}
 
 
 \section{Task Scenes}

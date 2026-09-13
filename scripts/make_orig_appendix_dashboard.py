@@ -35,12 +35,12 @@ def cell(diet, dr, ap):
 
 def bar_annot(ax, x, v, fc, dy=0.75):
     txt = "white" if fc == C_RULES else INK
-    ax.text(x, v - dy, f"{v:.1f}", ha="center", va="top", fontsize=7.2,
+    ax.text(x, v - dy, f"{v:.1f}", ha="center", va="top", fontsize=6.0,
             fontweight="bold", color=txt, zorder=6,
             bbox=dict(boxstyle="square,pad=0.10", fc=fc, ec="none"))
 
 
-fig, axes = plt.subplots(1, 1, figsize=(8.6, 4.9))
+fig, axes = plt.subplots(1, 1, figsize=(4.6, 3.4))
 axes = [axes]
 
 # Row 1: by applier (mean over draws)
@@ -61,15 +61,15 @@ for ap in APS:
     ax.axvline(x - 0.31, color="#e2e8f0", lw=1.0, zorder=0)
     x += 0.42
 ax.axhline(BASE, color=RED, lw=1.2, ls=(0, (4, 3)), zorder=1)
-ax.text(1.005, BASE, f"{BASE:.1f}", fontsize=6.8, color=RED, ha="left",
+ax.text(1.005, BASE, f"{BASE:.1f}", fontsize=5.8, color=RED, ha="left",
         va="center", transform=ax.get_yaxis_transform())
-ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=6.2, color="#4a5568")
+ax.set_xticks(ticks); ax.set_xticklabels(tlabels, fontsize=5.2, color="#4a5568")
 for gx, ap in zip(gticks, ["Claude", "Gemini", "Qwen"]):
-    ax.text(gx, 20.9, ap, ha="center", fontsize=10.5, fontweight="bold",
+    ax.text(gx, 20.1, ap, ha="center", fontsize=8.0, fontweight="bold",
             clip_on=False)
 ax.set_ylim(24, 44)
 ax.set_xlim(-0.6, x - 0.55)
-ax.set_ylabel("success %\n(by applier)", fontsize=10.5)
+ax.set_ylabel("success %", fontsize=8.0)
 
 for ax in axes:
     ax.tick_params(axis="x", length=0)
@@ -82,12 +82,13 @@ handles = [plt.Rectangle((0, 0), 1, 1, fc=C_BASE, ec=EDGE),
            plt.Line2D([0], [0], color=GREY, lw=1.2, ls=(0, (2, 2)))]
 fig.legend(handles[:3], ["no-rules rephraser (scaffold)", "rulebook cell",
                      "no rephraser (canonical instructions)"],
-           fontsize=8.4, ncol=3, loc="lower center", bbox_to_anchor=(0.5, 0.0))
+           fontsize=5.8, ncol=3, loc="lower center", bbox_to_anchor=(0.5, 0.0),
+           frameon=False, columnspacing=0.9, handlelength=1.1)
 PAPER = os.environ.get("PAPER") == "1"
 if not PAPER:
     fig.suptitle("Originals — clean-trace cells (A40/A38), appendix companion "
                  "to the main dashboard", fontsize=12, y=0.99)
-fig.tight_layout(rect=(0, 0.09, 1, 0.95 if not PAPER else 1.0))
+fig.tight_layout(rect=(0, 0.08, 1, 0.95 if not PAPER else 1.0))
 out = R / ("results/charts/orig_appendix_dashboard_paper.png" if PAPER
            else "results/charts/orig_appendix_dashboard.png")
 fig.savefig(out, dpi=145, bbox_inches="tight", pad_inches=0.22)
