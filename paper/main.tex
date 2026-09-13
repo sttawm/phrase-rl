@@ -103,8 +103,11 @@ robot policies~\cite{karnik2024embodied}. LIBERO-PRO perturbs LIBERO along
 objects, initial states, instructions, and environments; on the language
 axis it finds that paraphrased instructions leave accuracy intact --- but
 so do nonsensical ones, the policy executing the same memorized trajectory
-regardless~\cite{zhou2025liberopro}. LIBERO-Plus reaches the same verdict:
-models often ignore the instruction outright~\cite{fei2025liberoplus}. Our minimal pairs are the complementary
+regardless~\cite{zhou2025liberopro}. LIBERO-Plus charts this
+sensitivity across ten VLAs --- instruction perturbations cost between 14
+and 50 points depending on the model --- and reaches the same verdict:
+much of the apparent robustness traces to models ignoring the instruction
+outright~\cite{fei2025liberoplus}. Our minimal pairs are the complementary
 observation: when the policy does attend to language, one-word edits swing
 success by tens of points.
 
