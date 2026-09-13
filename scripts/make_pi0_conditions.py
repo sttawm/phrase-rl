@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """pi0 input-condition chart, CURRENT sealed data. Main sequence (executor =
-rephrase-augmented INTACT pi0): oracle / canonical / VLM-generated naturals /
-adversarial / human-generated naturals on the 12 sealed tasks x 24 pinned
-layouts. Right of the divider: the K=16 natural-rephrase passthrough pair —
-the same 192 phrases rolled on BOTH executors (rephrase-augmented vs plain
-INTACT-pi0-finetune-bridge; Amendments 19/24, 24 layouts x 1 rep) — the only
-condition ever rolled on the non-augmented checkpoint. Pooled bar solid in
+rephrase-augmented INTACT pi0): oracle / canonical / VLM-generated naturals
+(the K=16 robustness set, 192 phrases — NOT the 186-phrase main-eval set;
+caption footnote covers this) / adversarial / human-generated naturals on the
+12 sealed tasks x 24 pinned layouts. Right of the divider: the same K=16
+naturals passed through the PLAIN executor (INTACT-pi0-finetune-bridge, no
+rephrase augmentation; Amendments 19/24, 24 layouts x 1 rep) — the only
+condition ever rolled on that checkpoint. Pooled bar solid in
 front (white value); in-distribution (5 tasks) / out-of-distribution (7)
 strata behind, thinner and semi-transparent. No in-image title.
 
 Provenance (verified 2026-09-13, base-weighted):
   oracle      48.2 / 50.3 / 46.8   results/sealed/oracle_confirmed_x12.parquet (24x12)
   canonical   36.1 / 48.3 / 27.3   anchors_x12 originals (24x12)
-  vlm nat     26.0 / 38.1 / 17.0   r1_cells.json noreph|nat (186 phrases, 24x1)
   adversarial 24.5 / 25.2 / 23.9   a29pass legs + anchors passthrough (72 attacks)
   human nat   23.0 / 29.6 / 18.5   a39_human_cells.json raw_human (363 pairs, 24x1)
   K16 pair    from rephrase_robustness.jsonl (both layout halves; 16/task
@@ -26,7 +26,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 R = pathlib.Path(__file__).resolve().parents[1]
-nr = json.loads((R / "results/analysis/r1_cells.json").read_text())["noreph|nat"]
 hm = json.loads((R / "results/analysis/a39_human_cells.json").read_text())["raw_human"]
 rr = {r["arm"]: r for r in map(json.loads,
       open(R / "results/analysis/rephrase_robustness.jsonl"))}
@@ -51,16 +50,15 @@ C_PLAIN, INK = "#7A8698", "#2d3748"
 MAIN = [
     ("oracle\n(searched)",        (48.23, 50.28, 46.78), C_ORACLE),
     ("canonical\ninstruction",    (36.08, 48.33, 27.33), C_CANON),
-    ("VLM-generated\nnaturals",   (nr["pooled"], nr["iv"], nr["oov"]), C_NAT),
+    ("VLM-generated\nnaturals",   k16("pi0rephrase"), C_NAT),
     ("adversarial",               (24.46, 25.17, 23.94), C_ADV),
     ("human-generated\nnaturals", (hm["pooled"], hm["iv"], hm["oov"]), C_HUM),
 ]
 PAIR = [
-    ("K=16 naturals\naugmented $\\pi_0$",  k16("pi0rephrase"), C_NAT),
-    ("K=16 naturals\nplain $\\pi_0$",      k16("pi0base"),     C_PLAIN),
+    ("VLM naturals,\nplain $\\pi_0$",      k16("pi0base"),     C_PLAIN),
 ]
 
-fig, ax = plt.subplots(figsize=(9.8, 4.2))
+fig, ax = plt.subplots(figsize=(9.0, 4.2))
 
 
 def cluster(x, pool, iv, oov, col):
