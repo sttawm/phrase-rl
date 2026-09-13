@@ -1,0 +1,6 @@
+{
+ "job_id": "a38scqwo2_313e5595",
+ "kind": "apply",
+ "rules_text": "===RULES===\n1. Rewrite the instruction as a short, plain imperative that keeps the same objects and goal.\n",
+ "rules_sha": "313e55951752"
+}
