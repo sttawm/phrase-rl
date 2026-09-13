@@ -107,8 +107,8 @@ regardless~\cite{zhou2025liberopro}. LIBERO-Plus charts this
 sensitivity across ten VLAs --- instruction perturbations cost between 14
 and 50 points depending on the model --- and reaches the same verdict:
 much of the apparent robustness traces to models ignoring the instruction
-outright~\cite{fei2025liberoplus}. Our minimal pairs are the complementary
-observation: when the policy does attend to language, one-word edits swing
+outright~\cite{fei2025liberoplus}. Our single-edit swings are the complementary
+observation: when the policy does attend to language, one word can move
 success by tens of points.
 
 \textbf{Reducing Language Sensitivity. }
@@ -166,7 +166,7 @@ LIBERO~\cite{liu2023libero} consists of 130 simulatable tabletop tasks. Examples
 \section{Characterizing a VLA's Language-Sensitivity}
 \label{sec:minimal-pairs}
 
-To give a concrete sense of the language sensitivity of $\pi_0$ and $\pi_{0.5}$, we present sets of phrases such that minimal edits result in large performance swings. For example, \ldots{}. See Fig.~\ref{fig:pairs-bridge} and Fig.~\ref{fig:pairs-libero} for the full lists. See the appendix for images of the scenes.
+To give a concrete sense of the language sensitivity of $\pi_0$ and $\pi_{0.5}$, we present \emph{single-edit swings} (minimal pairs): sets of phrases in which a minimal edit produces a large performance swing. For example, \ldots{}. See Fig.~\ref{fig:pairs-bridge} and Fig.~\ref{fig:pairs-libero} for the full lists. See the appendix for images of the scenes.
 
 \subsection{Methodology}
 
@@ -204,11 +204,11 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
 \end{figure}
 
 
-\subsection{Minimal pairs (and tuples) for $\pi_0$ + Bridge}
+\subsection{Single-edit swings for $\pi_0$ + Bridge}
 
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_bridge_body}\par}
-{\footnotesize\captionof{figure}{Minimal pairs for frozen $\pi_0$
+{\footnotesize\captionof{figure}{Single-edit swings for frozen $\pi_0$
 on SIMPLER Bridge. Every phrase rolled on its task's full layout grid
 $\times$ 3 reps (n = 72 per phrase; basket task n = 180); success = final
 state at the 60-step horizon. p is the probability of seeing a gap at
@@ -216,11 +216,11 @@ least this large between the best and worst phrase if the two phrasings
 actually had the same success probability (two-proportion z test). Green
 = best phrasing, red = worse; highlighted = the changed span.}\label{fig:pairs-bridge}}
 
-\subsection{Minimal pairs (and tuples) for $\pi_{0.5}$ + LIBERO}
+\subsection{Single-edit swings for $\pi_{0.5}$ + LIBERO}
 
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_libero_body}\par}
-{\footnotesize\captionof{figure}{Minimal pairs for $\pi_{0.5}$ on
+{\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on
 LIBERO. Every phrase rolled on the full init population (inits 0--49,
 n = 50 per phrase); success = the environment's success flag at episode
 end. p is the probability of seeing a gap at least this large between
@@ -402,20 +402,20 @@ Fig.~\ref{fig:dashboard}.
 \section{Task Scenes}
 \label{app:scenes}
 
-First-frame scene images for every task appearing in the minimal-pair
+First-frame scene images for every task appearing in the single-edit-swing
 figures (\S\ref{sec:minimal-pairs}).
 
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{figures/scenes_bridge_grid.png}
-    \caption{Task scenes --- SIMPLER Bridge minimal-pair tasks.}
+    \caption{Task scenes --- SIMPLER Bridge single-edit-swing tasks.}
     \label{fig:scenes-bridge}
 \end{figure}
 
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{figures/scenes_libero_grid.png}
-    \caption{Task scenes --- LIBERO minimal-pair tasks (suite / task id).}
+    \caption{Task scenes --- LIBERO single-edit-swing tasks (suite / task id).}
     \label{fig:scenes-libero}
 \end{figure}
 
