@@ -30,8 +30,8 @@ for f in glob.glob(str(ROOT / "results/analysis/fourtier_live/fourtier_*.jsonl")
 df = pd.DataFrame(rows).drop_duplicates(subset=["suite", "task_id", "phrase", "init"], keep="last")
 S = json.load(open(ROOT / "results/analysis/fourtier_summary.json"))
 
-C = {"original": "#6b46c1", "natural": "#b7791f", "adversarial": "#c53030",
-     "oracle": "#0f766e", "reph": "#0f766e"}
+C = {"original": "#6B5E9B", "natural": "#B08A3E", "adversarial": "#A94E4E",
+     "oracle": "#3F6B52", "reph": "#3F6B52"}
 
 
 def wl(k, n, z=1.96):
@@ -87,7 +87,7 @@ a.legend(handles=[plt.Rectangle((0, 0), 1, 1, color=c) for c in tier_colors],
          labels=[t.replace("\n", " ") for t in tier_labels], fontsize=8.3,
          loc="lower center", bbox_to_anchor=(0.5, 1.055), frameon=False, ncol=4,
          columnspacing=1.1, handlelength=1.2, handletextpad=0.5)
-a.set_title("(a)  Phrasing sensitivity by finetune membership", fontsize=11.5, pad=30)
+a.set_title("(a)", loc="left", fontsize=11.5, pad=30)
 a.text(2.0, 40.5, "$-$50 pp", fontsize=8.6, color="white",
        fontstyle="italic", ha="center", va="top", zorder=5)
 
@@ -137,7 +137,7 @@ b.set_ylabel("rollout success (%)", fontsize=11)
 b.spines["top"].set_visible(False)
 b.spines["right"].set_visible(False)
 b.grid(alpha=0.2, axis="y", zorder=0)
-b.set_title("(b)  Overfitting caused by fine-tuning", fontsize=11.5, pad=30)
+b.set_title("(b)", loc="left", fontsize=11.5, pad=30)
 
 fig.tight_layout()
 out = ROOT / "results/charts/paper_fourtier.png"
