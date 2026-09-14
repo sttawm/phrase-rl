@@ -56,6 +56,8 @@ ap.add_argument("--run", default="p_v2")
 ap.add_argument("--prefix", default="v2r1")
 ap.add_argument("--prereg", default="pi05 sealed v2 round-1: all 50 inits x 1 rep",
                 help="short provenance string copied into every spec")
+ap.add_argument("--incremental", action="store_true",
+                help="stage only (task,phrase) pairs not already in a payload of the run dir")
 ap.add_argument("--dry-run", action="store_true",
                 help="print the leg table only; write nothing")
 ap.add_argument("--allow-overlap", action="store_true",
@@ -87,8 +89,11 @@ def load_pairs():
         # the arms are part of the round: staging bases alone would leave them
         # to be re-partitioned (new hashes) beside these specs later
         if not a.dry_run:
-            raise SystemExit(f"no apply arms (*.parquet) under {adir}; refusing to "
-                             f"stage bases alone (use --dry-run to preview)")
+            if not a.incremental:
+                raise SystemExit(f"no apply arms (*.parquet) under {adir}; refusing to "
+                                 f"stage bases alone (use --dry-run to preview, or "
+                                 f"--incremental to stage the bases as a first wave)")
+            print(f"no apply arms yet under {adir}: staging the bases as wave 1 (--incremental)")
         print(f"NOTE: no apply arms under {adir}; dry-run table covers bases only")
     for f in files:
         d = pd.read_parquet(f)
@@ -151,6 +156,17 @@ def staged_pairs(jd):
 
 allp = load_pairs()
 uniq = allp[["task", "phrase"]].drop_duplicates().reset_index(drop=True)
+if a.incremental:
+    # wave staging: only pairs not yet in any payload of the run dir (bases can
+    # roll while the apply arms are still being generated; later waves add the
+    # new rewrite strings under their own --prefix)
+    jd0 = REPO / f"results/rules_runs/{a.run}/jobs"
+    done_pairs = {p for s_ in staged_pairs(jd0).values() for p in s_}
+    before = len(uniq)
+    uniq = uniq[[(t, ph) not in done_pairs for t, ph in zip(uniq.task, uniq.phrase)]].reset_index(drop=True)
+    print(f"incremental: {before - len(uniq)} pair(s) already staged, {len(uniq)} new")
+    if uniq.empty:
+        raise SystemExit("nothing new to stage")
 print(f"{len(allp)} arm rows -> {len(uniq)} unique (task,phrase) over "
       f"{uniq.task.nunique()} tasks; {len(uniq)*len(INITS)} episodes")
 
