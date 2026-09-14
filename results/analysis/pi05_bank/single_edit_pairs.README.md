@@ -29,5 +29,5 @@ pilotB re-measured).
 
 Counts (2026-09-14): 195 canonical-anchored pairs, 23 significant / 172 within noise;
 231 further cross pairs between edits of the same canonical (ladder rungs), 92 significant.
-Two sealed_test tasks (libero_90/30, libero_90/38) are present — filter on
+Two sealed_test tasks (libero_90/30, libero_90/51) are present, and nine tasks of the 2026-09-04 22-task eval set — filter on
 `split_20260901` / `eval_set_20260904` once the test set is chosen.
