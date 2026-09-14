@@ -248,12 +248,12 @@ Rule-distillation requires that each phrase gets a score, so that phrases are co
 
 \subsection{Distilling Rules}
 
-To distill the evidence into a set of rules, we prompt Claude to derive rules with the prompt provided in the project repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/prompts}} We test three rulebook types, distinguished by the evidence they see: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
+To distill the evidence into a set of rules, we prompt Claude to derive rules with the prompt provided in the project repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/icra2027/paper/prompts}} We test three rulebook types, distinguished by the evidence they see: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
 
 For rulebooks distilled from phrases from the finetuning dataset, we further provide the full set of finetuning phrases so that the distiller may make use of corpus statistics such as how frequently objects occur in the finetuning data, the most common phrase structures, etc. Due to cost constraints, we use Claude Fable to generate the first three rulebooks (one each of in-finetune, out-of-finetune, and both), and then we repeat twice more with Claude Opus 5. Our results do not suggest this choice mattered.
 
 All distilled rulebooks are available in the project
-repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/main/paper/rules}}
+repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/icra2027/paper/rules}}
 
 \subsection{Applying Rules}
 
@@ -342,7 +342,7 @@ instruction phrasing, and that a simple, training-free remedy ---
 rephrasing rules distilled by an LLM from rollout evidence on a handful
 of tasks --- recovers much of the phrasing headroom on held-out tasks. Our
 rulebooks, prompts, and evaluation artifacts are available in the
-project repository.\footnote{\url{https://github.com/sttawm/phrase-rl}}
+project repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/icra2027}}
 
 Much remains. Rulebooks distilled from more tasks may yield larger
 gains, and a more formal reinforcement-learning treatment of phrasing is
@@ -352,7 +352,8 @@ because of a weak proxy score; a cheaper, better proxy would avoid the
 cost of full rollouts. We evaluated the method on a single VLA and only
 in simulation; other VLAs and real robots are natural next steps. Most
 importantly, language sensitivity should be measured systematically
-across models --- and, the real goal, attributed to a cause.
+across models. Explaining it --- attributing the sensitivity to a
+cause --- would be the most exciting outcome of all.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
