@@ -138,6 +138,7 @@ while true; do
     if IPC_DIR="$IPC_DIR" .venv-gen/bin/python scripts/rules_loop_jobs.py "$specf" \
          > "/workspace/rljob_$jid.log" 2>&1; then
       git add "$JOBS/$jid.result.parquet"
+      [ -f "$JOBS/$jid.episodes.parquet" ] && git add "$JOBS/$jid.episodes.parquet"
       # stage the marker deletion too: an unstaged rm leaves a stale committed
       # failed.txt on origin, which killed a driver mid-wait (2026-08-31)
       git rm -q -f --ignore-unmatch "$JOBS/$jid.failed.txt"

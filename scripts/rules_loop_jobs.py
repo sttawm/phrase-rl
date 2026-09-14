@@ -199,6 +199,10 @@ elif spec["kind"] == "score" and spec.get("method") == "libero_bank_eval":
     res["grip"] = np.nan
     res[["task", "phrase", "z", "grip", "gt_success", "n_ctx"]].to_parquet(
         result_path, index=False)
+    # per-episode records travel with the aggregate: the worker commits
+    # <jid>.episodes.parquet next to the result (pod-local jsonls die on terminate)
+    raw[["task", "phrase", "init", "success", "steps"]].to_parquet(
+        jdir / f"{jid}.episodes.parquet", index=False)
     print(f"bank-eval rolled {len(res)} phrases x {len(ro['inits'])} inits")
 
 elif spec["kind"] == "score":
