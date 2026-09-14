@@ -25,28 +25,41 @@ def chart(df, out):
               .agg(gap=("set_gap_pp", "first"), task=("task", "first"),
                    category=("category", "first"))
               .sort_values("gap", ascending=False))
-    fig, ax = plt.subplots(figsize=(3.39, 0.118 * len(sets) + 0.72))
+    # group rows by category (legend order), largest swing first within each
+    rank = {c: i for i, (_, c) in enumerate(LEGEND)}
+    sets = sets.assign(rank=[rank[CAT_COLOR[c]] for c in sets.category])
+    sets = sets.sort_values(["rank", "gap"], ascending=[True, False])
+    # one row per task x color: identical labels say the same thing; the
+    # full record lives in the companion doc
+    sets = sets.groupby(["task", "rank"], as_index=False, sort=False).head(1)
+    ncolor = len({CAT_COLOR[c] for c in sets.category})
+    legrows = -(-(ncolor + 2) // 3)
+    bot = 0.15 * legrows + 0.1
+    H = 0.118 * len(sets) + 0.5 + bot
+    fig, ax = plt.subplots(figsize=(3.39, H))
     for i, (sid, srow) in enumerate(sets.iterrows()):
         y = len(sets) - 1 - i
         g = df[df.set_id == sid]
         c = CAT_COLOR[srow["category"]]
         ax.plot([g.succ_pct.min(), g.succ_pct.max()], [y, y], color=c,
-                lw=1.7, alpha=0.55, zorder=1, solid_capstyle="round")
+                lw=1.7, alpha=0.55, zorder=1, solid_capstyle="round",
+                clip_on=False)
         for _, r in g.iterrows():
             if r.is_best:
-                ax.plot(r.succ_pct, y, "o", ms=3.9, color=c, zorder=3)
+                ax.plot(r.succ_pct, y, "o", ms=3.9, color=c, zorder=3,
+                        clip_on=False)
             else:
                 ax.plot(r.succ_pct, y, "o", ms=3.2, mfc="white", mec=c,
-                        mew=0.9, zorder=2)
+                        mew=0.9, zorder=2, clip_on=False)
         ax.text(104, y, f"+{srow.gap:.0f}", va="center", fontsize=5.8,
                 color="#4a5568", clip_on=False)
     ax.text(104, len(sets) - 0.05, "swing", va="bottom", fontsize=5.8,
             style="italic", color="#4a5568", clip_on=False)
-    labels = [f"{r.task.replace('widowx_','').replace('_clean','')} · {r['category']}"
+    labels = [r.task.replace('widowx_', '').replace('_clean', '')
               for _, r in sets.iterrows()]
     ax.set_yticks(range(len(sets))[::-1])
     ax.set_yticklabels(labels, fontsize=5.8, family="monospace")
-    ax.set_xlim(-1.5, 101.5)
+    ax.set_xlim(-1.5, 100)
     ax.set_xticks([0, 25, 50, 75, 100])
     ax.set_xticklabels(["0", "25", "50", "75", "100%"], fontsize=6.5)
     ax.set_ylim(-0.7, len(sets) - 0.3)
@@ -69,7 +82,7 @@ def chart(df, out):
     fig.legend(handles, names, fontsize=5.4, ncol=3, loc="lower center",
                frameon=False, borderaxespad=0.1, columnspacing=1.1,
                handletextpad=0.25, bbox_to_anchor=(0.55, 0.0))
-    fig.tight_layout(rect=(0, 0.055, 1, 1), pad=0.3)
+    fig.tight_layout(rect=(0, bot / H, 1, 1), pad=0.3)
     fig.savefig(out, bbox_inches="tight", pad_inches=0.02)
     plt.close(fig)
     print(f"{out.name}: {len(sets)} sets / {sets.task.nunique()} tasks, "
