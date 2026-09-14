@@ -1,21 +1,35 @@
 #!/usr/bin/env python3
-"""Apply stage of the pi0.5/LIBERO sealed grid.
+"""Apply stage of the pi0.5/LIBERO sealed grid (and round-1 reuse).
 
-Twelve arms = {gemini, claude, qwen} x {none, in_only_v1, ood_only_v1,
-in_plus_ood_v2}, each rewriting every base in eval_bases.parquet under the
-loop's own apply.md (rulebook + per-base trace + the base phrase). "none" is the
-no-rules ANCHOR: the same rephraser with an EMPTY rulebook, not the un-rephrased
-base -- the un-rephrased bases are a separate baseline row and are never
-produced here.
+Arms = {gemini, claude} x {none, in_only_v1, ood_only_v1, in_plus_ood_v2},
+each rewriting every base in eval_bases.parquet under the loop's own apply.md
+(rulebook + per-base trace + the base phrase). "none" is the no-rules ANCHOR:
+the same rephraser with an EMPTY rulebook, not the un-rephrased base -- the
+un-rephrased bases are a separate baseline row and are never produced here.
 
   FINAL_EVAL=1 .venv/bin/python scripts/pi05_eval_apply.py --applier gemini
   FINAL_EVAL=1 .venv/bin/python scripts/pi05_eval_apply.py --applier claude
-  FINAL_EVAL=1 .venv/bin/python scripts/pi05_eval_apply.py --applier qwen --queue-only
 -> results/analysis/pi05_bank/eval_applies/{applier}__{book}.parquet
+
+The qwen arm is NOT produced here: --applier qwen exits with an error. The
+p_eval job queue only discovers <jid>.spec.json files (rules_loop_worker.sh)
+and its kind=apply handler (rules_loop_jobs.py) rebuilds the prompt from the
+spec's rules_text and the BRIDGE trace parquets, so a payload built from
+--traces would never reach Qwen. Queue qwen applies with a script that writes a
+spec (see scripts/gen_a39_applies.py) once the handler reads payload prompts.
+
+Round-1 reuse: point --bases / --traces / --outdir elsewhere and replace the
+rulebook set with --book-files ("none" stays available as the empty rulebook):
+
+  FINAL_EVAL=1 .venv/bin/python scripts/pi05_eval_apply.py --applier gemini \\
+      --bases results/analysis/pi05_bank/r1/bases.parquet \\
+      --traces results/analysis/pi05_bank/r1/traces.parquet \\
+      --outdir results/analysis/pi05_bank/r1/applies \\
+      --book-files r1_v1=results/analysis/pi05_bank/r1/rulebooks/r1_v1.md
+-> <outdir>/{applier}__{book}.parquet
 """
 import argparse
 import concurrent.futures as cf
-import hashlib
 import os
 import pathlib
 import re
@@ -31,12 +45,15 @@ if os.environ.get("FINAL_EVAL") != "1":
 REPO = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts"))
 D = REPO / "results/analysis/pi05_bank"
+# Sealed-grid defaults; --book-files replaces this dict wholesale ("none" is
+# always re-added).
 BOOKS = {"none": None,
          "in_only_v1": D / "rulebooks/in_only_v1.md",
          "ood_only_v1": D / "rulebooks/ood_only_v1.md",
          "in_plus_ood_v2": D / "rulebooks/in_plus_ood_v2.md"}
-OUTD = D / "eval_applies"
-OUTD.mkdir(parents=True, exist_ok=True)
+DEFAULT_BASES = D / "eval_bases.parquet"
+DEFAULT_TRACES = REPO / "results/phrase_artifacts/traces_pi05_eval.parquet"
+DEFAULT_OUTDIR = D / "eval_applies"
 APPLY_MD = (REPO / "prompts/rules_loop/apply.md").read_text()
 
 
@@ -54,6 +71,45 @@ def prompt_for(rules, trace, phrase):
     if left:
         raise KeyError(f"apply.md: unsubstituted {left}")
     return t
+
+
+def parse_book_files(spec):
+    """'name=path,name=path' -> {name: Path}; 'none' (empty rulebook) is always
+    present and may not be rebound to a file."""
+    books = {"none": None}
+    for item in filter(None, (s.strip() for s in spec.split(","))):
+        if "=" not in item:
+            raise SystemExit(f"--book-files: expected name=path, got {item!r}")
+        name, path = item.split("=", 1)
+        name = name.strip()
+        if name == "none":
+            raise SystemExit("--book-files: 'none' is reserved for the empty rulebook")
+        p = pathlib.Path(path.strip())
+        if not p.is_absolute():
+            p = REPO / p
+        if not p.exists():
+            raise SystemExit(f"--book-files: {name}: {p} does not exist")
+        books[name] = p
+    return books
+
+
+def load_bases(path):
+    bases = pd.read_parquet(path)
+    for col in ("task", "phrase"):
+        if col not in bases.columns:
+            raise SystemExit(f"{path}: missing column {col!r}")
+    if "kind" not in bases.columns:
+        bases["kind"] = "natural"
+    if "stratum" not in bases.columns:
+        bases["stratum"] = ""
+    return bases
+
+
+def load_traces(path):
+    tr = pd.read_parquet(path)
+    if "task" not in tr.columns:
+        tr["task"] = tr.suite + ":" + tr.task_id.astype(str)
+    return {(r.task, r.phrase): r.trace for r in tr.itertuples()}
 
 
 def call_gemini(prompt):
@@ -95,41 +151,56 @@ def call_claude(prompt):
 
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--applier", required=True, choices=["gemini", "claude", "qwen"])
-    ap.add_argument("--books", default=",".join(BOOKS))
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--applier", required=True, choices=["gemini", "claude", "qwen"],
+                    help="qwen is refused (see module docstring)")
+    ap.add_argument("--books", default=None,
+                    help="comma-separated subset of book names (default: all)")
+    ap.add_argument("--book-files", default=None,
+                    help="name=path,... rulebooks; REPLACES the built-in set "
+                         "('none' = empty rulebook is always available)")
+    ap.add_argument("--bases", default=str(DEFAULT_BASES),
+                    help="parquet with task ('suite:task_id'), phrase "
+                         "[, kind, stratum]")
+    ap.add_argument("--traces", default=str(DEFAULT_TRACES),
+                    help="parquet with phrase, trace and task or suite+task_id")
+    ap.add_argument("--outdir", default=str(DEFAULT_OUTDIR),
+                    help="writes <outdir>/<applier>__<book>.parquet")
     ap.add_argument("--workers", type=int, default=8)
-    ap.add_argument("--queue-only", action="store_true")
     a = ap.parse_args()
+    if a.applier == "qwen":
+        raise SystemExit("qwen apply not supported by this queue: the p_eval "
+                         "worker only claims *.spec.json jobs and its apply "
+                         "handler ignores payload prompts (see docstring)")
 
-    bases = pd.read_parquet(D / "eval_bases.parquet")
-    tr = pd.read_parquet(REPO / "results/phrase_artifacts/traces_pi05_eval.parquet")
-    tr["task"] = tr.suite + ":" + tr.task_id.astype(str)
-    traces = {(r.task, r.phrase): r.trace for r in tr.itertuples()}
+    books = parse_book_files(a.book_files) if a.book_files else BOOKS
+    names = ([b.strip() for b in a.books.split(",") if b.strip()]
+             if a.books else list(books))
+    unknown = [b for b in names if b not in books]
+    if unknown:
+        raise SystemExit(f"unknown books {unknown}; available: {list(books)}")
+    outd = pathlib.Path(a.outdir)
+    outd.mkdir(parents=True, exist_ok=True)
+
+    bases = load_bases(a.bases)
+    traces = load_traces(a.traces)
     missing = [(r.task, r.phrase) for r in bases.itertuples()
                if (r.task, r.phrase) not in traces]
     if missing:
         raise SystemExit(f"{len(missing)} bases have no trace, e.g. {missing[:2]}")
+    print(f"bases={a.bases} traces={a.traces} outdir={outd} books={names}",
+          flush=True)
+    for r in bases.itertuples():
+        print(f"  PREFLIGHT {r.task}/{r.kind}: {r.phrase!r}", flush=True)
 
-    for book in a.books.split(","):
-        out_p = OUTD / f"{a.applier}__{book}.parquet"
+    for book in names:
+        out_p = outd / f"{a.applier}__{book}.parquet"
         if out_p.exists():
             print(f"skip {out_p.name} (exists)", flush=True); continue
-        rules = "" if BOOKS[book] is None else rules_only(BOOKS[book].read_text())
+        rules = "" if books[book] is None else rules_only(books[book].read_text())
         jobs = [(r.task, r.phrase, r.kind, r.stratum,
                  prompt_for(rules, traces[(r.task, r.phrase)], r.phrase))
                 for r in bases.itertuples()]
-
-        if a.applier == "qwen":
-            jd = REPO / "results/rules_runs/p_eval/jobs"
-            jd.mkdir(parents=True, exist_ok=True)
-            jid = f"a00qapply_{book}_" + hashlib.sha1(
-                (book + rules).encode()).hexdigest()[:8]
-            pd.DataFrame([{"task": t, "phrase": p, "kind": k, "stratum": s,
-                           "prompt": pr} for t, p, k, s, pr in jobs]).to_parquet(
-                jd / f"{jid}.payload.parquet", index=False)
-            print(f"queued {jid} ({len(jobs)} bases)", flush=True)
-            continue
 
         fn = call_gemini if a.applier == "gemini" else call_claude
         rows = [None] * len(jobs)
