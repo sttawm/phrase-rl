@@ -203,9 +203,6 @@ In summary, this paper contributes:
     \item a weight-free, once-per-episode method that distills rollout evidence into explicit rephrasing rules which transfer zero-shot to unseen tasks;
     \item an evaluation on held-out tasks across adversarial, machine-generated, and human-written phrasings, with three applier models and a comparison to per-step test-time verification.
 \end{enumerate}
-We evaluate a single VLA in simulation and do not attempt to explain the cause of the sensitivity; we return to both limitations in Section~\ref{sec:conclusion}.
-
-
 
 \section{Related Work}
 
@@ -352,12 +349,12 @@ Rule-distillation requires that each phrase gets a score, so that phrases are co
 
 \subsection{Distilling Rules}
 
-To distill the evidence into a set of rules, we prompt Claude to derive rules with the prompt provided in the project repository.\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}} We test three rulebook types, distinguished by the evidence they see: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
+To distill the evidence into a set of rules, we prompt Claude to derive rules with the prompt provided in the project repository.\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}\label{fn:repo}} We test three rulebook types, distinguished by the evidence they see: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
 
 For rulebooks distilled from phrases from the finetuning dataset, we further provide the full set of finetuning phrases so that the distiller may make use of corpus statistics such as how frequently objects occur in the finetuning data, the most common phrase structures, etc. Due to cost constraints, we use Claude Fable to generate the first three rulebooks (one each of in-finetune, out-of-finetune, and both), and then we repeat twice more with Claude Opus 5. Our results do not suggest this choice mattered.
 
 All distilled rulebooks are available in the project
-repository.\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}}
+repository.\footnotemark[\ref{fn:repo}]
 
 \subsection{Applying Rules}
 
