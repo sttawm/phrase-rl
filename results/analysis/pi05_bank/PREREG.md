@@ -174,3 +174,72 @@ PRIMARY ANALYSES (fixed now)
    canonical, by stratum -- the metric the rulebooks' own evidence predicts.
 A pooled mean across strata is NOT a headline: strata C and D cannot move, and
 including them would dilute any effect toward zero by construction.
+
+## 2026-09-14 — AMENDMENT: rules distillation from single-edit pairs, sealed set v2 (approved by user in-session)
+
+SUPERSEDES the 2026-09-04 22-task FINAL_EVAL set for this experiment. Written before any
+test phrase, trace, rulebook or rollout for it exists.
+
+TASK DRAW (scripts/draw_libero_sealed_v2.py -> sealed_v2_draw.json; seed 20260914)
+- Two pools: in-finetune = the 40 finetune tasks (spatial/object/goal/10) minus libero_10/5
+  (855 probe episodes exist on it; splits.json reserve_exclusions); out-of-finetune = all 90
+  libero_90 tasks. One numpy default_rng(seed).permutation per pool, recorded in full.
+- Walk each permutation in order and accept 10, skipping only FLOOR tasks: 0 successes of 20
+  with the canonical string on inits 0-19, seed 7, standard harness. Floor status comes from
+  canonical episodes already measured under that exact protocol (sealed-20 screen, the n=50
+  rounds restricted to inits 0-19, the four-tier boards) or from sealed_v2_screen.jsonl
+  (320 fresh canonical episodes on the 16 permutation-prefix tasks that had none). A task
+  with no data halts the walk until screened; the order is never skipped or re-drawn.
+- One post-draw skip, decided after the in-finetune walk was seen: libero_goal/7 holds 103 of
+  the 426 single-edit pairs (24%, the stove ladder); it is treated like a FLOOR task and the
+  replacement is the next task in the recorded order (libero_10/4). Recorded in the draw file.
+- RESULT. In-finetune (10): spatial/2, /3, /6, /7; goal/0, /1, /6; object/1, /6; libero_10/4.
+  Out-of-finetune (10): 90/60 (8/20), 90/70 (12/20), 90/46 (20/20), 90/68 (20/20), 90/54
+  (15/20), 90/7 (1/20), 90/59 (5/20), 90/56 (18/20), 90/43 (1/20), 90/35 (2/20). Four of the
+  ten out-of-finetune tasks are near-floor (<=5/20); they stay, per the rule, and every
+  analysis is reported split by half and by canonical screen level.
+- Disclosed, not filtered (task-level filtering only): sealed goal/7's canonical "turn on the
+  stove" is verbatim libero_90/44's canonical, and sealed object/6's is verbatim
+  libero_90/51's; both non-sealed tasks' pairs stay in the evidence. Sealed in-finetune
+  tasks share scene and template with training tasks (object/*: one scene, one template):
+  the in-finetune result is within-scene-family transfer, and the probe design of rounds
+  2-8 was adaptive across all in-finetune tasks.
+
+EVIDENCE (scripts/build_libero_distill_evidence.py -> distill_evidence_v2.{csv,md})
+- Single-edit pairs only: results/analysis/pi05_bank/single_edit_pairs.parquet (every pair of
+  phrases on one task differing in one contiguous token span, both sides n=50 on inits 0-49).
+  Every pair on a sealed task is removed; nothing else is. Nulls stay in by design.
+  Kept: 369 pairs (104 with |delta|>=18 pp and p<0.05) -> 271 phrases on 58 tasks
+  (26 in-finetune, 32 libero_90), flattened to task / category / phrase / success % / n.
+- The distiller prompt is prompts/distill_minimal.md verbatim (tag icra2027) with the table in
+  its {{evidence_file}} slot (distill_prompt_v2_filled.md). Output may be bare numbered rules
+  or RULES/RATIONALE; the apply path strips everything but the rules.
+
+DISTILLATION
+- Draw 1 first, end to end (user decision 2026-09-14: complete one apply+eval loop before
+  draws 2 and 3, in case of failure or credit exhaustion). Each draw is a fresh, stateless
+  Claude Fable multi-agent workflow (script committed as provenance) with no access to sealed
+  phrases; draws 2 and 3 repeat it with the identical prompt and evidence.
+
+TEST PHRASES, TRACES, APPLIERS
+- 10 natural rephrasings per sealed task (200), gemini-pro-latest, image-conditioned on the
+  task's first frame, NATURAL block of paper/prompts/prompt_generate_rephrases.txt only, plus
+  12 human phrases from results/human_naturals/a39_human_phrases.parquet (4 per register) as
+  style examples labelled as coming from a different robot. NO semantic judge; dedup and
+  canonical-identity drop only. FINAL_EVAL=1; every kept line preflight-printed.
+- Traces: one per (task, phrase), gemini-3.5-flash, temperature 0.4, image-conditioned, CoVer
+  USER_TEMPLATE, generated from the incoming phrase only; canonical-leak gate.
+- Arms (round 1): no-rephraser (the natural phrase), scaffold (paper/prompts/scaffold_rule.txt
+  as the one-rule book), rulebook draw 1. Applier: gemini-pro-latest, thinking budget 16384,
+  greedy once per (book, phrase), prompts/rules_loop/apply.md with trace + rules + phrase.
+  Claude applier only if time allows.
+
+ROLLOUTS AND ANALYSIS
+- n=50: every unique (task, phrase) over inits 0-49, 1 rep, seed 7; identical strings roll once
+  and are attributed to arms at analysis time (dedup ledger). Git job queue run p_v2, legs
+  v2r1*, scripts/stage_libero_v2_jobs.py -> rules_loop_worker.sh -> rules_loop_jobs.py
+  libero_bank_eval; per-episode records kept.
+- Paired-by-base sign-flip permutation of each rulebook arm vs the no-rephraser arm and vs
+  the scaffold arm, pooled AND split in-finetune vs out-of-finetune (also by canonical screen
+  level); draws averaged before pairing once draws 2-3 exist. No pooled headline across
+  halves.

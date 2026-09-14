@@ -248,16 +248,127 @@
     },
     {
      "task": "libero_90/60",
-     "status": "NEEDS_SCREEN",
-     "k_of_20": null,
-     "source": null
+     "status": "ACCEPT",
+     "k_of_20": 8,
+     "source": "fourtier"
+    },
+    {
+     "task": "libero_90/70",
+     "status": "ACCEPT",
+     "k_of_20": 12,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_90/27",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "screen_v2"
+    },
+    {
+     "task": "libero_90/46",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "screen_v2"
+    },
+    {
+     "task": "libero_90/87",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "screen_v2"
+    },
+    {
+     "task": "libero_90/68",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_90/88",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "seal_screen"
+    },
+    {
+     "task": "libero_90/54",
+     "status": "ACCEPT",
+     "k_of_20": 15,
+     "source": "fourtier"
+    },
+    {
+     "task": "libero_90/76",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "screen_v2"
+    },
+    {
+     "task": "libero_90/41",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_90/7",
+     "status": "ACCEPT",
+     "k_of_20": 1,
+     "source": "seal_screen"
+    },
+    {
+     "task": "libero_90/59",
+     "status": "ACCEPT",
+     "k_of_20": 5,
+     "source": "fourtier"
+    },
+    {
+     "task": "libero_90/42",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "screen_v2"
+    },
+    {
+     "task": "libero_90/40",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "screen_v2"
+    },
+    {
+     "task": "libero_90/56",
+     "status": "ACCEPT",
+     "k_of_20": 18,
+     "source": "screen_v2"
+    },
+    {
+     "task": "libero_90/43",
+     "status": "ACCEPT",
+     "k_of_20": 1,
+     "source": "seal_screen"
+    },
+    {
+     "task": "libero_90/11",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "seal_screen"
+    },
+    {
+     "task": "libero_90/35",
+     "status": "ACCEPT",
+     "k_of_20": 2,
+     "source": "rounds"
     }
    ],
-   "accepted": [],
-   "needs_screen_next": [
-    "libero_90/60"
+   "accepted": [
+    "libero_90/60",
+    "libero_90/70",
+    "libero_90/46",
+    "libero_90/68",
+    "libero_90/54",
+    "libero_90/7",
+    "libero_90/59",
+    "libero_90/56",
+    "libero_90/43",
+    "libero_90/35"
    ],
-   "complete": false
+   "needs_screen_next": [],
+   "complete": true
   }
  }
 }
