@@ -4,10 +4,89 @@
 
 \documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
 
+
+
 %\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
 
 \IEEEoverridecommandlockouts                              % This command is only needed if
                                                           % you want to use the \thanks command
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{url}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[caption=false,font=footnotesize]{subfig}
+% Caption font: IEEEtran hard-codes \footnotesize; override it for figures here.
+\newcommand{\figcaptionfont}{\small}
+\makeatletter
+\let\IEEE@makecaption\@makecaption
+\long\def\@makecaption#1#2{\begingroup
+  \ifx\@captype\@IEEEtablestring\else\let\footnotesize\figcaptionfont\fi
+  \IEEE@makecaption{#1}{#2}\endgroup}
+\makeatother
+% TODO notes rendered in the PDF in a dedicated color; remove before submission.
+\definecolor{todocolor}{RGB}{190,0,160}
+\newcommand{\todo}[1]{\textcolor{todocolor}{\textbf{[TODO:} #1\textbf{]}}}
+
+
+\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+
+\usepackage[dvipsnames]{xcolor}
+%\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+%\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+%\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{pifont}
+\usepackage{setspace}
+\usepackage{comment}
+\usepackage{algorithm}
+
+\usepackage{verbatim}
+\usepackage{caption}
+\usepackage{wrapfig}
+\usepackage{svg}
+\usepackage{mathabx}
+\usepackage{subcaption}
+%\usepackage{cleveref}
+\usepackage{enumitem}
+\usepackage{color,soul}
+\usepackage{xfakebold}
+
+\setul{0.5ex}{0.3ex}
+\definecolor{grey}{rgb}{.80,.80,0.80}
+\setulcolor{grey}
+%\usepackage[numbers]{natbib}
+%\setlength{\bibsep}{0.0pt}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=orange,
+    filecolor=magenta,      
+    urlcolor=orange,
+    citecolor=orange,
+}
+
 
 \overrideIEEEmargins                                      % Needed to meet printer requirements.
 
@@ -39,15 +118,18 @@
 \newcommand{\pct}[2]{\makebox[2.1em][r]{\textcolor{#1}{\bfseries #2\%}}}
 
 \title{\LARGE \bf
-Reducing a VLA's Language Sensitivity Using LLM-Distilled Instruction-Phrasing Rules
+%Reducing a VLA's Language Sensitivity Using LLM-Distilled Instruction-Phrasing Rules
+Rephrase Before You Act: Characterizing and Mitigating Language Sensitivity in Vision-Language-Action Models
 }
 
 
-\author{Mikey Watts$^{1}$ and Yuchen Cui$^{2}$% <-this % stops a space
-\thanks{$^{1}$Mikey Watts is an independent researcher in Los Angeles
-        {\tt\small mikeywatts@berkeley.edu}}%
-\thanks{$^{2}$Yuchen Cui is with the University of California, Los Angeles
-        {\tt\small yuchencui@cs.ucla.edu}}%
+\author{
+Anonymous
+% Mikey Watts$^{1}$ and Yuchen Cui$^{2}$% <-this % stops a space
+% \thanks{$^{1}$Mikey Watts is an independent researcher in Los Angeles
+%         {\tt\small mikeywatts@berkeley.edu}}%
+% \thanks{$^{2}$Yuchen Cui is with the University of California, Los Angeles
+%         {\tt\small yuchencui@cs.ucla.edu}}%
 }
 
 
@@ -67,17 +149,27 @@ Reducing a VLA's Language Sensitivity Using LLM-Distilled Instruction-Phrasing R
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 Vision-language-action models (VLAs) are strikingly sensitive to
-instruction phrasing: a one-word edit can move $\pi_{0.5}$'s success on a
-LIBERO task from 100\% to 2\%, and on SIMPLER's Bridge tasks $\pi_0$
-succeeds 23\% of the time on naturally phrased human requests but 48\%
-under oracle phrasings of the same tasks. We propose a simple mitigation
-that leaves the policy's weights untouched: score many phrasings on a
-small set of training tasks, have a large language model distill the
-evidence into ``rephrasing rules'', and rewrite each incoming
-instruction under the rules at deployment. Rules distilled from rollouts
-on just eight tasks improve the frozen $\pi_0$ by 16--27\% over the
-un-rephrased baseline on twelve held-out tasks, across adversarial and
-natural phrasings --- both machine-generated and human-written.
+instruction phrasing and do not inherit the language robustness of the
+vision-language models they are built on. A one-word edit can move
+success by tens of points: $\pi_{0.5}$ turns on a LIBERO stove 100\% of
+the time when told to ``switch on the stove'' and 2\% of the time when
+told to ``switch on the hot plate'', and a $\pi_0$ checkpoint already
+finetuned with rephrase augmentation still shows single-edit swings of up
+to 61 points on SIMPLER's Bridge tasks. We characterize this sensitivity
+with statistically tested single-edit swings and an oracle phrase search,
+which shows that phrasing alone nearly closes the 21-point gap between
+in-distribution and out-of-distribution tasks. We then reduce it without
+modifying the policy. Our key observation is that the sensitivity is
+systematic enough to be written down: we score many phrasings of a few
+training tasks, have a large language model distill the evidence into ten
+to twenty natural-language rephrasing rules, and at deployment rewrite
+each incoming instruction under these rules once, before it reaches the
+frozen policy. The rules improve the frozen $\pi_0$ by 16 to 27\% relative
+on twelve held-out tasks across adversarial, VLM-generated, and
+human-written phrasings, with gains concentrated on out-of-distribution
+tasks and stable across three applier models and three independent
+distillations. The method requires no retraining and no per-step
+verification, and applies zero-shot to unseen tasks and instructions.
 \end{abstract}
 
 
@@ -86,75 +178,101 @@ natural phrasings --- both machine-generated and human-written.
 
 \section{Introduction}
 
-Humans have long dreamed of general-purpose robots that help with everyday physical tasks; the dream remains elusive. Recent years have nonetheless brought enormous progress in generalist vision-language models (VLMs), so it is no surprise that we build our robots --- vision-language-action models (VLAs) --- as their extensions, hoping to inherit their capabilities. But do VLAs fully inherit them? The robots in our experiments are strikingly sensitive to phrasing: telling $\pi_{0.5}$ to ``switch on the stove'' succeeds 100\% of the time; ``switch on the hot plate'', 2\%. No one who has used a modern language model would expect this.
+Recent years have brought enormous progress in vision-language models (VLMs), and it is natural to build robot policies, in the form of vision-language-action models (VLAs), as extensions of them, hoping they inherit VLM capabilities such as robustness to how an instruction is phrased. They do not. Telling $\pi_{0.5}$ to ``switch on the stove'' succeeds 100\% of the time; ``switch on the hot plate'', 2\%. Telling $\pi_0$ that the ``purple eggplant goes on the sponge'' succeeds 69\% of the time on a SIMPLER task; dropping the color adjective, 8\%. No one who has used a modern language model would expect this.
 
-While we stop short of identifying the cause, we (1) demonstrate this sensitivity and (2) propose a simple, effective technique that reduces it without touching the policy's weights: we measure the robot's performance across many phrases per task, compile the results into an evidence file, and ask a frontier large language model (LLM) to distill ``rephrasing rules'' from the evidence. At deployment, a rephraser receives the incoming instruction, the scene image, and the rules; its rewrite is executed by the VLA (Fig.~\ref{fig:method}).
+A robot that executes a task only under particular wording is not a robot that non-experts can instruct. The standard remedy is training-time augmentation: relabeling demonstrations with additional phrasings so that the policy sees more surface forms of each instruction~\cite{kwok2026scaling, xiao2023dial}. It helps: the $\pi_0$ checkpoint we study was finetuned on Bridge with rephrase augmentation~\cite{intact}, which in our measurement is worth a 20\% relative improvement on naturally phrased requests over the otherwise-identical non-augmented checkpoint. Yet it still exhibits the swings above, and this residual sensitivity is the problem we address. Two deployment-side families exist, and neither fills the gap. Test-time verification~\cite{kwok2026scaling} selects among many phrase-action candidates at every inference step; it leaves the weights untouched but multiplies inference cost, and in our setting it does not improve over the unmodified policy. Instruction optimization~\cite{bhatia2026sarl, shodiev2026grounder, myers2024palo} searches for the phrasing that best steers a frozen policy on a given task, but needs online interaction with each task, so nothing it learns transfers to an unseen one. No existing method is simultaneously weight-free, applied once per episode, and zero-shot to unseen tasks.
+
+% While we stop short of identifying the cause, we (1) demonstrate this sensitivity and (2) propose a simple, effective technique that reduces it without touching the policy's weights: we measure the robot's performance across many phrases per task, compile the results into an evidence file, and ask a frontier large language model (LLM) to distill ``rephrasing rules'' from the evidence. 
+Our key observation is that a VLA's language sensitivity is systematic rather than idiosyncratic to each task, and can therefore be captured by a small set of explicit rules. We generate many phrasings of each of eight training tasks, roll each out in simulation, and record its success rate; a large language model then distills the scored phrasings into ten to twenty natural-language rephrasing rules, for example \textit{```coke' stays `coke', never `cola', `soda', or bare `can' ''}. At deployment, a rephraser conditioned on the rules and the scene image rewrites each incoming instruction once, before the episode begins, and passes the rewrite to the frozen VLA (Fig.~\ref{fig:method}). Because the rules describe how the policy parses language in general rather than what works for one task, they apply to instructions and tasks that contributed no evidence.
+
+Before presenting the method, we characterize the sensitivity it targets, for $\pi_0$ on SIMPLER's Bridge tasks and $\pi_{0.5}$ on LIBERO. We report single-edit swings, sets of phrasings that differ by a minimal edit and whose success rates differ significantly under two-proportion tests over 72 ($\pi_0$) or 50 ($\pi_{0.5}$) rollouts per phrase, and an oracle phrase search that estimates the headroom phrasing alone leaves a frozen policy. Two findings shape the paper. First, oracle phrasing nearly closes the 21-point gap between in-distribution and out-of-distribution tasks seen under canonical instructions, so much of the apparent generalization gap is a phrasing gap. Second, on $\pi_{0.5}$ adversarial phrasing costs 50 points on tasks inside the finetuning set and nothing measurable outside it, suggesting the policy attends to language only where it has been trained to, consistent with prior reports that apparent robustness often reflects an ignored instruction~\cite{zhou2025liberopro, fei2025liberoplus}.
 
 \begin{figure*}[!t]
     \centering
     \includegraphics[width=\textwidth]{figures/method_diagram.pdf}
-    \caption{Method overview. \emph{Evidence gathering}: a VLM generates
-    adversarial, natural, and benign rephrasings of each task instruction,
-    which the frozen VLA executes; scored rollouts are collected as evidence.
-    \emph{Rule distillation}: an LLM distills the evidence into
-    instruction-phrasing rules. \emph{Rule application}: at deployment, a VLM
-    conditioned on the rules rephrases each incoming task instruction before
-    it reaches the frozen VLA.}
+    \caption{\small Method overview. \emph{Evidence gathering}: a VLM generates adversarial, natural, and benign rephrasings of each training task; the frozen VLA executes them and each phrase is scored by rollout success. \emph{Rule distillation}: an LLM distills the scored phrases, once and offline, into 10--20 explicit phrasing rules. \emph{Rule application}: at deployment a VLM conditioned on the rules rewrites each incoming instruction once, before the episode begins, and the rewrite is passed to the unchanged VLA.}
     \label{fig:method}
 \end{figure*}
 
-We evaluate in simulation on adversarial, VLM-generated natural, and human-generated natural phrasings, and see 16--27\% relative improvements for our best rulebook type over the un-rephrased $\pi_0$ baseline on SIMPLER's Bridge tasks; we characterize sensitivity for both $\pi_0$ and $\pi_{0.5}$, and evaluate the rules on $\pi_0$.
+% We evaluate in simulation on adversarial, VLM-generated natural, and human-generated natural phrasings, and see 16--27\% relative improvements for our best rulebook type over the un-rephrased $\pi_0$ baseline on SIMPLER's Bridge tasks; we characterize sensitivity for both $\pi_0$ and $\pi_{0.5}$, and evaluate the rules on $\pi_0$.
+We evaluate on the rephrase-augmented $\pi_0$ across twelve sealed SIMPLER tasks that contributed no evidence, five in-distribution and seven out, under adversarial, VLM-generated natural, human-written natural, and canonical phrasings. Rules distilled from eight tasks improve success by 16 to 27\% relative over the un-rephrased baseline on the adversarial and natural sets, with gains concentrated on out-of-distribution tasks. The effect is stable across three applier models (Claude, Gemini, and the open-weights Qwen3.5-9B) and three independent distillations, whose pooled success varies by at most 5 points, and rulebooks distilled from out-of-finetune evidence consistently outperform those distilled from in-finetune evidence.
 
+In summary, this paper contributes:
+\begin{enumerate}
+    \item a statistically grounded characterization of language sensitivity in $\pi_0$ and $\pi_{0.5}$, comprising single-edit swings and oracle headroom, with the finding that phrasing accounts for much of the apparent in- versus out-of-distribution gap;
+    \item a weight-free, once-per-episode method that distills rollout evidence into explicit rephrasing rules which transfer zero-shot to unseen tasks;
+    \item an evaluation on held-out tasks across adversarial, machine-generated, and human-written phrasings, with three applier models and a comparison to per-step test-time verification.
+\end{enumerate}
+We evaluate a single VLA in simulation and do not attempt to explain the cause of the sensitivity; we return to both limitations in Section~\ref{sec:conclusion}.
 
 
 
 \section{Related Work}
 
-\textbf{Language Sensitivity. }
-Embodied red teaming searches for natural-language instructions that break
-robot policies~\cite{karnik2024embodied}. LIBERO-PRO perturbs LIBERO along
-objects, initial states, instructions, and environments; on the language
-axis it finds that paraphrased instructions leave accuracy intact --- but
-so do nonsensical ones, the policy executing the same memorized trajectory
-regardless~\cite{zhou2025liberopro}. LIBERO-Plus charts this
+\textbf{Measuring language sensitivity. }
+Embodied red teaming uses a VLM to search for natural-language
+instructions that break language-conditioned robot policies, and finds
+that state-of-the-art models fail or act unsafely on many of
+them~\cite{karnik2024embodied}. LIBERO-PRO perturbs LIBERO along objects,
+initial states, instructions, and environments; on the language axis it
+finds that paraphrased instructions leave accuracy intact --- but so do
+nonsensical ones, the policy executing the same memorized trajectory
+regardless~\cite{zhou2025liberopro}. LIBERO-Plus charts the same
 sensitivity across ten VLAs --- instruction perturbations cost between 14
 and 50 points depending on the model --- and reaches the same verdict:
 much of the apparent robustness traces to models ignoring the instruction
-outright~\cite{fei2025liberoplus}. Our single-edit swings are the complementary
-observation: when the policy does attend to language, one word can move
-success by tens of points.
+outright~\cite{fei2025liberoplus}. These studies report aggregate drops
+over families of perturbations. Our single-edit swings are the
+complementary, finer-grained observation: when the policy does attend to
+language, a single word can move success by tens of points, and our oracle
+search puts a number on how much of the apparent generalization gap is
+phrasing.
 
-\textbf{Reducing Language Sensitivity. }
-Recent works improve VLA performance by augmenting training data with
-additional rephrases of training instructions~\cite{kwok2026scaling};
-DIAL relabels demonstrations with VLM-generated instructions to the same
-end~\cite{xiao2023dial}. Steerable Policies trains the VLA on synthetic
-commands at multiple levels of abstraction --- subtasks, motions, grounded
-pixel coordinates --- so that language can steer low-level
-behavior~\cite{chen2026steerable}.
+\textbf{Training-time remedies. }
+The standard fix is augmentation: relabeling demonstrations with
+additional phrasings so that the policy sees many surface forms of each
+instruction~\cite{kwok2026scaling}, or, as in DIAL, with VLM-generated
+instructions that extend the training vocabulary~\cite{xiao2023dial}.
+Steerable Policies goes further, training the VLA on synthetic commands at
+several levels of abstraction --- subtasks, motions, grounded pixel
+coordinates --- so that language can steer low-level
+behavior~\cite{chen2026steerable}. All of these change the policy's
+weights. The $\pi_0$ checkpoint we study was already trained with rephrase
+augmentation~\cite{intact}; our method targets the sensitivity that
+remains after such training, without training further.
 
-\textbf{Test-time verification. }
-In conjunction with the above, a frozen VLA's performance can be improved by generating many phrase-action pairs at runtime and then using a pre-trained model to select the best candidate (CoVer)~\cite{kwok2026scaling}. This method is our closest known comparison, yet we operate solely on task-phrasing; that is, we do not explicitly select good candidate actions. Moreover, though generating multiple phrase-action pairs at each inference step is relatively inexpensive, we avoid this cost by generating our rephrase just once, at the beginning of the episode.
+\textbf{Deployment-time remedies. }
+Two families leave the weights untouched. \emph{Test-time verification}
+(CoVer) generates several rephrasings and several candidate actions at
+every inference step and uses a contrastively trained verifier to select
+the best phrase-action pair~\cite{kwok2026scaling}. It is our closest
+comparison, and we evaluate against it in Section~\ref{sec:cover}; the
+differences are that we act on phrasing only, never on actions, and that
+we rephrase once per episode rather than at every step, so per-step
+inference cost is unchanged. \emph{Instruction optimization} searches the
+language input of a frozen policy: SARL learns by online reinforcement
+which prompts steer a generalist policy to a given
+task~\cite{bhatia2026sarl}, VLA Grounder trains an instruction-to-command
+translator against rollout reward for a black-box
+VLA~\cite{shodiev2026grounder}, and PALO optimizes language subtask
+decompositions for few-shot adaptation~\cite{myers2024palo}. Each
+optimizes per task through interaction with that task, so what it learns
+does not transfer. Our rules are distilled once, offline, from eight tasks,
+and apply zero-shot to instructions and tasks that contributed no evidence.
 
-\textbf{Optimizing instructions for a frozen policy. }
-SARL learns by online reinforcement which prompts steer a frozen generalist
-policy to a given task~\cite{bhatia2026sarl}; VLA Grounder trains an
-instruction-to-command translator against rollout reward for a black-box
-VLA~\cite{shodiev2026grounder}; PALO optimizes language subtask
-decompositions for few-shot adaptation~\cite{myers2024palo}. Each optimizes
-per task through interaction; our rules are distilled once, offline, and
-apply zero-shot to unseen instructions.
-
-\textbf{Using a VLM to improve VLA performance. }
-Another body of work incorporates a VLM in some capacity to improve the performance of a downstream VLA \cite{zitkovich2023rt2,driess2023palme,shi2025hirobot}.
-
-\textbf{Accounting for robot capabilities. }
-SayCan grounds an LLM planner in learned value functions so that proposed
-plans respect the robot's skills~\cite{ahn2022saycan}; Inner Monologue
-closes the loop with execution feedback~\cite{huang2022inner}. Our
-rephraser is the instruction-level analogue: rather than selecting
-\emph{which} skill to invoke, it learns which \emph{surface forms} of an
-instruction this executor parses reliably.
+\textbf{Language as the interface between VLMs and VLAs. }
+RT-2 and PaLM-E showed that web-scale vision-language pretraining
+transfers to robot control~\cite{zitkovich2023rt2, driess2023palme}, and
+Hi Robot places a VLM above a VLA to turn open-ended prompts into
+instructions the low-level policy can follow~\cite{shi2025hirobot}. SayCan
+grounds an LLM planner in learned value functions so that proposed plans
+respect the robot's skills~\cite{ahn2022saycan}, and Inner Monologue
+closes the loop with execution feedback~\cite{huang2022inner}. These
+systems decide \emph{which} instruction to issue; ours decides how to
+\emph{word} it. The rephraser is the instruction-level analogue of
+affordance grounding: rather than selecting which skill to invoke, it
+learns which surface forms of an instruction this particular executor
+parses reliably.
 
 \section{Models and Benchmarks}
 
@@ -187,6 +305,7 @@ Furthermore, we estimate the headroom that phrasing alone leaves a frozen VLA: i
 Our search algorithm is simple: first we generate many rephrases for each task (in fact, we use the exact evidence files used by our rules' distillers). Then, with the help of an LLM, we propose sets to test, based on the evidence, and we evaluate each phrase with many attempts in simulation. After gathering success rates per phrase, we retain only those sets where the difference in accuracy between the best and worst phrase is statistically significant, that is, they are unlikely to be explained by chance (see the lists for their exact p-scores). We manually filter out phrase sets with large gaps that are potentially explained by scene-based ambiguity. For $\pi_0$, we evaluate each phrase 72 times (24 layouts by 3 repetitions). For $\pi_{0.5}$, we evaluate each phrase once on each of 50 layouts. To further reduce noise in our measurements, we use common random seeds per layout / repetition pair. We note that it was qualitatively more challenging to find these phrase sets for $\pi_{0.5}$ than for $\pi_0$.
 
 \subsection{Oracle Phrase Search}
+\label{sec:oracle}
 
 To further quantify language sensitivity, for each task, we compare its ``best-performing'' phrase to its canonical phrase. To find the ``best'' phrase for a task, we employ a simple algorithm. For a fixed task, we first generate 16 rephrases using a VLM. We then score each phrase by rolling it out multiple times. Then, we ask the VLM to generate 16 new phrases based on all previously scored phrases. We repeat this process three times, and select the best-performing phrase. See Fig.~\ref{fig:pi0-conditions} and Fig.~\ref{fig:pi05-fourtier} for a comparison of the success rates of oracle phrases to canonicals, adversarials, and naturals. For both models, oracle phrases reach significantly higher success rates than the other phrase sets. By this measure, $\pi_0$ is more sensitive to phrasing than $\pi_{0.5}$, consistent with our experience searching for single-edit swings.
 
@@ -195,25 +314,14 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{figures/pi0_conditions.png}
-    \caption{Success by input condition for the rephrase-augmented $\pi_0$
-    on the 12 sealed SIMPLER tasks ($\times$24 pinned layouts). Solid bars =
-    pooled over the 12 tasks; thin flanks = the in-distribution (left, 5
-    tasks) and out-of-distribution (right, 7 tasks) strata. Repetitions per
-    layout: oracle and canonical $\times$12, adversarial $\times$2, both
-    natural sets $\times$1. Oracle phrasing nearly closes the 21-point
-    strata gap seen under canonical instructions.}
+    \caption{\small Success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER Bridge tasks (24 pinned layouts) by phrasing condition. Solid bars pool all tasks; thin flanks are the in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) strata. \emph{Oracle} is the best phrase per task from \S\ref{sec:oracle}; the other sets are defined in \S\ref{sec:phrase-sets}. Repetitions per layout: oracle and canonical $\times$12, adversarial $\times$2, naturals $\times$1. Oracle phrasing shrinks the 21-point strata gap under canonical instructions to 3 points.}
     \label{fig:pi0-conditions}
 \end{figure}
 
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{figures/pi05_fourtier.png}
-    \caption{Phrasing sensitivity of $\pi_{0.5}$ on LIBERO by finetune
-    membership. On in-finetune tasks (libero\_goal,
-    10 tasks) adversarial rephrasing costs 50\,pp (97 $\to$ 47), while on
-    out-of-finetune tasks (libero\_90, 18 tasks) the original, natural, and
-    adversarial tiers are statistically indistinguishable (52\,/\,50\,/\,48);
-    oracle search finds headroom in both regimes (99\,/\,66).}
+    \caption{\small Phrasing sensitivity of $\pi_{0.5}$ on LIBERO by finetune membership (50 layouts per phrase). On in-finetune tasks (libero\_goal, 10 tasks) adversarial rephrasing costs 50\,pp (97 $\to$ 47); on out-of-finetune tasks (libero\_90, 18 tasks) the original, natural, and adversarial tiers are statistically indistinguishable (52\,/\,50\,/\,48), consistent with the policy largely ignoring the instruction there. Oracle search finds headroom in both regimes (99\,/\,66).}
     \label{fig:pi05-fourtier}
 \end{figure}
 
@@ -222,17 +330,13 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
 
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_bridge_body}\par}
-{\footnotesize\captionof{figure}{Single-edit swings for $\pi_0$ on
-SIMPLER Bridge (n = 72 per phrase; basket task n = 180). p = the
-probability of a gap this large by chance alone (two-proportion z test).
-Green = best phrasing, red = worse; highlighted = the changed span.}\label{fig:pairs-bridge}}
+{\footnotesize\captionof{figure}{Single-edit swings for $\pi_0$ on SIMPLER Bridge: 29 phrase sets over 16 tasks, grouped by edit category (scenes in Fig.~\ref{fig:scenes-bridge}). Phrases in a set differ only in the highlighted span; each set is labelled by task, swing in percentage points, and p, the chance of a gap this large under a two-proportion z test. Numbers are success rates over n = 72 rollouts (basket task n = 180); green = best phrasing, red = worse. Swings range from 14 to 61\,pp.}\label{fig:pairs-bridge}}
 
 \subsection{Single-Edit Swings for $\pi_{0.5}$ + LIBERO}
 
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_libero_body}\par}
-{\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on
-LIBERO (n = 50 per phrase). p as in Fig.~\ref{fig:pairs-bridge}.}\label{fig:pairs-libero}}
+{\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on LIBERO, formatted as Fig.~\ref{fig:pairs-bridge} (n = 50 per phrase; scenes in Fig.~\ref{fig:scenes-libero}); (in)/(out) marks in-/out-of-finetune tasks. Swings were harder to find than for $\pi_0$ but reach 98\,pp: ``fire up the stove'' succeeds 100\% of the time, ``turn on the stove'' 6\%.}\label{fig:pairs-libero}}
 
 \section{Reducing Language Sensitivity with LLM-Distilled Rephrasing Rules}
 
@@ -248,12 +352,12 @@ Rule-distillation requires that each phrase gets a score, so that phrases are co
 
 \subsection{Distilling Rules}
 
-To distill the evidence into a set of rules, we prompt Claude to derive rules with the prompt provided in the project repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/icra2027/paper/prompts}} We test three rulebook types, distinguished by the evidence they see: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
+To distill the evidence into a set of rules, we prompt Claude to derive rules with the prompt provided in the project repository.\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}} We test three rulebook types, distinguished by the evidence they see: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
 
 For rulebooks distilled from phrases from the finetuning dataset, we further provide the full set of finetuning phrases so that the distiller may make use of corpus statistics such as how frequently objects occur in the finetuning data, the most common phrase structures, etc. Due to cost constraints, we use Claude Fable to generate the first three rulebooks (one each of in-finetune, out-of-finetune, and both), and then we repeat twice more with Claude Opus 5. Our results do not suggest this choice mattered.
 
 All distilled rulebooks are available in the project
-repository.\footnote{\url{https://github.com/sttawm/phrase-rl/tree/icra2027/paper/rules}}
+repository.\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}}
 
 \subsection{Applying Rules}
 
@@ -267,6 +371,7 @@ Rephrasing rules are applied just once, before the robot's trajectory begins, by
 We evaluate $\pi_0$, finetuned on Bridge with rephrase augmentation, in simulation with SIMPLER tasks.
 
 \subsection{Phrase Sets}
+\label{sec:phrase-sets}
 
 We evaluate on four different phrase sets: adversarials, VLM-generated naturals, human-generated naturals, and canonicals. Adversarial and VLM-Generated Natural phrases are generated by gemini-3.5-flash, given the scene image, using the prompt given in the project repository. Adversarial phrases retain the goal, but are awkwardly worded. VLM-generated naturals mimic the way a human might request a task. Human-generated naturals are gathered from friends and family via survey: the user is presented with a successful video demonstration of each task and asked to request the task of an 8-year-old, an adult, and a robot. We evaluate 6 adversarial phrases per task (72 in total), roughly 16 phrases per task for the VLM-generated naturals (186 in total), and roughly 30 phrases per task for the human-generated naturals (363 in total). We additionally evaluate the SIMPLER environment's canonical instruction accompanying each task, but we note that at just one phrase per task, one should be cautious in assigning significance to the canonical category's results (the canonical panel of Fig.~\ref{fig:dashboard}).
 
@@ -282,18 +387,12 @@ Our best-performing rulebook type is consistently the out-of-finetune rulebook (
 \begin{figure*}[!t]
     \centering
     \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
-    \caption{Main results: base-weighted success on the 12 sealed tasks,
-    by condition. Grey = the no-rules rephraser scaffold; green = rulebook
-    cells (mean over the three distillation draws) for the
-    out-of-finetune, both, and in-finetune rulebooks; thin flanks = the
-    in-distribution (left) / out-of-distribution (right) strata; dashed
-    red = the no-rephraser baseline.}
+    \caption{\small Main results: base-weighted success of the rephrase-augmented $\pi_0$ on the 12 sealed tasks, one panel per phrase set and one bar group per applier. Grey = no-rules rephraser scaffold; green = out-of-finetune, both, and in-finetune rulebooks (mean over three distillation draws); thin flanks = in-distribution (left, 5 tasks) / out-of-distribution (right, 7 tasks) strata; dashed red = no-rephraser baseline. Out-of-finetune rulebooks are strongest on every non-canonical set, with gains concentrated out-of-distribution. The canonical panel has one phrase per task and is underpowered.}
     \label{fig:dashboard}
 \end{figure*}
 
 \begin{table}[!t]
-    \caption{p-scores for the out-of-finetune rulebook (pooled) vs the
-    no-rephraser baseline.}
+    \caption{\small Relative improvement of the out-of-finetune rulebook (pooled over three draws) over the no-rephraser baseline: mean paired difference as a percent of the baseline rate, with the p-value of the permutation test of Appendix~\ref{app:stats}; n = number of base instructions.}
     \label{tab:pscores-baseline}
     \centering
     \footnotesize
@@ -302,8 +401,7 @@ Our best-performing rulebook type is consistently the out-of-finetune rulebook (
 \end{table}
 
 \begin{table}[!t]
-    \caption{p-scores for the out-of-finetune rulebook vs the no-rules
-    rephraser baseline.}
+    \caption{\small As Table~\ref{tab:pscores-baseline}, but against the no-rules rephraser, isolating the effect of the distilled rules from rephrasing alone.}
     \label{tab:pscores-scaffold}
     \centering
     \footnotesize
@@ -324,8 +422,7 @@ success improved all arms similarly, and we (somewhat arbitrarily)
 standardized on final-state success.
 
 \begin{table}[!t]
-    \caption{CoVer against the no-rephraser and no-rules rephraser
-    baselines (success \%, final-state at 60 steps).}
+    \caption{\small Test-time verification (CoVer) against our two baselines on the sealed tasks: pooled success (\%) on the final state at step 60, all arms using identical Gemini reasoning traces. CoVer trails both baselines on every set.}
     \label{tab:cover}
     \centering
     \footnotesize
@@ -382,14 +479,14 @@ figures (\S\ref{sec:minimal-pairs}).
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{figures/scenes_bridge_grid.png}
-    \caption{Task scenes --- SIMPLER Bridge single-edit-swing tasks.}
+    \caption{\small First-frame scenes of the 16 SIMPLER Bridge tasks in Fig.~\ref{fig:pairs-bridge}, by task id.}
     \label{fig:scenes-bridge}
 \end{figure}
 
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{figures/scenes_libero_grid.png}
-    \caption{Task scenes --- LIBERO single-edit-swing tasks (suite / task id).}
+    \caption{\small First-frame scenes of the LIBERO tasks in Fig.~\ref{fig:pairs-libero}, by suite and task index.}
     \label{fig:scenes-libero}
 \end{figure}
 
@@ -407,156 +504,7 @@ provided grammar editing. The authors reviewed and are responsible for
 all content.
 
 \balance
-\begin{thebibliography}{99}
-
-\bibitem{kwok2026scaling}
-J. Kwok, X. Zhang, M. Xu, Y. Liu, A. Mirhoseini, C. Finn, and M. Pavone,
-``Scaling verification can be more effective than scaling policy learning for vision-language-action alignment,''
-\emph{arXiv preprint arXiv:2602.12281}, 2026.
-
-\bibitem{chen2026steerable}
-W. Chen, J. S. Bhatia, C. Glossop, N. Mathihalli,
-R. Doshi, A. Tang, D. Driess, K. Pertsch, and S. Levine,
-``Steerable vision-language-action policies for embodied
-reasoning and hierarchical control,''
-\emph{arXiv preprint arXiv:2602.13193}, 2026.
-
-\bibitem{karnik2024embodied}
-S. Karnik, Z.-W. Hong, N. Abhangi, Y.-C. Lin,
-T.-H. Wang, and P. Agrawal,
-``Embodied red teaming for auditing robotic foundation models,''
-\emph{arXiv preprint arXiv:2411.18676}, 2024.
-
-\bibitem{ahn2022saycan}
-M. Ahn, A. Brohan, N. Brown, Y. Chebotar, O. Cortes,
-B. David, C. Finn, C. Fu, K. Gopalakrishnan, K. Hausman,
-\emph{et al.},
-``Do as I can, not as I say: Grounding language in robotic
-affordances,''
-in \emph{Proc. 6th Conf. Robot Learning (CoRL)}, 2022.
-
-\bibitem{zitkovich2023rt2}
-B. Zitkovich, T. Yu, S. Xu, P. Xu, T. Xiao, F. Xia,
-J. Wu, P. Wohlhart, S. Welker, A. Wahid, \emph{et al.},
-``RT-2: Vision-language-action models transfer web knowledge
-to robotic control,''
-in \emph{Proc. Conf. Robot Learning},
-pp. 2165--2183, 2023.
-
-\bibitem{driess2023palme}
-D. Driess, F. Xia, M. S. M. Sajjadi, C. Lynch,
-A. Chowdhery, B. Ichter, A. Wahid, J. Tompson,
-Q. Vuong, T. Yu, W. Huang, Y. Chebotar, P. Sermanet,
-D. Duckworth, S. Levine, V. Vanhoucke, K. Hausman,
-M. Toussaint, K. Greff, A. Zeng, I. Mordatch,
-and P. Florence,
-``PaLM-E: An embodied multimodal language model,''
-in \emph{Proc. 40th Int. Conf. Machine Learning (ICML)},
-2023.
-
-\bibitem{shi2025hirobot}
-L. X. Shi, B. Ichter, M. Equi, L. Ke, K. Pertsch,
-Q. Vuong, J. Tanner, A. Walling, H. Wang, N. Fusai,
-\emph{et al.},
-``Hi Robot: Open-ended instruction following with hierarchical
-vision-language-action models,''
-in \emph{Proc. 42nd Int. Conf. Machine Learning (ICML)},
-2025.
-
-\bibitem{simpler}
-X. Li, K. Hsu, J. Gu, K. Pertsch, O. Mees, H. R. Walke, C. Fu,
-I. Lunawat, I. Sieh, S. Kirmani, S. Levine, J. Wu, C. Finn, H. Su,
-Q. Vuong, and T. Xiao,
-``Evaluating real-world robot manipulation policies in simulation,''
-in \emph{Proc. Conf. Robot Learning (CoRL)}, 2024.
-
-\bibitem{intact}
-I. Fang, J. Zhang, S. Tong, and C. Feng,
-``From intention to execution: Probing the generalization boundaries of
-vision-language-action models,''
-\emph{arXiv preprint arXiv:2506.09930}, 2025.
-
-\bibitem{pi0}
-K. Black, N. Brown, D. Driess, A. Esmail, M. Equi, C. Finn, N. Fusai,
-L. Groom, K. Hausman, B. Ichter, S. Jakubczak, T. Jones, L. Ke,
-S. Levine, A. Li-Bell, M. Mothukuri, S. Nair, K. Pertsch, L. X. Shi,
-J. Tanner, Q. Vuong, A. Walling, H. Wang, and U. Zhilinsky,
-``$\pi_0$: A vision-language-action flow model for general robot control,''
-\emph{arXiv preprint arXiv:2410.24164}, 2024.
-
-\bibitem{bridge}
-H. Walke, K. Black, A. Lee, M. J. Kim, M. Du, C. Zheng, T. Zhao,
-P. Hansen-Estruch, Q. Vuong, A. He, V. Myers, K. Fang, C. Finn, and
-S. Levine,
-``BridgeData V2: A dataset for robot learning at scale,''
-in \emph{Proc. Conf. Robot Learning (CoRL)}, 2023.
-
-\bibitem{qwen}
-Qwen Team,
-``Qwen3 technical report,''
-\emph{arXiv preprint arXiv:2505.09388}, 2025.
-
-
-
-\bibitem{huang2022inner}
-W. Huang, F. Xia, T. Xiao, H. Chan, J. Liang, P. Florence, A. Zeng,
-J. Tompson, I. Mordatch, Y. Chebotar, P. Sermanet, N. Brown, T. Jackson,
-L. Luu, S. Levine, K. Hausman, and B. Ichter,
-``Inner Monologue: Embodied reasoning through planning with language
-models,''
-in \emph{Proc. Conf. Robot Learning (CoRL)}, 2022.
-
-\bibitem{zhou2025liberopro}
-X. Zhou, Y. Xu, G. Tie, Y. Chen, G. Zhang, D. Chu, P. Zhou, and L. Sun,
-``LIBERO-PRO: Towards robust and fair evaluation of vision-language-action
-models beyond memorization,''
-\emph{arXiv preprint arXiv:2510.03827}, 2025.
-
-\bibitem{fei2025liberoplus}
-S. Fei, S. Wang, J. Shi, Z. Dai, J. Cai, P. Qian, L. Ji, X. He, S. Zhang,
-Z. Fei, J. Fu, J. Gong, and X. Qiu,
-``LIBERO-Plus: In-depth robustness analysis of vision-language-action
-models,''
-\emph{arXiv preprint arXiv:2510.13626}, 2025.
-
-\bibitem{bhatia2026sarl}
-J. S. Bhatia, A. Wagenmaker, W. Chen, and S. Levine,
-``Adapting generalist robot policies with semantic reinforcement learning,''
-\emph{arXiv preprint arXiv:2606.31958}, 2026.
-
-\bibitem{shodiev2026grounder}
-D. Shodiev, A. Staroverov, N. Kachaev, A. K. Kovalev, and A. I. Panov,
-``VLA Grounder: Language-conditioning space optimization for black-box VLA
-models,''
-\emph{arXiv preprint arXiv:2607.04517}, 2026.
-
-\bibitem{myers2024palo}
-V. Myers, B. C. Zheng, O. Mees, S. Levine, and K. Fang,
-``Policy adaptation via language optimization: Decomposing tasks for
-few-shot imitation,''
-in \emph{Proc. Conf. Robot Learning (CoRL)}, 2024.
-
-\bibitem{xiao2023dial}
-T. Xiao, H. Chan, P. Sermanet, A. Wahid, A. Brohan, K. Hausman, S. Levine,
-and J. Tompson,
-``Robotic skill acquisition via instruction augmentation with
-vision-language models,''
-in \emph{Proc. Robotics: Science and Systems (RSS)}, 2023.
-
-
-\bibitem{liu2023libero}
-B. Liu, Y. Zhu, C. Gao, Y. Feng, Q. Liu, Y. Zhu, and P. Stone,
-``LIBERO: Benchmarking knowledge transfer for lifelong robot learning,''
-in \emph{Advances in Neural Information Processing Systems (NeurIPS),
-Datasets and Benchmarks Track}, 2023.
-
-\bibitem{pi05}
-Physical Intelligence, K. Black, N. Brown, J. Darpinian, K. Dhabalia,
-D. Driess, \emph{et al.},
-``$\pi_{0.5}$: A vision-language-action model with open-world
-generalization,''
-\emph{arXiv preprint arXiv:2504.16054}, 2025.
-
-\end{thebibliography}
+\bibliographystyle{IEEEtran}
+\bibliography{references}
 
 \end{document}
