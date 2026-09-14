@@ -1,0 +1,254 @@
+{
+ "seed": 20260914,
+ "n_per_half": 10,
+ "floor_rule": "0/20 canonical successes on inits 0-19 (seed 7)",
+ "in_finetune_exclusions": [
+  "libero_10/5"
+ ],
+ "halves": {
+  "in_finetune": {
+   "permutation": [
+    "libero_spatial/2",
+    "libero_goal/6",
+    "libero_goal/1",
+    "libero_spatial/7",
+    "libero_spatial/6",
+    "libero_spatial/3",
+    "libero_object/1",
+    "libero_object/6",
+    "libero_goal/7",
+    "libero_goal/0",
+    "libero_10/4",
+    "libero_object/8",
+    "libero_goal/3",
+    "libero_10/8",
+    "libero_goal/2",
+    "libero_goal/8",
+    "libero_10/9",
+    "libero_10/2",
+    "libero_goal/9",
+    "libero_object/7",
+    "libero_object/4",
+    "libero_10/3",
+    "libero_spatial/0",
+    "libero_spatial/8",
+    "libero_object/9",
+    "libero_object/2",
+    "libero_10/1",
+    "libero_object/3",
+    "libero_10/7",
+    "libero_spatial/9",
+    "libero_goal/4",
+    "libero_spatial/5",
+    "libero_spatial/4",
+    "libero_object/0",
+    "libero_spatial/1",
+    "libero_10/6",
+    "libero_object/5",
+    "libero_goal/5",
+    "libero_10/0"
+   ],
+   "walk": [
+    {
+     "task": "libero_spatial/2",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_goal/6",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "fourtier"
+    },
+    {
+     "task": "libero_goal/1",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "fourtier"
+    },
+    {
+     "task": "libero_spatial/7",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_spatial/6",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_spatial/3",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_object/1",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_object/6",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_goal/7",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_goal/0",
+     "status": "ACCEPT",
+     "k_of_20": 18,
+     "source": "fourtier"
+    }
+   ],
+   "accepted": [
+    "libero_spatial/2",
+    "libero_goal/6",
+    "libero_goal/1",
+    "libero_spatial/7",
+    "libero_spatial/6",
+    "libero_spatial/3",
+    "libero_object/1",
+    "libero_object/6",
+    "libero_goal/7",
+    "libero_goal/0"
+   ],
+   "needs_screen_next": [],
+   "complete": true
+  },
+  "out_of_finetune": {
+   "permutation": [
+    "libero_90/71",
+    "libero_90/62",
+    "libero_90/18",
+    "libero_90/60",
+    "libero_90/70",
+    "libero_90/27",
+    "libero_90/46",
+    "libero_90/87",
+    "libero_90/68",
+    "libero_90/88",
+    "libero_90/54",
+    "libero_90/76",
+    "libero_90/41",
+    "libero_90/7",
+    "libero_90/59",
+    "libero_90/42",
+    "libero_90/40",
+    "libero_90/56",
+    "libero_90/43",
+    "libero_90/11",
+    "libero_90/35",
+    "libero_90/51",
+    "libero_90/2",
+    "libero_90/17",
+    "libero_90/44",
+    "libero_90/20",
+    "libero_90/75",
+    "libero_90/77",
+    "libero_90/33",
+    "libero_90/89",
+    "libero_90/21",
+    "libero_90/50",
+    "libero_90/23",
+    "libero_90/48",
+    "libero_90/6",
+    "libero_90/81",
+    "libero_90/34",
+    "libero_90/66",
+    "libero_90/47",
+    "libero_90/10",
+    "libero_90/14",
+    "libero_90/22",
+    "libero_90/29",
+    "libero_90/38",
+    "libero_90/36",
+    "libero_90/69",
+    "libero_90/39",
+    "libero_90/26",
+    "libero_90/3",
+    "libero_90/16",
+    "libero_90/78",
+    "libero_90/67",
+    "libero_90/57",
+    "libero_90/19",
+    "libero_90/64",
+    "libero_90/84",
+    "libero_90/80",
+    "libero_90/8",
+    "libero_90/83",
+    "libero_90/45",
+    "libero_90/1",
+    "libero_90/15",
+    "libero_90/86",
+    "libero_90/24",
+    "libero_90/31",
+    "libero_90/0",
+    "libero_90/63",
+    "libero_90/55",
+    "libero_90/82",
+    "libero_90/52",
+    "libero_90/9",
+    "libero_90/49",
+    "libero_90/58",
+    "libero_90/28",
+    "libero_90/32",
+    "libero_90/72",
+    "libero_90/12",
+    "libero_90/5",
+    "libero_90/13",
+    "libero_90/85",
+    "libero_90/73",
+    "libero_90/37",
+    "libero_90/4",
+    "libero_90/74",
+    "libero_90/65",
+    "libero_90/79",
+    "libero_90/25",
+    "libero_90/61",
+    "libero_90/53",
+    "libero_90/30"
+   ],
+   "walk": [
+    {
+     "task": "libero_90/71",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "rounds"
+    },
+    {
+     "task": "libero_90/62",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "seal_screen"
+    },
+    {
+     "task": "libero_90/18",
+     "status": "FLOOR",
+     "k_of_20": 0,
+     "source": "seal_screen"
+    },
+    {
+     "task": "libero_90/60",
+     "status": "NEEDS_SCREEN",
+     "k_of_20": null,
+     "source": null
+    }
+   ],
+   "accepted": [],
+   "needs_screen_next": [
+    "libero_90/60"
+   ],
+   "complete": false
+  }
+ }
+}
