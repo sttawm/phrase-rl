@@ -1,0 +1,427 @@
+task,finetune,sealed_v2,edit_class,phrase_a,succ_a,phrase_b,succ_b,delta,p_z,p_fisher,p_mcnemar,a_only,b_only,significant,designed,a_is_canonical
+libero_10/0,in,False,words removed,put both the alphabet soup and the tomato sauce in the basket,94,put both the soup and the tomato sauce in the basket,96,2,0.64635519553949,1.0,1.0,0,1,False,True,True
+libero_10/1,in,False,words removed,put both the cream cheese box and the butter in the basket,100,put both the cream cheese and the butter in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_10/2,in,False,verb/frame,turn on the stove and put the moka pot on it,94,switch on the stove and put the moka pot on it,94,0,1.0,1.0,1.0,3,3,False,True,True
+libero_10/2,in,False,noun/other,turn on the stove and put the moka pot on it,94,turn on the stove and put the coffee pot on it,100,6,0.0786401793488283,0.24242424242424243,0.25,0,3,False,True,True
+libero_10/3,in,False,verb/frame,put the black bowl in the bottom drawer of the cabinet and close it,98,put the black bowl in the bottom drawer of the cabinet and shut it,96,-2,0.5577341459422835,1.0,1.0,1,0,False,True,True
+libero_10/5,in,False,noun/other,pick up the book and place it in the back compartment of the caddy,98,pick up the book and place it in the back slot of the caddy,100,2,0.31487864133641963,1.0,1.0,0,1,False,True,True
+libero_10/8,in,False,noun/other,put both coffee pots on the stove,66,put the moka pots on the stove,66,0,1.0,1.0,1.0,10,10,False,False,False
+libero_10/8,in,False,noun/other,put both moka pots on the stove,62,put both coffee pots on the stove,66,4,0.6769222390213792,0.8351562058369704,0.8318119049072266,10,12,False,True,True
+libero_10/8,in,False,noun/other,put both moka pots on the stove,62,put the moka pots on the stove,66,4,0.6769222390213792,0.8351562058369704,0.7744140625,5,7,False,True,True
+libero_10/9,in,False,noun/other,put the yellow and white mug in the microwave and close it,94,put the yellow and white cup in the microwave and close it,94,0,1.0,1.0,1.0,2,2,False,True,True
+libero_90/1,out,False,verb/frame,close the top drawer of the cabinet and put the black bowl on top of it,0,close the top drawer of the cabinet and place the black bowl on top of it,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/1,out,False,verb/frame,close the top drawer of the cabinet and put the black bowl on top of it,0,shut the top drawer of the cabinet and put the black bowl on top of it,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/10,out,False,preposition/particle,place the black bowl on top of the cabinet,100,place the black bowl up onto the cabinet,60,-40,5.73303143758389e-07,1.758607257103998e-07,1.9073486328125e-06,20,0,True,False,False
+libero_90/10,out,False,color,put the black bowl on top of the cabinet,94,put the grey bowl on top of the cabinet,96,2,0.64635519553949,1.0,1.0,1,2,False,True,True
+libero_90/10,out,False,verb/frame,put the black bowl on top of the cabinet,94,place the black bowl on top of the cabinet,100,6,0.0786401793488283,0.24242424242424243,0.25,0,3,False,True,True
+libero_90/15,out,False,preposition/particle,put the middle black bowl on top of the cabinet,2,put the middle black bowl atop the cabinet,0,-2,0.31487864133641996,1.0,1.0,1,0,False,True,True
+libero_90/15,out,False,verb/frame,put the middle black bowl on top of the cabinet,2,place the middle black bowl on top of the cabinet,10,8,0.09212296325765205,0.20440158503099362,0.125,0,4,False,True,True
+libero_90/17,out,False,verb/frame,stack the middle black bowl on the back black bowl,0,put the middle black bowl on the back black bowl,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/17,out,False,noun/other,stack the middle black bowl on the back black bowl,0,stack the centre black bowl on the back black bowl,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/17,out,False,noun/other,stack the middle black bowl on the back black bowl,0,stack the middle black bowl on the rear black bowl,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/19,out,False,noun/other,put the moka pot on the stove,94,put the coffee pot on the stove,84,-10,0.11004143475794968,0.19971707940132497,0.125,6,1,False,True,True
+libero_90/19,out,False,noun/other,put the moka pot on the stove,94,put the espresso pot on the stove,84,-10,0.11004143475794968,0.19971707940132497,0.125,6,1,False,True,True
+libero_90/19,out,False,noun/other,put the moka pot on the burner,96,put the moka pot on the stove.,90,-6,0.23967772321846303,0.4360315033131094,0.375,4,1,False,False,False
+libero_90/19,out,False,noun/other,put the moka pot on the burner,96,put the moka pot on the hot plate,92,-4,0.39970292178238365,0.6777322876074912,0.6875,4,2,False,False,False
+libero_90/19,out,False,punctuation,put the moka pot on the stove,94,put the moka pot on the stove.,90,-4,0.4609947864255787,0.7149836629646897,0.7265625,5,3,False,True,True
+libero_90/19,out,False,case,put the moka pot on the stove,94,Put the moka pot on the stove,92,-2,0.6951092703010286,1.0,1.0,4,3,False,True,True
+libero_90/19,out,False,verb/frame,can you put the moka pot on the stove,94,i want the moka pot on the stove,92,-2,0.6951092703010286,1.0,1.0,3,2,False,False,False
+libero_90/19,out,False,noun/other,can you put the moka pot on the stove,94,just put the moka pot on the stove,92,-2,0.6951092703010286,1.0,1.0,3,2,False,False,False
+libero_90/19,out,False,verb/frame,put the moka pot on the stove,94,i want the moka pot on the stove,92,-2,0.6951092703010286,1.0,1.0,3,2,False,True,True
+libero_90/19,out,False,words added,put the moka pot on the stove,94,just put the moka pot on the stove,92,-2,0.6951092703010286,1.0,1.0,3,2,False,True,True
+libero_90/19,out,False,noun/other,put the moka pot on the stove,94,put the moka pot on the hot plate,92,-2,0.6951092703010286,1.0,1.0,4,3,False,True,True
+libero_90/19,out,False,noun/other,put the moka pot on the hot plate,92,put the moka pot on the stove.,90,-2,0.7267678061991002,1.0,1.0,5,4,False,False,False
+libero_90/19,out,False,words added,put the moka pot on the stove,94,put the silver moka pot on the stove,92,-2,0.6951092703010286,1.0,1.0,4,3,False,True,True
+libero_90/19,out,False,verb/frame,Put the moka pot on the stove,92,i want the moka pot on the stove,92,0,1.0,1.0,1.0,3,3,False,False,False
+libero_90/19,out,False,words added,Put the moka pot on the stove,92,just put the moka pot on the stove,92,0,1.0,1.0,1.0,3,3,False,False,False
+libero_90/19,out,False,verb/frame,put the moka pot on the stove,94,can you put the moka pot on the stove,94,0,1.0,1.0,1.0,2,2,False,True,True
+libero_90/19,out,False,noun/other,i want the moka pot on the stove,92,just put the moka pot on the stove,92,0,1.0,1.0,1.0,1,1,False,False,False
+libero_90/19,out,False,noun/other,put the coffee pot on the stove,84,put the espresso pot on the stove,84,0,1.0,0.9999999999999999,1.0,6,6,False,False,False
+libero_90/19,out,False,verb/frame,the moka pot goes on the stove,90,the moka pot should be put on the stove,90,0,1.0,1.0,1.0,4,4,False,False,False
+libero_90/19,out,False,verb/frame,Put the moka pot on the stove,92,can you put the moka pot on the stove,94,2,0.6951092703010286,1.0,1.0,2,3,False,False,False
+libero_90/19,out,False,noun/other,put the moka pot on the stove,94,put the moka pot on the burner,96,2,0.64635519553949,1.0,1.0,2,3,False,True,True
+libero_90/19,out,False,noun/other,put the coffee pot on the stove,84,put the silver moka pot on the stove,92,8,0.21835469056590126,0.35666132312750487,0.34375,3,7,False,False,False
+libero_90/19,out,False,noun/other,put the espresso pot on the stove,84,put the silver moka pot on the stove,92,8,0.21835469056590126,0.35666132312750487,0.3876953125,4,8,False,False,False
+libero_90/21,out,False,verb/frame,fire up the stove and put the frying pan on it,0,start the stove and put the frying pan on it,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/21,out,False,verb/frame,fire up the stove and put the frying pan on it,0,switch on the stove and put the frying pan on it,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/21,out,False,verb/frame,turn on the stove and put the frying pan on it,0,fire up the stove and put the frying pan on it,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/21,out,False,verb/frame,start the stove and put the frying pan on it,0,switch on the stove and put the frying pan on it,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/21,out,False,verb/frame,turn on the stove and put the frying pan on it,0,start the stove and put the frying pan on it,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/21,out,False,verb/frame,turn on the stove and put the frying pan on it,0,switch on the stove and put the frying pan on it,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/22,out,False,noun/other,close the bottom drawer of the cupboard,100,close the bottom drawer of the wooden cabinet,98,-2,0.31487864133641963,1.0,1.0,1,0,False,False,False
+libero_90/22,out,False,color,close the bottom drawer of the cabinet,96,close the bottom drawer of the wooden cabinet,98,2,0.5577341459422835,1.0,1.0,1,2,False,True,True
+libero_90/22,out,False,noun/other,close the bottom drawer of the cabinet,96,close the bottom drawer of the cupboard,100,4,0.15312745101966943,0.494949494949495,0.5,0,2,False,True,True
+libero_90/22,out,False,noun/other,close the bottom drawer of the cabinet,96,close the lower drawer of the cabinet,100,4,0.15312745101966943,0.494949494949495,0.5,0,2,False,True,True
+libero_90/23,out,False,verb/frame,close the bottom drawer of the cabinet and open the top drawer,0,push in the bottom drawer of the cabinet and open the top drawer,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/23,out,False,verb/frame,close the bottom drawer of the cabinet and open the top drawer,0,shut the bottom drawer of the cabinet and open the top drawer,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/23,out,False,verb/frame,push in the bottom drawer of the cabinet and open the top drawer,0,shut the bottom drawer of the cabinet and open the top drawer,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/24,out,False,verb/frame,can you put the black bowl in the bottom drawer of the cabinet,100,i want the black bowl in the bottom drawer of the cabinet,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/24,out,False,verb/frame,can you put the black bowl in the bottom drawer of the cabinet,100,place the black bowl in the bottom drawer of the cabinet,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/24,out,False,verb/frame,put the black bowl in the bottom drawer of the cabinet,100,can you put the black bowl in the bottom drawer of the cabinet,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/24,out,False,verb/frame,i want the black bowl in the bottom drawer of the cabinet,100,place the black bowl in the bottom drawer of the cabinet,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/24,out,False,verb/frame,put the black bowl in the bottom drawer of the cabinet,100,i want the black bowl in the bottom drawer of the cabinet,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/24,out,False,verb/frame,put the black bowl in the bottom drawer of the cabinet,100,place the black bowl in the bottom drawer of the cabinet,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/24,out,False,noun/other,put the black bowl in the bottom drawer of the cabinet,100,put the black bowl in the bottom drawer of the cupboard,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/24,out,False,color,put the black bowl in the bottom drawer of the cabinet,100,put the black bowl in the bottom drawer of the wooden cabinet,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/24,out,False,noun/other,put the black bowl in the bottom drawer of the cabinet,100,put the black dish in the bottom drawer of the cabinet,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/24,out,False,noun/other,put the black bowl in the bottom drawer of the cupboard,100,put the black bowl in the bottom drawer of the wooden cabinet,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/24,out,False,verb/frame,the black bowl goes in the bottom drawer of the cabinet,100,the black bowl should be put in the bottom drawer of the cabinet,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/25,out,False,verb/frame,put the black bowl on top of the cabinet,0,place the black bowl on top of the cabinet,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/25,out,False,preposition/particle,put the black bowl on top of the cabinet,0,put the black bowl atop the cabinet,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/25,out,False,color,put the black bowl on top of the cabinet,0,put the bowl on top of the cabinet,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/25,out,False,color,put the black bowl on top of the cabinet,0,put the grey bowl on top of the cabinet,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/25,out,False,color,put the bowl on top of the cabinet,0,put the grey bowl on top of the cabinet,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/28,out,False,verb/frame,close the open top drawer of the white cabinet on the left,48,push in the open top drawer of the white cabinet on the left,30,-18,0.06500731219208666,0.10040717163394025,0.063568115234375,14,5,False,False,False
+libero_90/28,out,False,noun/other,close the top drawer of the cabinet,38,close the upper drawer of the cabinet,38,0,1.0,1.0,1.0,8,8,False,True,True
+libero_90/30,out,False,noun/other,put the black bowl on the plate,76,put the black bowl on the dish,20,-56,2.088746156416682e-08,2.8890933972659572e-08,1.941574737429619e-06,32,4,True,True,True
+libero_90/30,out,False,noun/other,put the black bowl on the plate,76,put the dark bowl on the plate,72,-4,0.6484182011551726,0.8199963968244333,0.8145294189453125,10,8,False,True,True
+libero_90/30,out,False,color,put the black bowl on the plate,76,put the grey bowl on the plate,72,-4,0.6484182011551726,0.8199963968244333,0.7744140625,7,5,False,True,True
+libero_90/30,out,False,noun/other,put the dark bowl on the plate,72,put the grey bowl on the plate,72,0,1.0,0.9999999999999999,1.0,8,8,False,False,False
+libero_90/31,out,False,color,put the bowl on top of the cabinet,36,put the grey bowl on top of the cabinet,10,-26,0.00200753736420068,0.0037212012790969573,0.002349853515625,15,2,True,False,False
+libero_90/31,out,False,preposition/particle,put the black bowl on top of the cabinet,16,put the black bowl atop the cabinet,10,-6,0.3723653021980271,0.5535550107112579,0.548828125,7,4,False,True,True
+libero_90/31,out,False,color,put the black bowl on top of the cabinet,16,put the grey bowl on top of the cabinet,10,-6,0.3723653021980271,0.5535550107112579,0.453125,5,2,False,True,True
+libero_90/31,out,False,verb/frame,put the black bowl on top of the cabinet,16,place the black bowl on top of the cabinet,14,-2,0.7794345284272752,1.0,1.0,5,4,False,True,True
+libero_90/31,out,False,color,put the black bowl on top of the cabinet,16,put the bowl on top of the cabinet,36,20,0.02261932973833059,0.039006299959161286,0.00634765625,1,11,True,True,True
+libero_90/32,out,False,verb/frame,put the ketchup in the top drawer of the cabinet,0,place the ketchup in the top drawer of the cabinet,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/32,out,False,verb/frame,place the ketchup in the top drawer of the cabinet,0,set the ketchup in the top drawer of the cabinet,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/32,out,False,preposition/particle,put the ketchup in the top drawer of the cabinet,0,put the ketchup into the top drawer of the cabinet,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/32,out,False,verb/frame,put the ketchup in the top drawer of the cabinet,0,set the ketchup in the top drawer of the cabinet,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/34,out,False,verb/frame,put the yellow and white mug to the front of the white mug,0,move the yellow and white mug to the front of the white mug,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/34,out,False,verb/frame,place the yellow and white mug in front of the white mug,0,put the yellow and white mug in front of the white mug,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/34,out,False,preposition/particle,put the yellow and white mug to the front of the white mug,0,put the yellow and white mug in front of the white mug,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/35,out,True,words added,open the microwave,8,open the microwave door,2,-6,0.1686686188878151,0.3621784858898261,0.375,4,1,False,True,True
+libero_90/35,out,True,verb/frame,open the microwave,8,pull open the microwave,6,-2,0.6951092703010273,1.0,1.0,3,2,False,True,True
+libero_90/35,out,True,noun/other,open the microwave,8,unlatch the microwave,6,-2,0.6951092703010273,1.0,1.0,4,3,False,True,True
+libero_90/35,out,True,noun/other,open up the microwave,8,unlatch the microwave,6,-2,0.6951092703010273,1.0,1.0,4,3,False,False,False
+libero_90/35,out,True,preposition/particle,open the microwave,8,open up the microwave,8,0,1.0,1.0,1.0,2,2,False,True,True
+libero_90/35,out,True,noun/other,pull open the microwave,6,unlatch the microwave,6,0,1.0,1.0,1.0,3,3,False,False,False
+libero_90/36,out,False,verb/frame,place the white bowl on the plate,4,set the white bowl on the plate,2,-2,0.5577341459422839,1.0,1.0,2,1,False,False,False
+libero_90/36,out,False,noun/other,put the white bowl on the plate,0,put the white dish on the plate,2,2,0.31487864133641996,1.0,1.0,0,1,False,True,True
+libero_90/36,out,False,verb/frame,put the white bowl on the plate,0,set the white bowl on the plate,2,2,0.31487864133641996,1.0,1.0,0,1,False,True,True
+libero_90/36,out,False,verb/frame,put the white bowl on the plate,0,place the white bowl on the plate,4,4,0.1531274510196696,0.494949494949495,0.5,0,2,False,True,True
+libero_90/37,out,False,verb/frame,put the white bowl to the right of the plate,0,place the white bowl to the right of the plate,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/37,out,False,preposition/particle,put the white bowl to the right of the plate,0,put the white bowl on the right of the plate,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/38,out,False,noun/other,put the right moka pot on the stove,36,put the right moka pot on the hot plate,40,4,0.6803080368774632,0.8369464893157669,0.8318119049072266,10,12,False,True,True
+libero_90/38,out,False,verb/frame,lift the right moka pot and place it on the stove,34,pick up the right moka pot and place it on the stove,54,20,0.04395104379938907,0.06926404391768659,0.0308837890625,4,14,True,False,False
+libero_90/39,out,False,verb/frame,turn off the stove,2,power off the stove,0,-2,0.31487864133641996,1.0,1.0,1,0,False,True,True
+libero_90/39,out,False,verb/frame,turn off the stove,2,shut off the stove,0,-2,0.31487864133641996,1.0,1.0,1,0,False,True,True
+libero_90/39,out,False,verb/frame,turn off the stove,2,switch off the stove,0,-2,0.31487864133641996,1.0,1.0,1,0,False,True,True
+libero_90/39,out,False,verb/frame,power off the stove,0,shut off the stove,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/39,out,False,verb/frame,power off the stove,0,switch off the stove,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/39,out,False,verb/frame,shut off the stove,0,switch off the stove,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/41,out,False,preposition/particle,put the frying pan on top of the cabinet,0,put the frying pan atop the cabinet,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/41,out,False,verb/frame,put the frying pan on top of the cabinet,0,place the frying pan on top of the cabinet,2,2,0.31487864133641996,1.0,1.0,0,1,False,True,True
+libero_90/44,out,False,verb/frame,fire up the stove,100,ignite the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,fire up the stove,100,power on the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,fire up the stove,100,start the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,fire up the stove,100,switch on the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,ignite the stove,100,power on the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,ignite the stove,100,start the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,ignite the stove,100,switch on the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,power on the stove,100,start the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,power on the stove,100,switch on the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,start the stove,100,switch on the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/44,out,False,verb/frame,turn on the stove,6,fire up the stove,100,94,4.6431125021264605e-21,4.64380767359492e-25,1.4210854715202004e-14,0,47,True,True,True
+libero_90/44,out,False,verb/frame,turn on the stove,6,ignite the stove,100,94,4.6431125021264605e-21,4.64380767359492e-25,1.4210854715202004e-14,0,47,True,True,True
+libero_90/44,out,False,verb/frame,turn on the stove,6,power on the stove,100,94,4.6431125021264605e-21,4.64380767359492e-25,1.4210854715202004e-14,0,47,True,True,True
+libero_90/44,out,False,verb/frame,turn on the stove,6,start the stove,100,94,4.6431125021264605e-21,4.64380767359492e-25,1.4210854715202004e-14,0,47,True,True,True
+libero_90/44,out,False,verb/frame,turn on the stove,6,switch on the stove,100,94,4.6431125021264605e-21,4.64380767359492e-25,1.4210854715202004e-14,0,47,True,True,True
+libero_90/48,out,False,verb/frame,pick up the ketchup and put it in the basket,2,pick up the ketchup and place it in the basket,0,-2,0.31487864133641996,1.0,1.0,1,0,False,True,True
+libero_90/48,out,False,preposition/particle,pick up the ketchup and put it in the basket,2,pick up the ketchup and put it into the basket,0,-2,0.31487864133641996,1.0,1.0,1,0,False,True,True
+libero_90/48,out,False,verb/frame,pick up the ketchup and put it in the basket,2,pick up the ketchup and set it in the basket,0,-2,0.31487864133641996,1.0,1.0,1,0,False,True,True
+libero_90/48,out,False,verb/frame,pick up the ketchup and put it in the basket,2,grab the ketchup and put it in the basket,2,0,1.0,1.0,1.0,1,1,False,True,True
+libero_90/48,out,False,verb/frame,pick up the ketchup and place it in the basket,0,pick up the ketchup and set it in the basket,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/51,out,False,verb/frame,pick up the butter and put it in the basket,100,lift the butter and put it in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/51,out,False,verb/frame,pick up the butter and put it in the basket,100,pick up the butter and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/52,out,False,verb/frame,pick up the milk and put it in the basket,0,grab the milk and put it in the basket,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/52,out,False,verb/frame,pick up the milk and put it in the basket,0,pick up the milk and place it in the basket,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/52,out,False,verb/frame,pick up the milk and place it in the basket,0,pick up the milk and set it in the basket,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/52,out,False,preposition/particle,pick up the milk and put it in the basket,0,pick up the milk and put it into the basket,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/52,out,False,verb/frame,pick up the milk and put it in the basket,0,pick up the milk and set it in the basket,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/57,out,False,verb/frame,grab the cream cheese and put it in the tray,100,lift the cream cheese and put it in the tray,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/57,out,False,verb/frame,pick up the cream cheese and put it in the tray,98,pick up the cream cheese and place it in the tray,98,0,1.0,1.0,1.0,1,1,False,True,True
+libero_90/57,out,False,verb/frame,pick up the cream cheese and put it in the tray,98,grab the cream cheese and put it in the tray,100,2,0.31487864133641963,1.0,1.0,0,1,False,True,True
+libero_90/57,out,False,verb/frame,pick up the cream cheese and put it in the tray,98,lift the cream cheese and put it in the tray,100,2,0.31487864133641963,1.0,1.0,0,1,False,True,True
+libero_90/57,out,False,words added,pick up the cream cheese and put it in the tray,98,pick up the cream cheese box and put it in the tray,100,2,0.31487864133641963,1.0,1.0,0,1,False,True,True
+libero_90/59,out,True,noun/other,grasp the green and orange can and put it in the wooden tray,22,grasp the green and orange tin and put it in the wooden tray,22,0,1.0,0.9999999999999999,1.0,7,7,False,False,False
+libero_90/59,out,True,noun/other,grasp the tomato sauce can and put it in the wooden tray,30,pick up the tomato sauce can and put it in the wooden tray,30,0,1.0,1.0,1.0,7,7,False,False,False
+libero_90/59,out,True,color,pick up the tomato sauce can and put it in the tray,24,pick up the tomato sauce can and put it in the wooden tray,30,6,0.4992073997150144,0.652850193875693,0.548828125,4,7,False,False,False
+libero_90/59,out,True,noun/other,grasp the green and orange can and put it in the wooden tray,22,grasp the tomato sauce can and put it in the wooden tray,30,8,0.3618100399768198,0.4945011595032017,0.5034446716308594,8,12,False,False,False
+libero_90/59,out,True,noun/other,grasp the green and orange tin and put it in the wooden tray,22,grasp the tomato sauce can and put it in the wooden tray,30,8,0.3618100399768198,0.4945011595032017,0.5234670639038086,9,13,False,False,False
+libero_90/59,out,True,noun/other,grasp the orange and green can and put it in the wooden tray,18,grasp the tomato sauce can and put it in the wooden tray,30,12,0.16005734623194487,0.24142379746764067,0.237884521484375,6,12,False,False,False
+libero_90/59,out,True,verb/frame,grasp the tomato sauce can and place it in the wooden tray,18,grasp the tomato sauce can and put it in the wooden tray,30,12,0.16005734623194487,0.24142379746764067,0.1795654296875,4,10,False,False,False
+libero_90/66,out,False,verb/frame,put the red mug on the right plate,0,place the red mug on the right plate,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/66,out,False,verb/frame,place the red mug on the right plate,0,set the red mug on the right plate,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/66,out,False,noun/other,put the red mug on the right plate,0,put the red cup on the right plate,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/66,out,False,verb/frame,put the red mug on the right plate,0,set the red mug on the right plate,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/68,out,True,verb/frame,can you put the yellow and white mug on the right plate,100,i want the yellow and white mug on the right plate,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/68,out,True,verb/frame,put the yellow and white mug on the right plate,100,can you put the yellow and white mug on the right plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/68,out,True,verb/frame,put the yellow and white mug on the right plate,100,i want the yellow and white mug on the right plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/68,out,True,noun/other,put the yellow and white mug on the right plate,100,put the yellow and white cup on the right plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/68,out,True,noun/other,put the yellow and white mug on the right plate,100,put the yellow and white mug on the right dish,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/68,out,True,noun/other,put the yellow and white mug on the right dish,100,put the yellow and white mug on the right white plate,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/68,out,True,color,put the yellow and white mug on the right plate,100,put the yellow and white mug on the right white plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/68,out,True,verb/frame,the yellow and white mug goes on the right plate,100,the yellow and white mug should be put on the right plate,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/70,out,True,noun/other,set the brown pudding down to the right of that plate,76,set the chocolate pudding down to the right of that plate,70,-6,0.49920739971501393,0.652850193875693,0.6476058959960938,11,8,False,False,False
+libero_90/70,out,True,noun/other,put the chocolate pudding to the right of the plate,64,put the chocolate pudding to the right of the dish,70,6,0.5234677465852955,0.6709420671138303,0.60723876953125,6,9,False,True,True
+libero_90/70,out,True,noun/other,put the chocolate pudding to the right of the plate,64,put the chocolate dessert to the right of the plate,80,16,0.0747913775869442,0.11815940020348115,0.09625244140625,5,13,False,True,True
+libero_90/71,out,False,verb/frame,put the red mug on the plate,0,place the red mug on the plate,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/71,out,False,verb/frame,place the red mug on the plate,0,set the red mug on the plate,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/71,out,False,noun/other,put the red mug on the plate,0,put the red cup on the plate,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/71,out,False,verb/frame,put the red mug on the plate,0,set the red mug on the plate,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/72,out,False,noun/other,put the white mug on the dish,100,put the white mug on the plate.,94,-6,0.0786401793488283,0.24242424242424243,0.25,3,0,False,False,False
+libero_90/72,out,False,noun/other,put the white mug on the dish,100,put the white mug on the round plate,96,-4,0.15312745101966943,0.494949494949495,0.5,2,0,False,False,False
+libero_90/72,out,False,determiner,Put the white mug on the plate,98,put that white mug on the plate,98,0,1.0,1.0,1.0,1,1,False,False,False
+libero_90/72,out,False,noun/other,put the white mug on the plate,94,put the white cup on the plate,94,0,1.0,1.0,1.0,3,3,False,True,True
+libero_90/72,out,False,punctuation,put the white mug on the plate,94,put the white mug on the plate.,94,0,1.0,1.0,1.0,2,2,False,True,True
+libero_90/72,out,False,words added,put the white mug on the plate,94,put the white mug on the round plate,96,2,0.64635519553949,1.0,1.0,2,3,False,True,True
+libero_90/72,out,False,noun/other,put the white mug on the plate.,94,put the white mug on the round plate,96,2,0.64635519553949,1.0,1.0,2,3,False,False,False
+libero_90/72,out,False,case,put the white mug on the plate,94,Put the white mug on the plate,98,4,0.3074341659273952,0.6173070915338956,0.625,1,3,False,True,True
+libero_90/72,out,False,determiner,put the white mug on the plate,94,put that white mug on the plate,98,4,0.3074341659273952,0.6173070915338956,0.625,1,3,False,True,True
+libero_90/72,out,False,noun/other,put the white mug on the plate,94,put the white mug on the dish,100,6,0.0786401793488283,0.24242424242424243,0.25,0,3,False,True,True
+libero_90/78,out,False,noun/other,pick up the book and place it in the front compartment of the caddy,0,pick up the book and place it in the front slot of the caddy,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/78,out,False,verb/frame,pick up the book and place it in the front compartment of the caddy,0,pick up the book and put it in the front compartment of the caddy,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/78,out,False,verb/frame,place the book in the front compartment of the caddy,0,put the book in the front compartment of the caddy,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/81,out,False,noun/other,pick up the book and place it in the front compartment of the caddy,0,pick up the book and place it in the front slot of the caddy,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/81,out,False,verb/frame,pick up the book and place it in the front compartment of the caddy,0,pick up the book and put it in the front compartment of the caddy,0,0,1.0,1.0,1.0,0,0,False,True,True
+libero_90/81,out,False,verb/frame,place the book in the front compartment of the caddy,0,put the book in the front compartment of the caddy,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_90/82,out,False,preposition/particle,place the black book inside the left slot of the brown caddy,38,place the black book into the left slot of the brown caddy,34,-4,0.6769222390213795,0.8351562058369704,0.79052734375,8,6,False,False,False
+libero_90/82,out,False,noun/other,place the black book into the left compartment of the brown caddy,22,place the black book into the left slot of the brown caddy,34,12,0.1814492077214203,0.2653288926339733,0.210113525390625,5,11,False,False,False
+libero_90/9,out,False,verb/frame,put the black bowl on the plate,98,can you put the black bowl on the plate,84,-14,0.014445182089611795,0.030857822974463097,0.0390625,8,1,False,True,True
+libero_90/9,out,False,noun/other,put the black bowl on the plate,98,put the dark bowl on the plate,88,-10,0.05003618617623281,0.11174961771814729,0.125,6,1,False,True,True
+libero_90/9,out,False,noun/other,put the black bowl on the plate,98,put the black bowl on the dish,90,-8,0.09212296325765235,0.20440158503099362,0.21875,5,1,False,True,True
+libero_90/9,out,False,preposition/particle,put the black bowl on the plate,98,put the black bowl onto the plate,90,-8,0.09212296325765235,0.20440158503099362,0.21875,5,1,False,True,True
+libero_90/9,out,False,color,put the black bowl on the plate,98,put the grey bowl on the plate,90,-8,0.09212296325765235,0.20440158503099362,0.21875,5,1,False,True,True
+libero_90/9,out,False,verb/frame,put the black bowl on the plate,98,i want the black bowl on the plate,94,-4,0.3074341659273952,0.6173070915338956,0.625,3,1,False,True,True
+libero_90/9,out,False,noun/other,put the dark bowl on the plate,88,put the grey bowl on the plate,90,2,0.749270523528457,0.9999999999999999,1.0,5,6,False,False,False
+libero_90/9,out,False,verb/frame,the black bowl goes on the plate,92,the black bowl should be put on the plate,94,2,0.6951092703010286,1.0,1.0,2,3,False,False,False
+libero_90/9,out,False,verb/frame,can you put the black bowl on the plate,84,i want the black bowl on the plate,94,10,0.11004143475794968,0.19971707940132497,0.2265625,3,8,False,False,False
+libero_goal/1,in,True,noun/other,place the grey bowl on the electric burner,92,place the grey bowl on the electric hot plate,0,-92,2.7168988386070504e-20,6.269140359353142e-24,2.842170943040401e-14,46,0,True,False,False
+libero_goal/1,in,True,noun/other,place the grey bowl on the electric burner,92,place the grey bowl on the hot plate,0,-92,2.7168988386070504e-20,6.269140359353142e-24,2.842170943040401e-14,46,0,True,False,False
+libero_goal/1,in,True,noun/other,place the grey bowl on the electric burner,92,place the grey bowl on the hotplate,18,-74,1.027796809528446e-13,1.9126508636672872e-14,1.4551915228366852e-11,37,0,True,False,False
+libero_goal/1,in,True,words removed,place the grey bowl on the electric hot plate,0,place the grey bowl on the hot plate,0,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/1,in,True,noun/other,place the grey bowl on the electric hot plate,0,place the grey bowl on the hotplate,18,18,0.0016616944579835144,0.002634204400259045,0.00390625,0,9,True,False,False
+libero_goal/1,in,True,noun/other,place the grey bowl on the hot plate,0,place the grey bowl on the hotplate,18,18,0.0016616944579835144,0.002634204400259045,0.00390625,0,9,True,False,False
+libero_goal/2,in,False,noun/other,put the wine bottle on top of the cabinet,100,put the wine jug on top of the cabinet,96,-4,0.15312745101966943,0.494949494949495,0.5,2,0,False,True,True
+libero_goal/2,in,False,noun/other,put the wine bottle on top of the cabinet,100,put the wine bottle on top of the cupboard,98,-2,0.31487864133641963,1.0,1.0,1,0,False,True,True
+libero_goal/2,in,False,preposition/particle,put the wine bottle on top of the cabinet,100,put the wine bottle up onto the cabinet,98,-2,0.31487864133641963,1.0,1.0,1,0,False,True,True
+libero_goal/2,in,False,noun/other,put the wine bottle up onto the cabinet,98,put the wine jug on top of the cabinet,96,-2,0.5577341459422835,1.0,1.0,2,1,False,False,False
+libero_goal/4,in,False,noun/other,put the bowl on top of the cabinet,98,put the dish on top of the cabinet,92,-6,0.1686686188878156,0.3621784858898261,0.375,4,1,False,True,True
+libero_goal/4,in,False,preposition/particle,put the bowl on top of the cabinet,98,put the bowl up onto the cabinet,94,-4,0.3074341659273952,0.6173070915338956,0.625,3,1,False,True,True
+libero_goal/4,in,False,noun/other,put the bowl up onto the cabinet,94,put the dish on top of the cabinet,92,-2,0.6951092703010286,1.0,1.0,4,3,False,False,False
+libero_goal/4,in,False,verb/frame,put the bowl on top of the cabinet,98,can you put the bowl on top of the cabinet,98,0,1.0,1.0,1.0,1,1,False,True,True
+libero_goal/4,in,False,verb/frame,can you put the bowl on top of the cabinet,98,i want the bowl on top of the cabinet,100,2,0.31487864133641963,1.0,1.0,0,1,False,False,False
+libero_goal/4,in,False,verb/frame,put the bowl on top of the cabinet,98,i want the bowl on top of the cabinet,100,2,0.31487864133641963,1.0,1.0,0,1,False,True,True
+libero_goal/4,in,False,noun/other,put the bowl on top of the cabinet,98,put the bowl on top of the cupboard,100,2,0.31487864133641963,1.0,1.0,0,1,False,True,True
+libero_goal/4,in,False,verb/frame,the bowl goes on top of the cabinet,96,the bowl should be put on top of the cabinet,100,4,0.15312745101966943,0.494949494949495,0.5,0,2,False,False,False
+libero_goal/5,in,False,noun/other,Go ahead and push the plate right up to the front of the stove.,98,Slide that dish over to the front of the stove.,0,-98,1.104212358298447e-22,1.0109886081846705e-27,3.552713678800501e-15,49,0,True,False,False
+libero_goal/5,in,False,noun/other,push the plate to the front of the stove,98,slide that flat dish over to the front of the stove,0,-98,1.104212358298447e-22,1.0109886081846705e-27,3.552713678800501e-15,49,0,True,True,False
+libero_goal/5,in,False,noun/other,push the plate to the front of the stove,98,slide that dish over to the front of the stove,2,-96,7.994442411452559e-22,4.957808841313453e-26,7.105427357601002e-15,48,0,True,True,False
+libero_goal/5,in,False,words added,slide that dish over to the front of the stove,2,slide that flat dish over to the front of the stove,0,-2,0.31487864133641996,1.0,1.0,1,0,False,False,False
+libero_goal/5,in,False,noun/other,slide that dish over to the front of the stove,2,slide that plate over to the front of the stove,62,60,1.266029956613059e-10,2.1513513623369084e-11,1.862645149230957e-09,0,30,True,False,False
+libero_goal/5,in,False,noun/other,slide that flat dish over to the front of the stove,0,slide that plate over to the front of the stove,62,62,2.0446235120259837e-11,9.16882297722339e-13,9.313225746154785e-10,0,31,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric stove,100,switch on the hot plate,2,-98,1.104212358298447e-22,1.0109886081846705e-27,3.552713678800501e-15,49,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the electric hot plate,2,-82,1.2157111054780722e-16,1.4137601115780865e-18,9.094947017729282e-13,41,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the hot plate,2,-82,1.2157111054780722e-16,1.4137601115780865e-18,9.094947017729282e-13,41,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hob,78,switch on the hot plate,2,-76,8.715576275874583e-15,2.7323253747185797e-16,7.275957614183426e-12,38,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the electric hot plate,2,-72,1.20010371860149e-13,6.301330243604465e-15,2.9103830456733704e-11,36,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the hot plate,2,-72,1.20010371860149e-13,6.301330243604465e-15,2.9103830456733704e-11,36,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric stove,100,switch on the hotplate,30,-70,2.168191179001757e-13,4.110852140103697e-15,5.820766091346741e-11,35,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the heating element,66,switch on the hot plate,2,-64,1.4263314860155891e-11,1.7126837728707027e-12,4.656612873077393e-10,32,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the electric hot plate,2,-62,4.317217002922435e-11,6.193059202774162e-12,9.313225746154785e-10,31,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the hot plate,2,-62,4.317217002922435e-11,6.193059202774162e-12,9.313225746154785e-10,31,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the griddle,62,switch on the hot plate,2,-60,1.266029956613059e-10,2.1513513623369084e-11,1.862645149230957e-09,30,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the hotplate,30,-54,4.9329390857454566e-08,6.863181935662514e-08,1.1175870895385742e-07,28,1,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hob,78,switch on the hotplate,30,-48,1.468802149631321e-06,2.577040463093285e-06,8.046627044677734e-07,25,1,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the hotplate,30,-44,1.0650638241080415e-05,1.9895305144825442e-05,4.76837158203125e-07,22,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric stove,100,switch on the griddle,62,-38,1.2775102876441465e-06,4.5950705750136725e-07,3.814697265625e-06,19,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the heating element,66,switch on the hotplate,30,-36,0.00031470664695668125,0.0005945852001101672,0.00012111663818359375,20,2,True,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the hotplate,30,-34,0.0006588920936534282,0.0012303771816091805,7.62939453125e-05,18,1,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric stove,100,switch on the heating element,66,-34,6.019695297302976e-06,2.9615577967370317e-06,1.52587890625e-05,17,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the griddle,62,switch on the hotplate,30,-32,0.0013260138860350886,0.0024378835652847978,0.0004024505615234375,18,2,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the griddle,62,-22,0.013223089702248525,0.023279091690692727,0.00738525390625,13,2,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric stove,100,switch on the hob,78,-22,0.00043873629550437255,0.0005274841534096255,0.0009765625,11,0,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the heating element,66,-18,0.03766692222862875,0.06342196594237821,0.063568115234375,14,5,True,False,False
+libero_goal/7,in,False,noun/other,turn on the burner,100,turn the black knob to activate the burner,84,-16,0.003189699706216857,0.005770162019615051,0.0078125,8,0,False,False,False
+libero_goal/7,in,False,noun/other,switch on the electric stove,100,switch on the range,86,-14,0.006078502928914408,0.012479652740097666,0.015625,7,0,False,False,False
+libero_goal/7,in,False,noun/other,turn on the burner,100,turn the black knob to start the burner,86,-14,0.006078502928914408,0.012479652740097666,0.015625,7,0,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the griddle,62,-12,0.1983595284289871,0.2837331556117976,0.0703125,7,1,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the cooktop,74,-10,0.21960785079717374,0.3262289921728179,0.266845703125,9,4,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the heating element,66,-8,0.3827330888852264,0.5130944333675264,0.34375,7,3,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the hob,78,-6,0.4444388225040357,0.611059301604134,0.5078125,6,3,False,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the griddle,62,-2,0.8359136007500891,1.0,1.0,5,4,False,False,False
+libero_goal/7,in,False,noun/other,could you turn on the stove,100,start the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/7,in,False,noun/other,could you turn on the stove,100,switch on the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/7,in,False,words added,turn on the stove,100,could you turn on the stove,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/7,in,False,verb/frame,start the stove,100,switch on the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/7,in,False,verb/frame,turn on the stove,100,start the stove,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/7,in,False,words removed,switch on the electric hot plate,2,switch on the hot plate,2,0,1.0,1.0,1.0,1,1,False,False,False
+libero_goal/7,in,False,words removed,switch on the electric stove,100,switch on the stove,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/7,in,False,noun/other,switch on the electric stove,100,switch on the stovetop,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/7,in,False,noun/other,switch on the stove,100,switch on the stovetop,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/7,in,False,verb/frame,turn on the stove,100,switch on the stove,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/7,in,False,noun/other,turn on the burner,100,turn on the burners,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/7,in,False,noun/other,turn on the stove,100,turn on the burner,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/7,in,False,noun/other,turn on the stove,100,turn on the burners,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/7,in,False,verb/frame,power on the hot plate,0,switch on the hot plate,2,2,0.31487864133641996,1.0,1.0,0,1,False,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the heating element,66,2,0.8339354140885519,0.9999999999999999,1.0,5,6,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the range,86,2,0.7794345284272749,1.0,1.0,3,4,False,False,False
+libero_goal/7,in,False,verb/frame,turn the black knob to activate the burner,84,turn the black knob to start the burner,86,2,0.7794345284272749,1.0,1.0,5,6,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the hob,78,4,0.6395751409486874,0.8152594598987603,0.7744140625,5,7,False,False,False
+libero_goal/7,in,False,noun/other,switch on the griddle,62,switch on the heating element,66,4,0.6769222390213792,0.8351562058369704,0.7744140625,5,7,False,False,False
+libero_goal/7,in,False,noun/other,start the burner,40,start the burners,48,8,0.42034493503392895,0.5458508799604922,0.454498291015625,6,10,False,False,False
+libero_goal/7,in,False,noun/other,switch on the hob,78,switch on the range,86,8,0.2978020332948063,0.4355973324029915,0.2890625,2,6,False,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the cooktop,74,10,0.2796540232894174,0.38732546781670296,0.1796875,2,7,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the range,86,12,0.13361440253771617,0.2107066827647145,0.109375,2,8,False,False,False
+libero_goal/7,in,False,noun/other,switch on the heating element,66,switch on the hob,78,12,0.18144920772142045,0.2653288926339733,0.1795654296875,4,10,False,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the hob,78,14,0.1229135954696038,0.18561208423412343,0.0654296875,2,9,False,False,False
+libero_goal/7,in,False,noun/other,switch on the range,86,switch on the stove,100,14,0.006078502928914408,0.012479652740097666,0.015625,0,7,False,False,False
+libero_goal/7,in,False,noun/other,switch on the range,86,switch on the stovetop,100,14,0.006078502928914408,0.012479652740097666,0.015625,0,7,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the electric stove,100,16,0.003189699706216857,0.005770162019615051,0.0078125,0,8,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the stove,100,16,0.003189699706216857,0.005770162019615051,0.0078125,0,8,False,False,False
+libero_goal/7,in,False,noun/other,switch on the cooker,84,switch on the stovetop,100,16,0.003189699706216857,0.005770162019615051,0.0078125,0,8,False,False,False
+libero_goal/7,in,False,noun/other,switch on the griddle,62,switch on the hob,78,16,0.08085559837005228,0.12591804226334383,0.03857421875,2,10,False,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the cooker,84,20,0.02261932973833063,0.039006299959161286,0.012939453125,2,12,True,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,turn the black knob to activate the burner,84,20,0.02261932973833063,0.039006299959161286,0.012939453125,2,12,True,False,False
+libero_goal/7,in,False,noun/other,switch on the heating element,66,switch on the range,86,20,0.01920825109701396,0.03377437153418624,0.012939453125,2,12,True,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the range,86,22,0.011074437676156628,0.019822562400919418,0.00341796875,1,12,True,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,turn the black knob to start the burner,86,22,0.011074437676156628,0.019822562400919418,0.00738525390625,2,13,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hob,78,switch on the stove,100,22,0.00043873629550437255,0.0005274841534096255,0.0009765625,0,11,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hob,78,switch on the stovetop,100,22,0.00043873629550437255,0.0005274841534096255,0.0009765625,0,11,True,False,False
+libero_goal/7,in,False,verb/frame,start the burner,40,switch on the burner,64,24,0.01630917187775499,0.027184075121116265,0.004180908203125,2,14,True,False,False
+libero_goal/7,in,False,noun/other,switch on the griddle,62,switch on the range,86,24,0.006223554486728126,0.011296456819478587,0.004180908203125,2,14,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the electric stove,100,26,0.00011083608727214167,9.981250196029942e-05,0.000244140625,0,13,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the stove,100,26,0.00011083608727214167,9.981250196029942e-05,0.000244140625,0,13,True,False,False
+libero_goal/7,in,False,noun/other,switch on the cooktop,74,switch on the stovetop,100,26,0.00011083608727214167,9.981250196029942e-05,0.000244140625,0,13,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric hot plate,2,switch on the hotplate,30,28,0.00013409532032314294,0.0001745577007253239,0.000518798828125,1,15,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hot plate,2,switch on the hotplate,30,28,0.00013409532032314294,0.0001745577007253239,0.0001220703125,0,14,True,False,False
+libero_goal/7,in,False,noun/other,switch on the heating element,66,switch on the stove,100,34,6.019695297302976e-06,2.9615577967370317e-06,1.52587890625e-05,0,17,True,False,False
+libero_goal/7,in,False,noun/other,switch on the heating element,66,switch on the stovetop,100,34,6.019695297302976e-06,2.9615577967370317e-06,1.52587890625e-05,0,17,True,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the electric stove,100,36,2.7966913074614887e-06,1.1774868348472536e-06,7.62939453125e-06,0,18,True,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the stove,100,36,2.7966913074614887e-06,1.1774868348472536e-06,7.62939453125e-06,0,18,True,False,False
+libero_goal/7,in,False,noun/other,switch on the burner,64,switch on the stovetop,100,36,2.7966913074614887e-06,1.1774868348472536e-06,7.62939453125e-06,0,18,True,False,False
+libero_goal/7,in,False,verb/frame,switch on the burner,64,turn on the burner,100,36,2.7966913074614887e-06,1.1774868348472536e-06,7.62939453125e-06,0,18,True,False,False
+libero_goal/7,in,False,noun/other,switch on the griddle,62,switch on the stove,100,38,1.2775102876441465e-06,4.5950705750136725e-07,3.814697265625e-06,0,19,True,False,False
+libero_goal/7,in,False,noun/other,switch on the griddle,62,switch on the stovetop,100,38,1.2775102876441465e-06,4.5950705750136725e-07,3.814697265625e-06,0,19,True,False,False
+libero_goal/7,in,False,noun/other,start the burner,40,turn the black knob to activate the burner,84,44,5.829767093369652e-06,1.0105265043603593e-05,2.9802322387695312e-06,1,23,True,False,False
+libero_goal/7,in,False,words added,start the burner,40,turn the black knob to start the burner,86,46,1.89947964938713e-06,3.0591917376715356e-06,1.5497207641601562e-06,1,24,True,False,False
+libero_goal/7,in,False,noun/other,start the burners,48,start the stove,100,52,3.0760048038993584e-09,3.474929547757128e-10,2.9802322387695312e-08,0,26,True,False,False
+libero_goal/7,in,False,verb/frame,start the burners,48,turn on the burners,100,52,3.0760048038993584e-09,3.474929547757128e-10,2.9802322387695312e-08,0,26,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hotplate,30,switch on the range,86,56,1.4024754001752093e-08,1.7021690767991312e-08,5.774199962615967e-08,1,29,True,False,False
+libero_goal/7,in,False,noun/other,start the burner,40,start the stove,100,60,5.888668049571984e-11,3.2090880420281867e-12,1.862645149230957e-09,0,30,True,False,False
+libero_goal/7,in,False,verb/frame,start the burner,40,turn on the burner,100,60,5.888668049571984e-11,3.2090880420281867e-12,1.862645149230957e-09,0,30,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric hot plate,2,switch on the griddle,62,60,1.266029956613059e-10,2.1513513623369084e-11,1.862645149230957e-09,0,30,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric hot plate,2,switch on the heating element,66,64,1.4263314860155891e-11,1.7126837728707027e-12,4.656612873077393e-10,0,32,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hotplate,30,switch on the stove,100,70,2.168191179001757e-13,4.110852140103697e-15,5.820766091346741e-11,0,35,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hotplate,30,switch on the stovetop,100,70,2.168191179001757e-13,4.110852140103697e-15,5.820766091346741e-11,0,35,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric hot plate,2,switch on the hob,78,76,8.715576275874583e-15,2.7323253747185797e-16,7.275957614183426e-12,0,38,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric hot plate,2,switch on the range,86,84,2.6477375764702174e-17,2.0292789400535498e-19,4.547473508864641e-13,0,42,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hot plate,2,switch on the range,86,84,2.6477375764702174e-17,2.0292789400535498e-19,4.547473508864641e-13,0,42,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric hot plate,2,switch on the electric stove,100,98,1.104212358298447e-22,1.0109886081846705e-27,3.552713678800501e-15,0,49,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric hot plate,2,switch on the stove,100,98,1.104212358298447e-22,1.0109886081846705e-27,3.552713678800501e-15,0,49,True,False,False
+libero_goal/7,in,False,noun/other,switch on the electric hot plate,2,switch on the stovetop,100,98,1.104212358298447e-22,1.0109886081846705e-27,3.552713678800501e-15,0,49,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hot plate,2,switch on the stove,100,98,1.104212358298447e-22,1.0109886081846705e-27,3.552713678800501e-15,0,49,True,False,False
+libero_goal/7,in,False,noun/other,switch on the hot plate,2,switch on the stovetop,100,98,1.104212358298447e-22,1.0109886081846705e-27,3.552713678800501e-15,0,49,True,False,False
+libero_goal/7,in,False,noun/other,power on the hot plate,0,power on the stove burner,100,100,1.5239706048321186e-23,1.9823306042836678e-29,1.7763568394002505e-15,0,50,True,False,False
+libero_goal/8,in,False,noun/other,put the bowl on the plate,100,put the bowl on the flat dish,36,-64,6.8887833663272936e-12,2.52474835604702e-13,4.656612873077393e-10,32,0,True,True,True
+libero_goal/8,in,False,noun/other,put the bowl on the plate,100,put the bowl on the dish,48,-52,3.0760048038993584e-09,3.474929547757128e-10,2.9802322387695312e-08,26,0,True,True,True
+libero_goal/8,in,False,words added,put the bowl on the dish,48,put the bowl on the flat dish,36,-12,0.22411395400885614,0.311056706881086,0.1795654296875,10,4,False,False,False
+libero_goal/8,in,False,verb/frame,Put the bowl on the plate,100,can you put the bowl on the plate,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/8,in,False,verb/frame,Put the bowl on the plate,100,i want the bowl on the plate,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/8,in,False,case,put the bowl on the plate,100,Put the bowl on the plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/8,in,False,verb/frame,can you put the bowl on the plate,100,i want the bowl on the plate,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/8,in,False,verb/frame,put the bowl on the plate,100,can you put the bowl on the plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/8,in,False,verb/frame,put the bowl on the plate,100,i want the bowl on the plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/8,in,False,punctuation,put the bowl on the plate,100,put the bowl on the plate.,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/8,in,False,noun/other,put the bowl on the plate,100,put the dish on the plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_goal/8,in,False,verb/frame,the bowl goes on the plate,100,the bowl should be put on the plate,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_goal/8,in,False,noun/other,put the bowl on the dish,48,put the bowl on the plate.,100,52,3.0760048038993584e-09,3.474929547757128e-10,2.9802322387695312e-08,0,26,True,False,False
+libero_goal/8,in,False,noun/other,put the bowl on the flat dish,36,put the bowl on the plate.,100,64,6.8887833663272936e-12,2.52474835604702e-13,4.656612873077393e-10,0,32,True,False,False
+libero_goal/9,in,False,noun/other,put the wine bottle on the rack,94,put the wine bottle on the wooden stand,50,-44,9.593942024706293e-07,1.0530642124696915e-06,2.9802322387695312e-06,23,1,True,True,True
+libero_goal/9,in,False,color,put the wine bottle on the stand,76,put the wine bottle on the wooden stand,50,-26,0.007089677768050171,0.01243269111131524,0.002349853515625,15,2,True,False,False
+libero_goal/9,in,False,noun/other,put the wine bottle on the rack,94,put the wine bottle on the stand,76,-18,0.011718685599768668,0.022604386881923517,0.01171875,10,1,True,True,True
+libero_goal/9,in,False,noun/other,put the wine bottle on the rack,94,put the wine jug on the rack,98,4,0.3074341659273952,0.6173070915338956,0.625,1,3,False,True,True
+libero_object/0,in,False,noun/other,pick up the alphabet soup and place it in the basket,100,pick up the food and place it in the basket,86,-14,0.006078502928914408,0.012479652740097666,0.015625,7,0,False,True,True
+libero_object/0,in,False,noun/other,pick up the alphabet soup and place it in the basket,100,pick up the tin and place it in the basket,90,-10,0.021781462791119584,0.05628449442882433,0.0625,5,0,False,True,True
+libero_object/0,in,False,noun/other,pick up the soup and place it in the basket,100,pick up the tin and place it in the basket,90,-10,0.021781462791119584,0.05628449442882433,0.0625,5,0,False,False,False
+libero_object/0,in,False,noun/other,pick up the alphabet soup and place it in the basket,100,pick up the can and place it in the basket,92,-8,0.04122683333716391,0.11746329272102468,0.125,4,0,False,True,True
+libero_object/0,in,False,noun/other,pick up the can and place it in the basket,92,pick up the food and place it in the basket,86,-6,0.33765741405716304,0.5245551652531856,0.5078125,6,3,False,False,False
+libero_object/0,in,False,noun/other,pick up the can and place it in the basket,92,pick up the tin and place it in the basket,90,-2,0.7267678061991002,1.0,1.0,4,3,False,False,False
+libero_object/0,in,False,words removed,pick up the alphabet soup and place it in the basket,100,pick up the soup and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_object/0,in,False,noun/other,pick up the food and place it in the basket,86,pick up the tin and place it in the basket,90,4,0.5382526579885003,0.7596065442291386,0.7265625,3,5,False,False,False
+libero_object/0,in,False,noun/other,pick up the can and place it in the basket,92,pick up the soup and place it in the basket,100,8,0.04122683333716391,0.11746329272102468,0.125,0,4,False,False,False
+libero_object/0,in,False,noun/other,pick up the food and place it in the basket,86,pick up the soup and place it in the basket,100,14,0.006078502928914408,0.012479652740097666,0.015625,0,7,False,False,False
+libero_object/1,in,True,noun/other,pick up the cheese and place it in the basket,100,pick up the container and place it in the basket,34,-66,2.249051340149937e-12,6.683157413065642e-14,2.3283064365386963e-10,33,0,True,False,False
+libero_object/1,in,True,noun/other,pick up the cream cheese and place it in the basket,100,pick up the container and place it in the basket,34,-66,2.249051340149937e-12,6.683157413065642e-14,2.3283064365386963e-10,33,0,True,True,True
+libero_object/1,in,True,noun/other,pick up the box and place it in the basket,96,pick up the container and place it in the basket,34,-62,8.06592164782239e-11,2.2485333493332196e-11,9.313225746154785e-10,31,0,True,False,False
+libero_object/1,in,True,noun/other,pick up the cheese and place it in the basket,100,pick up the package and place it in the basket,84,-16,0.003189699706216857,0.005770162019615051,0.0078125,8,0,False,False,False
+libero_object/1,in,True,noun/other,pick up the cream cheese and place it in the basket,100,pick up the package and place it in the basket,84,-16,0.003189699706216857,0.005770162019615051,0.0078125,8,0,False,True,True
+libero_object/1,in,True,noun/other,pick up the box and place it in the basket,96,pick up the package and place it in the basket,84,-12,0.04550026389635843,0.09164715528813337,0.0703125,7,1,False,False,False
+libero_object/1,in,True,noun/other,pick up the cream cheese and place it in the basket,100,pick up the box and place it in the basket,96,-4,0.15312745101966943,0.494949494949495,0.5,2,0,False,True,True
+libero_object/1,in,True,verb/frame,Pick up the cream cheese and place it in the basket,100,grab the cream cheese and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_object/1,in,True,verb/frame,Pick up the cream cheese and place it in the basket,100,lift the cream cheese and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_object/1,in,True,case,pick up the cream cheese and place it in the basket,100,Pick up the cream cheese and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_object/1,in,True,verb/frame,grab the cream cheese and place it in the basket,100,lift the cream cheese and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,False,False
+libero_object/1,in,True,verb/frame,pick up the cream cheese and place it in the basket,100,grab the cream cheese and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_object/1,in,True,verb/frame,pick up the cream cheese and place it in the basket,100,lift the cream cheese and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_object/1,in,True,words removed,pick up the cream cheese and place it in the basket,100,pick up the cheese and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_object/1,in,True,punctuation,pick up the cream cheese and place it in the basket,100,pick up the cream cheese and place it in the basket.,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_object/1,in,True,verb/frame,pick up the cream cheese and place it in the basket,100,pick up the cream cheese and put it in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_object/1,in,True,noun/other,pick up the box and place it in the basket,96,pick up the cheese and place it in the basket,100,4,0.15312745101966943,0.494949494949495,0.5,0,2,False,False,False
+libero_object/1,in,True,noun/other,pick up the container and place it in the basket,34,pick up the package and place it in the basket,84,50,3.714747072706537e-07,5.78281839169384e-07,5.960464477539063e-08,0,25,True,False,False
+libero_object/2,in,False,noun/other,pick up the salad dressing and place it in the basket,100,pick up the bottle and place it in the basket,74,-26,0.00011083608727214167,9.981250196029942e-05,0.000244140625,13,0,True,True,True
+libero_object/2,in,False,verb/frame,pick up the salad dressing and place it in the basket,100,lift the salad dressing and place it in the basket,98,-2,0.31487864133641963,1.0,1.0,1,0,False,True,True
+libero_object/2,in,False,words removed,pick up the salad dressing and place it in the basket,100,pick up the dressing and place it in the basket,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_object/2,in,False,noun/other,pick up the bottle and place it in the basket,74,pick up the dressing and place it in the basket,100,26,0.00011083608727214167,9.981250196029942e-05,0.000244140625,0,13,True,False,False
+libero_object/3,in,False,noun/other,pick up the bbq sauce and place it in the basket,98,pick up the bottle and place it in the basket,60,-38,3.089596315731373e-06,2.3741197970903975e-06,2.09808349609375e-05,20,1,True,True,True
+libero_object/3,in,False,noun/other,pick up the bbq sauce and place it in the basket,98,pick up the condiment and place it in the basket,82,-16,0.007660761135179455,0.01566048989604553,0.021484375,9,1,False,True,True
+libero_object/3,in,False,noun/other,pick up the bottle and place it in the basket,60,pick up the condiment and place it in the basket,82,22,0.015343081584873396,0.026605201586451514,0.00341796875,1,12,True,False,False
+libero_object/4,in,False,noun/other,pick up the ketchup and place it in the basket,98,pick up the sauce and place it in the basket,2,-96,7.994442411452559e-22,4.957808841313453e-26,7.105427357601002e-15,48,0,True,True,True
+libero_object/4,in,False,noun/other,pick up the bottle and place it in the basket,96,pick up the sauce and place it in the basket,2,-94,5.3596431266344786e-21,1.2394720336344059e-24,1.4210854715202004e-14,47,0,True,False,False
+libero_object/4,in,False,noun/other,pick up the red bottle and place it in the basket,58,pick up the sauce and place it in the basket,2,-56,9.956815331667582e-10,2.3242966247261294e-10,7.450580596923828e-09,28,0,True,False,False
+libero_object/4,in,False,noun/other,pick up the ketchup and place it in the basket,98,pick up the red bottle and place it in the basket,58,-40,1.3787959792321344e-06,9.424687942739307e-07,1.0967254638671875e-05,21,1,True,True,True
+libero_object/4,in,False,color,pick up the bottle and place it in the basket,96,pick up the red bottle and place it in the basket,58,-38,6.335850684831535e-06,6.9994538061897515e-06,3.814697265625e-06,19,0,True,False,False
+libero_object/4,in,False,noun/other,pick up the ketchup and place it in the basket,98,pick up the bottle and place it in the basket,96,-2,0.5577341459422835,1.0,1.0,2,1,False,True,True
+libero_object/5,in,False,noun/other,pick up the tomato sauce and place it in the basket,94,pick up the bottle and place it in the basket,80,-14,0.037392405388139746,0.07130815271626866,0.0654296875,9,2,False,True,True
+libero_object/5,in,False,noun/other,pick up the tomato sauce and place it in the basket,94,pick up the can and place it in the basket,90,-4,0.4609947864255787,0.7149836629646897,0.7265625,5,3,False,True,True
+libero_object/5,in,False,words removed,pick up the tomato sauce and place it in the basket,94,pick up the sauce and place it in the basket,96,2,0.64635519553949,1.0,1.0,2,3,False,True,True
+libero_object/5,in,False,noun/other,pick up the can and place it in the basket,90,pick up the sauce and place it in the basket,96,6,0.23967772321846303,0.4360315033131094,0.25,0,3,False,False,False
+libero_object/5,in,False,noun/other,pick up the bottle and place it in the basket,80,pick up the can and place it in the basket,90,10,0.1614294623670833,0.26233945735337133,0.266845703125,4,9,False,False,False
+libero_object/5,in,False,noun/other,pick up the bottle and place it in the basket,80,pick up the sauce and place it in the basket,96,16,0.013823023820376697,0.027746259148170357,0.021484375,1,9,False,False,False
+libero_object/6,in,True,noun/other,pick up the butter and place it in the basket,100,pick up the block and place it in the basket,82,-18,0.0016616944579835038,0.002634204400259045,0.00390625,9,0,True,True,True
+libero_object/6,in,True,noun/other,pick up the butter and place it in the basket,100,pick up the stick and place it in the basket,84,-16,0.003189699706216857,0.005770162019615051,0.0078125,8,0,False,True,True
+libero_object/6,in,True,noun/other,pick up the block and place it in the basket,82,pick up the stick and place it in the basket,84,2,0.7900717569416608,1.0,1.0,2,3,False,False,False
+libero_object/7,in,False,noun/other,pick up the milk and place it in the basket,100,pick up the drink and place it in the basket,94,-6,0.0786401793488283,0.24242424242424243,0.25,3,0,False,True,True
+libero_object/7,in,False,noun/other,pick up the milk and place it in the basket,100,pick up the carton and place it in the basket,96,-4,0.15312745101966943,0.494949494949495,0.5,2,0,False,True,True
+libero_object/7,in,False,noun/other,pick up the carton and place it in the basket,96,pick up the drink and place it in the basket,94,-2,0.64635519553949,1.0,1.0,2,1,False,False,False
+libero_object/8,in,False,noun/other,pick up the chocolate pudding and place it in the basket,100,pick up the cup and place it in the basket,64,-36,2.7966913074614887e-06,1.1774868348472536e-06,7.62939453125e-06,18,0,True,True,True
+libero_object/8,in,False,noun/other,pick up the chocolate pudding and place it in the basket,100,pick up the snack and place it in the basket,96,-4,0.15312745101966943,0.494949494949495,0.5,2,0,False,True,True
+libero_object/8,in,False,noun/other,pick up the cup and place it in the basket,64,pick up the snack and place it in the basket,96,32,6.33424836662401e-05,8.837214201696432e-05,3.0517578125e-05,0,16,True,False,False
+libero_object/9,in,False,noun/other,pick up the orange juice and place it in the basket,98,pick up the bottle and place it in the basket,12,-86,5.460022261836526e-18,2.5929164526284597e-20,2.2737367544323206e-13,43,0,True,True,True
+libero_object/9,in,False,noun/other,pick up the orange juice and place it in the basket,98,pick up the carton and place it in the basket,12,-86,5.460022261836526e-18,2.5929164526284597e-20,2.2737367544323206e-13,43,0,True,True,True
+libero_object/9,in,False,noun/other,pick up the orange juice and place it in the basket,98,pick up the drink and place it in the basket,20,-78,2.2000183934226924e-15,5.1313188290338985e-17,3.637978807091713e-12,39,0,True,True,True
+libero_object/9,in,False,color,pick up the orange juice and place it in the basket,98,pick up the juice and place it in the basket,96,-2,0.5577341459422835,1.0,1.0,2,1,False,True,True
+libero_object/9,in,False,noun/other,pick up the bottle and place it in the basket,12,pick up the carton and place it in the basket,12,0,1.0,0.9999999999999998,1.0,2,2,False,False,False
+libero_object/9,in,False,noun/other,pick up the bottle and place it in the basket,12,pick up the drink and place it in the basket,20,8,0.2752335240748342,0.41394662156586004,0.21875,1,5,False,False,False
+libero_object/9,in,False,noun/other,pick up the carton and place it in the basket,12,pick up the drink and place it in the basket,20,8,0.2752335240748342,0.41394662156586004,0.125,0,4,False,False,False
+libero_object/9,in,False,noun/other,pick up the drink and place it in the basket,20,pick up the juice and place it in the basket,96,76,1.3693300731541966e-14,8.994964635519071e-16,7.275957614183426e-12,0,38,True,False,False
+libero_object/9,in,False,noun/other,pick up the bottle and place it in the basket,12,pick up the juice and place it in the basket,96,84,3.546104228856269e-17,5.327891625799862e-19,4.547473508864641e-13,0,42,True,False,False
+libero_object/9,in,False,noun/other,pick up the carton and place it in the basket,12,pick up the juice and place it in the basket,96,84,3.546104228856269e-17,5.327891625799862e-19,4.547473508864641e-13,0,42,True,False,False
+libero_spatial/1,in,False,noun/other,pick up the black bowl next to the ramekin and place it on the plate,100,pick up the black bowl next to the dish and place it on the plate,62,-38,1.2775102876441465e-06,4.5950705750136725e-07,3.814697265625e-06,19,0,True,True,True
+libero_spatial/3,in,True,noun/other,pick up the black bowl on the cookie box and place it on the plate,100,pick up the black bowl on the cookie tin and place it on the plate,96,-4,0.15312745101966943,0.494949494949495,0.5,2,0,False,True,True
+libero_spatial/3,in,True,noun/other,pick up the black bowl on the cookie box and place it on the plate,100,pick up the black bowl on the cookies and place it on the plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_spatial/3,in,True,noun/other,pick up the black bowl on the cookie tin and place it on the plate,96,pick up the black bowl on the cookies and place it on the plate,100,4,0.15312745101966943,0.494949494949495,0.5,0,2,False,False,False
+libero_spatial/4,in,False,noun/other,pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate,90,pick up the black bowl in the upper drawer of the wooden cabinet and place it on the plate,90,0,1.0,1.0,1.0,2,2,False,True,True
+libero_spatial/4,in,False,color,pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate,90,pick up the black bowl in the top drawer of the cabinet and place it on the plate,96,6,0.23967772321846303,0.4360315033131094,0.375,1,4,False,True,True
+libero_spatial/5,in,False,noun/other,pick up the black bowl on the ramekin and place it on the plate,96,pick up the black bowl on the dish and place it on the plate,86,-10,0.08061281453855491,0.15950501461502106,0.1796875,7,2,False,True,True
+libero_spatial/5,in,False,preposition/particle,pick up the black bowl on the ramekin and place it on the plate,96,pick up the black bowl on the ramekin and place it onto the plate,92,-4,0.39970292178238365,0.6777322876074912,0.625,3,1,False,True,True
+libero_spatial/5,in,False,noun/other,pick up the black bowl on the ramekin and place it on the plate,96,pick up the black bowl on the ramekin and place it on the dish,96,0,1.0,0.9999999999999999,1.0,2,2,False,True,True
+libero_spatial/5,in,False,noun/other,pick up the black bowl on the ramekin and place it on the plate,96,pick up the dark bowl on the ramekin and place it on the plate,98,2,0.5577341459422835,1.0,1.0,0,1,False,True,True
+libero_spatial/5,in,False,verb/frame,pick up the black bowl on the ramekin and place it on the plate,96,lift the black bowl on the ramekin and place it on the plate,100,4,0.15312745101966943,0.494949494949495,0.5,0,2,False,True,True
+libero_spatial/6,in,True,noun/other,pick up the black bowl next to the cookie box and place it on the plate,100,pick up the black bowl next to the cookies and place it on the plate,98,-2,0.31487864133641963,1.0,1.0,1,0,False,True,True
+libero_spatial/6,in,True,preposition/particle,pick up the black bowl next to the cookie box and place it on the plate,100,pick up the black bowl beside the cookie box and place it on the plate,100,0,1.0,1.0,1.0,0,0,False,True,True
+libero_spatial/7,in,True,noun/other,pick up the black bowl on the stove and place it on the plate,100,pick up the black bowl on the hot plate and place it on the plate,22,-78,1.2863013877577898e-15,8.28800834698326e-18,3.637978807091713e-12,39,0,True,True,True
+libero_spatial/8,in,False,preposition/particle,pick up the black bowl next to the plate and place it on the plate,98,pick up the black bowl beside the plate and place it on the plate,100,2,0.31487864133641963,1.0,1.0,0,1,False,True,True
+libero_spatial/9,in,False,color,pick up the black bowl on the wooden cabinet and place it on the plate,98,pick up the black bowl on the cabinet and place it on the plate,94,-4,0.3074341659273952,0.6173070915338956,0.625,3,1,False,True,True
+libero_spatial/9,in,False,noun/other,pick up the black bowl on the wooden cabinet and place it on the plate,98,pick up the black bowl on the wood cabinet and place it on the plate,96,-2,0.5577341459422835,1.0,1.0,2,1,False,True,True
+libero_spatial/9,in,False,words added,pick up the black bowl on the cabinet and place it on the plate,94,pick up the black bowl on the wood cabinet and place it on the plate,96,2,0.64635519553949,1.0,1.0,2,3,False,False,False
