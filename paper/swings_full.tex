@@ -3,8 +3,15 @@
 \overrideIEEEmargins
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage{url}
+
+% same list styling as the paper's swing figures
+\definecolor{hi}{RGB}{212,241,212}
+\definecolor{lo}{RGB}{250,214,214}
+\definecolor{hipct}{RGB}{22,122,39}
+\definecolor{lopct}{RGB}{178,32,32}
+\newcommand{\pct}[2]{\makebox[2.2em][r]{\textcolor{#1}{\bfseries #2\%}}}
 
 \title{\LARGE \bf
 The Full Set of Significant Single-Edit Swings
@@ -18,47 +25,28 @@ The Full Set of Significant Single-Edit Swings
 
 \begin{abstract}
 Companion artifact to ``Rephrase Before You Act: Characterizing and
-Mitigating Language Sensitivity in Vision-Language-Action Models''. The
-paper charts one significant single-edit swing per task and edit
-category; this document charts every significant set the searches found,
-with exact p-values. The underlying per-phrase records, including the
-phrases themselves, are the two CSV files under \texttt{data/} in this
-repository.
+Mitigating Language Sensitivity in Vision-Language-Action Models'',
+listing every significant single-edit swing set the searches found, in
+the paper's format: differing tokens are highlighted, green marks the
+best phrasing, and each set carries its swing and exact p. For $\pi_0$ on
+SIMPLER Bridge, the search evaluated 105 candidate pairs and 66 survived
+a two-proportion z test ($z \ge 1.96$), forming 35 sets over 16 tasks
+(success rates over n = 72 rollouts per phrase; basket task n = 180). For
+$\pi_{0.5}$ on LIBERO, the search evaluated 426 candidate pairs and 115
+were significant ($|\Delta| \ge 18$\,pp, $p < 0.05$), forming 23 sets
+over 19 tasks (n = 50 per phrase). The same records in machine-readable
+form, one row per phrase, are the two CSV files under \texttt{data/} in
+this repository.
 \end{abstract}
 
-\section{The Full Set}
+\section{Single-Edit Swings for $\pi_0$ + SIMPLER Bridge}
 
-A single-edit swing is a set of phrases for the same task that differ by
-a minimal edit and whose success rates differ significantly. For $\pi_0$
-on SIMPLER Bridge, the search evaluated 105 candidate pairs and 66
-survived a two-proportion z test ($z \ge 1.96$); grouped by task and
-edit, they form the 35 sets of Fig.~\ref{fig:bridge-full} (n = 72
-rollouts per phrase; basket task n = 180). For $\pi_{0.5}$ on LIBERO, the
-search evaluated 426 candidate pairs and 115 were significant
-($|\Delta| \ge 18$\,pp, $p < 0.05$), forming the 23 sets of
-Fig.~\ref{fig:libero-full} (n = 50 per phrase). Unlike the paper's
-figures, nothing is curated away here: multi-edit sets and multiple sets
-of the same category on the same task are kept.
+{\scriptsize\raggedright\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}\setlength{\parskip}{0pt}%
+\input{swings_full_bridge_body}\par}
 
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=\columnwidth]{swings_bridge_full.pdf}
-    \caption{All 35 significant swing sets for $\pi_0$ on SIMPLER Bridge,
-    over 16 tasks, sorted by swing. Each row is one set; dots are its
-    phrases' success rates, the filled dot is the best phrasing, and the
-    right column gives the swing in percentage points and the exact p of
-    the set's strongest pair under a two-proportion z test.}
-    \label{fig:bridge-full}
-\end{figure}
+\section{Single-Edit Swings for $\pi_{0.5}$ + LIBERO}
 
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=\columnwidth]{swings_libero_full.pdf}
-    \caption{All 23 significant swing sets for $\pi_{0.5}$ on LIBERO,
-    over 19 tasks, formatted as Fig.~\ref{fig:bridge-full}. Of the 426
-    candidate pairs evaluated, 44\% of in-finetune pairs showed a
-    significant swing versus 5\% of out-of-finetune pairs.}
-    \label{fig:libero-full}
-\end{figure}
+{\scriptsize\raggedright\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}\setlength{\parskip}{0pt}%
+\input{swings_full_libero_body}\par}
 
 \end{document}

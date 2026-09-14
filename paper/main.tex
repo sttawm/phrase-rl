@@ -299,7 +299,7 @@ Furthermore, we estimate the headroom that phrasing alone leaves a frozen VLA: i
 
 \subsection{Finding Single-Edit Swings}
 
-Our search algorithm is simple: first we generate many rephrases for each task (in fact, we use the exact evidence files used by our rules' distillers). Then, with the help of an LLM, we propose sets to test, based on the evidence, and we evaluate each phrase with many attempts in simulation. After gathering success rates per phrase, we retain only those sets where the difference in accuracy between the best and worst phrase is statistically significant, that is, they are unlikely to be explained by chance (the full set of significant sets, with exact p-values, is charted in the project repository\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}\label{fn:repo}}). We manually filter out phrase sets with large gaps that are potentially explained by scene-based ambiguity. For $\pi_0$, we evaluate each phrase 72 times (24 layouts by 3 repetitions). For $\pi_{0.5}$, we evaluate each phrase once on each of 50 layouts. To further reduce noise in our measurements, we use common random seeds per layout / repetition pair. We note that it was qualitatively more challenging to find these phrase sets for $\pi_{0.5}$ than for $\pi_0$.
+Our search algorithm is simple: first we generate many rephrases for each task (in fact, we use the exact evidence files used by our rules' distillers). Then, with the help of an LLM, we propose sets to test, based on the evidence, and we evaluate each phrase with many attempts in simulation. After gathering success rates per phrase, we retain only those sets where the difference in accuracy between the best and worst phrase is statistically significant, that is, they are unlikely to be explained by chance (each set's phrases and exact p-values are listed in the project repository\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}\label{fn:repo}}). We manually filter out phrase sets with large gaps that are potentially explained by scene-based ambiguity. For $\pi_0$, we evaluate each phrase 72 times (24 layouts by 3 repetitions). For $\pi_{0.5}$, we evaluate each phrase once on each of 50 layouts. To further reduce noise in our measurements, we use common random seeds per layout / repetition pair. We note that it was qualitatively more challenging to find these phrase sets for $\pi_{0.5}$ than for $\pi_0$.
 
 \subsection{Patterns in the Swings}
 
@@ -320,6 +320,20 @@ plate, $-22$); on LIBERO, an added color only ever hurts (black bowl,
 $-20$). The common thread is plain naming: generic category words (can,
 dish, drink, thing) lose to the specific everyday name --- even one the
 training data never contained (pepsi beats soda by 39).
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/swings_bridge_full.pdf}
+    \caption{\small Single-edit swings for $\pi_0$ on SIMPLER Bridge: all 35 significant phrase sets over 16 tasks, sorted by swing (scenes in Fig.~\ref{fig:scenes-bridge}). Each row is one set; its phrases differ by the labelled edit. Dots are the phrases' success rates over n = 72 rollouts (basket task n = 180), the filled dot is the best phrasing, and the right column is the swing in percentage points; p, the chance of a gap this large under a two-proportion z test, is below 0.05 for every set. Swings range from 14 to 61\,pp.}
+    \label{fig:pairs-bridge}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/swings_libero_full.pdf}
+    \caption{\small Single-edit swings for $\pi_{0.5}$ on LIBERO, formatted as Fig.~\ref{fig:pairs-bridge} (all 23 significant sets over 19 tasks; n = 50 per phrase; scenes in Fig.~\ref{fig:scenes-libero}). Swings were harder to find than for $\pi_0$ but reach 100\,pp; ``fire up the stove'' succeeds 100\% of the time, ``turn on the stove'' 6\%.}
+    \label{fig:pairs-libero}
+\end{figure}
 
 \subsection{Oracle Phrase Search}
 \label{sec:oracle}
@@ -342,16 +356,6 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
     \label{fig:pi05-fourtier}
 \end{figure}
 
-
-\subsection{Single-Edit Swings for $\pi_0$ + Bridge}
-
-{\centering\includegraphics[width=\columnwidth]{figures/swings_bridge_thinned.pdf}\par}
-{\footnotesize\captionof{figure}{Single-edit swings for $\pi_0$ on SIMPLER Bridge: 25 significant phrase sets over 15 tasks, one per task and edit category, sorted by swing (scenes in Fig.~\ref{fig:scenes-bridge}). Each row is one set; its phrases differ by a single edit of the labelled category. Dots are the phrases' success rates over n = 72 rollouts (basket task n = 180), the filled dot is the best phrasing, and the right column is the swing in percentage points; p, the chance of a gap this large under a two-proportion z test, is below 0.05 for every set. Swings range from 14 to 61\,pp.}\label{fig:pairs-bridge}}
-
-\subsection{Single-Edit Swings for $\pi_{0.5}$ + LIBERO}
-
-{\centering\includegraphics[width=\columnwidth]{figures/swings_libero_thinned.pdf}\par}
-{\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on LIBERO, formatted as Fig.~\ref{fig:pairs-bridge} (23 sets over 19 tasks; n = 50 per phrase; scenes in Fig.~\ref{fig:scenes-libero}). Swings were harder to find than for $\pi_0$ but reach 100\,pp; ``fire up the stove'' succeeds 100\% of the time, ``turn on the stove'' 6\%.}\label{fig:pairs-libero}}
 
 \section{Reducing Language Sensitivity with LLM-Distilled Rephrasing Rules}
 
