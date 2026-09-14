@@ -178,7 +178,7 @@ verification, and applies zero-shot to unseen tasks and instructions.
 
 \section{Introduction}
 
-Recent years have brought enormous progress in vision-language models (VLMs), and it is natural to build robot policies, in the form of vision-language-action models (VLAs), as extensions of them, hoping they inherit VLM capabilities such as robustness to how an instruction is phrased. They do not. Telling $\pi_{0.5}$ to ``switch on the stove'' succeeds 100\% of the time; ``switch on the hot plate'', 2\%. Telling $\pi_0$ that the ``purple eggplant goes on the sponge'' succeeds 69\% of the time on a SIMPLER task; dropping the color adjective, 8\%. No one who has used a modern language model would expect this.
+Humans have long dreamed of general-purpose robots that help with everyday physical tasks; the dream remains elusive. Recent years have nonetheless brought enormous progress in generalist vision-language models (VLMs), and it is natural to build robot policies as extensions of them, in the form of vision-language-action models (VLAs). The hope is that a VLA inherits its VLM's capabilities, including robustness to how an instruction is phrased. It does not. Telling $\pi_{0.5}$ to ``switch on the stove'' succeeds 100\% of the time; ``switch on the hot plate'', 2\%. Telling $\pi_0$ that the ``purple eggplant goes on the sponge'' succeeds 69\% of the time on a SIMPLER task; dropping the color adjective, 8\%. No one who has used a modern language model would expect this.
 
 A robot that executes a task only under particular wording is not a robot that non-experts can instruct. The standard remedy is training-time augmentation: relabeling demonstrations with additional phrasings so that the policy sees more surface forms of each instruction~\cite{kwok2026scaling, xiao2023dial}. It helps: the $\pi_0$ checkpoint we study was finetuned on Bridge with rephrase augmentation~\cite{intact}, which in our measurement is worth a 20\% relative improvement on naturally phrased requests over the otherwise-identical non-augmented checkpoint. Yet it still exhibits the swings above, and this residual sensitivity is the problem we address. Two deployment-side families exist, and neither fills the gap. Test-time verification~\cite{kwok2026scaling} selects among many phrase-action candidates at every inference step; it leaves the weights untouched but multiplies inference cost, and in our setting it does not improve over the unmodified policy. Instruction optimization~\cite{bhatia2026sarl, shodiev2026grounder, myers2024palo} searches for the phrasing that best steers a frozen policy on a given task, but needs online interaction with each task, so nothing it learns transfers to an unseen one. No existing method is simultaneously weight-free, applied once per episode, and zero-shot to unseen tasks.
 
@@ -327,13 +327,13 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
 
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_bridge_body}\par}
-{\footnotesize\captionof{figure}{Single-edit swings for $\pi_0$ on SIMPLER Bridge: 29 phrase sets over 16 tasks, grouped by edit category (scenes in Fig.~\ref{fig:scenes-bridge}). Phrases in a set differ only in the highlighted span; each set is labelled by task, swing in percentage points, and p, the chance of a gap this large under a two-proportion z test. Numbers are success rates over n = 72 rollouts (basket task n = 180); green = best phrasing, red = worse. Swings range from 14 to 61\,pp.}\label{fig:pairs-bridge}}
+{\footnotesize\captionof{figure}{Single-edit swings for $\pi_0$ on SIMPLER Bridge, grouped by edit category; scenes in Fig.~\ref{fig:scenes-bridge}. n = 72 rollouts per phrase (basket task n = 180); p from a two-proportion z test between the best and worst phrase.}\label{fig:pairs-bridge}}
 
 \subsection{Single-Edit Swings for $\pi_{0.5}$ + LIBERO}
 
 {\scriptsize\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}%
 \input{figures/pairverify_libero_body}\par}
-{\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on LIBERO, formatted as Fig.~\ref{fig:pairs-bridge} (n = 50 per phrase; scenes in Fig.~\ref{fig:scenes-libero}); (in)/(out) marks in-/out-of-finetune tasks. Swings were harder to find than for $\pi_0$ but reach 98\,pp: ``fire up the stove'' succeeds 100\% of the time, ``turn on the stove'' 6\%.}\label{fig:pairs-libero}}
+{\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on LIBERO; scenes in Fig.~\ref{fig:scenes-libero}. n = 50 per phrase; p as in Fig.~\ref{fig:pairs-bridge}; (in)/(out) marks in-/out-of-finetune tasks.}\label{fig:pairs-libero}}
 
 \section{Reducing Language Sensitivity with LLM-Distilled Rephrasing Rules}
 
