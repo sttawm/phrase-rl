@@ -182,29 +182,44 @@ elif spec["kind"] == "score" and spec.get("method") == "libero_bank_eval":
     P = max(1, int(os.environ.get("LIBERO_PARALLEL", "1")))
     env = dict(os.environ, MUJOCO_GL="egl", PYOPENGL_PLATFORM="egl",
                PYTHONPATH=os.environ.get("LIBERO_PYTHONPATH", ""))
-    procs, outs = [], []
     import time as _time
-    for k in range(P):
-        # split by INIT, not by phrase: every sub-shard carries every phrase with
-        # a 1/P slice of the inits, so the P processes finish together instead of
-        # one 10-phrase leg collapsing to a single straggler process
+
+    def launch(k):
         sub = [dict(it, inits=it["inits"][k::P]) for it in items if it["inits"][k::P]]
         if not sub:
-            continue
+            return None
         qpath = (jdir / f"{jid}.queue{k}.json").resolve()
         json.dump(sub, open(qpath, "w"))
         out_jsonl = (jdir / f"{jid}.bankeval{k}.jsonl").resolve()
-        outs.append(out_jsonl)
         cmd = [py38, f"{ipi}/pi05_libero/eval/bank_eval.py",
                "--queue", str(qpath), "--out", str(out_jsonl),
                "--port", str(ro.get("port", 8000)),
                "--seed", str(ro.get("seed", 7))]
         print("libero_bank_eval:", " ".join(cmd), flush=True)
-        procs.append(subprocess.Popen(cmd, cwd=f"{ipi}/pi05_libero/eval", env=env))
-        _time.sleep(7)          # do not race a warming server
-    rcs = [pr.wait() for pr in procs]
-    if any(rcs):
-        raise SystemExit(f"bank_eval sub-shard(s) failed: rc={rcs}")
+        return subprocess.Popen(cmd, cwd=f"{ipi}/pi05_libero/eval", env=env), out_jsonl
+
+    # A bank_eval that connects while the server is mid-inference can lose the
+    # websocket handshake ("timed out during handshake") and exit 1 before
+    # rolling anything; bank_eval resumes per episode on its jsonl, so a failed
+    # sub-shard is simply relaunched. Stagger 15 s; up to 4 rounds.
+    pending, outs = list(range(P)), {}
+    for rnd in range(4):
+        procs = {}
+        for k in pending:
+            r = launch(k)
+            if r is None:
+                continue
+            procs[k], outs[k] = r
+            _time.sleep(15)
+        failed = [k for k, pr in procs.items() if pr.wait() != 0]
+        if not failed:
+            break
+        print(f"sub-shard(s) {failed} exited non-zero (round {rnd + 1}); relaunching", flush=True)
+        pending = failed
+        _time.sleep(30)
+    else:
+        raise SystemExit(f"bank_eval sub-shard(s) still failing after 4 rounds: {pending}")
+    outs = [outs[k] for k in sorted(outs)]
     rows = [json.loads(x) for o in outs for x in open(o) if x.strip()]
     raw = pd.DataFrame(rows)
     raw["task"] = raw.suite.astype(str) + ":" + raw.task_id.astype(str)
