@@ -301,6 +301,26 @@ Furthermore, we estimate the headroom that phrasing alone leaves a frozen VLA: i
 
 Our search algorithm is simple: first we generate many rephrases for each task (in fact, we use the exact evidence files used by our rules' distillers). Then, with the help of an LLM, we propose sets to test, based on the evidence, and we evaluate each phrase with many attempts in simulation. After gathering success rates per phrase, we retain only those sets where the difference in accuracy between the best and worst phrase is statistically significant, that is, they are unlikely to be explained by chance (see the lists for their exact p-scores). We manually filter out phrase sets with large gaps that are potentially explained by scene-based ambiguity. For $\pi_0$, we evaluate each phrase 72 times (24 layouts by 3 repetitions). For $\pi_{0.5}$, we evaluate each phrase once on each of 50 layouts. To further reduce noise in our measurements, we use common random seeds per layout / repetition pair. We note that it was qualitatively more challenging to find these phrase sets for $\pi_{0.5}$ than for $\pi_0$.
 
+\subsection{Patterns in the Swings}
+
+Several patterns emerge. Some swings hold across tasks and even across
+models: plate $\to$ dish costs $\pi_0$ 19 points and $\pi_{0.5}$ 56, and
+``hot plate'' is catastrophic wherever it appears (2\% as a source noun,
+0\% as a destination). Other swings do not transfer: adding ``purple'' to
+the eggplant gains 61 points on one task and costs 30 on another, so no
+static rule can satisfy both. Swings were also far easier to find on
+in-finetune tasks: of the 426 candidate pairs our $\pi_{0.5}$ search
+evaluated, 44\% of in-finetune pairs showed a significant swing
+($|\Delta| \ge 18$\,pp, $p < 0.05$), versus 5\% of out-of-finetune
+pairs --- a sign that finetuned performance rests on memorized phrasings,
+which a single word can break. Color shows the clearest asymmetry between
+the two models: on Bridge, an added color helps on out-of-corpus nouns
+(black keyboard, $+42$) and hurts on nouns the corpus knows bare (yellow
+plate, $-22$); on LIBERO, an added color only ever hurts (black bowl,
+$-20$). The common thread is plain naming: generic category words (can,
+dish, drink, thing) lose to the specific everyday name --- even one the
+training data never contained (pepsi beats soda by 39).
+
 \subsection{Oracle Phrase Search}
 \label{sec:oracle}
 
