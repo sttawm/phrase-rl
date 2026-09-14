@@ -335,6 +335,21 @@ standardized on final-state success.
 \section{Conclusion}
 \label{sec:conclusion}
 
+We showed that two modern VLAs remain strikingly sensitive to
+instruction phrasing, and that a simple, training-free remedy ---
+rephrasing rules distilled by an LLM from rollout evidence on a handful
+of tasks --- recovers much of the phrasing headroom on held-out tasks.
+
+Much remains. Rulebooks distilled from more tasks may yield larger
+gains, and a more formal reinforcement-learning treatment of phrasing is
+appealing, though it would likely demand far more simulatable tasks than
+we worked with. Our in-finetune rulebooks underperformed, possibly
+because of a weak proxy score; a cheaper, better proxy would avoid the
+cost of full rollouts. We evaluated the method on a single VLA and only
+in simulation; other VLAs and real robots are natural next steps. Most
+importantly, language sensitivity should be measured systematically
+across models --- and, the real goal, attributed to a cause.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendices
