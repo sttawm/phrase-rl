@@ -30,6 +30,12 @@ SEED = 20260914
 N_PER_HALF = 10
 IN_SUITES = ["libero_spatial", "libero_object", "libero_goal", "libero_10"]
 EXCLUDE = {("libero_10", 5)}
+# Post-draw skip (user decision 2026-09-14, after the in-finetune walk was seen):
+# libero_goal/7 holds 103 of the 426 single-edit pairs (24%) -- the stove ladder --
+# so sealing it would remove a quarter of the distillation evidence. It is skipped
+# in the walk exactly like a FLOOR task; the pool and permutation are unchanged, so
+# the replacement is simply the next task in the recorded order (libero_10/4).
+SKIP_POST_DRAW = {"libero_goal/7": "evidence share 103/426 pairs (24%)"}
 
 # ---- canonical episodes on inits 0-19 --------------------------------------
 def episodes():
@@ -76,13 +82,15 @@ n_tasks = {"libero_spatial": 10, "libero_object": 10, "libero_goal": 10, "libero
 pools = {"in_finetune": [(s, i) for s in IN_SUITES for i in range(n_tasks[s]) if (s, i) not in EXCLUDE],
          "out_of_finetune": [("libero_90", i) for i in range(90)]}
 out = {"seed": SEED, "n_per_half": N_PER_HALF, "floor_rule": "0/20 canonical successes on inits 0-19 (seed 7)",
-       "in_finetune_exclusions": sorted(f"{s}/{i}" for s, i in EXCLUDE), "halves": {}}
+       "in_finetune_exclusions": sorted(f"{s}/{i}" for s, i in EXCLUDE), "post_draw_skips": SKIP_POST_DRAW, "halves": {}}
 for name, pool in pools.items():
     rng = np.random.default_rng(SEED)
     perm = [pool[i] for i in rng.permutation(len(pool))]
     walk, accepted, needs = [], [], []
     for s, i in perm:
         st, k, src = status(s, i)
+        if f"{s}/{i}" in SKIP_POST_DRAW:
+            st, src = "SKIPPED", SKIP_POST_DRAW[f"{s}/{i}"]
         walk.append({"task": f"{s}/{i}", "status": st, "k_of_20": k, "source": src})
         if st == "ACCEPT":
             accepted.append(f"{s}/{i}")

@@ -5,6 +5,9 @@
  "in_finetune_exclusions": [
   "libero_10/5"
  ],
+ "post_draw_skips": {
+  "libero_goal/7": "evidence share 103/426 pairs (24%)"
+ },
  "halves": {
   "in_finetune": {
    "permutation": [
@@ -99,15 +102,21 @@
     },
     {
      "task": "libero_goal/7",
-     "status": "ACCEPT",
+     "status": "SKIPPED",
      "k_of_20": 20,
-     "source": "rounds"
+     "source": "evidence share 103/426 pairs (24%)"
     },
     {
      "task": "libero_goal/0",
      "status": "ACCEPT",
      "k_of_20": 18,
      "source": "fourtier"
+    },
+    {
+     "task": "libero_10/4",
+     "status": "ACCEPT",
+     "k_of_20": 20,
+     "source": "reserve_screen"
     }
    ],
    "accepted": [
@@ -119,8 +128,8 @@
     "libero_spatial/3",
     "libero_object/1",
     "libero_object/6",
-    "libero_goal/7",
-    "libero_goal/0"
+    "libero_goal/0",
+    "libero_10/4"
    ],
    "needs_screen_next": [],
    "complete": true
