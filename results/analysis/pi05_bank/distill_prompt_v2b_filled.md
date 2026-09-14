@@ -1,0 +1,286 @@
+You are given evidence from a robot-manipulation benchmark: for each task,
+a set of candidate instruction phrasings and a score for each phrasing
+(higher is better).
+
+| task | category | phrase | success % | n |
+|---|---|---|---|---|
+| libero_10/0 | canonical | put both the alphabet soup and the tomato sauce in the basket | 94 | 50 |
+| libero_10/0 | words removed | put both the soup and the tomato sauce in the basket | 96 | 50 |
+| libero_10/1 | canonical | put both the cream cheese box and the butter in the basket | 100 | 50 |
+| libero_10/1 | words removed | put both the cream cheese and the butter in the basket | 100 | 50 |
+| libero_10/2 | canonical | turn on the stove and put the moka pot on it | 94 | 50 |
+| libero_10/2 | object or place noun | turn on the stove and put the coffee pot on it | 100 | 50 |
+| libero_10/2 | verb or sentence frame | switch on the stove and put the moka pot on it | 94 | 50 |
+| libero_10/3 | canonical | put the black bowl in the bottom drawer of the cabinet and close it | 98 | 50 |
+| libero_10/3 | verb or sentence frame | put the black bowl in the bottom drawer of the cabinet and shut it | 96 | 50 |
+| libero_10/5 | canonical | pick up the book and place it in the back compartment of the caddy | 98 | 50 |
+| libero_10/5 | object or place noun | pick up the book and place it in the back slot of the caddy | 100 | 50 |
+| libero_10/8 | canonical | put both moka pots on the stove | 62 | 50 |
+| libero_10/8 | object or place noun | put both coffee pots on the stove | 66 | 50 |
+| libero_10/8 | object or place noun | put the moka pots on the stove | 66 | 50 |
+| libero_10/9 | canonical | put the yellow and white mug in the microwave and close it | 94 | 50 |
+| libero_10/9 | object or place noun | put the yellow and white cup in the microwave and close it | 94 | 50 |
+| libero_90/1 | canonical | close the top drawer of the cabinet and put the black bowl on top of it | 0 | 50 |
+| libero_90/1 | verb or sentence frame | close the top drawer of the cabinet and place the black bowl on top of it | 0 | 50 |
+| libero_90/1 | verb or sentence frame | shut the top drawer of the cabinet and put the black bowl on top of it | 0 | 50 |
+| libero_90/10 | canonical | put the black bowl on top of the cabinet | 94 | 50 |
+| libero_90/10 | colour word | put the grey bowl on top of the cabinet | 96 | 50 |
+| libero_90/10 | preposition or particle | place the black bowl up onto the cabinet | 60 | 50 |
+| libero_90/10 | verb or sentence frame | place the black bowl on top of the cabinet | 100 | 50 |
+| libero_90/15 | canonical | put the middle black bowl on top of the cabinet | 2 | 50 |
+| libero_90/15 | preposition or particle | put the middle black bowl atop the cabinet | 0 | 50 |
+| libero_90/15 | verb or sentence frame | place the middle black bowl on top of the cabinet | 10 | 50 |
+| libero_90/17 | canonical | stack the middle black bowl on the back black bowl | 0 | 50 |
+| libero_90/17 | object or place noun | stack the centre black bowl on the back black bowl | 0 | 50 |
+| libero_90/17 | object or place noun | stack the middle black bowl on the rear black bowl | 0 | 50 |
+| libero_90/17 | verb or sentence frame | put the middle black bowl on the back black bowl | 0 | 50 |
+| libero_90/19 | canonical | put the moka pot on the stove | 94 | 50 |
+| libero_90/19 | capitalisation | Put the moka pot on the stove | 92 | 50 |
+| libero_90/19 | object or place noun | put the moka pot on the burner | 96 | 50 |
+| libero_90/19 | object or place noun | put the moka pot on the hot plate | 92 | 50 |
+| libero_90/19 | object or place noun | put the coffee pot on the stove | 84 | 50 |
+| libero_90/19 | object or place noun | put the espresso pot on the stove | 84 | 50 |
+| libero_90/19 | punctuation | put the moka pot on the stove. | 90 | 50 |
+| libero_90/19 | verb or sentence frame | can you put the moka pot on the stove | 94 | 50 |
+| libero_90/19 | verb or sentence frame | i want the moka pot on the stove | 92 | 50 |
+| libero_90/19 | verb or sentence frame | the moka pot goes on the stove | 90 | 50 |
+| libero_90/19 | verb or sentence frame | the moka pot should be put on the stove | 90 | 50 |
+| libero_90/19 | words added | just put the moka pot on the stove | 92 | 50 |
+| libero_90/19 | words added | put the silver moka pot on the stove | 92 | 50 |
+| libero_90/21 | canonical | turn on the stove and put the frying pan on it | 0 | 50 |
+| libero_90/21 | verb or sentence frame | fire up the stove and put the frying pan on it | 0 | 50 |
+| libero_90/21 | verb or sentence frame | start the stove and put the frying pan on it | 0 | 50 |
+| libero_90/21 | verb or sentence frame | switch on the stove and put the frying pan on it | 0 | 50 |
+| libero_90/22 | canonical | close the bottom drawer of the cabinet | 96 | 50 |
+| libero_90/22 | colour word | close the bottom drawer of the wooden cabinet | 98 | 50 |
+| libero_90/22 | object or place noun | close the bottom drawer of the cupboard | 100 | 50 |
+| libero_90/22 | object or place noun | close the lower drawer of the cabinet | 100 | 50 |
+| libero_90/23 | canonical | close the bottom drawer of the cabinet and open the top drawer | 0 | 50 |
+| libero_90/23 | verb or sentence frame | push in the bottom drawer of the cabinet and open the top drawer | 0 | 50 |
+| libero_90/23 | verb or sentence frame | shut the bottom drawer of the cabinet and open the top drawer | 0 | 50 |
+| libero_90/24 | canonical | put the black bowl in the bottom drawer of the cabinet | 100 | 50 |
+| libero_90/24 | colour word | put the black bowl in the bottom drawer of the wooden cabinet | 100 | 50 |
+| libero_90/24 | object or place noun | put the black bowl in the bottom drawer of the cupboard | 100 | 50 |
+| libero_90/24 | object or place noun | put the black dish in the bottom drawer of the cabinet | 100 | 50 |
+| libero_90/24 | verb or sentence frame | can you put the black bowl in the bottom drawer of the cabinet | 100 | 50 |
+| libero_90/24 | verb or sentence frame | i want the black bowl in the bottom drawer of the cabinet | 100 | 50 |
+| libero_90/24 | verb or sentence frame | place the black bowl in the bottom drawer of the cabinet | 100 | 50 |
+| libero_90/24 | verb or sentence frame | the black bowl goes in the bottom drawer of the cabinet | 100 | 50 |
+| libero_90/24 | verb or sentence frame | the black bowl should be put in the bottom drawer of the cabinet | 100 | 50 |
+| libero_90/25 | canonical | put the black bowl on top of the cabinet | 0 | 50 |
+| libero_90/25 | colour word | put the bowl on top of the cabinet | 0 | 50 |
+| libero_90/25 | colour word | put the grey bowl on top of the cabinet | 0 | 50 |
+| libero_90/25 | preposition or particle | put the black bowl atop the cabinet | 0 | 50 |
+| libero_90/25 | verb or sentence frame | place the black bowl on top of the cabinet | 0 | 50 |
+| libero_90/28 | canonical | close the top drawer of the cabinet | 38 | 50 |
+| libero_90/28 | object or place noun | close the upper drawer of the cabinet | 38 | 50 |
+| libero_90/28 | verb or sentence frame | close the open top drawer of the white cabinet on the left | 48 | 50 |
+| libero_90/28 | verb or sentence frame | push in the open top drawer of the white cabinet on the left | 30 | 50 |
+| libero_90/30 | canonical | put the black bowl on the plate | 76 | 50 |
+| libero_90/30 | colour word | put the grey bowl on the plate | 72 | 50 |
+| libero_90/30 | object or place noun | put the dark bowl on the plate | 72 | 50 |
+| libero_90/30 | object or place noun | put the black bowl on the dish | 20 | 50 |
+| libero_90/31 | canonical | put the black bowl on top of the cabinet | 16 | 50 |
+| libero_90/31 | colour word | put the bowl on top of the cabinet | 36 | 50 |
+| libero_90/31 | colour word | put the grey bowl on top of the cabinet | 10 | 50 |
+| libero_90/31 | preposition or particle | put the black bowl atop the cabinet | 10 | 50 |
+| libero_90/31 | verb or sentence frame | place the black bowl on top of the cabinet | 14 | 50 |
+| libero_90/32 | canonical | put the ketchup in the top drawer of the cabinet | 0 | 50 |
+| libero_90/32 | preposition or particle | put the ketchup into the top drawer of the cabinet | 0 | 50 |
+| libero_90/32 | verb or sentence frame | place the ketchup in the top drawer of the cabinet | 0 | 50 |
+| libero_90/32 | verb or sentence frame | set the ketchup in the top drawer of the cabinet | 0 | 50 |
+| libero_90/34 | canonical | put the yellow and white mug to the front of the white mug | 0 | 50 |
+| libero_90/34 | preposition or particle | put the yellow and white mug in front of the white mug | 0 | 50 |
+| libero_90/34 | verb or sentence frame | move the yellow and white mug to the front of the white mug | 0 | 50 |
+| libero_90/34 | verb or sentence frame | place the yellow and white mug in front of the white mug | 0 | 50 |
+| libero_90/36 | canonical | put the white bowl on the plate | 0 | 50 |
+| libero_90/36 | object or place noun | put the white dish on the plate | 2 | 50 |
+| libero_90/36 | verb or sentence frame | place the white bowl on the plate | 4 | 50 |
+| libero_90/36 | verb or sentence frame | set the white bowl on the plate | 2 | 50 |
+| libero_90/37 | canonical | put the white bowl to the right of the plate | 0 | 50 |
+| libero_90/37 | preposition or particle | put the white bowl on the right of the plate | 0 | 50 |
+| libero_90/37 | verb or sentence frame | place the white bowl to the right of the plate | 0 | 50 |
+| libero_90/38 | canonical | put the right moka pot on the stove | 36 | 50 |
+| libero_90/38 | object or place noun | put the right moka pot on the hot plate | 40 | 50 |
+| libero_90/38 | verb or sentence frame | pick up the right moka pot and place it on the stove | 54 | 50 |
+| libero_90/38 | verb or sentence frame | lift the right moka pot and place it on the stove | 34 | 50 |
+| libero_90/39 | canonical | turn off the stove | 2 | 50 |
+| libero_90/39 | verb or sentence frame | power off the stove | 0 | 50 |
+| libero_90/39 | verb or sentence frame | shut off the stove | 0 | 50 |
+| libero_90/39 | verb or sentence frame | switch off the stove | 0 | 50 |
+| libero_90/41 | canonical | put the frying pan on top of the cabinet | 0 | 50 |
+| libero_90/41 | preposition or particle | put the frying pan atop the cabinet | 0 | 50 |
+| libero_90/41 | verb or sentence frame | place the frying pan on top of the cabinet | 2 | 50 |
+| libero_90/44 | canonical | turn on the stove | 6 | 50 |
+| libero_90/44 | verb or sentence frame | fire up the stove | 100 | 50 |
+| libero_90/44 | verb or sentence frame | ignite the stove | 100 | 50 |
+| libero_90/44 | verb or sentence frame | power on the stove | 100 | 50 |
+| libero_90/44 | verb or sentence frame | start the stove | 100 | 50 |
+| libero_90/44 | verb or sentence frame | switch on the stove | 100 | 50 |
+| libero_90/48 | canonical | pick up the ketchup and put it in the basket | 2 | 50 |
+| libero_90/48 | preposition or particle | pick up the ketchup and put it into the basket | 0 | 50 |
+| libero_90/48 | verb or sentence frame | grab the ketchup and put it in the basket | 2 | 50 |
+| libero_90/48 | verb or sentence frame | pick up the ketchup and place it in the basket | 0 | 50 |
+| libero_90/48 | verb or sentence frame | pick up the ketchup and set it in the basket | 0 | 50 |
+| libero_90/51 | canonical | pick up the butter and put it in the basket | 100 | 50 |
+| libero_90/51 | verb or sentence frame | lift the butter and put it in the basket | 100 | 50 |
+| libero_90/51 | verb or sentence frame | pick up the butter and place it in the basket | 100 | 50 |
+| libero_90/52 | canonical | pick up the milk and put it in the basket | 0 | 50 |
+| libero_90/52 | preposition or particle | pick up the milk and put it into the basket | 0 | 50 |
+| libero_90/52 | verb or sentence frame | grab the milk and put it in the basket | 0 | 50 |
+| libero_90/52 | verb or sentence frame | pick up the milk and place it in the basket | 0 | 50 |
+| libero_90/52 | verb or sentence frame | pick up the milk and set it in the basket | 0 | 50 |
+| libero_90/57 | canonical | pick up the cream cheese and put it in the tray | 98 | 50 |
+| libero_90/57 | verb or sentence frame | grab the cream cheese and put it in the tray | 100 | 50 |
+| libero_90/57 | verb or sentence frame | lift the cream cheese and put it in the tray | 100 | 50 |
+| libero_90/57 | verb or sentence frame | pick up the cream cheese and place it in the tray | 98 | 50 |
+| libero_90/57 | words added | pick up the cream cheese box and put it in the tray | 100 | 50 |
+| libero_90/66 | canonical | put the red mug on the right plate | 0 | 50 |
+| libero_90/66 | object or place noun | put the red cup on the right plate | 0 | 50 |
+| libero_90/66 | verb or sentence frame | place the red mug on the right plate | 0 | 50 |
+| libero_90/66 | verb or sentence frame | set the red mug on the right plate | 0 | 50 |
+| libero_90/71 | canonical | put the red mug on the plate | 0 | 50 |
+| libero_90/71 | object or place noun | put the red cup on the plate | 0 | 50 |
+| libero_90/71 | verb or sentence frame | place the red mug on the plate | 0 | 50 |
+| libero_90/71 | verb or sentence frame | set the red mug on the plate | 0 | 50 |
+| libero_90/72 | canonical | put the white mug on the plate | 94 | 50 |
+| libero_90/72 | capitalisation | Put the white mug on the plate | 98 | 50 |
+| libero_90/72 | determiner | put that white mug on the plate | 98 | 50 |
+| libero_90/72 | object or place noun | put the white mug on the dish | 100 | 50 |
+| libero_90/72 | object or place noun | put the white cup on the plate | 94 | 50 |
+| libero_90/72 | punctuation | put the white mug on the plate. | 94 | 50 |
+| libero_90/72 | words added | put the white mug on the round plate | 96 | 50 |
+| libero_90/78 | canonical | pick up the book and place it in the front compartment of the caddy | 0 | 50 |
+| libero_90/78 | object or place noun | pick up the book and place it in the front slot of the caddy | 0 | 50 |
+| libero_90/78 | verb or sentence frame | pick up the book and put it in the front compartment of the caddy | 0 | 50 |
+| libero_90/78 | verb or sentence frame | place the book in the front compartment of the caddy | 0 | 50 |
+| libero_90/78 | verb or sentence frame | put the book in the front compartment of the caddy | 0 | 50 |
+| libero_90/81 | canonical | pick up the book and place it in the front compartment of the caddy | 0 | 50 |
+| libero_90/81 | object or place noun | pick up the book and place it in the front slot of the caddy | 0 | 50 |
+| libero_90/81 | verb or sentence frame | pick up the book and put it in the front compartment of the caddy | 0 | 50 |
+| libero_90/81 | verb or sentence frame | place the book in the front compartment of the caddy | 0 | 50 |
+| libero_90/81 | verb or sentence frame | put the book in the front compartment of the caddy | 0 | 50 |
+| libero_90/82 | object or place noun | place the black book into the left compartment of the brown caddy | 22 | 50 |
+| libero_90/82 | preposition or particle | place the black book inside the left slot of the brown caddy | 38 | 50 |
+| libero_90/82 | preposition or particle | place the black book into the left slot of the brown caddy | 34 | 50 |
+| libero_90/9 | canonical | put the black bowl on the plate | 98 | 50 |
+| libero_90/9 | colour word | put the grey bowl on the plate | 90 | 50 |
+| libero_90/9 | object or place noun | put the black bowl on the dish | 90 | 50 |
+| libero_90/9 | object or place noun | put the dark bowl on the plate | 88 | 50 |
+| libero_90/9 | preposition or particle | put the black bowl onto the plate | 90 | 50 |
+| libero_90/9 | verb or sentence frame | i want the black bowl on the plate | 94 | 50 |
+| libero_90/9 | verb or sentence frame | the black bowl should be put on the plate | 94 | 50 |
+| libero_90/9 | verb or sentence frame | the black bowl goes on the plate | 92 | 50 |
+| libero_90/9 | verb or sentence frame | can you put the black bowl on the plate | 84 | 50 |
+| libero_goal/2 | canonical | put the wine bottle on top of the cabinet | 100 | 50 |
+| libero_goal/2 | object or place noun | put the wine bottle on top of the cupboard | 98 | 50 |
+| libero_goal/2 | object or place noun | put the wine jug on top of the cabinet | 96 | 50 |
+| libero_goal/2 | preposition or particle | put the wine bottle up onto the cabinet | 98 | 50 |
+| libero_goal/4 | canonical | put the bowl on top of the cabinet | 98 | 50 |
+| libero_goal/4 | object or place noun | put the bowl on top of the cupboard | 100 | 50 |
+| libero_goal/4 | object or place noun | put the dish on top of the cabinet | 92 | 50 |
+| libero_goal/4 | preposition or particle | put the bowl up onto the cabinet | 94 | 50 |
+| libero_goal/4 | verb or sentence frame | i want the bowl on top of the cabinet | 100 | 50 |
+| libero_goal/4 | verb or sentence frame | the bowl should be put on top of the cabinet | 100 | 50 |
+| libero_goal/4 | verb or sentence frame | can you put the bowl on top of the cabinet | 98 | 50 |
+| libero_goal/4 | verb or sentence frame | the bowl goes on top of the cabinet | 96 | 50 |
+| libero_goal/5 | object or place noun | Go ahead and push the plate right up to the front of the stove. | 98 | 50 |
+| libero_goal/5 | object or place noun | push the plate to the front of the stove | 98 | 50 |
+| libero_goal/5 | object or place noun | slide that plate over to the front of the stove | 62 | 50 |
+| libero_goal/5 | object or place noun | slide that dish over to the front of the stove | 2 | 50 |
+| libero_goal/5 | object or place noun | Slide that dish over to the front of the stove. | 0 | 50 |
+| libero_goal/5 | object or place noun | slide that flat dish over to the front of the stove | 0 | 50 |
+| libero_goal/7 | canonical | turn on the stove | 100 | 50 |
+| libero_goal/7 | object or place noun | switch on the electric stove | 100 | 50 |
+| libero_goal/7 | object or place noun | turn on the burner | 100 | 50 |
+| libero_goal/7 | object or place noun | switch on the stovetop | 100 | 50 |
+| libero_goal/7 | object or place noun | turn on the burners | 100 | 50 |
+| libero_goal/7 | object or place noun | power on the stove burner | 100 | 50 |
+| libero_goal/7 | object or place noun | switch on the range | 86 | 50 |
+| libero_goal/7 | object or place noun | turn the black knob to start the burner | 86 | 50 |
+| libero_goal/7 | object or place noun | switch on the cooker | 84 | 50 |
+| libero_goal/7 | object or place noun | turn the black knob to activate the burner | 84 | 50 |
+| libero_goal/7 | object or place noun | switch on the hob | 78 | 50 |
+| libero_goal/7 | object or place noun | switch on the cooktop | 74 | 50 |
+| libero_goal/7 | object or place noun | switch on the heating element | 66 | 50 |
+| libero_goal/7 | object or place noun | switch on the burner | 64 | 50 |
+| libero_goal/7 | object or place noun | switch on the griddle | 62 | 50 |
+| libero_goal/7 | object or place noun | start the burners | 48 | 50 |
+| libero_goal/7 | object or place noun | start the burner | 40 | 50 |
+| libero_goal/7 | object or place noun | switch on the hotplate | 30 | 50 |
+| libero_goal/7 | object or place noun | switch on the hot plate | 2 | 50 |
+| libero_goal/7 | object or place noun | switch on the electric hot plate | 2 | 50 |
+| libero_goal/7 | verb or sentence frame | start the stove | 100 | 50 |
+| libero_goal/7 | verb or sentence frame | switch on the stove | 100 | 50 |
+| libero_goal/7 | verb or sentence frame | power on the hot plate | 0 | 50 |
+| libero_goal/7 | words added | could you turn on the stove | 100 | 50 |
+| libero_goal/8 | canonical | put the bowl on the plate | 100 | 50 |
+| libero_goal/8 | capitalisation | Put the bowl on the plate | 100 | 50 |
+| libero_goal/8 | object or place noun | put the dish on the plate | 100 | 50 |
+| libero_goal/8 | object or place noun | put the bowl on the dish | 48 | 50 |
+| libero_goal/8 | object or place noun | put the bowl on the flat dish | 36 | 50 |
+| libero_goal/8 | punctuation | put the bowl on the plate. | 100 | 50 |
+| libero_goal/8 | verb or sentence frame | can you put the bowl on the plate | 100 | 50 |
+| libero_goal/8 | verb or sentence frame | i want the bowl on the plate | 100 | 50 |
+| libero_goal/8 | verb or sentence frame | the bowl goes on the plate | 100 | 50 |
+| libero_goal/8 | verb or sentence frame | the bowl should be put on the plate | 100 | 50 |
+| libero_goal/9 | canonical | put the wine bottle on the rack | 94 | 50 |
+| libero_goal/9 | object or place noun | put the wine jug on the rack | 98 | 50 |
+| libero_goal/9 | object or place noun | put the wine bottle on the stand | 76 | 50 |
+| libero_goal/9 | object or place noun | put the wine bottle on the wooden stand | 50 | 50 |
+| libero_object/0 | canonical | pick up the alphabet soup and place it in the basket | 100 | 50 |
+| libero_object/0 | object or place noun | pick up the can and place it in the basket | 92 | 50 |
+| libero_object/0 | object or place noun | pick up the tin and place it in the basket | 90 | 50 |
+| libero_object/0 | object or place noun | pick up the food and place it in the basket | 86 | 50 |
+| libero_object/0 | words removed | pick up the soup and place it in the basket | 100 | 50 |
+| libero_object/2 | canonical | pick up the salad dressing and place it in the basket | 100 | 50 |
+| libero_object/2 | object or place noun | pick up the bottle and place it in the basket | 74 | 50 |
+| libero_object/2 | verb or sentence frame | lift the salad dressing and place it in the basket | 98 | 50 |
+| libero_object/2 | words removed | pick up the dressing and place it in the basket | 100 | 50 |
+| libero_object/3 | canonical | pick up the bbq sauce and place it in the basket | 98 | 50 |
+| libero_object/3 | object or place noun | pick up the condiment and place it in the basket | 82 | 50 |
+| libero_object/3 | object or place noun | pick up the bottle and place it in the basket | 60 | 50 |
+| libero_object/4 | canonical | pick up the ketchup and place it in the basket | 98 | 50 |
+| libero_object/4 | object or place noun | pick up the bottle and place it in the basket | 96 | 50 |
+| libero_object/4 | object or place noun | pick up the red bottle and place it in the basket | 58 | 50 |
+| libero_object/4 | object or place noun | pick up the sauce and place it in the basket | 2 | 50 |
+| libero_object/5 | canonical | pick up the tomato sauce and place it in the basket | 94 | 50 |
+| libero_object/5 | object or place noun | pick up the can and place it in the basket | 90 | 50 |
+| libero_object/5 | object or place noun | pick up the bottle and place it in the basket | 80 | 50 |
+| libero_object/5 | words removed | pick up the sauce and place it in the basket | 96 | 50 |
+| libero_object/7 | canonical | pick up the milk and place it in the basket | 100 | 50 |
+| libero_object/7 | object or place noun | pick up the carton and place it in the basket | 96 | 50 |
+| libero_object/7 | object or place noun | pick up the drink and place it in the basket | 94 | 50 |
+| libero_object/8 | canonical | pick up the chocolate pudding and place it in the basket | 100 | 50 |
+| libero_object/8 | object or place noun | pick up the snack and place it in the basket | 96 | 50 |
+| libero_object/8 | object or place noun | pick up the cup and place it in the basket | 64 | 50 |
+| libero_object/9 | canonical | pick up the orange juice and place it in the basket | 98 | 50 |
+| libero_object/9 | colour word | pick up the juice and place it in the basket | 96 | 50 |
+| libero_object/9 | object or place noun | pick up the drink and place it in the basket | 20 | 50 |
+| libero_object/9 | object or place noun | pick up the bottle and place it in the basket | 12 | 50 |
+| libero_object/9 | object or place noun | pick up the carton and place it in the basket | 12 | 50 |
+| libero_spatial/1 | canonical | pick up the black bowl next to the ramekin and place it on the plate | 100 | 50 |
+| libero_spatial/1 | object or place noun | pick up the black bowl next to the dish and place it on the plate | 62 | 50 |
+| libero_spatial/4 | canonical | pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate | 90 | 50 |
+| libero_spatial/4 | colour word | pick up the black bowl in the top drawer of the cabinet and place it on the plate | 96 | 50 |
+| libero_spatial/4 | object or place noun | pick up the black bowl in the upper drawer of the wooden cabinet and place it on the plate | 90 | 50 |
+| libero_spatial/5 | canonical | pick up the black bowl on the ramekin and place it on the plate | 96 | 50 |
+| libero_spatial/5 | object or place noun | pick up the dark bowl on the ramekin and place it on the plate | 98 | 50 |
+| libero_spatial/5 | object or place noun | pick up the black bowl on the ramekin and place it on the dish | 96 | 50 |
+| libero_spatial/5 | object or place noun | pick up the black bowl on the dish and place it on the plate | 86 | 50 |
+| libero_spatial/5 | preposition or particle | pick up the black bowl on the ramekin and place it onto the plate | 92 | 50 |
+| libero_spatial/5 | verb or sentence frame | lift the black bowl on the ramekin and place it on the plate | 100 | 50 |
+| libero_spatial/8 | canonical | pick up the black bowl next to the plate and place it on the plate | 98 | 50 |
+| libero_spatial/8 | preposition or particle | pick up the black bowl beside the plate and place it on the plate | 100 | 50 |
+| libero_spatial/9 | canonical | pick up the black bowl on the wooden cabinet and place it on the plate | 98 | 50 |
+| libero_spatial/9 | colour word | pick up the black bowl on the cabinet and place it on the plate | 94 | 50 |
+| libero_spatial/9 | object or place noun | pick up the black bowl on the wood cabinet and place it on the plate | 96 | 50 |
+
+Write a rulebook of 10-20 numbered rules for rewriting any incoming task
+instruction so that the robot is most likely to succeed. Judge each rule by
+its expected effect on average over the tasks where it would apply: a rule
+is worth including when the score gains it produces outweigh the losses,
+in size and in frequency, even if it loses on some tasks. Prefer rules that
+change wording over rules that only forbid changes, and keep rules general
+enough to apply to instructions and objects not in the evidence. Output only
+the numbered rules.
