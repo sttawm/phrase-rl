@@ -18,6 +18,7 @@
 \usepackage{url}
 \usepackage{capt-of}
 \usepackage{booktabs}
+\usepackage{balance}
 
 \lstset{basicstyle=\ttfamily\scriptsize,
         breaklines=true,
@@ -45,7 +46,8 @@ Reducing a VLA's Language Sensitivity Using LLM-Distilled Instruction-Phrasing R
 \author{Mikey Watts$^{1}$ and Yuchen Cui$^{2}$% <-this % stops a space
 \thanks{$^{1}$Mikey Watts is an independent researcher in Los Angeles
         {\tt\small mikeywatts@berkeley.edu}}%
-\thanks{$^{2}$Yuchen Cui is with the University of California, Los Angeles}% TODO: add email
+\thanks{$^{2}$Yuchen Cui is with the University of California, Los Angeles
+        {\tt\small yuchencui@cs.ucla.edu}}%
 }
 
 
@@ -338,7 +340,9 @@ standardized on final-state success.
 We showed that two modern VLAs remain strikingly sensitive to
 instruction phrasing, and that a simple, training-free remedy ---
 rephrasing rules distilled by an LLM from rollout evidence on a handful
-of tasks --- recovers much of the phrasing headroom on held-out tasks.
+of tasks --- recovers much of the phrasing headroom on held-out tasks. Our
+rulebooks, prompts, and evaluation artifacts are available in the
+project repository.\footnote{\url{https://github.com/sttawm/phrase-rl}}
 
 Much remains. Rulebooks distilled from more tasks may yield larger
 gains, and a more formal reinforcement-learning treatment of phrasing is
@@ -408,6 +412,7 @@ figure and table captions and the Statistical Tests appendix, and
 provided grammar editing. The authors reviewed and are responsible for
 all content.
 
+\balance
 \begin{thebibliography}{99}
 
 \bibitem{kwok2026scaling}
