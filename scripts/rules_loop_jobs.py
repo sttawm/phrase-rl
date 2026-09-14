@@ -185,7 +185,10 @@ elif spec["kind"] == "score" and spec.get("method") == "libero_bank_eval":
     procs, outs = [], []
     import time as _time
     for k in range(P):
-        sub = items[k::P]
+        # split by INIT, not by phrase: every sub-shard carries every phrase with
+        # a 1/P slice of the inits, so the P processes finish together instead of
+        # one 10-phrase leg collapsing to a single straggler process
+        sub = [dict(it, inits=it["inits"][k::P]) for it in items if it["inits"][k::P]]
         if not sub:
             continue
         qpath = (jdir / f"{jid}.queue{k}.json").resolve()
