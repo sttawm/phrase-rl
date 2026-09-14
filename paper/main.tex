@@ -294,12 +294,12 @@ This benchmark~\cite{liu2023libero} consists of 130 simulatable tabletop tasks. 
 \section{Characterizing a VLA's Language Sensitivity}
 \label{sec:minimal-pairs}
 
-To give a concrete sense of the language sensitivity of $\pi_0$ and $\pi_{0.5}$, we present \emph{single-edit swings}: sets of phrases in which a minimal edit produces a large performance swing. The sets are listed in Fig.~\ref{fig:pairs-bridge} and Fig.~\ref{fig:pairs-libero}, and the corresponding scenes are in Appendix~\ref{app:scenes}. 
+To give a concrete sense of the language sensitivity of $\pi_0$ and $\pi_{0.5}$, we present \emph{single-edit swings}: sets of phrases in which a minimal edit produces a large performance swing. The sets are charted in Fig.~\ref{fig:pairs-bridge} and Fig.~\ref{fig:pairs-libero}, and the corresponding scenes are in Appendix~\ref{app:scenes}. 
 Furthermore, we estimate the headroom that phrasing alone leaves a frozen VLA: if an \textit{oracle} chose the best phrase per task, how much would its success rate improve?
 
 \subsection{Finding Single-Edit Swings}
 
-Our search algorithm is simple: first we generate many rephrases for each task (in fact, we use the exact evidence files used by our rules' distillers). Then, with the help of an LLM, we propose sets to test, based on the evidence, and we evaluate each phrase with many attempts in simulation. After gathering success rates per phrase, we retain only those sets where the difference in accuracy between the best and worst phrase is statistically significant, that is, they are unlikely to be explained by chance (see the lists for their exact p-scores). We manually filter out phrase sets with large gaps that are potentially explained by scene-based ambiguity. For $\pi_0$, we evaluate each phrase 72 times (24 layouts by 3 repetitions). For $\pi_{0.5}$, we evaluate each phrase once on each of 50 layouts. To further reduce noise in our measurements, we use common random seeds per layout / repetition pair. We note that it was qualitatively more challenging to find these phrase sets for $\pi_{0.5}$ than for $\pi_0$.
+Our search algorithm is simple: first we generate many rephrases for each task (in fact, we use the exact evidence files used by our rules' distillers). Then, with the help of an LLM, we propose sets to test, based on the evidence, and we evaluate each phrase with many attempts in simulation. After gathering success rates per phrase, we retain only those sets where the difference in accuracy between the best and worst phrase is statistically significant, that is, they are unlikely to be explained by chance (the full set of significant sets, with exact p-values, is charted in the project repository\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}\label{fn:repo}}). We manually filter out phrase sets with large gaps that are potentially explained by scene-based ambiguity. For $\pi_0$, we evaluate each phrase 72 times (24 layouts by 3 repetitions). For $\pi_{0.5}$, we evaluate each phrase once on each of 50 layouts. To further reduce noise in our measurements, we use common random seeds per layout / repetition pair. We note that it was qualitatively more challenging to find these phrase sets for $\pi_{0.5}$ than for $\pi_0$.
 
 \subsection{Patterns in the Swings}
 
@@ -345,15 +345,13 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
 
 \subsection{Single-Edit Swings for $\pi_0$ + Bridge}
 
-{\scriptsize\raggedright\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}\setlength{\parskip}{0pt}%
-\input{figures/pairverify_bridge_body}\par}
-{\footnotesize\captionof{figure}{Single-edit swings for $\pi_0$ on SIMPLER Bridge: 28 phrase sets over 16 tasks, grouped by edit category (scenes in Fig.~\ref{fig:scenes-bridge}). Phrases in a set differ only in the highlighted span; each set is labelled by task, swing in percentage points, and p, the chance of a gap this large under a two-proportion z test. Numbers are success rates over n = 72 rollouts (basket task n = 180); green = best phrasing, red = worse. Swings range from 14 to 61\,pp.}\label{fig:pairs-bridge}}
+{\centering\includegraphics[width=\columnwidth]{figures/swings_bridge_thinned.pdf}\par}
+{\footnotesize\captionof{figure}{Single-edit swings for $\pi_0$ on SIMPLER Bridge: 25 significant phrase sets over 15 tasks, one per task and edit category, sorted by swing (scenes in Fig.~\ref{fig:scenes-bridge}). Each row is one set; its phrases differ by a single edit of the labelled category. Dots are the phrases' success rates over n = 72 rollouts (basket task n = 180), the filled dot is the best phrasing, and the right column is the swing in percentage points; p, the chance of a gap this large under a two-proportion z test, is below 0.05 for every set. Swings range from 14 to 61\,pp.}\label{fig:pairs-bridge}}
 
 \subsection{Single-Edit Swings for $\pi_{0.5}$ + LIBERO}
 
-{\scriptsize\raggedright\setlength{\fboxsep}{1.1pt}\setlength{\parindent}{0pt}\setlength{\parskip}{0pt}%
-\input{figures/pairverify_libero_body}\par}
-{\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on LIBERO, formatted as Fig.~\ref{fig:pairs-bridge} (n = 50 per phrase; scenes in Fig.~\ref{fig:scenes-libero}). Swings were harder to find than for $\pi_0$ but reach 98\,pp: ``fire up the stove'' succeeds 100\% of the time, ``turn on the stove'' 6\%.}\label{fig:pairs-libero}}
+{\centering\includegraphics[width=\columnwidth]{figures/swings_libero_thinned.pdf}\par}
+{\footnotesize\captionof{figure}{Single-edit swings for $\pi_{0.5}$ on LIBERO, formatted as Fig.~\ref{fig:pairs-bridge} (23 sets over 19 tasks; n = 50 per phrase; scenes in Fig.~\ref{fig:scenes-libero}). Swings were harder to find than for $\pi_0$ but reach 100\,pp; ``fire up the stove'' succeeds 100\% of the time, ``turn on the stove'' 6\%.}\label{fig:pairs-libero}}
 
 \section{Reducing Language Sensitivity with LLM-Distilled Rephrasing Rules}
 
@@ -369,12 +367,12 @@ Rule-distillation requires that each phrase gets a score, so that phrases are co
 
 \subsection{Distilling Rules}
 
-To distill the evidence into a set of rules, we prompt Claude to derive rules with the prompt provided in the project repository.\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}\label{fn:repo}} We test three rulebook types, distinguished by the evidence they see: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
+To distill the evidence into a set of rules, we prompt Claude to derive rules with the prompt provided in the project repository.\footref{fn:repo} We test three rulebook types, distinguished by the evidence they see: in-finetune, out-of-finetune, and both. Since rule-distillation is stochastic, we distill each type of rulebook three times, and during evaluation we average their results. In our experiments, rulebooks contain somewhere between 10 and 20 rules.
 
 For rulebooks distilled from phrases from the finetuning dataset, we further provide the full set of finetuning phrases so that the distiller may make use of corpus statistics such as how frequently objects occur in the finetuning data, the most common phrase structures, etc. Due to cost constraints, we use Claude Fable to generate the first three rulebooks (one each of in-finetune, out-of-finetune, and both), and then we repeat twice more with Claude Opus 5. Our results do not suggest this choice mattered.
 
 All distilled rulebooks are available in the project
-repository.\footnotemark[\ref{fn:repo}]
+repository.\footref{fn:repo}
 
 \subsection{Applying Rules}
 
