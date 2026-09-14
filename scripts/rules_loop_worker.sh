@@ -16,7 +16,9 @@ cd /workspace/phrase-rl
 RUN_ID="${RUN_ID:?set RUN_ID}"
 JOBS="results/rules_runs/$RUN_ID/jobs"
 export "$(tr '\0' '\n' < /proc/1/environ | grep '^RUNPOD_POD_ID=')" 2>/dev/null || true
-POD="${RUNPOD_POD_ID:-$(hostname)}"
+# WORKER_ID lets several workers share one pod (each claims its own job);
+# the claim arbiter compares this string, so it must differ per worker
+POD="${WORKER_ID:-${RUNPOD_POD_ID:-$(hostname)}}"
 # identity must live in the repo config, not the launching session's env: a
 # worker relaunched in a fresh tmux lost it and wedged on an un-committable result
 git config user.email >/dev/null 2>&1 || git config user.email "worker@phrase-rl.local"

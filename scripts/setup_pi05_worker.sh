@@ -137,6 +137,7 @@ export INTERACTIVE_PI_ROOT=/workspace/interactive-vlas
 export LIBERO_PY=$LIBERO_VENV/bin/python
 export LIBERO_PYTHONPATH=$LIBERO_PYTHONPATH
 export MUJOCO_GL=egl
+export LIBERO_PARALLEL=${LIBERO_PARALLEL:-6}   # bank_eval sub-shards per job (rules_loop_jobs.py)
 export PYOPENGL_PLATFORM=egl
 ENV
     st_env=ok

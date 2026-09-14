@@ -175,18 +175,34 @@ elif spec["kind"] == "score" and spec.get("method") == "libero_bank_eval":
                       "canonical": "", "arm": "loop",
                       "phrase": str(r.phrase),
                       "inits": [int(i) for i in ro["inits"]]})
-    qpath = (jdir / f"{jid}.queue.json").resolve()
-    json.dump(items, open(qpath, "w"))
-    out_jsonl = (jdir / f"{jid}.bankeval.jsonl").resolve()
-    cmd = [py38, f"{ipi}/pi05_libero/eval/bank_eval.py",
-           "--queue", str(qpath), "--out", str(out_jsonl),
-           "--port", str(ro.get("port", 8000)),
-           "--seed", str(ro.get("seed", 7))]
+    # LIBERO_PARALLEL bank_eval processes share the pod's policy server (one
+    # process is ~12 s/episode; eight together sustain ~4.5 s/episode aggregate
+    # on a 4090). Items are split round-robin; each sub-shard has its own queue
+    # and resume-safe jsonl, so a retried job continues every sub-shard.
+    P = max(1, int(os.environ.get("LIBERO_PARALLEL", "1")))
     env = dict(os.environ, MUJOCO_GL="egl", PYOPENGL_PLATFORM="egl",
                PYTHONPATH=os.environ.get("LIBERO_PYTHONPATH", ""))
-    print("libero_bank_eval:", " ".join(cmd), flush=True)
-    subprocess.run(cmd, check=True, cwd=f"{ipi}/pi05_libero/eval", env=env)
-    rows = [json.loads(x) for x in open(out_jsonl) if x.strip()]
+    procs, outs = [], []
+    import time as _time
+    for k in range(P):
+        sub = items[k::P]
+        if not sub:
+            continue
+        qpath = (jdir / f"{jid}.queue{k}.json").resolve()
+        json.dump(sub, open(qpath, "w"))
+        out_jsonl = (jdir / f"{jid}.bankeval{k}.jsonl").resolve()
+        outs.append(out_jsonl)
+        cmd = [py38, f"{ipi}/pi05_libero/eval/bank_eval.py",
+               "--queue", str(qpath), "--out", str(out_jsonl),
+               "--port", str(ro.get("port", 8000)),
+               "--seed", str(ro.get("seed", 7))]
+        print("libero_bank_eval:", " ".join(cmd), flush=True)
+        procs.append(subprocess.Popen(cmd, cwd=f"{ipi}/pi05_libero/eval", env=env))
+        _time.sleep(7)          # do not race a warming server
+    rcs = [pr.wait() for pr in procs]
+    if any(rcs):
+        raise SystemExit(f"bank_eval sub-shard(s) failed: rc={rcs}")
+    rows = [json.loads(x) for o in outs for x in open(o) if x.strip()]
     raw = pd.DataFrame(rows)
     raw["task"] = raw.suite.astype(str) + ":" + raw.task_id.astype(str)
     want = {(str(r.task), str(r.phrase)) for r in pl.itertuples()}
