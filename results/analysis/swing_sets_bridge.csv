@@ -1,0 +1,89 @@
+set_id,task,category,phrase,succ_pct,is_best,set_gap_pp,max_z,n_each
+carrot_on_keyboard|carrot_on_keyboard_clean,carrot_on_keyboard,destination noun,place the carrot on the keyboard keys,25.0,True,18.1,2.97,72
+carrot_on_keyboard|carrot_on_keyboard_clean,carrot_on_keyboard,destination noun,put the carrot on the black keyboard,25.0,True,18.1,2.97,72
+carrot_on_keyboard|carrot_on_keyboard_clean,carrot_on_keyboard,destination noun,put the carrot on the keys,6.9,False,18.1,2.97,72
+carrot_on_ramekin|A06_prep_in_inside,carrot_on_ramekin,preposition,Place the carrot inside the ramekin.,40.3,True,19.5,2.54,72
+carrot_on_ramekin|A06_prep_in_inside,carrot_on_ramekin,preposition,Place the carrot in the ramekin.,20.8,False,19.5,2.54,72
+carrot_on_ramekin|A16_noun_vegetable_carrot,carrot_on_ramekin,source noun,Pick up the orange carrot and place it in the white bowl.,47.2,True,37.5,4.99,72
+carrot_on_ramekin|A16_noun_vegetable_carrot,carrot_on_ramekin,source noun,Pick up the orange vegetable and place it in the white bowl.,9.7,False,37.5,4.99,72
+carrot_on_wheel|carrot_on_wheel_clean,carrot_on_wheel,destination noun,put the carrot on the black wheel,30.6,True,25.0,3.9,72
+carrot_on_wheel|carrot_on_wheel_clean,carrot_on_wheel,destination noun,put the carrot on the wheel,12.5,False,25.0,3.9,72
+carrot_on_wheel|carrot_on_wheel_clean,carrot_on_wheel,destination noun,put the carrot on the tire,5.6,False,25.0,3.9,72
+carrot_on_wheel|carrot_on_wheel_clean,carrot_on_wheel,destination noun,put the carrot on the rim,5.6,False,25.0,3.9,72
+coke_can_on_keyboard|A15_noun_can_cylinder,coke_can_on_keyboard,source noun,Put the red soda cylinder on top of the black keyboard.,45.8,True,41.6,5.76,72
+coke_can_on_keyboard|A15_noun_can_cylinder,coke_can_on_keyboard,source noun,Put the red soda can on top of the black keyboard.,4.2,False,41.6,5.76,72
+coke_can_on_keyboard|Rn1_can_coke,coke_can_on_keyboard,source noun,set the coke on top of the keyboard,31.9,True,31.9,5.23,72
+coke_can_on_keyboard|Rn1_can_coke,coke_can_on_keyboard,source noun,set the can on top of the keyboard,0.0,False,31.9,5.23,72
+coke_can_on_plate|A17_noun_dish_plate,coke_can_on_plate,destination noun,put the coke can on the plate,61.1,True,19.4,2.33,72
+coke_can_on_plate|A17_noun_dish_plate,coke_can_on_plate,destination noun,put the coke can on the dish,41.7,False,19.4,2.33,72
+coke_can_on_plate|coke_can_on_plate_clean,coke_can_on_plate,destination noun,put the coke on the plate,66.7,True,32.0,3.84,72
+coke_can_on_plate|coke_can_on_plate_clean,coke_can_on_plate,destination noun,put the coke can on the plate,61.1,False,32.0,3.84,72
+coke_can_on_plate|coke_can_on_plate_clean,coke_can_on_plate,destination noun,put the coke can on top of the plate,52.8,False,32.0,3.84,72
+coke_can_on_plate|coke_can_on_plate_clean,coke_can_on_plate,destination noun,put the coke can on the yellow plate,44.4,False,32.0,3.84,72
+coke_can_on_plate|coke_can_on_plate_clean,coke_can_on_plate,destination noun,put the coke can on the dish,41.7,False,32.0,3.84,72
+coke_can_on_plate|coke_can_on_plate_clean,coke_can_on_plate,destination noun,put the can on the plate,34.7,False,32.0,3.84,72
+coke_can_on_ramekin|ramekin_ladder,coke_can_on_ramekin,destination noun,place the red cola can inside the white container,73.6,True,41.7,5.01,72
+coke_can_on_ramekin|ramekin_ladder,coke_can_on_ramekin,destination noun,place the red cola can inside the white bowl,69.4,False,41.7,5.01,72
+coke_can_on_ramekin|ramekin_ladder,coke_can_on_ramekin,destination noun,place the red cola can inside the white pot,69.4,False,41.7,5.01,72
+coke_can_on_ramekin|ramekin_ladder,coke_can_on_ramekin,destination noun,place the red cola can inside the white basin,69.4,False,41.7,5.01,72
+coke_can_on_ramekin|ramekin_ladder,coke_can_on_ramekin,destination noun,place the red cola can inside the white dish,51.4,False,41.7,5.01,72
+coke_can_on_ramekin|ramekin_ladder,coke_can_on_ramekin,destination noun,place the red cola can inside the white cup,50.0,False,41.7,5.01,72
+coke_can_on_ramekin|ramekin_ladder,coke_can_on_ramekin,destination noun,place the red cola can inside the white ramekin,31.9,False,41.7,5.01,72
+coke_can_on_wheel|Ac2_dest_black_wheel,coke_can_on_wheel,color/modifier,Grab the red Coke can and set it on the black wheel.,36.1,True,27.8,4.01,72
+coke_can_on_wheel|Ac2_dest_black_wheel,coke_can_on_wheel,color/modifier,grab the red coke can and set it on the wheel,8.3,False,27.8,4.01,72
+coke_can_on_wheel|Ac2m_dest_black_wheel_matched,coke_can_on_wheel,color/modifier,grab the red coke can and set it on the black wheel,29.2,True,20.9,3.21,72
+coke_can_on_wheel|Ac2m_dest_black_wheel_matched,coke_can_on_wheel,color/modifier,grab the red coke can and set it on the wheel,8.3,False,20.9,3.21,72
+cube_on_plate|A09_verb_put_place,cube_on_plate,verb,place the green cube into the dish,77.8,True,37.5,4.58,72
+cube_on_plate|A09_verb_put_place,cube_on_plate,verb,put the green cube into the dish,40.3,False,37.5,4.58,72
+cube_on_plate|Ac3_dest_yellow_plate,cube_on_plate,color/modifier,Pick up the green cube and put it on the plate.,84.7,True,30.5,3.97,72
+cube_on_plate|Ac3_dest_yellow_plate,cube_on_plate,color/modifier,pick up the green cube and put it on the yellow plate,54.2,False,30.5,3.97,72
+cube_on_plate|Ac3m_dest_yellow_plate_matched,cube_on_plate,color/modifier,pick up the green cube and put it on the plate,76.4,True,22.2,2.8,72
+cube_on_plate|Ac3m_dest_yellow_plate_matched,cube_on_plate,color/modifier,pick up the green cube and put it on the yellow plate,54.2,False,22.2,2.8,72
+cube_on_plate|Ac4_dest_green_plate_collision,cube_on_plate,color/modifier,Place the green block on the plate.,81.9,True,18.0,2.43,72
+cube_on_plate|Ac4_dest_green_plate_collision,cube_on_plate,color/modifier,Place the green block on the green plate.,63.9,False,18.0,2.43,72
+cube_on_plate|Ac6_obj_green_block,cube_on_plate,color/modifier,put the green block on the plate,79.2,True,34.8,4.3,72
+cube_on_plate|Ac6_obj_green_block,cube_on_plate,color/modifier,put the block on the plate,44.4,False,34.8,4.3,72
+eggplant_on_keyboard|A12_verb_move_rest,eggplant_on_keyboard,verb,Rest the purple eggplant on the black keyboard.,40.3,True,23.6,3.14,72
+eggplant_on_keyboard|A12_verb_move_rest,eggplant_on_keyboard,verb,Move the purple eggplant on the black keyboard.,16.7,False,23.6,3.14,72
+eggplant_on_keyboard|A19_articles,eggplant_on_keyboard,case/structure,put eggplant on keyboard,31.9,True,19.4,2.8,72
+eggplant_on_keyboard|A19_articles,eggplant_on_keyboard,case/structure,put the eggplant on the keyboard,12.5,False,19.4,2.8,72
+eggplant_on_keyboard|Ac1_dest_black_keyboard,eggplant_on_keyboard,color/modifier,put the eggplant on the black keyboard,54.2,True,41.7,5.31,72
+eggplant_on_keyboard|Ac1_dest_black_keyboard,eggplant_on_keyboard,color/modifier,put the eggplant on the keyboard,12.5,False,41.7,5.31,72
+eggplant_on_keyboard|Ac9_obj_purple_on_colored_dest,eggplant_on_keyboard,color/modifier,The eggplant needs to end up on the black keyboard.,61.1,True,30.5,3.67,72
+eggplant_on_keyboard|Ac9_obj_purple_on_colored_dest,eggplant_on_keyboard,color/modifier,The purple eggplant needs to end up on the black keyboard.,30.6,False,30.5,3.67,72
+eggplant_on_sponge|A11_verb_move_set,eggplant_on_sponge,verb,Set the purple eggplant onto the sponge.,87.5,True,19.4,2.8,72
+eggplant_on_sponge|A11_verb_move_set,eggplant_on_sponge,verb,Move the purple eggplant onto the sponge.,68.1,False,19.4,2.8,72
+eggplant_on_sponge|A13_noun_thing_eggplant,eggplant_on_sponge,source noun,set the purple eggplant on the yellow and green sponge,70.8,True,44.4,5.33,72
+eggplant_on_sponge|A13_noun_thing_eggplant,eggplant_on_sponge,source noun,set the purple thing on the yellow and green sponge,26.4,False,44.4,5.33,72
+eggplant_on_sponge|A18_order_fronted,eggplant_on_sponge,case/structure,Set the purple eggplant on the sponge.,84.7,True,48.6,5.96,72
+eggplant_on_sponge|A18_order_fronted,eggplant_on_sponge,case/structure,purple Eggplant set on the sponge.,36.1,False,48.6,5.96,72
+eggplant_on_sponge|Ac5_obj_purple_eggplant,eggplant_on_sponge,color/modifier,purple eggplant goes on the sponge,69.4,True,61.1,7.52,72
+eggplant_on_sponge|Ac5_obj_purple_eggplant,eggplant_on_sponge,color/modifier,eggplant goes on the sponge,8.3,False,61.1,7.52,72
+nut_on_plate|Ac8_obj_grey_nut,nut_on_plate,color/modifier,drop the nut on the yellow plate,40.3,True,18.1,2.34,72
+nut_on_plate|Ac8_obj_grey_nut,nut_on_plate,color/modifier,drop the grey nut on the yellow plate,22.2,False,18.1,2.34,72
+nut_on_wheel|A08_verb_position_put,nut_on_wheel,verb,Put the nut right on the wheel.,25.0,True,16.7,2.69,72
+nut_on_wheel|A08_verb_position_put,nut_on_wheel,verb,Position the nut right on the wheel.,8.3,False,16.7,2.69,72
+pepsi_on_plate|A01_case_period,pepsi_on_plate,case/structure,set the pepsi down on the plate,69.4,True,43.0,5.16,72
+pepsi_on_plate|A01_case_period,pepsi_on_plate,case/structure,Set the Pepsi down on the plate.,26.4,False,43.0,5.16,72
+pepsi_on_plate|A02_brand_case,pepsi_on_plate,case/structure,put the pepsi on the plate,69.4,True,38.8,4.66,72
+pepsi_on_plate|A02_brand_case,pepsi_on_plate,case/structure,Put the Pepsi on the plate.,30.6,False,38.8,4.66,72
+pepsi_on_plate|A02b_single_letter_case,pepsi_on_plate,case/structure,put the pepsi on the plate,69.4,True,44.4,5.34,72
+pepsi_on_plate|A02b_single_letter_case,pepsi_on_plate,case/structure,put the Pepsi on the plate,25.0,False,44.4,5.34,72
+pepsi_on_plate|A07_prep_to_onto,pepsi_on_plate,preposition,Move the blue can onto the plate.,36.1,True,15.3,2.03,72
+pepsi_on_plate|A07_prep_to_onto,pepsi_on_plate,preposition,Move the blue can to the plate.,20.8,False,15.3,2.03,72
+pepsi_on_plate|A14_noun_soda_pepsi,pepsi_on_plate,source noun,set the pepsi on the plate,70.8,True,38.9,4.67,72
+pepsi_on_plate|A14_noun_soda_pepsi,pepsi_on_plate,source noun,set the soda on the plate,31.9,False,38.9,4.67,72
+pepsi_on_plate|Ac7_obj_blue_coke,pepsi_on_plate,color/modifier,set the blue coke on the plate,63.9,True,37.5,4.52,72
+pepsi_on_plate|Ac7_obj_blue_coke,pepsi_on_plate,color/modifier,set the coke on the plate,26.4,False,37.5,4.52,72
+put_eggplant_in_basket|put_eggplant_in_basket,put_eggplant_in_basket,color/modifier,put the eggplant in the yellow basket,95.6,True,13.9,4.16,180
+put_eggplant_in_basket|put_eggplant_in_basket,put_eggplant_in_basket,color/modifier,put the eggplant in the basket,81.7,False,13.9,4.16,180
+spoon_on_towel|spoon_on_towel,spoon_on_towel,color/modifier,put the spoon atop the towel,66.7,True,23.6,2.85,72
+spoon_on_towel|spoon_on_towel,spoon_on_towel,color/modifier,put the spoon on the towel,61.1,False,23.6,2.85,72
+spoon_on_towel|spoon_on_towel,spoon_on_towel,color/modifier,put the spoon on the blue towel,44.4,False,23.6,2.85,72
+spoon_on_towel|spoon_on_towel,spoon_on_towel,color/modifier,put the spoon atop the blue towel,43.1,False,23.6,2.85,72
+stack_cube|stack_cube,stack_cube,multi-edit,put the green cube on the yellow cube,50.0,True,33.3,4.24,72
+stack_cube|stack_cube,stack_cube,multi-edit,green cube on yellow cube,43.1,False,33.3,4.24,72
+stack_cube|stack_cube,stack_cube,multi-edit,put the green block on the yellow block,29.2,False,33.3,4.24,72
+stack_cube|stack_cube,stack_cube,multi-edit,stack the green cube on the yellow cube,25.0,False,33.3,4.24,72
+stack_cube|stack_cube,stack_cube,multi-edit,stack the green block on the yellow block,20.8,False,33.3,4.24,72
+stack_cube|stack_cube,stack_cube,multi-edit,green block on yellow block,16.7,False,33.3,4.24,72
