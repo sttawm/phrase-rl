@@ -345,7 +345,7 @@ To further quantify language sensitivity, for each task, we compare its ``best-p
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{figures/pi0_conditions.png}
-    \caption{\small Success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER Bridge tasks (24 pinned layouts) by phrasing condition. Solid bars pool all tasks; thin flanks are the in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) strata. \emph{Oracle} is the best phrase per task from \S\ref{sec:oracle}; the other sets are defined in \S\ref{sec:phrase-sets}. Repetitions per layout: oracle and canonical $\times$12, adversarial $\times$2, naturals $\times$1. Oracle phrasing shrinks the 21-point strata gap under canonical instructions to 3 points.}
+    \caption{\small Success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER Bridge tasks (24 fixed scene layouts) by phrasing condition. Solid bars pool all tasks; thin flanks are the in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) strata. \emph{Oracle} is the best phrase per task from \S\ref{sec:oracle}; the other sets are defined in \S\ref{sec:phrase-sets}. Repetitions per layout: oracle and canonical $\times$12, adversarial $\times$2, naturals $\times$1. Oracle phrasing shrinks the 21-point strata gap under canonical instructions to 3 points.}
     \label{fig:pi0-conditions}
 \end{figure}
 
@@ -473,7 +473,7 @@ cause --- would be the most exciting outcome of all.
 
 For a comparison between two arms, the paired unit is the \emph{base
 instruction}: $d_i = c_i - b_i$, the two arms' success rates on base $i$
-over the same pinned layout grid (rulebook arms average their three draws
+over the same fixed grid of scene layouts (rulebook arms average their three draws
 before pairing). Common random numbers make the two arms face identical
 scenes, so scene difficulty cancels within each $d_i$. The reported
 p-value is a two-sided sign-flip permutation test on the mean of the
