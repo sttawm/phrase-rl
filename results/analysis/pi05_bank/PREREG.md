@@ -218,7 +218,7 @@ EVIDENCE (scripts/build_libero_distill_evidence.py -> distill_evidence_v2.{csv,m
 DISTILLATION
 - Draw 1 first, end to end (user decision 2026-09-14: complete one apply+eval loop before
   draws 2 and 3, in case of failure or credit exhaustion). Each draw is a fresh, stateless
-  Claude Fable multi-agent workflow (script committed as provenance) with no access to sealed
+  Claude Opus 5 multi-agent workflow (script committed as provenance; Fable reserved) with no access to sealed
   phrases; draws 2 and 3 repeat it with the identical prompt and evidence.
 
 TEST PHRASES, TRACES, APPLIERS
