@@ -121,7 +121,7 @@ handles = [plt.Rectangle((0, 0), 1, 1, fc=C_BASE, ec=EDGE),
            plt.Rectangle((0, 0), 1, 1, fc=C_RULES, ec="none"),
            plt.Rectangle((0, 0), 1, 1, fc="#7A8698", alpha=0.42),
            plt.Line2D([0], [0], color=RED, lw=1.1, ls=(0, (4, 3)))]
-fig.legend(handles, ["no-rules rephraser (scaffold)",
+fig.legend(handles, ["no-rules rephraser",
                      "rulebook cell (mean over three draws)",
                      "flanks: in-distribution (left, 5) / out-of-distribution (right, 7)",
                      "no rephraser"],
