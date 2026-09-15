@@ -82,7 +82,7 @@ print("k16 augmented %.2f / plain %.2f -> %+.1f%% relative" % (
 
 ax.set_xticks(ticks)
 ax.set_xticklabels(labels, fontsize=7.2)
-ax.set_ylabel("success % (12 tasks, 24 layouts)", fontsize=8.0)
+ax.set_ylabel("rollout success (%)", fontsize=8.0)
 ax.set_ylim(0, 55)
 ax.set_xlim(-0.62, x - 0.45)
 ax.grid(axis="y", alpha=0.18, zorder=0)
