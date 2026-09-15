@@ -319,7 +319,10 @@ the two models: on Bridge, an added color helps on out-of-corpus nouns
 plate, $-22$); on LIBERO, an added color only ever hurts (black bowl,
 $-20$). The common thread is plain naming: generic category words (can,
 dish, drink, thing) lose to the specific everyday name --- even one the
-training data never contained (pepsi beats soda by 39).
+training data never contained (pepsi beats soda by 39). Most
+striking, a single letter matters: Pepsi $\to$ pepsi gains 44 points
+(25\% $\to$ 69\%), suggesting sensitivity at the level of raw tokens,
+not words.
 
 \begin{figure}[!t]
     \centering
@@ -363,7 +366,7 @@ We now present our method for reducing this sensitivity. An overview of our meth
 
 \subsection{Gathering Evidence}
 
-In order to derive phrasing rules, we first gather a large set of phrases. For each task in our training set, we prompt a VLM to generate 16 ``natural'' phrases --- e.g. the way a human might naturally request a task --- and 8 adversarial phrases --- e.g. a convoluted, overly complicated task request. For example, a natural rephrase of ``put carrot on plate'' is ``Could you move the carrot to the plate?'', whereas an adversarial one is ``Take the long orange item typically eaten by rabbits and ensure it ends up supported by the circular dishware.'' We also include all phrases measured during oracle search (these tend to be more benign rephrases). See the appendix for the prompt used to generate natural and adversarial phrases.
+In order to derive phrasing rules, we first gather a large set of phrases. For each task in our training set, we prompt a VLM to generate 16 ``natural'' phrases --- e.g. the way a human might naturally request a task --- and 8 adversarial phrases --- e.g. a convoluted, overly complicated task request. For example, a natural rephrase of ``put carrot on plate'' is ``Could you move the carrot to the plate?'', whereas an adversarial one is ``Take the long orange item typically eaten by rabbits and ensure it ends up supported by the circular dishware.'' We also include all phrases measured during oracle search (these tend to be more benign rephrases). The prompt used to generate natural and adversarial phrases is in the project repository.\footref{fn:repo}
 
 \subsubsection{Scoring Phrases}
 
