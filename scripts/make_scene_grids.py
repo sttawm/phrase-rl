@@ -65,3 +65,26 @@ lib = sorted(glob.glob(str(R / "results/analysis/pairverify_libero/frames/*.png"
 items = [(f, pathlib.Path(f).stem.replace("__", " / "))
          for f in lib]
 grid(items, 5, 1.0, R / "results/charts/scenes_libero_grid.png", 3.9)
+
+
+# --- representative grids (2026-09-15): one scene per layout family ---------
+BRIDGE_REP = [
+    "pepsi_on_plate", "coke_can_on_keyboard", "coke_can_on_ramekin",
+    "coke_can_on_wheel", "eggplant_on_sponge", "spoon_on_towel",
+    "put_eggplant_in_basket", "stack_cube",
+]
+grid([(bridge_frame(t), t) for t in BRIDGE_REP], 4, 0.75,
+     R / "results/charts/scenes_bridge_rep.png", 4.6)
+
+LF = R / "results/analysis/pairverify_libero/frames"
+LIB_REP = [
+    (LF / "libero_goal__7.png", "libero_goal (shared)"),
+    (LF / "libero_spatial__7.png", "libero_spatial (shared)"),
+    (LF / "libero_object__2.png", "libero_object / 2"),
+    (LF / "libero_90__10.png", "libero_90 / 10"),
+    (LF / "libero_90__30.png", "libero_90 / 30"),
+    (LF / "libero_90__31.png", "libero_90 / 31"),
+    (LF / "libero_90__38.png", "libero_90 / 38"),
+    (LF / "libero_90__44.png", "libero_90 / 44"),
+]
+grid(LIB_REP, 5, 1.0, R / "results/charts/scenes_libero_rep.png", 3.9)
