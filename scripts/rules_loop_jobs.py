@@ -223,6 +223,9 @@ elif spec["kind"] == "score" and spec.get("method") == "libero_bank_eval":
     rows = [json.loads(x) for o in outs for x in open(o) if x.strip()]
     raw = pd.DataFrame(rows)
     raw["task"] = raw.suite.astype(str) + ":" + raw.task_id.astype(str)
+    # a retried leg can carry the same (phrase, init) in two sub-shard files
+    # (attempt 1 split by phrase, attempt 2 by init): count each episode once
+    raw = raw.drop_duplicates(["task", "phrase", "init"], keep="first")
     want = {(str(r.task), str(r.phrase)) for r in pl.itertuples()}
     raw = raw[[((t, p) in want) for t, p in zip(raw.task, raw.phrase.astype(str))]]
     agg = raw.groupby(["task", "phrase"]).success.agg(["mean", "size"]).reset_index()

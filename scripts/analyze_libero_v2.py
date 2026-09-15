@@ -21,6 +21,7 @@ present it prints "no results yet" and exits 0.
 """
 import argparse
 import glob
+import os
 import itertools
 import json
 import pathlib
@@ -48,7 +49,20 @@ def load_results(run, prefix):
     files = sorted(glob.glob(str(R / f"results/rules_runs/{run}/jobs/{prefix}*.result.parquet")))
     if not files:
         return files, None
-    res = pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
+    # prefer the per-episode file (one row per (task, phrase, init), deduplicated:
+    # a retried leg can hold the same episode in two sub-shard files); fall back
+    # to the leg's aggregate when no episodes file was committed
+    parts = []
+    for f in files:
+        ep = f[:-len(".result.parquet")] + ".episodes.parquet"
+        if os.path.exists(ep):
+            e = pd.read_parquet(ep).drop_duplicates(["task", "phrase", "init"])
+            g = e.groupby(["task", "phrase"]).success.agg(["mean", "size"]).reset_index()
+            parts.append(pd.DataFrame({"task": g.task, "phrase": g.phrase,
+                                       "gt_success": 100.0 * g["mean"], "n_ctx": g["size"]}))
+        else:
+            parts.append(pd.read_parquet(f)[["task", "phrase", "gt_success", "n_ctx"]])
+    res = pd.concat(parts, ignore_index=True)
     res = res.dropna(subset=["gt_success"])
     res["task"] = res.task.map(norm_task)
     res["phrase"] = res.phrase.astype(str).str.strip()
