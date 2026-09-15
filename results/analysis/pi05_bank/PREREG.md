@@ -288,10 +288,15 @@ tasks), 50 inits each; paired sign-flip vs the no-rephraser arm.
   draw 1 (v1, Opus)   75.1  94.0  56.2   +0.5 (0.11)    -0.5 (0.06)    -0.0 (0.96)   0.28
   draw 2 (v2, Fable)  77.3  97.6  57.0   +4.1 (0.005)   +0.3 (0.63)    +2.2 (0.009)  0.91
   draw 3 (v2, Fable)  77.2  97.9  56.6   +4.3 (0.004)   -0.1 (0.91)    +2.1 (0.024)  0.92
+  draw 4 (v2, Opus)   77.0  97.9  56.2   +4.3 (0.004)   -0.5 (0.47)    +1.9 (0.039)  0.96
 The in-finetune gain is concentrated on the two tasks whose naturals used the flagged
 nouns: goal/1 73 -> 99 (draws 2, 3) and spatial/7 76 -> 92 / 95; every other in-finetune
 task was already at 95-100. Out-of-finetune, neither v2 book differs from the no-rephraser
 arm, and neither differs from the scaffold pooled (+1.4, p=0.18; +1.3, p=0.22).
+Round 4 (draw 4, recorded 2026-09-15 after the fact): 32 legs, zero lost; the same two tasks
+carry the in-finetune gain (goal/1 73 -> 99, spatial/7 76 -> 95); vs scaffold pooled +1.1 (p=0.31).
+Draw 4's rule 1 lowercases and strips punctuation, so 0.96 of its rolled strings differ from the
+base while most edits are cosmetic. Chart: results/charts/libero_v2_round4.png.
 Files: results/rules_runs/p_v2/jobs (per-leg aggregates + per-episode parquets),
 results/analysis/pi05_bank/libero_v2_round1_cells.json, results/charts/libero_v2_round3.png,
 rulebooks/v2_draw{1,2,3}.md, eval_applies_v2/.
