@@ -1,7 +1,8 @@
 \documentclass[tikz,border=10pt]{standalone}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,backgrounds,shadows}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,backgrounds,shadows,decorations.pathmorphing}
 \usepackage[T1]{fontenc}
+\usepackage{amssymb}
 \usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}
 \usepackage[tracking=true]{microtype}
 
@@ -23,6 +24,8 @@
 \definecolor{ink}{HTML}{273244}
 \definecolor{sub}{HTML}{5B6779}
 \definecolor{arrowc}{HTML}{7A8698}
+\definecolor{trajgood}{HTML}{35B26A}
+\definecolor{trajbad}{HTML}{E4574B}
 
 
 \tikzset{
@@ -54,33 +57,60 @@
 \begin{tikzpicture}
 
 % ---------------- evidence gathering (top, L -> R) ----------------
-\node[card, align=center, inner sep=2.2mm] (task) at (0,0) {%
+\node[card, align=center, inner sep=2.0mm] (task) at (0,-0.05) {%
   \begin{tabular}{@{}c@{}}
-  {\footnotesize\bfseries tasks}\\[1.0mm]
-  \includegraphics[width=24mm]{frames/method_frame.png}\\[1.1mm]
+  {\footnotesize\bfseries task}\\[0.4mm]
+  {\tiny\color{sub}scene}\\[0.3mm]
+  \includegraphics[width=30mm]{frames/method_frame.png}\\[0.4mm]
+  {\tiny\color{sub}instruction}\\[0.2mm]
   {\footnotesize``put the carrot on the plate''}
   \end{tabular}};
 
 \node[model] (vlm1) at (3.3,0) {VLM};
 
-\node[chip, fill=chipnat] (nat) at (7.0,0) {natural};
-\node[chip, fill=chipadv] (adv) at (7.0,0.84) {adversarial};
-\node[chip, fill=chipben] (ben) at (7.0,-0.84) {benign};
+\node[chip, fill=chipnat, align=center] (nat) at (6.75,0)
+  {natural\\[-0.4mm]{\tiny\itshape ``could you move the carrot}\\[-0.9mm]{\tiny\itshape to the plate?''}};
+\node[chip, fill=chipadv, align=center] (adv) at (6.75,1.02)
+  {adversarial\\[-0.4mm]{\tiny\itshape ``take the long orange item}\\[-0.9mm]{\tiny\itshape eaten by rabbits\ldots''}};
+\node[chip, fill=chipben, align=center] (ben) at (6.75,-1.02)
+  {benign\\[-0.4mm]{\tiny\itshape ``place carrot on plate''}};
 
-\node[model] (vla1) at (9.3,0) {VLA};
+\node[model] (vla1) at (10.05,0) {VLA};
 \node[db] (evidence) at (12.5,0) {evidence};
 
 \draw[arr] (task) -- (vlm1);
-\coordinate (split) at (5.75,0);
+\coordinate (split) at (4.85,0);
 \draw[line width=0.8pt, draw=arrowc] (vlm1.east)
-  -- node[lab, above=0.7mm, align=center]{generate\\[-0.2mm]rephrases} (split);
+  -- node[lab, above=1.3mm, align=center, pos=0.32]{generate\\[-0.2mm]rephrases} (split);
 \draw[arr] (split) -- ($(adv.west)+(-0.03,-0.03)$);
 \draw[arr] (split) -- (nat.west);
 \draw[arr] (split) -- ($(ben.west)+(-0.03,0.03)$);
 \draw[arr] (adv.east) -- ($(vla1.west)+(-0.05,0.1)$);
 \draw[arr] (nat.east) -- (vla1.west);
 \draw[arr] (ben.east) -- ($(vla1.west)+(-0.05,-0.1)$);
-\draw[arr] (vla1) -- node[lab, above=0.7mm, align=center, font=\scriptsize, pos=0.40]{execute\\[-0.2mm]\& score} (evidence);
+\draw[arr] (vla1) -- node[lab, below=1.0mm, align=center, font=\scriptsize, pos=0.5]{execute\\[-0.2mm]\& score} (evidence);
+
+
+% ---------------- rollout trajectories over the task view ----------------
+\begin{scope}[decoration={random steps, segment length=1.0mm, amplitude=0.30mm},
+              trj/.style={line width=0.7pt, line cap=round, decorate,
+                          -{Stealth[length=1.5mm, width=1.3mm]}}]
+\draw[trj, trajgood]
+  (0.07,0.22) .. controls (-0.32,0.13) and (-0.81,-0.05) .. (-0.65,-0.34)
+              .. controls (-0.48,-0.58) and (-0.06,-0.62) .. (0.23,-0.48);
+\draw[trj, trajgood, opacity=0.85]
+  (0.07,0.22) .. controls (0.02,-0.02) and (0.05,-0.25) .. (0.18,-0.39);
+\draw[trj, trajgood, opacity=0.85]
+  (0.07,0.22) .. controls (-0.21,0.00) and (-0.44,-0.48) .. (0.35,-0.57);
+\draw[trj, trajbad]
+  (0.07,0.22) .. controls (0.32,0.37) and (0.59,0.03) .. (0.81,0.22)
+              .. controls (0.99,0.37) and (1.13,0.13) .. (1.23,0.06);
+\draw[trj, trajbad, opacity=0.85]
+  (0.07,0.22) .. controls (-0.14,0.17) and (-0.63,0.12) .. (-1.02,-0.02);
+\end{scope}
+\node[font=\scriptsize\bfseries, text=trajgood] at (0.46,-0.60) {$\checkmark$};
+\node[font=\scriptsize\bfseries, text=trajbad] at (1.36,0.03) {$\times$};
+\node[font=\scriptsize\bfseries, text=trajbad] at (-1.15,-0.09) {$\times$};
 
 % ---------------- rule distillation (right, T -> B) ----------------
 \node[modelp] (llm) at (12.5,-2.3) {LLM};
@@ -104,7 +134,7 @@
 % ---------------- translucent bands ----------------
 \begin{scope}[on background layer]
   \fill[bandA, fill opacity=0.38, rounded corners=4mm]
-      (-1.8,1.66) rectangle (13.55,-1.66);
+      (-1.95,1.78) rectangle (13.55,-2.1);
   \fill[bandB, fill opacity=0.38, rounded corners=4mm]
       (11.45,1.66) rectangle (13.55,-5.55);
   \fill[bandC, fill opacity=0.38, rounded corners=4mm]
@@ -113,11 +143,11 @@
 
 % ---------------- section labels ----------------
 \node[anchor=south west, font=\normalsize\bfseries, text=secA]
-  at (-1.75,1.78) {\textls[130]{EVIDENCE GATHERING}};
+  at (2.05,1.90) {\textls[130]{EVIDENCE GATHERING}};
 \node[anchor=center, rotate=-90, font=\normalsize\bfseries, text=secB]
   at (13.95,-2.03) {\textls[130]{RULE DISTILLATION}};
-\node[anchor=north west, font=\normalsize\bfseries, text=secC]
-  at (-1.75,-5.7) {\textls[130]{RULE APPLICATION}};
+\node[anchor=south west, font=\normalsize\bfseries, text=secC]
+  at (-1.75,-2.88) {\textls[130]{RULE APPLICATION}};
 
 \end{tikzpicture}
 \end{document}
