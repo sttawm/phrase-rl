@@ -146,6 +146,28 @@ same two tasks (goal/1 73 -> 99, spatial/7 76 -> 95). Out-of-finetune, none of t
 books differs from the no-rephraser arm or from the scaffold. Three independent v2 draws,
 under two distiller models, converge on the same rules and the same effect.
 
+## 8b. Per-edit-type split of the rulebook gains (draws 2, 3, 4)
+
+Mean delta (rewrite - base, pp) over the test phrases on which the edit fired; a phrase that
+carries two edits is counted in both rows, so rows are not additive. Identical classifier
+for all three draws (regex on base vs rewrite; case-only rewrites excluded).
+
+  edit type                                   draw 2         draw 3         draw 4
+  fixture word -> stove (hot plate, burner)   +47.5 over 8   +43.3 over 9   +43.3 over 9
+  dish -> plate                               +5.3 over 3    +37.3 over 3   +29.0 over 4
+  onto -> on, into -> in                      +2.1 over 51   +2.3 over 50   +3.0 over 45
+  grab/lift -> pick up                        +2.2 over 16   +2.6 over 14   (not a draw-4 rule; fired once, -2.0)
+  class word -> product name                  none           -3.1 over 11   -4.2 over 8
+  politeness/frame removed                    -6.0 over 2    -2.7 over 3    -2.7 over 3
+  case/period only                            -0.2 over 25   +0.1 over 21   0.0 over 26
+  other                                       0.0 over 4     0.0 over 23    -0.1 over 41
+
+Draw 4's book treats pick up / grab / lift as interchangeable and leaves the verb as given.
+Its "other" bucket (pull open / pull out / slide out -> open, inside -> in, bare "on the
+cabinet" -> "on top of the cabinet", "in the bowl" -> "on the bowl", scene-name expansions
+such as cookies -> cookie box) is null. Draw 2's dish row is +5.3 because its three dish
+phrases sat on a task already near ceiling.
+
 ## 9. Timing
 
 - Distillation: draws 1-3 ~44 min each; draw 4 30 min (99 agents, 4.9M subagent tokens).
