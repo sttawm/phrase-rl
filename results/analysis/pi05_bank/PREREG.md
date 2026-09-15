@@ -262,3 +262,21 @@ round 1 (draw 1) has been rolled and analysed end to end.
 Distiller model: draw 1 was distilled with Claude Opus 5 (credit caution at the time); draws 2 and
 3 use Claude Fable 5.1 for every agent of the same workflow (user decision 2026-09-15). Reported
 per draw alongside the prompt version.
+
+## 2026-09-15 — RESULT: sealed set v2, rounds 1-3 (recorded after the fact; no protocol change)
+
+144 legs, ~28k episodes, zero lost. All arms n=200 bases (10 natural phrases x 20 sealed
+tasks), 50 inits each; paired sign-flip vs the no-rephraser arm.
+  arm                pooled   in   out   Δin (p)        Δout (p)       Δpooled (p)   changed
+  no rephraser        75.1  93.6  56.7   -              -              -             0.00
+  scaffold            76.0  93.6  58.3   +0.1 (0.87)    +1.6 (0.006)   +0.8 (0.015)  0.61
+  draw 1 (v1, Opus)   75.1  94.0  56.2   +0.5 (0.11)    -0.5 (0.06)    -0.0 (0.96)   0.28
+  draw 2 (v2, Fable)  77.3  97.6  57.0   +4.1 (0.005)   +0.3 (0.63)    +2.2 (0.009)  0.91
+  draw 3 (v2, Fable)  77.2  97.9  56.6   +4.3 (0.004)   -0.1 (0.91)    +2.1 (0.024)  0.92
+The in-finetune gain is concentrated on the two tasks whose naturals used the flagged
+nouns: goal/1 73 -> 99 (draws 2, 3) and spatial/7 76 -> 92 / 95; every other in-finetune
+task was already at 95-100. Out-of-finetune, neither v2 book differs from the no-rephraser
+arm, and neither differs from the scaffold pooled (+1.4, p=0.18; +1.3, p=0.22).
+Files: results/rules_runs/p_v2/jobs (per-leg aggregates + per-episode parquets),
+results/analysis/pi05_bank/libero_v2_round1_cells.json, results/charts/libero_v2_round3.png,
+rulebooks/v2_draw{1,2,3}.md, eval_applies_v2/.
