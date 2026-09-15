@@ -381,8 +381,8 @@ Rollout scores exist only for the eight non-sealed simulatable tasks; the twelve
 
 We prompt Claude to derive rules from the evidence with the prompt provided in the project repository.\footref{fn:repo} We test three rulebook types, distinguished by the evidence they see: \emph{in-finetune}, \emph{out-of-finetune}, and \emph{both}. Because distillation is stochastic, we distill each type three times and average their results in evaluation. Rulebooks contain 10 to 20 rules.
 
-For rulebooks that see in-finetune phrases, we also provide the full set of finetuning instructions so that the distiller can use corpus statistics such as how often each object occurs and the most common phrase structures. The first rulebook of each type was distilled with Claude Fable and the remaining two with Claude Opus 5; our results do not suggest this choice mattered. 
-Each distillation is a multi-agent panel (three lens distillers, an adversarial critic, and a synthesizer) run once, without iteration; the replicate panels permute the lens order and see the same evidence files. \todo{give exact model identifiers, dates, and sampling settings} 
+For rulebooks that see in-finetune phrases, we also provide the full set of finetuning instructions so that the distiller can use corpus statistics such as how often each object occurs and the most common phrase structures. The first rulebook of each type was distilled with Claude Fable (claude-fable-5; 2026-09-03) and the remaining two with Claude Opus 5 (claude-opus-5; 2026-09-05); our results do not suggest this choice mattered. 
+Each distillation is a multi-agent panel (three lens distillers, an adversarial critic, and a synthesizer) run once, without iteration; the replicate panels permute the lens order and see the same evidence files. Requests used the API-default temperature of 1.0, and the models manage thinking depth adaptively (the default). 
 All rulebooks are in the repository.\footref{fn:repo}
 
 \subsection{Applying Rules}
