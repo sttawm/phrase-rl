@@ -133,7 +133,11 @@ def call_gemini(prompt):
             if (r.text or "").strip():
                 return r.text.strip()
         except Exception as e:
-            print(f"  gemini retry {attempt}: {type(e).__name__}", flush=True)
+            msg = str(e)
+            if "429" in msg and any(m in msg.lower() for m in
+                                    ("spending cap", "depleted", "prepay", "check your plan", "limit: 0")):
+                raise SystemExit(f"HARD STOP (billing): {msg[:200]}")
+            print(f"  gemini retry {attempt}: {type(e).__name__} {msg[:120]}", flush=True)
         time.sleep(4 * (attempt + 1))
     return ""
 
