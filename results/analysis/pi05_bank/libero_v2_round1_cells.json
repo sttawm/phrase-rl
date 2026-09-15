@@ -134,6 +134,39 @@
     "p_out": 0.0518,
     "n_out": 100
    }
+  },
+  "v2_draw4|gemini": {
+   "n_base": 200,
+   "n_missing": 0,
+   "unchanged_frac": 0.045,
+   "mean_pooled": 77.04,
+   "n_pooled": 200,
+   "mean_in": 97.9,
+   "n_in": 100,
+   "mean_out": 56.18,
+   "n_out": 100,
+   "vs_none": {
+    "delta_pooled": 1.92,
+    "p_pooled": 0.0389,
+    "n_pooled": 200,
+    "delta_in": 4.34,
+    "p_in": 0.0041,
+    "n_in": 100,
+    "delta_out": -0.5,
+    "p_out": 0.4702,
+    "n_out": 100
+   },
+   "vs_scaffold": {
+    "delta_pooled": 1.08,
+    "p_pooled": 0.3058,
+    "n_pooled": 200,
+    "delta_in": 4.26,
+    "p_in": 0.0112,
+    "n_in": 100,
+    "delta_out": -2.1,
+    "p_out": 0.011,
+    "n_out": 100
+   }
   }
  }
 }
