@@ -1,7 +1,7 @@
 # pi0.5 / LIBERO rules-distillation experiment (sealed set v2) — overview for the paper
 
 Written 2026-09-15 from PREREG.md, sealed_v2_draw.json, libero_v2_round1_cells.json and the
-run logs. Round 4 (draw 4) was still rolling when this was written; its row is marked pending.
+run logs. Round 4 (draw 4) completed 2026-09-15; all four draws are in the table.
 
 ## 1. Setup
 
@@ -117,7 +117,7 @@ run logs. Round 4 (draw 4) was still rolling when this was written; its row is m
   scaffold book through the same applier), rulebook draws 1-4. Identical strings roll once
   and are attributed to arms at analysis time.
 - Budget: 200 bases x 50 inits per arm. Rounds 1-3: 144 legs, ~28k episodes, zero lost.
-  Round 4: 32 more legs.
+  Round 4: 32 legs, zero lost (176 legs total).
 
 ## 7. Analysis
 
@@ -125,7 +125,7 @@ Per arm, base-weighted mean success pooled and split in-finetune / out-of-finetu
 by-base sign-flip permutation test (10k permutations) of each arm vs the no-rephraser arm
 and vs the scaffold arm. No pooled headline across halves is claimed.
 
-## 8. Results (rounds 1-3; success %, n = 200 bases x 50 inits per arm)
+## 8. Results (rounds 1-4; success %, n = 200 bases x 50 inits per arm)
 
   arm                 pooled   in    out   d_in (p)       d_out (p)      d_pooled (p)   d_vs_scaffold (p)  changed
   no rephraser         75.1   93.6  56.7   -              -              -              -                  0.00
@@ -133,7 +133,7 @@ and vs the scaffold arm. No pooled headline across halves is claimed.
   draw 1 (v1, Opus)    75.1   94.0  56.2   +0.5 (0.11)    -0.5 (0.06)    -0.0 (0.96)    -0.9 (0.033)       0.28
   draw 2 (v2, Fable)   77.3   97.6  57.0   +4.1 (0.005)   +0.3 (0.63)    +2.2 (0.009)   +1.4 (0.18)        0.91
   draw 3 (v2, Fable)   77.2   97.9  56.6   +4.3 (0.004)   -0.1 (0.91)    +2.1 (0.024)   +1.3 (0.22)        0.92
-  draw 4 (v2, Opus)    pending (round 4 rolling 2026-09-15)                                                  0.96*
+  draw 4 (v2, Opus)    77.0   97.9  56.2   +4.3 (0.004)   -0.5 (0.47)    +1.9 (0.039)   +1.1 (0.31)        0.96*
   * fraction of rolled strings differing from the base; draw 4 lowercases and strips
     punctuation, so most changes are cosmetic.
 
@@ -141,8 +141,10 @@ Where the in-finetune gain comes from: the two sealed tasks whose naturals used 
 nouns. goal/1 ("put the bowl on the stove"): 73 -> 99 under draws 2 and 3, driven by
 hot plate / burner / hotplate -> stove (+47.5 / +43.3 pp over the 8-9 phrases that used
 them). spatial/7: 76 -> 92 / 95 (dish -> plate, draw 3 +37.3 over 3 phrases). Every other
-in-finetune sealed task was already at 95-100 with the natural phrase. Out-of-finetune,
-neither v2 book differs from the no-rephraser arm, and neither differs from the scaffold.
+in-finetune sealed task was already at 95-100 with the natural phrase. Draw 4 lands on the
+same two tasks (goal/1 73 -> 99, spatial/7 76 -> 95). Out-of-finetune, none of the three v2
+books differs from the no-rephraser arm or from the scaffold. Three independent v2 draws,
+under two distiller models, converge on the same rules and the same effect.
 
 ## 9. Timing
 
@@ -163,5 +165,5 @@ Prompts: prompts/distill_minimal.md, prompts/distill_minimal_v2.md, prompts/rule
 Books: results/analysis/pi05_bank/rulebooks/v2_draw{1,2,3,4}.md. Applies: eval_applies_v2/.
 Test phrases: naturals_v2.parquet (+ naturals_v2_preflight.txt). Traces:
 results/phrase_artifacts/traces_libero_v2.parquet. Rollouts: results/rules_runs/p_v2/jobs.
-Cells: libero_v2_round1_cells.json. Charts: results/charts/libero_v2_round3.png (round 4 ->
-libero_v2_round4.png), results/charts/single_edit_pairs.png.
+Cells: libero_v2_round1_cells.json. Charts: results/charts/libero_v2_round4.png (all six
+arms), results/charts/single_edit_pairs.png.
