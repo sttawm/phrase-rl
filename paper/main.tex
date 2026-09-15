@@ -461,7 +461,7 @@ The out-of-finetune rulebook is consistently the best type; the one exception is
 \begin{figure*}[!t]
  \centering
  \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
- \caption{\small Main results: base-weighted success of the rephrase-augmented $\pi_0$ on the 12 sealed tasks, one panel per phrase set and one bar group per applier. Grey = no-rules rephraser scaffold; green = out-of-finetune, both, and in-finetune rulebooks (mean over three distillation draws); thin flanks = in-distribution (left, 5 tasks) / out-of-distribution (right, 7 tasks) strata; dashed red = no-rephraser baseline. Out-of-finetune rulebooks are strongest on every non-canonical set, with gains concentrated out-of-distribution. The canonical panel has one phrase per task and is underpowered.}
+ \caption{\small Main results: success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER tasks, one panel per input phrase set and one bar group per rule-applying model. Dashed red = the no-rephraser baseline; grey = the no-rules rephraser; greens = the out-of-finetune, both, and in-finetune rulebooks, each the mean over its three draws. Thin flanks split every bar into in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) tasks. Out-of-finetune rulebooks are strongest on every non-canonical set, with gains concentrated out-of-distribution; the canonical panel has one phrase per task and is underpowered.}
  \label{fig:dashboard}
 \end{figure*}
 
