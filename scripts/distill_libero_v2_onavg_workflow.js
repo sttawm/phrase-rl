@@ -1,6 +1,6 @@
 export const meta = {
   name: 'libero-distill-draw-onavg',
-  description: 'Rulebook draw 1 for pi0.5/LIBERO: lens analysts over the single-edit evidence, adversarial refuters per candidate rule, one synthesizer under the frozen distill prompt',
+  description: 'Rulebook draw (on-average criterion) for pi0.5/LIBERO: lens analysts over the single-edit evidence, adversarial refuters per candidate rule, one synthesizer under the v2 distill prompt',
   phases: [{ title: 'Analyze' }, { title: 'Refute' }, { title: 'Synthesize' }, { title: 'Audit' }],
 }
 const DRAW = (args && args.draw) || 'v2_draw2'
