@@ -4,6 +4,8 @@
 
 \documentclass[letterpaper, 10 pt, conference]{ieeeconf} % Comment this line out if you need a4paper
 
+\pdfminorversion=4  % PaperCept requires PDF 1.4 for pdfLaTeX uploads
+
 
 
 %\documentclass[a4paper, 10pt, conference]{ieeeconf} % Use this line for a4 paper
@@ -167,8 +169,7 @@ each incoming instruction under these rules once, before it reaches the
 frozen policy. The rules improve the frozen $\pi_0$ by 16 to 27\% relative
 on twelve held-out tasks across adversarial, VLM-generated, and
 human-generated phrasings, with gains concentrated on out-of-distribution
-tasks and stable across three applier models and three independent
-distillations. The pipeline replicates on $\pi_{0.5}$ + LIBERO, lifting
+tasks and stable across three appliers and three distillations. The pipeline replicates on $\pi_{0.5}$ + LIBERO, lifting
 in-finetune success from 93.6\% to 97.8\%. The method requires no
 retraining and no per-step verification, and applies zero-shot to unseen
 tasks and instructions.\footnote{Videos and additional material:
@@ -198,7 +199,7 @@ Before presenting the method, we characterize the sensitivity it targets, for $\
 \end{figure*}
 
 % We evaluate in simulation on adversarial, VLM-generated natural, and human-generated natural phrasings, and see 16--27\% relative improvements for our best rulebook type over the un-rephrased $\pi_0$ baseline on SIMPLER's Bridge tasks; we characterize sensitivity for both $\pi_0$ and $\pi_{0.5}$, and evaluate the rules on $\pi_0$.
-We evaluate on the rephrase-augmented $\pi_0$ across twelve sealed SIMPLER tasks that contributed no evidence, five in-distribution and seven out, under adversarial, VLM-generated natural, human-generated natural, and canonical phrasings. Rules distilled from eight tasks improve success by 16 to 27\% relative over the no-rephraser baseline on the adversarial and natural sets, with gains concentrated on out-of-distribution tasks. The effect is stable across three applier models (Claude, Gemini, and the open-weights Qwen3.5-9B) and three independent distillations, whose pooled success varies by at most 5 points, and out-of-finetune rulebooks consistently outperform in-finetune ones.
+We evaluate on the rephrase-augmented $\pi_0$ across twelve sealed SIMPLER tasks that contributed no evidence, five in-distribution and seven out, under adversarial, VLM-generated natural, human-generated natural, and canonical phrasings. Rules distilled from eight tasks improve success by 16 to 27\% relative over the no-rephraser baseline on the adversarial and natural sets, with gains concentrated on out-of-distribution tasks. The effect is stable across three applier models (Claude, Gemini, and the open-weights Qwen3.5-9B) and three independent distillations, whose pooled success varies by at most 5 points, and rulebooks distilled from out-of-finetune evidence consistently outperform those distilled from in-finetune evidence on every non-canonical phrase set.
 
 In summary, this paper contributes:
 \begin{enumerate}
@@ -208,6 +209,24 @@ In summary, this paper contributes:
 \end{enumerate}
 
 \section{Related Work}
+
+\begin{figure*}[!t]
+ \centering
+ \includegraphics[width=0.72\linewidth]{figures/scenes_bridge_rep.png}
+ \caption{\small Representative SIMPLER Bridge first-frame scenes from the WidowX camera. %(tasks in Fig.~\ref{fig:pairs-bridge}). 
+ Every tabletop task uses the same setup and differs only in which source and destination objects are present; put\_eggplant\_in\_basket (right) is the benchmark's sink scene.}
+ \label{fig:scenes-bridge}
+ \vspace{-0.2cm}
+\end{figure*}
+
+\begin{figure*}[!t]
+ \centering
+ \includegraphics[width=0.72\linewidth]{figures/scenes_libero_rep.png}
+ \caption{\small One representative first-frame scene per LIBERO suite. % (tasks in Fig.~\ref{fig:pairs-libero}). 
+ libero\_goal and libero\_spatial tasks share one kitchen-counter scene per suite, libero\_object tasks place groceries beside a basket, and libero\_90 scenes vary per task.}
+ \label{fig:scenes-libero}
+ \vspace{-0.2cm}
+\end{figure*}
 
 \textbf{Measuring language sensitivity. }
 Embodied red teaming uses a VLM to search for natural-language
@@ -225,8 +244,8 @@ outright~\cite{fei2025liberoplus}. These studies report aggregate drops
 over families of perturbations. Our single-edit swings are the
 complementary, finer-grained observation: when the policy does attend to
 language, a single word can move success by tens of points, and our oracle
-search puts a number on how much of the apparent generalization gap is
-phrasing.
+search puts a number on how much of the apparent
+generalization gap is really a phrasing gap.
 
 \textbf{Training-time remedies. }
 The standard fix is augmentation: relabeling demonstrations with
@@ -239,7 +258,7 @@ coordinates --- so that language can steer low-level
 behavior~\cite{chen2026steerable}. All of these change the policy's
 weights. The $\pi_0$ checkpoint we study was already trained with rephrase
 augmentation~\cite{intact}; our method targets the sensitivity that
-remains after such training, without training further.
+remains after such training, and it does so without training further.
 
 \textbf{Deployment-time remedies. }
 Two families leave the weights untouched. \emph{Test-time verification}
@@ -272,7 +291,7 @@ systems decide \emph{which} instruction to issue; ours decides how to
 \emph{word} it. The rephraser is the instruction-level analogue of
 affordance grounding: rather than selecting which skill to invoke, it
 learns which surface forms of an instruction this particular executor
-parses reliably.
+parses reliably, and rewrites into them.
 
 \section{Models and Benchmarks}
 
@@ -286,11 +305,11 @@ Each benchmark provides a set of simulatable tasks, and each task a canonical in
 
 \subsubsection{SIMPLER / Bridge}
 
-SIMPLER~\cite{simpler} provides simulated replicas of real-robot evaluation setups; we use its Bridge~\cite{bridge} suite of WidowX tabletop tasks, such as ``put carrot on plate'' and ``put eggplant into yellow basket''. We use the four Bridge tasks shipped with the benchmark and construct 16 more from benchmark-provided primitives, for 20 simulatable tasks. Eight are \emph{in-vocabulary}: every noun in the canonical instruction appears in the Bridge training language. Success is determined procedurally by the benchmark. Our \emph{sealed} evaluation set fixes 12 of the 20 ex ante and holds them out of all evidence gathering; its five in-vocabulary and seven out-of-vocabulary tasks are the in-distribution and out-of-distribution strata reported in our figures.
+SIMPLER~\cite{simpler} provides simulated replicas of real-robot evaluation setups; we use its Bridge~\cite{bridge} suite of WidowX tabletop tasks, such as ``put carrot on plate'' and ``put eggplant into yellow basket'' (Fig.~\ref{fig:scenes-bridge}). We use the four Bridge tasks shipped with the benchmark and construct 16 more from benchmark-provided primitives, for 20 simulatable tasks. Eight are \emph{in-vocabulary}: every noun in the canonical instruction appears in the Bridge training language. Success is determined procedurally by the benchmark. Our \emph{sealed} evaluation set fixes 12 of the 20 ex ante and holds them out of all evidence gathering; its five in-vocabulary and seven out-of-vocabulary tasks are the in-distribution and out-of-distribution strata reported in our figures.
 
 \subsubsection{LIBERO}
 
-LIBERO~\cite{liu2023libero} consists of 130 simulatable tabletop tasks, such as ``put the bowl on the plate'' and ``put the moka pot on the stove'', grouped into four suites: libero\_spatial, libero\_object, and libero\_goal (10 tasks each), plus libero\_100, which splits into libero\_90 (90 tasks) and libero\_10 (10). We inherit a $\pi_{0.5}$ finetuned on every suite except libero\_90~\cite{pi05}, so libero\_90 tasks are \emph{out-of-finetune} and the rest \emph{in-finetune}. Success is again defined procedurally by the benchmark; each task runs to a suite-specific step limit and counts as successful once any step succeeds.
+LIBERO~\cite{liu2023libero} consists of 130 simulatable tabletop tasks, such as ``put the bowl on the plate'' and ``put the moka pot on the stove'', grouped into four suites (Fig.~\ref{fig:scenes-libero}): libero\_spatial, libero\_object, and libero\_goal (10 tasks each), plus libero\_100, which splits into libero\_90 (90 tasks) and libero\_10 (10). We inherit a $\pi_{0.5}$ finetuned on every suite except libero\_90~\cite{pi05}, so libero\_90 tasks are \emph{out-of-finetune} and the rest \emph{in-finetune}. Success is again defined procedurally by the benchmark; each task runs to a suite-specific step limit and counts as successful once any step succeeds.
 
 
 
@@ -346,7 +365,7 @@ suggesting token-level sensitivity.
 
 To quantify sensitivity further, we compare each task's best-performing phrase with its canonical instruction. The search is simple: for a task, a VLM generates 16 rephrasings, each is scored by several rollouts, and the VLM then generates 16 new rephrasings conditioned on all scored phrases so far; after three rounds we select the best-scoring phrase. 
 Rephrase candidates are generated by gemini-pro-latest. For $\pi_0$, each candidate is measured on layouts 0--17 ($n = 36$) and selection uses these layouts only; the selected phrase is then re-measured 12 times per layout on all 24 (the oracle bars in Fig.~\ref{fig:pi0-conditions}). The held-out layouts 18--23 alone ($n = 72$) give the same headroom, so selection does not inflate it. For $\pi_{0.5}$, candidates are screened on 5--10 layouts, and the oracle bar in Fig.~\ref{fig:pi05-fourtier} pools each winner's re-measurement on disjoint layouts ($n = 10$--$20$ per task).
-Figs.~\ref{fig:pi0-conditions} and~\ref{fig:pi05-fourtier} compare the success rates of oracle phrases with canonical, adversarial, and natural ones. For both models, oracle phrases reach significantly higher success rates than every other phrase set. By this measure $\pi_0$ is more sensitive to phrasing than $\pi_{0.5}$, as our swing search also suggested.
+Figs.~\ref{fig:pi0-conditions} and~\ref{fig:pi05-fourtier} compare the success rates of oracle phrases with canonical, adversarial, and natural ones. For both models, oracle phrases reach significantly higher success rates than every other phrase set. By this measure $\pi_0$ is more sensitive to phrasing than $\pi_{0.5}$, consistent with how much harder swings were to find for $\pi_{0.5}$ than for $\pi_0$.
 
 
 
@@ -387,44 +406,26 @@ We prompt Claude to derive rules from the evidence with the prompt provided in t
 
 For rulebooks that see in-finetune phrases, we also provide the full set of finetuning instructions so that the distiller can use corpus statistics such as how often each object occurs and the most common phrase structures. The first rulebook of each type was distilled with Claude Fable (claude-fable-5; 2026-09-03) and the remaining two with Claude Opus 5 (claude-opus-5; 2026-09-05); our results do not suggest this choice mattered. 
 Each distillation is a multi-agent panel (three lens distillers, an adversarial critic, and a synthesizer) run once, without iteration; the replicate panels permute the lens order and see the same evidence files. Requests used the API-default temperature of 1.0, and the models manage thinking depth adaptively (the default). 
-All rulebooks are in the repository.\footref{fn:repo}
+All nine rulebooks are available in the project repository.\footref{fn:repo}
 
 \subsection{Applying Rules}
 
 Rules are applied once per episode, before the robot moves, by one of three \emph{appliers}: Claude, Gemini, or the open-weights Qwen3.5-9B~\cite{qwen}. Besides the instruction and the rules, the applier receives a reasoning trace produced by Gemini 3.5 Flash (temperature 0.4) from the incoming phrase and the scene image; the applier itself never sees the image. The appliers are Claude Fable 5 (effort high; max on the human-generated set), Gemini through the gemini-pro-latest alias (accessed September 2026) with a 16{,}384-token thinking budget, and Qwen3.5-9B with greedy decoding. The applier applies the rules greedily, and its output phrase goes directly to the VLA, which then performs the task as usual. 
-Before the robot moves, the pipeline makes two model calls per instruction: trace generation takes ${\sim}2.5$\,s, and rule application ${\sim}10$\,s for Claude, ${\sim}17$\,s for Gemini, and 1--2\,s for the local Qwen; the rewrite is reused across all of that instruction's episodes.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure*}[!t]
- \centering
- \includegraphics[width=0.78\linewidth]{figures/scenes_bridge_rep.png}
- \caption{\small Representative SIMPLER Bridge scenes: every task uses the same table setup and differs only in which source and destination objects are present (tasks in Fig.~\ref{fig:pairs-bridge}).}
- \label{fig:scenes-bridge}
- \vspace{-0.2cm}
-\end{figure*}
-
-\begin{figure*}[!t]
- \centering
- \includegraphics[width=0.78\linewidth]{figures/scenes_libero_rep.png}
- \caption{\small One representative scene per LIBERO suite (tasks in Fig.~\ref{fig:pairs-libero}); libero\_goal and libero\_spatial tasks share their suite's scene, libero\_90 scenes vary per task.}
- \label{fig:scenes-libero}
- \vspace{-0.2cm}
-\end{figure*}
-
+Before the robot moves, the pipeline makes two model calls per instruction: trace generation takes ${\sim}2.5$\,s, and rule application ${\sim}10$\,s for Claude, ${\sim}17$\,s for Gemini, and 1--2\,s for the local Qwen; the rewrite is computed once and reused across every layout and repetition of that instruction.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Evaluating the Rulebooks}
 \label{sec:rules-results}
 
-We evaluate rulebooks on the rephrase-augmented $\pi_0$ over the 12 sealed Bridge tasks and 24 fixed layouts; \S\ref{sec:libero-repl} replicates on $\pi_{0.5}$ + LIBERO. The layouts are SIMPLER's deterministic object-initialization episodes 0--23, shared by every arm. The sealed split was fixed weeks before any rulebook evidence was generated, and only non-sealed tasks ever entered the evidence.
+We evaluate rulebooks on the rephrase-augmented $\pi_0$ over the 12 sealed Bridge tasks and 24 fixed layouts; \S\ref{sec:libero-repl} replicates on $\pi_{0.5}$ + LIBERO. The layouts are SIMPLER's deterministic object-initialization episodes 0--23, shared by every arm. The sealed split was fixed weeks before any rulebook evidence was generated, and only non-sealed tasks ever entered the evidence bank used for distillation.
 
 \subsection{Phrase Sets}
 \label{sec:phrase-sets}
 
 We evaluate on four phrase sets: adversarials, VLM-generated naturals, human-generated naturals, and canonicals. The adversarial and natural sets follow the two styles of \S\ref{sec:evidence}, here produced by Gemini 3.5 Flash from the scene image, with the prompt in the project repository. Human-generated naturals were collected by survey from friends and family, who watched a successful video demonstration of each task and were asked to request it of an 8-year-old (78 phrases), an adult (159), and a robot (155). 
 We received 37 submissions (ages 11--85, mixed gender, AI familiarity from none to professional); respondents never saw the canonical instruction, and every field was optional. Phrases are kept verbatim, typos included: cleaning dropped only eight entries (placeholder or incomplete) and collapsed double-posted duplicates, leaving 392 phrases, 363 of them unique. 
-Per task we evaluate 6 adversarial phrases (72 in total), roughly 16 VLM-generated naturals (186), and roughly 30 human-generated naturals (363). We also evaluate each task's canonical instruction, but with one phrase per task the canonical results (Fig.~\ref{fig:dashboard}) are statistically underpowered.
+Per task we evaluate 6 adversarial phrases (72 in total), roughly 16 VLM-generated naturals (186), and roughly 30 human-generated naturals (363). We also evaluate each task's canonical instruction, but with one phrase per task the canonical results (Fig.~\ref{fig:dashboard}) are statistically underpowered and should be read with caution.
 
 \subsection{Baselines}
 
@@ -493,7 +494,7 @@ We repeated the pipeline on $\pi_{0.5}$: a preregistered sealed set of 20 tasks 
 
 Table~\ref{tab:cover} compares CoVer with our baselines; all arms use identical Gemini reasoning traces, and the no-rules rephraser column averages the three appliers. 
  
-Running CoVer's framework with the verifier disabled reproduces its published baseline results. CoVer's native metric is first success within an episode, whereas we report final-state success; auditing our results under first success improved all arms similarly.
+Running CoVer's framework with the verifier disabled reproduces its published baseline results. CoVer's native metric is first success within an episode, whereas we report final-state success; auditing our results under first success improved all arms by similar amounts.
 
 \begin{table}[!t]
  \caption{\small Test-time verification (CoVer) against our two baselines on the sealed tasks: pooled success (\%) on the final state at step 60, all arms using identical Gemini reasoning traces. CoVer trails both baselines on every set.}
@@ -517,8 +518,8 @@ entirely rollout-scored, did not); a cheaper, better proxy would avoid
 the cost of full rollouts. We evaluated the method on two VLAs, only
 in simulation; real robots are natural next steps. Most
 importantly, language sensitivity should be measured systematically
-across models. Explaining it --- attributing the sensitivity to a
-cause --- would be the most exciting outcome of all.
+across models. Explaining it, by attributing the sensitivity to a cause,
+would be the most exciting outcome.
 
 
 
