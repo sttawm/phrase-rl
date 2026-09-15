@@ -259,3 +259,6 @@ appliers and rollout protocol are unchanged. Draws 1-3 are therefore NOT identic
 replicates: draw 1 is reported as the v1-prompt book, draws 2-3 as the v2-prompt books,
 and any three-draw average is labelled as mixed-prompt. Draws 2-3 are distilled only after
 round 1 (draw 1) has been rolled and analysed end to end.
+Distiller model: draw 1 was distilled with Claude Opus 5 (credit caution at the time); draws 2 and
+3 use Claude Fable 5.1 for every agent of the same workflow (user decision 2026-09-15). Reported
+per draw alongside the prompt version.
