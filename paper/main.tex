@@ -387,8 +387,8 @@ All rulebooks are in the repository.\footref{fn:repo}
 
 \subsection{Applying Rules}
 
-Rules are applied once per episode, before the robot moves, by one of three \emph{appliers}: Claude, Gemini, or the open-weights Qwen3.5-9B~\cite{qwen}. Besides the instruction and the rules, the applier receives a reasoning trace produced by Gemini 3.5 Flash (temperature 0.4) from the incoming phrase and the scene image; the applier itself never sees the image. The appliers are Claude Fable 5 (effort high; max on the human-generated set), Gemini through the gemini-pro-latest alias with a 16{,}384-token thinking budget, and Qwen3.5-9B with greedy decoding. The applier applies the rules greedily, and its output phrase goes directly to the VLA, which then performs the task as usual. 
-\todo{pin gemini-pro-latest to a dated model; if available, report per-episode latency or token cost of the rephrase step}
+Rules are applied once per episode, before the robot moves, by one of three \emph{appliers}: Claude, Gemini, or the open-weights Qwen3.5-9B~\cite{qwen}. Besides the instruction and the rules, the applier receives a reasoning trace produced by Gemini 3.5 Flash (temperature 0.4) from the incoming phrase and the scene image; the applier itself never sees the image. The appliers are Claude Fable 5 (effort high; max on the human-generated set), Gemini through the gemini-pro-latest alias (accessed September 2026) with a 16{,}384-token thinking budget, and Qwen3.5-9B with greedy decoding. The applier applies the rules greedily, and its output phrase goes directly to the VLA, which then performs the task as usual. 
+Applier latency was not measured; each unique instruction costs one applier call, whose rewrite is reused across that instruction's episodes.
 
 
 
