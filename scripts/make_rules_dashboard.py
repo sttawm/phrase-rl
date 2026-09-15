@@ -209,7 +209,7 @@ handles = [plt.Rectangle((0, 0), 1, 1, fc=C_BASE, ec=EDGE),
            plt.Rectangle((0, 0), 1, 1, fc=C_RULES, ec="none"),
            plt.Line2D([0], [0], color=RED, lw=1.2, ls=(0, (4, 3))),
            plt.Line2D([0], [0], color=GREY, lw=1.2, ls=(0, (2, 2)))]
-fig.legend(handles, ["no-rules rephraser (scaffold)", "rulebook cell",
+fig.legend(handles, ["no-rules rephraser", "rulebook cell",
                      "no rephraser", "no rules (mean)"],
            fontsize=8.4, ncol=4, loc="lower center", bbox_to_anchor=(0.5, 0.0))
 PAPER = os.environ.get("PAPER") == "1"

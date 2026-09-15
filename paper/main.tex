@@ -429,7 +429,7 @@ Per task we evaluate 6 adversarial phrases (72 in total), roughly 16 VLM-generat
 
 \subsection{Baselines}
 
-We compare against three baselines. The \emph{no-rephraser} baseline passes the incoming instruction to the VLA unchanged. The \emph{no-rules rephraser} (the scaffold in Fig.~\ref{fig:dashboard}) runs the same applier with a single generic rule (see the project repository), isolating the effect of the distilled rules from that of rephrasing itself. CoVer~\cite{kwok2026scaling} uses a contrastively trained verifier to select, at every step, the highest-scoring phrase/action pair from 40 candidates (8 rephrasings $\times$ 5 actions).
+We compare against three baselines. The \emph{no-rephraser} baseline passes the incoming instruction to the VLA unchanged. The \emph{no-rules rephraser} runs the same applier with a single generic rule (see the project repository), isolating the effect of the distilled rules from that of rephrasing itself. CoVer~\cite{kwok2026scaling} uses a contrastively trained verifier to select, at every step, the highest-scoring phrase/action pair from 40 candidates (8 rephrasings $\times$ 5 actions).
 
 \subsection{Statistical Tests}
 \label{sec:stats}
@@ -461,7 +461,7 @@ The out-of-finetune rulebook is consistently the best type; the one exception is
 \begin{figure*}[!t]
  \centering
  \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
- \caption{\small Main results: success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER tasks, one panel per input phrase set and one bar group per rule-applying model. Dashed red = the no-rephraser baseline; grey = the no-rules rephraser; greens = the out-of-finetune, both, and in-finetune rulebooks, each the mean over its three draws. Thin flanks split every bar into in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) tasks. Out-of-finetune rulebooks are strongest on every non-canonical set, with gains concentrated out-of-distribution; the canonical panel has one phrase per task and is underpowered.}
+ \caption{\small Main results: success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER tasks, one panel per input phrase set and one bar group per rule-applying model. Dashed red = the no-rephraser baseline; grey = the no-rules rephraser; greens = the rules-based rephrasers: the out-of-finetune, in-and-out-finetune (``both''), and in-finetune rulebooks, each the mean over its three draws. Thin flanks split every bar into in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) tasks. Out-of-finetune rulebooks are strongest on every non-canonical set, with gains concentrated out-of-distribution (p-values in Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold}); the canonical panel has one phrase per task and is underpowered.}
  \label{fig:dashboard}
 \end{figure*}
 
