@@ -243,3 +243,19 @@ ROLLOUTS AND ANALYSIS
   the scaffold arm, pooled AND split in-finetune vs out-of-finetune (also by canonical screen
   level); draws averaged before pairing once draws 2-3 exist. No pooled headline across
   halves.
+
+## 2026-09-15 — AMENDMENT: draws 2 and 3 use the on-average distillation prompt (approved by user in-session)
+
+Draw 1 was distilled under prompts/distill_minimal.md (tag icra2027), whose criterion
+("consistent score differences across tasks, not single examples") produced a book of
+prohibitions with three licensed edits (56/200 test phrases changed, almost all onto->on /
+into->in). Draws 2 and 3 use prompts/distill_minimal_v2.md instead: rules are judged by
+their expected effect on average over the tasks where they apply (gains outweighing
+losses in size and frequency, even if a rule loses on some tasks), with an explicit
+preference for rules that change wording over rules that only forbid changes. The
+multi-agent distiller (scripts/distill_libero_v2_onavg_workflow.js) carries the same
+criterion in its analyst, refuter, synthesizer and auditor prompts; evidence, sealed set,
+appliers and rollout protocol are unchanged. Draws 1-3 are therefore NOT identical-prompt
+replicates: draw 1 is reported as the v1-prompt book, draws 2-3 as the v2-prompt books,
+and any three-draw average is labelled as mixed-prompt. Draws 2-3 are distilled only after
+round 1 (draw 1) has been rolled and analysed end to end.
