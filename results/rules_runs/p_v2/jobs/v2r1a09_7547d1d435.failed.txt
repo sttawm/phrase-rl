@@ -1,0 +1,40 @@
+episodes
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+progress 24/80 episodes
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+[Warning]: datasets path /workspace/openpi/third_party/libero/libero/libero/../datasets does not exist!
+progress 27/90 episodes
+progress 40/80 episodes
+progress 40/80 episodes
+progress 40/80 episodes
+progress 40/80 episodes
+progress 45/90 episodes
+progress 64/80 episodes
+progress 64/80 episodes
+progress 63/90 episodes
+progress 64/80 episodes
+progress 64/80 episodes
+progress 80/80 episodes
+QUEUE-COMPLETE 80/80
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+progress 80/80 episodes
+QUEUE-COMPLETE 80/80
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+progress 80/80 episodes
+QUEUE-COMPLETE 80/80
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+progress 81/90 episodes
+progress 80/80 episodes
+QUEUE-COMPLETE 80/80
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+QUEUE-COMPLETE 90/90
+/workspace/openpi/examples/libero/.venv/lib/python3.8/site-packages/numba/np/arraymath.py:3845: DeprecationWarning: `np.MachAr` is deprecated (NumPy 1.22).
+  @overload(np.MachAr)
+bank_eval sub-shard(s) failed: rc=[-15, 0, 0, 0, 0, 0]
