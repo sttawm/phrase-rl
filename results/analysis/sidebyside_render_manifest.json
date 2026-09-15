@@ -1,0 +1,15 @@
+{
+  "purpose": "project-site side-by-side videos: one success + one failure per pair, phrasing is the only difference (CRN-pinned, deterministic replay)",
+  "note": "seed = crc32(task|episode_id|rep), phrase excluded; rep 0 throughout; capture per-step RGB -> mp4",
+  "pairs": [
+    {"task": "widowx_eggplant_on_sponge_clean", "episode_id": 6,
+     "good": {"phrase": "purple eggplant goes on the sponge", "rate": 69},
+     "bad":  {"phrase": "eggplant goes on the sponge", "rate": 8}},
+    {"task": "widowx_pepsi_on_plate_clean", "episode_id": 3,
+     "good": {"phrase": "put the pepsi on the plate", "rate": 69},
+     "bad":  {"phrase": "put the Pepsi on the plate", "rate": 25}},
+    {"task": "widowx_pepsi_on_plate_clean", "episode_id": 8,
+     "good": {"phrase": "set the pepsi on the plate", "rate": 71},
+     "bad":  {"phrase": "set the soda on the plate", "rate": 32}}
+  ]
+}
