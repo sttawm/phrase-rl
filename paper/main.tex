@@ -168,8 +168,10 @@ frozen policy. The rules improve the frozen $\pi_0$ by 16 to 27\% relative
 on twelve held-out tasks across adversarial, VLM-generated, and
 human-generated phrasings, with gains concentrated on out-of-distribution
 tasks and stable across three applier models and three independent
-distillations. The method requires no retraining and no per-step
-verification, and applies zero-shot to unseen tasks and instructions.
+distillations. The pipeline replicates on $\pi_{0.5}$ + LIBERO, lifting
+in-finetune success from 93.6\% to 97.6--97.9\%. The method requires no
+retraining and no per-step verification, and applies zero-shot to unseen
+tasks and instructions.
 \end{abstract}
 
 
@@ -201,7 +203,7 @@ In summary, this paper contributes:
 \begin{enumerate}
  \item a statistically grounded characterization of language sensitivity in $\pi_0$ and $\pi_{0.5}$, comprising single-edit swings and oracle headroom, with the finding that phrasing accounts for much of the apparent in- versus out-of-distribution gap;
  \item a weight-free, once-per-episode method that distills rollout evidence into explicit rephrasing rules which transfer zero-shot to unseen tasks;
- \item an evaluation on held-out tasks across adversarial, VLM-generated, and human-generated phrasings, with three applier models and a comparison to test-time verification.
+ \item an evaluation on held-out tasks across adversarial, VLM-generated, and human-generated phrasings, with three applier models, a comparison to test-time verification, and a replication on $\pi_{0.5}$ + LIBERO.
 \end{enumerate}
 
 \section{Related Work}
@@ -466,9 +468,10 @@ Much remains. Rulebooks distilled from more tasks may yield larger
 gains, and a more formal reinforcement-learning treatment of phrasing is
 appealing, though it would likely demand far more simulatable tasks than
 we worked with. Our in-finetune rulebooks underperformed, possibly
-because of a weak proxy score; a cheaper, better proxy would avoid the
-cost of full rollouts. We evaluated the method on a single VLA and only
-in simulation; other VLAs and real robots are natural next steps. Most
+because of a weak proxy score (the LIBERO books, whose evidence was
+entirely rollout-scored, did not); a cheaper, better proxy would avoid
+the cost of full rollouts. We evaluated the method on two VLAs, only
+in simulation; real robots are natural next steps. Most
 importantly, language sensitivity should be measured systematically
 across models. Explaining it --- attributing the sensitivity to a
 cause --- would be the most exciting outcome of all.
