@@ -138,10 +138,14 @@ def call_gemini(prompt):
     return ""
 
 
+CLAUDE_MODEL = os.environ.get("APPLY_CLAUDE_MODEL", "claude-opus-5")
+CLAUDE_EFFORT = os.environ.get("APPLY_CLAUDE_EFFORT", "high")
+
+
 def call_claude(prompt):
     for attempt in range(3):
         r = subprocess.run(["claude", "-p", prompt, "--output-format", "text",
-                            "--model", "claude-opus-5", "--effort", "high"],
+                            "--model", CLAUDE_MODEL, "--effort", CLAUDE_EFFORT],
                            capture_output=True, text=True, timeout=900)
         if r.returncode == 0 and r.stdout.strip():
             return r.stdout.strip()
@@ -151,6 +155,7 @@ def call_claude(prompt):
 
 
 def main():
+    global CLAUDE_MODEL, CLAUDE_EFFORT
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--applier", required=True, choices=["gemini", "claude", "qwen"],
                     help="qwen is refused (see module docstring)")
@@ -167,7 +172,10 @@ def main():
     ap.add_argument("--outdir", default=str(DEFAULT_OUTDIR),
                     help="writes <outdir>/<applier>__<book>.parquet")
     ap.add_argument("--workers", type=int, default=8)
+    ap.add_argument("--claude-model", default=CLAUDE_MODEL, help="claude -p model (default claude-opus-5)")
+    ap.add_argument("--claude-effort", default=CLAUDE_EFFORT)
     a = ap.parse_args()
+    CLAUDE_MODEL, CLAUDE_EFFORT = a.claude_model, a.claude_effort
     if a.applier == "qwen":
         raise SystemExit("qwen apply not supported by this queue: the p_eval "
                          "worker only claims *.spec.json jobs and its apply "
