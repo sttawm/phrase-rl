@@ -33,8 +33,11 @@ SIMPLER Bridge, the search evaluated 105 candidate pairs and 66 survived
 a two-proportion z test ($z \ge 1.96$), forming 35 sets over 16 tasks
 (success rates over n = 72 rollouts per phrase; basket task n = 180). For
 $\pi_{0.5}$ on LIBERO, the search evaluated 426 candidate pairs and 115
-were significant ($|\Delta| \ge 18$\,pp, $p < 0.05$), forming 23 sets
-over 19 tasks (n = 50 per phrase). The same records in machine-readable
+were significant ($|\Delta| \ge 18$\,pp, $p < 0.05$), forming 23 sets;
+eight were removed as scene-ambiguous --- a generalized noun matched more
+than one object in the scene and the ambiguous phrasing was the one that
+lost --- leaving the 15 sets over 13 tasks listed here (n = 50 per
+phrase). The same records in machine-readable
 form, one row per phrase, are the two CSV files under \texttt{data/} in
 this repository.
 \end{abstract}
