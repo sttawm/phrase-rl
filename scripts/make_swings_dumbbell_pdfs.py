@@ -7,6 +7,7 @@ import pathlib
 
 import matplotlib
 matplotlib.use("Agg")
+matplotlib.rcParams["pdf.fonttype"] = 42  # PaperCept forbids Type 3 fonts
 import matplotlib.pyplot as plt
 import pandas as pd
 
