@@ -263,6 +263,21 @@ Distiller model: draw 1 was distilled with Claude Opus 5 (credit caution at the 
 3 use Claude Fable 5.1 for every agent of the same workflow (user decision 2026-09-15). Reported
 per draw alongside the prompt version.
 
+## 2026-09-15 — AMENDMENT: draw 4 (v2 prompt, Claude Opus 5), written before the apply
+
+Draw 4 is a fourth stateless draw of the same workflow (scripts/distill_libero_v2_onavg_workflow.js)
+under the v2 prompt (prompts/distill_minimal_v2.md, pre-filled at distill_prompt_v2b_filled.md),
+with every agent on Claude Opus 5 (the session model; the script has no model override).
+Evidence (distill_evidence_v2.csv), sealed set, naturals, traces, applier (gemini-pro-latest,
+temperature 1.0, thinking 16384), rollout protocol (50 inits, seed 7, p_v2 job queue, prefix
+v2r1g) and analysis are unchanged. Draw 4 is distilled after rounds 1-3 were rolled and analysed
+and is reported as a v2-prompt / Opus book; draws 2-3 (Fable) and draw 4 (Opus) share the prompt
+but not the distiller model. Isolation audit of draws 1-3, done before draw 4: no distiller agent
+read the sealed draw, naturals, applies, results or this file; the draw-2 synthesizer did read
+the draw-1 rulebook (format check), draw 3 read only its own output. The workflow prompt now
+forbids opening any file other than the evidence, the prompt and the output, so draw 4 is the
+first draw with that clause.
+
 ## 2026-09-15 — RESULT: sealed set v2, rounds 1-3 (recorded after the fact; no protocol change)
 
 144 legs, ~28k episodes, zero lost. All arms n=200 bases (10 natural phrases x 20 sealed
