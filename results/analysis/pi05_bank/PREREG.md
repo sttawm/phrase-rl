@@ -252,7 +252,7 @@ prohibitions with three licensed edits (56/200 test phrases changed, almost all 
 into->in). Draws 2 and 3 use prompts/distill_minimal_v2.md instead: rules are judged by
 their expected effect on average over the tasks where they apply (gains outweighing
 losses in size and frequency, even if a rule loses on some tasks), with an explicit
-preference for rules that change wording over rules that only forbid changes. The
+instruction to include rules that change wording, not only rules that forbid changes. The
 multi-agent distiller (scripts/distill_libero_v2_onavg_workflow.js) carries the same
 criterion in its analyst, refuter, synthesizer and auditor prompts; evidence, sealed set,
 appliers and rollout protocol are unchanged. Draws 1-3 are therefore NOT identical-prompt

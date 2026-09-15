@@ -17,7 +17,7 @@ Write a rulebook of 10-20 numbered rules for rewriting any incoming task
 instruction so that the robot is most likely to succeed. Judge each rule by
 its expected effect on average over the tasks where it would apply: a rule
 is worth including when the score gains it produces outweigh the losses,
-in size and in frequency, even if it loses on some tasks. Prefer rules that
-change wording over rules that only forbid changes, and keep rules general
+in size and in frequency, even if it loses on some tasks. Include rules that
+change wording, not only rules that forbid changes, and keep rules general
 enough to apply to instructions and objects not in the evidence. Output only
 the numbered rules.
