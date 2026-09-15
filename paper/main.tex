@@ -369,6 +369,7 @@ Figs.~\ref{fig:pi0-conditions} and~\ref{fig:pi05-fourtier} compare the success r
 We now present our method for reducing this sensitivity (Fig.~\ref{fig:method}). At a high level it is simple: generate many rephrasings of many tasks, score each phrase, present the scored phrases to an LLM, and receive a set of rules that specify how to rephrase an incoming instruction. Unlike per-task optimization, the rules must hold across all tasks at once.
 
 \subsection{Gathering Evidence}
+\label{sec:evidence}
 
 Rules are derived from the \emph{evidence tasks}: the eight simulatable Bridge tasks outside the sealed set, plus non-simulatable tasks with real-world expert trajectories. For each evidence task, we prompt a VLM (gemini-pro-latest) to generate seven \emph{natural} rephrasings, worded the way a person might request the task, and two \emph{adversarial} rephrasings, convoluted and overly complicated. For ``put carrot on plate'', a natural rephrasing is ``Could you move the carrot to the plate?'' and an adversarial one is ``Take the long orange item typically eaten by rabbits and ensure it ends up supported by the circular dishware.'' We also include every phrase measured during oracle search, mostly benign. The generation prompt is in the repository.\footref{fn:repo} 
 The non-simulatable tasks are the 208 remaining tasks of our 228-task pool, built from BridgeData V2's language-annotated expert demonstrations~\cite{bridge}; in total the evidence bank holds 5{,}453 scored task--phrase pairs.
@@ -381,7 +382,7 @@ Rollout scores exist only for the eight non-sealed simulatable tasks; the twelve
 
 \subsection{Distilling Rules}
 
-We prompt Claude to derive rules from the evidence with the prompt provided in the project repository.\footref{fn:repo} We test three rulebook types, distinguished by the evidence they see: \emph{in-finetune}, \emph{out-of-finetune}, and \emph{both}. Because distillation is stochastic, we distill each type three times and average their results in evaluation. Rulebooks contain 10 to 20 rules.
+We prompt Claude to derive rules from the evidence with the prompt provided in the project repository.\footref{fn:repo} On Bridge, we test three rulebook types, distinguished by the evidence they see: \emph{in-finetune}, \emph{out-of-finetune}, and \emph{both}. Because distillation is stochastic, we distill each type three times and average their results in evaluation. Rulebooks contain 10 to 20 rules.
 
 For rulebooks that see in-finetune phrases, we also provide the full set of finetuning instructions so that the distiller can use corpus statistics such as how often each object occurs and the most common phrase structures. The first rulebook of each type was distilled with Claude Fable (claude-fable-5; 2026-09-03) and the remaining two with Claude Opus 5 (claude-opus-5; 2026-09-05); our results do not suggest this choice mattered. 
 Each distillation is a multi-agent panel (three lens distillers, an adversarial critic, and a synthesizer) run once, without iteration; the replicate panels permute the lens order and see the same evidence files. Requests used the API-default temperature of 1.0, and the models manage thinking depth adaptively (the default). 
@@ -397,12 +398,12 @@ Before the robot moves, the pipeline makes two model calls per instruction: trac
 \section{Evaluating the Rulebooks}
 \label{sec:rules-results}
 
-We evaluate rulebooks on the rephrase-augmented $\pi_0$ over the 12 sealed Bridge tasks and 24 fixed layouts. The layouts are SIMPLER's deterministic object-initialization episodes 0--23, shared by every arm. The sealed split was fixed weeks before any rulebook evidence was generated, and only non-sealed tasks ever entered the evidence.
+We evaluate rulebooks on the rephrase-augmented $\pi_0$ over the 12 sealed Bridge tasks and 24 fixed layouts; \S\ref{sec:libero-repl} replicates on $\pi_{0.5}$ + LIBERO. The layouts are SIMPLER's deterministic object-initialization episodes 0--23, shared by every arm. The sealed split was fixed weeks before any rulebook evidence was generated, and only non-sealed tasks ever entered the evidence.
 
 \subsection{Phrase Sets}
 \label{sec:phrase-sets}
 
-We evaluate on four phrase sets: adversarials, VLM-generated naturals, human-generated naturals, and canonicals. Adversarial and VLM-generated natural phrases are produced by Gemini 3.5 Flash from the scene image, with the prompt in the project repository; adversarials keep the goal but are awkwardly worded, and VLM-generated naturals mimic how a person might request the task. Human-generated naturals were collected by survey from friends and family, who watched a successful video demonstration of each task and were asked to request it of an 8-year-old (78 phrases), an adult (159), and a robot (155). 
+We evaluate on four phrase sets: adversarials, VLM-generated naturals, human-generated naturals, and canonicals. The adversarial and natural sets follow the two styles of \S\ref{sec:evidence}, here produced by Gemini 3.5 Flash from the scene image, with the prompt in the project repository. Human-generated naturals were collected by survey from friends and family, who watched a successful video demonstration of each task and were asked to request it of an 8-year-old (78 phrases), an adult (159), and a robot (155). 
 We received 37 submissions (ages 11--85, mixed gender, AI familiarity from none to professional); respondents never saw the canonical instruction, and every field was optional. Phrases are kept verbatim, typos included: cleaning dropped only eight entries (placeholder or incomplete) and collapsed double-posted duplicates, leaving 392 phrases, 363 of them unique. 
 Per task we evaluate 6 adversarial phrases (72 in total), roughly 16 VLM-generated naturals (186), and roughly 30 human-generated naturals (363). We also evaluate each task's canonical instruction, but with one phrase per task the canonical results (Fig.~\ref{fig:dashboard}) are statistically underpowered.
 
@@ -441,6 +442,7 @@ The out-of-finetune rulebook is consistently the best type; the one exception is
 
 
 \subsection{Replication on $\pi_{0.5}$ + LIBERO}
+\label{sec:libero-repl}
 
 We repeated the pipeline on $\pi_{0.5}$: a preregistered sealed set of 20 tasks (10 in-finetune, 10 out-of-finetune), 10 VLM-generated natural rephrasings per task, evidence from the non-sealed single-edit pairs only, and the Gemini applier ($n = 200$ bases $\times$ 50 layouts per arm). Two independently distilled books lift in-finetune success from 93.6\% to 97.8\% on average ($p \approx 0.005$) and leave out-of-finetune unchanged ($p > 0.6$); the no-rules rephraser gains nothing in-finetune but 1.6 points out-of-finetune ($p = 0.006$). The books' gains are the repairs the evidence licenses: hot plate, hotplate, or burner $\to$ stove ($+43$ to $+48$\,pp on the eight or nine phrases that used them), dish $\to$ plate ($+37$ in the draw that rewrote it), and, smaller but broad, grab or lift $\to$ pick up ($+2.2$ and $+2.6$ over 14--16 phrases) and onto $\to$ on, into $\to$ in (${\sim}+2$ over ${\sim}50$ phrases). A distillation prompt that required each rule to hold across all tasks produced a book of prohibitions that changed little and gained nothing; asking for rules that help on average produced the books above.
 
@@ -492,7 +494,9 @@ p-value is a two-sided sign-flip permutation test on the mean of the
 $d_i$ (20{,}000 resamples; exact enumeration when $n \le 12$). The number
 of bases is the sample size ($n = 186$ VLM-generated natural, $363$
 human-generated natural, $72$ adversarial, $12$ canonical); layouts and
-repetitions sharpen each $d_i$ but do not add to $n$. Weighting
+repetitions sharpen each $d_i$ but do not add to $n$. The LIBERO
+replication uses the same paired construction ($n = 200$ bases,
+10{,}000 permutations). Weighting
 duplicate human submissions by multiplicity shifts pooled rates by less
 than a point and changes no conclusion.
 Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold} report
