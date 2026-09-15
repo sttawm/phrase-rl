@@ -109,7 +109,7 @@ for ax, (cond, cname) in zip(axes, CONDS):
                 clip_on=False)
     ax.tick_params(axis="x", length=0)
     ax.set_xlim(-0.62, x - 0.62)
-    ax.set_ylim(12, 53)
+    ax.set_ylim(15, 53)
     ax.grid(axis="y", alpha=0.16)
     ax.set_title(cname, fontsize=14, pad=7)
     ax.spines[["top", "right"]].set_visible(False)
@@ -117,16 +117,32 @@ for ax, (cond, cname) in zip(axes, CONDS):
 for _ax in (axes[0], axes[2]):
     _ax.set_ylabel("success %", fontsize=11)
 
+from matplotlib.legend_handler import HandlerBase
+
+
+class FlankHandler(HandlerBase):
+    """legend swatch that pictures a flanked bar: [pale | solid | pale]"""
+    def create_artists(self, legend, orig, xd, yd, width, height, fs, trans):
+        arts = []
+        for x0, x1, a in ((0, .27, .40), (.27, .73, 1.0), (.73, 1.0, .40)):
+            r = plt.Rectangle((xd + x0 * width, yd), (x1 - x0) * width,
+                              height, fc=C_RULES, alpha=a, ec="none")
+            r.set_transform(trans)
+            arts.append(r)
+        return arts
+
+
+flank_key = plt.Rectangle((0, 0), 1, 1)
 handles = [plt.Rectangle((0, 0), 1, 1, fc=C_BASE, ec=EDGE),
            plt.Rectangle((0, 0), 1, 1, fc=C_RULES, ec="none"),
-           plt.Rectangle((0, 0), 1, 1, fc="#7A8698", alpha=0.42),
+           flank_key,
            plt.Line2D([0], [0], color=RED, lw=1.1, ls=(0, (4, 3)))]
 fig.legend(handles, ["no-rules rephraser",
                      "rulebook cell (mean over three draws)",
-                     "flanks: in-distribution (left, 5) / out-of-distribution (right, 7)",
+                     "thin flanks: in-distribution (left, 5 tasks) / out-of-distribution (right, 7 tasks); middle = all 12",
                      "no rephraser"],
-           fontsize=9.5, ncol=4, loc="lower center", bbox_to_anchor=(0.5, 0.0),
-           frameon=False)
+           fontsize=9.5, ncol=2, loc="lower center", bbox_to_anchor=(0.5, 0.0),
+           frameon=False, handler_map={flank_key: FlankHandler()})
 fig.tight_layout(rect=(0, 0.04, 1, 1.0))
 out = R / "results/charts/rules_dashboard_compact.png"
 fig.savefig(out, dpi=170, bbox_inches="tight", pad_inches=0.18)
