@@ -179,7 +179,7 @@ Before presenting the method, we characterize the sensitivity it targets for $\p
 
 \begin{figure*}[!t]
  \centering
- \includegraphics[width=\textwidth, height=0.40\textheight, keepaspectratio]{figures/method_overview.jpg}
+ \includegraphics[width=\textwidth, height=0.45\textheight, keepaspectratio]{figures/method_overview.png}
  \caption{\small Method overview. \emph{Evidence gathering}: a VLM rephrases each training task; the frozen VLA executes each phrasing, which is scored by rollout success, yielding the evidence $\mathcal{D}$ of single-edit pairs whose success rates differ. \emph{Rule distillation}: an LLM distills the evidence, once and offline, into 10--20 explicit phrasing rules $R$. \emph{Rule application}: at deployment a VLM conditioned on $R$ rewrites each incoming instruction once ($f_R$), before the episode begins, and the rewrite is passed to the unchanged VLA. The phrasings, success rates, and rules shown are illustrative, not from our experiments.}
  \label{fig:method}
 \end{figure*}
@@ -196,23 +196,7 @@ In summary, this paper contributes:
 
 \section{Related Work}
 
-\begin{figure*}[!t]
- \centering
- \includegraphics[width=0.75\linewidth]{figures/scenes_bridge_rep.png}
- \caption{\small Representative SIMPLER Bridge first-frame scenes from the WidowX camera. %(tasks in Fig.~\ref{fig:pairs-bridge}).
- Every tabletop task uses the same setup and differs only in which source and destination objects are present. The rightmost panel, put\_eggplant\_in\_basket, is the benchmark's sink scene.}
- \label{fig:scenes-bridge}
- \vspace{-0.2cm}
-\end{figure*}
 
-\begin{figure*}[!t]
- \centering
- \includegraphics[width=0.75\linewidth]{figures/scenes_libero_rep.png}
- \caption{\small One representative first-frame scene per LIBERO suite. % (tasks in Fig.~\ref{fig:pairs-libero}).
- libero\_goal and libero\_spatial tasks share one kitchen-counter scene per suite, libero\_object tasks place groceries beside a basket, and libero\_90 scenes vary per task.}
- \label{fig:scenes-libero}
- \vspace{-0.2cm}
-\end{figure*}
 
 \textbf{Measuring language sensitivity. }
 Embodied red teaming uses a VLM to search for instructions that break language-conditioned robot policies~\cite{karnik2024embodied}. LIBERO-PRO perturbs LIBERO along objects, initial states, instructions, and environments. On the language axis it finds that paraphrased instructions leave accuracy intact, but so do nonsensical ones, because the policy executes the same memorized trajectory regardless~\cite{zhou2025liberopro}. LIBERO-Plus charts the same sensitivity across ten VLAs, where instruction perturbations cost between 14 and 50 points depending on the model, and reaches the same conclusion that much of the apparent robustness stems from models ignoring the instruction outright~\cite{fei2025liberoplus}. Our single-edit swings are the complementary, finer-grained observation that when the policy does attend to language, a single word can move success by tens of points, and our oracle search quantifies how much of the apparent generalization gap is in fact attributable to phrasing rather than to task novelty.
@@ -238,6 +222,24 @@ Hi Robot places a VLM above a VLA to turn open-ended prompts into instructions t
 grounds an LLM planner in learned value functions so that proposed plans
 respect the robot's skills~\cite{ahn2022saycan}, and Inner Monologue
 closes the loop with execution feedback~\cite{huang2022inner}. These systems decide \emph{which} instruction to issue, whereas ours learns which surface forms of an instruction this executor parses reliably and rewrites each incoming instruction into one of those forms.
+
+\begin{figure}
+ \centering
+ \includegraphics[width=\columnwidth]{figures/scenes_bridge_rep.png}
+ \caption{\small Representative SIMPLER Bridge first-frame scenes. %(tasks in Fig.~\ref{fig:pairs-bridge}).
+ Every tabletop task uses the same setup and differs only in which source and destination objects are present. The rightmost panel, put\_eggplant\_in\_basket, is the benchmark's sink scene.}
+ \label{fig:scenes-bridge}
+ \vspace{-0.2cm}
+\end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[width=\columnwidth]{figures/scenes_libero_rep.png}
+ \caption{\small Representative first-frame scenes in LIBERO. % (tasks in Fig.~\ref{fig:pairs-libero}).
+ libero\_goal and libero\_spatial tasks share one kitchen-counter scene per suite, libero\_object tasks place groceries beside a basket, and libero\_90 scenes vary per task.}
+ \label{fig:scenes-libero}
+ \vspace{-0.2cm}
+\end{figure}
 
 \section{Models and Benchmarks}
 
@@ -378,7 +380,7 @@ The out-of-finetune rulebook is consistently the best type. The one exception is
 
 \begin{figure*}[!t]
  \centering
- \includegraphics[width=0.9\textwidth]{figures/rules_dashboard.png}
+ \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
  \caption{\small Main results: success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER tasks, one panel per input phrase set and one bar group per rule-applying model. Dashed red = the no-rephraser baseline; grey = the no-rules rephraser; greens = the rules-based rephrasers: the out-of-finetune, in-and-out-finetune (``both''), and in-finetune rulebooks, each the mean over its three draws. Thin flanks split every bar into in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) tasks. Out-of-finetune rulebooks are strongest on every non-canonical set, with gains concentrated out-of-distribution (p-values in Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold}); the canonical panel has one phrase per task and is statistically underpowered.}
  \label{fig:dashboard}
 \end{figure*}
