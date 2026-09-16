@@ -179,8 +179,8 @@ Before presenting the method, we characterize the sensitivity it targets for $\p
 
 \begin{figure*}[!t]
  \centering
- \includegraphics[width=0.86\textwidth]{figures/method_diagram.pdf}
- \caption{\small Method overview. \emph{Evidence gathering}: a VLM generates adversarial, natural, and benign rephrasings of each training task, one example of each shown in its box; the frozen VLA executes them and each phrase is scored by rollout success. \emph{Rule distillation}: an LLM distills the scored phrases, once and offline, into 10--20 explicit phrasing rules. \emph{Rule application}: at deployment a VLM conditioned on the rules rewrites each incoming instruction once, before the episode begins, and the rewrite is passed to the unchanged VLA. The phrasings, success rates, and rules shown are illustrative, not measured.}
+ \includegraphics[width=\textwidth, height=0.40\textheight, keepaspectratio]{figures/method_overview.jpg}
+ \caption{\small Method overview. \emph{Evidence gathering}: a VLM rephrases each training task; the frozen VLA executes each phrasing, which is scored by rollout success, yielding the evidence $\mathcal{D}$ of single-edit pairs whose success rates differ. \emph{Rule distillation}: an LLM distills the evidence, once and offline, into 10--20 explicit phrasing rules $R$. \emph{Rule application}: at deployment a VLM conditioned on $R$ rewrites each incoming instruction once ($f_R$), before the episode begins, and the rewrite is passed to the unchanged VLA. The phrasings, success rates, and rules shown are illustrative, not from our experiments.}
  \label{fig:method}
 \end{figure*}
 
