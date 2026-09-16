@@ -1,7 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%2345678901234567890123456789012345678901234567890123456789012345678901234567890
-% 1 2 3 4 5 6 7 8
-
 \documentclass[letterpaper, 10 pt, conference]{ieeeconf} % Comment this line out if you need a4paper
 
 \pdfminorversion=4  % PaperCept requires PDF 1.4 for pdfLaTeX uploads
@@ -84,7 +80,7 @@
 \hypersetup{
  colorlinks=true,
  linkcolor=orange,
- filecolor=magenta, 
+ filecolor=magenta,
  urlcolor=orange,
  citecolor=orange,
 }
@@ -152,28 +148,18 @@ Anonymous Authors
 \begin{abstract}
 Vision-language-action models (VLAs) are strikingly sensitive to
 instruction phrasing and do not inherit the language robustness of the
-vision-language models they are built on. A one-word edit can move
-success by tens of points: $\pi_{0.5}$ turns on a LIBERO stove 100\% of
-the time when told to ``switch on the stove'' and 2\% of the time when
-told to ``switch on the hot plate'', and a $\pi_0$ checkpoint already
-finetuned with rephrase augmentation still shows single-edit swings of up
-to 61 points on SIMPLER's Bridge tasks. We characterize this sensitivity
+vision-language models they are built on. A one-word edit can move success by tens of points: $\pi_{0.5}$ turns on a LIBERO stove 100\% of the time for ``switch on the stove'' and 2\% for ``switch on the hot plate'', and a $\pi_0$ checkpoint finetuned with rephrase augmentation still shows swings of up to 61 points on SIMPLER's Bridge tasks. We characterize this sensitivity
 with statistically tested single-edit swings and an oracle phrase search,
 which shows that phrasing alone nearly closes the 21-point gap between
 in-distribution and out-of-distribution tasks. We then reduce it without
-modifying the policy. Our key observation is that the sensitivity is
-systematic enough to be written down: we score many phrasings of a few
-training tasks, have a large language model distill the evidence into ten
-to twenty natural-language rephrasing rules, and at deployment rewrite
-each incoming instruction under these rules once, before it reaches the
-frozen policy. The rules improve the frozen $\pi_0$ by 16 to 27\% relative
+modifying the policy. Because the sensitivity is systematic, it can be expressed as explicit rules: we score many phrasings of a few training tasks, have a large language model distill the evidence into ten to twenty rephrasing rules, and at deployment rewrite each incoming instruction once under these rules before it reaches the frozen policy. The rules improve the frozen $\pi_0$ by 16 to 27\% relative
 on twelve held-out tasks across adversarial, VLM-generated, and
-human-generated phrasings, with gains concentrated on out-of-distribution
-tasks and stable across three appliers and three distillations. The pipeline replicates on $\pi_{0.5}$ + LIBERO, lifting
+human-generated phrasings, with gains concentrated on out-of-distribution tasks. The pipeline replicates on $\pi_{0.5}$ and LIBERO, lifting
 in-finetune success from 93.6\% to 97.8\%. The method requires no
 retraining and no per-step verification, and applies zero-shot to unseen
-tasks and instructions.\footnote{Videos and additional material:
-\url{https://rephrase-before-you-act.github.io}}
+tasks and instructions.
+Project website:
+\url{https://rephrase-before-you-act.github.io}
 \end{abstract}
 
 
@@ -182,174 +168,118 @@ tasks and instructions.\footnote{Videos and additional material:
 
 \section{Introduction}
 
-Humans have long dreamed of general-purpose robots that help with everyday physical tasks; the dream remains elusive. Recent years have nonetheless brought enormous progress in generalist vision-language models (VLMs), and it is natural to build robot policies as extensions of them, in the form of vision-language-action models (VLAs). The hope is that a VLA inherits its VLM's capabilities, including robustness to how an instruction is phrased. It does not. Telling $\pi_{0.5}$ to ``switch on the stove'' succeeds 100\% of the time; ``switch on the hot plate'', 2\%. Telling $\pi_0$ that the ``purple eggplant goes on the sponge'' succeeds 69\% of the time on a SIMPLER task; dropping the color adjective, 8\%. No one who has used a modern language model would expect this.
+General-purpose robots that assist with everyday physical tasks remain a long-standing goal of the field. Recent years have brought substantial progress in generalist vision-language models (VLMs), and vision-language-action models (VLAs) extend them to robot control in the hope of inheriting their capabilities, including robustness to how an instruction is phrased. This hope is often not met. Telling $\pi_{0.5}$ to ``switch on the stove'' succeeds 100\% of the time, whereas ``switch on the hot plate'' succeeds 2\% of the time, and telling $\pi_0$ that the ``purple eggplant goes on the sponge'' succeeds 69\% of the time on a SIMPLER task, whereas dropping the color adjective lowers this to 8\%.
 
-A robot that executes a task only under particular wording is not a robot that non-experts can instruct. The standard remedy is training-time augmentation: relabeling demonstrations with additional phrasings so that the policy sees more surface forms of each instruction~\cite{kwok2026scaling, xiao2023dial}. It helps: the $\pi_0$ checkpoint we study was finetuned on Bridge with rephrase augmentation~\cite{intact}, which in our measurement is worth a 20\% relative improvement on naturally phrased requests over the otherwise-identical non-augmented checkpoint. Yet it still exhibits the swings above, and this residual sensitivity is the problem we address. Two deployment-side families exist, and neither fills the gap. Test-time verification~\cite{kwok2026scaling} selects among many phrase-action candidates at every inference step; it leaves the weights untouched but multiplies inference cost, and in our setting it does not improve over the unmodified policy. Instruction optimization~\cite{bhatia2026sarl, shodiev2026grounder, myers2024palo} searches for the phrasing that best steers a frozen policy on a given task, but needs online interaction with each task, so nothing it learns transfers to an unseen one. No existing method is simultaneously weight-free, applied once per episode, and zero-shot to unseen tasks.
+A robot that executes a task only under particular wording is not a robot that non-experts can instruct. The standard remedy is training-time augmentation, which relabels demonstrations with additional phrasings~\cite{kwok2026scaling, xiao2023dial}. It is effective, and the $\pi_0$ checkpoint we study was finetuned with rephrase augmentation~\cite{intact}, worth a 20\% relative improvement on naturally phrased requests in our measurement, yet it still exhibits the swings above. This residual sensitivity is the problem we address, and deployment-side methods do not close it. Test-time verification~\cite{kwok2025robomonkey, kwok2026scaling} selects among many phrase-action candidates at every step, which multiplies inference cost and in our setting does not improve over the unmodified policy. Instruction optimization~\cite{bhatia2026sarl, shodiev2026grounder, myers2024palo} needs online interaction with each task, so nothing transfers to an unseen one. No existing method is simultaneously weight-free, once per episode, and zero-shot to tasks it has never seen.
 
-% While we stop short of identifying the cause, we (1) demonstrate this sensitivity and (2) propose a simple, effective technique that reduces it without touching the policy's weights: we measure the robot's performance across many phrases per task, compile the results into an evidence file, and ask a frontier large language model (LLM) to distill ``rephrasing rules'' from the evidence. 
-Our key observation is that a VLA's language sensitivity is systematic rather than idiosyncratic to each task, and can therefore be captured by a small set of explicit rules. We generate many phrasings of each of eight training tasks, roll each out in simulation, and record its success rate; a large language model then distills the scored phrasings into ten to twenty natural-language rephrasing rules, for example \textit{```coke' stays `coke', never `cola', `soda', or bare `can' ''}. At deployment, a rephraser conditioned on the rules and the scene image rewrites each incoming instruction once, before the episode begins, and passes the rewrite to the frozen VLA (Fig.~\ref{fig:method}). The rules describe how the policy parses language in general, so they apply to tasks that contributed no evidence.
+% While we stop short of identifying the cause, we (1) demonstrate this sensitivity and (2) propose a simple, effective technique that reduces it without touching the policy's weights: we measure the robot's performance across many phrases per task, compile the results into an evidence file, and ask a frontier large language model (LLM) to distill ``rephrasing rules'' from the evidence.
+Our key observation is that a VLA's language sensitivity is systematic rather than idiosyncratic to each task, and can therefore be captured by a small set of explicit rules. We generate many phrasings of eight training tasks, roll each out in simulation, and have a large language model distill the scored phrasings into ten to twenty natural-language rules, for example \textit{```coke' stays `coke', never `cola', `soda', or bare `can' ''} and \textit{``never swap a common noun for its sibling (keep 'plate', not 'dish')''}. At deployment, a rephraser conditioned on the rules and the scene image rewrites each incoming instruction once, before the episode begins, and passes the rewrite to the frozen VLA (Fig.~\ref{fig:method}). Because the rules describe how the policy parses language in general, they transfer to tasks that contributed no evidence.
 
-Before presenting the method, we characterize the sensitivity it targets, for $\pi_0$ on SIMPLER's Bridge tasks and $\pi_{0.5}$ on LIBERO. We report single-edit swings, sets of phrasings that differ by a minimal edit and whose success rates differ significantly under two-proportion tests over 72 ($\pi_0$) or 50 ($\pi_{0.5}$) rollouts per phrase, and an oracle phrase search that estimates the headroom phrasing alone leaves a frozen policy. Two findings shape the paper. First, oracle phrasing nearly closes the 21-point gap between in-distribution and out-of-distribution tasks seen under canonical instructions, so much of the apparent generalization gap is a phrasing gap. Second, on $\pi_{0.5}$ adversarial phrasing costs 50 points on tasks inside the finetuning set and nothing measurable outside it, suggesting the policy attends to language only where it has been trained to, consistent with prior reports that apparent robustness often reflects an ignored instruction~\cite{zhou2025liberopro, fei2025liberoplus}.
+Before presenting the method, we characterize the sensitivity it targets for $\pi_0$ on SIMPLER's Bridge tasks and $\pi_{0.5}$ on LIBERO, through statistically tested single-edit swings and an oracle phrase search that estimates the headroom phrasing alone leaves a frozen policy. Two findings shape the paper. First, oracle phrasing nearly closes the 21-point gap between in-distribution and out-of-distribution tasks seen under canonical instructions, so much of the apparent generalization gap is a phrasing gap. Second, on $\pi_{0.5}$ adversarial phrasing costs 50 points on tasks inside the finetuning set and nothing measurable outside it, suggesting the policy attends to language only where it has been trained to~\cite{zhou2025liberopro, fei2025liberoplus}.
 
 \begin{figure*}[!t]
  \centering
- \includegraphics[width=\textwidth]{figures/method_diagram.pdf}
- \caption{\small Method overview. \emph{Evidence gathering}: a VLM generates adversarial, natural, and benign rephrasings of each training task; the frozen VLA executes them and each phrase is scored by rollout success. \emph{Rule distillation}: an LLM distills the scored phrases, once and offline, into 10--20 explicit phrasing rules. \emph{Rule application}: at deployment a VLM conditioned on the rules rewrites each incoming instruction once, before the episode begins, and the rewrite is passed to the unchanged VLA.}
+ \includegraphics[width=0.86\textwidth]{figures/method_diagram.pdf}
+ \caption{\small Method overview. \emph{Evidence gathering}: a VLM generates adversarial, natural, and benign rephrasings of each training task, one example of each shown in its box; the frozen VLA executes them and each phrase is scored by rollout success. \emph{Rule distillation}: an LLM distills the scored phrases, once and offline, into 10--20 explicit phrasing rules. \emph{Rule application}: at deployment a VLM conditioned on the rules rewrites each incoming instruction once, before the episode begins, and the rewrite is passed to the unchanged VLA. The phrasings, success rates, and rules shown are illustrative, not measured.}
  \label{fig:method}
 \end{figure*}
 
 % We evaluate in simulation on adversarial, VLM-generated natural, and human-generated natural phrasings, and see 16--27\% relative improvements for our best rulebook type over the un-rephrased $\pi_0$ baseline on SIMPLER's Bridge tasks; we characterize sensitivity for both $\pi_0$ and $\pi_{0.5}$, and evaluate the rules on $\pi_0$.
-We evaluate on the rephrase-augmented $\pi_0$ across twelve sealed SIMPLER tasks that contributed no evidence, five in-distribution and seven out, under adversarial, VLM-generated natural, human-generated natural, and canonical phrasings. Rules distilled from eight tasks improve success by 16 to 27\% relative over the no-rephraser baseline on the adversarial and natural sets, with gains concentrated on out-of-distribution tasks. The effect is stable across three applier models (Claude, Gemini, and the open-weights Qwen3.5-9B) and three independent distillations, whose pooled success varies by at most 5 points, and rulebooks distilled from out-of-finetune evidence consistently outperform those distilled from in-finetune evidence on every non-canonical phrase set.
+We evaluate on the rephrase-augmented $\pi_0$ across twelve sealed SIMPLER tasks that contributed no evidence, under adversarial, VLM-generated, human-generated, and canonical phrasings. Rules distilled from eight tasks improve success by 16 to 27\% relative over the no-rephraser baseline on the adversarial and natural sets, with gains concentrated on out-of-distribution tasks. The effect is stable across three applier models and three independent distillations.
 
 In summary, this paper contributes:
 \begin{enumerate}
- \item a statistically grounded characterization of language sensitivity in $\pi_0$ and $\pi_{0.5}$, comprising single-edit swings and oracle headroom, with the finding that phrasing accounts for much of the apparent in- versus out-of-distribution gap;
+ \item a statistically grounded characterization of language sensitivity in $\pi_0$ and $\pi_{0.5}$ showing that much of the apparent in- versus out-of-distribution gap is attributable to phrasing;
  \item a weight-free, once-per-episode method that distills rollout evidence into explicit rephrasing rules which transfer zero-shot to unseen tasks;
- \item an evaluation on held-out tasks across adversarial, VLM-generated, and human-generated phrasings, with three applier models, a comparison to test-time verification, and a replication on $\pi_{0.5}$ + LIBERO.
+ \item an evaluation on held-out tasks across three phrasing styles and three applier models, with a comparison to test-time verification and a replication on $\pi_{0.5}$ and LIBERO.
 \end{enumerate}
 
 \section{Related Work}
 
 \begin{figure*}[!t]
  \centering
- \includegraphics[width=0.72\linewidth]{figures/scenes_bridge_rep.png}
- \caption{\small Representative SIMPLER Bridge first-frame scenes from the WidowX camera. %(tasks in Fig.~\ref{fig:pairs-bridge}). 
- Every tabletop task uses the same setup and differs only in which source and destination objects are present; put\_eggplant\_in\_basket (right) is the benchmark's sink scene.}
+ \includegraphics[width=0.75\linewidth]{figures/scenes_bridge_rep.png}
+ \caption{\small Representative SIMPLER Bridge first-frame scenes from the WidowX camera. %(tasks in Fig.~\ref{fig:pairs-bridge}).
+ Every tabletop task uses the same setup and differs only in which source and destination objects are present. The rightmost panel, put\_eggplant\_in\_basket, is the benchmark's sink scene.}
  \label{fig:scenes-bridge}
  \vspace{-0.2cm}
 \end{figure*}
 
 \begin{figure*}[!t]
  \centering
- \includegraphics[width=0.72\linewidth]{figures/scenes_libero_rep.png}
- \caption{\small One representative first-frame scene per LIBERO suite. % (tasks in Fig.~\ref{fig:pairs-libero}). 
+ \includegraphics[width=0.75\linewidth]{figures/scenes_libero_rep.png}
+ \caption{\small One representative first-frame scene per LIBERO suite. % (tasks in Fig.~\ref{fig:pairs-libero}).
  libero\_goal and libero\_spatial tasks share one kitchen-counter scene per suite, libero\_object tasks place groceries beside a basket, and libero\_90 scenes vary per task.}
  \label{fig:scenes-libero}
  \vspace{-0.2cm}
 \end{figure*}
 
 \textbf{Measuring language sensitivity. }
-Embodied red teaming uses a VLM to search for natural-language
-instructions that break language-conditioned robot policies, and finds
-that state-of-the-art models fail or act unsafely on many of
-them~\cite{karnik2024embodied}. LIBERO-PRO perturbs LIBERO along objects,
-initial states, instructions, and environments; on the language axis it
-finds that paraphrased instructions leave accuracy intact --- but so do
-nonsensical ones, the policy executing the same memorized trajectory
-regardless~\cite{zhou2025liberopro}. LIBERO-Plus charts the same
-sensitivity across ten VLAs --- instruction perturbations cost between 14
-and 50 points depending on the model --- and reaches the same verdict:
-much of the apparent robustness traces to models ignoring the instruction
-outright~\cite{fei2025liberoplus}. These studies report aggregate drops
-over families of perturbations. Our single-edit swings are the
-complementary, finer-grained observation: when the policy does attend to
-language, a single word can move success by tens of points, and our oracle
-search puts a number on how much of the apparent
-generalization gap is really a phrasing gap.
+Embodied red teaming uses a VLM to search for instructions that break language-conditioned robot policies~\cite{karnik2024embodied}. LIBERO-PRO perturbs LIBERO along objects, initial states, instructions, and environments. On the language axis it finds that paraphrased instructions leave accuracy intact, but so do nonsensical ones, because the policy executes the same memorized trajectory regardless~\cite{zhou2025liberopro}. LIBERO-Plus charts the same sensitivity across ten VLAs, where instruction perturbations cost between 14 and 50 points depending on the model, and reaches the same conclusion that much of the apparent robustness stems from models ignoring the instruction outright~\cite{fei2025liberoplus}. Our single-edit swings are the complementary, finer-grained observation that when the policy does attend to language, a single word can move success by tens of points, and our oracle search quantifies how much of the apparent generalization gap is in fact attributable to phrasing rather than to task novelty.
 
-\textbf{Training-time remedies. }
-The standard fix is augmentation: relabeling demonstrations with
-additional phrasings so that the policy sees many surface forms of each
-instruction~\cite{kwok2026scaling}, or, as in DIAL, with VLM-generated
-instructions that extend the training vocabulary~\cite{xiao2023dial}.
-Steerable Policies goes further, training the VLA on synthetic commands at
-several levels of abstraction --- subtasks, motions, grounded pixel
-coordinates --- so that language can steer low-level
-behavior~\cite{chen2026steerable}. All of these change the policy's
-weights. The $\pi_0$ checkpoint we study was already trained with rephrase
-augmentation~\cite{intact}; our method targets the sensitivity that
-remains after such training, and it does so without training further.
+\textbf{Model-side remedies. }
+The standard remedy is augmentation, which relabels demonstrations with additional phrasings so that the policy sees many surface forms of each
+instruction~\cite{kwok2026scaling}, or, as in DIAL and SPRINT, with instructions generated by a VLM or LLM that extend the training vocabulary~\cite{xiao2023dial, zhang2024sprint}. A recent multilingual study reports that training on seven phrasings per task roughly halves phrasing sensitivity~\cite{kirouane2026greek}.
+Steerable Policies goes further and trains the VLA on synthetic commands at several levels of abstraction, namely subtasks, motions, and grounded pixel coordinates, so that language can steer low-level
+behavior~\cite{chen2026steerable}. Stable Language Guidance changes decoding instead, marginalizing over an LLM-expanded set of paraphrases inside the model~\cite{zhan2026stable}. All of these change the policy's weights or its decoding, whereas the $\pi_0$ checkpoint we study was already trained with rephrase augmentation~\cite{intact}, and our method targets what remains after such training, without any further training of the policy.
 
 \textbf{Deployment-time remedies. }
-Two families leave the weights untouched. \emph{Test-time verification}
-(CoVer) generates several rephrasings and several candidate actions at
-every inference step and uses a contrastively trained verifier to select
-the best phrase-action pair~\cite{kwok2026scaling}. It is our closest
-comparison, and we evaluate against it in Section~\ref{sec:cover}; the
-differences are that we act on phrasing only, never on actions, and that
-we rephrase once per episode rather than at every step, so per-step
-inference cost is unchanged. \emph{Instruction optimization} searches the
-language input of a frozen policy: SARL learns by online reinforcement
+Two families leave the weights untouched. \emph{Test-time verification} samples several candidates at every inference step and selects among them with a verifier. RoboMonkey scores candidate actions with a VLM-based verifier~\cite{kwok2025robomonkey}, Do What You Say selects the action sequence whose simulated outcome best matches the VLA's own textual plan~\cite{wu2026dowhatyousay}, and CoVer selects the best phrase-action pair among several rephrasings and actions with a contrastively trained verifier~\cite{kwok2026scaling}. CoVer is our closest comparison, evaluated in \S\ref{sec:cover}, and differs in that we act on phrasing only, never on actions, and rephrase once per episode rather than at every step, so per-step inference cost is unchanged. \emph{Instruction optimization} searches the language input of a frozen policy. SARL learns by online reinforcement
 which prompts steer a generalist policy to a given
 task~\cite{bhatia2026sarl}, VLA Grounder trains an instruction-to-command
 translator against rollout reward for a black-box
 VLA~\cite{shodiev2026grounder}, and PALO optimizes language subtask
-decompositions for few-shot adaptation~\cite{myers2024palo}. Each
-optimizes per task through interaction with that task, so what it learns
-does not transfer. Our rules are distilled once, offline, from eight tasks,
-and apply zero-shot to unseen tasks.
+decompositions for few-shot adaptation~\cite{myers2024palo}. Each optimizes per task through interaction with that task, so what it learns does not transfer. Closest to our method, Jeong et al.\ search for language that improves a frozen VLA and distill the result into a learned language feedback policy that intervenes per state~\cite{jeong2026whattosay}. Our rules are instead explicit and human-readable, distilled once offline from eight tasks, applied once per episode, and applied zero-shot to tasks that contributed no evidence.
 
 \textbf{Language as the interface between VLMs and VLAs. }
 RT-2 and PaLM-E showed that web-scale vision-language pretraining
 transfers to robot control~\cite{zitkovich2023rt2, driess2023palme}, and
-Hi Robot places a VLM above a VLA to turn open-ended prompts into
-instructions the low-level policy can follow~\cite{shi2025hirobot}. SayCan
+Hi Robot places a VLM above a VLA to turn open-ended prompts into instructions the low-level policy can follow~\cite{shi2025hirobot}, and embodied chain-of-thought trains the VLA itself to reason in language before acting~\cite{zawalski2024ecot}. SayCan
 grounds an LLM planner in learned value functions so that proposed plans
 respect the robot's skills~\cite{ahn2022saycan}, and Inner Monologue
-closes the loop with execution feedback~\cite{huang2022inner}. These
-systems decide \emph{which} instruction to issue; ours decides how to
-\emph{word} it. The rephraser is the instruction-level analogue of
-affordance grounding: rather than selecting which skill to invoke, it
-learns which surface forms of an instruction this particular executor
-parses reliably, and rewrites into them.
+closes the loop with execution feedback~\cite{huang2022inner}. These systems decide \emph{which} instruction to issue, whereas ours learns which surface forms of an instruction this executor parses reliably and rewrites each incoming instruction into one of those forms.
 
 \section{Models and Benchmarks}
 
-We work with two VLAs, $\pi_0$~\cite{pi0} and $\pi_{0.5}$~\cite{pi05}, each with a checkpoint inherited from prior work: $\pi_0$ finetuned on Bridge~\cite{intact} and $\pi_{0.5}$ finetuned on LIBERO~\cite{pi05}. All $\pi_0$ experiments use Bridge tasks and all $\pi_{0.5}$ experiments use LIBERO tasks. The $\pi_0$ checkpoint was finetuned with rephrase augmentation, i.e.\ on rephrasings of each task, precisely to reduce language sensitivity; it therefore already carries a mitigation, and we study what remains. In our own tests the augmentation is worth a 20\% relative improvement on natural rephrasings (28.4\% vs.\ 23.8\% over 192 phrases).
-
-Success is measured in simulation. For SIMPLER's Bridge tasks we measure it at the 60th frame, the benchmark's default horizon; LIBERO's protocol is described below.
+We work with two VLAs, $\pi_0$~\cite{pi0} and $\pi_{0.5}$~\cite{pi05}, each with a checkpoint inherited from prior work, namely $\pi_0$ finetuned on Bridge~\cite{intact} and $\pi_{0.5}$ finetuned on LIBERO~\cite{pi05}.  The $\pi_0$ checkpoint was finetuned with rephrase augmentation, that is, on rephrasings of each task, precisely to reduce language sensitivity. It therefore already carries a mitigation, and we study the sensitivity that remains. Success is measured in simulation, at the 60th frame for SIMPLER's Bridge tasks, the benchmark's default horizon, and as described below for LIBERO. Each benchmark provides a set of simulatable tasks, and each task a canonical instruction.
 
 \subsection{Tasks and Canonical Instructions}
 
-Each benchmark provides a set of simulatable tasks, and each task a canonical instruction.
-
 \subsubsection{SIMPLER / Bridge}
 
-SIMPLER~\cite{simpler} provides simulated replicas of real-robot evaluation setups; we use its Bridge~\cite{bridge} suite of WidowX tabletop tasks, such as ``put carrot on plate'' and ``put eggplant into yellow basket'' (Fig.~\ref{fig:scenes-bridge}). We use the four Bridge tasks shipped with the benchmark and construct 16 more from benchmark-provided primitives, for 20 simulatable tasks. Eight are \emph{in-vocabulary}: every noun in the canonical instruction appears in the Bridge training language. Success is determined procedurally by the benchmark. Our \emph{sealed} evaluation set fixes 12 of the 20 ex ante and holds them out of all evidence gathering; its five in-vocabulary and seven out-of-vocabulary tasks are the in-distribution and out-of-distribution strata reported in our figures.
+SIMPLER~\cite{simpler} provides simulated replicas of real-robot evaluation setups. We use its Bridge~\cite{bridge} suite of WidowX tabletop tasks, such as ``put carrot on plate'' and ``put eggplant into yellow basket'' (Fig.~\ref{fig:scenes-bridge}). We use the four Bridge tasks shipped with the benchmark and construct 16 more from benchmark-provided primitives, for 20 simulatable tasks. Eight are \emph{in-vocabulary}, meaning that every noun in the canonical instruction appears in the Bridge training language. Success is determined procedurally by the benchmark. Our \emph{sealed} evaluation set fixes 12 of the 20 ex ante and holds them out of all evidence gathering. Its five in-vocabulary and seven out-of-vocabulary tasks form the in-distribution and out-of-distribution strata reported in our figures.
 
 \subsubsection{LIBERO}
 
-LIBERO~\cite{liu2023libero} consists of 130 simulatable tabletop tasks, such as ``put the bowl on the plate'' and ``put the moka pot on the stove'', grouped into four suites (Fig.~\ref{fig:scenes-libero}): libero\_spatial, libero\_object, and libero\_goal (10 tasks each), plus libero\_100, which splits into libero\_90 (90 tasks) and libero\_10 (10). We inherit a $\pi_{0.5}$ finetuned on every suite except libero\_90~\cite{pi05}, so libero\_90 tasks are \emph{out-of-finetune} and the rest \emph{in-finetune}. Success is again defined procedurally by the benchmark; each task runs to a suite-specific step limit and counts as successful once any step succeeds.
+LIBERO~\cite{liu2023libero} consists of 130 simulatable tabletop tasks, such as ``put the moka pot on the stove'', grouped into four suites, shown in Fig.~\ref{fig:scenes-libero}. libero\_spatial, libero\_object, and libero\_goal hold 10 tasks each, and libero\_100 splits into libero\_90 with 90 tasks and libero\_10 with 10. We inherit a $\pi_{0.5}$ finetuned on every suite except libero\_90~\cite{pi05}, so libero\_90 tasks are \emph{out-of-finetune} and the rest \emph{in-finetune}. Success is defined procedurally by the benchmark, and a task counts as successful once any step succeeds before its suite-specific step limit.
 
 
 
 \section{Characterizing a VLA's Language Sensitivity}
 \label{sec:minimal-pairs}
 
-To give a concrete sense of the language sensitivity of $\pi_0$ and $\pi_{0.5}$, we present \emph{single-edit swings}: sets of phrases in which a minimal edit produces a large change in success rate. The sets are charted in Figs.~\ref{fig:pairs-bridge} and~\ref{fig:pairs-libero}, and the corresponding scenes are in Figs.~\ref{fig:scenes-bridge} and~\ref{fig:scenes-libero}. We also estimate the headroom phrasing alone leaves a frozen VLA: how much would success improve if an \emph{oracle} chose the best phrase per task?
+\subsection{Problem Statement}
+\label{sec:problem}
+
+A frozen policy $\pi$ maps an observation and an instruction $\ell$ to actions. For a task $t$, let $S_t(\ell)$ be the success rate of $\pi$ on $t$ under $\ell$ over a fixed set of scene layouts, let $\ell_t$ be the canonical instruction, and let $L_t$ be the admissible rephrasings that preserve the goal. A \emph{single-edit swing} is a pair $\ell, \ell' \in L_t$ that differ by one edit and whose success rates differ significantly, and the \emph{oracle headroom} of $t$ is $\max_{\ell \in L_t} S_t(\ell) - S_t(\ell_t)$, the largest gain available from wording alone. A \emph{rulebook} $R$ defines a rewrite $f_R$ of instructions, distilled from an evidence set $\mathcal{D} = \{(t, \ell, S_t(\ell))\}$ over evidence tasks only. We seek one $R$ that raises $\mathbb{E}_{\ell}[S_t(f_R(\ell))]$ on tasks that contributed no evidence while $\pi$ stays unchanged, $f_R$ is applied once before the first action, and $R$ is fixed before any sealed task is seen. Our tables report the paired difference $S_t(f_R(\ell)) - S_t(\ell)$ over base instructions $\ell$, as defined in \S\ref{sec:stats}. Single-edit swings for $\pi_0$ and $\pi_{0.5}$ are charted in Figs.~\ref{fig:pairs-bridge} and~\ref{fig:pairs-libero}, with the corresponding scenes in Figs.~\ref{fig:scenes-bridge} and~\ref{fig:scenes-libero}.
 
 \subsection{Finding Single-Edit Swings}
+\label{sec:swings}
 
-Our search is simple. We first generate many rephrasings of each task (in fact, the same evidence files our rule distillers consume). With the help of an LLM we then propose candidate sets from the evidence, and we evaluate each phrase with many rollouts in simulation. We retain only sets in which the gap in success rate between the best and worst phrase is statistically significant, that is, unlikely to be explained by chance (each set's phrases and exact p-values are listed in the project repository\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}\label{fn:repo}}), and we manually remove sets whose gap could be explained by scene ambiguity. 
-Significance is a two-proportion z test at $p<0.05$ (for $\pi_{0.5}$ we also require a gap of at least 18 points); no multiple-comparison correction is applied, so with 426 candidate pairs for $\pi_{0.5}$ about 21 significant swings are expected by chance alone. On $\pi_{0.5}$ this filter removed eight of the 23 significant sets: LIBERO scenes hold multiple objects, so a generalized noun (``bottle'', ``stand'') can match more than one of them, and a set is removed when the ambiguous phrasing is the one that loses --- its deficit may measure scene resolution rather than phrasing. Sets where the ambiguous phrasing wins are kept, and no $\pi_0$ set was removed. 
-For $\pi_0$ we evaluate each phrase 72 times (24 fixed scene layouts $\times$ 3 repetitions); for $\pi_{0.5}$, once on each of 50 layouts. Common random seeds per layout/repetition pair reduce measurement noise. Sets were harder to find for $\pi_{0.5}$ than for $\pi_0$.
+Our search proceeds as follows. We first generate many rephrasings of each task, in fact the same evidence files our rule distillers consume. An LLM is then prompted to propose candidate sets from the evidence, and we evaluate each phrase with many rollouts in simulation. We retain only sets in which the gap in success rate between the best and worst phrase is statistically significant, that is, unlikely to be explained by chance. Each set's phrases and exact p-values are listed in the project repository.\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}\label{fn:repo}}
+Significance is assessed with a two-proportion z test at $p<0.05$, and for $\pi_{0.5}$ we also require a gap of at least 18 points. No multiple-comparison correction is applied, so with 426 candidate pairs for $\pi_{0.5}$ about 21 significant swings are expected by chance alone. We manually remove sets whose gap could reflect scene ambiguity rather than phrasing, which on $\pi_{0.5}$ removed eight of the 23 significant sets. LIBERO scenes hold multiple objects, so a generalized noun such as ``bottle'' or ``stand'' can match more than one of them, and a set is removed when the ambiguous phrasing is the one that loses, since its deficit may measure scene resolution rather than phrasing. Sets where the ambiguous phrasing wins are kept, and no $\pi_0$ set was removed.
+For $\pi_0$ we evaluate each phrase 72 times, on 24 fixed scene layouts with 3 repetitions each, and for $\pi_{0.5}$ once on each of 50 layouts. Common random seeds per layout/repetition pair reduce measurement noise. Sets were harder to find for $\pi_{0.5}$ than for $\pi_0$.
 
 \subsection{Patterns in the Swings}
 
-Several patterns emerge. Some swings hold across tasks and even across
-models: plate $\to$ dish costs $\pi_0$ 19 points and $\pi_{0.5}$ 56, and
-``hot plate'' is catastrophic wherever it appears (2\% as a source noun,
-0\% as a destination). Other swings do not transfer: adding ``purple'' to
+Several patterns emerge. Some swings hold across tasks and even across models. Replacing plate with dish costs $\pi_0$ 19 points and $\pi_{0.5}$ 56, and ``hot plate'' fails wherever it appears, with 2\% success as a source noun and 0\% as a destination. Other swings do not transfer. Adding ``purple'' to
 the eggplant gains 61 points on one task and costs 30 on another, so no
-static rule can satisfy both. Swings were also far easier to find on
-in-finetune tasks: of the 426 candidate pairs our $\pi_{0.5}$ search
-evaluated, 44\% of in-finetune pairs showed a significant swing
-($|\Delta| \ge 18$ points, $p < 0.05$), versus 5\% of out-of-finetune
-pairs --- a sign that finetuned performance rests on memorized phrasings,
-which a single word can break. Color shows the clearest asymmetry between
-the two models: on Bridge, an added color helps on out-of-vocabulary nouns
-(black keyboard, $+42$) and hurts on in-vocabulary nouns (yellow
-plate, $-22$); on LIBERO, an added color only ever hurts (black bowl,
-$-20$). The common thread is plain naming: generic category words (can,
-dish, drink, thing) lose to the specific everyday name --- even one the
-training data never contained (pepsi beats soda by 39). Most
-strikingly, a single letter matters: Pepsi $\to$ pepsi gains 44 points,
-suggesting token-level sensitivity.
+static rule can satisfy both. Swings were also far easier to find on in-finetune tasks. Of the 426 candidate pairs our $\pi_{0.5}$ search evaluated, 44\% of in-finetune pairs showed a significant swing of at least 18 points at $p < 0.05$, versus 5\% of out-of-finetune pairs, which suggests that finetuned performance rests on memorized phrasings that a single word can break. Color shows the clearest asymmetry between the two models. On Bridge, an added color raises success on out-of-vocabulary nouns, as with black keyboard at $+42$, and lowers it on in-vocabulary nouns, as with yellow plate at $-22$. On LIBERO, an added color only ever lowers success, as with black bowl at $-20$. The common thread is plain naming. Generic category words such as can, dish, drink, and thing underperform the specific everyday name, even one the training data never contained, as pepsi exceeds soda by 39 points. Changing Pepsi to pepsi gains 44 points, which suggests sensitivity at the level of tokens rather than words.
 
 \begin{figure}[!t]
  \centering
  \includegraphics[width=\columnwidth]{figures/swings_bridge_full.pdf}
- \caption{\small Single-edit swings for $\pi_0$ on SIMPLER Bridge: 26 significant phrase sets over 16 tasks --- the largest per task and edit category --- grouped by category (scenes in Fig.~\ref{fig:scenes-bridge}). Each row is one set; its phrases differ by an edit of the keyed category. Dots are the phrases' success rates over n = 72 rollouts (basket task n = 180), the filled dot is the best phrasing, and the right column is the swing in percentage points; p, the chance of a gap this large under a two-proportion z test, is below 0.05 for every set. Swings range from 14 to 61\,pp.}
+ \caption{\small Single-edit swings for $\pi_0$ on SIMPLER Bridge: 26 significant phrase sets over 16 tasks --- the largest per task and edit category --- grouped by category (scenes in Fig.~\ref{fig:scenes-bridge}). Each row is one set whose phrases differ by an edit of the keyed category. Dots are the phrases' success rates over n = 72 rollouts (basket task n = 180), the filled dot is the best phrasing, and the right column is the swing in percentage points; p, the chance of a gap this large under a two-proportion z test, is below 0.05 for every set. Swings range from 14 to 61\,pp.}
  \label{fig:pairs-bridge}
 \end{figure}
 
@@ -363,105 +293,93 @@ suggesting token-level sensitivity.
 \subsection{Oracle Phrase Search}
 \label{sec:oracle}
 
-To quantify sensitivity further, we compare each task's best-performing phrase with its canonical instruction. The search is simple: for a task, a VLM generates 16 rephrasings, each is scored by several rollouts, and the VLM then generates 16 new rephrasings conditioned on all scored phrases so far; after three rounds we select the best-scoring phrase. 
-Rephrase candidates are generated by gemini-pro-latest. For $\pi_0$, each candidate is measured on layouts 0--17 ($n = 36$) and selection uses these layouts only; the selected phrase is then re-measured 12 times per layout on all 24 (the oracle bars in Fig.~\ref{fig:pi0-conditions}). The held-out layouts 18--23 alone ($n = 72$) give the same headroom, so selection does not inflate it. For $\pi_{0.5}$, candidates are screened on 5--10 layouts, and the oracle bar in Fig.~\ref{fig:pi05-fourtier} pools each winner's re-measurement on disjoint layouts ($n = 10$--$20$ per task).
-Figs.~\ref{fig:pi0-conditions} and~\ref{fig:pi05-fourtier} compare the success rates of oracle phrases with canonical, adversarial, and natural ones. For both models, oracle phrases reach significantly higher success rates than every other phrase set. By this measure $\pi_0$ is more sensitive to phrasing than $\pi_{0.5}$, consistent with how much harder swings were to find for $\pi_{0.5}$ than for $\pi_0$.
+To quantify sensitivity further, we compare each task's best-performing phrase with its canonical instruction. In each of three rounds, a VLM generates 16 rephrasings of the task, each is scored by several rollouts, and the next round conditions on all scored phrases so far. We then select the best-scoring phrase.
+Rephrase candidates are generated by gemini-pro-latest. For $\pi_0$, each candidate is measured on layouts 0--17 with $n = 36$, and selection uses these layouts only. The selected phrase is then re-measured 12 times per layout on all 24 layouts, which yields the oracle bars in Fig.~\ref{fig:pi0-conditions}. The held-out layouts 18--23 alone, with $n = 72$, give the same headroom, so selection does not inflate it. For $\pi_{0.5}$, candidates are screened on 5--10 layouts, and the oracle bar in Fig.~\ref{fig:pi05-fourtier} pools each winner's re-measurement on disjoint layouts with $n = 10$--$20$ per task.
+In Figs.~\ref{fig:pi0-conditions} and~\ref{fig:pi05-fourtier}, oracle phrases reach significantly higher success rates than the canonical, adversarial, and natural sets for both models. By this measure $\pi_0$ is more sensitive to phrasing than $\pi_{0.5}$, consistent with the swing search of \S\ref{sec:swings}.
 
 
 
 \begin{figure}[!t]
  \centering
  \includegraphics[width=\columnwidth]{figures/pi0_conditions.png}
- \caption{\small Success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER Bridge tasks (24 fixed scene layouts) by phrasing condition. Solid bars pool all tasks; thin flanks are the in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) strata. \emph{Oracle} is the best phrase per task from \S\ref{sec:oracle}; the other sets are defined in \S\ref{sec:phrase-sets}. Repetitions per layout: oracle and canonical $\times$12, adversarial $\times$2, naturals $\times$1. Oracle phrasing shrinks the 21-point strata gap under canonical instructions to 3 points.}
+ \caption{\small Success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER Bridge tasks (24 fixed scene layouts) by phrasing condition. Solid bars pool all tasks; thin flanks are the in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) strata.  Repetitions per layout: oracle and canonical $\times$12, adversarial $\times$2, naturals $\times$1. Oracle phrasing shrinks the 21-point strata gap to 3 points.}
  \label{fig:pi0-conditions}
 \end{figure}
 
 \begin{figure}[!t]
  \centering
  \includegraphics[width=\columnwidth]{figures/pi05_fourtier.png}
- \caption{\small Success of $\pi_{0.5}$ on LIBERO by phrasing condition (50 layouts per phrase). Solid bars pool all 28 tasks; thin flanks are the in-finetune (left, 10 tasks) and out-of-finetune (right, 18 tasks) halves. On in-finetune tasks adversarial rephrasing costs 50\,pp (97 $\to$ 47); out-of-finetune, the original (canonical), natural, and adversarial tiers are statistically indistinguishable (52\,/\,50\,/\,48), consistent with the policy largely ignoring the instruction there. Oracle search finds headroom in both regimes (99\,/\,66).}
+ \caption{\small Success of $\pi_{0.5}$ on LIBERO by phrasing condition (50 layouts per phrase). Solid bars pool all 28 tasks; thin flanks are the in-finetune (left, 10 tasks) and out-of-finetune (right, 18 tasks) halves. On in-finetune tasks adversarial rephrasing costs 50\,pp (97 $\to$ 47); out-of-finetune, the original (canonical), natural, and adversarial tiers are statistically indistinguishable (52\,/\,50\,/\,48). Oracle search finds headroom in both regimes (99\,/\,66).}
  \label{fig:pi05-fourtier}
 \end{figure}
 
 
 \section{Reducing Language Sensitivity with LLM-Distilled Rephrasing Rules}
 
-We now present our method for reducing this sensitivity (Fig.~\ref{fig:method}). At a high level it is simple: generate many rephrasings of many tasks, score each phrase, present the scored phrases to an LLM, and receive a set of rules that specify how to rephrase an incoming instruction. Unlike per-task optimization, the rules must hold across all tasks at once.
+We now present our method for reducing this sensitivity, summarized in Fig.~\ref{fig:method}. Unlike per-task optimization, the distilled rules must hold across all tasks at once. The following subsections describe, in turn, evidence gathering, rule distillation, and the application of rules at deployment.
 
 \subsection{Gathering Evidence}
 \label{sec:evidence}
 
-Rules are derived from the \emph{evidence tasks}: the eight simulatable Bridge tasks outside the sealed set, plus non-simulatable tasks with real-world expert trajectories. For each evidence task, we prompt a VLM (gemini-pro-latest) to generate seven \emph{natural} rephrasings, worded the way a person might request the task, and two \emph{adversarial} rephrasings, convoluted and overly complicated. For ``put carrot on plate'', a natural rephrasing is ``Could you move the carrot to the plate?'' and an adversarial one is ``Take the long orange item typically eaten by rabbits and ensure it ends up supported by the circular dishware.'' We also include every phrase measured during oracle search, mostly benign. The generation prompt is in the repository.\footref{fn:repo} 
-The non-simulatable tasks are the 208 remaining tasks of our 228-task pool, built from BridgeData V2's language-annotated expert demonstrations~\cite{bridge}; in total the evidence bank holds 5{,}453 scored task--phrase pairs.
+Rules are derived from the \emph{evidence tasks}, which comprise the eight simulatable Bridge tasks outside the sealed set and non-simulatable tasks with real-world expert trajectories. For each evidence task, we prompt a VLM, gemini-pro-latest, to generate seven \emph{natural} rephrasings, worded the way a person might request the task, and two \emph{adversarial} rephrasings, which are convoluted and overly complicated. Fig.~\ref{fig:method} shows one of each for ``put carrot on plate''. We also include every phrase measured during oracle search, most of which are benign. The generation prompt is in the repository.\footref{fn:repo}
+The non-simulatable tasks are the 208 remaining tasks of our 228-task pool, built from BridgeData V2's language-annotated expert demonstrations~\cite{bridge}. In total the evidence bank holds 5{,}453 scored task--phrase pairs across these 228 tasks.
 
 \subsubsection{Scoring Phrases}
 
-Rule distillation requires a score per phrase so that phrases are comparable. For simulatable tasks, we roll out each task/phrase pair 36 times (18 layouts $\times$ 2 repetitions) and use the success rate. For non-simulatable tasks we use a proxy: the gripper error between the VLA's predicted action and the ground-truth action, averaged over 4 frames in each of 16 expert trajectories (64 measurements). On simulatable tasks this proxy correlates reasonably well with rollout success. 
-The error is the mean absolute difference on the gripper dimension of the predicted action chunk, in raw action units, averaged over the chunk horizon and over four decoding draws. Across 434 rollout-measured task--phrase pairs over 15 task variants, the proxy correlates with rollout success at Pearson $r = 0.54$ within task. 
-Rollout scores exist only for the eight non-sealed simulatable tasks; the twelve sealed tasks contribute no evidence.
+Rule distillation requires a score per phrase so that phrases are comparable. For simulatable tasks, we roll out each task/phrase pair 36 times, on 18 layouts with 2 repetitions each, and use the success rate. For non-simulatable tasks we use a proxy, the gripper error between the VLA's predicted action and the ground-truth action, averaged over 4 frames in each of 16 expert trajectories, for 64 measurements per phrase. On simulatable tasks this proxy correlates reasonably well with rollout success.
+The error is the mean absolute difference on the gripper dimension of the predicted action chunk, in raw action units, averaged over the chunk horizon and over four decoding draws. Across 434 task--phrase pairs over 15 task variants, the proxy correlates with rollout success at Pearson $r = 0.54$ within task.
+
 
 \subsection{Distilling Rules}
 
-We prompt Claude to derive rules from the evidence with the prompt provided in the project repository.\footref{fn:repo} On Bridge, we test three rulebook types, distinguished by the evidence they see: \emph{in-finetune}, \emph{out-of-finetune}, and \emph{both}. Because distillation is stochastic, we distill each type three times and average their results in evaluation. Rulebooks contain 10 to 20 rules.
+We prompt Claude to derive rules from the evidence with the prompt provided in the project repository.\footref{fn:repo} On Bridge, we test three rulebook types, distinguished by the evidence they see, namely \emph{in-finetune}, \emph{out-of-finetune}, and \emph{both}. Because distillation is stochastic, we distill each type three times and average their results. Rulebooks contain 10 to 20 rules, ranging from general constraints such as \textit{``never swap a common noun for its sibling: keep `plate', not `dish' ''} to lexical substitutions such as \textit{```onto' becomes `on', `into' becomes `in' ''} for the two prepositions.
 
-For rulebooks that see in-finetune phrases, we also provide the full set of finetuning instructions so that the distiller can use corpus statistics such as how often each object occurs and the most common phrase structures. The first rulebook of each type was distilled with Claude Fable (claude-fable-5; 2026-09-03) and the remaining two with Claude Opus 5 (claude-opus-5; 2026-09-05); our results do not suggest this choice mattered. 
-Each distillation is a multi-agent panel (three lens distillers, an adversarial critic, and a synthesizer) run once, without iteration; the replicate panels permute the lens order and see the same evidence files. Requests used the API-default temperature of 1.0, and the models manage thinking depth adaptively (the default). 
+For rulebooks that see in-finetune phrases, we also provide the full set of finetuning instructions so that the distiller can use corpus statistics such as object frequencies and common phrase structures. The first rulebook of each type was distilled with Claude Fable, model claude-fable-5, on 2026-09-03, and the remaining two with Claude Opus 5, model claude-opus-5, on 2026-09-05. Our results do not suggest that this choice mattered.
+Each distillation is a multi-agent panel of three lens distillers, an adversarial critic, and a synthesizer, run once without iteration. The replicate panels permute the lens order and see the same evidence files. Requests used the API-default temperature of 1.0 and the default adaptive thinking depth.
 All nine rulebooks are available in the project repository.\footref{fn:repo}
 
 \subsection{Applying Rules}
 
-Rules are applied once per episode, before the robot moves, by one of three \emph{appliers}: Claude, Gemini, or the open-weights Qwen3.5-9B~\cite{qwen}. Besides the instruction and the rules, the applier receives a reasoning trace produced by Gemini 3.5 Flash (temperature 0.4) from the incoming phrase and the scene image; the applier itself never sees the image. The appliers are Claude Fable 5 (effort high; max on the human-generated set), Gemini through the gemini-pro-latest alias (accessed September 2026) with a 16{,}384-token thinking budget, and Qwen3.5-9B with greedy decoding. The applier applies the rules greedily, and its output phrase goes directly to the VLA, which then performs the task as usual. 
-Before the robot moves, the pipeline makes two model calls per instruction: trace generation takes ${\sim}2.5$\,s, and rule application ${\sim}10$\,s for Claude, ${\sim}17$\,s for Gemini, and 1--2\,s for the local Qwen; the rewrite is computed once and reused across every layout and repetition of that instruction.
+Rules are applied once per episode, before the robot moves, by one of three \emph{appliers}, namely Claude, Gemini, or the open-weights Qwen3.5-9B~\cite{qwen}. Besides the instruction and the rules, the applier receives a reasoning trace produced by Gemini 3.5 Flash at temperature 0.4 from the incoming phrase and the scene image. The applier itself never sees the image. The appliers are Claude Fable 5 at effort high, or max on the human-generated set, Gemini through the gemini-pro-latest alias as accessed in September 2026 with a 16{,}384-token thinking budget, and Qwen3.5-9B with greedy decoding. The applier applies the rules greedily, and its output goes directly to the VLA.
+Before the robot moves, the pipeline makes two model calls per instruction. Trace generation takes about 2.5\,s, and rule application about 10\,s for Claude, about 17\,s for Gemini, and 1--2\,s for the local Qwen. The rewrite is computed once and reused across all layouts and repetitions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Evaluating the Rulebooks}
 \label{sec:rules-results}
 
-We evaluate rulebooks on the rephrase-augmented $\pi_0$ over the 12 sealed Bridge tasks and 24 fixed layouts; \S\ref{sec:libero-repl} replicates on $\pi_{0.5}$ + LIBERO. The layouts are SIMPLER's deterministic object-initialization episodes 0--23, shared by every arm. The sealed split was fixed weeks before any rulebook evidence was generated, and only non-sealed tasks ever entered the evidence bank used for distillation.
+We evaluate rulebooks on the rephrase-augmented $\pi_0$ over the 12 sealed Bridge tasks and 24 fixed layouts, and \S\ref{sec:libero-repl} replicates the study on $\pi_{0.5}$ and LIBERO. The layouts are SIMPLER's deterministic object-initialization episodes 0--23, shared by every arm. The sealed split was fixed weeks before any rulebook evidence was generated, and only non-sealed tasks ever entered the evidence bank used for distillation.
 
 \subsection{Phrase Sets}
 \label{sec:phrase-sets}
 
-We evaluate on four phrase sets: adversarials, VLM-generated naturals, human-generated naturals, and canonicals. The adversarial and natural sets follow the two styles of \S\ref{sec:evidence}, here produced by Gemini 3.5 Flash from the scene image, with the prompt in the project repository. Human-generated naturals were collected by survey from friends and family, who watched a successful video demonstration of each task and were asked to request it of an 8-year-old (78 phrases), an adult (159), and a robot (155). 
-We received 37 submissions (ages 11--85, mixed gender, AI familiarity from none to professional); respondents never saw the canonical instruction, and every field was optional. Phrases are kept verbatim, typos included: cleaning dropped only eight entries (placeholder or incomplete) and collapsed double-posted duplicates, leaving 392 phrases, 363 of them unique. 
-Per task we evaluate 6 adversarial phrases (72 in total), roughly 16 VLM-generated naturals (186), and roughly 30 human-generated naturals (363). We also evaluate each task's canonical instruction, but with one phrase per task the canonical results (Fig.~\ref{fig:dashboard}) are statistically underpowered and should be read with caution.
+We evaluate on four phrase sets: adversarials, VLM-generated naturals, human-generated naturals, and canonicals. The adversarial and natural sets follow the two styles of \S\ref{sec:evidence}, here produced by Gemini 3.5 Flash from the scene image, with the prompt in the project repository. Human-generated naturals were collected through a survey of acquaintances of the authors, who watched a successful video demonstration of each task and were asked to request it of an 8-year-old, an adult, and a robot, yielding 78, 159, and 155 phrases respectively.
+We received 37 submissions from respondents aged 11 to 85, of mixed gender, and with AI familiarity ranging from none to professional. Respondents never saw the canonical instruction, and every field was optional. Phrases are kept verbatim, including typographical errors. Cleaning dropped only eight placeholder or incomplete entries and collapsed double-posted duplicates, leaving 392 phrases, 363 of them unique.
+Per task we evaluate 6 adversarial phrases, roughly 16 VLM-generated naturals, and roughly 30 human-generated naturals, for 72, 186, and 363 phrases in total. We also evaluate each task's canonical instruction, but with one phrase per task the canonical results in Fig.~\ref{fig:dashboard} are statistically underpowered and should be read with caution.
 
 \subsection{Baselines}
 
-We compare against three baselines. The \emph{no-rephraser} baseline passes the incoming instruction to the VLA unchanged. The \emph{no-rules rephraser} runs the same applier with a single generic rule (see the project repository), isolating the effect of the distilled rules from that of rephrasing itself. CoVer~\cite{kwok2026scaling} uses a contrastively trained verifier to select, at every step, the highest-scoring phrase/action pair from 40 candidates (8 rephrasings $\times$ 5 actions).
+We compare against three baselines. The \emph{no-rephraser} baseline passes the instruction to the VLA unchanged. The \emph{no-rules rephraser} runs the same applier with a single generic rule (see the project repository), isolating the effect of the distilled rules from rephrasing itself. CoVer~\cite{kwok2026scaling} uses a contrastively trained verifier to select, at every step, the highest-scoring phrase/action pair from 40 candidates (8 rephrasings $\times$ 5 actions per step).
 
 \subsection{Statistical Tests}
 \label{sec:stats}
 
-For a comparison between two arms, the paired unit is the \emph{base
-instruction}: $d_i = c_i - b_i$, the two arms' success rates on base $i$
-over the same fixed grid of scene layouts (rulebook arms average their three draws
-before pairing). Common random numbers make the two arms face identical
-scenes, so scene difficulty cancels within each $d_i$. Success is \emph{base-weighted} throughout (Fig.~\ref{fig:dashboard}): rollouts are averaged per task and phrase and then over base instructions, so each base counts equally however many bases an applier collapses onto the same rewrite. The reported
-p-value is a two-sided sign-flip permutation test on the mean of the
-$d_i$ (20{,}000 resamples; exact enumeration when $n \le 12$). The number
-of bases is the sample size ($n = 186$ VLM-generated natural, $363$
-human-generated natural, $72$ adversarial, $12$ canonical); layouts and
-repetitions sharpen each $d_i$ but do not add to $n$. The LIBERO
-replication uses the same paired construction ($n = 200$ bases,
-10{,}000 permutations). Weighting
+For a comparison between two arms, the paired unit is the \emph{base instruction}. For base $i$, $d_i = c_i - b_i$ is the difference between the two arms' success rates over the same fixed grid of scene layouts, which for a rulebook arm against the no-rephraser is $S_t(f_R(\ell_i)) - S_t(\ell_i)$ in the notation of \S\ref{sec:problem}. Rulebook arms average their three draws before pairing. Common random numbers make the two arms face identical
+scenes, so scene difficulty cancels within each $d_i$. Success is \emph{base-weighted} throughout, including in Fig.~\ref{fig:dashboard}. Rollouts are averaged per task and phrase and then over base instructions, so each base counts equally however many bases an applier collapses onto the same rewrite. The reported
+p-value is a two-sided sign-flip permutation test on the mean of the $d_i$, with 20{,}000 resamples or exact enumeration when $n \le 12$. The number of bases is the sample size, namely $n = 186$ for VLM-generated naturals, $363$ for human-generated naturals, $72$ for adversarials, and $12$ for canonicals. Layouts and repetitions sharpen each $d_i$ but do not add to $n$. The LIBERO replication uses the same paired construction with $n = 200$ bases and 10{,}000 permutations. Weighting
 duplicate human submissions by multiplicity shifts pooled rates by less
 than a point and changes no conclusion.
-Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold} report
-each effect as a relative change: the mean paired difference as a percent
-of the baseline's pooled rate (for the no-rephraser: adversarial
-24.5\%, human-generated 23.0\%, VLM-generated 26.0\%).
+Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold} report each effect as a relative change, the mean paired difference as a percent of the baseline's pooled rate. For the no-rephraser these rates are 24.5\% on adversarials, 23.0\% on human-generated naturals, and 26.0\% on VLM-generated naturals.
 
 
 \subsection{Results}
 
-The out-of-finetune rulebook is consistently the best type; the one exception is the canonical set, where the in-finetune rulebook is best, but that set is underpowered. Gains concentrate on out-of-distribution tasks. With out-of-finetune rulebooks, the Claude applier improves on the no-rephraser baseline by 20 to 26\% relative across the adversarial and natural sets (Table~\ref{tab:pscores-baseline}), and on the no-rules rephraser by 26\% on adversarials, 11\% on human-generated naturals, and 4.7\% on VLM-generated naturals (Table~\ref{tab:pscores-scaffold}); Fig.~\ref{fig:dashboard} gives the full results. Across the three independent draws of a rulebook type, pooled success varies by 0.7 to 5.1 points (median range 3.0), small relative to these effects.
+The out-of-finetune rulebook is consistently the best type. The one exception is the canonical set, where the in-finetune rulebook is best, but that set is underpowered. Gains concentrate on out-of-distribution tasks. With out-of-finetune rulebooks, the Claude applier improves on the no-rephraser baseline by 20 to 26\% relative across the adversarial and natural sets, as Table~\ref{tab:pscores-baseline} shows, and on the no-rules rephraser by 26\% on adversarials, 11\% on human-generated naturals, and 4.7\% on VLM-generated naturals, as Table~\ref{tab:pscores-scaffold} shows. Fig.~\ref{fig:dashboard} gives the full results. Across the three draws of a rulebook type, pooled success varies by 0.7 to 5.1 points, with a median range of 3.0, small relative to these effects.
 
 \begin{figure*}[!t]
  \centering
- \includegraphics[width=\textwidth]{figures/rules_dashboard.png}
- \caption{\small Main results: success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER tasks, one panel per input phrase set and one bar group per rule-applying model. Dashed red = the no-rephraser baseline; grey = the no-rules rephraser; greens = the rules-based rephrasers: the out-of-finetune, in-and-out-finetune (``both''), and in-finetune rulebooks, each the mean over its three draws. Thin flanks split every bar into in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) tasks. Out-of-finetune rulebooks are strongest on every non-canonical set, with gains concentrated out-of-distribution (p-values in Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold}); the canonical panel has one phrase per task and is underpowered.}
+ \includegraphics[width=0.9\textwidth]{figures/rules_dashboard.png}
+ \caption{\small Main results: success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER tasks, one panel per input phrase set and one bar group per rule-applying model. Dashed red = the no-rephraser baseline; grey = the no-rules rephraser; greens = the rules-based rephrasers: the out-of-finetune, in-and-out-finetune (``both''), and in-finetune rulebooks, each the mean over its three draws. Thin flanks split every bar into in-distribution (left, 5 tasks) and out-of-distribution (right, 7 tasks) tasks. Out-of-finetune rulebooks are strongest on every non-canonical set, with gains concentrated out-of-distribution (p-values in Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold}); the canonical panel has one phrase per task and is statistically underpowered.}
  \label{fig:dashboard}
 \end{figure*}
 
@@ -484,17 +402,10 @@ The out-of-finetune rulebook is consistently the best type; the one exception is
 \end{table}
 
 
-\subsection{Replication on $\pi_{0.5}$ + LIBERO}
-\label{sec:libero-repl}
-
-We repeated the pipeline on $\pi_{0.5}$: a preregistered sealed set of 20 tasks (10 in-finetune, 10 out-of-finetune), 10 VLM-generated natural rephrasings per task, evidence from the non-sealed single-edit pairs only, and the Gemini applier ($n = 200$ bases $\times$ 50 layouts per arm). Three independently distilled rulebooks lift in-finetune success from 93.6\% to 97.8\% on average ($p \le 0.005$) and leave out-of-finetune unchanged ($p > 0.4$); the no-rules rephraser gains nothing in-finetune but 1.6 points out-of-finetune ($p = 0.006$). The rulebooks' gains are the repairs the evidence licenses (per-phrase gains, averaged across rulebooks): hot plate, hotplate, or burner $\to$ stove ($+45$\,pp on the ${\sim}9$ of the 200 test phrases that used them), dish $\to$ plate ($+24$), and, smaller but more broadly applied, onto $\to$ on, into $\to$ in ($+2.5$ over ${\sim}50$ phrases); two of the three rulebooks also rewrite grab or lift $\to$ pick up ($+2.4$ over ${\sim}15$ phrases). A distillation prompt that required each rule to hold across all tasks produced a book of prohibitions that changed little and gained nothing; asking for rules that help on average produced the rulebooks above (two distilled by Claude Fable 5.1, one by Claude Opus 5).
-
-\section{Comparison with Test-Time Verification}
+\subsection{Comparison with Test-Time Verification}
 \label{sec:cover}
 
-Table~\ref{tab:cover} compares CoVer with our baselines; all arms use identical Gemini reasoning traces, and the no-rules rephraser column averages the three appliers. 
- 
-Running CoVer's framework with the verifier disabled reproduces its published baseline results. CoVer's native metric is first success within an episode, whereas we report final-state success; auditing our results under first success improved all arms by similar amounts.
+Table~\ref{tab:cover} compares CoVer with our baselines. All arms use identical Gemini reasoning traces, and the no-rules rephraser column averages the three appliers. Running CoVer's framework with the verifier disabled reproduces its published baseline results. CoVer's native metric is first success within an episode, whereas we report final-state success. Auditing our results under first success improved all arms by similar amounts and changed no conclusion.
 
 \begin{table}[!t]
  \caption{\small Test-time verification (CoVer) against our two baselines on the sealed tasks: pooled success (\%) on the final state at step 60, all arms using identical Gemini reasoning traces. CoVer trails both baselines on every set.}
@@ -505,32 +416,25 @@ Running CoVer's framework with the verifier disabled reproduces its published ba
  \input{figures/cover_tab}
 \end{table}
 
+\subsection{Replication on $\pi_{0.5}$ and LIBERO}
+\label{sec:libero-repl}
+
+We repeated the pipeline on $\pi_{0.5}$ with a preregistered sealed set of 20 tasks, 10 in-finetune and 10 out-of-finetune, 10 VLM-generated natural rephrasings per task, evidence from the non-sealed single-edit pairs only, and the Gemini applier, for $n = 200$ bases over 50 layouts per arm. Three independently distilled rulebooks lift in-finetune success from 93.6\% to 97.8\% on average, with $p \le 0.005$, and leave out-of-finetune success unchanged, with $p > 0.4$. The no-rules rephraser gains nothing in-finetune but 1.6 points out-of-finetune, with $p = 0.006$. The rulebooks' gains are the repairs that the evidence licenses, measured as per-phrase gains averaged across rulebooks. Rewriting hot plate, hotplate, or burner to stove gains 45 points on the roughly 9 of the 200 test phrases that used them, and rewriting dish to plate gains 24 points. Smaller but more broadly applied, rewriting onto to on and into to in gains 2.5 points over roughly 50 phrases, and two of the three rulebooks also rewrite grab or lift to pick up, gaining 2.4 points over roughly 15 phrases. A prompt that required each rule to hold across all tasks produced a rulebook that changed little and gained nothing, whereas asking for rules that help on average produced the rulebooks above, two distilled by Claude Fable 5.1 and one by Claude Opus 5.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-Much remains. Rulebooks distilled from more tasks may yield larger
-gains, and a more formal reinforcement-learning treatment of phrasing is
-appealing, though it would likely demand far more simulatable tasks than
-we worked with. Our in-finetune rulebooks underperformed, possibly
-because of a weak proxy score (the LIBERO rulebooks, whose evidence was
-entirely rollout-scored, did not); a cheaper, better proxy would avoid
-the cost of full rollouts. We evaluated the method on two VLAs, only
-in simulation; real robots are natural next steps. Most
-importantly, language sensitivity should be measured systematically
-across models. Explaining it, by attributing the sensitivity to a cause,
-would be the most exciting outcome.
-
-
-
+Several directions remain open. Rulebooks distilled from more tasks may yield larger gains, and a more formal reinforcement-learning treatment of phrasing is appealing, although it would likely demand far more simulatable tasks than we worked with. Our in-finetune rulebooks underperformed, possibly because of a weak proxy score, whereas the LIBERO rulebooks, whose evidence was entirely rollout-scored, did not.  We evaluated the method on two VLAs and only in simulation, so real robots are a natural next step. Most importantly, language sensitivity should be measured systematically across models. Explaining it, by attributing the sensitivity to a cause, would be the most valuable outcome of this line of work.
 
 \section*{ACKNOWLEDGMENT}
 
 The code was written with Claude (Anthropic) under the authors'
 direction and review. The paper text was written by the authors with assistance from
 Claude: it helped compile the Related Work section, drafted the figure
-and table captions and the Statistical Tests subsection, and provided
-grammar editing, paraphrasing, and phrasing improvements. The authors
+and table captions and the Statistical Tests subsection.
+% , and provided
+% grammar editing, paraphrasing, and phrasing improvements. 
+The authors
 reviewed and are responsible for all content.
 
 \balance
