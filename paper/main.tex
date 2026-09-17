@@ -87,9 +87,6 @@
 
 
 \overrideIEEEmargins % Needed to meet printer requirements.
-% Text block sat 3.9pt above the 54pt top margin; shift down, keep the bottom edge.
-\addtolength{\topmargin}{4pt}
-\addtolength{\textheight}{-4pt}
 
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -181,6 +178,7 @@ Our key observation is that a VLA's language sensitivity is systematic rather th
 We first characterize the sensitivity for $\pi_0$ on SIMPLER's Bridge tasks and $\pi_{0.5}$ on LIBERO, through statistically tested single-edit swings and an oracle phrase search that estimates the headroom phrasing alone leaves a frozen policy. Two findings shape the paper. First, oracle phrasing nearly closes the 21-point gap between in-distribution and out-of-distribution tasks, so much of the apparent generalization gap is a phrasing gap. Second, on $\pi_{0.5}$ adversarial phrasing costs 50 points on tasks inside the finetuning set and nothing measurable outside it, which suggests that the policy attends to language only where training has taught it to~\cite{zhou2025liberopro, fei2025liberoplus}.
 
 \begin{figure*}[!t]
+ \vspace*{4pt}%  keep top floats inside the 54pt margin
  \centering
  \includegraphics[width=\textwidth, height=0.5\textheight, keepaspectratio]{figures/method_overview.png}
  \caption{\small Method overview. \emph{Evidence gathering}: a VLM rephrases each training task, and the frozen VLA's rollout success on each phrasing forms the evidence $\mathcal{D}$. \emph{Rule distillation}: an LLM distills $\mathcal{D}$, once and offline, into 10--20 explicit phrasing rules $R$. \emph{Rule application}: at deployment a VLM conditioned on $R$ rewrites each incoming instruction once ($f_R$) before passing it to the unchanged VLA. The phrasings, scores, and rules shown are illustrative only.}
@@ -226,6 +224,7 @@ respect the robot's skills~\cite{ahn2022saycan}, and Inner Monologue
 closes the loop with execution feedback~\cite{huang2022inner}. These systems decide \emph{which} instruction to issue, whereas ours learns which surface forms of an instruction this executor parses reliably and rewrites each incoming instruction into one of those forms. Written guidance as a reusable artifact has precedent in PromptBook, which curates prompting guidance for LLM-written robot code~\cite{arenas2024promptbook}, and DROC, which distills human corrections into a knowledge base retrieved for later tasks~\cite{zha2024droc}. Our rulebook is instead distilled automatically from rollout evidence and targets the phrasing the executor parses.
 
 \begin{figure}
+ \vspace*{4pt}%  keep top floats inside the 54pt margin
  \centering
  \includegraphics[width=0.85\columnwidth]{figures/scenes_bridge_rep.png}
  \caption{\small Representative SIMPLER Bridge first-frame scenes. Tabletop tasks share one setup and differ only in the source and destination objects; the rightmost panel is the benchmark's sink scene.}
@@ -234,6 +233,7 @@ closes the loop with execution feedback~\cite{huang2022inner}. These systems dec
 \end{figure}
 
 \begin{figure}
+ \vspace*{4pt}%  keep top floats inside the 54pt margin
  \centering
  \includegraphics[width=0.85\columnwidth]{figures/scenes_libero_rep.png}
  \caption{\small Representative LIBERO first-frame scenes. libero\_goal and libero\_spatial share one scene per suite, libero\_object places groceries beside a basket, and libero\_90 scenes vary by task.}
@@ -279,6 +279,7 @@ the eggplant gains 61 points on one task and costs 30 on another, so no
 static rule can satisfy both. Swings were also far easier to find on in-finetune tasks. Of the 426 candidate pairs our $\pi_{0.5}$ search evaluated, 44\% of in-finetune pairs showed a significant swing of at least 18 points at $p < 0.05$, versus 5\% of out-of-finetune pairs, which suggests that finetuned performance rests on memorized phrasings that a single word can break. Color shows the clearest asymmetry between the two models. On Bridge, an added color raises success on out-of-vocabulary nouns, as with black keyboard at $+42$, and lowers it on in-vocabulary nouns, as with yellow plate at $-22$. On LIBERO, an added color only ever lowers success, as with black bowl at $-20$. The common thread is plain naming. Generic category words such as can, dish, drink, and thing underperform the specific everyday name, even one the training data never contained, as pepsi exceeds soda by 39 points. Changing Pepsi to pepsi gains 44 points, which suggests sensitivity at the level of tokens rather than words.
 
 \begin{figure}[!t]
+ \vspace*{4pt}%  keep top floats inside the 54pt margin
  \centering
  \includegraphics[width=\columnwidth]{figures/swings_bridge_full.pdf}
  \caption{\small Single-edit swings for $\pi_0$ on SIMPLER Bridge: 26 significant sets over 16 tasks, the largest per task and edit category. Each row is one set whose phrases differ by one edit; dots are success rates over n = 72 rollouts (basket task n = 180), the filled dot is the best phrasing, and the right column is the swing in points. Every set has $p < 0.05$ under a two-proportion z test.}
@@ -286,6 +287,7 @@ static rule can satisfy both. Swings were also far easier to find on in-finetune
 \end{figure}
 
 \begin{figure}[!t]
+ \vspace*{4pt}%  keep top floats inside the 54pt margin
  \centering
  \includegraphics[width=\columnwidth]{figures/swings_libero_full.pdf}
  \caption{\small Single-edit swings for $\pi_{0.5}$ on LIBERO, formatted as Fig.~\ref{fig:pairs-bridge}: 15 sets over 13 tasks, n = 50 per phrase, with eight further significant sets removed as scene-ambiguous. Swings reach 100\,pp, as ``fire up the stove'' succeeds 100\% of the time and ``turn on the stove'' 6\%.}
@@ -302,6 +304,7 @@ In Figs.~\ref{fig:pi0-conditions} and~\ref{fig:pi05-fourtier}, oracle phrases re
 
 
 \begin{figure}[!t]
+ \vspace*{4pt}%  keep top floats inside the 54pt margin
  \centering
  \includegraphics[width=\columnwidth]{figures/pi0_conditions.png}
  \caption{\small Success of the rephrase-augmented $\pi_0$ on the 12 sealed Bridge tasks by phrasing condition, over 24 fixed layouts. Solid bars pool all tasks; thin flanks are the in-distribution (left, 5 tasks) and out-of-distribution (right, 7) strata. Repetitions per layout: oracle and canonical 12, adversarial 2, naturals 1. Oracle phrasing shrinks the 21-point strata gap to 3 points.}
@@ -309,6 +312,7 @@ In Figs.~\ref{fig:pi0-conditions} and~\ref{fig:pi05-fourtier}, oracle phrases re
 \end{figure}
 
 \begin{figure}[!t]
+ \vspace*{4pt}%  keep top floats inside the 54pt margin
  \centering
  \includegraphics[width=\columnwidth]{figures/pi05_fourtier.png}
  \caption{\small Success of $\pi_{0.5}$ on LIBERO by phrasing condition over 50 layouts per phrase. Solid bars pool all 28 tasks; thin flanks are the in-finetune (left, 10 tasks) and out-of-finetune (right, 18) halves. In-finetune, adversarial rephrasing costs 50\,pp (97 to 47); out-of-finetune, the canonical, natural, and adversarial tiers are indistinguishable (52 / 50 / 48). Oracle search finds headroom in both regimes (99 / 66).}
@@ -379,6 +383,7 @@ Tables~\ref{tab:pscores-baseline} and~\ref{tab:pscores-scaffold} report each eff
 The out-of-finetune rulebook is consistently the best type. The one exception is the canonical set, where the in-finetune rulebook is best, but that set is underpowered. Gains concentrate on out-of-distribution tasks. With out-of-finetune rulebooks, the Claude applier improves on the no-rephraser baseline by 20 to 26\% relative across the adversarial and natural sets, as Table~\ref{tab:pscores-baseline} shows, and on the no-rules rephraser by 26\% on adversarials, 11\% on human-generated naturals, and 4.7\% on VLM-generated naturals, as Table~\ref{tab:pscores-scaffold} shows. Fig.~\ref{fig:dashboard} gives the full results. Across the three draws of a rulebook type, pooled success varies by 0.7 to 5.1 points, with a median range of 3.0, small relative to these effects.
 
 \begin{figure*}[!t]
+ \vspace*{4pt}%  keep top floats inside the 54pt margin
  \centering
  \includegraphics[width=0.9\textwidth]{figures/rules_dashboard.png}
  \caption{\small Main results: success of the rephrase-augmented $\pi_0$ on the 12 sealed SIMPLER tasks, one panel per phrase set and one bar group per applier. Dashed red = no-rephraser baseline; grey = no-rules rephraser; greens = the out-of-finetune, both, and in-finetune rulebooks, each the mean over three draws; thin flanks = in-distribution (left, 5 tasks) and out-of-distribution (right, 7) strata. Out-of-finetune rulebooks are strongest on every non-canonical set, with gains concentrated out-of-distribution; the canonical panel, with one phrase per task, is statistically underpowered and should be read with caution.}
