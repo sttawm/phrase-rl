@@ -27,6 +27,7 @@ GREEN, RED, INK, BG = (34, 197, 94), (239, 68, 68), (40, 44, 52), (250, 249, 246
 HI_BG, LO_BG = (212, 241, 212), (250, 214, 214)      # highlight boxes (paper palette)
 FPS, HOLD_S, TITLE_S, MAX_PLAY_S = 12, 2.5, 2.5, 12.0
 QUALITY = 6.5              # imageio: crf = (10 - q) * 5
+ORDER = "success"          # 'success': successes first; 'layout': layout/init order (same scene left/right)
 
 
 def font(size):
@@ -63,12 +64,19 @@ def episodes_for(frames_dir, bench, task, phrase, arm):
 
 def grid_frames(loaded, order, T, stride):
     """Yield composited grid images for t = 0..T (shared across both arms), showing
-    every `stride`-th sim step; a cell freezes + gets marked once its episode ends."""
+    every `stride`-th sim step; a cell freezes + gets marked once its episode ends.
+    Cells are ordered successes-first; during the final hold a translucent
+    green/red tint fades in over every cell."""
     gw = COLS * CELL[0] + (COLS - 1) * GAP
     gh = ROWS * CELL[1] + (ROWS - 1) * GAP
     fnt = font(26)
-    for tt in range(-(-T // stride) + int(HOLD_S * FPS)):
+    order = [i for i in order if i in loaded]
+    if ORDER == "success":
+        order = sorted(order, key=lambda i: (not loaded[i][1], i))
+    T_play = -(-T // stride)
+    for tt in range(T_play + int(HOLD_S * FPS)):
         t = tt * stride
+        tint = min(1.0, max(0.0, (tt - T_play) / (0.6 * FPS))) * 0.55   # fade-in during the hold
         img = Image.new("RGB", (gw, gh), BG)
         d = ImageDraw.Draw(img)
         for k, i in enumerate(order):
@@ -86,6 +94,26 @@ def grid_frames(loaded, order, T, stride):
                 cx, cy, rr = x + CELL[0] - 18 * SCALE, y + 18 * SCALE, 13 * SCALE
                 d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=(255, 255, 255), outline=col, width=2 * SCALE)
                 if ok:
+                    d.line([(cx - 7 * SCALE, cy + 1 * SCALE), (cx - 2 * SCALE, cy + 6 * SCALE), (cx + 8 * SCALE, cy - 6 * SCALE)], fill=col, width=3 * SCALE, joint="curve")
+                else:
+                    d.line([(cx - 6 * SCALE, cy - 6 * SCALE), (cx + 6 * SCALE, cy + 6 * SCALE)], fill=col, width=3 * SCALE)
+                    d.line([(cx - 6 * SCALE, cy + 6 * SCALE), (cx + 6 * SCALE, cy - 6 * SCALE)], fill=col, width=3 * SCALE)
+        if tint > 0:
+            ov = Image.new("RGBA", img.size, (0, 0, 0, 0)); od = ImageDraw.Draw(ov)
+            for k, i in enumerate(order):
+                r, c = divmod(k, COLS)
+                x, y = c * (CELL[0] + GAP), r * (CELL[1] + GAP)
+                col = GREEN if loaded[i][1] else RED
+                od.rectangle([x, y, x + CELL[0] - 1, y + CELL[1] - 1], fill=col + (int(255 * tint),))
+            img = Image.alpha_composite(img.convert("RGBA"), ov).convert("RGB")
+            d = ImageDraw.Draw(img)
+            for k, i in enumerate(order):   # redraw badges on top of the tint
+                r, c = divmod(k, COLS)
+                x, y = c * (CELL[0] + GAP), r * (CELL[1] + GAP)
+                col = GREEN if loaded[i][1] else RED
+                cx, cy, rr = x + CELL[0] - 18 * SCALE, y + 18 * SCALE, 13 * SCALE
+                d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=(255, 255, 255), outline=col, width=2 * SCALE)
+                if loaded[i][1]:
                     d.line([(cx - 7 * SCALE, cy + 1 * SCALE), (cx - 2 * SCALE, cy + 6 * SCALE), (cx + 8 * SCALE, cy - 6 * SCALE)], fill=col, width=3 * SCALE, joint="curve")
                 else:
                     d.line([(cx - 6 * SCALE, cy - 6 * SCALE), (cx + 6 * SCALE, cy + 6 * SCALE)], fill=col, width=3 * SCALE)
@@ -199,13 +227,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--frames", required=True); ap.add_argument("--out", required=True)
     ap.add_argument("--only", default=None, help="substring of task to render")
+    ap.add_argument("--order", default="success", choices=["success", "layout"])
+    ap.add_argument("--suffix", default="", help="appended to the clip filename")
     a = ap.parse_args()
+    global ORDER; ORDER = a.order
     man = json.load(open(R / "results/analysis/grid_video/grid_manifest.json"))
     out = pathlib.Path(a.out); out.mkdir(parents=True, exist_ok=True)
     for k, pair in enumerate(man["pairs"], 1):
         if a.only and a.only not in pair["task"]: continue
         order = man["simpler_layouts"] if pair["bench"] == "simpler" else man["libero_inits"]
-        dst = out / f"pair{k}_{pair['task'].replace('/', '_').replace('widowx_', '').replace('_clean', '')}.mp4"
+        dst = out / f"pair{k}_{pair['task'].replace('/', '_').replace('widowx_', '').replace('_clean', '')}{a.suffix}.mp4"
         make_clip(pair, a.frames, dst, order)
         print("wrote", dst)
 
