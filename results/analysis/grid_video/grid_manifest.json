@@ -57,30 +57,36 @@
    "bench": "simpler",
    "task": "widowx_pepsi_on_plate_clean",
    "good": {
-    "phrase": "put the pepsi on the plate"
+    "phrase": "put the pepsi on the plate",
+    "rate": 69
    },
    "bad": {
-    "phrase": "put the Pepsi on the plate"
+    "phrase": "put the Pepsi on the plate",
+    "rate": 25
    }
   },
   {
    "bench": "simpler",
    "task": "widowx_coke_can_on_keyboard_clean",
    "good": {
-    "phrase": "Put the red soda cylinder on top of the black keyboard."
+    "phrase": "Put the red soda cylinder on top of the black keyboard.",
+    "rate": 46
    },
    "bad": {
-    "phrase": "Put the red soda can on top of the black keyboard."
+    "phrase": "Put the red soda can on top of the black keyboard.",
+    "rate": 4
    }
   },
   {
    "bench": "simpler",
    "task": "widowx_eggplant_on_sponge_clean",
    "good": {
-    "phrase": "purple eggplant goes on the sponge"
+    "phrase": "purple eggplant goes on the sponge",
+    "rate": 69
    },
    "bad": {
-    "phrase": "eggplant goes on the sponge"
+    "phrase": "eggplant goes on the sponge",
+    "rate": 8
    }
   },
   {
