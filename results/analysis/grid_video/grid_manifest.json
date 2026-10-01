@@ -1,0 +1,111 @@
+{
+ "grid": "6x4",
+ "simpler_layouts": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23
+ ],
+ "libero_inits": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23
+ ],
+ "pairs": [
+  {
+   "bench": "simpler",
+   "task": "widowx_pepsi_on_plate_clean",
+   "good": {
+    "phrase": "put the pepsi on the plate"
+   },
+   "bad": {
+    "phrase": "put the Pepsi on the plate"
+   }
+  },
+  {
+   "bench": "simpler",
+   "task": "widowx_coke_can_on_keyboard_clean",
+   "good": {
+    "phrase": "Put the red soda cylinder on top of the black keyboard."
+   },
+   "bad": {
+    "phrase": "Put the red soda can on top of the black keyboard."
+   }
+  },
+  {
+   "bench": "simpler",
+   "task": "widowx_eggplant_on_sponge_clean",
+   "good": {
+    "phrase": "purple eggplant goes on the sponge"
+   },
+   "bad": {
+    "phrase": "eggplant goes on the sponge"
+   }
+  },
+  {
+   "bench": "libero",
+   "task": "libero_90/44",
+   "good": {
+    "phrase": "fire up the stove",
+    "rate": 100.0
+   },
+   "bad": {
+    "phrase": "turn on the stove",
+    "rate": 6.0
+   }
+  },
+  {
+   "bench": "libero",
+   "task": "libero_goal/7",
+   "good": {
+    "phrase": "switch on the stove",
+    "rate": 100.0
+   },
+   "bad": {
+    "phrase": "switch on the hot plate",
+    "rate": 2.0
+   }
+  }
+ ]
+}
