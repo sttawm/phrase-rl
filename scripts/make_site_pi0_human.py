@@ -76,7 +76,8 @@ import matplotlib.transforms as mtrans
 tr = mtrans.blended_transform_factory(ax.transData, ax.transAxes)
 ROW_Y = [-0.075, -0.155, -0.235]
 for r, name in enumerate(ROWS):
-    ax.text(-0.02, ROW_Y[r], name, transform=ax.transAxes, ha="right", va="center",
+    # row header tucked just left of the first column (data x), not at the spine
+    ax.text(-0.32, ROW_Y[r], name, transform=tr, ha="right", va="center",
             fontsize=7.0, color="#2d3748")
     for i, (feat, _, col) in enumerate(BARS):
         on = feat[r]
