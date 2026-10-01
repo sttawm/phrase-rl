@@ -112,6 +112,84 @@
     "phrase": "switch on the hot plate",
     "rate": 2.0
    }
+  },
+  {
+   "bench": "simpler",
+   "task": "widowx_coke_can_on_ramekin_clean",
+   "batch": 2,
+   "good": {
+    "phrase": "place the red cola can inside the white container",
+    "rate": 74
+   },
+   "bad": {
+    "phrase": "place the red cola can inside the white ramekin",
+    "rate": 32
+   }
+  },
+  {
+   "bench": "simpler",
+   "task": "widowx_eggplant_on_keyboard_clean",
+   "batch": 2,
+   "good": {
+    "phrase": "put the eggplant on the black keyboard",
+    "rate": 54
+   },
+   "bad": {
+    "phrase": "put the eggplant on the keyboard",
+    "rate": 12
+   }
+  },
+  {
+   "bench": "simpler",
+   "task": "widowx_cube_on_plate_clean",
+   "batch": 2,
+   "good": {
+    "phrase": "place the green cube into the dish",
+    "rate": 78
+   },
+   "bad": {
+    "phrase": "put the green cube into the dish",
+    "rate": 40
+   }
+  },
+  {
+   "bench": "libero",
+   "task": "libero_90/31",
+   "batch": 2,
+   "good": {
+    "phrase": "put the bowl on top of the cabinet",
+    "rate": 36
+   },
+   "bad": {
+    "phrase": "put the grey bowl on top of the cabinet",
+    "rate": 10
+   }
+  },
+  {
+   "bench": "simpler",
+   "task": "widowx_eggplant_on_sponge_clean",
+   "batch": 2,
+   "good": {
+    "phrase": "set the purple eggplant on the yellow and green sponge",
+    "rate": 71
+   },
+   "bad": {
+    "phrase": "set the purple thing on the yellow and green sponge",
+    "rate": 26
+   }
+  },
+  {
+   "bench": "simpler",
+   "task": "widowx_eggplant_on_keyboard_clean",
+   "batch": 2,
+   "good": {
+    "phrase": "put eggplant on keyboard",
+    "rate": 32
+   },
+   "bad": {
+    "phrase": "put the eggplant on the keyboard",
+    "rate": 12
+   }
   }
  ]
 }
