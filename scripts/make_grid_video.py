@@ -27,7 +27,7 @@ GREEN, RED, INK, BG = (34, 197, 94), (239, 68, 68), (40, 44, 52), (250, 249, 246
 HI_BG, LO_BG = (212, 241, 212), (250, 214, 214)      # highlight boxes (paper palette)
 FPS, HOLD_S, TITLE_S, MAX_PLAY_S = 12, 2.5, 2.5, 12.0
 QUALITY = 6.5              # imageio: crf = (10 - q) * 5
-ORDER = "success"          # 'success': successes first; 'layout': layout/init order (same scene left/right)
+ORDER = "layout"           # 'layout': same scene in the same cell left/right (default); 'success': successes first
 
 
 def font(size):
@@ -227,7 +227,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--frames", required=True); ap.add_argument("--out", required=True)
     ap.add_argument("--only", default=None, help="substring of task to render")
-    ap.add_argument("--order", default="success", choices=["success", "layout"])
+    ap.add_argument("--order", default="layout", choices=["layout", "success"])
     ap.add_argument("--suffix", default="", help="appended to the clip filename")
     a = ap.parse_args()
     global ORDER; ORDER = a.order
