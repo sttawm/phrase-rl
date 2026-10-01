@@ -25,7 +25,7 @@ COLS, ROWS = 6, 4
 GAP, PAD = 3 * SCALE, 16 * SCALE
 GREEN, RED, INK, BG = (34, 197, 94), (239, 68, 68), (40, 44, 52), (250, 249, 246)
 HI_BG, LO_BG = (212, 241, 212), (250, 214, 214)      # highlight boxes (paper palette)
-FPS, HOLD_S, TITLE_S, MAX_PLAY_S = 12, 2.5, 2.5, 12.0
+FPS, HOLD_S, TITLE_S, MAX_PLAY_S = 12, 2.5, 1.0, 12.0
 QUALITY = 6.5              # imageio: crf = (10 - q) * 5
 ORDER = "layout"           # 'layout': same scene in the same cell left/right (default); 'success': successes first
 
