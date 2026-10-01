@@ -96,9 +96,7 @@ handles = [plt.Rectangle((0, 0), 1, 1, fc="#7A8698"),
 ax.legend(handles, ["pooled (12 tasks)",
                     "flanks: in-distrib. (left, 5) / out-of-distrib. (right, 7)"],
           fontsize=5.9, loc="upper left", frameon=False)
-ax.text(0.99, 0.985, "human-written phrasings\n363 phrases, 24 layouts each",
-        transform=ax.transAxes, ha="right", va="top", fontsize=6.4, color="#4a5568")
-ax.legend_.set_bbox_to_anchor((0.0, 1.0))   # legend hugs the left; annotation the right
+# no in-image annotation: the site paragraph carries phrase/layout counts
 fig.tight_layout()
 out = R / "results/charts" / f"site_pi0_human_{AP}.png"
 fig.savefig(out, dpi=450, bbox_inches="tight", pad_inches=0.15)
