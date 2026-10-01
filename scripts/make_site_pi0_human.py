@@ -74,7 +74,7 @@ ax.set_xticklabels([])
 # feature grid under the axis: row labels in the left margin, check / cross per bar
 import matplotlib.transforms as mtrans
 tr = mtrans.blended_transform_factory(ax.transData, ax.transAxes)
-ROW_Y = [-0.075, -0.155, -0.235]
+ROW_Y = [-0.12, -0.20, -0.28]
 for r, name in enumerate(ROWS):
     # row header tucked just left of the first column (data x), not at the spine
     ax.text(-0.32, ROW_Y[r], name, transform=tr, ha="right", va="center",
@@ -84,7 +84,7 @@ for r, name in enumerate(ROWS):
         ax.text(i * SP, ROW_Y[r], "\u2713" if on else "\u2717", transform=tr,
                 ha="center", va="center", fontsize=9.5, fontweight="bold",
                 color=(C_RULES if on else "#B8BEC9"))
-ax.text((len(BARS) - 1) * SP, -0.315, "(ours)", transform=tr, ha="center", va="center",
+ax.text((len(BARS) - 1) * SP, -0.36, "(ours)", transform=tr, ha="center", va="center",
         fontsize=7.4, fontweight="bold", color="#2d3748")
 ax.set_ylabel("rollout success (%)", fontsize=8.0)
 ax.set_ylim(0, 45)
