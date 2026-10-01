@@ -13,20 +13,24 @@ moment its episode ends -> end card holds with the tallies.
   .venv/bin/python scripts/make_grid_video.py --frames results/analysis/grid_video/frames \
       --out results/charts/grid_video
 """
-import argparse, io, json, pathlib, re
+import argparse, difflib, io, json, pathlib, re
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import imageio.v2 as imageio
 
 R = pathlib.Path(__file__).resolve().parents[1]
-CELL = (160, 120)          # w, h of one cell
+SCALE = 2                  # 1 = 1998px-wide canvas; 2 = 3996px (sharp when fullscreen)
+CELL = (160 * SCALE, 120 * SCALE)   # w, h of one cell
 COLS, ROWS = 6, 4
-GAP, PAD = 3, 16
+GAP, PAD = 3 * SCALE, 16 * SCALE
 GREEN, RED, INK, BG = (34, 197, 94), (239, 68, 68), (40, 44, 52), (250, 249, 246)
+HI_BG, LO_BG = (212, 241, 212), (250, 214, 214)      # highlight boxes (paper palette)
 FPS, HOLD_S, TITLE_S, MAX_PLAY_S = 12, 2.5, 2.5, 12.0
+QUALITY = 6.5              # imageio: crf = (10 - q) * 5
 
 
 def font(size):
+    size = int(size * SCALE)
     for f in ("/System/Library/Fonts/Helvetica.ttc", "/Library/Fonts/Arial.ttf"):
         try: return ImageFont.truetype(f, size)
         except Exception: pass
@@ -77,16 +81,67 @@ def grid_frames(loaded, order, T, stride):
             img.paste(Image.fromarray(frames[fi]).resize(CELL, Image.BILINEAR), (x, y))
             if t >= len(frames) - 1:   # episode over: mark it
                 col = GREEN if ok else RED
-                d.rectangle([x, y, x + CELL[0] - 1, y + CELL[1] - 1], outline=col, width=3)
+                d.rectangle([x, y, x + CELL[0] - 1, y + CELL[1] - 1], outline=col, width=3 * SCALE)
                 # drawn badge (font glyphs for check/cross are unreliable)
-                cx, cy, rr = x + CELL[0] - 18, y + 18, 13
-                d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=(255, 255, 255), outline=col, width=2)
+                cx, cy, rr = x + CELL[0] - 18 * SCALE, y + 18 * SCALE, 13 * SCALE
+                d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=(255, 255, 255), outline=col, width=2 * SCALE)
                 if ok:
-                    d.line([(cx - 7, cy + 1), (cx - 2, cy + 6), (cx + 8, cy - 6)], fill=col, width=3, joint="curve")
+                    d.line([(cx - 7 * SCALE, cy + 1 * SCALE), (cx - 2 * SCALE, cy + 6 * SCALE), (cx + 8 * SCALE, cy - 6 * SCALE)], fill=col, width=3 * SCALE, joint="curve")
                 else:
-                    d.line([(cx - 6, cy - 6), (cx + 6, cy + 6)], fill=col, width=3)
-                    d.line([(cx - 6, cy + 6), (cx + 6, cy - 6)], fill=col, width=3)
+                    d.line([(cx - 6 * SCALE, cy - 6 * SCALE), (cx + 6 * SCALE, cy + 6 * SCALE)], fill=col, width=3 * SCALE)
+                    d.line([(cx - 6 * SCALE, cy + 6 * SCALE), (cx + 6 * SCALE, cy - 6 * SCALE)], fill=col, width=3 * SCALE)
         yield img, sum(ok for f, ok in loaded.values() if t >= len(f) - 1), len(loaded)
+
+
+def diff_words(a, b):
+    """Indices of words in a and in b that differ (word-level, case-sensitive)."""
+    wa, wb = a.split(), b.split()
+    ia, ib = set(), set()
+    for op, i1, i2, j1, j2 in difflib.SequenceMatcher(None, wa, wb).get_opcodes():
+        if op != "equal":
+            ia.update(range(i1, i2)); ib.update(range(j1, j2))
+    return ia, ib
+
+
+def phrase_width(d, phrase, fnt):
+    return d.textlength("“" + phrase + "”", font=fnt)
+
+
+def draw_phrase(d, x, y, phrase, hl, fnt, color, box, prefix="", prefix_color=None):
+    """Draw `phrase` word by word at (x, y); words whose index is in `hl` get a
+    colored box behind them and colored text. `prefix` (e.g. the rate) goes first."""
+    if prefix:
+        d.text((x, y), prefix, fill=prefix_color or color, font=fnt)
+        x += d.textlength(prefix, font=fnt)
+    d.text((x, y), "“", fill=INK, font=fnt); x += d.textlength("“", font=fnt) + 3 * SCALE
+    words = phrase.split(); sp = d.textlength(" ", font=fnt)
+    asc, desc = fnt.getmetrics()
+    # one box per run of adjacent highlighted words
+    xs = []; cx = x
+    for i, w in enumerate(words):
+        ww = d.textlength(w, font=fnt); xs.append((cx, cx + ww)); cx += ww + sp
+    i = 0
+    while i < len(words):
+        if i in hl:
+            j = i
+            while j + 1 < len(words) and (j + 1) in hl: j += 1
+            d.rounded_rectangle([xs[i][0] - 4 * SCALE, y - 2 * SCALE, xs[j][1] + 4 * SCALE, y + asc + desc * 0.4],
+                                radius=6 * SCALE, fill=box)
+            i = j + 1
+        else:
+            i += 1
+    for i, w in enumerate(words):
+        d.text((xs[i][0], y), w, fill=color if i in hl else INK, font=fnt)
+    x = xs[-1][1] + 2 * SCALE
+    d.text((x, y), "”", fill=INK, font=fnt)
+    return x
+
+
+def fit_font(d, text, max_w, start, floor=22):
+    size = start
+    while size > floor and d.textlength(text, font=font(size)) > max_w:
+        size -= 2
+    return font(size)
 
 
 def text_card(size, lines, fnt_sizes):
@@ -110,22 +165,32 @@ def make_clip(pair, frames_dir, out, order):
     T = max(len(f) for f, _ in list(lg.values()) + list(lb.values()))
     stride = max(1, round(T / (MAX_PLAY_S * FPS)))   # keep the longest episode within MAX_PLAY_S
     gw = COLS * CELL[0] + (COLS - 1) * GAP; gh = ROWS * CELL[1] + (ROWS - 1) * GAP
-    W, H = 2 * gw + 3 * PAD, gh + 2 * PAD + 70
+    W, H = 2 * gw + 3 * PAD, gh + 2 * PAD + 70 * SCALE
     W += W % 2; H += H % 2   # libx264 yuv420p needs even dimensions
-    writer = imageio.get_writer(out, fps=FPS, codec="libx264", quality=8, macro_block_size=1)
-    title = text_card((W, H), [f"“{good['phrase']}”  vs.  “{bad['phrase']}”",
-                               f"{good.get('rate', '?')}%  vs.  {bad.get('rate', '?')}%  measured success",
-                               "same scenes, same seeds — the wording is the only difference"], [30, 26, 20])
+    writer = imageio.get_writer(out, fps=FPS, codec="libx264", quality=QUALITY, macro_block_size=1)
+    hg, hb = diff_words(good["phrase"], bad["phrase"])
+    title = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(title)
+    fmt = lambda r: f"{round(float(r))}%   " if r not in (None, "?") else "?%   "
+    pg, pb = fmt(good.get("rate")), fmt(bad.get("rate"))
+    longest = max(pg + "“" + good["phrase"] + "”", pb + "“" + bad["phrase"] + "”", key=len)
+    big = fit_font(d, longest, W - 120 * SCALE, 54)
+    lh = sum(big.getmetrics()) + 26 * SCALE
+    y0 = H // 2 - lh - 10 * SCALE
+    for k, (ph, hl, rate, col, box) in enumerate([(good["phrase"], hg, pg, GREEN, HI_BG), (bad["phrase"], hb, pb, RED, LO_BG)]):
+        wline = d.textlength(rate, font=big) + phrase_width(d, ph, big)
+        draw_phrase(d, (W - wline) / 2, y0 + k * lh, ph, hl, big, col, box, prefix=rate, prefix_color=col)
+    small = font(22); note = "same scenes, same seeds — the wording is the only difference"
+    d.text(((W - d.textlength(note, font=small)) / 2, y0 + 2 * lh + 18 * SCALE), note, fill=(110, 110, 110), font=small)
     for _ in range(int(TITLE_S * FPS)): writer.append_data(np.asarray(title))
-    hdr = font(22)
+    hdr = fit_font(d, "“" + max(good["phrase"], bad["phrase"], key=len) + "”", gw - 10 * SCALE, 24, 16)
     for (gi, gs, gn), (bi, bs, bn) in zip(grid_frames(lg, order, T, stride), grid_frames(lb, order, T, stride)):
         img = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(img)
-        d.text((PAD, PAD), f"“{good['phrase']}”", fill=GREEN, font=hdr)
-        d.text((2 * PAD + gw, PAD), f"“{bad['phrase']}”", fill=RED, font=hdr)
-        img.paste(gi, (PAD, PAD + 40)); img.paste(bi, (2 * PAD + gw, PAD + 40))
+        draw_phrase(d, PAD, PAD, good["phrase"], hg, hdr, GREEN, HI_BG)
+        draw_phrase(d, 2 * PAD + gw, PAD, bad["phrase"], hb, hdr, RED, LO_BG)
+        img.paste(gi, (PAD, PAD + 40 * SCALE)); img.paste(bi, (2 * PAD + gw, PAD + 40 * SCALE))
         foot = font(20)
-        d.text((PAD, PAD + 40 + gh + 6), f"{gs}/{gn} succeeded", fill=GREEN, font=foot)
-        d.text((2 * PAD + gw, PAD + 40 + gh + 6), f"{bs}/{bn} succeeded", fill=RED, font=foot)
+        d.text((PAD, PAD + 40 * SCALE + gh + 6 * SCALE), f"{gs}/{gn} succeeded", fill=GREEN, font=foot)
+        d.text((2 * PAD + gw, PAD + 40 * SCALE + gh + 6 * SCALE), f"{bs}/{bn} succeeded", fill=RED, font=foot)
         writer.append_data(np.asarray(img))
     writer.close()
 
