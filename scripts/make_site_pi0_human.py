@@ -41,10 +41,12 @@ for n, v in (("base", base), ("aug", aug), ("scaffold", scaf), ("rules avg3", ru
     print(f"{AP} {n:10s} pooled {v[0]:.2f}  iv {v[1]:.2f}  oov {v[2]:.2f}")
 
 C_BASE, C_AUG, C_SCAF, C_RULES = "#6B5E9B", "#5E7B9B", "#B08A3E", "#3F6B52"
-BARS = [("non-augmented $\\pi_0$\npass-through", base, C_BASE),
-        ("rephrase-augmented $\\pi_0$\npass-through", aug, C_AUG),
-        ("rephrase-augmented $\\pi_0$\n+ rephraser,\nno rules", scaf, C_SCAF),
-        ("rephrase-augmented $\\pi_0$\n+ rephraser\nwith rules $\\bf{(ours)}$", rules, C_RULES)]
+# x-labels are a feature grid: which ingredients each bar has (cumulative)
+ROWS = ["rephrase-augmented $\\pi_0$", "VLM rephraser", "LLM-distilled rules"]
+BARS = [((0, 0, 0), base, C_BASE),
+        ((1, 0, 0), aug, C_AUG),
+        ((1, 1, 0), scaf, C_SCAF),
+        ((1, 1, 1), rules, C_RULES)]
 
 fig, ax = plt.subplots(figsize=(6.0, 3.3))
 SP = 1.6    # cluster spacing: four long labels need more room than the paper chart
@@ -65,10 +67,24 @@ def cluster(x, pool, iv, oov, col):
             bbox=dict(boxstyle="square,pad=0.10", fc=col, ec="none"))
 
 
-for i, (lab, (pool, iv, oov), col) in enumerate(BARS):
+for i, (feat, (pool, iv, oov), col) in enumerate(BARS):
     cluster(i * SP, pool, iv, oov, col)
 ax.set_xticks([i * SP for i in range(len(BARS))])
-ax.set_xticklabels([b[0] for b in BARS], fontsize=6.8)
+ax.set_xticklabels([])
+# feature grid under the axis: row labels in the left margin, check / cross per bar
+import matplotlib.transforms as mtrans
+tr = mtrans.blended_transform_factory(ax.transData, ax.transAxes)
+ROW_Y = [-0.075, -0.155, -0.235]
+for r, name in enumerate(ROWS):
+    ax.text(-0.02, ROW_Y[r], name, transform=ax.transAxes, ha="right", va="center",
+            fontsize=7.0, color="#2d3748")
+    for i, (feat, _, col) in enumerate(BARS):
+        on = feat[r]
+        ax.text(i * SP, ROW_Y[r], "\u2713" if on else "\u2717", transform=tr,
+                ha="center", va="center", fontsize=9.5, fontweight="bold",
+                color=(C_RULES if on else "#B8BEC9"))
+ax.text((len(BARS) - 1) * SP, -0.315, "(ours)", transform=tr, ha="center", va="center",
+        fontsize=7.4, fontweight="bold", color="#2d3748")
 ax.set_ylabel("rollout success (%)", fontsize=8.0)
 ax.set_ylim(0, 45)
 ax.set_xlim(-0.62, (len(BARS) - 1) * SP + 0.62)
