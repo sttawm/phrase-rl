@@ -80,9 +80,14 @@ def grid_frames(eps, order):
             if t >= len(frames) - 1:   # episode over: mark it
                 col = GREEN if ok else RED
                 d.rectangle([x, y, x + CELL[0] - 1, y + CELL[1] - 1], outline=col, width=3)
-                mark = "✓" if ok else "✗"
-                d.text((x + CELL[0] - 30, y + 4), mark, fill=col, font=fnt,
-                       stroke_width=2, stroke_fill=(255, 255, 255))
+                # drawn badge (font glyphs for check/cross are unreliable)
+                cx, cy, rr = x + CELL[0] - 18, y + 18, 13
+                d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=(255, 255, 255), outline=col, width=2)
+                if ok:
+                    d.line([(cx - 7, cy + 1), (cx - 2, cy + 6), (cx + 8, cy - 6)], fill=col, width=3, joint="curve")
+                else:
+                    d.line([(cx - 6, cy - 6), (cx + 6, cy + 6)], fill=col, width=3)
+                    d.line([(cx - 6, cy + 6), (cx + 6, cy - 6)], fill=col, width=3)
         yield img, sum(ok for f, ok in loaded.values() if t >= len(f) - 1), len(loaded)
 
 
