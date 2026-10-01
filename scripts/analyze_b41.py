@@ -61,6 +61,22 @@ for regname in ["adult", "kid", "robot"]:
     m = [regname in reg_of.get((t, p), set()) for t, p in zip(j.task, j.phrase)]
     OUT["base_raw_human"][regname] = round(float(j.base[m].mean()), 2)
     OUT["aug_raw_human"][regname] = round(float(j.aug[m].mean()), 2)
+# in-distribution (5 tasks) / out-of-distribution (7) strata, base-weighted
+# (mean over phrases within the stratum) -- same split as make_pi0_conditions.py
+IV = {"widowx_carrot_on_sponge_clean", "widowx_eggplant_on_sponge_clean",
+      "widowx_cube_on_plate_clean", "widowx_nut_on_plate_clean",
+      "widowx_small_plate_on_green_cube_clean"}
+iv = j.task.isin(IV)
+for col, key in (("base", "base_raw_human"), ("aug", "aug_raw_human")):
+    OUT[key]["iv"] = round(float(j[col][iv].mean()), 2)
+    OUT[key]["oov"] = round(float(j[col][~iv].mean()), 2)
+OUT["aug_minus_base"]["iv_delta"] = round(float(d[iv].mean()), 2)
+OUT["aug_minus_base"]["oov_delta"] = round(float(d[~iv].mean()), 2)
+OUT["aug_minus_base"]["iv_p_perm"] = round(sign_flip_p(d[iv]), 4)
+OUT["aug_minus_base"]["oov_p_perm"] = round(sign_flip_p(d[~iv]), 4)
+a39 = json.load(open(R / "results/analysis/a39_human_cells.json"))["raw_human"]
+assert abs(OUT["aug_raw_human"]["iv"] - a39["iv"]) < 0.02 and abs(OUT["aug_raw_human"]["oov"] - a39["oov"]) < 0.02, \
+    (OUT["aug_raw_human"], a39)
 per_task = (j.groupby("task").agg(base=("base", "mean"), aug=("aug", "mean"), n=("base", "size"))
              .round(2))
 per_task["delta"] = (per_task.aug - per_task.base).round(2)
@@ -71,5 +87,8 @@ json.dump(OUT, open(out, "w"), indent=1)
 print(f"\nbase (non-augmented) raw human: {OUT['base_raw_human']['pooled']}   "
       f"augmented raw human: {OUT['aug_raw_human']['pooled']}   "
       f"delta {OUT['aug_minus_base']['delta']:+.2f} (p={OUT['aug_minus_base']['p_perm']})")
+b, a, m = OUT["base_raw_human"], OUT["aug_raw_human"], OUT["aug_minus_base"]
+print(f"in-distribution:  base {b['iv']} aug {a['iv']}  delta {m['iv_delta']:+.2f} (p={m['iv_p_perm']})")
+print(f"out-of-distrib.:  base {b['oov']} aug {a['oov']}  delta {m['oov_delta']:+.2f} (p={m['oov_p_perm']})")
 print(per_task.to_string())
 print(f"-> {out.relative_to(R)}")

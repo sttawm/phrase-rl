@@ -4,19 +4,27 @@
   "n_base": 363,
   "adult": 22.27,
   "kid": 21.21,
-  "robot": 21.08
+  "robot": 21.08,
+  "iv": 28.62,
+  "oov": 15.75
  },
  "aug_raw_human": {
   "pooled": 22.96,
   "n_base": 363,
   "adult": 24.27,
   "kid": 23.45,
-  "robot": 23.28
+  "robot": 23.28,
+  "iv": 29.57,
+  "oov": 18.51
  },
  "aug_minus_base": {
   "delta": 2.03,
   "p_perm": 0.0029,
-  "n_base": 363
+  "n_base": 363,
+  "iv_delta": 0.94,
+  "oov_delta": 2.76,
+  "iv_p_perm": 0.4259,
+  "oov_p_perm": 0.0009
  },
  "per_task": {
   "widowx_carrot_on_ramekin_clean": {

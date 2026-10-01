@@ -28,33 +28,58 @@ b41 = json.loads((R / "results/analysis/b41_base_cells.json").read_text())
 a39 = json.loads((R / "results/analysis/a39_human_cells.json").read_text())
 assert b41["aug_raw_human"]["pooled"] == a39["raw_human"]["pooled"]
 
-base = b41["base_raw_human"]["pooled"]
-aug = a39["raw_human"]["pooled"]
-scaf = a39[f"sc|{AP}"]["pooled"]
-rules = sum(a39[f"{b}|{AP}"]["pooled"] for b in ("s", "s2", "s3")) / 3
-print(f"{AP}: base {base:.2f}  aug {aug:.2f}  scaffold {scaf:.2f}  rules(avg 3 draws) {rules:.2f}")
+def tri(rec):
+    return (rec["pooled"], rec["iv"], rec["oov"])
+
+
+base = tri(b41["base_raw_human"])
+aug = tri(a39["raw_human"])
+scaf = tri(a39[f"sc|{AP}"])
+rules = tuple(sum(a39[f"{b}|{AP}"][k] for b in ("s", "s2", "s3")) / 3
+              for k in ("pooled", "iv", "oov"))
+for n, v in (("base", base), ("aug", aug), ("scaffold", scaf), ("rules avg3", rules)):
+    print(f"{AP} {n:10s} pooled {v[0]:.2f}  iv {v[1]:.2f}  oov {v[2]:.2f}")
 
 C_BASE, C_AUG, C_SCAF, C_RULES = "#6B5E9B", "#5E7B9B", "#B08A3E", "#3F6B52"
 BARS = [("non-augmented $\\pi_0$\npass-through", base, C_BASE),
-        ("augmented $\\pi_0$\npass-through", aug, C_AUG),
-        ("augmented $\\pi_0$\n+ rephraser,\nno rules", scaf, C_SCAF),
-        ("augmented $\\pi_0$\n+ rephraser\nwith rules $\\bf{(ours)}$", rules, C_RULES)]
+        ("rephrase-augmented $\\pi_0$\npass-through", aug, C_AUG),
+        ("rephrase-augmented $\\pi_0$\n+ rephraser,\nno rules", scaf, C_SCAF),
+        ("rephrase-augmented $\\pi_0$\n+ rephraser\nwith rules $\\bf{(ours)}$", rules, C_RULES)]
 
-fig, ax = plt.subplots(figsize=(4.4, 3.3))
-for i, (lab, v, col) in enumerate(BARS):
-    ax.bar(i, v, 0.62, color=col, edgecolor="none", zorder=2)
-    ax.text(i, v - 1.2, f"{v:.1f}", ha="center", va="top", fontsize=8.6,
+fig, ax = plt.subplots(figsize=(4.6, 3.3))
+
+
+def cluster(x, pool, iv, oov, col):
+    # make_pi0_conditions.py idiom: pooled bar solid in front, in-distribution
+    # (left) / out-of-distribution (right) flanks behind, thinner, translucent
+    ax.bar(x - 0.20, iv, 0.34, color=col, alpha=0.40, zorder=1, edgecolor="none")
+    ax.bar(x + 0.20, oov, 0.34, color=col, alpha=0.40, zorder=1, edgecolor="none")
+    ax.text(x - 0.32, iv + 0.9, f"{iv:.0f}", ha="center", fontsize=5.6,
+            color="#4a5568", zorder=3)
+    ax.text(x + 0.32, oov + 0.9, f"{oov:.0f}", ha="center", fontsize=5.6,
+            color="#4a5568", zorder=3)
+    ax.bar(x, pool, 0.44, color=col, zorder=2, edgecolor="none")
+    ax.text(x, pool - 1.4, f"{pool:.1f}", ha="center", va="top", fontsize=7.8,
             fontweight="bold", color="white", zorder=4,
             bbox=dict(boxstyle="square,pad=0.10", fc=col, ec="none"))
-ax.set_xticks(range(len(BARS)))
-ax.set_xticklabels([b[0] for b in BARS], fontsize=7.0)
+
+
+for i, (lab, (pool, iv, oov), col) in enumerate(BARS):
+    cluster(i * 1.05, pool, iv, oov, col)
+ax.set_xticks([i * 1.05 for i in range(len(BARS))])
+ax.set_xticklabels([b[0] for b in BARS], fontsize=6.6)
 ax.set_ylabel("rollout success (%)", fontsize=8.0)
-ax.set_ylim(0, 35)
-ax.set_xlim(-0.6, len(BARS) - 0.4)
+ax.set_ylim(0, 45)
+ax.set_xlim(-0.62, (len(BARS) - 1) * 1.05 + 0.62)
 ax.grid(axis="y", alpha=0.18, zorder=0)
 ax.tick_params(axis="x", length=0)
 ax.spines[["top", "right"]].set_visible(False)
-ax.text(0.99, 0.985, "human-written phrasings\n363 phrases, 12 tasks, 24 layouts each",
+handles = [plt.Rectangle((0, 0), 1, 1, fc="#7A8698"),
+           plt.Rectangle((0, 0), 1, 1, fc="#7A8698", alpha=0.40)]
+ax.legend(handles, ["pooled (12 tasks)",
+                    "flanks: in-distrib. (left, 5) / out-of-distrib. (right, 7)"],
+          fontsize=5.9, loc="upper left", frameon=False)
+ax.text(0.99, 0.985, "human-written phrasings\n363 phrases, 24 layouts each",
         transform=ax.transAxes, ha="right", va="top", fontsize=6.4, color="#4a5568")
 fig.tight_layout()
 out = R / "results/charts" / f"site_pi0_human_{AP}.png"
