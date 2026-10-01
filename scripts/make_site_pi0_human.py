@@ -46,7 +46,8 @@ BARS = [("non-augmented $\\pi_0$\npass-through", base, C_BASE),
         ("rephrase-augmented $\\pi_0$\n+ rephraser,\nno rules", scaf, C_SCAF),
         ("rephrase-augmented $\\pi_0$\n+ rephraser\nwith rules $\\bf{(ours)}$", rules, C_RULES)]
 
-fig, ax = plt.subplots(figsize=(4.6, 3.3))
+fig, ax = plt.subplots(figsize=(6.0, 3.3))
+SP = 1.6    # cluster spacing: four long labels need more room than the paper chart
 
 
 def cluster(x, pool, iv, oov, col):
@@ -65,12 +66,12 @@ def cluster(x, pool, iv, oov, col):
 
 
 for i, (lab, (pool, iv, oov), col) in enumerate(BARS):
-    cluster(i * 1.05, pool, iv, oov, col)
-ax.set_xticks([i * 1.05 for i in range(len(BARS))])
-ax.set_xticklabels([b[0] for b in BARS], fontsize=6.6)
+    cluster(i * SP, pool, iv, oov, col)
+ax.set_xticks([i * SP for i in range(len(BARS))])
+ax.set_xticklabels([b[0] for b in BARS], fontsize=6.8)
 ax.set_ylabel("rollout success (%)", fontsize=8.0)
 ax.set_ylim(0, 45)
-ax.set_xlim(-0.62, (len(BARS) - 1) * 1.05 + 0.62)
+ax.set_xlim(-0.62, (len(BARS) - 1) * SP + 0.62)
 ax.grid(axis="y", alpha=0.18, zorder=0)
 ax.tick_params(axis="x", length=0)
 ax.spines[["top", "right"]].set_visible(False)
@@ -81,6 +82,7 @@ ax.legend(handles, ["pooled (12 tasks)",
           fontsize=5.9, loc="upper left", frameon=False)
 ax.text(0.99, 0.985, "human-written phrasings\n363 phrases, 24 layouts each",
         transform=ax.transAxes, ha="right", va="top", fontsize=6.4, color="#4a5568")
+ax.legend_.set_bbox_to_anchor((0.0, 1.0))   # legend hugs the left; annotation the right
 fig.tight_layout()
 out = R / "results/charts" / f"site_pi0_human_{AP}.png"
 fig.savefig(out, dpi=450, bbox_inches="tight", pad_inches=0.15)
