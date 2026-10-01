@@ -23,7 +23,7 @@ CELL = (160, 120)          # w, h of one cell
 COLS, ROWS = 6, 4
 GAP, PAD = 3, 16
 GREEN, RED, INK, BG = (34, 197, 94), (239, 68, 68), (40, 44, 52), (250, 249, 246)
-FPS, HOLD_S, TITLE_S = 12, 2.5, 2.5
+FPS, HOLD_S, TITLE_S, MAX_PLAY_S = 12, 2.5, 2.5, 12.0
 
 
 def font(size):
@@ -57,16 +57,14 @@ def episodes_for(frames_dir, bench, task, phrase, arm):
     return eps
 
 
-def grid_frames(eps, order):
-    """Yield composited grid images; per-cell freeze + mark after its episode ends."""
-    loaded = {i: load_episode(eps[i]) for i in order if i in eps}
-    if not loaded:
-        raise SystemExit("no episodes found for this arm -- check the frames dir layout")
-    T = max(len(f) for f, _ in loaded.values())
+def grid_frames(loaded, order, T, stride):
+    """Yield composited grid images for t = 0..T (shared across both arms), showing
+    every `stride`-th sim step; a cell freezes + gets marked once its episode ends."""
     gw = COLS * CELL[0] + (COLS - 1) * GAP
     gh = ROWS * CELL[1] + (ROWS - 1) * GAP
     fnt = font(26)
-    for t in range(T + int(HOLD_S * FPS)):
+    for tt in range(-(-T // stride) + int(HOLD_S * FPS)):
+        t = tt * stride
         img = Image.new("RGB", (gw, gh), BG)
         d = ImageDraw.Draw(img)
         for k, i in enumerate(order):
@@ -105,6 +103,12 @@ def make_clip(pair, frames_dir, out, order):
     eg = episodes_for(frames_dir, pair["bench"], pair["task"], good["phrase"], "good")
     eb = episodes_for(frames_dir, pair["bench"], pair["task"], bad["phrase"], "bad")
     print(f"  {pair['task']}: {len(eg)} good / {len(eb)} bad episodes found")
+    lg = {i: load_episode(eg[i]) for i in order if i in eg}
+    lb = {i: load_episode(eb[i]) for i in order if i in eb}
+    if not lg or not lb:
+        raise SystemExit("no episodes found for an arm -- check the frames dir layout")
+    T = max(len(f) for f, _ in list(lg.values()) + list(lb.values()))
+    stride = max(1, round(T / (MAX_PLAY_S * FPS)))   # keep the longest episode within MAX_PLAY_S
     gw = COLS * CELL[0] + (COLS - 1) * GAP; gh = ROWS * CELL[1] + (ROWS - 1) * GAP
     W, H = 2 * gw + 3 * PAD, gh + 2 * PAD + 70
     W += W % 2; H += H % 2   # libx264 yuv420p needs even dimensions
@@ -114,7 +118,7 @@ def make_clip(pair, frames_dir, out, order):
                                "same scenes, same seeds — the wording is the only difference"], [30, 26, 20])
     for _ in range(int(TITLE_S * FPS)): writer.append_data(np.asarray(title))
     hdr = font(22)
-    for (gi, gs, gn), (bi, bs, bn) in zip(grid_frames(eg, order), grid_frames(eb, order)):
+    for (gi, gs, gn), (bi, bs, bn) in zip(grid_frames(lg, order, T, stride), grid_frames(lb, order, T, stride)):
         img = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(img)
         d.text((PAD, PAD), f"“{good['phrase']}”", fill=GREEN, font=hdr)
         d.text((2 * PAD + gw, PAD), f"“{bad['phrase']}”", fill=RED, font=hdr)
