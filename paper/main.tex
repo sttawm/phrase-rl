@@ -9,6 +9,21 @@
 \IEEEoverridecommandlockouts % This command is only needed if
  % you want to use the \thanks command
 
+% ---- Anonymity switch ------------------------------------------------------
+% \anontrue  : the double-anonymous ICRA submission (Anonymous Authors, anonymous
+%              project site and artifacts mirror, no named acknowledgments).
+% \anonfalse : the named arXiv version. The two worlds must not link each other
+%              until the review decision.
+\newif\ifanon
+\anonfalse
+\ifanon
+  \newcommand{\projectsite}{https://rephrase-before-you-act.github.io}
+  \newcommand{\artifactsrepo}{https://anonymous.4open.science/r/vla-rephrasing-artifacts}
+\else
+  \newcommand{\projectsite}{https://sttawm.github.io/rephrase-before-you-act/}
+  \newcommand{\artifactsrepo}{https://github.com/sttawm/vla-rephrasing-artifacts}
+\fi
+
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
@@ -121,13 +136,16 @@ Rephrase Before You Act: Characterizing and Mitigating Language Sensitivity in V
 }
 
 
-\author{
-Anonymous Authors
-% Mikey Watts$^{1}$ and Yuchen Cui$^{2}$% <-this % stops a space
-% \thanks{$^{1}$Mikey Watts is an independent researcher in Los Angeles
-% {\tt\small mikeywatts@berkeley.edu}}%
-% \thanks{$^{2}$Yuchen Cui is with the University of California, Los Angeles
-% {\tt\small yuchencui@cs.ucla.edu}}%
+\author{%
+\ifanon
+Anonymous Authors%
+\else
+Mikey Watts$^{1}$ and Yuchen Cui$^{2}$% <-this % stops a space
+\thanks{$^{1}$Mikey Watts is an independent researcher in Los Angeles
+{\tt\small mikeywatts@berkeley.edu}}%
+\thanks{$^{2}$Yuchen Cui is with the University of California, Los Angeles
+{\tt\small yuchencui@cs.ucla.edu}}%
+\fi
 }
 
 
@@ -159,7 +177,7 @@ in-finetune success from 93.6\% to 97.8\%. The method requires no
 retraining and no per-step verification, and applies zero-shot to unseen
 tasks and instructions.
 Project website:
-\url{https://rephrase-before-you-act.github.io}
+\url{\projectsite}
 \end{abstract}
 
 
@@ -268,7 +286,7 @@ A frozen policy $\pi$ maps an observation and an instruction $\ell$ to actions. 
 \subsection{Finding Single-Edit Swings}
 \label{sec:swings}
 
-Our search proceeds as follows. We first generate many rephrasings of each task, in fact the same evidence files our rule distillers consume. An LLM is then prompted to propose candidate sets from the evidence, and we evaluate each phrase with many rollouts in simulation. We retain only sets in which the gap in success rate between the best and worst phrase is statistically significant, that is, unlikely to be explained by chance. Each set's phrases and exact p-values are listed in the project repository.\footnote{\url{https://anonymous.4open.science/r/vla-rephrasing-artifacts}\label{fn:repo}}
+Our search proceeds as follows. We first generate many rephrasings of each task, in fact the same evidence files our rule distillers consume. An LLM is then prompted to propose candidate sets from the evidence, and we evaluate each phrase with many rollouts in simulation. We retain only sets in which the gap in success rate between the best and worst phrase is statistically significant, that is, unlikely to be explained by chance. Each set's phrases and exact p-values are listed in the project repository.\footnote{\url{\artifactsrepo}\label{fn:repo}}
 Significance is assessed with a two-proportion z test at $p<0.05$, and for $\pi_{0.5}$ we also require a gap of at least 18 points. No multiple-comparison correction is applied, so with 426 candidate pairs for $\pi_{0.5}$ about 21 significant swings are expected by chance alone. We manually remove sets whose gap could reflect scene ambiguity rather than phrasing, which on $\pi_{0.5}$ removed eight of the 23 significant sets. LIBERO scenes hold multiple objects, so a generalized noun such as ``bottle'' or ``stand'' can match more than one of them, and a set is removed when the ambiguous phrasing is the one that loses, since its deficit may measure scene resolution rather than phrasing. Sets where the ambiguous phrasing wins are kept, and no $\pi_0$ set was removed.
 For $\pi_0$ we evaluate each phrase 72 times, on 24 fixed scene layouts with 3 repetitions each, and for $\pi_{0.5}$ once on each of 50 layouts. Common random seeds per layout/repetition pair reduce measurement noise. Sets were harder to find for $\pi_{0.5}$ than for $\pi_0$.
 
@@ -435,6 +453,7 @@ Several directions remain open for future work. Rulebooks distilled from more ta
 
 \section*{ACKNOWLEDGMENT}
 
+\ifanon\else We thank Amber Kleiner for designing Fig.~\ref{fig:method}. \fi
 The code was written with Claude (Anthropic) under the authors'
 direction and review. The paper text was written by the authors with assistance from
 Claude: it helped compile the Related Work section, drafted the figure
