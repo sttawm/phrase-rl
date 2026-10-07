@@ -81,7 +81,16 @@
 \usepackage{mathabx}
 \usepackage{subcaption}
 %\usepackage{cleveref}
+% ieeeconf.cls already defines \labelindent (as a dimen); enumitem's own
+% \newlength\labelindent then raises "Command \labelindent already defined",
+% which arXiv's TeX treats as fatal. Skip that one \newlength: enumitem keeps
+% using the class register exactly as it did after the ignored error.
+\makeatletter
+\let\phr@newlength\newlength
+\def\newlength#1{\ifx#1\labelindent\else\phr@newlength#1\fi}
 \usepackage{enumitem}
+\let\newlength\phr@newlength
+\makeatother
 \usepackage{color,soul}
 \usepackage{xfakebold}
 
